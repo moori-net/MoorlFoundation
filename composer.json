@@ -1,0 +1,28 @@
+{
+    "name": "moorl/foundation",
+    "description": "Foundation",
+    "version": "0.0.1",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Moorleiche Web Solutions"
+        }
+    ],
+    "require": {
+        "shopware/core": "*"
+    },
+    "type": "shopware-platform-plugin",
+    "autoload": {
+        "psr-4": {
+            "MoorlFoundation\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "MoorlFoundation\\MoorlFoundation",
+        "copyright": "(c) by Moorleiche Web Solutions",
+        "label": {
+            "de-DE": "Moorleiche - Plugin Fundament",
+            "en-GB": "Moorleiche - Plugin Foundation"
+        }
+    }
+}
