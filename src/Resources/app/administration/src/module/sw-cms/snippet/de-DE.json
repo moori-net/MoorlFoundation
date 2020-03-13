@@ -1,0 +1,131 @@
+{
+    "moorl-cms": {
+        "detail": {
+            "label": {
+                "blockProCms": "Moorleiche CMS Elemente",
+                "blockMoorlCms": "Moorleiche CMS Elemente"
+            }
+        },
+        "elements": {
+            "general": {
+                "config": {
+                    "label": {
+                        "btnClass": "Button Aussehen",
+                        "btnPrimary": "Primary",
+                        "btnPrimaryOutline": "Primary outline",
+                        "btnDanger": "Danger",
+                        "btnDangerOutline": "Danger outline",
+                        "btnSuccess": "Success",
+                        "btnSuccessOutline": "Success outline",
+                        "btnWarning": "Warning",
+                        "btnWarningOutline": "Warning outline",
+                        "btnInfo": "Info",
+                        "btnInfoOutline": "Info outline",
+                        "btnBuy": "Buy",
+                        "btnBuyOutline": "Buy outline",
+                        "btnDark": "Dark",
+                        "btnDarkOutline": "Dark outline",
+                        "btnLink": "Link",
+                        "boxVerticalAlign": "Box vertikale Ausrichtung",
+                        "boxHorizontalAlign": "Box horizontale Ausrichtung",
+                        "top": "Oben",
+                        "center": "Mittig",
+                        "bottom": "Unten",
+                        "left": "Links",
+                        "right": "Rechts",
+                        "boxTextAlign": "Box Text Ausrichtung",
+                        "boxWidth": "Box Breite",
+                        "boxHeight": "Box Länge",
+                        "boxMargin": "Box Aussenabstände",
+                        "boxPadding": "Box Innenabstände",
+                        "boxColor": "Box Schriftfarbe",
+                        "videoActive": "Video Modus",
+                        "videoDisplayMode": "Display mode",
+                        "videoAutoplay": "Automatisch abspielen",
+                        "videoMute": "Ton aus",
+                        "videoLoop": "Wiederholen",
+                        "title": "Titel",
+                        "quote": "Zitat",
+                        "btnActive": "Call to Action Button anzeigen",
+                        "btnText": "Button Text",
+                        "btnUrl": "Button Link",
+                        "iconActive": "Icon anzeigen",
+                        "iconClass": "Icon CSS Klasse (z.B. Font Awesome)",
+                        "iconFontSize": "Icon Schriftgröße",
+                        "iconMarginRight": "Icon Abstand rechts",
+                        "boxMaxWidth": "Maximale Breite für Box-Bereich aktivieren",
+                        "cover": "Cover",
+                        "boxBackground": "Hintergrundfarbe",
+                        "elementType": "Typ",
+                        "custom": "Eigener Text",
+                        "cta": "Call to Action",
+                        "category": "Kategorie Teaser",
+                        "height": "Höhe",
+                        "content": "Inhalt",
+                        "mediaActive": "Medien aktivieren",
+                        "customer": "Kunde",
+                        "company": "Firma",
+                        "rating": "Bewertung",
+                        "selection": "Auswählen",
+                        "rotate": "Rotieren",
+                        "minWidth": "Mindestbreite",
+                        "contentLength": "Maximale Zeichenlänge",
+                        "elementBackground": "Hintergrund (z.B. Als Overlay für Bilder)",
+                        "backgroundFixed": "Fixer Hintergrund",
+                        "animateIn": "Animation Einblenden",
+                        "animateOut": "Animation Ausblenden",
+                        "animateHover": "Animation Maus Über"
+                    },
+                    "placeholder": {
+                        "selection": "Suche",
+                        "minWidth": "200px",
+                        "height": "200px"
+                    }
+                }
+            }
+        },
+        "blocks": {
+            "general": {
+                "ctaBannerVideo": {
+                    "label": "Call to Action Banner, Video"
+                },
+                "ctaBannerServiceArea": {
+                    "label": "Service Bereich / USPs"
+                },
+                "ctaBannerCategoryThreeColumns": {
+                    "label": "Drei Spalten, Kategorie"
+                },
+                "ctaBannerCategoryTwoColumns": {
+                    "label": "Zwei Spalten, Kategorie"
+                },
+                "ctaBannerbasic": {
+                    "label": "Call to Action Banner"
+                },
+                "multiSliderTwo": {
+                    "label": "Slider, zwei CMS Elemente"
+                },
+                "multiSliderThree": {
+                    "label": "Slider, drei CMS Elemente"
+                },
+                "multiSliderFour": {
+                    "label": "Slider, vier CMS Elemente"
+                },
+                "multiSliderFive": {
+                    "label": "Slider, fünf CMS Elemente"
+                },
+                "brandSlider": {
+                    "label": "Marken Slider"
+                },
+                "categoryBannerThreeColumn": {
+                    "label": "Drei Spalten, Kategorie"
+                },
+                "serviceAreaFourColumn": {
+                    "label": "Vier Spalten, USPs"
+                },
+                "testimonialThreeColumn": {
+                    "label": "Drei Spalten, Testimonial"
+                }
+            }
+        }
+    }
+}

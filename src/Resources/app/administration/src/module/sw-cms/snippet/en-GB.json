@@ -1,0 +1,131 @@
+{
+    "moorl-cms": {
+        "detail": {
+            "label": {
+                "blockProCms": "Moorleiche CMS elements",
+                "blockMoorlCms": "Moorleiche CMS elements"
+            }
+        },
+        "elements": {
+            "general": {
+                "config": {
+                    "label": {
+                        "btnClass": "Button style",
+                        "btnPrimary": "Primary",
+                        "btnPrimaryOutline": "Primary outline",
+                        "btnDanger": "Danger",
+                        "btnDangerOutline": "Danger outline",
+                        "btnSuccess": "Success",
+                        "btnSuccessOutline": "Success outline",
+                        "btnWarning": "Warning",
+                        "btnWarningOutline": "Warning outline",
+                        "btnInfo": "Info",
+                        "btnInfoOutline": "Info outline",
+                        "btnBuy": "Buy",
+                        "btnBuyOutline": "Buy outline",
+                        "btnDark": "Dark",
+                        "btnDarkOutline": "Dark outline",
+                        "btnLink": "Link",
+                        "boxVerticalAlign": "Box vertical alignment",
+                        "boxHorizontalAlign": "Box horizontal alignment",
+                        "top": "Top",
+                        "center": "Center",
+                        "bottom": "Bottom",
+                        "left": "Left",
+                        "right": "Right",
+                        "boxTextAlign": "Box text alignment",
+                        "boxWidth": "Box width",
+                        "boxHeight": "Box height",
+                        "boxMargin": "Box margin",
+                        "boxPadding": "Box padding",
+                        "boxColor": "Box text color",
+                        "videoActive": "Enable video",
+                        "videoDisplayMode": "Display mode",
+                        "videoAutoplay": "Enable autoplay",
+                        "videoMute": "Enable mute",
+                        "videoLoop": "Enable loop",
+                        "title": "Title",
+                        "quote": "Quote",
+                        "btnActive": "Enable `Call to Action` button",
+                        "btnText": "Button text",
+                        "btnUrl": "Button link",
+                        "iconActive": "Enable icon",
+                        "iconClass": "Icon CSS class (e.g. Font Awesome)",
+                        "iconFontSize": "Icon font size",
+                        "iconMarginRight": "Icon right margin",
+                        "boxMaxWidth": "Disable theme max width (e.g. Full screen banner)",
+                        "cover": "Cover",
+                        "boxBackground": "Background Color",
+                        "elementType": "Element type",
+                        "custom": "Custom text",
+                        "cta": "Call to action",
+                        "category": "Category",
+                        "height": "Height",
+                        "content": "Content",
+                        "mediaActive": "Enable media",
+                        "customer": "Customer",
+                        "company": "Company",
+                        "rating": "Rating",
+                        "selection": "Select",
+                        "rotate": "Rotate elements",
+                        "minWidth": "Min width",
+                        "contentLength": "Max characters",
+                        "elementBackground": "Background (e.g. As overlay for images)",
+                        "backgroundFixed": "Fixed image",
+                        "animateIn": "Animate in",
+                        "animateOut": "Animate out",
+                        "animateHover": "Animation hover"
+                    },
+                    "placeholder": {
+                        "selection": "Type to search",
+                        "minWidth": "200px",
+                        "height": "200px"
+                    }
+                }
+            }
+        },
+        "blocks": {
+            "general": {
+                "ctaBannerVideo": {
+                    "label": "Call to action banner, video"
+                },
+                "ctaBannerServiceArea": {
+                    "label": "Service area"
+                },
+                "ctaBannerCategoryThreeColumns": {
+                    "label": "Three columns, category"
+                },
+                "ctaBannerCategoryTwoColumns": {
+                    "label": "Two columns, category"
+                },
+                "ctaBannerbasic": {
+                    "label": "Basic call to action banner"
+                },
+                "multiSliderTwo": {
+                    "label": "Slider block, two CMS elements"
+                },
+                "multiSliderThree": {
+                    "label": "Slider block, three CMS elements"
+                },
+                "multiSliderFour": {
+                    "label": "Slider block, four CMS elements"
+                },
+                "multiSliderFive": {
+                    "label": "Slider block, five CMS elements"
+                },
+                "brandSlider": {
+                    "label": "Brand Slider"
+                },
+                "categoryBannerThreeColumn": {
+                    "label": "Three columns, category"
+                },
+                "serviceAreaFourColumn": {
+                    "label": "Four columns, service area"
+                },
+                "testimonialThreeColumn": {
+                    "label": "Three columns, testimonial"
+                }
+            }
+        }
+    }
+}

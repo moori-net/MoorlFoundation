@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
+
+{% block layout_head_stylesheet %}
+    {{ parent() }}
+    {% if shopware.config.MoorlFoundation.config.fontawesome == true %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha256-UzFD2WYH2U1dQpKDjjZK72VtPeWP50NoJjd26rnAdUI=" crossorigin="anonymous" />
+    {% endif %}
+    {% if shopware.config.MoorlFoundation.config.animate == true %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
+    {% endif %}
+    {% if shopware.config.MoorlFoundation.config.googlefonts == true %}
+        <link href="https://fonts.googleapis.com/css?{{ shopware.config.MoorlFoundation.config.googlefontsQuery }}" rel="stylesheet">
+    {% endif %}
+{% endblock %}
