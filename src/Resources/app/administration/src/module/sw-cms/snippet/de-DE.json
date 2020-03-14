@@ -74,7 +74,31 @@
                         "backgroundFixed": "Fixer Hintergrund",
                         "animateIn": "Animation Einblenden",
                         "animateOut": "Animation Ausblenden",
-                        "animateHover": "Animation Maus Über"
+                        "animateHover": "Animation Maus Über",
+                        "onlyImages": "Zeige nur Bilder",
+                        "useLink": "Verwende Link wenn vorhanden",
+                        "boxHighlightColor": "Box Highlight Schriftfarbe",
+                        "ratingMax": "Maximale mögliche Bewertung",
+                        "typeFront": "Front type",
+                        "text": "Text",
+                        "image": "Image",
+                        "colorScheme": "Color scheme",
+                        "btnLight": "Light",
+                        "btnFacebook": "Facebook",
+                        "btnTwitter": "Twitter",
+                        "btnGoogle": "Google",
+                        "btnShopware": "Shopware",
+                        "flipDirection": "Flip direction",
+                        "up": "Up",
+                        "down": "Down",
+                        "iconActiveFront": "Enable front icon",
+                        "typeBack": "Back type",
+                        "button": "Button",
+                        "product": "Product",
+                        "iconActiveBack": "Enable back icon",
+                        "flipBoxType": "Flip box type",
+                        "square": "Square",
+                        "cube": "Cube"
                     },
                     "placeholder": {
                         "selection": "Suche",
@@ -124,6 +148,12 @@
                 },
                 "testimonialThreeColumn": {
                     "label": "Drei Spalten, Testimonial"
+                },
+                "flipBoxThreeColumn": {
+                    "label": "Drei Spalten, Flip Box"
+                },
+                "flipBoxFourColumn": {
+                    "label": "Vier Spalten, Flip Box"
                 }
             }
         }

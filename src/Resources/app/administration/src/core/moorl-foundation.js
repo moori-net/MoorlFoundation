@@ -1,5 +1,52 @@
 const MoorlFoundation = function MoorlFoundation() {
 
+    this.colorScheme = [
+        {
+            value: 'primary',
+            label: 'moorl-cms.elements.general.config.label.btnPrimary'
+        },
+        {
+            value: 'danger',
+            label: 'moorl-cms.elements.general.config.label.btnDanger'
+        },
+        {
+            value: 'success',
+            label: 'moorl-cms.elements.general.config.label.btnSuccess'
+        },
+        {
+            value: 'warning',
+            label: 'moorl-cms.elements.general.config.label.btnWarning'
+        },
+        {
+            value: 'info',
+            label: 'moorl-cms.elements.general.config.label.btnInfo'
+        },
+        {
+            value: 'dark',
+            label: 'moorl-cms.elements.general.config.label.btnDark'
+        },
+        {
+            value: 'light',
+            label: 'moorl-cms.elements.general.config.label.btnLight'
+        },
+        {
+            value: 'facebook',
+            label: 'moorl-cms.elements.general.config.label.btnFacebook'
+        },
+        {
+            value: 'twitter',
+            label: 'moorl-cms.elements.general.config.label.btnTwitter'
+        },
+        {
+            value: 'google',
+            label: 'moorl-cms.elements.general.config.label.btnGoogle'
+        },
+        {
+            value: 'shopware',
+            label: 'moorl-cms.elements.general.config.label.btnShopware'
+        }
+    ];
+
     this.btnClass = [
         {
             value: 'btn-primary',

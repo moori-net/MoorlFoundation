@@ -74,7 +74,31 @@
                         "backgroundFixed": "Fixed image",
                         "animateIn": "Animate in",
                         "animateOut": "Animate out",
-                        "animateHover": "Animation hover"
+                        "animateHover": "Animation hover",
+                        "onlyImages": "Show only images",
+                        "useLink": "Use URL if set",
+                        "boxHighlightColor": "Box highlight color",
+                        "ratingMax": "Max possible rating",
+                        "typeFront": "Front type",
+                        "text": "Text",
+                        "image": "Image",
+                        "colorScheme": "Color scheme",
+                        "btnLight": "Light",
+                        "btnFacebook": "Facebook",
+                        "btnTwitter": "Twitter",
+                        "btnGoogle": "Google",
+                        "btnShopware": "Shopware",
+                        "flipDirection": "Flip direction",
+                        "up": "Up",
+                        "down": "Down",
+                        "iconActiveFront": "Enable front icon",
+                        "typeBack": "Back type",
+                        "button": "Button",
+                        "product": "Product",
+                        "iconActiveBack": "Enable back icon",
+                        "flipBoxType": "Flip box type",
+                        "square": "Square",
+                        "cube": "Cube"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -124,6 +148,12 @@
                 },
                 "testimonialThreeColumn": {
                     "label": "Three columns, testimonial"
+                },
+                "flipBoxThreeColumn": {
+                    "label": "Three columns, flip box"
+                },
+                "flipBoxFourColumn": {
+                    "label": "Four columns, flip box"
                 }
             }
         }

@@ -1,8 +1,8 @@
 //$fa-font-path: "./";
-//@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/solid';
-//@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/regular';
-//@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/brands';
-//@import '../../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome';
+//@import '@fortawesome/fontawesome-free/scss/solid';
+//@import '@fortawesome/fontawesome-free/scss/regular';
+//@import '@fortawesome/fontawesome-free/scss/brands';
+//@import '@fortawesome/fontawesome-free/scss/fontawesome';
 
 .bg-fixed {
     background-attachment: fixed;
@@ -10,4 +10,32 @@
 
 .moorl-foundation-hide {
     opacity: 0;
+}
+
+.cms-block.no-gutters {
+    .cms-block-container-row {
+        @extend .no-gutters;
+    }
+}
+
+$foundation-colors: (
+    "facebook" : #3C5A99,
+    "google" : #0F9D58,
+    "azure" : #00A4EF,
+    "amazon" : #FF9900,
+    "office365" : #00A4EF,
+    "paypal" : #0173b9,
+    "generic" : #efc34a,
+    "discord" : #7289DA,
+    "twitter" : #55acee,
+    "instagram" : #eee,
+    "pinterest" : #bd081c,
+    "whatsapp" : #25d366,
+    "youtube" : #ff0000,
+);
+
+@each $color, $value in $foundation-colors {
+    .btn-#{$color} {
+        @include button-variant($value, $value);
+    }
 }
