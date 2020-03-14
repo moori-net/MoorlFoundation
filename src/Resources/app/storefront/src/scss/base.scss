@@ -13,6 +13,7 @@
 }
 
 .cms-block.no-gutters {
+    overflow: visible;
     .cms-block-container-row {
         @extend .no-gutters;
     }
