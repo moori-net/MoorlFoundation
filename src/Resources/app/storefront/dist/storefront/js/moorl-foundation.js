@@ -19,6 +19,31 @@ $.fn.isOverBottom = function () {
     return elementTop < viewportBottom;
 };
 
+const MoorlFoundationAnimateInit = function (str, attr) {
+    if (str.trim().length == 0) {
+        return;
+    }
+    let lines = str.split(/;/g);
+    if (!lines || typeof lines != 'object') {
+        console.log("MoorlFoundation warning: Misconfiguration at animation settings");
+        console.log(lines);
+        console.log(str);
+        console.log(attr);
+        return;
+    }
+    lines.forEach(function (line) {
+        let config = line.split(/\|/g);
+        if (typeof config[1] == 'string') {
+            $(config[0]).attr(attr, config[1]);
+        } else {
+            console.log("MoorlFoundation warning: Misconfiguration at animation settings");
+            console.log(config);
+            console.log(str);
+            console.log(attr);
+        }
+    });
+};
+
 const MoorlFoundationAnimateIn = function (el) {
     let isVisible = $(el).isOverBottom();
     if (isVisible) {
@@ -64,6 +89,10 @@ const MoorlFoundationAnimate = function () {
 };
 
 $(document).ready(function () {
+
+    MoorlFoundationAnimateInit(MoorlFoundationAnimateConfig.animateIn, 'data-animate-in');
+    MoorlFoundationAnimateInit(MoorlFoundationAnimateConfig.animateOut, 'data-animate-out');
+    MoorlFoundationAnimateInit(MoorlFoundationAnimateConfig.hover, 'data-animate-hover');
 
     $("[data-animate-in],[data-animate-out]").each(function () {
         let isVisible = $(this).isOverBottom();
