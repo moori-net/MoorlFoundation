@@ -118,7 +118,8 @@
                         "feedUrl": "Feed URL",
                         "style": "Style",
                         "maxDimensions": "Max dimension",
-                        "borders": "Gutter width"
+                        "borders": "Gutter width",
+                        "styleList": "List"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -131,6 +132,9 @@
         },
         "blocks": {
             "general": {
+                "wordpressConnectorbasic": {
+                    "label": "Wordpress connector"
+                },
                 "ctaBannerVideo": {
                     "label": "Call to action banner, video"
                 },
