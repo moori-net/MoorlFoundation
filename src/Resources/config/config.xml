@@ -3,27 +3,17 @@
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
 
     <card>
-        <title>Stylesheet AddonOns</title>
-        <title lang="de-DE">Stylesheet AddonOns</title>
+        <title>Stylesheet Addon-Ons</title>
+        <title lang="de-DE">Stylesheet Addon-Ons</title>
         <input-field type="bool">
             <name>fontawesome</name>
-            <label>Enable Font Awesome 5 Free via CDN</label>
-            <label lang="de-DE">Aktiviere Font Awesome 5 Free via CDN</label>
+            <label>Enable Font Awesome 5 Free</label>
+            <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
         </input-field>
         <input-field type="bool">
             <name>animate</name>
-            <label>Enable Animate.css via CDN</label>
-            <label lang="de-DE">Aktiviere Animate.css via CDN</label>
-        </input-field>
-        <input-field type="bool">
-            <name>googlefonts</name>
-            <label>Enable Google Fonts</label>
-            <label lang="de-DE">Aktiviere Google Fonts</label>
-        </input-field>
-        <input-field>
-            <name>googlefontsQuery</name>
-            <label>Google Fonts</label>
-            <label lang="de-DE">Google Fonts</label>
+            <label>Enable Animate.css</label>
+            <label lang="de-DE">Aktiviere Animate.css</label>
         </input-field>
     </card>
 
