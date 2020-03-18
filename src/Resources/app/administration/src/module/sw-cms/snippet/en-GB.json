@@ -119,7 +119,8 @@
                         "style": "Style",
                         "maxDimensions": "Max dimension",
                         "borders": "Gutter width",
-                        "styleList": "List"
+                        "styleList": "List",
+                        "ajax": "Load dynamic via AJAX"
                     },
                     "placeholder": {
                         "selection": "Type to search",

@@ -1,0 +1,9 @@
+/composer.lock
+
+/vendor/
+/.idea/
+/.psh.yaml.override
+/.php_cs.cache
+/docker-compose.override.yml
+
+/src/Resources/node_modules/
