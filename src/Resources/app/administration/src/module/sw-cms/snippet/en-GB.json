@@ -120,13 +120,15 @@
                         "maxDimensions": "Max dimension",
                         "borders": "Gutter width",
                         "styleList": "List",
-                        "ajax": "Load dynamic via AJAX"
+                        "ajax": "Load dynamic via AJAX",
+                        "feedAlias": "Feed alias"
                     },
                     "placeholder": {
                         "selection": "Type to search",
                         "minWidth": "200px",
                         "height": "200px",
-                        "feedUrlWordpress": "https://www.yourpage.com/wp-json/wp/v2"
+                        "feedUrlWordpress": "https://www.yourpage.com/wp-json/wp/v2",
+                        "feedAliasWordpress": "Please make sure, that the alias is configured in the plugin settings."
                     }
                 }
             }
