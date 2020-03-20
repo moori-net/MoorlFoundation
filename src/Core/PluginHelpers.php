@@ -22,6 +22,10 @@ class PluginHelpers
 
         $result = $repo->searchIds($criteria, $context);
 
+        if ($result->getTotal() == 0) {
+            return;
+        }
+
         $ids = array_map(static function ($id) {
             return ['id' => $id];
         }, $result->getIds());
@@ -39,6 +43,10 @@ class PluginHelpers
         $criteria->addFilter(new EqualsAnyFilter('type', $types));
 
         $result = $repo->searchIds($criteria, $context);
+
+        if ($result->getTotal() == 0) {
+            return;
+        }
 
         $ids = array_map(static function ($id) {
             return ['id' => $id];
