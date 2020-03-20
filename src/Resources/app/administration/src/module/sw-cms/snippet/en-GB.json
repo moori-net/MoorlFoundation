@@ -2,9 +2,10 @@
     "moorl-cms": {
         "detail": {
             "label": {
-                "blockProCms": "Moorleiche CMS elements",
-                "blockMoorlCms": "Moorleiche CMS elements",
-                "blockMoorlWordpressConnector": "Moorleiche Wordpress connector"
+                "blockProCms": "Moorleiche CMS Elements",
+                "blockMoorlCms": "Moorleiche CMS Elements",
+                "blockMoorlWordpressConnector": "Moorleiche Wordpress Feed",
+                "blockMoorlMerchantFinder": "Moorleiche Merchant Finder"
             }
         },
         "elements": {
@@ -121,7 +122,18 @@
                         "borders": "Gutter width",
                         "styleList": "List",
                         "ajax": "Load dynamic via AJAX",
-                        "feedAlias": "Feed alias"
+                        "feedAlias": "Feed alias",
+                        "styleMapResults": "Map first",
+                        "styleResultsMap": "Results first",
+                        "styleFixedMap": "Fixed Map",
+                        "styleResultsOverlay": "Results as overlay",
+                        "mapStyle": "Map style",
+                        "styleBasic": "Basic",
+                        "categoryFilter": "Enable category filter",
+                        "tagFilter": "Enable tag filter",
+                        "manufacturerFilter": "Enable manufacturer filter",
+                        "minHeight": "Minimal Height",
+                        "resultsWidth": "Results width"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -135,6 +147,9 @@
         },
         "blocks": {
             "general": {
+                "merchantFinderBasic": {
+                    "label": "Merchant Finder"
+                },
                 "wordpressConnectorbasic": {
                     "label": "Wordpress connector"
                 },
