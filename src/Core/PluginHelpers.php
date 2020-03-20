@@ -30,6 +30,24 @@ class PluginHelpers
 
     }
 
+    public static function removeCmsSlots($container, $context, $types)
+    {
+
+        $repo = $container->get('cms_slot.repository');
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsAnyFilter('type', $types));
+
+        $result = $repo->searchIds($criteria, $context);
+
+        $ids = array_map(static function ($id) {
+            return ['id' => $id];
+        }, $result->getIds());
+
+        $repo->delete($ids, $context);
+
+    }
+
     public static function dropTables($container, $context, $tables)
     {
 
