@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Moorl\MerchantFinder\Core;
+namespace MoorlFoundation\Core;
 
 use Shopware\Core\Framework\Struct\Struct;
 
