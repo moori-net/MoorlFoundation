@@ -140,13 +140,18 @@
                         "minWidth": "200px",
                         "height": "200px",
                         "feedUrlWordpress": "https://www.yourpage.com/wp-json/wp/v2",
-                        "feedAliasWordpress": "Please make sure, that the alias is configured in the plugin settings."
+                        "feedAliasWordpress": "Please make sure, that the alias is configured in the plugin settings.",
+                        "leftPosition": "Enter left position",
+                        "topPosition": "Enter top position"
                     }
                 }
             }
         },
         "blocks": {
             "general": {
+                "shopTheLook": {
+                    "label": "Shop the Look"
+                },
                 "merchantFinderBasic": {
                     "label": "Merchant Finder"
                 },
