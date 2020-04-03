@@ -5,7 +5,8 @@
                 "blockProCms": "Moorleiche CMS Elements",
                 "blockMoorlCms": "Moorleiche CMS Elements",
                 "blockMoorlWordpressConnector": "Moorleiche Wordpress Feed",
-                "blockMoorlMerchantFinder": "Moorleiche Merchant Finder"
+                "blockMoorlMerchantFinder": "Moorleiche Merchant Finder",
+                "blockMoorlDealCounter": "Moorleiche Deal Counter"
             }
         },
         "elements": {
@@ -133,7 +134,14 @@
                         "tagFilter": "Enable tag filter",
                         "manufacturerFilter": "Enable manufacturer filter",
                         "minHeight": "Minimal Height",
-                        "resultsWidth": "Results width"
+                        "resultsWidth": "Results width",
+                        "newPrice": "New price",
+                        "startDateTime": "Start time",
+                        "endDateTime": "End time",
+                        "showBeforeStart": "Show deal before start",
+                        "teaserText": "Teaser",
+                        "showBadge": "Show badge",
+                        "badgeText": "Badge text"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -149,6 +157,9 @@
         },
         "blocks": {
             "general": {
+                "dealCounter": {
+                    "label": "Deal Counter"
+                },
                 "shopTheLook": {
                     "label": "Shop the Look"
                 },

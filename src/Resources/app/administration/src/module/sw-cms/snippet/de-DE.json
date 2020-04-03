@@ -119,7 +119,26 @@
                         "maxDimensions": "Max dimension",
                         "borders": "Gutter width",
                         "styleList": "List",
-                        "ajax": "Load dynamic via AJAX"
+                        "ajax": "Load dynamic via AJAX",
+                        "feedAlias": "Feed alias",
+                        "styleMapResults": "Karte zuerst",
+                        "styleResultsMap": "Ergebnisse zuerst",
+                        "styleFixedMap": "Fixe Karte",
+                        "styleResultsOverlay": "Ergebnisse als Overlay",
+                        "mapStyle": "Kartenstyle",
+                        "styleBasic": "Basic",
+                        "categoryFilter": "Kategorie-Filter",
+                        "tagFilter": "Tag-Filter",
+                        "manufacturerFilter": "Hersteller-Filter",
+                        "minHeight": "Mindesthöhe",
+                        "resultsWidth": "Breite Ergebnis-Liste",
+                        "newPrice": "Neuer Preis",
+                        "startDateTime": "Startzeit",
+                        "endDateTime": "Endzeit",
+                        "showBeforeStart": "Zeige Angebot vor Start",
+                        "teaserText": "Teaser",
+                        "showBadge": "Zeige Badge",
+                        "badgeText": "Badge Text"
                     },
                     "placeholder": {
                         "selection": "Suche",
@@ -131,6 +150,9 @@
         },
         "blocks": {
             "general": {
+                "dealCounter": {
+                    "label": "Deal Counter"
+                },
                 "ctaBannerVideo": {
                     "label": "Call to Action Banner, Video"
                 },
