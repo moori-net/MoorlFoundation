@@ -133,6 +133,7 @@
                         "minHeight": "Mindesthöhe",
                         "resultsWidth": "Breite Ergebnis-Liste",
                         "newPrice": "Neuer Preis",
+                        "oldPrice": "Alter Preis",
                         "startDateTime": "Startzeit",
                         "endDateTime": "Endzeit",
                         "showBeforeStart": "Zeige Angebot vor Start",

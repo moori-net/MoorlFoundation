@@ -137,6 +137,7 @@
                         "minHeight": "Minimal Height",
                         "resultsWidth": "Results width",
                         "newPrice": "New price",
+                        "oldPrice": "Old price",
                         "startDateTime": "Start time",
                         "endDateTime": "End time",
                         "showBeforeStart": "Show deal before start",
