@@ -6,7 +6,8 @@
                 "blockMoorlCms": "Moorleiche CMS Elements",
                 "blockMoorlWordpressConnector": "Moorleiche Wordpress Feed",
                 "blockMoorlMerchantFinder": "Moorleiche Merchant Finder",
-                "blockMoorlDealCounter": "Moorleiche Deal Counter"
+                "blockMoorlDealCounter": "Moorleiche Deal Counter",
+                "blockMoorlInstagram": "Moorleiche Instagram"
             }
         },
         "elements": {
@@ -141,7 +142,20 @@
                         "showBeforeStart": "Show deal before start",
                         "teaserText": "Teaser",
                         "showBadge": "Show badge",
-                        "badgeText": "Badge text"
+                        "badgeText": "Badge text",
+                        "igUsername": "Instagram username",
+                        "showCaption": "Show caption",
+                        "showComments": "Show comments",
+                        "showLikes": "Show likes",
+                        "showLink": "Show link to post",
+                        "maxImages": "Max images",
+                        "sorting": "Sorting",
+                        "sortingUploadedAsc": "Upload time ascending",
+                        "sortingUploadedDesc": "Upload time descending (default)",
+                        "sortingLikesAsc": "Likes ascending",
+                        "sortingLikesDesc": "Likes descending",
+                        "sortingCommentsAsc": "Comments ascending",
+                        "sortingCommentsDesc": "Comments descending"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -150,13 +164,17 @@
                         "feedUrlWordpress": "https://www.yourpage.com/wp-json/wp/v2",
                         "feedAliasWordpress": "Please make sure, that the alias is configured in the plugin settings.",
                         "leftPosition": "Enter left position",
-                        "topPosition": "Enter top position"
+                        "topPosition": "Enter top position",
+                        "igUsername": "Profile needs to be public"
                     }
                 }
             }
         },
         "blocks": {
             "general": {
+                "MoorlCmsInstagram": {
+                    "label": "Instagram, grid"
+                },
                 "dealCounter": {
                     "label": "Deal Counter"
                 },

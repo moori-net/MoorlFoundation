@@ -138,12 +138,30 @@
                         "showBeforeStart": "Zeige Angebot vor Start",
                         "teaserText": "Teaser",
                         "showBadge": "Zeige Badge",
-                        "badgeText": "Badge Text"
+                        "badgeText": "Badge Text",
+                        "igUsername": "Instagram Name",
+                        "showCaption": "Zeige Beschreibung",
+                        "showComments": "Zeige Kommentare",
+                        "showLikes": "Zeige Likes",
+                        "showLink": "Zeige Link",
+                        "maxImages": "Max Bilder",
+                        "sorting": "Sortierung",
+                        "sortingUploadedAsc": "Upload Zeit aufsteigend",
+                        "sortingUploadedDesc": "Upload Zeit absteigend (Standard)",
+                        "sortingLikesAsc": "Likes aufsteigend",
+                        "sortingLikesDesc": "Likes absteigend",
+                        "sortingCommentsAsc": "Kommentare aufsteigend",
+                        "sortingCommentsDesc": "Kommentare absteigend"
                     },
                     "placeholder": {
                         "selection": "Suche",
                         "minWidth": "200px",
-                        "height": "200px"
+                        "height": "200px",
+                        "feedUrlWordpress": "https://www.yourpage.com/wp-json/wp/v2",
+                        "feedAliasWordpress": "Please make sure, that the alias is configured in the plugin settings.",
+                        "leftPosition": "Enter left position",
+                        "topPosition": "Enter top position",
+                        "igUsername": "Profil muss öffentlich sein"
                     }
                 }
             }
