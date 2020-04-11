@@ -7,7 +7,8 @@
                 "blockMoorlWordpressConnector": "Moorleiche Wordpress Feed",
                 "blockMoorlMerchantFinder": "Moorleiche Merchant Finder",
                 "blockMoorlDealCounter": "Moorleiche Deal Counter",
-                "blockMoorlInstagram": "Moorleiche Instagram"
+                "blockMoorlInstagram": "Moorleiche Instagram",
+                "blockMoorlFormBuilder": "Form Builder"
             }
         },
         "elements": {
@@ -156,7 +157,8 @@
                         "sortingLikesAsc": "Likes ascending",
                         "sortingLikesDesc": "Likes descending",
                         "sortingCommentsAsc": "Comments ascending",
-                        "sortingCommentsDesc": "Comments descending"
+                        "sortingCommentsDesc": "Comments descending",
+                        "moorlFormId": "Select form"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -173,7 +175,10 @@
         },
         "blocks": {
             "general": {
-                "MoorlCmsInstagram": {
+                "moorlFormBuilder": {
+                    "label": "Form Builder"
+                },
+                "moorlCmsInstagram": {
                     "label": "Instagram, grid"
                 },
                 "dealCounter": {
