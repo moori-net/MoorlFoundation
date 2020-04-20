@@ -1,7 +1,7 @@
 {
     "name": "moorl/foundation",
-    "description": "Foundation",
-    "version": "1.0.4",
+    "description": "Moorl Foundation",
+    "version": "1.0.5",
     "license": "proprietary",
     "authors": [
         {
@@ -21,8 +21,8 @@
         "shopware-plugin-class": "MoorlFoundation\\MoorlFoundation",
         "copyright": "(c) by Moorleiche Web Solutions",
         "label": {
-            "de-DE": "Foundation",
-            "en-GB": "Foundation"
+            "de-DE": "Moorl Foundation",
+            "en-GB": "Moorl Foundation"
         }
     }
 }
