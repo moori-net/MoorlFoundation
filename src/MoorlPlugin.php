@@ -16,6 +16,93 @@ use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
 abstract class MoorlPlugin extends Plugin
 {
+    protected function addMailTemplates($data)
+    {
+        $connection = $this->container->get(Connection::class);
+
+        foreach ($data as $item) {
+            $mailTemplateTypeId = Uuid::fromHexToBytes(md5($item['technical_name']));
+
+            $connection->insert(
+                'mail_template_type',
+                [
+                    'id' => $mailTemplateTypeId,
+                    'technical_name' => $item['technical_name'],
+                    'available_entities' => json_encode($item['availableEntities']),
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            $mailTemplateId = Uuid::randomBytes();
+
+            $connection->insert(
+                'mail_template',
+                [
+                    'id' => $mailTemplateId,
+                    'mail_template_type_id' => $mailTemplateTypeId,
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            $connection->insert(
+                'event_action',
+                [
+                    'id' => Uuid::randomBytes(),
+                    'event_name' => $item['event_name'],
+                    'action_name' => $item['action_name'],
+                    'config' => json_encode(['mail_template_type_id' => md5($item['technical_name'])]),
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            foreach ($item['locale'] as $locale => $localeItem) {
+                $languageId = $this->getLanguageIdByLocale($locale);
+
+                $connection->insert(
+                    'mail_template_type_translation',
+                    [
+                        'mail_template_type_id' => $mailTemplateTypeId,
+                        'name' => $localeItem['name'],
+                        'language_id' => $languageId,
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+
+                $connection->insert(
+                    'mail_template_translation',
+                    [
+                        'mail_template_id' => $mailTemplateId,
+                        'language_id' => $languageId,
+                        'sender_name' => '{{ salesChannel.name }}',
+                        'subject' => $localeItem['name'] . ' - {{ salesChannel.name }}',
+                        'description' => $localeItem['description'],
+                        'content_html' => $localeItem['content_html'],
+                        'content_plain' => $localeItem['content_plain'],
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+            }
+        }
+    }
+
+    protected function removeMailTemplates($ids)
+    {
+        $connection = $this->container->get(Connection::class);
+        foreach ($ids as $id) {
+            $connection->executeQuery('DELETE FROM `mail_template_type` WHERE `id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `mail_template` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `mail_template_type_translation` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
+        }
+    }
+
+    protected function removeEventActions($eventNames)
+    {
+        $connection = $this->container->get(Connection::class);
+        foreach ($eventNames as $eventName) {
+            $connection->executeQuery('DELETE FROM `event_action` WHERE `event_name` = :eventName;', ['eventName' => $eventName]);
+        }
+    }
+
     protected function removeCmsBlocks(Context $context, $types)
     {
         $repo = $this->container->get('cms_block.repository');
@@ -110,5 +197,21 @@ abstract class MoorlPlugin extends Plugin
         }, $customFieldSetIds->getIds());
         $repo = $this->container->get('custom_field_set.repository');
         $repo->delete($ids, $context);
+    }
+
+    private function getLanguageIdByLocale(string $locale): string
+    {
+        $connection = $this->container->get(Connection::class);
+        $sql = <<<SQL
+SELECT `language`.`id` 
+FROM `language` 
+INNER JOIN `locale` ON `locale`.`id` = `language`.`locale_id`
+WHERE `locale`.`code` = :code
+SQL;
+        $languageId = $connection->executeQuery($sql, ['code' => $locale])->fetchColumn();
+        if (!$languageId) {
+            throw new \RuntimeException(sprintf('Language for locale "%s" not found.', $locale));
+        }
+        return $languageId;
     }
 }
