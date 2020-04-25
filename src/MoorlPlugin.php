@@ -3,21 +3,78 @@
 namespace MoorlFoundation;
 
 use Doctrine\DBAL\Connection;
-use Shopware\Core\Defaults;
-use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Defaults;use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\IdSearchResult;
 use Shopware\Core\Framework\Plugin;
-use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Uuid\Uuid;
 
 abstract class MoorlPlugin extends Plugin
 {
+    protected function addShippingMethods($data)
+    {
+        $connection = $this->container->get(Connection::class);
+
+        foreach ($data as $item) {
+            $shippingId = Uuid::fromHexToBytes(md5($item['technical_name']));
+            $deliveryTimeId = $this->getAnyEntityId('delivery_time');
+            $ruleId = $this->getAnyEntityId('rule');
+
+            $connection->insert(
+                'shipping_method',
+                [
+                    'id' => $shippingId,
+                    'availability_rule_id' => $ruleId,
+                    'delivery_time_id' => $deliveryTimeId,
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            $connection->insert(
+                'shipping_method_price',
+                [
+                    'id' => Uuid::randomBytes(),
+                    'shipping_method_id' => $shippingId,
+                    'calculation' => 1,
+                    'currency_id' => Uuid::fromHexToBytes(Defaults::CURRENCY),
+                    'price' => 6.9,
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            foreach ($item['locale'] as $locale => $localeItem) {
+                $languageId = $this->getLanguageIdByLocale($locale);
+
+                $connection->insert(
+                    'shipping_method_translation',
+                    [
+                        'shipping_method_id' => $shippingId,
+                        'name' => $localeItem['name'],
+                        'description' => $localeItem['description'],
+                        'language_id' => $languageId,
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+            }
+        }
+    }
+
+    protected function removeShippingMethods($ids)
+    {
+        $connection = $this->container->get(Connection::class);
+        foreach ($ids as $id) {
+            $connection->executeQuery('DELETE FROM `order_delivery` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `shipping_method_price` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `shipping_method_tag` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `shipping_method_translation` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `sales_channel_shipping_method` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `shipping_method` WHERE `id` = :id;', ['id' => $id]);
+        }
+    }
+
     protected function addMailTemplates($data)
     {
         $connection = $this->container->get(Connection::class);
@@ -91,10 +148,11 @@ abstract class MoorlPlugin extends Plugin
     {
         $connection = $this->container->get(Connection::class);
         foreach ($ids as $id) {
-            $connection->executeQuery('DELETE FROM `mail_template_type` WHERE `id` = :id;', ['id' => $id]);
             $connection->executeQuery('DELETE FROM `mail_template` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `mail_template_type` WHERE `id` = :id;', ['id' => $id]);
             $connection->executeQuery('DELETE FROM `mail_template_type_translation` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
         }
+        $connection->executeQuery('DELETE FROM `mail_template` WHERE `mail_template_type_id` IS NULL;');
     }
 
     protected function removeEventActions($eventNames)
@@ -215,5 +273,16 @@ SQL;
             throw new \RuntimeException(sprintf('Language for locale "%s" not found.', $locale));
         }
         return $languageId;
+    }
+
+    private function getAnyEntityId(string $entity): string
+    {
+        $connection = $this->container->get(Connection::class);
+        $sql = 'SELECT `id` FROM `' . $entity . '` LIMIT 1';
+        $id = $connection->executeQuery($sql)->fetchColumn();
+        if (!$id) {
+            throw new \RuntimeException(sprintf('Entity "%s" not found.', $entity));
+        }
+        return $id;
     }
 }
