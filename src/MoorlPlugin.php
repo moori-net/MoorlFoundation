@@ -3,7 +3,8 @@
 namespace MoorlFoundation;
 
 use Doctrine\DBAL\Connection;
-use Shopware\Core\Defaults;use Shopware\Core\Framework\Context;
+use Shopware\Core\Defaults;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
