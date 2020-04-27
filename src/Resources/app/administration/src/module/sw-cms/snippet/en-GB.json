@@ -158,7 +158,14 @@
                         "sortingLikesDesc": "Likes descending",
                         "sortingCommentsAsc": "Comments ascending",
                         "sortingCommentsDesc": "Comments descending",
-                        "moorlFormId": "Select form"
+                        "moorlFormId": "Select form",
+                        "mediaFolderId": "Select media folder",
+                        "showName": "Show image name",
+                        "sortingNameAsc": "Name ascending",
+                        "sortingNameDesc": "Name descending",
+                        "sortingCustom": "Custom field",
+                        "relationship": "Relationship",
+                        "cssClass": "CSS Class"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -237,6 +244,18 @@
                 },
                 "flipBoxFourColumn": {
                     "label": "Four columns, flip box"
+                },
+                "moorlFancyboxGallery": {
+                    "label": "Image gallery"
+                },
+                "moorlFancyboxGalleryMasonry": {
+                    "label": "Image gallery, masonry"
+                },
+                "moorlFancyboxGalleryTiles": {
+                    "label": "Image gallery, tiles"
+                },
+                "moorlFancyboxGalleryGrid": {
+                    "label": "Image gallery, grid"
                 }
             }
         }

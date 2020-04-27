@@ -152,7 +152,14 @@
                         "sortingLikesAsc": "Likes aufsteigend",
                         "sortingLikesDesc": "Likes absteigend",
                         "sortingCommentsAsc": "Kommentare aufsteigend",
-                        "sortingCommentsDesc": "Kommentare absteigend"
+                        "sortingCommentsDesc": "Kommentare absteigend",
+                        "mediaFolderId": "Select media folder",
+                        "showName": "Show image name",
+                        "sortingNameAsc": "Name ascending",
+                        "sortingNameDesc": "Name descending",
+                        "sortingCustom": "Custom field",
+                        "relationship": "Relationship",
+                        "cssClass": "CSS Class"
                     },
                     "placeholder": {
                         "selection": "Suche",
@@ -216,6 +223,18 @@
                 },
                 "flipBoxFourColumn": {
                     "label": "Vier Spalten, Flip Box"
+                },
+                "moorlFancyboxGallery": {
+                    "label": "Image gallery"
+                },
+                "moorlFancyboxGalleryMasonry": {
+                    "label": "Image gallery, masonry"
+                },
+                "moorlFancyboxGalleryTiles": {
+                    "label": "Image gallery, tiles"
+                },
+                "moorlFancyboxGalleryGrid": {
+                    "label": "Image gallery, grid"
                 }
             }
         }
