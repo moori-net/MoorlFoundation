@@ -2,8 +2,8 @@
     "moorl-cms": {
         "detail": {
             "label": {
-                "blockProCms": "Moorleiche CMS Elemente",
-                "blockMoorlCms": "Moorleiche CMS Elemente"
+                "blockProCms": "moori CMS Elemente",
+                "blockMoorlCms": "moori CMS Elemente"
             }
         },
         "elements": {
@@ -159,7 +159,10 @@
                         "sortingNameDesc": "Name descending",
                         "sortingCustom": "Custom field",
                         "relationship": "Relationship",
-                        "cssClass": "CSS Class"
+                        "cssClass": "CSS Class",
+                        "categorySelected": "Kategorie Vorauswahl",
+                        "tagSelected": "Tag Vorauswahl",
+                        "manufacturerSelected": "Hersteller Vorauswahl"
                     },
                     "placeholder": {
                         "selection": "Suche",

@@ -2,12 +2,12 @@
     "moorl-cms": {
         "detail": {
             "label": {
-                "blockProCms": "Moorleiche CMS Elements",
-                "blockMoorlCms": "Moorleiche CMS Elements",
-                "blockMoorlWordpressConnector": "Moorleiche Wordpress Feed",
-                "blockMoorlMerchantFinder": "Moorleiche Merchant Finder",
-                "blockMoorlDealCounter": "Moorleiche Deal Counter",
-                "blockMoorlInstagram": "Moorleiche Instagram",
+                "blockProCms": "moori CMS Elements",
+                "blockMoorlCms": "moori CMS Elements",
+                "blockMoorlWordpressConnector": "moori Wordpress Feed",
+                "blockMoorlMerchantFinder": "moori Merchant Finder",
+                "blockMoorlDealCounter": "moori Deal Counter",
+                "blockMoorlInstagram": "moori Instagram",
                 "blockMoorlFormBuilder": "Form Buildkit"
             }
         },
@@ -165,7 +165,10 @@
                         "sortingNameDesc": "Name descending",
                         "sortingCustom": "Custom field",
                         "relationship": "Relationship",
-                        "cssClass": "CSS Class"
+                        "cssClass": "CSS Class",
+                        "categorySelected": "Category pre selection",
+                        "tagSelected": "Tag pre selection",
+                        "manufacturerSelected": "Manufacturer pre selection"
                     },
                     "placeholder": {
                         "selection": "Type to search",
