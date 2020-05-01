@@ -8,7 +8,7 @@
                 "blockMoorlMerchantFinder": "moori Merchant Finder",
                 "blockMoorlDealCounter": "moori Deal Counter",
                 "blockMoorlInstagram": "moori Instagram",
-                "blockMoorlFormBuilder": "Form Buildkit"
+                "blockMoorlFormBuilder": "Form builder"
             }
         },
         "elements": {
@@ -186,7 +186,7 @@
         "blocks": {
             "general": {
                 "moorlFormBuilder": {
-                    "label": "Form Buildkit"
+                    "label": "Form builder"
                 },
                 "moorlCmsInstagram": {
                     "label": "Instagram, grid"
