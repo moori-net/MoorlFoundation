@@ -168,7 +168,8 @@
                         "cssClass": "CSS Class",
                         "categorySelected": "Category pre selection",
                         "tagSelected": "Tag pre selection",
-                        "manufacturerSelected": "Manufacturer pre selection"
+                        "manufacturerSelected": "Manufacturer pre selection",
+                        "gridGap": "Grid gap"
                     },
                     "placeholder": {
                         "selection": "Type to search",
@@ -185,6 +186,9 @@
         },
         "blocks": {
             "general": {
+                "categoryListing": {
+                    "label": "Category listing"
+                },
                 "moorlFormBuilder": {
                     "label": "Form builder"
                 },

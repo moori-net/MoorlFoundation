@@ -162,7 +162,8 @@
                         "cssClass": "CSS Class",
                         "categorySelected": "Kategorie Vorauswahl",
                         "tagSelected": "Tag Vorauswahl",
-                        "manufacturerSelected": "Hersteller Vorauswahl"
+                        "manufacturerSelected": "Hersteller Vorauswahl",
+                        "gridGap": "Grid Abstände"
                     },
                     "placeholder": {
                         "selection": "Suche",
@@ -179,6 +180,9 @@
         },
         "blocks": {
             "general": {
+                "categoryListing": {
+                    "label": "Kategorie Listing"
+                },
                 "dealCounter": {
                     "label": "Deal Counter"
                 },
