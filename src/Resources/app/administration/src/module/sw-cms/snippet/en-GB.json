@@ -14,6 +14,13 @@
         "elements": {
             "general": {
                 "config": {
+                    "tab": {
+                        "general": "General",
+                        "media": "Media",
+                        "content": "Content",
+                        "position": "Position",
+                        "animation": "Animation"
+                    },
                     "label": {
                         "btnClass": "Button style",
                         "btnPrimary": "Primary",
@@ -169,7 +176,9 @@
                         "categorySelected": "Category pre selection",
                         "tagSelected": "Tag pre selection",
                         "manufacturerSelected": "Manufacturer pre selection",
-                        "gridGap": "Grid gap"
+                        "gridGap": "Grid gap",
+                        "backgroundVerticalAlign": "Background vertical alignment",
+                        "backgroundHorizontalAlign": "Background horizontal alignment"
                     },
                     "placeholder": {
                         "selection": "Type to search",

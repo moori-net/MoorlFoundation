@@ -143,6 +143,20 @@ const MoorlFoundation = function MoorlFoundation() {
             label: 'moorl-cms.elements.general.config.label.right'
         }
     ];
+    this.verticalTextAlign = [
+        {
+            value: 'top',
+            label: 'moorl-cms.elements.general.config.label.top'
+        },
+        {
+            value: 'center',
+            label: 'moorl-cms.elements.general.config.label.center'
+        },
+        {
+            value: 'bottom',
+            label: 'moorl-cms.elements.general.config.label.bottom'
+        }
+    ];
     this.animateCss = [
         {
             optgroup: '-',
