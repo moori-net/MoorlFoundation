@@ -15,6 +15,136 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 abstract class MoorlPlugin extends Plugin
 {
+    protected function removeMediaFolder($context, $technicalName)
+    {
+        $repo = $this->container->get('media_folder.repository');
+        $criteria = new Criteria([md5($technicalName)]);
+        $mediaFolderEntity = $repo->search($criteria, $context)->first();
+
+        if (!$mediaFolderEntity) {
+            return;
+        }
+
+        $mediaFolderId = Uuid::fromHexToBytes($mediaFolderEntity->getId());
+        $mediaDefaultFolderId = Uuid::fromHexToBytes($mediaFolderEntity->getDefaultFolderId());
+        $mediaFolderConfigurationId = Uuid::fromHexToBytes($mediaFolderEntity->getConfigurationId());
+
+        $connection = $this->container->get(Connection::class);
+
+        $connection->executeQuery('DELETE FROM `media_folder_configuration_media_thumbnail_size` WHERE `media_folder_configuration_id` = :id;', ['id' => $mediaFolderConfigurationId]);
+        $connection->executeQuery('DELETE FROM `media_folder_configuration` WHERE `id` = :id;', ['id' => $mediaFolderConfigurationId]);
+        $connection->executeQuery('DELETE FROM `media_default_folder` WHERE `id` = :id;', ['id' => $mediaDefaultFolderId]);
+        $connection->executeQuery('DELETE FROM `media_folder` WHERE `id` = :id;', ['id' => $mediaFolderId]);
+    }
+
+    protected function addMediaFolder($context, $data)
+    {
+        $repo = $this->container->get('media_folder.repository');
+        $criteria = new Criteria([md5($data['technical_name'])]);
+        $result = $repo->searchIds($criteria, $context);
+
+        //dump($result);exit;
+
+        if ($result->getTotal() != 0) {
+            return;
+        }
+
+        $repo = $this->container->get('media_thumbnail_size.repository');
+        $mediaThumbnailSizeCollection = $repo->search(new Criteria(), $context)->getEntities();
+
+        $connection = $this->container->get(Connection::class);
+
+        $mediaFolderId = Uuid::fromHexToBytes(md5($data['technical_name']));
+        $mediaDefaultFolderId = Uuid::randomBytes();
+        $mediaFolderConfigurationId = Uuid::randomBytes();
+
+        $connection->insert(
+            'media_default_folder',
+            [
+                'id' => $mediaDefaultFolderId,
+                'association_fields' => json_encode($data['association_fields']),
+                'entity' => $data['entity'],
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            ]
+        );
+
+        $connection->insert(
+            'media_folder_configuration',
+            [
+                'id' => $mediaFolderConfigurationId,
+                'media_thumbnail_sizes_ro' => serialize($mediaThumbnailSizeCollection),
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            ]
+        );
+
+        $connection->insert(
+            'media_folder',
+            [
+                'id' => $mediaFolderId,
+                'default_folder_id' => $mediaDefaultFolderId,
+                'name' => $data['name'],
+                'media_folder_configuration_id' => $mediaFolderConfigurationId,
+                'use_parent_configuration' => 0,
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            ]
+        );
+
+        foreach ($mediaThumbnailSizeCollection as $mediaThumbnailSizeEntity) {
+            $mediaThumbnailSizeId = Uuid::fromHexToBytes($mediaThumbnailSizeEntity->getId());
+
+            $connection->insert(
+                'media_folder_configuration_media_thumbnail_size',
+                [
+                    'media_folder_configuration_id' => $mediaFolderConfigurationId,
+                    'media_thumbnail_size_id' => $mediaThumbnailSizeId
+                ]
+            );
+        }
+    }
+
+    protected function removeCmsPages($ids)
+    {
+        $connection = $this->container->get(Connection::class);
+        foreach ($ids as $id) {
+            $connection->executeQuery('DELETE FROM `cms_page_translation` WHERE `cms_page_id` = :id;', ['id' => $id]);
+            $connection->executeQuery('DELETE FROM `cms_page` WHERE `id` = :id;', ['id' => $id]);
+        }
+    }
+
+    protected function addCmsPage($data)
+    {
+        $connection = $this->container->get(Connection::class);
+
+        foreach ($data as $item) {
+            $cmsPageId = Uuid::fromHexToBytes(md5($item['technical_name']));
+
+            $connection->insert(
+                'cms_page',
+                [
+                    'id' => $cmsPageId,
+                    'type' => $item['type'],
+                    'entity' => $item['entity'],
+                    'locked' => $item['locked'],
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            foreach ($item['locale'] as $locale => $localeItem) {
+                $languageId = $this->getLanguageIdByLocale($locale);
+
+                $connection->insert(
+                    'cms_page_translation',
+                    [
+                        'cms_page_id' => $cmsPageId,
+                        'name' => $localeItem['name'],
+                        'language_id' => $languageId,
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+            }
+        }
+    }
+
     protected function addShippingMethods($data)
     {
         $connection = $this->container->get(Connection::class);
