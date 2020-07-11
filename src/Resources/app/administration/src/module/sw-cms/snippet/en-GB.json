@@ -1,5 +1,8 @@
 {
     "moorl-cms": {
+        "general": {
+            "news": "News Feed by moori"
+        },
         "detail": {
             "label": {
                 "blockProCms": "moori CMS Elements",

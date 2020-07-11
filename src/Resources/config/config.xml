@@ -43,4 +43,14 @@
         </input-field>
     </card>
 
+    <card>
+        <title>News Feed by moori</title>
+        <title lang="de-DE">Neuigkeiten von moori</title>
+        <input-field type="bool">
+            <name>enableFeed</name>
+            <label>Let me know about news and promotions from moori</label>
+            <label lang="de-DE">Informiere mich über Neuigkeiten und Angebote von moori</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+    </card>
 </config>

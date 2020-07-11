@@ -1,0 +1,17 @@
+<sw-page class="moorl-foundation-article-list">
+    <template slot="smart-bar-header">
+        <h2>
+            {{ $tc('moorl-foundation.general.article') }}
+        </h2>
+    </template>
+
+    <template slot="content">
+        <sw-entity-listing
+                v-if="article"
+                :items="article"
+                :repository="repo"
+                :showSelection="false"
+                :columns="columns">
+        </sw-entity-listing>
+    </template>
+</sw-page>
