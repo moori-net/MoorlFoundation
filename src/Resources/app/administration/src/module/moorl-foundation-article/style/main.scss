@@ -1,0 +1,43 @@
+.moorl-foundation-article-list {
+  .articles {
+    padding: 20px;
+    column-fill: auto;
+    column-width: 300px;
+    column-gap: 20px;
+
+    .article {
+      margin-bottom: 20px;
+      display: inline-block;
+      width: 100%;
+
+      figure {
+        overflow: hidden;
+        max-width: 100%;
+        background: #ffffff;
+        vertical-align: top;
+        border-bottom: 4px solid #c4ea1d;
+
+        img,
+        video {
+          transition: all .5s ease-in-out;
+          backface-visibility: hidden;
+          max-width: 100%;
+          vertical-align: middle;
+        }
+
+        figcaption {
+          padding: 10px;
+
+          h3, p {
+            margin: 0 0 10px 0;
+          }
+
+          small {
+            font-size: 0.7em;
+            color: #aaaaaa;
+          }
+        }
+      }
+    }
+  }
+}

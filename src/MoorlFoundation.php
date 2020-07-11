@@ -7,7 +7,10 @@ use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
 class MoorlFoundation extends Plugin
 {
-    public const FEED_URL = 'https://demo-shop.moorleiche.com/moorl-magazine/api/article';
+    public const FEED_URL = [
+        'https://demo-shop.moorleiche.com',
+        'http://dev.rh-webdesign.com'
+    ];
 
     public function uninstall(UninstallContext $context): void
     {

@@ -1,17 +1,33 @@
 <sw-page class="moorl-foundation-article-list">
     <template slot="smart-bar-header">
         <h2>
-            {{ $tc('moorl-foundation.general.article') }}
+            {{ $tc('moorl-foundation-article.general.news') }}
         </h2>
     </template>
 
     <template slot="content">
-        <sw-entity-listing
-                v-if="article"
-                :items="article"
-                :repository="repo"
-                :showSelection="false"
-                :columns="columns">
-        </sw-entity-listing>
+        <sw-pagination v-bind="{ page, limit, total }" :total-visible="7" @page-change="paginate"></sw-pagination>
+
+        <template v-if="records">
+            <div class="articles">
+                <div v-for="article in records" class="article">
+                    <figure>
+                        <img v-if="article.mediaUrl" :src="article.mediaUrl">
+
+                        <figcaption>
+                            <p><small>{{ article.author }} | {{ article.date }}</small></p>
+
+                            <h3>{{ article.title }}</h3>
+
+                            <p>{{ article.teaser }}</p>
+
+                            <a target="_blank" :href="article.articleUrl" class="sw-button sw-button--primary">
+                                {{ $tc('moorl-foundation-article.general.openUrl') }}
+                            </a>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </template>
     </template>
 </sw-page>

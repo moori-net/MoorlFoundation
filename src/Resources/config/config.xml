@@ -44,13 +44,34 @@
     </card>
 
     <card>
-        <title>News Feed by moori</title>
-        <title lang="de-DE">Neuigkeiten von moori</title>
+        <title>News Feed</title>
+        <title lang="de-DE">News Feed</title>
         <input-field type="bool">
             <name>enableFeed</name>
-            <label>Let me know about news and promotions from moori</label>
-            <label lang="de-DE">Informiere mich über Neuigkeiten und Angebote von moori</label>
+            <label>Enable feed</label>
+            <label lang="de-DE">Feed aktivieren</label>
             <defaultValue>true</defaultValue>
+        </input-field>
+        <input-field type="textarea">
+            <name>feedUrls</name>
+            <label>Feed API Urls</label>
+            <label lang="de-DE">Feed API Urls</label>
+            <defaultValue><![CDATA[https://demo-shop.moorleiche.com
+http://dev.rh-webdesign.com]]></defaultValue>
+            <placeholder><![CDATA[https://demo-shop.moorleiche.com
+http://dev.rh-webdesign.com]]></placeholder>
+        </input-field>
+        <input-field type="bool">
+            <name>pluginFeed</name>
+            <label>Filter feed based on my installed plugins</label>
+            <label lang="de-DE">Nur Plugin relevante Feeds empfangen</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+        <input-field>
+            <name>feedLanguage</name>
+            <label>Desired feed language</label>
+            <label lang="de-DE">Bevorzugte Feed Sprache</label>
+            <defaultValue>de</defaultValue>
         </input-field>
     </card>
 </config>

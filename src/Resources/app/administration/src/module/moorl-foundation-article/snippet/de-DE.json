@@ -1,0 +1,15 @@
+{
+    "moorl-foundation-article": {
+        "general": {
+            "news": "Foundation News Feed",
+            "openUrl": "Open"
+        },
+        "properties": {
+            "date": "Datum",
+            "author": "Author",
+            "teaser": "Teaser",
+            "title": "Titel",
+            "content": "Inhalt"
+        }
+    }
+}

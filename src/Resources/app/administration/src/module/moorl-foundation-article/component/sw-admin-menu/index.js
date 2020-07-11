@@ -1,4 +1,4 @@
-const {Application, Component, Mixin } = Shopware;
+const { Application, Component, Mixin } = Shopware;
 
 const initContainer = Application.getContainer('init');
 const httpClient = initContainer.httpClient;
