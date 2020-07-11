@@ -6,13 +6,13 @@
     </template>
 
     <template slot="content">
-        <sw-pagination v-bind="{ page, limit, total }" :total-visible="7" @page-change="paginate"></sw-pagination>
-
-        <template v-if="records">
+        <div class="sw-data-grid is--compact sw-data-grid--full-page sw-data-grid--actions is--scroll-x">
             <div class="articles">
-                <div v-for="article in records" class="article">
+                <div v-if="!loading" v-for="article in records" class="article">
                     <figure>
-                        <img v-if="article.mediaUrl" :src="article.mediaUrl">
+                        <div class="article-image">
+                            <img v-if="article.mediaUrl" :src="article.mediaUrl">
+                        </div>
 
                         <figcaption>
                             <p><small>{{ article.author }} | {{ article.date }}</small></p>
@@ -28,6 +28,12 @@
                     </figure>
                 </div>
             </div>
-        </template>
+
+            <sw-pagination :page="page"
+                           :limit="limit"
+                           :total="total"
+                           @page-change="paginate">
+            </sw-pagination>
+        </div>
     </template>
 </sw-page>

@@ -16,10 +16,12 @@ Component.override('sw-admin-menu', {
                 const that = this;
 
                 response.data.articles.forEach(function (article) {
-                    that.createNotificationInfo({
-                        title: article.title,
-                        message: article.teaser
-                    });
+                    if (!article.hasSeen) {
+                        that.createNotificationInfo({
+                            title: article.title,
+                            message: article.teaser
+                        });
+                    }
                 });
             }
         });

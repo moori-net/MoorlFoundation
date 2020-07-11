@@ -43,9 +43,12 @@ class ApiController extends AbstractController
      */
     public function feed(Request $request, Context $context): JsonResponse
     {
-        if (!$this->systemConfigService->get('MoorlFoundation.config.enableFeed')) {
+        $feeds = $this->systemConfigService->get('MoorlFoundation.config.feedUrls');
+        $enabled = $this->systemConfigService->get('MoorlFoundation.config.enableFeed');
+
+        if (!$enabled || !$feeds) {
             return new JsonResponse([
-                'reason' => 'News Feed disabled by user'
+                'reason' => 'News Feed disabled or empty'
             ]);
         }
 
@@ -78,7 +81,6 @@ class ApiController extends AbstractController
             'language' => $language
         ]);
 
-        $feeds = $this->systemConfigService->get('MoorlFoundation.config.feedUrls');
         $feeds = explode("\n", $feeds);
         $feeds = array_map('trim', $feeds);
 

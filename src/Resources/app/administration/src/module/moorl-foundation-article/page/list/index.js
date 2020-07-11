@@ -16,8 +16,8 @@ Component.register('moorl-foundation-article-list', {
             showBulkDeleteModal: false,
             isBulkLoading: false,
             page: 1,
-            limit: this.criteriaLimit,
-            total: 10,
+            limit: 10,
+            total: null,
             records: null,
             criteria: new Criteria()
         };
@@ -48,10 +48,13 @@ Component.register('moorl-foundation-article-list', {
             this.limit = result.criteria.limit;
             this.loading = false;
 
-            this.$emit('update-records', result);
+            //this.$emit('update-records', result);
         },
 
-        paginate({ page = 1, limit = 25 }) {
+        paginate({ page = 1, limit = 10 }) {
+
+            console.log(page);
+
             this.criteria.setPage(page);
             this.criteria.setLimit(limit);
 
@@ -61,6 +64,8 @@ Component.register('moorl-foundation-article-list', {
 
     created() {
         this.criteria.addSorting(Criteria.sort('date', 'DESC'));
+        this.criteria.setPage(1);
+        this.criteria.setLimit(10);
 
         this.doSearch();
     }
