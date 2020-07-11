@@ -43,10 +43,12 @@ class ApiController extends AbstractController
      */
     public function feed(Request $request, Context $context): JsonResponse
     {
+        $lastUpdate = $this->systemConfigService->get('MoorlFoundation.config.feedLastUpdate') ?: 0;
+        $nextUpdate = $lastUpdate + 3600;
         $feeds = $this->systemConfigService->get('MoorlFoundation.config.feedUrls');
         $enabled = $this->systemConfigService->get('MoorlFoundation.config.enableFeed');
 
-        if (!$enabled || !$feeds) {
+        if (!$enabled || !$feeds || $nextUpdate > time()) {
             return new JsonResponse([
                 'reason' => 'News Feed disabled or empty'
             ]);
@@ -78,12 +80,13 @@ class ApiController extends AbstractController
         ]);
 
         $query = '/moorl-magazine/api/article?' . http_build_query([
-            'tags' => $pluginNames,
-            'invisible' => 1,
-            'seoUrl' => 1,
-            'limit' => 10,
-            'language' => $language
-        ]);
+                'tags' => $pluginNames,
+                'invisible' => 1,
+                'seoUrl' => 1,
+                'limit' => 10,
+                'language' => $language,
+                'timestamp' => $lastUpdate
+            ]);
 
         $feeds = explode("\n", $feeds);
         $feeds = array_map('trim', $feeds);
@@ -123,6 +126,8 @@ class ApiController extends AbstractController
 
         if (count($articleArray) > 0) {
             $this->articleRepo->upsert($articleArray, $context);
+
+            $this->systemConfigService->set('MoorlFoundation.config.feedLastUpdate', time());
         }
 
         return new JsonResponse([
