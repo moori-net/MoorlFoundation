@@ -72,5 +72,18 @@ http://dev.rh-webdesign.com]]></placeholder>
             <label lang="de-DE">Bevorzugte Feed Sprache</label>
             <placeholder>en, de, en-GB, de-DE... or leave empty for default</placeholder>
         </input-field>
+        <input-field type="int">
+            <name>feedLastUpdate</name>
+            <label>Last update timestamp</label>
+            <label lang="de-DE">Letztes Update Timestamp</label>
+            <placeholder>Set to 0 to receive complete Feed</placeholder>
+        </input-field>
+        <input-field type="int">
+            <name>feedUpdateInterval</name>
+            <label>Update interval in s</label>
+            <label lang="de-DE">Update Intervall in s</label>
+            <placeholder>Set to 3600 to update every hour</placeholder>
+            <defaultValue>3600</defaultValue>
+        </input-field>
     </card>
 </config>

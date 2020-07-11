@@ -19,7 +19,13 @@ Component.override('sw-admin-menu', {
                     if (!article.hasSeen) {
                         that.createNotificationInfo({
                             title: article.title,
-                            message: article.teaser
+                            message: article.teaser,
+                            actions: [
+                                {
+                                    label: that.$tc('moorl-foundation-article.general.openUrl'),
+                                    method: () => that.$router.push({ name: 'moorl.foundation.article.list'})
+                                }
+                            ]
                         });
                     }
                 });

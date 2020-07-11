@@ -5,6 +5,12 @@
         </h2>
     </template>
 
+    <template slot="smart-bar-actions">
+        <sw-button variant="primary" @click="deleteItems">
+            {{ $tc('moorl-foundation-article.general.truncate') }}
+        </sw-button>
+    </template>
+
     <template slot="content">
         <div class="sw-data-grid is--compact sw-data-grid--full-page sw-data-grid--actions is--scroll-x">
             <div class="articles">

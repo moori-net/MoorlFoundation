@@ -2,7 +2,8 @@
     "moorl-foundation-article": {
         "general": {
             "news": "Foundation News Feed",
-            "openUrl": "Open"
+            "openUrl": "Open",
+            "truncate": "Truncate"
         },
         "properties": {
             "date": "Date",

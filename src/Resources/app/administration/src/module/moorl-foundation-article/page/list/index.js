@@ -60,6 +60,24 @@ Component.register('moorl-foundation-article-list', {
 
             return this.doSearch();
         },
+
+        deleteItems() {
+            this.criteria.setPage(1);
+
+            this.repository.search(new Criteria(), Shopware.Context.api).then((items) => {
+                const promises = [];
+
+                items.forEach((item) => {
+                    promises.push(this.repository.delete(item.id, Shopware.Context.api));
+                });
+
+                return Promise.all(promises).then(() => {
+                    return this.doSearch();
+                }).catch(() => {
+                    return this.doSearch();
+                });
+            });
+        },
     },
 
     created() {

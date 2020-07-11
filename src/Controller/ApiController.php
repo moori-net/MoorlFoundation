@@ -44,7 +44,9 @@ class ApiController extends AbstractController
     public function feed(Request $request, Context $context): JsonResponse
     {
         $lastUpdate = $this->systemConfigService->get('MoorlFoundation.config.feedLastUpdate') ?: 0;
-        $nextUpdate = $lastUpdate + 3600;
+
+        $updateInterval = $this->systemConfigService->get('MoorlFoundation.config.feedUpdateInterval') ?: 3600;
+        $nextUpdate = $lastUpdate + $updateInterval;
         $feeds = $this->systemConfigService->get('MoorlFoundation.config.feedUrls');
         $enabled = $this->systemConfigService->get('MoorlFoundation.config.enableFeed');
 
@@ -83,7 +85,7 @@ class ApiController extends AbstractController
                 'tags' => $pluginNames,
                 'invisible' => 1,
                 'seoUrl' => 1,
-                'limit' => 10,
+                'limit' => 50,
                 'language' => $language,
                 'timestamp' => $lastUpdate
             ]);
