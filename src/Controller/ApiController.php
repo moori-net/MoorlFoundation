@@ -66,6 +66,10 @@ class ApiController extends AbstractController
 
         $language = $this->systemConfigService->get('MoorlFoundation.config.feedLanguage');
 
+        if (!$language) {
+            $language = $request->getDefaultLocale();
+        }
+
         $articleCollection = $this->articleRepo->search(new Criteria(), $context)->getEntities();
         $articleArray = [];
 
@@ -108,9 +112,9 @@ class ApiController extends AbstractController
                     'mediaUrl' => $article['media']['url'],
                     'articleUrl' => $article['seoUrl'],
                     'author' => $article['author'],
-                    'title' => $article['title'],
-                    'teaser' => $article['teaser'],
-                    'content' => $article['content'],
+                    'title' => $article['translated']['title'],
+                    'teaser' => $article['translated']['teaser'],
+                    'content' => $article['translated']['content'],
                     'date' => $article['date'],
                     'hasSeen' => $hasSeen,
                 ];

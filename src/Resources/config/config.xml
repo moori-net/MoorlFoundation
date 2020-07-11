@@ -71,7 +71,7 @@ http://dev.rh-webdesign.com]]></placeholder>
             <name>feedLanguage</name>
             <label>Desired feed language</label>
             <label lang="de-DE">Bevorzugte Feed Sprache</label>
-            <defaultValue>de</defaultValue>
+            <placeholder>en, de, en-GB, de-DE... or leave empty for default</placeholder>
         </input-field>
     </card>
 </config>
