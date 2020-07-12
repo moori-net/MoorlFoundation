@@ -61,7 +61,7 @@ class ArticleDefinition extends EntityDefinition
             new StringField('article_url', 'articleUrl'),
             new StringField('author', 'author'),
             new StringField('title', 'title'),
-            new StringField('teaser', 'teaser'),
+            (new LongTextField('teaser', 'teaser'))->addFlags(new AllowHtml()),
             (new LongTextField('content', 'content'))->addFlags(new Required())->addFlags(new AllowHtml()),
             new BoolField('has_seen', 'hasSeen'),
             (new DateField('date', 'date'))->addFlags(new Required()),

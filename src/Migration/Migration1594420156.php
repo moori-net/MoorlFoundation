@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `moorl_foundation_article` (
     `date` DATE,
     `author` varchar(255),
     `title` varchar(255),
-    `teaser` varchar(255),
+    `teaser` longtext DEFAULT NULL,
     `content` longtext DEFAULT NULL,
     `has_seen` TINYINT,
     `created_at` DATETIME(3),
