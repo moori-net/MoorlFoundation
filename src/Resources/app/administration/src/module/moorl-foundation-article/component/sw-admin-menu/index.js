@@ -8,8 +8,18 @@ Component.override('sw-admin-menu', {
         Mixin.getByName('notification')
     ],
 
+    inject: [
+        'loginService'
+    ],
+
     created() {
-        httpClient.get("/moorl-foundation/feed").then((response) => {
+        const headers = {
+            Accept: 'application/json',
+            Authorization: `Bearer ${this.loginService.getToken()}`,
+            'Content-Type': 'application/json'
+        }
+
+        httpClient.get("/moorl-foundation/feed", { headers }).then((response) => {
             console.log(response);
 
             if (response.data.articles) {
