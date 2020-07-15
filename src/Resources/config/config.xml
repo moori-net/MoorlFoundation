@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
-
     <card>
         <title>Stylesheet Addon-Ons</title>
         <title lang="de-DE">Stylesheet Addon-Ons</title>
@@ -50,15 +49,14 @@
             <name>enableFeed</name>
             <label>Enable feed</label>
             <label lang="de-DE">Feed aktivieren</label>
-            <defaultValue>true</defaultValue>
+            <defaultValue>false</defaultValue>
         </input-field>
         <input-field type="textarea">
             <name>feedUrls</name>
             <label>Feed API Urls</label>
             <label lang="de-DE">Feed API Urls</label>
-            <defaultValue><![CDATA[https://demo-shop.moorleiche.com]]></defaultValue>
-            <placeholder><![CDATA[https://demo-shop.moorleiche.com
-http://dev.rh-webdesign.com]]></placeholder>
+            <defaultValue><![CDATA[https://moori.net]]></defaultValue>
+            <placeholder><![CDATA[https://moori.net - under construction]]></placeholder>
         </input-field>
         <input-field type="bool">
             <name>pluginFeed</name>
