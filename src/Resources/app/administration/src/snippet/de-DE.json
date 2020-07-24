@@ -1,4 +1,18 @@
 {
+    "moorl-foundation-article": {
+        "general": {
+            "news": "Foundation News Feed",
+            "openUrl": "Öffnen",
+            "truncate": "Leeren"
+        },
+        "properties": {
+            "date": "Datum",
+            "author": "Author",
+            "teaser": "Teaser",
+            "title": "Titel",
+            "content": "Inhalt"
+        }
+    },
     "moorl-cms": {
         "general": {
             "news": "Neuigkeiten von moori"
@@ -103,6 +117,7 @@
                         "square": "Square",
                         "cube": "Cube",
                         "styleMasonry": "Masonry",
+                        "styleResponsive": "Responsive",
                         "styleSlider": "Slider",
                         "styleTiles": "Tiles",
                         "styleGrid": "Grid",
