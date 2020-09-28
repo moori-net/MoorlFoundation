@@ -27,6 +27,7 @@
             "general": {
                 "config": {
                     "label": {
+                        "offsetTop": "Abstand oben",
                         "btnClass": "Button Aussehen",
                         "btnPrimary": "Primary",
                         "btnPrimaryOutline": "Primary outline",

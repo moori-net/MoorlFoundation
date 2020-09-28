@@ -42,14 +42,14 @@
         </input-field>
     </card>
 
-    <card>
+    <!--card>
         <title>News Feed</title>
         <title lang="de-DE">News Feed</title>
         <input-field type="bool">
             <name>enableFeed</name>
             <label>Enable feed</label>
             <label lang="de-DE">Feed aktivieren</label>
-            <defaultValue>false</defaultValue>
+            <defaultValue>true</defaultValue>
         </input-field>
         <input-field type="textarea">
             <name>feedUrls</name>
@@ -83,5 +83,5 @@
             <placeholder>Set to 3600 to update every hour</placeholder>
             <defaultValue>3600</defaultValue>
         </input-field>
-    </card>
+    </card-->
 </config>

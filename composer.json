@@ -1,7 +1,7 @@
 {
     "name": "moorl/foundation",
     "description": "Moorl Foundation",
-    "version": "1.2.0",
+    "version": "1.2.2",
     "license": "proprietary",
     "authors": [
         {
@@ -23,6 +23,18 @@
         "label": {
             "de-DE": "Foundation",
             "en-GB": "Foundation"
+        },
+        "description": {
+            "de-DE": "Das moori Basis Plugin",
+            "en-GB": "The moori basic plugin"
+        },
+        "manufacturerLink": {
+            "de-DE": "https://docs.moori.net/",
+            "en-GB": "https://docs.moori.net/"
+        },
+        "supportLink": {
+            "de-DE": "https://docs.moori.net/",
+            "en-GB": "https://docs.moori.net/"
         }
     }
 }
