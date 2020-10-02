@@ -5,6 +5,9 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- Service -->
+        <service id="MoorlFoundation\Core\PluginFoundation" public="true">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+        </service>
 
         <!-- Controller -->
         <service id="MoorlFoundation\Controller\ApiController" public="true">
