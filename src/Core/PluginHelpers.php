@@ -11,7 +11,6 @@ use Doctrine\DBAL\Connection;
 
 class PluginHelpers
 {
-
     public function assignArrayByPath(&$arr, $path, $value, $separator='.') {
         $keys = explode($separator, $path);
         foreach ($keys as $key) {
@@ -28,7 +27,6 @@ class PluginHelpers
 
     public static function removeCmsBlocks($container, $context, $types)
     {
-
         $repo = $container->get('cms_block.repository');
 
         $criteria = new Criteria();
@@ -45,12 +43,10 @@ class PluginHelpers
         }, $result->getIds());
 
         $repo->delete($ids, $context);
-
     }
 
     public static function removeCmsSlots($container, $context, $types)
     {
-
         $repo = $container->get('cms_slot.repository');
 
         $criteria = new Criteria();
@@ -67,18 +63,14 @@ class PluginHelpers
         }, $result->getIds());
 
         $repo->delete($ids, $context);
-
     }
 
     public static function dropTables($container, $context, $tables)
     {
-
         $connection = $container->get(Connection::class);
 
         foreach ($tables as $table) {
             $connection->executeQuery('DROP TABLE IF EXISTS `' . $table . '`;');
         }
-
     }
-
 }
