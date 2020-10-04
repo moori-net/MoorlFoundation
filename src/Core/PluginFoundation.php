@@ -44,6 +44,13 @@ class PluginFoundation
         $this->connection = $connection;
     }
 
+    public function executeQuery(string $sql, array $params = [])
+    {
+        try {
+            $this->connection->executeQuery($sql, $params);
+        } catch (\Exception $exception) {}
+    }
+
     public function getLanguageIdByLocale(string $locale): ?string
     {
         if (!isset($this->languageIds[$locale])) {
@@ -56,6 +63,100 @@ class PluginFoundation
         }
 
         return $this->languageIds[$locale];
+    }
+
+    public function addSeoUrlTemplate($data)
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('seo_url_template');
+        $repo->upsert([$data], $this->getContext());
+    }
+
+    public function removeSeoUrlTemplate($entityname)
+    {
+        $this->connection->executeQuery('DELETE FROM `seo_url_template` WHERE `entity_name` = :name;', [
+            'name' => $entityname
+        ]);
+    }
+
+    public function removeMediaFolder($technicalName)
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('media_folder');
+        $criteria = new Criteria([md5($technicalName)]);
+        $mediaFolderEntity = $repo->search($criteria, $this->getContext())->first();
+
+        if (!$mediaFolderEntity) {
+            return;
+        }
+
+        $mediaFolderId = Uuid::fromHexToBytes($mediaFolderEntity->getId());
+        $mediaDefaultFolderId = Uuid::fromHexToBytes($mediaFolderEntity->getDefaultFolderId());
+        $mediaFolderConfigurationId = Uuid::fromHexToBytes($mediaFolderEntity->getConfigurationId());
+
+        $this->connection->executeQuery('DELETE FROM `media_folder_configuration_media_thumbnail_size` WHERE `media_folder_configuration_id` = :id;', ['id' => $mediaFolderConfigurationId]);
+        $this->connection->executeQuery('DELETE FROM `media_folder_configuration` WHERE `id` = :id;', ['id' => $mediaFolderConfigurationId]);
+        $this->connection->executeQuery('DELETE FROM `media_default_folder` WHERE `id` = :id;', ['id' => $mediaDefaultFolderId]);
+        $this->connection->executeQuery('DELETE FROM `media_folder` WHERE `id` = :id;', ['id' => $mediaFolderId]);
+    }
+
+    public function addMediaFolder($data)
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('media_folder');
+        $criteria = new Criteria([md5($data['technical_name'])]);
+        $result = $repo->searchIds($criteria, $this->getContext());
+
+        if ($result->getTotal() != 0) {
+            return;
+        }
+
+        $repo = $this->definitionInstanceRegistry->getRepository('media_thumbnail_size');
+        $mediaThumbnailSizeCollection = $repo->search(new Criteria(), $this->getContext())->getEntities();
+
+        $mediaFolderId = Uuid::fromHexToBytes(md5($data['technical_name']));
+        $mediaDefaultFolderId = Uuid::randomBytes();
+        $mediaFolderConfigurationId = Uuid::randomBytes();
+
+        $this->connection->insert(
+            'media_default_folder',
+            [
+                'id' => $mediaDefaultFolderId,
+                'association_fields' => json_encode($data['association_fields']),
+                'entity' => $data['entity'],
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            ]
+        );
+
+        $this->connection->insert(
+            'media_folder_configuration',
+            [
+                'id' => $mediaFolderConfigurationId,
+                'media_thumbnail_sizes_ro' => serialize($mediaThumbnailSizeCollection),
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            ]
+        );
+
+        $this->connection->insert(
+            'media_folder',
+            [
+                'id' => $mediaFolderId,
+                'default_folder_id' => $mediaDefaultFolderId,
+                'name' => $data['name'],
+                'media_folder_configuration_id' => $mediaFolderConfigurationId,
+                'use_parent_configuration' => 0,
+                'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            ]
+        );
+
+        foreach ($mediaThumbnailSizeCollection as $mediaThumbnailSizeEntity) {
+            $mediaThumbnailSizeId = Uuid::fromHexToBytes($mediaThumbnailSizeEntity->getId());
+
+            $this->connection->insert(
+                'media_folder_configuration_media_thumbnail_size',
+                [
+                    'media_folder_configuration_id' => $mediaFolderConfigurationId,
+                    'media_thumbnail_size_id' => $mediaThumbnailSizeId
+                ]
+            );
+        }
     }
 
     /**
