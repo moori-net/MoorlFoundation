@@ -5,6 +5,8 @@ namespace MoorlFoundation;
 use MoorlFoundation\Core\PluginFoundation;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
+use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 
 class MoorlFoundation extends Plugin
 {
@@ -22,7 +24,10 @@ class MoorlFoundation extends Plugin
         }
 
         /* @var $foundation PluginFoundation */
-        $foundation = $this->container->get(PluginFoundation::class);
+        $foundation = new PluginFoundation(
+            $this->container->get(DefinitionInstanceRegistry::class),
+            $this->container->get(Connection::class)
+        );
         $foundation->setContext($uninstallContext->getContext());
 
         $foundation->dropTables([
