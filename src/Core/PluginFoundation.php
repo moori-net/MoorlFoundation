@@ -221,23 +221,31 @@ class PluginFoundation
     public function removeCustomFields(string $param): void
     {
         $customFieldIds = $this->getCustomFieldIds($param);
-        if ($customFieldIds->getTotal() == 0) {
-            return;
+        if ($customFieldIds->getTotal() > 0) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $customFieldIds->getIds());
+            $repo = $this->definitionInstanceRegistry->getRepository('custom_field');
+            $repo->delete($ids, $this->getContext());
         }
-        $ids = array_map(static function ($id) {
-            return ['id' => $id];
-        }, $customFieldIds->getIds());
-        $repo = $this->definitionInstanceRegistry->getRepository('custom_field');
-        $repo->delete($ids, $this->getContext());
+
         $customFieldSetIds = $this->getCustomFieldSetIds($param);
-        if ($customFieldSetIds->getTotal() == 0) {
-            return;
+        if ($customFieldSetIds->getTotal() > 0) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $customFieldSetIds->getIds());
+            $repo = $this->definitionInstanceRegistry->getRepository('custom_field_set');
+            $repo->delete($ids, $this->getContext());
         }
-        $ids = array_map(static function ($id) {
-            return ['id' => $id];
-        }, $customFieldSetIds->getIds());
-        $repo = $this->definitionInstanceRegistry->getRepository('custom_field_set');
-        $repo->delete($ids, $this->getContext());
+
+        $snippetIds = $this->getSnippetIds("customFields." . $param);
+        if ($snippetIds->getTotal() > 0) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $snippetIds->getIds());
+            $repo = $this->definitionInstanceRegistry->getRepository('snippet');
+            $repo->delete($ids, $this->getContext());
+        }
     }
 
     public function getCustomFieldIds(string $param): IdSearchResult
@@ -253,6 +261,14 @@ class PluginFoundation
         $repo = $this->definitionInstanceRegistry->getRepository('custom_field_set');
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('name', $param));
+        return $repo->searchIds($criteria, $this->getContext());
+    }
+
+    public function getSnippetIds(string $param): IdSearchResult
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('snippet');
+        $criteria = new Criteria();
+        $criteria->addFilter(new ContainsFilter('translationKey', $param));
         return $repo->searchIds($criteria, $this->getContext());
     }
 
@@ -280,7 +296,7 @@ class PluginFoundation
             $this->connection->executeQuery('DELETE FROM `mail_template` WHERE `id` = :id;', ['id' => $id]);
             if ($deleteAll) {
                 $this->connection->executeQuery('DELETE FROM `mail_template_type` WHERE `id` = :id;', ['id' => $id]);
-                $this->connection->executeQuery('DELETE FROM `mail_template_type_translation` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
+                //$this->connection->executeQuery('DELETE FROM `mail_template_type_translation` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
                 $this->connection->executeQuery('DELETE FROM `mail_template` WHERE `mail_template_type_id` IS NULL;');
             }
         }
@@ -290,8 +306,36 @@ class PluginFoundation
     {
         foreach ($data as $item) {
             $mailTemplateTypeId = Uuid::fromHexToBytes(md5($item['technical_name']));
-            $mailTemplateId = $mailTemplateTypeId;
+            try {
+                $this->connection->insert(
+                    'mail_template_type',
+                    [
+                        'id' => $mailTemplateTypeId,
+                        'technical_name' => $item['technical_name'],
+                        'available_entities' => json_encode($item['availableEntities']),
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+                foreach ($item['locale'] as $locale => $localeItem) {
+                    $languageId = $this->getLanguageIdByLocale($locale);
+                    if (!$languageId) {
+                        continue;
+                    }
+                    $this->connection->insert(
+                        'mail_template_type_translation',
+                        [
+                            'mail_template_type_id' => $mailTemplateTypeId,
+                            'name' => $localeItem['name'],
+                            'language_id' => Uuid::fromHexToBytes($languageId),
+                            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                        ]
+                    );
+                }
+            } catch (\Exception $exception) {
+            }
+
             /* After Refresh just Update the base mail template */
+            $mailTemplateId = $mailTemplateTypeId;
             $this->connection->insert(
                 'mail_template',
                 [
@@ -331,33 +375,6 @@ class PluginFoundation
                         'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
                     ]
                 );
-            } catch (\Exception $exception) {
-            }
-            try {
-                $this->connection->insert(
-                    'mail_template_type',
-                    [
-                        'id' => $mailTemplateTypeId,
-                        'technical_name' => $item['technical_name'],
-                        'available_entities' => json_encode($item['availableEntities']),
-                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-                    ]
-                );
-                foreach ($item['locale'] as $locale => $localeItem) {
-                    $languageId = $this->getLanguageIdByLocale($locale);
-                    if (!$languageId) {
-                        continue;
-                    }
-                    $this->connection->insert(
-                        'mail_template_type_translation',
-                        [
-                            'mail_template_type_id' => $mailTemplateTypeId,
-                            'name' => $localeItem['name'],
-                            'language_id' => Uuid::fromHexToBytes($languageId),
-                            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-                        ]
-                    );
-                }
             } catch (\Exception $exception) {
             }
         }
