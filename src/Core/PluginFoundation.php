@@ -2,6 +2,8 @@
 
 namespace MoorlFoundation\Core;
 
+use League\Flysystem\FilesystemInterface;
+use Symfony\Component\Finder\Finder;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
@@ -35,13 +37,44 @@ class PluginFoundation
      */
     private $languageIds;
 
+    /**
+     * @var FilesystemInterface|null
+     */
+    private $filesystem;
+
     public function __construct(
         DefinitionInstanceRegistry $definitionInstanceRegistry,
-        Connection $connection
+        Connection $connection,
+        ?FilesystemInterface $filesystem = null
     )
     {
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->connection = $connection;
+        $this->filesystem = $filesystem;
+    }
+
+    public function removeAssetsFromPlugin(string $targetDir): void
+    {
+        $this->filesystem->deleteDir($targetDir);
+    }
+
+    public function copyAssetsFromPlugin(string $originDir, string $targetDir): void
+    {
+        $this->filesystem->createDir($targetDir);
+
+        $files = Finder::create()
+            ->ignoreDotFiles(false)
+            ->files()
+            ->in($originDir)
+            ->getIterator();
+
+        foreach ($files as $file) {
+            $fs = fopen($file->getPathname(), 'rb');
+            $this->filesystem->putStream($targetDir . '/' . $file->getRelativePathname(), $fs);
+            if (is_resource($fs)) {
+                fclose($fs);
+            }
+        }
     }
 
     public function executeQuery(string $sql, array $params = [])
