@@ -11,6 +11,8 @@
             "sunday": "Sunday"
         },
         "buttons": {
+            "administrationButtonText": "Administration",
+            "openNewWindowButtonText": "Open in new window",
             "saveButtonText": "Save",
             "newButtonText": "New",
             "refreshButtonText": "Reload",

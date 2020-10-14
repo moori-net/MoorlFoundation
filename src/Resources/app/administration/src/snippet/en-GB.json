@@ -22,6 +22,9 @@
             "finishImportText": "The import process has finished now"
         },
         "buttons": {
+            "editorButtonText": "Editor",
+            "administrationButtonText": "Administration",
+            "openNewWindowButtonText": "Open in new window",
             "saveButtonText": "Save",
             "newButtonText": "New",
             "refreshButtonText": "Reload",
@@ -39,6 +42,10 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "redeemedValue": "Redeemed",
+            "alias": "Alias",
+            "id": "ID",
+            "type": "Type",
             "propertyName": "Property name",
             "technicalName": "Technical name",
             "target": "Target",

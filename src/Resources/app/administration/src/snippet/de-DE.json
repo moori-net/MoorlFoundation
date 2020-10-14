@@ -10,7 +10,21 @@
             "saturday": "Samstag",
             "sunday": "Sonntag"
         },
+        "import": {
+            "title": "Import Assistent",
+            "loadedText": "Es wurden {count} Datensätze in Ihrem Upload gefunden. Bitte konfigurieren Sie die Zuweisungen (mapping) im nächsten Schritt",
+            "processText": "Verarbeitung: {remaining} von {count} Datensätze verbleibend."
+        },
+        "notification": {
+            "startImportTitle": "Starte Import",
+            "startImportText": "Der Import Vorgang wurde gestartet",
+            "finishImportTitle": "Import erfolgreich",
+            "finishImportText": "Der Import Vorgang wurde erfolgreich abgeschlossen"
+        },
         "buttons": {
+            "editorButtonText": "Editor",
+            "administrationButtonText": "Administration",
+            "openNewWindowButtonText": "Im neuen Fenster öffnen",
             "saveButtonText": "Save",
             "newButtonText": "New",
             "refreshButtonText": "Reload",
@@ -28,6 +42,23 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "redeemedValue": "Eingelöst",
+            "alias": "Alias",
+            "id": "ID",
+            "type": "Typ",
+            "propertyName": "Eigenschaft Name",
+            "technicalName": "Technischer Name",
+            "target": "Ziel",
+            "source": "Quelle",
+            "promotionCode": "Promotion code",
+            "balance": "Guthaben",
+            "orderNumber": "Bestellnummer",
+            "promotion": "Promotion",
+            "promotions": "Promotions",
+            "code": "Code",
+            "customer": "Kunde",
+            "balanceBefore": "Guthaben zuvor",
+            "balanceAfter": "Guthaben danach",
             "closed": "Geschlossen",
             "from": "Ab",
             "until": "Bis",
