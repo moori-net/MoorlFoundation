@@ -22,6 +22,7 @@
             "finishImportText": "The import process has finished now"
         },
         "buttons": {
+            "showConfiguration": "Show configuration",
             "editorButtonText": "Editor",
             "administrationButtonText": "Administration",
             "openNewWindowButtonText": "Open in new window",
