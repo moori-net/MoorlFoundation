@@ -53,6 +53,38 @@ class PluginFoundation
         $this->filesystem = $filesystem;
     }
 
+    public function removePluginConfig(string $pluginName): void
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('system_config');
+        $criteria = new Criteria();
+        $criteria->addFilter(new ContainsFilter('configurationKey', $pluginName));
+        $configIds = $repo->searchIds($criteria, $this->getContext());
+
+        if ($configIds->getTotal() > 0) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $configIds->getIds());
+            $repo->delete($ids, $this->getContext());
+        }
+    }
+
+    public function removePluginSnippets(string $pluginName): void
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('snippet');
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new ContainsFilter('translationKey', $pluginName));
+        $snippetIds = $repo->searchIds($criteria, $this->getContext());
+
+        if ($snippetIds->getTotal() > 0) {
+            $ids = array_map(static function ($id) {
+                return ['id' => $id];
+            }, $snippetIds->getIds());
+
+            $repo->delete($ids, $this->getContext());
+        }
+    }
+
     public function removeAssetsFromPlugin(string $targetDir): void
     {
         $this->filesystem->deleteDir($targetDir);
