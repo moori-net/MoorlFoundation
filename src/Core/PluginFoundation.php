@@ -42,15 +42,22 @@ class PluginFoundation
      */
     private $filesystem;
 
+    /**
+     * @var string|null
+     */
+    private $projectDir;
+
     public function __construct(
         DefinitionInstanceRegistry $definitionInstanceRegistry,
         Connection $connection,
-        ?FilesystemInterface $filesystem = null
+        ?FilesystemInterface $filesystem = null,
+        ?string $projectDir
     )
     {
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->connection = $connection;
         $this->filesystem = $filesystem;
+        $this->projectDir = $projectDir;
     }
 
     public function removePluginConfig(string $pluginName): void
@@ -107,6 +114,16 @@ class PluginFoundation
                 fclose($fs);
             }
         }
+    }
+
+    public function getProjectDir(): string
+    {
+        return $this->projectDir;
+    }
+
+    public function getAppUrl(): string
+    {
+        return getenv('APP_URL');
     }
 
     public function executeQuery(string $sql, array $params = [])

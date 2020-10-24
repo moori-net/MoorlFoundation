@@ -22,6 +22,7 @@
             "finishImportText": "Der Import Vorgang wurde erfolgreich abgeschlossen"
         },
         "buttons": {
+            "showConfiguration": "Zeige Konfiguration",
             "editorButtonText": "Editor",
             "administrationButtonText": "Administration",
             "openNewWindowButtonText": "Im neuen Fenster öffnen",
@@ -42,6 +43,15 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "maxPurchase": "Max Anzahl pro Bestellung",
+            "discountType": "Rabatt Typ",
+            "product": "Produkt",
+            "isCountdown": "Countdown",
+            "isStock": "Abverkauf",
+            "discountValue": "Rabatt",
+            "finishedAt": "Beendet am",
+            "availableCount": "Verfügbar",
+            "purchasedCount": "Gekauft",
             "redeemedValue": "Eingelöst",
             "alias": "Alias",
             "id": "ID",
@@ -132,6 +142,9 @@
             "cmsPage": "CMS Seite"
         },
         "label": {
+            "promotionCard": "Rabatt",
+            "countdownCard": "Countdown",
+            "stockCard": "Lager",
             "accountCard": "Account",
             "generalCard": "General",
             "locationCard": "Location",

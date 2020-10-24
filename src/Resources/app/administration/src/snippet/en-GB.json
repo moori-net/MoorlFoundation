@@ -43,6 +43,15 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "maxPurchase": "Max purchases per order",
+            "discountType": "Discount type",
+            "product": "Product",
+            "isCountdown": "Is countdown",
+            "isStock": "Is stock",
+            "discountValue": "Discount",
+            "finishedAt": "Finished at",
+            "availableCount": "Available count",
+            "purchasedCount": "Purchased count",
             "redeemedValue": "Redeemed",
             "alias": "Alias",
             "id": "ID",
@@ -133,6 +142,9 @@
             "highlight": "Highlight"
         },
         "label": {
+            "promotionCard": "Discount",
+            "countdownCard": "Countdown",
+            "stockCard": "Stock",
             "accountCard": "Account",
             "generalCard": "General",
             "locationCard": "Location",
