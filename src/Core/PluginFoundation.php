@@ -51,7 +51,7 @@ class PluginFoundation
         DefinitionInstanceRegistry $definitionInstanceRegistry,
         Connection $connection,
         ?FilesystemInterface $filesystem = null,
-        ?string $projectDir
+        ?string $projectDir = null
     )
     {
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
