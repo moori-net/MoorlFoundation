@@ -43,6 +43,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "sourceType": "Type der Quelle",
+            "directory": "Ordner",
             "maxPurchase": "Max Anzahl pro Bestellung",
             "discountType": "Rabatt Typ",
             "product": "Produkt",

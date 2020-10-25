@@ -1,0 +1,21 @@
+import ApiService from 'src/core/service/api.service';
+
+class FoundationApiService extends ApiService {
+    constructor(httpClient, loginService, apiEndpoint = '') {
+        super(httpClient, loginService, apiEndpoint);
+    }
+
+    get(path) {
+        const apiRoute = this.getApiBasePath() + path;
+        return this.httpClient.get(
+            apiRoute,
+            {
+                headers: this.getBasicHeaders()
+            }
+        ).then((response) => {
+            return ApiService.handleResponse(response);
+        });
+    }
+}
+
+export default FoundationApiService;
