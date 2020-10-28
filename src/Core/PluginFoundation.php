@@ -60,6 +60,64 @@ class PluginFoundation
         $this->projectDir = $projectDir;
     }
 
+    public function addShippingMethods($data)
+    {
+        foreach ($data as $item) {
+            $shippingId = Uuid::fromHexToBytes(md5($item['technical_name']));
+            $deliveryTimeId = $this->getAnyEntityId('delivery_time');
+            $ruleId = $this->getAnyEntityId('rule');
+
+            $this->connection->insert(
+                'shipping_method',
+                [
+                    'id' => $shippingId,
+                    'availability_rule_id' => $ruleId,
+                    'delivery_time_id' => $deliveryTimeId,
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            $this->connection->insert(
+                'shipping_method_price',
+                [
+                    'id' => Uuid::randomBytes(),
+                    'shipping_method_id' => $shippingId,
+                    'calculation' => 1,
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            foreach ($item['locale'] as $locale => $localeItem) {
+                $languageId = $this->getLanguageIdByLocale($locale);
+
+                $this->connection->insert(
+                    'shipping_method_translation',
+                    [
+                        'shipping_method_id' => $shippingId,
+                        'name' => $localeItem['name'],
+                        'description' => $localeItem['description'],
+                        'language_id' => Uuid::fromHexToBytes($languageId),
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+            }
+        }
+    }
+
+    public function removeShippingMethods($ids)
+    {
+        foreach ($ids as $id) {
+            $id = Uuid::fromHexToBytes(md5($id));
+
+            $this->connection->executeQuery('DELETE FROM `order_delivery` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeQuery('DELETE FROM `shipping_method_price` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeQuery('DELETE FROM `shipping_method_tag` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeQuery('DELETE FROM `shipping_method_translation` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeQuery('DELETE FROM `sales_channel_shipping_method` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeQuery('DELETE FROM `shipping_method` WHERE `id` = :id;', ['id' => $id]);
+        }
+    }
+
     public function removePluginConfig(string $pluginName): void
     {
         $repo = $this->definitionInstanceRegistry->getRepository('system_config');
@@ -460,5 +518,15 @@ class PluginFoundation
             } catch (\Exception $exception) {
             }
         }
+    }
+
+    private function getAnyEntityId(string $entity): string
+    {
+        $sql = 'SELECT `id` FROM `' . $entity . '` LIMIT 1';
+        $id = $this->connection->executeQuery($sql)->fetchColumn();
+        if (!$id) {
+            throw new \RuntimeException(sprintf('Entity "%s" not found.', $entity));
+        }
+        return $id;
     }
 }
