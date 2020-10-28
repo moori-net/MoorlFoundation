@@ -16,6 +16,19 @@ class FoundationApiService extends ApiService {
             return ApiService.handleResponse(response);
         });
     }
+
+    post(path, data) {
+        const apiRoute = this.getApiBasePath() + path;
+        return this.httpClient.post(
+            apiRoute,
+            data,
+            {
+                headers: this.getBasicHeaders()
+            }
+        ).then((response) => {
+            return ApiService.handleResponse(response);
+        });
+    }
 }
 
 export default FoundationApiService;

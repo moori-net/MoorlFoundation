@@ -19,9 +19,12 @@
             "startImportTitle": "Start import",
             "startImportText": "The import process has started now",
             "finishImportTitle": "Import successful",
-            "finishImportText": "The import process has finished now"
+            "finishImportText": "The import process has finished now",
+            "connectionError": "Connection Error",
+            "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "testConnection": "Test connection",
             "showConfiguration": "Show configuration",
             "editorButtonText": "Editor",
             "administrationButtonText": "Administration",
@@ -43,6 +46,12 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "host": "Host",
+            "port": "Port",
+            "user": "Username",
+            "pass": "password",
+            "customerGroup": "Customer group",
+            "showHeader": "Show header",
             "mediaFolder": "Media folder",
             "sourceType": "Type of source",
             "directory": "Directory",

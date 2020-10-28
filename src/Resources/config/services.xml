@@ -34,5 +34,18 @@
         <service id="MoorlFoundation\Resources\snippet\en_GB\SnippetFile_en_GB" public="true">
             <tag name="shopware.snippet.file" priority="100"/>
         </service>
+
+        <!-- Field Types -->
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldSerializer\DistanceFieldSerializer">
+            <tag name="shopware.field_serializer"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\DistanceFieldAccessorBuilder">
+            <tag name="shopware.field_accessor_builder" priority="100"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\DistanceFieldResolver">
+            <tag name="shopware.field_resolver" priority="-50"/>
+        </service>
     </services>
 </container>
