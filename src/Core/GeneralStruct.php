@@ -8,6 +8,7 @@ class GeneralStruct extends Struct
 {
     public function __construct(array $values = [])
     {
+        // TODO: Entfernen
         foreach ($values as $name => $value) {
             $this->$name = $value;
         }

@@ -51,6 +51,7 @@ class DatabaseSchemaFoundation
         Connection $connection
     )
     {
+        // TODO: Entfernen
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->connection = $connection;
     }

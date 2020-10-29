@@ -10,10 +10,24 @@
             "saturday": "Saturday",
             "sunday": "Sunday"
         },
+        "getLocation": {
+            "title": "Location assistant",
+            "overwrite": "Overwrite all locations",
+            "skipError": "Skip on error"
+        },
         "import": {
             "title": "Import assistant",
             "loadedText": "There are {count} rows in your file. Please configure the mapping in the next step.",
-            "processText": "Processing: {remaining} of {count} rows left."
+            "processText": "Processing: {remaining} of {count} rows left.",
+            "mapping": "Mapping",
+            "label": "Label",
+            "value": "Value",
+            "property": "Property",
+            "fromImport": "From Import",
+            "bool": "Boolean",
+            "salesChannel": "Sales channel",
+            "country": "Country",
+            "customerGroup": "Customer group"
         },
         "notification": {
             "startImportTitle": "Start import",
@@ -24,6 +38,7 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "startButtonText": "Start",
             "testConnection": "Test connection",
             "showConfiguration": "Show configuration",
             "editorButtonText": "Editor",
@@ -46,6 +61,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "descriptionHtml": "Description HTML",
             "host": "Host",
             "port": "Port",
             "user": "Username",
@@ -154,6 +170,7 @@
             "highlight": "Highlight"
         },
         "label": {
+            "contactPersonCard": "Contact person",
             "promotionCard": "Discount",
             "countdownCard": "Countdown",
             "stockCard": "Stock",

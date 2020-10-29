@@ -2,11 +2,8 @@
 
 namespace MoorlFoundation\Core;
 
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
-use Shopware\Core\Framework\Uuid\Uuid;
 use Doctrine\DBAL\Connection;
 
 class PluginHelpers
