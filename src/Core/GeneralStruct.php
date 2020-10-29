@@ -4,11 +4,11 @@ namespace MoorlFoundation\Core;
 
 use Shopware\Core\Framework\Struct\Struct;
 
+// TODO: Wird entfernt sobald MoorlMerchantVoucher, MoorlMagazine, MoorlMagazine Update erhält
 class GeneralStruct extends Struct
 {
     public function __construct(array $values = [])
     {
-        // TODO: Entfernen
         foreach ($values as $name => $value) {
             $this->$name = $value;
         }

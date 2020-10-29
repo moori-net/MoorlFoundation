@@ -6,6 +6,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Doctrine\DBAL\Connection;
 
+// TODO: Wird entfernt sobald CMS Plugins Updates erhalten
 class PluginHelpers
 {
     public static function scrambleWord(string $word): string
