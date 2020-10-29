@@ -1,7 +1,11 @@
 import Plugin from 'src/plugin-system/plugin.class';
+import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlFoundation extends Plugin {
     init() {
+        this._client = new HttpClient(window.accessKey, window.contextToken);
+        this._registerModalEvents();
+
         let config = document.getElementById("moorlFoundationAnimateConfig");
 
         if (!config) {
@@ -42,6 +46,18 @@ export default class MoorlFoundation extends Plugin {
         window.addEventListener("scroll", function () {
             that.animate();
         }, false);
+    }
+
+    _registerModalEvents() {
+        const that = this;
+
+        $(document).on('click', '[data-moorl-foundation-modal]', function () {
+            that._client.get(this.dataset.moorlFoundationModal, that._openModal.bind(this))
+        });
+    }
+
+    _openModal(response) {
+        $('#moorlFoundationModal').html(response).modal('show');
     }
 
     animateInit(str, attr) {

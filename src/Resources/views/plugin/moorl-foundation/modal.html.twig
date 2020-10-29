@@ -1,0 +1,28 @@
+<div class="modal-dialog {{ modal.size ? "modal-#{modal.size}" : "" }} {{ modal.centered ? "modal-dialog-centered" : "" }}" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                {{ modal.title }}
+            </h3>
+            <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">{% sw_icon 'x' %}</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            {{ modal.body|raw }}
+        </div>
+
+        <div class="modal-footer text-right">
+            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
+                {{ 'general.back'|trans }}
+            </button>
+
+            {% if modal.button %}
+                <button class="btn btn-primary" type="submit">
+                    {{ 'general.formSubmit'|trans }}
+                </button>
+            {% endif %}
+        </div>
+    </div>
+</div>
