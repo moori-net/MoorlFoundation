@@ -60,6 +60,48 @@ class PluginFoundation
         $this->projectDir = $projectDir;
     }
 
+    public function removeCmsPages($ids)
+    {
+        foreach ($ids as $id) {
+            $id = Uuid::fromHexToBytes(md5($id));
+
+            $this->executeQuery('DELETE FROM `cms_page_translation` WHERE `cms_page_id` = :id;', ['id' => $id]);
+            $this->executeQuery('DELETE FROM `cms_page` WHERE `id` = :id;', ['id' => $id]);
+        }
+    }
+
+    public function addCmsPages($data)
+    {
+        foreach ($data as $item) {
+            $cmsPageId = Uuid::fromHexToBytes(md5($item['technical_name']));
+
+            $this->connection->insert(
+                'cms_page',
+                [
+                    'id' => $cmsPageId,
+                    'type' => $item['type'],
+                    'entity' => $item['entity'],
+                    'locked' => $item['locked'],
+                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                ]
+            );
+
+            foreach ($item['locale'] as $locale => $localeItem) {
+                $languageId = $this->getLanguageIdByLocale($locale);
+
+                $this->connection->insert(
+                    'cms_page_translation',
+                    [
+                        'cms_page_id' => $cmsPageId,
+                        'name' => $localeItem['name'],
+                        'language_id' => Uuid::fromHexToBytes($languageId),
+                        'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                    ]
+                );
+            }
+        }
+    }
+
     public function addShippingMethods($data)
     {
         foreach ($data as $item) {
