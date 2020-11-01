@@ -38,6 +38,7 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "removeButtonText": "Remove",
             "startButtonText": "Start",
             "testConnection": "Test connection",
             "showConfiguration": "Show configuration",
@@ -61,11 +62,22 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "redemptions": "Redemptions",
+            "redeemed": "Redeemed",
+            "hasCode": "Use codes",
+            "none": "No selection",
+            "credentials": "Credentials",
+            "client": "Client",
+            "category": "Category",
+            "productEsd": "Product (ESD)",
+            "productEsdDays": "Product ESD subscription time (days)",
+            "esd": "ESD",
+            "validUntil": "Valid until",
             "descriptionHtml": "Description HTML",
             "host": "Host",
             "port": "Port",
             "user": "Username",
-            "pass": "password",
+            "pass": "Password",
             "customerGroup": "Customer group",
             "showHeader": "Show header",
             "mediaFolder": "Media folder",
@@ -170,6 +182,8 @@
             "highlight": "Highlight"
         },
         "label": {
+            "codeCard": "Codes",
+            "esdCard": "ESD",
             "contactPersonCard": "Contact person",
             "promotionCard": "Discount",
             "countdownCard": "Countdown",
@@ -182,6 +196,15 @@
             "relationsCard": "Relations and Filters",
             "visibilityCard": "Visibility",
             "metaCard": "Meta"
+        },
+        "cms": {
+            "label": {
+                "enableList": "Enable list",
+                "enablePrices": "Enable prices",
+                "enableAddToCart": "Enable add to cart button",
+                "enableDirectUrl": "Enable direct URL to product",
+                "enableAnimatedHotspots": "Enable animated hotspots"
+            }
         }
     },
     "moorl-foundation-article": {
