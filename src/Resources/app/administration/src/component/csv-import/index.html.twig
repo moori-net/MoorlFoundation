@@ -1,0 +1,80 @@
+{% block moorl_csv_import %}
+    <sw-modal v-if="showImportModal"
+              :title="$t('moorl-foundation.import.title')"
+              @modal-close="onCloseModal"
+              variant="default">
+
+        {# Step 1: Chose File #}
+        {% block moorl_csv_import_chose_file %}
+        <template v-if="!csv.data">
+            <sw-button @click="onClickUpload"
+                       variant="primary"
+                       size="small">{{ $t('moorl-foundation.buttons.importButtonText') }}</sw-button>
+            <form style="display: none;" ref="fileForm">
+                <input class="sw-plugin-file-upload__file-input"
+                       type="file"
+                       id="files"
+                       ref="fileInput"
+                       @change="onFileInputChange"/>
+            </form>
+        </template>
+        {% endblock %}
+
+        {# Step 2: Chose Defaults #}
+        {% block moorl_csv_import_chose_defaults %}
+        <template v-if="csv.data">
+            <div v-for="(column, property) in columns">
+                <sw-field :label="$tc('moorl-foundation.properties.' + property)"
+                          :type="column.type"
+                          v-model="csv.defaults[property]"></sw-field>
+            </div>
+        </template>
+        {% endblock %}
+
+        {# Step 3: Chose Mapping #}
+        {% block moorl_csv_import_chose_mapping %}
+        <template v-if="csv.data">
+            <table class="moorl-merchant-finder-mapping-table" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>{{ $t('moorl-foundation.import.label') }}</th>
+                        <th>{{ $t('moorl-foundation.import.property') }}</th>
+                        <th>{{ $t('moorl-foundation.import.mapping') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  v-for="(column, property) in columns">
+                        <td>{{ $tc('moorl-foundation.properties.' + property) }}</td>
+                        <td>{{ property }}</td>
+                        <td>
+                            <select v-model="csv.mapping[property]">
+                                <optgroup :label="$t('moorl-foundation.import.fromImport')">
+                                    <option v-for="csvProperty in csv.properties" :value="csvProperty">{{ csvProperty }}</option>
+                                </optgroup>
+
+                                <optgroup :label="$t('moorl-foundation.import.bool')">
+                                    <option value>{{ $t('moorl-foundation.import.noSelection') }}</option>
+                                    <option value="1">true</option>
+                                    <option value="0">false</option>
+                                </optgroup>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </template>
+        {% endblock %}
+
+        <template #modal-footer>
+            <sw-button @click="onCloseModal" size="small">
+                {{ $t('moorl-foundation.buttons.cancelButtonText') }}
+            </sw-button>
+            <sw-button v-if="csv.data"
+                       @click="onClickImport"
+                       variant="primary"
+                       size="small">
+                {{ $t('moorl-foundation.buttons.startImportButtonText') }}
+            </sw-button>
+        </template>
+    </sw-modal>
+{% endblock %}
