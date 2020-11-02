@@ -62,6 +62,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "customFields": "Custom fields",
             "redemptions": "Redemptions",
             "redeemed": "Redeemed",
             "hasCode": "Use codes",

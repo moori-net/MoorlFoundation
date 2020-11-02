@@ -21,7 +21,8 @@
         </sw-button>
     </sw-container>
 
-    <sw-data-grid v-if="gridItemsTotal > 0"
+    <sw-data-grid ref="entity"
+                  v-if="gridItemsTotal > 0"
                   :dataSource="gridPageDataSource"
                   :columns="gridColumns"
                   :showSelection="false"

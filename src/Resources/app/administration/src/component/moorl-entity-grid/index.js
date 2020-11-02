@@ -23,12 +23,22 @@ Component.register('moorl-entity-grid', {
             type: Array,
             required: false
         },
+        filterColumns: {
+            type: Array,
+            required: false,
+            default: []
+        },
         criteria: {
             type: Object,
             required: false,
             default() {
                 return new Criteria(1, 10);
             }
+        },
+        depth: {
+            type: Number,
+            required: false,
+            default: 1
         },
         onEditItem: {
             type: Function,
@@ -53,54 +63,18 @@ Component.register('moorl-entity-grid', {
     },
 
     computed: {
+        gridColumns() {
+            if (this.columns) {
+                return this.columns;
+            }
+
+            return this.initGridColumns(null);
+        },
         gridPagesVisible() {
             return 7;
         },
         gridSteps() {
             return [10, 25, 50];
-        },
-        gridColumns() {
-            let columns = [];
-            let properties = Shopware.EntityDefinition.get(this.entity).properties
-            let primary = true;
-
-            for (const [property, item] of Object.entries(properties)) {
-                item.inlineEdit = null;
-                item.fieldType = 'text';
-
-                switch (item.type) {
-                    case 'uuid':
-                        continue;
-                    case "text":
-                        item.inlineEdit = 'string';
-                        break;
-                    case "int":
-                        item.inlineEdit = 'int';
-                        item.fieldType = 'number';
-                        break;
-                    case "bool":
-                        item.inlineEdit = 'bool';
-                        item.fieldType = 'switch';
-                        break;
-                }
-
-                columns.push({
-                    property: property,
-                    dataIndex: property,
-                    primary: primary,
-                    allowResize: false,
-                    label: this.$tc(`moorl-foundation.properties.${property}`),
-                    inlineEdit: item.inlineEdit,
-                    sortable: true,
-                    fieldType: item.fieldType
-                });
-
-                primary = false;
-            }
-
-            console.log(columns);
-
-            return columns;
         },
         gridItemsTotal() {
             return this.totalCount;
@@ -118,6 +92,75 @@ Component.register('moorl-entity-grid', {
     methods: {
         createdComponent() {
             this.refreshGridDataSource();
+        },
+
+        initGridColumns(entityName, prefix, depth) {
+            let primary = false;
+
+            if (!entityName) {
+                entityName = this.entity;
+                primary = true;
+                prefix = '';
+                depth = 0;
+            } else {
+                console.log(this.depth);
+                prefix = prefix + '.';
+                depth++;
+                if (depth > this.depth) {
+                    return [];
+                }
+            }
+
+            let columns = [];
+            let properties = Shopware.EntityDefinition.get(entityName).properties
+
+            for (const [property, item] of Object.entries(properties)) {
+                let propertyName = prefix + property;
+
+                item.inlineEdit = false;
+                item.fieldType = item.type;
+
+                switch (item.type) {
+                    case 'uuid':
+                    case 'json_object':
+                        continue;
+                    case 'association':
+                        columns = [...columns, ...this.initGridColumns(item.entity, propertyName, depth)];
+                        continue;
+                    case "text":
+                        item.inlineEdit = 'string';
+                        break;
+                    case "int":
+                        item.inlineEdit = 'int';
+                        item.fieldType = 'number';
+                        break;
+                    case "boolean":
+                        item.inlineEdit = 'bool';
+                        item.fieldType = 'switch';
+                        break;
+                }
+
+                if (this.filterColumns.length !== 0) {
+                    if (this.filterColumns.indexOf(propertyName) === -1) {
+                        continue;
+                    }
+                }
+
+                columns.push({
+                    property: propertyName,
+                    dataIndex: propertyName,
+                    primary: primary,
+                    allowResize: false,
+                    label: this.$tc(`moorl-foundation.properties.${property}`),
+                    inlineEdit: item.inlineEdit,
+                    sortable: true,
+                    fieldType: item.fieldType
+                });
+
+                primary = false;
+            }
+
+            return columns;
         },
 
         onPageChange(data) {
