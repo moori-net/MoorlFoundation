@@ -65,6 +65,8 @@
         </template>
         {% endblock %}
 
+        <sw-progress-bar :value="4" :maxValue="56" />
+
         <template #modal-footer>
             <sw-button @click="onCloseModal" size="small">
                 {{ $t('moorl-foundation.buttons.cancelButtonText') }}

@@ -182,6 +182,7 @@
             "highlight": "Highlight"
         },
         "label": {
+            "search": "Search",
             "codeCard": "Codes",
             "esdCard": "ESD",
             "contactPersonCard": "Contact person",

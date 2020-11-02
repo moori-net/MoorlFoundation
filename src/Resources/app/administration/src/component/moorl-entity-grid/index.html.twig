@@ -1,0 +1,52 @@
+<div class="moorl-entity-grid">
+    <sw-container columns="4fr 1fr 1fr" gap="0 10px" class="moorl-entity-grid__top-bar">
+        <sw-field :placeholder="$tc('moorl-foundation.label.search')"
+                  type="text"
+                  v-model="gridSearch"
+                  @input="onSearch">
+        </sw-field>
+
+        <sw-button variant="primary"
+                   :block="true"
+                   size="small"
+                   @click="onEditItem(null)">
+            {{ $tc('moorl-foundation.buttons.newButtonText') }}
+        </sw-button>
+
+        <sw-button variant="primary"
+                   :block="true"
+                   size="small"
+                   @click="onImportItems">
+            {{ $tc('moorl-foundation.buttons.importButtonText') }}
+        </sw-button>
+    </sw-container>
+
+    <sw-data-grid v-if="gridItemsTotal > 0"
+                  :dataSource="gridPageDataSource"
+                  :columns="gridColumns"
+                  :showSelection="false"
+                  @select-all-items="onGridSelectionChanged"
+                  @selection-change="onGridSelectionChanged">
+        <template #actions="{ item }">
+            <sw-context-menu-item @click="onEditItem(item)">
+                {{ $tc('global.default.edit') }}
+            </sw-context-menu-item>
+
+            <sw-context-menu-item variant="danger"
+                                  @click="onDeleteItem(item)">
+                {{ $tc('global.default.delete') }}
+            </sw-context-menu-item>
+        </template>
+
+        <template slot="pagination">
+            <sw-pagination :total="gridItemsTotal"
+                           :limit="gridPageLimit"
+                           :page="gridCurrentPageNr"
+                           :total-visible="gridPagesVisible"
+                           :steps="gridSteps"
+                           @page-change="onPageChange">
+            </sw-pagination>
+        </template>
+    </sw-data-grid>
+</div>
+
