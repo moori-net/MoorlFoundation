@@ -60,20 +60,44 @@ Component.register('moorl-csv-import', {
 
     data() {
         return {
+            pause: false,
+            step: 1,
+            options: {
+                overwrite: true,
+                pause: true,
+            },
+            rowCount: 0,
+            rowsDone: 0,
+            defaultValues: this.defaultValues,
             entityName: this.entity,
             csv: {
-                defaults: this.defaultValues,
                 data: null,
                 properties: {},
                 mapping: {}
             },
             columns: null,
             showImportModal: true,
-            showDefaultValues: true,
+            showDefaultValues: true
         };
     },
 
     computed: {
+        editColumns() {
+            return this.initEditColumns(null);
+        },
+
+        getUniqueProperties() {
+            let elements = [];
+
+            for (let item of this.editColumns) {
+                if (item.flags.primary_key || item.flags.moorl_unique) {
+                    elements.push(item.label);
+                }
+            }
+
+            return elements.join(', ');
+        },
+
         repository() {
             return this.repositoryFactory.create(this.entity);
         },
@@ -94,11 +118,32 @@ Component.register('moorl-csv-import', {
     methods: {
         createdComponent() {
             console.log('createdComponent()');
-            console.log(this.entity);
-            console.log(this.defaultValues);
-            console.log(this.csv);
 
-            this.initEntity();
+            this.columns = Shopware.EntityDefinition.get(this.entityName).properties;
+        },
+
+        initEditColumns() {
+            let columns = [];
+            let properties = Shopware.EntityDefinition.get(this.entity).properties
+
+            for (const [property, item] of Object.entries(properties)) {
+                if (!item.flags.moorl_edit_field && !item.flags.primary_key) {
+                    continue;
+                }
+
+                if (Object.keys(this.defaultValues).indexOf(property) !== -1) {
+                    continue;
+                }
+
+                item.property = property;
+                item.label = this.$tc(`moorl-foundation.properties.${property}`);
+
+                columns.push(item);
+            }
+
+            console.log(columns);
+
+            return columns;
         },
 
         validateCsv() {
@@ -130,24 +175,36 @@ Component.register('moorl-csv-import', {
                     that.csv.data = results.data;
                     that.validateCsv();
                     that.$refs.fileForm.reset();
+
+                    that.rowCount = that.csv.data.length;
+                    that.rowsDone = 0;
+                    that.step = 2;
                 }
             });
         },
 
-        mountedComponent() {},
-
-        initEntity() {
-            this.columns = Shopware.EntityDefinition.get(this.entityName).properties;
-
-            console.log('initEntity()');
-            console.log(this.columns);
+        onClickBack() {
+            this.step--;
         },
+
+        onClickPause() {
+            this.pause = !this.pause;
+
+            // resuming import
+            if (!this.pause) {
+                this.importCsvRow();
+            }
+        },
+
+        mountedComponent() {},
 
         onClickImport() {
             this.createSystemNotificationSuccess({
                 title: this.$t('moorl-foundation.notification.importTitle'),
                 message: this.$t('moorl-foundation.notification.importText'),
             });
+
+            this.step = 3;
 
             this.importCsvRow();
         },
@@ -198,6 +255,9 @@ Component.register('moorl-csv-import', {
                                 remaining: this.csv.data.length
                             })
                         });
+
+                        this.rowsDone++;
+
                         this.importCsvRow();
                     } else {
                         this.isLoading = false;
@@ -206,9 +266,13 @@ Component.register('moorl-csv-import', {
                             message: this.$t('moorl-foundation.notification.successText')
                         });
 
+                        this.step = 4;
+
                         this.onFinishImport();
                     }
                 }).catch((exception) => {
+                    this.pause = true;
+
                     console.log(exception);
                     this.createNotificationError({
                         title: this.$t('moorl-foundation.notification.errorTitle'),
@@ -218,6 +282,10 @@ Component.register('moorl-csv-import', {
         },
 
         async importCsvRow() {
+            if (this.pause) {
+                return;
+            }
+
             let item = this.csv.data.shift();
             item = await this.sanitizeItem(item);
 

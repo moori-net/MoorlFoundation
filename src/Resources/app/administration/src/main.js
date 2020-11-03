@@ -1,5 +1,6 @@
 //import './core/font-awesome'
-import './component/csv-import';
+import './component/moorl-entity-form-element';
+import './component/moorl-csv-import';
 import './component/moorl-entity-grid';
 
 import './init/foundation-api-service.init';

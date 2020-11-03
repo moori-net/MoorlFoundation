@@ -27,7 +27,11 @@
             "bool": "Boolean",
             "salesChannel": "Sales channel",
             "country": "Country",
-            "customerGroup": "Customer group"
+            "customerGroup": "Customer group",
+            "choseDefault": "Chose default",
+            "overwriteLabel": "Overwrite by following properties: ",
+            "pauseLabel": "Pause on error",
+            "mediaFolder": "Save media (if is set) in this folder"
         },
         "notification": {
             "startImportTitle": "Start import",
@@ -38,6 +42,9 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "pauseButtonText": "Pause",
+            "resumeButtonText": "Resume",
+            "backButtonText": "Back",
             "removeButtonText": "Remove",
             "startButtonText": "Start",
             "testConnection": "Test connection",
@@ -62,6 +69,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "order": "Order",
             "customFields": "Custom fields",
             "redemptions": "Redemptions",
             "redeemed": "Redeemed",

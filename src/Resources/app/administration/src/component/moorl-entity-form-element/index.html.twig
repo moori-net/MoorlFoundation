@@ -1,0 +1,16 @@
+<div class="moorl-entity-form-element">
+    <template v-if="column.type == 'association'">
+        <sw-entity-single-select :label="column.label"
+                                 v-model="value[column.localField]"
+                                 :labelProperty="column.flags.moorl_label_property"
+                                 :entity="column.entity">
+        </sw-entity-single-select>
+    </template>
+
+    <template v-else>
+        <sw-field :type="column.flags.moorl_edit_field"
+                  :label="column.label"
+                  v-model="value[column.property]">
+        </sw-field>
+    </template>
+</div>

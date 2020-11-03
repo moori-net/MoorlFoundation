@@ -40,15 +40,12 @@ Component.register('moorl-entity-grid', {
             required: false,
             default: 1
         },
-        onEditItem: {
-            type: Function,
+        defaultValues: {
+            type: Object,
             required: false,
-            default: null
-        },
-        onImportItems : {
-            type: Function,
-            required: false,
-            default: null
+            default() {
+                return {};
+            }
         }
     },
 
@@ -58,7 +55,10 @@ Component.register('moorl-entity-grid', {
             gridCurrentPageNr: 1,
             gridPageLimit: 10,
             gridPageDataSource: [],
-            gridSearch: null
+            gridSearch: null,
+            showEditModal: false,
+            editItem: null,
+            showImportModal: false
         };
     },
 
@@ -69,6 +69,9 @@ Component.register('moorl-entity-grid', {
             }
 
             return this.initGridColumns(null);
+        },
+        editColumns() {
+            return this.initEditColumns(null);
         },
         gridPagesVisible() {
             return 7;
@@ -94,6 +97,36 @@ Component.register('moorl-entity-grid', {
             this.refreshGridDataSource();
         },
 
+        initEditColumns() {
+            let columns = [];
+            let properties = Shopware.EntityDefinition.get(this.entity).properties
+
+            for (const [property, item] of Object.entries(properties)) {
+                switch (item.type) {
+                    case 'uuid':
+                    case 'json_object':
+                        continue;
+                }
+
+                if (Object.keys(this.defaultValues).indexOf(property) !== -1) {
+                    continue;
+                }
+
+                if (!item.flags.moorl_edit_field) {
+                    continue;
+                }
+
+                item.property = property;
+                item.label = this.$tc(`moorl-foundation.properties.${property}`);
+
+                columns.push(item);
+            }
+
+            console.log(columns);
+
+            return columns;
+        },
+
         initGridColumns(entityName, prefix, depth) {
             let primary = false;
 
@@ -113,6 +146,8 @@ Component.register('moorl-entity-grid', {
 
             let columns = [];
             let properties = Shopware.EntityDefinition.get(entityName).properties
+
+            console.log(properties);
 
             for (const [property, item] of Object.entries(properties)) {
                 let propertyName = prefix + property;
@@ -209,8 +244,41 @@ Component.register('moorl-entity-grid', {
                 });
         },
 
+        onSaveItem() {
+            this.isLoading = true;
+            this.repository
+                .save(this.editItem, Shopware.Context.api)
+                .then(() => {
+                    this.refreshGridDataSource();
+                    this.isLoading = false;
+                    this.showEditModal = false;
+                }).catch((exception) => {
+                    this.isLoading = false;
+                    this.createNotificationError({
+                        title: this.$t('moorl-foundation.notification.saveError'),
+                        message: exception
+                    });
+                });
+        },
+
         onEditItem(item) {
-            this.onEditItem(item)
+            if (item) {
+                this.editItem = item;
+                this.showEditModal = true;
+            } else {
+                this.editItem = this.repository.create(Shopware.Context.api);
+                Object.assign(this.editItem, this.defaultValues)
+                this.showEditModal = true;
+            }
+        },
+
+        onImportItems() {
+            this.showImportModal = true;
+        },
+
+        onCloseModal() {
+            this.showEditModal = false;
+            this.showImportModal = false;
         }
     }
 });
