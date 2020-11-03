@@ -54,11 +54,14 @@ Component.register('moorl-entity-grid', {
             totalCount: 0,
             gridCurrentPageNr: 1,
             gridPageLimit: 10,
-            gridPageDataSource: [],
+            items: [],
             gridSearch: null,
             showEditModal: false,
             editItem: null,
-            showImportModal: false
+            showImportModal: false,
+            sortBy: 'createdAt',
+            sortDirection: 'DESC',
+            isLoading: false,
         };
     },
 
@@ -86,7 +89,7 @@ Component.register('moorl-entity-grid', {
             return this.repositoryFactory.create(this.entity);
         },
         defaultCriteria() {
-            return this.criteria;
+            return new Criteria();
         }
     },
     created() {
@@ -206,8 +209,9 @@ Component.register('moorl-entity-grid', {
         },
 
         refreshGridDataSource() {
-            const criteria = this.defaultCriteria;
+            const criteria = new Criteria();
 
+            criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, true))
             criteria.setPage(this.gridCurrentPageNr);
             criteria.setLimit(this.gridPageLimit);
             criteria.setTotalCountMode(1);
@@ -217,9 +221,9 @@ Component.register('moorl-entity-grid', {
 
             this.repository.search(criteria, Shopware.Context.api).then((items) => {
                 this.totalCount = items.total;
-                this.gridPageDataSource = items;
+                this.items = items;
 
-                if (this.totalCount > 0 && this.gridPageDataSource.length <= 0) {
+                if (this.totalCount > 0 && this.items.length <= 0) {
                     this.gridCurrentPageNr = (this.gridCurrentPageNr === 1) ? 1 : this.gridCurrentPageNr -= 1;
                     this.refreshGridDataSource();
                 }
@@ -228,6 +232,36 @@ Component.register('moorl-entity-grid', {
 
         onGridSelectionChanged(selection, selectionCount) {
             this.deleteButtonDisabled = selectionCount <= 0;
+        },
+
+        onSortColumn(column) {
+            console.log('onSortColumn()');
+            console.log(column);
+
+            if (column.dataIndex !== this.sortBy) {
+                this.sortBy = column.dataIndex;
+                this.sortDirection = 'ASC';
+                this.refreshGridDataSource();
+                return;
+            }
+
+            if (this.sortDirection === 'ASC') {
+                this.sortDirection = 'DESC';
+            } else {
+                this.sortDirection = 'ASC';
+            }
+
+            this.refreshGridDataSource();
+        },
+
+        _onPageChange(opts) {
+            this.page = opts.page;
+            this.limit = opts.limit;
+            this.updateRoute({
+                page: this.page
+            }, {
+                ids: this.$route.query.ids
+            });
         },
 
         onSearch() {

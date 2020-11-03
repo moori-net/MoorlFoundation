@@ -23,9 +23,15 @@
 
     <sw-data-grid ref="entity"
                   v-if="gridItemsTotal > 0"
-                  :dataSource="gridPageDataSource"
+                  :dataSource="items"
                   :columns="gridColumns"
-                  :showSelection="false"
+                  :showSelection="true"
+                  :showSettings="true"
+                  sortBy="code"
+                  sortDirection="ASC"
+                  :allowColumnEdit="true"
+                  identifier="moorl-entity-grid"
+                  @column-sort="onSortColumn"
                   @select-all-items="onGridSelectionChanged"
                   @selection-change="onGridSelectionChanged">
         <template #actions="{ item }">
