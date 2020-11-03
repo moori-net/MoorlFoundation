@@ -272,11 +272,9 @@ Component.register('moorl-csv-import', {
             let regex = /^\s*(true|1|on|yes|ja|an)\s*$/i; // For Type = boolean
             let newItem = {};
 
-            console.log(this.csv);
-
-            for (const [property, csvProperty] of Object.entries(this.mapping)) {
+            for (const [property, newProperty] of Object.entries(this.mapping)) {
                 if (typeof property == 'string') {
-                    let item = this.columns.find(column => { return column.property === csvProperty });
+                    let item = this.columns.find(column => { return column.property === newProperty });
 
                     switch (item.type) {
                         case 'association':
@@ -311,47 +309,46 @@ Component.register('moorl-csv-import', {
                                         }
                                     }
                                 }
-                            } else if (item.relation == 'many_to_many') {
-                                // Split string - If uuid then ok, if not uuid then get uuid from entity name
+                            } else if (item.relation === 'many_to_many') {
                                 let parts = item[property].split("|");
-                                if (parts[0].length == 32) {
-                                    newItem[csvProperty] = parts.map(function (id) {
+                                if (parts[0].length === 32) {
+                                    newItem[newProperty] = parts.map(function (id) {
                                         if (that.getEntityById(item.entity, id)) {
                                             return {id: id};
                                         } else {
-                                            console.log(csvProperty + " - import validation error: unknown ID (" + id + ")");
+                                            console.log(newProperty + " - import validation error: unknown ID (" + id + ")");
                                             that.pause = true;
                                             return false;
                                         }
                                     });
                                 } else if (parts[0].length > 0) {
                                     // TODO: Try to auto add new Entities by name
-                                    newItem[csvProperty] = [];
+                                    newItem[newProperty] = [];
                                 }
                             }
                             break;
                         case 'boolean':
-                            if (['1', '0'].indexOf(property) != -1) {
-                                newItem[csvProperty] = regex.test(property);
+                            if (['1', '0'].indexOf(property) !== -1) {
+                                newItem[newProperty] = regex.test(property);
                             } else {
-                                newItem[csvProperty] = regex.test(item[property]);
+                                newItem[newProperty] = regex.test(item[property]);
                             }
                             break;
                         case 'int':
-                            newItem[csvProperty] = parseInt(item[property]);
+                            newItem[newProperty] = parseInt(item[property]);
                             break;
                         case 'float':
-                            newItem[csvProperty] = parseFloat(item[property]);
+                            newItem[newProperty] = parseFloat(item[property]);
                             break;
                         case 'uuid':
-                            if (item[property].length == 32) {
-                                newItem[csvProperty] = item[property];
+                            if (item[property].length === 32) {
+                                newItem[newProperty] = item[property];
                             }
                             break;
                         case 'date':
                             break;
                         default:
-                            newItem[csvProperty] = item[property];
+                            newItem[newProperty] = item[property];
                     }
                 }
             }
