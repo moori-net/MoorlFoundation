@@ -18,7 +18,7 @@
         </template>
 
         <template v-if="step == 2">
-            <sw-field type="switch" bordered :label="$tc('moorl-foundation.import.overwriteLabel') + getUniqueProperties" v-model="options.overwrite"></sw-field>
+            <sw-field type="switch" bordered :label="$tc('moorl-foundation.import.overwriteLabel') + getUniquePropertyLabels" v-model="options.overwrite"></sw-field>
 
             <sw-field type="switch" bordered :label="$tc('moorl-foundation.import.pauseLabel')" v-model="options.pause"></sw-field>
 
@@ -63,7 +63,7 @@
                     </tr>
                     </thead>
                     <tbody class="sw-data-grid__body">
-                    <tr v-for="column in editColumns" class="sw-data-grid__row">
+                    <tr v-for="column in columns" class="sw-data-grid__row">
                         <td class="sw-data-grid__cell">
                             <div class="sw-data-grid__cell-content">
                                 <span class="sw-data-grid__cell-value">{{ column.property }}</span>
@@ -72,7 +72,7 @@
 
                         <td class="sw-data-grid__cell">
                             <div class="sw-data-grid__cell-content">
-                                <sw-select-field v-model="csv.mapping[column.property]">
+                                <sw-select-field v-model="mapping[column.property]">
                                     <option value>{{ $t('moorl-foundation.import.choseDefault') }}</option>
                                     <option v-for="csvProperty in csv.properties"
                                             :value="csvProperty">{{ csvProperty }}</option>

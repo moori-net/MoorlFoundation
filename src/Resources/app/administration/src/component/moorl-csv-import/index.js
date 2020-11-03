@@ -24,38 +24,23 @@ Component.register('moorl-csv-import', {
             type: String,
             required: true
         },
-
         onCloseModal: {
             type: Function,
             required: true,
             default: null
         },
-
         onFinishImport: {
             type: Function,
             required: true,
             default: null
         },
-
         defaultValues: {
             type: Object,
             required: false,
             default() {
                 return {};
             }
-        },
-
-        callbackFunction: {
-            type: Function,
-            required: false,
-            default: null
-        },
-
-        sanitizeFunction: {
-            type: Function,
-            required: false,
-            default: null
-        },
+        }
     },
 
     data() {
@@ -65,39 +50,21 @@ Component.register('moorl-csv-import', {
             options: {
                 overwrite: true,
                 pause: true,
+                mediaFolderId: null
             },
             rowCount: 0,
             rowsDone: 0,
+            rowsLeft: 0,
             defaultValues: this.defaultValues,
-            entityName: this.entity,
-            csv: {
-                data: null,
-                properties: {},
-                mapping: {}
-            },
+            data: null,
+            properties: {},
+            mapping: {},
             columns: null,
-            showImportModal: true,
-            showDefaultValues: true
+            showImportModal: true
         };
     },
 
     computed: {
-        editColumns() {
-            return this.initEditColumns(null);
-        },
-
-        getUniqueProperties() {
-            let elements = [];
-
-            for (let item of this.editColumns) {
-                if (item.flags.primary_key || item.flags.moorl_unique) {
-                    elements.push(item.label);
-                }
-            }
-
-            return elements.join(', ');
-        },
-
         repository() {
             return this.repositoryFactory.create(this.entity);
         },
@@ -116,10 +83,28 @@ Component.register('moorl-csv-import', {
     watch: {},
 
     methods: {
-        createdComponent() {
-            console.log('createdComponent()');
+        async getEntityById(entity, id) {
+            // TODO: Check ID is valid
+            return true;
+        },
 
-            this.columns = Shopware.EntityDefinition.get(this.entityName).properties;
+        async getEntityByUniqueProperties() {
+            // TODO: Check entity has one match
+            return true;
+        },
+
+        async getMediaIdByFileName(filename) {
+            const criteria = new Criteria();
+            criteria.addFilter(Criteria.equals('fileName', filename));
+            let media = null;
+            await this.mediaRepository.search(criteria, Shopware.Context.api).then((result) => {
+                media = result.first();
+            });
+            return media ? media.id : null;
+        },
+
+        createdComponent() {
+            this.initEditColumns();
         },
 
         initEditColumns() {
@@ -130,35 +115,42 @@ Component.register('moorl-csv-import', {
                 if (!item.flags.moorl_edit_field && !item.flags.primary_key) {
                     continue;
                 }
-
                 if (Object.keys(this.defaultValues).indexOf(property) !== -1) {
                     continue;
                 }
-
                 item.property = property;
                 item.label = this.$tc(`moorl-foundation.properties.${property}`);
-
                 columns.push(item);
             }
 
             console.log(columns);
 
-            return columns;
+            this.columns = columns;
+        },
+
+        getUniquePropertyLabels() {
+            let elements = [];
+            for (let item of this.columns) {
+                if (item.flags.primary_key || item.flags.moorl_unique) {
+                    elements.push(item.label);
+                }
+            }
+            return elements.join(', ');
         },
 
         validateCsv() {
             const that = this;
 
-            this.csv.properties = Object.keys(this.csv.data[0]);
-            this.csv.matches = 0;
+            this.properties = Object.keys(this.data[0]);
+            this.matches = 0;
 
             for (let property in this.columns) {
                 let indexOf = (arr, q) => arr.findIndex(item => q.toLowerCase() === item.toLowerCase());
-                let result = indexOf(that.csv.properties, property);
+                let result = indexOf(that.properties, property);
 
                 if (result != -1) {
-                    that.csv.mapping[property] = that.csv.properties[result];
-                    that.csv.matches++;
+                    that.mapping[property] = that.properties[result];
+                    that.matches++;
                 }
             }
         },
@@ -172,11 +164,11 @@ Component.register('moorl-csv-import', {
                 skipEmptyLines: true,
                 complete: function (results, file) {
                     console.log("NOTICE: Parsing complete", results, file);
-                    that.csv.data = results.data;
+                    that.data = results.data;
                     that.validateCsv();
                     that.$refs.fileForm.reset();
 
-                    that.rowCount = that.csv.data.length;
+                    that.rowCount = that.data.length;
                     that.rowsDone = 0;
                     that.step = 2;
                 }
@@ -248,36 +240,10 @@ Component.register('moorl-csv-import', {
             this.repository
                 .save(item, Shopware.Context.api)
                 .then(() => {
-                    if (this.csv.data.length !== 0) {
-                        this.createNotificationSuccess({
-                            title: this.$t('moorl-foundation.notification.progressTitle'),
-                            message: this.$t('moorl-foundation.notification.progressText', 0, {
-                                remaining: this.csv.data.length
-                            })
-                        });
-
-                        this.rowsDone++;
-
-                        this.importCsvRow();
-                    } else {
-                        this.isLoading = false;
-                        this.createSystemNotificationSuccess({
-                            title: this.$t('moorl-foundation.notification.successTitle'),
-                            message: this.$t('moorl-foundation.notification.successText')
-                        });
-
-                        this.step = 4;
-
-                        this.onFinishImport();
-                    }
+                    this.importCsvRow();
                 }).catch((exception) => {
                     this.pause = true;
-
                     console.log(exception);
-                    this.createNotificationError({
-                        title: this.$t('moorl-foundation.notification.errorTitle'),
-                        message: exception
-                    });
                 });
         },
 
@@ -285,8 +251,15 @@ Component.register('moorl-csv-import', {
             if (this.pause) {
                 return;
             }
+            this.rowsDone++;
+            this.rowsLeft = this.data.length;
 
-            let item = this.csv.data.shift();
+            if (this.rowsLeft < 1) {
+                this.step = 4;
+                this.onFinishImport();
+            }
+
+            let item = this.data.shift();
             item = await this.sanitizeItem(item);
 
             this.prepareSaveItem(item);
@@ -301,17 +274,17 @@ Component.register('moorl-csv-import', {
 
             console.log(this.csv);
 
-            for (let csvProperty in this.csv.mapping) {
-                if (typeof that.csv.mapping[csvProperty] == 'string') {
-                    let property = this.columns[csvProperty];
+            for (const [property, csvProperty] of Object.entries(this.mapping)) {
+                if (typeof property == 'string') {
+                    let item = this.columns.find(column => { return column.property === csvProperty });
 
-                    switch (property.type) {
+                    switch (item.type) {
                         case 'association':
-                            if (property.relation == 'many_to_one') {
-                                if (property.entity == 'media' && item[that.csv.mapping[csvProperty]].length > 0) {
-                                    if (!that.csv.mapping[property.localField] || that.csv.mapping[property.localField].length !== 32) {
+                            if (item.relation === 'many_to_one') {
+                                if (item.entity === 'media' && item[property].length > 0) {
+                                    if (!that.mapping[item.localField] || that.mapping[item.localField].length !== 32) {
                                         const newMediaItem = that.mediaRepository.create(Shopware.Context.api);
-                                        const mediaUrl = new URL(item[that.csv.mapping[csvProperty]]);
+                                        const mediaUrl = new URL(item[property]);
                                         const file = mediaUrl.pathname.split('/').pop().split('.');
 
                                         if (file.length === 1) {
@@ -320,13 +293,13 @@ Component.register('moorl-csv-import', {
                                             newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
                                             newMediaItem.fileExtension = file.pop();
                                         }
-                                        newMediaItem.mediaFolderId = this.csv.options.mediaFolderId;
+                                        newMediaItem.mediaFolderId = this.options.mediaFolderId;
                                         let mediaId = await that.getMediaIdByFileName(newMediaItem.fileName);
 
                                         if (mediaId) {
-                                            newItem[property.localField] = mediaId;
+                                            newItem[item.localField] = mediaId;
                                         } else {
-                                            newItem[property.localField] = newMediaItem.id;
+                                            newItem[item.localField] = newMediaItem.id;
                                             that.mediaRepository.save(newMediaItem, Shopware.Context.api).then(() => {
                                                 that.mediaService.uploadMediaFromUrl(
                                                     newMediaItem.id,
@@ -338,86 +311,52 @@ Component.register('moorl-csv-import', {
                                         }
                                     }
                                 }
-                            } else if (property.relation == 'many_to_many') {
+                            } else if (item.relation == 'many_to_many') {
                                 // Split string - If uuid then ok, if not uuid then get uuid from entity name
-                                let parts = item[that.csv.mapping[csvProperty]].split("|");
+                                let parts = item[property].split("|");
                                 if (parts[0].length == 32) {
                                     newItem[csvProperty] = parts.map(function (id) {
-                                        // TODO: Clean validation of all relationsship data
-                                        if (!that.collections[property.entity].has(id)) {
-                                            that.createNotificationError({
-                                                title: 'ERROR',
-                                                message: csvProperty + " - import validation error: unknown ID (" + id + ")",
-                                                autoClose: false
-                                            });
-                                            return false;
-                                        } else {
+                                        if (that.getEntityById(item.entity, id)) {
                                             return {id: id};
+                                        } else {
+                                            console.log(csvProperty + " - import validation error: unknown ID (" + id + ")");
+                                            that.pause = true;
+                                            return false;
                                         }
                                     });
                                 } else if (parts[0].length > 0) {
                                     // TODO: Try to auto add new Entities by name
-                                    if (property.entity == 'tag') {
-                                        let tagsCollection = [];
-                                        that.tags.forEach(function (tag) {
-                                            for (let i = 0; i < parts.length; i++) {
-                                                if (tag.name == parts[i]) {
-                                                    tagsCollection.push(tag);
-                                                    parts.splice(i, 1);
-                                                }
-                                            }
-                                        });
-                                        for (let i = 0; i < parts.length; i++) {
-                                            let result = that.tagRepository.create(Shopware.Context.api);
-                                            result.name = parts[i];
-                                            result.id = Shopware.Utils.createId();
-                                            that.tagRepository.save(result, Shopware.Context.api);
-                                            that.tags.add(result);
-                                            tagsCollection.push(result);
-                                        }
-                                        newItem[csvProperty] = tagsCollection;
-                                    }
+                                    newItem[csvProperty] = [];
                                 }
                             }
                             break;
                         case 'boolean':
-                            if (['1', '0'].indexOf(that.csv.mapping[csvProperty]) != -1) {
-                                newItem[csvProperty] = regex.test(that.csv.mapping[csvProperty]);
+                            if (['1', '0'].indexOf(property) != -1) {
+                                newItem[csvProperty] = regex.test(property);
                             } else {
-                                newItem[csvProperty] = regex.test(item[that.csv.mapping[csvProperty]]);
+                                newItem[csvProperty] = regex.test(item[property]);
                             }
                             break;
                         case 'int':
-                            newItem[csvProperty] = parseInt(item[that.csv.mapping[csvProperty]]);
+                            newItem[csvProperty] = parseInt(item[property]);
                             break;
                         case 'float':
-                            newItem[csvProperty] = parseFloat(item[that.csv.mapping[csvProperty]]);
+                            newItem[csvProperty] = parseFloat(item[property]);
                             break;
                         case 'uuid':
-                            if (item[that.csv.mapping[csvProperty]].length == 32) {
-                                newItem[csvProperty] = item[that.csv.mapping[csvProperty]];
+                            if (item[property].length == 32) {
+                                newItem[csvProperty] = item[property];
                             }
                             break;
                         case 'date':
-                            // Do nothing
                             break;
                         default:
-                            newItem[csvProperty] = item[that.csv.mapping[csvProperty]];
+                            newItem[csvProperty] = item[property];
                     }
                 }
             }
 
             return newItem;
-        },
-
-        async getMediaIdByFileName(filename) {
-            const criteria = new Criteria();
-            criteria.addFilter(Criteria.equals('fileName', filename));
-            let media = null;
-            await this.mediaRepository.search(criteria, Shopware.Context.api).then((result) => {
-                media = result.first();
-            });
-            return media ? media.id : null;
         }
     }
 });
