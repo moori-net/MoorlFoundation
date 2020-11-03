@@ -29,9 +29,11 @@
             "country": "Country",
             "customerGroup": "Customer group",
             "choseDefault": "Chose default",
-            "overwriteLabel": "Overwrite by following properties: ",
+            "overwriteLabel": "Overwrite by following properties ({properties})",
             "pauseLabel": "Pause on error",
-            "mediaFolder": "Save media (if is set) in this folder"
+            "mediaFolder": "Save media (if set) in this folder",
+            "isUnique": "This field is unique",
+            "completedMessage": "Import complete - Skipped: {skipped} - New: {new} - Total: {total} -  Errors: {errors}"
         },
         "notification": {
             "startImportTitle": "Start import",

@@ -2,7 +2,7 @@ import template from './index.html.twig';
 import './index.scss';
 
 const { Component, Mixin } = Shopware;
-const utils = Shopware.Utils;
+const Criteria = Shopware.Data.Criteria;
 
 const Papa = require('papaparse');
 
@@ -55,12 +55,17 @@ Component.register('moorl-csv-import', {
             rowCount: 0,
             rowsDone: 0,
             rowsLeft: 0,
+            rowsSkipped: 0,
+            rowsNew: 0,
+            errorCount: 0,
             defaultValues: this.defaultValues,
+            cDefaultValues: this.defaultValues,
             data: null,
             properties: {},
             mapping: {},
             columns: null,
-            showImportModal: true
+            showImportModal: true,
+            statusMessage: null
         };
     },
 
@@ -83,14 +88,55 @@ Component.register('moorl-csv-import', {
     watch: {},
 
     methods: {
-        async getEntityById(entity, id) {
-            // TODO: Check ID is valid
-            return true;
+        async getItemById(entity, id) {
+            if (typeof id == 'undefined') {
+                return null;
+            }
+
+            let item = null;
+
+            if (typeof entity != 'undefined' && entity !== this.entity) {
+                this.repositoryFactory.create('entity').get(id, Shopware.Context.api, new Criteria())
+                    .then((entity) => {
+                        item = entity;
+                    });
+            } else {
+                this.repository
+                    .get(id, Shopware.Context.api, new Criteria())
+                    .then((entity) => {
+                        item = entity;
+                    });
+            }
+
+            return item ? item : null;
         },
 
-        async getEntityByUniqueProperties() {
-            // TODO: Check entity has one match
-            return true;
+        async getItemByUniqueProperties(item) {
+            let multiFromImport = [];
+            let multiFromDefaultValues = [];
+
+            for (let column of this.columns) {
+                if (column.flags.moorl_unique) {
+                    multiFromImport.push(Criteria.equals(column.property, item[column.property]));
+                }
+            }
+
+            for (const [property, value] of Object.entries(this.cDefaultValues)) {
+                multiFromDefaultValues.push(Criteria.equals(property, value))
+            }
+
+            const criteria = new Criteria(1, 1);
+
+            criteria.addFilter(Criteria.multi('AND', [
+                Criteria.multi('OR', multiFromImport),
+                Criteria.multi('AND', multiFromDefaultValues)
+            ]));
+
+            let entity = null;
+            await this.repository.search(criteria, Shopware.Context.api).then((result) => {
+                entity = result.first();
+            });
+            return entity;
         },
 
         async getMediaIdByFileName(filename) {
@@ -130,9 +176,9 @@ Component.register('moorl-csv-import', {
 
         getUniquePropertyLabels() {
             let elements = [];
-            for (let item of this.columns) {
-                if (item.flags.primary_key || item.flags.moorl_unique) {
-                    elements.push(item.label);
+            for (let column of this.columns) {
+                if (column.flags.primary_key || column.flags.moorl_unique) {
+                    elements.push(column.label);
                 }
             }
             return elements.join(', ');
@@ -144,19 +190,21 @@ Component.register('moorl-csv-import', {
             this.properties = Object.keys(this.data[0]);
             this.matches = 0;
 
-            for (let property in this.columns) {
+            for (let column of this.columns) {
                 let indexOf = (arr, q) => arr.findIndex(item => q.toLowerCase() === item.toLowerCase());
-                let result = indexOf(that.properties, property);
+                let result = indexOf(that.properties, column.property);
 
                 if (result != -1) {
-                    that.mapping[property] = that.properties[result];
+                    that.mapping[column.property] = that.properties[result];
                     that.matches++;
                 }
             }
         },
+
         onClickUpload() {
             this.$refs.fileInput.click();
         },
+
         onFileInputChange() {
             const that = this;
             Papa.parse(this.$refs.fileInput.files[0], {
@@ -192,8 +240,8 @@ Component.register('moorl-csv-import', {
 
         onClickImport() {
             this.createSystemNotificationSuccess({
-                title: this.$t('moorl-foundation.notification.importTitle'),
-                message: this.$t('moorl-foundation.notification.importText'),
+                title: this.$t('moorl-foundation.import.importTitle'),
+                message: this.$t('moorl-foundation.import.importText'),
             });
 
             this.step = 3;
@@ -201,36 +249,32 @@ Component.register('moorl-csv-import', {
             this.importCsvRow();
         },
 
-        async getItemById(id) {
-            if (typeof id == 'undefined') {
-                return null;
-            }
-            // TODO: Add multifilter by unique properties
-            /*criteria.addFilter(Criteria.multi('OR', [
-                Criteria.equals('id', id),
-                Criteria.equals('originId', id)
-            ]));*/
-            let item = null;
-
-            this.repository
-                .get(id, Shopware.Context.api, new Criteria())
-                .then((entity) => {
-                    item = entity;
-                });
-
-            return item ? item : null;
-        },
-
         async prepareSaveItem(srcItem) {
             const item = Object.assign({}, this.defaultValues, srcItem)
-
             console.log("prepareSaveItem()", item);
-            let entity = await this.getItemById(item.id);
+
+            let entity = await this.getItemById(this.entity, item.id);
+
+            if (!entity) {
+                entity = await this.getItemByUniqueProperties(item);
+            }
+
             if (!entity) {
                 entity = this.repository.create(Shopware.Context.api);
+                this.rowsNew++;
+            } else {
+                if (!this.options.overwrite) {
+                    this.statusMessage = 'Error: (' + this.getUniquePropertyLabels() + ') is already in Database. Please chose overwrite and try again';
+                    this.pause = true;
+                    this.rowsSkipped++;
+                    await this.importCsvRow();
+                    return;
+                }
             }
+
             item.id = entity.id;
             Object.assign(entity, item);
+
             this.saveItem(entity);
         },
 
@@ -240,18 +284,22 @@ Component.register('moorl-csv-import', {
             this.repository
                 .save(item, Shopware.Context.api)
                 .then(() => {
-                    this.importCsvRow();
+                    this.statusMessage = this.rowsDone + ' of ' + this.rowCount + ' done';
+                    this.rowsDone++;
+                    this.importCsvRow()
                 }).catch((exception) => {
+                    this.statusMessage = exception;
                     this.pause = true;
-                    console.log(exception);
+                    this.errorCount++;
                 });
         },
 
         async importCsvRow() {
-            if (this.pause) {
+            if (this.pause && this.options.pause) {
                 return;
             }
-            this.rowsDone++;
+
+            this.pause = false;
             this.rowsLeft = this.data.length;
 
             if (this.rowsLeft < 1) {
@@ -272,15 +320,15 @@ Component.register('moorl-csv-import', {
             let regex = /^\s*(true|1|on|yes|ja|an)\s*$/i; // For Type = boolean
             let newItem = {};
 
-            for (const [property, newProperty] of Object.entries(this.mapping)) {
+            for (const [newProperty, property] of Object.entries(this.mapping)) {
                 if (typeof property == 'string') {
-                    let item = this.columns.find(column => { return column.property === newProperty });
+                    const column = this.columns.find(column => { return column.property === newProperty });
 
-                    switch (item.type) {
+                    switch (column.type) {
                         case 'association':
-                            if (item.relation === 'many_to_one') {
-                                if (item.entity === 'media' && item[property].length > 0) {
-                                    if (!that.mapping[item.localField] || that.mapping[item.localField].length !== 32) {
+                            if (column.relation === 'many_to_one') {
+                                if (column.entity === 'media' && item[property].length > 0) {
+                                    if (!that.mapping[column.localField] || that.mapping[column.localField].length !== 32) {
                                         const newMediaItem = that.mediaRepository.create(Shopware.Context.api);
                                         const mediaUrl = new URL(item[property]);
                                         const file = mediaUrl.pathname.split('/').pop().split('.');
@@ -295,9 +343,9 @@ Component.register('moorl-csv-import', {
                                         let mediaId = await that.getMediaIdByFileName(newMediaItem.fileName);
 
                                         if (mediaId) {
-                                            newItem[item.localField] = mediaId;
+                                            newItem[column.localField] = mediaId;
                                         } else {
-                                            newItem[item.localField] = newMediaItem.id;
+                                            newItem[column.localField] = newMediaItem.id;
                                             that.mediaRepository.save(newMediaItem, Shopware.Context.api).then(() => {
                                                 that.mediaService.uploadMediaFromUrl(
                                                     newMediaItem.id,
@@ -309,14 +357,14 @@ Component.register('moorl-csv-import', {
                                         }
                                     }
                                 }
-                            } else if (item.relation === 'many_to_many') {
+                            } else if (column.relation === 'many_to_many') {
                                 let parts = item[property].split("|");
                                 if (parts[0].length === 32) {
                                     newItem[newProperty] = parts.map(function (id) {
-                                        if (that.getEntityById(item.entity, id)) {
+                                        if (that.getItemById(column.entity, id)) {
                                             return {id: id};
                                         } else {
-                                            console.log(newProperty + " - import validation error: unknown ID (" + id + ")");
+                                            that.statusMessage = newProperty + " - import validation error: unknown ID (" + id + ")";
                                             that.pause = true;
                                             return false;
                                         }
