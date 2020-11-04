@@ -15,9 +15,5 @@ Component.register('moorl-entity-form-element', {
             type: Object,
             required: true
         },
-    },
-
-    created() {
-        console.log(this);
     }
 });

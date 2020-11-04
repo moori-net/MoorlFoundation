@@ -2,7 +2,7 @@
     <sw-container columns="4fr 1fr 1fr" gap="0 10px" class="moorl-entity-grid__top-bar">
         <sw-field :placeholder="$tc('moorl-foundation.label.search')"
                   type="text"
-                  v-model="gridSearch"
+                  v-model="searchTerm"
                   @input="onSearch">
         </sw-field>
 
@@ -16,24 +16,23 @@
         <sw-button variant="primary"
                    :block="true"
                    size="small"
-                   @click="onImportItems">
+                   @click="onImportModal">
             {{ $tc('moorl-foundation.buttons.importButtonText') }}
         </sw-button>
     </sw-container>
 
-    <sw-data-grid ref="entity"
-                  v-if="gridItemsTotal > 0"
+    <sw-data-grid v-if="totalCount > 0"
                   :dataSource="items"
                   :columns="gridColumns"
                   :showSelection="true"
-                  :showSettings="true"
-                  sortBy="code"
-                  sortDirection="ASC"
-                  :allowColumnEdit="true"
-                  identifier="moorl-entity-grid"
+                  :showSettings="false"
+                  :isLoading="isLoading"
+                  :sortBy="sortBy"
+                  :sortDirection="sortDirection"
+                  :allowColumnEdit="false"
                   @column-sort="onSortColumn"
-                  @select-all-items="onGridSelectionChanged"
-                  @selection-change="onGridSelectionChanged">
+                  @select-all-items="onSelectionChanged"
+                  @selection-change="onSelectionChanged">
         <template #actions="{ item }">
             <sw-context-menu-item @click="onEditItem(item)">
                 {{ $tc('global.default.edit') }}
@@ -45,10 +44,15 @@
             </sw-context-menu-item>
         </template>
 
+        <template slot="bulk">
+            <a class="link link-danger" @click="onEditSelectedItems">{{ $tc('global.default.edit') }}</a>
+            <a class="link link-danger" @click="onDeleteSelectedItems">{{ $tc('global.default.delete') }}</a>
+        </template>
+
         <template slot="pagination">
-            <sw-pagination :total="gridItemsTotal"
-                           :limit="gridPageLimit"
-                           :page="gridCurrentPageNr"
+            <sw-pagination :total="totalCount"
+                           :limit="limit"
+                           :page="page"
                            :total-visible="gridPagesVisible"
                            :steps="gridSteps"
                            @page-change="onPageChange">
@@ -60,12 +64,9 @@
               :title="$tc('global.default.edit')"
               @modal-close="onCloseModal">
         <moorl-entity-form-element v-for="column in editColumns"
-                                   :value="editItem"
+                                   :value="selectedItem"
                                    :column="column">
         </moorl-entity-form-element>
-
-        {{ editItem }}
-
         <template #modal-footer>
             <sw-button @click="onCloseModal" size="small">
                 {{ $t('moorl-foundation.buttons.cancelButtonText') }}
@@ -82,7 +83,7 @@
             v-if="showImportModal"
             :entity="entity"
             :onCloseModal="onCloseModal"
-            :onFinishImport="refreshGridDataSource"
-            :defaultValues="defaultValues"></moorl-csv-import>
+            :onFinishImport="getItems"
+            :defaultItem="defaultItem"></moorl-csv-import>
 </div>
 

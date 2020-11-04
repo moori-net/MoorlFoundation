@@ -34,7 +34,7 @@ Component.register('moorl-csv-import', {
             required: true,
             default: null
         },
-        defaultValues: {
+        defaultItem: {
             type: Object,
             required: false,
             default() {
@@ -52,14 +52,14 @@ Component.register('moorl-csv-import', {
                 pause: true,
                 mediaFolderId: null
             },
+            requiredColumns: [],
+            selectedItem: null,
             rowCount: 0,
             rowsDone: 0,
             rowsLeft: 0,
             rowsSkipped: 0,
             rowsNew: 0,
             errorCount: 0,
-            defaultValues: this.defaultValues,
-            cDefaultValues: this.defaultValues,
             data: null,
             properties: {},
             mapping: {},
@@ -116,13 +116,19 @@ Component.register('moorl-csv-import', {
             let multiFromDefaultValues = [];
 
             for (let column of this.columns) {
-                if (column.flags.moorl_unique) {
-                    multiFromImport.push(Criteria.equals(column.property, item[column.property]));
+                if (column.flags.moorl_unique || column.flags.primary_key) {
+                    if (item[column.property]) {
+                        multiFromImport.push(Criteria.equals(column.property, item[column.property]));
+                    }
                 }
             }
 
-            for (const [property, value] of Object.entries(this.cDefaultValues)) {
-                multiFromDefaultValues.push(Criteria.equals(property, value))
+            if (multiFromImport.length === 0) {
+                return null; // no unique field set
+            }
+
+            for (const [field, value] of Object.entries(this.defaultItem)) {
+                multiFromDefaultValues.push(Criteria.equals(field, value));
             }
 
             const criteria = new Criteria(1, 1);
@@ -153,23 +159,31 @@ Component.register('moorl-csv-import', {
             this.initEditColumns();
         },
 
+        onCancel() {
+            this.pause = true;
+            this.onCloseModal();
+        },
+
         initEditColumns() {
             let columns = [];
             let properties = Shopware.EntityDefinition.get(this.entity).properties
 
-            for (const [property, item] of Object.entries(properties)) {
-                if (!item.flags.moorl_edit_field && !item.flags.primary_key) {
+            for (const [property, column] of Object.entries(properties)) {
+                if (!column.flags.moorl_edit_field && !column.flags.primary_key) {
                     continue;
                 }
-                if (Object.keys(this.defaultValues).indexOf(property) !== -1) {
+                if (Object.keys(this.defaultItem).indexOf(property) !== -1) {
                     continue;
                 }
-                item.property = property;
-                item.label = this.$tc(`moorl-foundation.properties.${property}`);
-                columns.push(item);
+                if (column.localField) {
+                    if (properties[column.localField].flags.required) {
+                        column.flags.required = true;
+                    }
+                }
+                column.property = property;
+                column.label = this.$tc(`moorl-foundation.properties.${property}`);
+                columns.push(column);
             }
-
-            console.log(columns);
 
             this.columns = columns;
         },
@@ -178,7 +192,7 @@ Component.register('moorl-csv-import', {
             let elements = [];
             for (let column of this.columns) {
                 if (column.flags.primary_key || column.flags.moorl_unique) {
-                    elements.push(column.label);
+                    elements.push(column.property);
                 }
             }
             return elements.join(', ');
@@ -219,6 +233,8 @@ Component.register('moorl-csv-import', {
                     that.rowCount = that.data.length;
                     that.rowsDone = 0;
                     that.step = 2;
+
+                    that.selectedItem = Object.assign({}, that.defaultItem);
                 }
             });
         },
@@ -250,7 +266,7 @@ Component.register('moorl-csv-import', {
         },
 
         async prepareSaveItem(srcItem) {
-            const item = Object.assign({}, this.defaultValues, srcItem)
+            const item = Object.assign({}, this.selectedItem, srcItem)
             console.log("prepareSaveItem()", item);
 
             let entity = await this.getItemById(this.entity, item.id);
@@ -266,6 +282,7 @@ Component.register('moorl-csv-import', {
                 if (!this.options.overwrite) {
                     this.statusMessage = 'Error: (' + this.getUniquePropertyLabels() + ') is already in Database. Please chose overwrite and try again';
                     this.pause = true;
+                    this.rowsDone++;
                     this.rowsSkipped++;
                     await this.importCsvRow();
                     return;

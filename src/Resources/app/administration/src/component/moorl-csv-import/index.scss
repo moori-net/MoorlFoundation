@@ -20,6 +20,10 @@
     }
 
     .sw-data-grid {
+        .required {
+            color: red;
+        }
+
         .sw-field__label {
             display: none;
         }
