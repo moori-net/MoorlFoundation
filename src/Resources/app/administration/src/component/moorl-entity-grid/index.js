@@ -269,6 +269,7 @@ Component.register('moorl-entity-grid', {
             this.isLoading = true;
             const criteria = this.defaultCriteria;
 
+            criteria.resetSorting();
             criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, true))
             criteria.setPage(this.page);
             criteria.setLimit(this.limit);
