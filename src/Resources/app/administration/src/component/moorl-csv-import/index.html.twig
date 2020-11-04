@@ -82,7 +82,7 @@
 
                         <td class="sw-data-grid__cell">
                             <div class="sw-data-grid__cell-content">
-                                <sw-select-field v-model="mapping[column.property]">
+                                <sw-select-field v-model="mapping[column.localField ? column.localField : column.property]">
                                     <option value>{{ $t('moorl-foundation.import.choseDefault') }}</option>
                                     <option v-for="property in properties"
                                             :value="property">{{ property }}</option>

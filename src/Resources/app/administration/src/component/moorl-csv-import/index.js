@@ -89,6 +89,8 @@ Component.register('moorl-csv-import', {
 
     methods: {
         async getItemById(entity, id) {
+            console.log("getItemById", entity, id);
+
             if (typeof id == 'undefined') {
                 return null;
             }
@@ -96,17 +98,19 @@ Component.register('moorl-csv-import', {
             let item = null;
 
             if (typeof entity != 'undefined' && entity !== this.entity) {
-                this.repositoryFactory.create('entity').get(id, Shopware.Context.api, new Criteria())
+                this.repositoryFactory.create(entity).get(id.toLowerCase(), Shopware.Context.api, new Criteria())
                     .then((entity) => {
                         item = entity;
                     });
             } else {
                 this.repository
-                    .get(id, Shopware.Context.api, new Criteria())
+                    .get(id.toLowerCase(), Shopware.Context.api, new Criteria())
                     .then((entity) => {
                         item = entity;
                     });
             }
+
+            console.log("result", item);
 
             return item ? item : null;
         },
@@ -198,14 +202,14 @@ Component.register('moorl-csv-import', {
             return elements.join(', ');
         },
 
-        validateCsv() {
+        validateItem() {
             const that = this;
 
             this.properties = Object.keys(this.data[0]);
             this.matches = 0;
 
             for (let column of this.columns) {
-                let indexOf = (arr, q) => arr.findIndex(item => q.toLowerCase() === item.toLowerCase());
+                let indexOf = (arr, q) => arr.findIndex(item => q.toLowerCase().replace(/[\W_]+/g,"") === item.toLowerCase().replace(/[\W_]+/g,""));
                 let result = indexOf(that.properties, column.property);
 
                 if (result != -1) {
@@ -227,7 +231,7 @@ Component.register('moorl-csv-import', {
                 complete: function (results, file) {
                     console.log("NOTICE: Parsing complete", results, file);
                     that.data = results.data;
-                    that.validateCsv();
+                    that.validateItem();
                     that.$refs.fileForm.reset();
 
                     that.rowCount = that.data.length;
@@ -248,7 +252,7 @@ Component.register('moorl-csv-import', {
 
             // resuming import
             if (!this.pause) {
-                this.importCsvRow();
+                this.importItem();
             }
         },
 
@@ -262,30 +266,23 @@ Component.register('moorl-csv-import', {
 
             this.step = 3;
 
-            this.importCsvRow();
+            this.importItem();
         },
 
         async prepareSaveItem(srcItem) {
             const item = Object.assign({}, this.selectedItem, srcItem)
             console.log("prepareSaveItem()", item);
 
-            let entity = await this.getItemById(this.entity, item.id);
-
-            if (!entity) {
-                entity = await this.getItemByUniqueProperties(item);
-            }
+            let entity = await this.getItemByUniqueProperties(item);
 
             if (!entity) {
                 entity = this.repository.create(Shopware.Context.api);
                 this.rowsNew++;
             } else {
+                this.rowsSkipped++;
+
                 if (!this.options.overwrite) {
-                    this.statusMessage = 'Error: (' + this.getUniquePropertyLabels() + ') is already in Database. Please chose overwrite and try again';
-                    this.pause = true;
-                    this.rowsDone++;
-                    this.rowsSkipped++;
-                    await this.importCsvRow();
-                    return;
+                    return this.onError('Error: (' + this.getUniquePropertyLabels() + ') is already in Database. Please chose overwrite and try again');
                 }
             }
 
@@ -302,118 +299,138 @@ Component.register('moorl-csv-import', {
                 .save(item, Shopware.Context.api)
                 .then(() => {
                     this.statusMessage = this.rowsDone + ' of ' + this.rowCount + ' done';
-                    this.rowsDone++;
-                    this.importCsvRow()
+                    this.importItem()
                 }).catch((exception) => {
-                    this.statusMessage = exception;
-                    this.pause = true;
-                    this.errorCount++;
+                    return this.onError(exception);
                 });
         },
 
-        async importCsvRow() {
-            if (this.pause && this.options.pause) {
-                return;
-            }
-
-            this.pause = false;
+        async importItem() {
             this.rowsLeft = this.data.length;
 
             if (this.rowsLeft < 1) {
                 this.step = 4;
                 this.onFinishImport();
+                return;
             }
+
+            this.rowsDone++;
 
             let item = this.data.shift();
             item = await this.sanitizeItem(item);
 
-            this.prepareSaveItem(item);
+            if (this.pause && this.options.pause) {
+                return;
+            }
+
+            this.pause = false;
+
+            await this.prepareSaveItem(item);
+        },
+
+        onError(message) {
+            this.errorCount++;
+            console.log(message);
+            this.statusMessage = message;
+            this.pause = true;
         },
 
         async sanitizeItem(item) {
             console.log("sanitizeItem() ", item);
 
             const that = this;
-            let regex = /^\s*(true|1|on|yes|ja|an)\s*$/i; // For Type = boolean
-            let newItem = {};
+
+            const newItem = {};
+            const isBool = /^\s*(true|1|on|yes|ja|an)\s*$/i; // boolean check
+            const isUuid = /[0-9A-Fa-f]{32}/g; // uuid check
+
+            console.log(this.mapping);
+            console.log(this.columns);
 
             for (const [newProperty, property] of Object.entries(this.mapping)) {
-                if (typeof property == 'string') {
-                    const column = this.columns.find(column => { return column.property === newProperty });
+                const currentValue = item[property];
+
+                if (currentValue) {
+                    const column = this.columns.find(column => {
+                        return (column.property === newProperty || column.localField === newProperty);
+                    });
+
+                    if (!column) {
+                        return this.onError(newProperty + " - import validation error: unknown column");
+                    }
+
+                    // database exports have uppercase ids
+                    const currentUuid = (typeof currentValue === 'string' && isUuid.test(currentValue)) ? currentValue.toLowerCase() : null;
 
                     switch (column.type) {
                         case 'association':
-                            if (column.relation === 'many_to_one') {
-                                if (column.entity === 'media' && item[property].length > 0) {
-                                    if (!that.mapping[column.localField] || that.mapping[column.localField].length !== 32) {
-                                        const newMediaItem = that.mediaRepository.create(Shopware.Context.api);
-                                        const mediaUrl = new URL(item[property]);
-                                        const file = mediaUrl.pathname.split('/').pop().split('.');
+                            if (column.relation === 'one_to_one' || column.relation === 'many_to_one') {
+                                if (await this.getItemById(column.entity, currentUuid)) {
+                                    newItem[newProperty] = currentUuid;
+                                } else if (column.entity === 'media') {
+                                    const newMediaItem = this.mediaRepository.create(Shopware.Context.api);
+                                    const mediaUrl = new URL(currentValue);
+                                    const file = mediaUrl.pathname.split('/').pop().split('.');
 
-                                        if (file.length === 1) {
-                                            newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
-                                        } else {
-                                            newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
-                                            newMediaItem.fileExtension = file.pop();
-                                        }
-                                        newMediaItem.mediaFolderId = this.options.mediaFolderId;
-                                        let mediaId = await that.getMediaIdByFileName(newMediaItem.fileName);
-
-                                        if (mediaId) {
-                                            newItem[column.localField] = mediaId;
-                                        } else {
-                                            newItem[column.localField] = newMediaItem.id;
-                                            that.mediaRepository.save(newMediaItem, Shopware.Context.api).then(() => {
-                                                that.mediaService.uploadMediaFromUrl(
-                                                    newMediaItem.id,
-                                                    mediaUrl,
-                                                    newMediaItem.fileExtension,
-                                                    newMediaItem.fileName
-                                                );
-                                            });
-                                        }
+                                    if (file.length === 1) {
+                                        newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
+                                    } else {
+                                        newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
+                                        newMediaItem.fileExtension = file.pop();
                                     }
+                                    newMediaItem.mediaFolderId = this.options.mediaFolderId;
+                                    let mediaId = await this.getMediaIdByFileName(newMediaItem.fileName);
+
+                                    if (mediaId) {
+                                        newItem[column.localField] = mediaId;
+                                    } else {
+                                        newItem[column.localField] = newMediaItem.id;
+                                        this.mediaRepository.save(newMediaItem, Shopware.Context.api).then(() => {
+                                            this.mediaService.uploadMediaFromUrl(
+                                                newMediaItem.id,
+                                                mediaUrl,
+                                                newMediaItem.fileExtension,
+                                                newMediaItem.fileName
+                                            );
+                                        });
+                                    }
+                                } else {
+                                    return this.onError(newProperty + " - import " + column.entity + " validation error: unknown ID (" + currentUuid + ")");
                                 }
-                            } else if (column.relation === 'many_to_many') {
-                                let parts = item[property].split("|");
-                                if (parts[0].length === 32) {
-                                    newItem[newProperty] = parts.map(function (id) {
-                                        if (that.getItemById(column.entity, id)) {
-                                            return {id: id};
+                            } else if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
+                                let parts = currentValue.toLowerCase().split("|");
+
+                                if (parts.length !== 0) {
+                                    newItem[newProperty] = parts.map(function (uuid) {
+                                        if (isUuid.test(uuid) && this.getItemById(column.entity, uuid)) {
+                                            return { id: uuid };
                                         } else {
-                                            that.statusMessage = newProperty + " - import validation error: unknown ID (" + id + ")";
-                                            that.pause = true;
-                                            return false;
+                                            return that.onError(newProperty + " - import validation error: unknown/invalid ID (" + uuid + ")");
                                         }
                                     });
-                                } else if (parts[0].length > 0) {
-                                    // TODO: Try to auto add new Entities by name
-                                    newItem[newProperty] = [];
                                 }
                             }
                             break;
                         case 'boolean':
-                            if (['1', '0'].indexOf(property) !== -1) {
-                                newItem[newProperty] = regex.test(property);
-                            } else {
-                                newItem[newProperty] = regex.test(item[property]);
-                            }
+                            newItem[newProperty] = isBool.test(currentValue);
                             break;
                         case 'int':
-                            newItem[newProperty] = parseInt(item[property]);
+                            newItem[newProperty] = parseInt(currentValue);
                             break;
                         case 'float':
-                            newItem[newProperty] = parseFloat(item[property]);
+                            newItem[newProperty] = parseFloat(currentValue);
                             break;
                         case 'uuid':
-                            if (item[property].length === 32) {
-                                newItem[newProperty] = item[property];
+                            if (currentUuid) {
+                                newItem[newProperty] = currentUuid;
+                            } else {
+                                return this.onError(newProperty + " - import validation error: unknown ID (" + currentUuid + ")");
                             }
                             break;
                         case 'date':
                             break;
                         default:
-                            newItem[newProperty] = item[property];
+                            newItem[newProperty] = currentValue;
                     }
                 }
             }
