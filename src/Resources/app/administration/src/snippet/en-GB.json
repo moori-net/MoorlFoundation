@@ -71,6 +71,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "isRedeemed": "Is redeemed",
             "order": "Order",
             "customFields": "Custom fields",
             "redemptions": "Redemptions",
