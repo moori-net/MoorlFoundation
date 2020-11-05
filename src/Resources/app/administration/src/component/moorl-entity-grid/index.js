@@ -246,7 +246,7 @@ Component.register('moorl-entity-grid', {
                     dataIndex: propertyName,
                     primary: primary,
                     allowResize: false,
-                    label: this.$tc(`moorl-foundation.properties.${property}`),
+                    label: this.getPropertyLabel(propertyName),
                     inlineEdit: column.inlineEdit,
                     sortable: true,
                     fieldType: column.fieldType
@@ -256,6 +256,16 @@ Component.register('moorl-entity-grid', {
             }
 
             return columns;
+        },
+
+        getPropertyLabel(propertyName) {
+            let labelParts = [];
+
+            for (let part of propertyName.split(".")) {
+                labelParts.push(this.$tc(`moorl-foundation.properties.${part}`))
+            }
+
+            return labelParts.join(' - ');
         },
 
         onPageChange(data) {

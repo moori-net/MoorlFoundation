@@ -71,6 +71,9 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "productNumber": "Product number",
+            "deliveryTime": "Delivery time",
+            "stock": "Stock",
             "isRedeemed": "Is redeemed",
             "order": "Order",
             "customFields": "Custom fields",
