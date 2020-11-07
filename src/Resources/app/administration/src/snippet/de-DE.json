@@ -1,5 +1,6 @@
 {
     "moorl-foundation": {
+        "pluginBetaInfo": "Dieser Teil ist ein BETA Funktion des Plugins {plugin}. Wenn Sie das neue Plugin testen möchten, hinterlassen Sie mir eine E-Mail an info@moorleiche.com.",
         "days": {
             "today": "Heute",
             "monday": "Montag",

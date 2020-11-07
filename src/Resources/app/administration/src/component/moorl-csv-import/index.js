@@ -116,36 +116,49 @@ Component.register('moorl-csv-import', {
         },
 
         async getItemByUniqueProperties(item) {
-            let multiFromImport = [];
-            let multiFromDefaultValues = [];
+            console.log("getItemByUniqueProperties", item);
 
-            for (let column of this.columns) {
-                if (column.flags.moorl_unique || column.flags.primary_key) {
-                    if (item[column.property]) {
-                        multiFromImport.push(Criteria.equals(column.property, item[column.property]));
-                    }
-                }
-            }
-
-            if (multiFromImport.length === 0) {
-                return null; // no unique field set
-            }
-
-            for (const [field, value] of Object.entries(this.defaultItem)) {
-                multiFromDefaultValues.push(Criteria.equals(field, value));
-            }
-
+            const isUuid = /^[a-f0-9]{32}$/i; // uuid check
             const criteria = new Criteria(1, 1);
 
-            criteria.addFilter(Criteria.multi('AND', [
-                Criteria.multi('OR', multiFromImport),
-                Criteria.multi('AND', multiFromDefaultValues)
-            ]));
+            if (item.id && isUuid.test(item.id)) {
+                // highest priority
+                criteria.addFilter(Criteria.equals('id', item.id));
+            } else {
+                let multiFromImport = [];
+                let multiFromDefaultValues = [];
+
+                for (let column of this.columns) {
+                    if (column.flags.moorl_unique || column.flags.primary_key) {
+                        if (item[column.property]) {
+                            multiFromImport.push(Criteria.equals(column.property, item[column.property]));
+                        }
+                    }
+                }
+
+                if (multiFromImport.length === 0) {
+                    return null; // no unique field set
+                }
+
+                for (const [field, value] of Object.entries(this.defaultItem)) {
+                    multiFromDefaultValues.push(Criteria.equals(field, value));
+                }
+
+                criteria.addFilter(Criteria.multi('AND', [
+                    Criteria.multi('OR', multiFromImport),
+                    Criteria.multi('AND', multiFromDefaultValues)
+                ]));
+            }
 
             let entity = null;
-            await this.repository.search(criteria, Shopware.Context.api).then((result) => {
+
+            await this.repository.search(criteria, Shopware.Context.api).then(async (result) => {
                 entity = result.first();
+                console.log("1---- result getItemByUniqueProperties", entity);
             });
+
+            console.log("2---- result getItemByUniqueProperties", entity);
+
             return entity;
         },
 
@@ -316,7 +329,8 @@ Component.register('moorl-csv-import', {
                 }
             }
 
-            item.id = entity.id;
+            //item.id = entity.id;
+
             Object.assign(entity, item);
 
             this.saveItem(entity);
@@ -331,7 +345,7 @@ Component.register('moorl-csv-import', {
                     this.statusMessage = this.rowsDone + ' of ' + this.rowCount + ' done';
                     this.importItem()
                 }).catch((exception) => {
-                    return this.onError(exception);
+                    this.onError(exception);
                 });
         },
 
