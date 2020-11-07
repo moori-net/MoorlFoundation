@@ -15,6 +15,13 @@
             "overwrite": "Overwrite all locations",
             "skipError": "Skip on error"
         },
+        "export": {
+            "localTable": "Just export local Table",
+            "title": "Export assistant",
+            "introText": "Do you want to export this table?",
+            "proccess": "Preparing export...",
+            "completedMessage": "Export complete"
+        },
         "import": {
             "validateIdsLabel": "Validate foreign keys/ids (slower import)",
             "title": "Import assistant",
@@ -45,6 +52,7 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "startExportButtonText": "Start export",
             "pauseButtonText": "Pause",
             "resumeButtonText": "Resume",
             "backButtonText": "Back",

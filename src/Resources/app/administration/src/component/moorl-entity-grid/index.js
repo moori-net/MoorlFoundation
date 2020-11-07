@@ -104,6 +104,7 @@ Component.register('moorl-entity-grid', {
 
             showEditModal: false,
             showImportModal: false,
+            showExportModal: false
         };
     },
 
@@ -412,8 +413,13 @@ Component.register('moorl-entity-grid', {
             this.showImportModal = true;
         },
 
+        onExportModal() {
+            this.showExportModal = true;
+        },
+
         onCloseModal() {
             this.showEditModal = false;
+            this.showExportModal = false;
             this.showImportModal = false;
         }
     }
