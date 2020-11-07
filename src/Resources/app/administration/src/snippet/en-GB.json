@@ -16,6 +16,7 @@
             "skipError": "Skip on error"
         },
         "import": {
+            "validateIdsLabel": "Validate foreign keys/ids (slower import)",
             "title": "Import assistant",
             "loadedText": "There are {count} rows in your file. Please configure the mapping in the next step.",
             "processText": "Processing: {remaining} of {count} rows left.",
