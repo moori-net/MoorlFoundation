@@ -88,7 +88,9 @@ class PluginFoundation
 
             foreach ($item['locale'] as $locale => $localeItem) {
                 $languageId = $this->getLanguageIdByLocale($locale);
-
+                if (!$languageId) {
+                    continue;
+                }
                 $this->connection->insert(
                     'cms_page_translation',
                     [
@@ -131,7 +133,9 @@ class PluginFoundation
 
             foreach ($item['locale'] as $locale => $localeItem) {
                 $languageId = $this->getLanguageIdByLocale($locale);
-
+                if (!$languageId) {
+                    continue;
+                }
                 $this->connection->insert(
                     'shipping_method_translation',
                     [
@@ -241,7 +245,9 @@ class PluginFoundation
             $criteria->addAssociation('locale');
             $criteria->addFilter(new EqualsFilter('locale.code', $locale));
 
-            $this->languageIds[$locale] = $repo->search($criteria, $this->getContext())->first()->getId();
+            $language = $repo->search($criteria, $this->getContext())->first();
+
+            $this->languageIds[$locale] = $language ? $language->getId() : null;
         }
 
         return $this->languageIds[$locale];
