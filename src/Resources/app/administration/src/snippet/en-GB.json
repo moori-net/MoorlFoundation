@@ -81,6 +81,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "customerNumber": "Customer number",
             "productNumber": "Product number",
             "deliveryTime": "Delivery time",
             "stock": "Stock",

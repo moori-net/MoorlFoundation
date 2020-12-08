@@ -30,6 +30,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "customerNumber": "Customer number",
             "closed": "Closed",
             "from": "From",
             "until": "Until",
