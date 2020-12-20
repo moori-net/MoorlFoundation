@@ -406,7 +406,7 @@ Component.register('moorl-csv-import', {
                     switch (column.type) {
                         case 'association':
                             if (column.relation === 'one_to_one' || column.relation === 'many_to_one') {
-                                if (column.entity === 'media') {
+                                if (column.entity === 'media' && !currentUuid) {
                                     const newMediaItem = this.mediaRepository.create(Shopware.Context.api);
                                     const mediaUrl = new URL(currentValue);
                                     const file = mediaUrl.pathname.split('/').pop().split('.');

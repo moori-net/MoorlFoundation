@@ -17,6 +17,7 @@
             "processText": "Verarbeitung: {remaining} von {count} Datensätze verbleibend."
         },
         "notification": {
+            "errorTitle": "Ein Fehler ist aufgetreten",
             "startImportTitle": "Starte Import",
             "startImportText": "Der Import Vorgang wurde gestartet",
             "finishImportTitle": "Import erfolgreich",

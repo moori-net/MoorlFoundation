@@ -45,6 +45,7 @@
             "completedMessage": "Import complete - Skipped: {skipped} - New: {new} - Total: {total} -  Errors: {errors}"
         },
         "notification": {
+            "errorTitle": "Error notification",
             "startImportTitle": "Start import",
             "startImportText": "The import process has started now",
             "finishImportTitle": "Import successful",
