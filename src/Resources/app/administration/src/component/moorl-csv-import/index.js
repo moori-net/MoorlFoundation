@@ -303,8 +303,8 @@ Component.register('moorl-csv-import', {
 
         onClickImport() {
             this.createSystemNotificationSuccess({
-                title: this.$t('moorl-foundation.import.importTitle'),
-                message: this.$t('moorl-foundation.import.importText'),
+                title: this.$t('moorl-foundation.import.finishImportTitle'),
+                message: this.$t('moorl-foundation.import.finishImportText'),
             });
 
             this.step = 3;

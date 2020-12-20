@@ -13,7 +13,8 @@
             <sw-entity-single-select :label="column.label"
                                      v-model="value[column.localField]"
                                      :labelProperty="column.flags.moorl_label_property"
-                                     :entity="column.entity">
+                                     :entity="column.entity"
+                                     :required="true">
             </sw-entity-single-select>
         </template>
     </template>

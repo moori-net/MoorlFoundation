@@ -385,7 +385,7 @@ Component.register('moorl-entity-grid', {
                 .catch((exception) => {
                     this.isLoading = false;
                     this.createNotificationError({
-                        title: this.$t('moorl-foundation.notification.saveError'),
+                        title: this.$t('moorl-foundation.notification.errorTitle'),
                         message: exception
                     });
                 });
