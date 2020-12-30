@@ -45,6 +45,10 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "custom1": "Freitextfeld 1 (custom1)",
+            "custom2": "Freitextfeld 2 (custom2)",
+            "custom3": "Freitextfeld 3 (custom3)",
+            "custom4": "Freitextfeld 4 (custom4)",
             "sourceType": "Type der Quelle",
             "directory": "Ordner",
             "maxPurchase": "Max Anzahl pro Bestellung",
@@ -146,6 +150,7 @@
             "cmsPage": "CMS Seite"
         },
         "label": {
+            "customCard": "Statische Freitextfelder",
             "promotionCard": "Rabatt",
             "countdownCard": "Countdown",
             "stockCard": "Lager",

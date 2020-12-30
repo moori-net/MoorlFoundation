@@ -82,6 +82,10 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "custom1": "Custom field 1 (custom1)",
+            "custom2": "Custom field 2 (custom2)",
+            "custom3": "Custom field 3 (custom3)",
+            "custom4": "Custom field 4 (custom4)",
             "customerNumber": "Customer number",
             "productNumber": "Product number",
             "deliveryTime": "Delivery time",
@@ -209,6 +213,7 @@
             "highlight": "Highlight"
         },
         "label": {
+            "customCard": "Static custom fields",
             "search": "Search",
             "codeCard": "Codes",
             "esdCard": "ESD",
