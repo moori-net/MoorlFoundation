@@ -257,6 +257,18 @@ Component.register('moorl-csv-import', {
                 skipEmptyLines: true,
                 complete: function (results, file) {
                     console.log("NOTICE: Parsing complete", results, file);
+
+                    if (results.errors && results.errors.length > 0) {
+                        that.createSystemNotificationError({
+                            title: that.$t('moorl-foundation.notification.errorTitle'),
+                            message: that.$t('moorl-foundation.notification.errorFileText'),
+                        });
+
+                        that.onCloseModal();
+
+                        return;
+                    }
+
                     that.data = results.data;
                     that.validateItem();
                     that.$refs.fileForm.reset();
@@ -303,8 +315,8 @@ Component.register('moorl-csv-import', {
 
         onClickImport() {
             this.createSystemNotificationSuccess({
-                title: this.$t('moorl-foundation.import.finishImportTitle'),
-                message: this.$t('moorl-foundation.import.finishImportText'),
+                title: this.$t('moorl-foundation.notification.finishImportTitle'),
+                message: this.$t('moorl-foundation.notification.finishImportText'),
             });
 
             this.step = 3;

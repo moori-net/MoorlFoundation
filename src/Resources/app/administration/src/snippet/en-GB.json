@@ -46,6 +46,8 @@
         },
         "notification": {
             "errorTitle": "Error notification",
+            "errorRequiredText": "Fields marked with * are required.",
+            "errorFileText": "Unable to read file - did you chose the right format?",
             "startImportTitle": "Start import",
             "startImportText": "The import process has started now",
             "finishImportTitle": "Import successful",

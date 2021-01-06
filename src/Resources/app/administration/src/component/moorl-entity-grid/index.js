@@ -4,7 +4,6 @@ import './index.scss';
 const { Component, Mixin } = Shopware;
 const Criteria = Shopware.Data.Criteria;
 
-
 /**
  * Standard vaiable names
  * @items = All data of table: Array
@@ -183,10 +182,25 @@ Component.register('moorl-entity-grid', {
                 }
 
                 column.property = property;
+
+                // TODO: Map property errors in future
+                column.required = false;
+                if (column.type == 'association') {
+                    if (properties[column.localField].flags.required) {
+                        column.required = true;
+                    }
+                } else {
+                    if (column.flags.required) {
+                        column.required = true;
+                    }
+                }
+
                 column.label = this.$tc(`moorl-foundation.properties.${property}`);
 
                 columns.push(column);
             }
+
+            console.log("Init edit columns:", columns);
 
             this.editColumns = columns;
         },
@@ -386,7 +400,7 @@ Component.register('moorl-entity-grid', {
                     this.isLoading = false;
                     this.createNotificationError({
                         title: this.$t('moorl-foundation.notification.errorTitle'),
-                        message: exception
+                        message: this.$t('moorl-foundation.notification.errorRequiredText')
                     });
                 });
         },

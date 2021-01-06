@@ -18,6 +18,8 @@
         },
         "notification": {
             "errorTitle": "Ein Fehler ist aufgetreten",
+            "errorRequiredText": "Felder die mit * gekennzeichned sind sind erforderlich.",
+            "errorFileText": "Die Datei konnte nicht gelesen werden - haben Sie das richtige Format gewählt?",
             "startImportTitle": "Starte Import",
             "startImportText": "Der Import Vorgang wurde gestartet",
             "finishImportTitle": "Import erfolgreich",
