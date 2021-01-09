@@ -1,4 +1,7 @@
 /* jQuery extensions */
+import MoorlMerchantFinder
+    from "../../../../../../plugin-MoorlMerchantFinder/src/Resources/app/storefront/src/moorl-merchant-finder/moorl-merchant-finder-leaflet";
+
 $.fn.isInViewport = function () {
     if ($(this).length == 0) {
         return;
@@ -21,9 +24,11 @@ $.fn.isOverBottom = function () {
 };
 
 import MoorlFoundation from './moorl-foundation/moorl-foundation';
+import MoorlFoundationForm from './moorl-foundation-form/moorl-foundation-form';
 
 const PluginManager = window.PluginManager;
 PluginManager.register('MoorlFoundation', MoorlFoundation);
+PluginManager.register('MoorlFoundationForm', MoorlFoundationForm, '[data-moorl-foundation-form]');
 
 if (module.hot) {
     module.hot.accept();

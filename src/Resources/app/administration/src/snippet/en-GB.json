@@ -84,6 +84,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "markerIconsInfo": "Unzip the plugin on your desktop, you will find the marker icons in the marker directory. You can then upload them here and use them. Go to the plugin settings to assign the markers.",
+            "markerRetinaId": "Marker Retina",
             "custom1": "Custom field 1 (custom1)",
             "custom2": "Custom field 2 (custom2)",
             "custom3": "Custom field 3 (custom3)",
