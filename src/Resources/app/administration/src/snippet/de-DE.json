@@ -26,6 +26,7 @@
             "finishImportText": "Der Import Vorgang wurde erfolgreich abgeschlossen"
         },
         "buttons": {
+            "refreshPreview": "Vorschau aktualisieren",
             "showConfiguration": "Zeige Konfiguration",
             "editorButtonText": "Editor",
             "administrationButtonText": "Administration",
@@ -47,6 +48,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "preview": "Vorschau",
             "markerIconsInfo": "Entpacken Sie das Plugin auf Ihrem Desktop, Sie finden die Markersymbole im Marker-Verzeichnis. Diese können Sie anschließend hier hochladen und Verwenden. Gehen Sie in die Plugin Einstellungen um die Marker zuzuweisen.",
             "markerRetinaId": "Marker Retina",
             "custom1": "Freitextfeld 1 (custom1)",

@@ -56,6 +56,7 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "refreshPreview": "Refresh preview",
             "startExportButtonText": "Start export",
             "pauseButtonText": "Pause",
             "resumeButtonText": "Resume",
@@ -84,6 +85,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "preview": "Preview",
             "markerIconsInfo": "Unzip the plugin on your desktop, you will find the marker icons in the marker directory. You can then upload them here and use them. Go to the plugin settings to assign the markers.",
             "markerRetinaId": "Marker Retina",
             "custom1": "Custom field 1 (custom1)",
