@@ -5,6 +5,7 @@ export default class MoorlFoundation extends Plugin {
     init() {
         this._client = new HttpClient(window.accessKey, window.contextToken);
         this._registerModalEvents();
+        this.callback = null;
 
         let config = document.getElementById("moorlFoundationAnimateConfig");
 
@@ -52,12 +53,22 @@ export default class MoorlFoundation extends Plugin {
         const that = this;
 
         $(document).on('click', '[data-moorl-foundation-modal]', function () {
-            that._client.get(this.dataset.moorlFoundationModal, that._openModal.bind(this))
+            that._client.get(this.dataset.moorlFoundationModal, that._openModal.bind(this));
         });
+
+        window.moorlFoundationModal = function (url, callback) {
+            that._client.get(url, (response) => {
+                that._openModal(response, callback);
+            });
+        }
     }
 
-    _openModal(response) {
+    _openModal(response, callback) {
         $('#moorlFoundationModal').html(response).modal('show');
+
+        if (typeof callback == 'function') {
+            callback();
+        }
     }
 
     animateInit(str, attr) {
