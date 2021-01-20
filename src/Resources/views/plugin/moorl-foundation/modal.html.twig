@@ -14,14 +14,18 @@
         </div>
 
         <div class="modal-footer text-right">
-            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
-                {{ 'general.back'|trans }}
-            </button>
-
-            {% if modal.button %}
-                <button class="btn btn-primary" type="submit">
-                    {{ 'general.formSubmit'|trans }}
+            {% if modal.footer %}
+                {{ modal.footer|raw }}
+            {% else %}
+                <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">
+                    {{ 'general.back'|trans }}
                 </button>
+
+                {% if modal.button %}
+                    <button class="btn btn-primary" type="submit">
+                        {{ 'general.formSubmit'|trans }}
+                    </button>
+                {% endif %}
             {% endif %}
         </div>
     </div>
