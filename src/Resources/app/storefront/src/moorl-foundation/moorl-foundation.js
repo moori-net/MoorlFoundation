@@ -53,6 +53,8 @@ export default class MoorlFoundation extends Plugin {
         const that = this;
 
         $(document).on('click', '[data-moorl-foundation-modal]', function () {
+            let url = this.dataset.moorlFoundationModal;
+
             that._client.get(url, (response) => {
                 that._openModal(response, null);
             });
