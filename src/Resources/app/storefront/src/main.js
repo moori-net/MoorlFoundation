@@ -1,7 +1,4 @@
 /* jQuery extensions */
-import MoorlMerchantFinder
-    from "../../../../../../plugin-MoorlMerchantFinder/src/Resources/app/storefront/src/moorl-merchant-finder/moorl-merchant-finder-leaflet";
-
 $.fn.isInViewport = function () {
     if ($(this).length == 0) {
         return;
