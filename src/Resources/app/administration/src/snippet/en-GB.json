@@ -85,6 +85,17 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "url": "URL",
+            "reason": "Reason",
+            "status": "Status",
+            "fileName": "File name",
+            "deleteable": "Deleteable",
+            "noSelection": "No selection",
+            "sortOrder": "Sort order",
+            "accessory": "Accessory",
+            "rawPrice": "Price",
+            "isDefault": "Is default",
+            "multipleSelection": "Multiple selection",
             "preview": "Preview",
             "markerIconsInfo": "Unzip the plugin on your desktop, you will find the marker icons in the marker directory. You can then upload them here and use them. Go to the plugin settings to assign the markers.",
             "markerRetinaId": "Marker Retina",

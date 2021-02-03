@@ -67,6 +67,17 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "url": "URL",
+            "reason": "Grund",
+            "status": "Status",
+            "fileName": "Dateiname",
+            "deleteable": "Löschbar",
+            "noSelection": "Keine Auswahl",
+            "sortOrder": "Sortierung",
+            "accessory": "Zubehör",
+            "rawPrice": "Preis",
+            "isDefault": "Ist Standard",
+            "multipleSelection": "Mehrfachauswahl",
             "preview": "Vorschau",
             "markerIconsInfo": "Entpacken Sie das Plugin auf Ihrem Desktop, Sie finden die Markersymbole im Marker-Verzeichnis. Diese können Sie anschließend hier hochladen und Verwenden. Gehen Sie in die Plugin Einstellungen um die Marker zuzuweisen.",
             "markerRetinaId": "Marker Retina",
