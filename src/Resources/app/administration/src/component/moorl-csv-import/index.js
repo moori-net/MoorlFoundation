@@ -189,7 +189,16 @@ Component.register('moorl-csv-import', {
             let columns = [];
             let properties = Shopware.EntityDefinition.get(this.entity).properties
 
+            console.log("initEditColumns IN", properties);
+
             for (const [property, column] of Object.entries(properties)) {
+                // Since 6.3.5 there are new fields here
+                if (column.relation === 'many_to_many' && column.localField !== null) {
+                    delete column.flags.required;
+                    delete column.localField;
+                    delete column.referenceField;
+                }
+
                 if (!column.flags.moorl_edit_field && !column.flags.primary_key) {
                     continue;
                 }
@@ -205,6 +214,8 @@ Component.register('moorl-csv-import', {
                 column.label = this.$tc(`moorl-foundation.properties.${property}`);
                 columns.push(column);
             }
+
+            console.log("initEditColumns OUT", columns);
 
             this.columns = columns;
         },
