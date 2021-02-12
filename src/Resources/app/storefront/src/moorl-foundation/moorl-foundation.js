@@ -52,7 +52,7 @@ export default class MoorlFoundation extends Plugin {
     _registerModalEvents() {
         const that = this;
 
-        $(document).on('click', '[data-moorl-foundation-modal]', function () {
+        jQuery('body').on('click', '[data-moorl-foundation-modal]', function () {
             let url = this.dataset.moorlFoundationModal;
 
             that._client.get(url, (response) => {
@@ -65,10 +65,14 @@ export default class MoorlFoundation extends Plugin {
                 that._openModal(response, callback);
             });
         }
+
+        jQuery('body').on('hidden.bs.modal', function () {
+            jQuery('.modal video').trigger('pause');
+        });
     }
 
     _openModal(response, callback) {
-        $('#moorlFoundationModal').html(response).modal('show');
+        jQuery('#moorlFoundationModal').html(response).modal('show');
 
         if (typeof callback == 'function') {
             callback();
