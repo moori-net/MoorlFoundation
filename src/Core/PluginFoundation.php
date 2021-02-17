@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core;
 
 use League\Flysystem\FilesystemInterface;
+use Shopware\Core\Content\MailTemplate\MailTemplateActions;
 use Symfony\Component\Finder\Finder;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Defaults;
@@ -558,8 +559,11 @@ class PluginFoundation
                     [
                         'id' => Uuid::randomBytes(),
                         'event_name' => $item['event_name'],
-                        'action_name' => $item['action_name'],
-                        'config' => json_encode(['mail_template_type_id' => md5($item['technical_name'])]),
+                        'action_name' => isset($item['action_name']) ? $item['action_name'] : MailTemplateActions::MAIL_TEMPLATE_MAIL_SEND_ACTION,
+                        'config' => json_encode([
+                            'mail_template_type_id' => md5($item['technical_name']),
+                            'mail_template_id' => md5($item['technical_name'])
+                        ]),
                         'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
                     ]
                 );

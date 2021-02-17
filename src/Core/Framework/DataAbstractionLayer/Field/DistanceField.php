@@ -5,9 +5,6 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Field;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\DistanceFieldAccessorBuilder;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\DistanceFieldResolver;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldSerializer\DistanceFieldSerializer;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\TranslationFieldResolver;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\StorageAware;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\TranslatedFieldSerializer;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
 
 class DistanceField extends Field
