@@ -2,8 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
     <card>
-        <title>moori Plugin Einstellungen</title>
-        <title lang="de-DE">moori Plugin settings</title>
+        <title>moori plugin settings</title>
+        <title lang="de-DE">moori Plugin Einstellungen</title>
         <input-field type="bool">
             <name>cmsElements</name>
             <label>Remove CMS elements when uninstalling</label>
@@ -37,8 +37,8 @@
     </card>
 
     <card>
-        <title>Stylesheet Addon-Ons</title>
-        <title lang="de-DE">Stylesheet Addon-Ons</title>
+        <title>Add-ons</title>
+        <title lang="de-DE">Add-Ons</title>
         <input-field type="bool">
             <name>fontawesome</name>
             <label>Enable Font Awesome 5 Free</label>
@@ -52,7 +52,7 @@
     </card>
 
     <card>
-        <title>Animate.css Konfiguration</title>
+        <title>Animate.css config</title>
         <title lang="de-DE">Animate.css Konfiguration</title>
         <input-field type="textarea">
             <name>animateIn</name>
