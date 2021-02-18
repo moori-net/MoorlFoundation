@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core;
 
 use League\Flysystem\FilesystemInterface;
 use Shopware\Core\Content\MailTemplate\MailTemplateActions;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\Finder\Finder;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Defaults;
@@ -48,17 +49,24 @@ class PluginFoundation
      */
     private $projectDir;
 
+    /**
+     * @var SystemConfigService|null
+     */
+    private $systemConfigService;
+
     public function __construct(
         DefinitionInstanceRegistry $definitionInstanceRegistry,
         Connection $connection,
         ?FilesystemInterface $filesystem = null,
-        ?string $projectDir = null
+        ?string $projectDir = null,
+        ?SystemConfigService $systemConfigService = null
     )
     {
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->connection = $connection;
         $this->filesystem = $filesystem;
         $this->projectDir = $projectDir;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function removeCmsPages($ids)
@@ -182,6 +190,10 @@ class PluginFoundation
 
     public function removePluginSnippets(string $pluginName): void
     {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.snippets')) {
+            return;
+        }
+
         $repo = $this->definitionInstanceRegistry->getRepository('snippet');
 
         $criteria = new Criteria();
@@ -366,6 +378,9 @@ class PluginFoundation
 
     public function removeCmsSlots(array $types): void
     {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.cmsElements')) {
+            return;
+        }
         $repo = $this->definitionInstanceRegistry->getRepository('cms_slot');
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsAnyFilter('type', $types));
@@ -381,6 +396,9 @@ class PluginFoundation
 
     public function removeCmsBlocks(array $types): void
     {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.cmsElements')) {
+            return;
+        }
         $repo = $this->definitionInstanceRegistry->getRepository('cms_block');
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsAnyFilter('type', $types));
@@ -396,8 +414,14 @@ class PluginFoundation
 
     public function dropTables(array $tables): void
     {
-        foreach ($tables as $table) {
-            $this->connection->executeQuery('DROP TABLE IF EXISTS `' . $table . '`;');
+        if (!$this->systemConfigService->get('MoorlFoundation.config.renameTables')) {
+            foreach ($tables as $table) {
+                $this->connection->executeQuery('RENAME TABLE `' . $table . '` TO `x_' . $table . '`;');
+            }
+        } else {
+            foreach ($tables as $table) {
+                $this->connection->executeQuery('DROP TABLE IF EXISTS `' . $table . '`;');
+            }
         }
     }
 
@@ -409,6 +433,10 @@ class PluginFoundation
 
     public function removeCustomFields(string $param): void
     {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.customFields')) {
+            return;
+        }
+
         $customFieldIds = $this->getCustomFieldIds($param);
         if ($customFieldIds->getTotal() > 0) {
             $ids = array_map(static function ($id) {
@@ -480,6 +508,10 @@ class PluginFoundation
 
     public function removeMailTemplates(array $names, $deleteAll = null): void
     {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.mailTemplates')) {
+            return;
+        }
+
         foreach ($names as $name) {
             $id = Uuid::fromHexToBytes(md5($name));
             $this->connection->executeQuery('DELETE FROM `mail_template` WHERE `id` = :id;', ['id' => $id]);
