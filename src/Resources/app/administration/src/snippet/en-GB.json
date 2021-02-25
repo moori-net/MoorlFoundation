@@ -85,6 +85,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "isEsd": "Is ESD download",
             "url": "URL",
             "reason": "Reason",
             "status": "Status",

@@ -413,6 +413,21 @@ Component.register('moorl-entity-grid', {
                 this.showEditModal = true;
             } else {
                 this.selectedItem = this.repository.create(Shopware.Context.api);
+
+                for (let column of this.editColumns) {
+                    if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
+                        let repository = this.repositoryFactory.create(column.entity);
+
+                        this.selectedItem[column.property] = new Shopware.Data.EntityCollection(
+                            repository.route,
+                            repository.entityName,
+                            Shopware.Context.api
+                        );
+                    } else if (column.relation === 'many_to_one' && column.localField) {
+                        this.selectedItem[column.localField] = null;
+                    }
+                }
+
                 Object.assign(this.selectedItem, this.defaultItem);
                 this.showEditModal = true;
             }

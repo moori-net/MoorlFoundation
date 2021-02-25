@@ -294,7 +294,7 @@ Component.register('moorl-csv-import', {
         },
 
         initSelectedItem() {
-            this.selectedItem = Object.assign({}, this.defaultItem);
+            this.selectedItem = {};
 
             for (let column of this.columns) {
                 if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
@@ -305,8 +305,12 @@ Component.register('moorl-csv-import', {
                         repository.entityName,
                         Shopware.Context.api
                     );
+                } else if (column.relation === 'many_to_one' && column.localField) {
+                    this.selectedItem[column.localField] = null;
                 }
             }
+
+            Object.assign(this.selectedItem, this.defaultItem);
         },
 
         onClickBack() {
