@@ -58,22 +58,22 @@
             <name>animateIn</name>
             <label>Animate In</label>
             <label lang="de-DE">Animate In</label>
-            <defaultValue>.cms-block|slideInUp</defaultValue>
-            <placeholder>#CSS-Selector#|#Animation-Class#</placeholder>
+            <defaultValue>.cms-block|slideInUp|300</defaultValue>
+            <placeholder>#CSS-Selector#|#Animation-Class#|#Timeout ms#</placeholder>
         </input-field>
         <input-field type="textarea">
             <name>animateOut</name>
             <label>Animate Out</label>
             <label lang="de-DE">Animate Out</label>
             <defaultValue></defaultValue>
-            <placeholder>#CSS-Selector#|#Animation-Class#</placeholder>
+            <placeholder>#CSS-Selector#|#Animation-Class#|#Timeout ms#</placeholder>
         </input-field>
         <input-field type="textarea">
             <name>hover</name>
             <label>Hover</label>
             <label lang="de-DE">Hover</label>
             <defaultValue></defaultValue>
-            <placeholder>#CSS-Selector#|#Animation-Class#</placeholder>
+            <placeholder>#CSS-Selector#|#Animation-Class#|#Timeout ms#</placeholder>
         </input-field>
     </card>
 

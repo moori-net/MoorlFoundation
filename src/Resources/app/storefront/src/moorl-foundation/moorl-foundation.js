@@ -80,7 +80,7 @@ export default class MoorlFoundation extends Plugin {
     }
 
     animateInit(str, attr) {
-        if (str.trim().length == 0) {
+        if (str.trim().length === 0) {
             return;
         }
         let lines = str.split(/;/g);
@@ -95,6 +95,10 @@ export default class MoorlFoundation extends Plugin {
             let config = line.split(/\|/g);
             if (typeof config[1] == 'string') {
                 $(config[0]).attr(attr, config[1]);
+
+                if (typeof config[2] == 'string') {
+                    $(config[0]).attr("data-timeout", config[2]);
+                }
             } else {
                 console.log("MoorlFoundation warning: Misconfiguration at animation settings");
                 console.log(config);
@@ -107,10 +111,13 @@ export default class MoorlFoundation extends Plugin {
     animateIn(el) {
         let isVisible = $(el).isOverBottom();
         if (isVisible) {
-            $(el).addClass("animated").addClass(el.dataset.animateIn).removeClass("moorl-foundation-hide");
+            let timeout = el.dataset.timeout ? el.dataset.timeout : 0;
             setTimeout(function () {
-                $(el).removeClass(el.dataset.animateIn).removeClass("animated");
-            }, 1000);
+                $(el).addClass("animated").addClass(el.dataset.animateIn).removeClass("moorl-foundation-hide");
+                setTimeout(function () {
+                    $(el).removeClass(el.dataset.animateIn).removeClass("animated");
+                }, 1000);
+            }, timeout);
         }
     };
 
@@ -118,11 +125,14 @@ export default class MoorlFoundation extends Plugin {
         const that = this;
         let isVisible = $(el).isOverBottom();
         if (!isVisible) {
-            $(el).addClass("animated").addClass(el.dataset.animateOut);
+            let timeout = el.dataset.timeout ? el.dataset.timeout : 0;
             setTimeout(function () {
-                $(el).removeClass(el.dataset.animateOut).addClass("moorl-foundation-hide").removeClass("animated");
-                that.animate();
-            }, 1000);
+                $(el).addClass("animated").addClass(el.dataset.animateOut);
+                setTimeout(function () {
+                    $(el).removeClass(el.dataset.animateOut).addClass("moorl-foundation-hide").removeClass("animated");
+                    that.animate();
+                }, 1000);
+            }, timeout);
         }
     };
 

@@ -67,6 +67,7 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "isInherit": "Wird vererbt",
             "isEsd": "Ist ESD Download",
             "url": "URL",
             "reason": "Grund",
