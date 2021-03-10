@@ -414,8 +414,14 @@ class PluginFoundation
 
     public function dropTables(array $tables): void
     {
-        if (!$this->systemConfigService->get('MoorlFoundation.config.renameTables')) {
+        foreach ($tables as $table) {
+            $this->connection->executeQuery('DROP TABLE IF EXISTS `' . $table . '`;');
+        }
+        return;
+
+        if ($this->systemConfigService->get('MoorlFoundation.config.renameTables')) {
             foreach ($tables as $table) {
+                /* BUG: Constraints will not be renamed! */
                 $this->connection->executeQuery('RENAME TABLE `' . $table . '` TO `x_' . $table . '`;');
             }
         } else {
