@@ -85,6 +85,10 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "keywords": "Keywords",
+            "ean": "EAN",
+            "breadcrumb": "Breadcrumb",
+            "childCount": "Child count",
             "isEsd": "Is ESD download",
             "isInherit": "Is inherit",
             "url": "URL",

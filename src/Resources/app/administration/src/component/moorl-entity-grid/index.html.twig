@@ -44,7 +44,11 @@
                   @select-all-items="onSelectionChanged"
                   @selection-change="onSelectionChanged">
         <template #actions="{ item }">
-            <sw-context-menu-item @click="onEditItem(item)">
+            <sw-context-menu-item v-if="path" :routerLink="{ name: path, params: {id: item.id} }">
+                {{ $tc('global.default.edit') }}
+            </sw-context-menu-item>
+
+            <sw-context-menu-item v-else @click="onEditItem(item)">
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
 
@@ -55,8 +59,13 @@
         </template>
 
         <template slot="bulk">
-            <a class="link link-danger" @click="onEditSelectedItems">{{ $tc('global.default.edit') }}</a>
-            <a class="link link-danger" @click="onDeleteSelectedItems">{{ $tc('global.default.delete') }}</a>
+            <a class="link link-danger" @click="onEditSelectedItems">
+                {{ $tc('global.default.edit') }}
+            </a>
+
+            <a class="link link-danger" @click="onDeleteSelectedItems">
+                {{ $tc('global.default.delete') }}
+            </a>
         </template>
 
         <template slot="pagination">

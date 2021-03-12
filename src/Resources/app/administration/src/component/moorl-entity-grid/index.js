@@ -48,6 +48,10 @@ Component.register('moorl-entity-grid', {
             type: String,
             required: true
         },
+        path: {
+            type: String,
+            required: false
+        },
         columns: {
             type: Array,
             required: false
@@ -188,6 +192,19 @@ Component.register('moorl-entity-grid', {
                 if (column.type == 'association') {
                     if (properties[column.localField].flags.required) {
                         column.required = true;
+                        /*column.criteria = new Criteria();
+
+                        console.log(property);
+                        console.log("split criteria?");
+                        console.log(this.criteria);
+
+                        for (let filter of this.criteria.filters) {
+                            console.log(filter);
+
+                            if (filter.field.indexOf(property) === 0) {
+                                column.criteria.filters.push(filter);
+                            }
+                        }*/
                     }
                 } else {
                     if (column.flags.required) {
@@ -413,6 +430,10 @@ Component.register('moorl-entity-grid', {
                 this.showEditModal = true;
             } else {
                 this.selectedItem = this.repository.create(Shopware.Context.api);
+
+                if (Shopware.Context.api.languageId !== Shopware.Context.api.systemLanguageId) {
+                    Shopware.State.commit('context/setApiLanguageId', Shopware.Context.api.systemLanguageId)
+                }
 
                 for (let column of this.editColumns) {
                     if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
