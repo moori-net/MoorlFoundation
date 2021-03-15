@@ -85,6 +85,13 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "hsn": "HSN",
+            "tsn": "TSN",
+            "parent": "parent",
+            "manufacturerNumber": "Manufactuer number",
+            "parentOriginId": "Parent origin ID",
+            "level": "Level",
+            "deepLoad": "Deep load",
             "keywords": "Keywords",
             "ean": "EAN",
             "breadcrumb": "Breadcrumb",

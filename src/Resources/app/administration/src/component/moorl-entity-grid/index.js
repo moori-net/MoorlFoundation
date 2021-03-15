@@ -68,6 +68,16 @@ Component.register('moorl-entity-grid', {
                 return {};
             }
         },
+        sortBy: {
+            type: String,
+            required: false,
+            default: 'createdAt'
+        },
+        sortDirection: {
+            type: String,
+            required: false,
+            default: 'DESC'
+        },
         depth: {
             type: Number,
             required: false,
