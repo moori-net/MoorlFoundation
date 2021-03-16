@@ -87,7 +87,7 @@
         "properties": {
             "hsn": "HSN",
             "tsn": "TSN",
-            "parent": "parent",
+            "parent": "Parent",
             "manufacturerNumber": "Manufactuer number",
             "parentOriginId": "Parent origin ID",
             "level": "Level",
@@ -195,7 +195,7 @@
             "content": "Content",
             "teaser": "Teaser",
             "cmsPage": "CMS page",
-            "image": "Article",
+            "image": "Image",
             "logo": "Logo",
             "markerId": "Marker",
             "markerShadowId": "Marker Shadow",

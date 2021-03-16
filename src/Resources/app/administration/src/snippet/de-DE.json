@@ -67,6 +67,17 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "hsn": "HSN",
+            "tsn": "TSN",
+            "parent": "Eltern Element",
+            "manufacturerNumber": "Herstellernummer",
+            "parentOriginId": "Eltern Original ID",
+            "level": "Ebene",
+            "deepLoad": "Deep load",
+            "keywords": "Schlüsselwörter",
+            "ean": "EAN",
+            "breadcrumb": "Breadcrumb",
+            "childCount": "Zähler",
             "isInherit": "Wird vererbt",
             "isEsd": "Ist ESD Download",
             "url": "URL",
