@@ -31,7 +31,7 @@
         "notification": {
             "errorTitle": "Ein Fehler ist aufgetreten",
             "errorRequiredText": "Felder die mit * gekennzeichned sind sind erforderlich.",
-            "errorDuplicateEntryText": "Der Eintrag kann nicht gespeicher werden weil es bereits einen Eintrag für die selbe Assoziation gibt.",
+            "errorDuplicateEntryText": "Der Eintrag kann nicht gespeichert werden weil es bereits einen Eintrag für die selbe Assoziation gibt.",
             "errorFileText": "Die Datei konnte nicht gelesen werden - haben Sie das richtige Format gewählt?",
             "startImportTitle": "Starte Import",
             "startImportText": "Der Import Vorgang wurde gestartet",
