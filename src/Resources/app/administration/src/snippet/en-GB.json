@@ -47,6 +47,7 @@
         "notification": {
             "errorTitle": "Error notification",
             "errorRequiredText": "Fields marked with * are required.",
+            "errorDuplicateEntryText": "The entry can not be saved because a entry for the same association already exists.",
             "errorFileText": "Unable to read file - did you chose the right format?",
             "startImportTitle": "Start import",
             "startImportText": "The import process has started now",
@@ -85,6 +86,9 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "customPrice": "Custom price",
+            "prepend": "Prepend",
+            "filterGroup": "Filter group",
             "hsn": "HSN",
             "tsn": "TSN",
             "parent": "Parent",

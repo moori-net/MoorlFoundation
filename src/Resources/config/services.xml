@@ -13,6 +13,10 @@
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
 
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
+            <tag name="shopware.dal.exception_handler"/>
+        </service>
+
         <!-- Controller -->
         <service id="MoorlFoundation\Controller\ApiController" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>

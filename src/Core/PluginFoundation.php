@@ -214,6 +214,11 @@ class PluginFoundation
         $this->filesystem->deleteDir($targetDir);
     }
 
+    public function createDir(string $targetDir): void
+    {
+        $this->filesystem->createDir($targetDir);
+    }
+
     public function copyAssetsFromPlugin(string $originDir, string $targetDir): void
     {
         $this->filesystem->createDir($targetDir);

@@ -161,19 +161,12 @@ Component.register('moorl-entity-grid', {
     methods: {
         createdComponent() {
             this.initGridColumns();
-            console.log("initGridColumns");
             this.initEditColumns();
-            console.log("initEditColumns");
             this.getItems();
-            console.log("getItems");
         },
 
         initGridColumns() {
             this.gridColumns = this.getGridColumns();
-
-            console.log("grid col rdy");
-            console.log(this.gridColumns);
-
         },
 
         initEditColumns() {
@@ -226,8 +219,6 @@ Component.register('moorl-entity-grid', {
 
                 columns.push(column);
             }
-
-            console.log("Init edit columns:", columns);
 
             this.editColumns = columns;
         },
@@ -424,10 +415,23 @@ Component.register('moorl-entity-grid', {
                     this.showEditModal = false;
                 })
                 .catch((exception) => {
-                    this.isLoading = false;
+                    const errorCode = Shopware.Utils.get(exception, 'response.data.errors[0].code');
+
+                    if (errorCode === 'MOORL__DUPLICATE_ENTRY') {
+                        const titleSaveError = this.$tc('moorl-foundation.notification.errorTitle');
+                        const messageSaveError = this.$tc('moorl-foundation.notification.errorDuplicateEntryText');
+                        this.createNotificationError({
+                            title: titleSaveError,
+                            message: messageSaveError
+                        });
+                        return;
+                    }
+
+                    const titleSaveError = this.$tc('moorl-foundation.notification.errorTitle');
+                    const messageSaveError = this.$tc('moorl-foundation.notification.errorRequiredText');
                     this.createNotificationError({
-                        title: this.$t('moorl-foundation.notification.errorTitle'),
-                        message: this.$t('moorl-foundation.notification.errorRequiredText')
+                        title: titleSaveError,
+                        message: messageSaveError
                     });
                 });
         },
