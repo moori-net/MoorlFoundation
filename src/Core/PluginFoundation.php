@@ -84,32 +84,34 @@ class PluginFoundation
         foreach ($data as $item) {
             $cmsPageId = Uuid::fromHexToBytes(md5($item['technical_name']));
 
-            $this->connection->insert(
-                'cms_page',
-                [
-                    'id' => $cmsPageId,
-                    'type' => $item['type'],
-                    'entity' => $item['entity'],
-                    'locked' => $item['locked'],
-                    'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-                ]
-            );
-
-            foreach ($item['locale'] as $locale => $localeItem) {
-                $languageId = $this->getLanguageIdByLocale($locale);
-                if (!$languageId) {
-                    continue;
-                }
+            try {
                 $this->connection->insert(
-                    'cms_page_translation',
+                    'cms_page',
                     [
-                        'cms_page_id' => $cmsPageId,
-                        'name' => $localeItem['name'],
-                        'language_id' => Uuid::fromHexToBytes($languageId),
+                        'id' => $cmsPageId,
+                        'type' => $item['type'],
+                        'entity' => $item['entity'],
+                        'locked' => $item['locked'],
                         'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
                     ]
                 );
-            }
+
+                foreach ($item['locale'] as $locale => $localeItem) {
+                    $languageId = $this->getLanguageIdByLocale($locale);
+                    if (!$languageId) {
+                        continue;
+                    }
+                    $this->connection->insert(
+                        'cms_page_translation',
+                        [
+                            'cms_page_id' => $cmsPageId,
+                            'name' => $localeItem['name'],
+                            'language_id' => Uuid::fromHexToBytes($languageId),
+                            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+                        ]
+                    );
+                }
+            } catch (\Exception $exception) {}
         }
     }
 
@@ -625,7 +627,7 @@ class PluginFoundation
     private function getAnyEntityId(string $entity): string
     {
         $sql = 'SELECT `id` FROM `' . $entity . '` LIMIT 1';
-        $id = $this->connection->executeUpdate($sql)->fetchColumn();
+        $id = $this->connection->executeQuery($sql)->fetchColumn();
         if (!$id) {
             throw new \RuntimeException(sprintf('Entity "%s" not found.', $entity));
         }

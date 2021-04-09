@@ -68,6 +68,7 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "productCount": "Produkte",
             "hsn": "HSN",
             "tsn": "TSN",
             "parent": "Eltern Element",
@@ -78,7 +79,7 @@
             "keywords": "Schlüsselwörter",
             "ean": "EAN",
             "breadcrumb": "Breadcrumb",
-            "childCount": "Zähler",
+            "childCount": "Kinder",
             "isInherit": "Wird vererbt",
             "isEsd": "Ist ESD Download",
             "url": "URL",
