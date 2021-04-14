@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core;
 use League\Flysystem\FilesystemInterface;
 use Shopware\Core\Content\MailTemplate\MailTemplateActions;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Shopware\Storefront\Theme\ThemeEntity;
 use Symfony\Component\Finder\Finder;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Defaults;
@@ -74,8 +75,17 @@ class PluginFoundation
         foreach ($ids as $id) {
             $id = Uuid::fromHexToBytes(md5($id));
 
+            $this->executeUpdate('UPDATE `category` SET `cms_page_id` = NULL WHERE `cms_page_id` = :id;', ['id' => $id]);
             $this->executeUpdate('DELETE FROM `cms_page_translation` WHERE `cms_page_id` = :id;', ['id' => $id]);
             $this->executeUpdate('DELETE FROM `cms_page` WHERE `id` = :id;', ['id' => $id]);
+        }
+    }
+
+    public function executeUpdate(string $sql, array $params = [])
+    {
+        try {
+            $this->connection->executeUpdate($sql, $params);
+        } catch (\Exception $exception) {
         }
     }
 
@@ -111,8 +121,41 @@ class PluginFoundation
                         ]
                     );
                 }
-            } catch (\Exception $exception) {}
+            } catch (\Exception $exception) {
+            }
         }
+    }
+
+    public function getLanguageIdByLocale(string $locale): ?string
+    {
+        if (!isset($this->languageIds[$locale])) {
+            $repo = $this->definitionInstanceRegistry->getRepository('language');
+            $criteria = new Criteria();
+            $criteria->addAssociation('locale');
+            $criteria->addFilter(new EqualsFilter('locale.code', $locale));
+
+            $language = $repo->search($criteria, $this->getContext())->first();
+
+            $this->languageIds[$locale] = $language ? $language->getId() : null;
+        }
+
+        return $this->languageIds[$locale];
+    }
+
+    /**
+     * @return Context
+     */
+    public function getContext(): Context
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param Context $context
+     */
+    public function setContext(Context $context): void
+    {
+        $this->context = $context;
     }
 
     public function addShippingMethods($data)
@@ -159,6 +202,16 @@ class PluginFoundation
                 );
             }
         }
+    }
+
+    private function getAnyEntityId(string $entity): string
+    {
+        $sql = 'SELECT `id` FROM `' . $entity . '` LIMIT 1';
+        $id = $this->connection->executeQuery($sql)->fetchColumn();
+        if (!$id) {
+            throw new \RuntimeException(sprintf('Entity "%s" not found.', $entity));
+        }
+        return $id;
     }
 
     public function removeShippingMethods($ids)
@@ -250,34 +303,12 @@ class PluginFoundation
         return getenv('APP_URL');
     }
 
-    public function executeUpdate(string $sql, array $params = [])
-    {
-        try {
-            $this->connection->executeUpdate($sql, $params);
-        } catch (\Exception $exception) {}
-    }
-
     public function executeQuery(string $sql, array $params = [])
     {
         try {
             $this->connection->executeUpdate($sql, $params);
-        } catch (\Exception $exception) {}
-    }
-
-    public function getLanguageIdByLocale(string $locale): ?string
-    {
-        if (!isset($this->languageIds[$locale])) {
-            $repo = $this->definitionInstanceRegistry->getRepository('language');
-            $criteria = new Criteria();
-            $criteria->addAssociation('locale');
-            $criteria->addFilter(new EqualsFilter('locale.code', $locale));
-
-            $language = $repo->search($criteria, $this->getContext())->first();
-
-            $this->languageIds[$locale] = $language ? $language->getId() : null;
+        } catch (\Exception $exception) {
         }
-
-        return $this->languageIds[$locale];
     }
 
     public function addSeoUrlTemplate($data)
@@ -374,22 +405,6 @@ class PluginFoundation
         }
     }
 
-    /**
-     * @return Context
-     */
-    public function getContext(): Context
-    {
-        return $this->context;
-    }
-
-    /**
-     * @param Context $context
-     */
-    public function setContext(Context $context): void
-    {
-        $this->context = $context;
-    }
-
     public function removeCmsSlots(array $types): void
     {
         if (!$this->systemConfigService->get('MoorlFoundation.config.cmsElements')) {
@@ -426,23 +441,34 @@ class PluginFoundation
         $repo->delete($ids, $this->getContext());
     }
 
+    public function removeTheme(string $technicalName): void
+    {
+        $theme = $this->getTheme($technicalName);
+        if (!$theme || $theme->getSalesChannels()) {
+            return;
+        }
+        $this->connection->executeUpdate(
+            'DELETE FROM `theme_sales_channel` WHERE `theme_id` = :id;',
+            ['id' => Uuid::fromHexToBytes($theme->getId())]
+        );
+    }
+
+    public function getTheme(string $technicalName): ?ThemeEntity
+    {
+        $repo = $this->definitionInstanceRegistry->getRepository('theme');
+        $criteria = new Criteria();
+        $criteria->setLimit(1);
+        $criteria->addAssociation('salesChannels');
+        $criteria->addFilter(new EqualsFilter('technicalName', $technicalName));
+        return $repo->search($criteria, $this->getContext())->first();
+    }
+
     public function dropTables(array $tables): void
     {
         foreach ($tables as $table) {
             $this->connection->executeUpdate('DROP TABLE IF EXISTS `' . $table . '`;');
         }
         return;
-
-        if ($this->systemConfigService->get('MoorlFoundation.config.renameTables')) {
-            foreach ($tables as $table) {
-                /* BUG: Constraints will not be renamed! */
-                $this->connection->executeUpdate('RENAME TABLE `' . $table . '` TO `x_' . $table . '`;');
-            }
-        } else {
-            foreach ($tables as $table) {
-                $this->connection->executeUpdate('DROP TABLE IF EXISTS `' . $table . '`;');
-            }
-        }
     }
 
     public function updateCustomFields(array $data, string $param): void
@@ -622,15 +648,5 @@ class PluginFoundation
             } catch (\Exception $exception) {
             }
         }
-    }
-
-    private function getAnyEntityId(string $entity): string
-    {
-        $sql = 'SELECT `id` FROM `' . $entity . '` LIMIT 1';
-        $id = $this->connection->executeQuery($sql)->fetchColumn();
-        if (!$id) {
-            throw new \RuntimeException(sprintf('Entity "%s" not found.', $entity));
-        }
-        return $id;
     }
 }
