@@ -2,15 +2,17 @@
 
 {% block layout_head_stylesheet %}
     {{ parent() }}
-    {% if shopware.config.MoorlFoundation.config.fontawesome %}
+
+    {% if config('MoorlFoundation.config.fontawesome') %}
         <link rel="stylesheet" href="{{ asset('bundles/moorlfoundation/storefront/css/font-awesome-free.css') }}">
     {% endif %}
-    {% if shopware.config.MoorlFoundation.config.animate %}
+
+    {% if config('MoorlFoundation.config.animate') %}
         <link rel="stylesheet" href="{{ asset('bundles/moorlfoundation/storefront/css/animate.css') }}">
         <script type="application/json" id="moorlFoundationAnimateConfig">{
-            "animateIn": "{{ shopware.config.MoorlFoundation.config.animateIn|replace({"\n":';',"\r":';'}) }}",
-            "animateOut": "{{ shopware.config.MoorlFoundation.config.animateOut|replace({"\n":';',"\r":';'}) }}",
-            "hover": "{{ shopware.config.MoorlFoundation.config.hover|replace({"\n":';',"\r":';'}) }}"
+            "animateIn": "{{ config('MoorlFoundation.config.animateIn') | replace({"\n":';',"\r":';'}) }}",
+            "animateOut": "{{ config('MoorlFoundation.config.animateOut') | replace({"\n":';',"\r":';'}) }}",
+            "hover": "{{ config('MoorlFoundation.config.hover') | replace({"\n":';',"\r":';'}) }}"
         }</script>
     {% endif %}
 {% endblock %}

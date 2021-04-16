@@ -3,37 +3,16 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\DistanceField;
-use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\FieldResolverInterface;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\JoinBuilder\JoinBuilderInterface;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\QueryBuilder;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\AbstractFieldResolver;
+use Shopware\Core\Framework\DataAbstractionLayer\Dbal\FieldResolver\FieldResolverContext;
 
-class DistanceFieldResolver implements FieldResolverInterface
+class DistanceFieldResolver extends AbstractFieldResolver
 {
-    public function getJoinBuilder(): JoinBuilderInterface {}
-
-    public function resolve(
-        EntityDefinition $definition,
-        string $root,
-        Field $field,
-        QueryBuilder $query,
-        Context $context,
-        EntityDefinitionQueryHelper $queryHelper
-    ): bool {
+    public function join(FieldResolverContext $context): string
+    {
+        $field = $context->getField();
         if (!$field instanceof DistanceField) {
-            return false;
+            return $context->getAlias();
         }
-
-        $alias = $field->getAccessorBuilder()->buildAccessor($root, $field, $context, $field->getPropertyName());
-
-
-        //$query->addState(sprintf('%s as %s', $alias, $field->getPropertyName()));
-
-        return true;
     }
 }

@@ -5,12 +5,12 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldSerializer;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\DistanceField;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\InvalidSerializerFieldException;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
-use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\AbstractFieldSerializer;
+use Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\FieldSerializerInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\DataStack\KeyValuePair;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\EntityExistence;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\WriteParameterBag;
 
-class DistanceFieldSerializer extends AbstractFieldSerializer
+class DistanceFieldSerializer implements FieldSerializerInterface
 {
     public function encode(
         Field $field,
@@ -28,5 +28,10 @@ class DistanceFieldSerializer extends AbstractFieldSerializer
     public function decode(Field $field, $value): ?float
     {
         return $value === null ? null : (float) $value;
+    }
+
+    public function normalize(Field $field, array $data, WriteParameterBag $parameters): array
+    {
+        return [];
     }
 }

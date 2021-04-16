@@ -44,16 +44,6 @@ class DistanceField extends Field
         return $this->lon;
     }
 
-    protected function getAccessorBuilderClass(): ?string
-    {
-        return DistanceFieldAccessorBuilder::class;
-    }
-
-    protected function getResolverClass(): ?string
-    {
-        return DistanceFieldResolver::class;
-    }
-
     protected function getSerializerClass(): string
     {
         return DistanceFieldSerializer::class;
