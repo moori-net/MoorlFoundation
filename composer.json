@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.3"
+        "shopware/core": "^6.4"
     },
     "type": "shopware-platform-plugin",
     "autoload": {
