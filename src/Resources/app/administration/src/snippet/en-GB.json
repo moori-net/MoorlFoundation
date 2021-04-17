@@ -86,6 +86,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "attachments": "Attachments",
             "productCount": "Products",
             "customPrice": "Custom price",
             "prepend": "Prepend",

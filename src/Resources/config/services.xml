@@ -29,5 +29,9 @@
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
             <tag name="shopware.dal.exception_handler"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Framework\Twig\AnimatedExtension">
+            <tag name="twig.extension"/>
+        </service>
     </services>
 </container>
