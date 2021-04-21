@@ -30,6 +30,12 @@
             <tag name="shopware.dal.exception_handler"/>
         </service>
 
+        <!-- https://github.com/shopware/platform/issues/1815 -->
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Framework\Twig\AnimatedExtension">
             <tag name="twig.extension"/>
         </service>
