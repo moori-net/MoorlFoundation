@@ -61,6 +61,16 @@ Component.register('moorl-entity-grid', {
             required: false,
             default: []
         },
+        snippetSrc: {
+            type: String,
+            required: false,
+            default: 'moorl-foundation'
+        },
+        excludeInput: {
+            type: Array,
+            required: false,
+            default: []
+        },
         criteria: {
             type: Object,
             required: false,
@@ -183,6 +193,9 @@ Component.register('moorl-entity-grid', {
                 if (Object.keys(this.defaultItem).indexOf(property) !== -1) {
                     continue;
                 }
+                if (this.excludeInput.indexOf(property) !== -1) {
+                    continue;
+                }
 
                 if (!column.flags.moorl_edit_field) {
                     continue;
@@ -190,24 +203,10 @@ Component.register('moorl-entity-grid', {
 
                 column.property = property;
 
-                // TODO: Map property errors in future
                 column.required = false;
                 if (column.type == 'association') {
                     if (properties[column.localField].flags.required) {
                         column.required = true;
-                        /*column.criteria = new Criteria();
-
-                        console.log(property);
-                        console.log("split criteria?");
-                        console.log(this.criteria);
-
-                        for (let filter of this.criteria.filters) {
-                            console.log(filter);
-
-                            if (filter.field.indexOf(property) === 0) {
-                                column.criteria.filters.push(filter);
-                            }
-                        }*/
                     }
                 } else {
                     if (column.flags.required) {
@@ -215,7 +214,7 @@ Component.register('moorl-entity-grid', {
                     }
                 }
 
-                column.label = this.$tc(`moorl-foundation.properties.${property}`);
+                column.label = this.$tc(`${this.snippetSrc}.properties.${property}`);
 
                 columns.push(column);
             }
@@ -295,7 +294,7 @@ Component.register('moorl-entity-grid', {
             let labelParts = [];
 
             for (let part of propertyName.split(".")) {
-                labelParts.push(this.$tc(`moorl-foundation.properties.${part}`))
+                labelParts.push(this.$tc(`${this.snippetSrc}.properties.${part}`))
             }
 
             return labelParts.join(' - ');
@@ -313,7 +312,7 @@ Component.register('moorl-entity-grid', {
             const criteria = this.defaultCriteria;
 
             criteria.resetSorting();
-            criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, true))
+            criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection));
             criteria.setPage(this.page);
             criteria.setLimit(this.limit);
             criteria.setTotalCountMode(1);
