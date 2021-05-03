@@ -6,18 +6,19 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
 class EditField extends Flag
 {
-    /*
-     * @var string|null
-     */
-    private $type;
+    private ?string $type;
 
-    public function __construct(?string $type = null)
+    private ?array $options;
+
+    public function __construct(?string $type = null, ?array $options = null)
     {
         $this->type = $type;
+        $this->options = $options;
     }
 
     public function parse(): \Generator
     {
         yield 'moorl_edit_field' => $this->type ?: true;
+        yield 'moorl_edit_field_options' => $this->options;
     }
 }

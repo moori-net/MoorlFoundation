@@ -2,6 +2,7 @@
     <template v-if="column.type == 'association'">
         <template v-if="column.relation === 'many_to_many' || column.relation === 'one_to_many'">
             <sw-entity-multi-select :label="column.label"
+                                    :helpText="column.helpText"
                                     v-model="value[column.property]"
                                     :labelProperty="column.flags.moorl_label_property"
                                     :entity="column.entity"
@@ -12,6 +13,7 @@
         <template v-else>
             <template v-if="column.required">
                 <sw-entity-single-select :label="column.label"
+                                         :helpText="column.helpText"
                                          v-model="value[column.localField]"
                                          :labelProperty="column.flags.moorl_label_property"
                                          :entity="column.entity"
@@ -21,6 +23,7 @@
             </template>
             <template v-else>
                 <sw-entity-single-select :label="column.label"
+                                         :helpText="column.helpText"
                                          v-model="value[column.localField]"
                                          :labelProperty="column.flags.moorl_label_property"
                                          :entity="column.entity">
@@ -29,10 +32,20 @@
         </template>
     </template>
 
+    <template v-else-if="column.flags.moorl_edit_field == 'code'">
+        <sw-code-editor
+                :label="column.label"
+                :helpText="column.helpText"
+                :softWraps="false"
+                v-model="value[column.property]">
+        </sw-code-editor>
+    </template>
+
     <template v-else>
         <template v-if="column.required">
             <sw-field :type="column.flags.moorl_edit_field"
                       :label="column.label"
+                      :helpText="column.helpText"
                       v-model="value[column.property]"
                       required
                       validation="required">
@@ -41,6 +54,7 @@
         <template v-else>
             <sw-field :type="column.flags.moorl_edit_field"
                       :label="column.label"
+                      :helpText="column.helpText"
                       v-model="value[column.property]">
             </sw-field>
         </template>

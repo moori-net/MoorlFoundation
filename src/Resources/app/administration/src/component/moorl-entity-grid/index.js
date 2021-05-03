@@ -216,6 +216,15 @@ Component.register('moorl-entity-grid', {
 
                 column.label = this.$tc(`${this.snippetSrc}.properties.${property}`);
 
+                if (column.flags.moorl_edit_field_options) {
+                    if (column.flags.moorl_edit_field_options.tooltip) {
+                        column.helpText = this.$tc(column.flags.moorl_edit_field_options.tooltip);
+                    }
+                    if (column.flags.moorl_edit_field_options.label) {
+                        column.label = this.$tc(column.flags.moorl_edit_field_options.label);
+                    }
+                }
+
                 columns.push(column);
             }
 
