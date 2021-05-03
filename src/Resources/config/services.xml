@@ -13,18 +13,6 @@
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
 
-        <!-- Controller -->
-        <service id="MoorlFoundation\Controller\ApiController" public="true">
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="moorl_foundation_article.repository"/>
-            <argument type="service" id="plugin.repository"/>
-        </service>
-
-        <!-- Entity -->
-        <service id="MoorlFoundation\Core\Content\Article\ArticleDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_foundation_article" />
-        </service>
-
         <!-- Framework -->
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
             <tag name="shopware.dal.exception_handler"/>
