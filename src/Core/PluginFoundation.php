@@ -18,6 +18,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\IdSearchResult;
 use Shopware\Core\Framework\Uuid\Uuid;
 
+/**
+ * Class PluginFoundation
+ * @package MoorlFoundation\Core
+ * @depraced This Class will no longer be developed
+ */
 class PluginFoundation
 {
     /**
