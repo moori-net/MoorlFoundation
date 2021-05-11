@@ -9,7 +9,7 @@ class PluginHelpers
         if (strlen($word) < 2)
             return $word;
         else
-            return $word{0} . str_shuffle(substr($word, 1, -1)) . $word{strlen($word) - 1};
+            return $word[0] . str_shuffle(substr($word, 1, -1)) . $word[strlen($word) - 1];
     }
 
     public static function scrambleText(string $text): string
