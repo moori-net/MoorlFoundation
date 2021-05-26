@@ -45,6 +45,8 @@
             "completedMessage": "Import complete - Skipped: {skipped} - New: {new} - Total: {total} -  Errors: {errors}"
         },
         "notification": {
+            "demoDataInstalled": "Demo Data has been Installed",
+            "demoDataRemoved": "Demo Data has been Removed",
             "errorTitle": "Error notification",
             "errorRequiredText": "Fields marked with * are required.",
             "errorDuplicateEntryText": "The entry can not be saved because a entry for the same association already exists.",
@@ -250,6 +252,9 @@
             "highlight": "Highlight"
         },
         "label": {
+            "settingsTitle": "moori Tools",
+            "standardDemo": "Standard Demo",
+            "settingsDemoData": "Demo Assistant",
             "customCard": "Static custom fields",
             "search": "Search",
             "codeCard": "Codes",

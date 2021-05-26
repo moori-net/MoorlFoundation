@@ -3,8 +3,24 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <imports>
+        <import resource="controllers.xml"/>
+    </imports>
+
     <services>
-        <!-- Service -->
+        <!-- Services -->
+        <service id="MoorlFoundation\Core\Service\DataService" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Shopware\Core\Content\Media\MediaService"/>
+            <argument type="service" id="shopware.filesystem.asset"/>
+            <argument type="service" id="Shopware\Storefront\Theme\ThemeService"/>
+            <argument>%kernel.project_dir%</argument>
+
+            <argument type="tagged" tag="moorl.foundation.data" />
+        </service>
+
         <service id="MoorlFoundation\Core\PluginFoundation" public="true">
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>

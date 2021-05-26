@@ -7,4 +7,8 @@ import './component/moorl-entity-grid';
 import './init/foundation-api-service.init';
 import './core/moorl-foundation';
 import './core/moorl-foundation.scss';
+
 import './module/sw-cms';
+
+import './extension/sw-settings/page/sw-settings-index';
+import './module/foundation-settings';
