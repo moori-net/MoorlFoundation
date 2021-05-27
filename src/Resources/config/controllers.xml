@@ -6,11 +6,6 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <!-- Administration -->
-        <service id="Appflix\DewaShop\Administration\Controller\PrintController" public="true">
-            <argument type="service" id="Appflix\DewaShop\Core\Service\PrintService"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
-
         <service id="MoorlFoundation\Administration\Controller\SettingsController" public="true">
             <argument type="service" id="MoorlFoundation\Core\Service\DataService"/>
         </service>

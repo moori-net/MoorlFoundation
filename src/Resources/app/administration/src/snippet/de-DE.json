@@ -68,7 +68,12 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "swCategory": "Shopware Kategorie",
+            "attachments": "Anhänge",
             "productCount": "Produkte",
+            "customPrice": "Angepasster Preis",
+            "prepend": "Davor",
+            "filterGroup": "Filter Gruppe",
             "hsn": "HSN",
             "tsn": "TSN",
             "parent": "Eltern Element",
@@ -223,6 +228,9 @@
             "cmsPage": "CMS Seite"
         },
         "label": {
+            "settingsTitle": "moori Werkzeuge",
+            "standardDemo": "Standard Demo",
+            "settingsDemoData": "Demo Assistent",
             "search": "Suche",
             "codeCard": "Seriennummern",
             "esdCard": "ESD",

@@ -6,10 +6,10 @@ use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class SettingsController
- * @package Appflix\DewaShop\Administration\Controller
  * @RouteScope(scopes={"api"})
  */
 class SettingsController
@@ -32,30 +32,30 @@ class SettingsController
     }
 
     /**
-     * @Route("/api/moorl-foundation/settings/demo-data/install/{pluginName}/{salesChannelId}", name="api.moorl-foundation.settings.demo-data.install", methods={"GET"})
+     * @Route("/api/moorl-foundation/settings/demo-data/install", name="api.moorl-foundation.settings.demo-data.install", methods={"POST"})
      */
-    public function demoDataInstall(?string $pluginName = null, ?string $salesChannelId = null): JsonResponse
+    public function demoDataInstall(Request $request): JsonResponse
     {
-        if ($salesChannelId && !in_array($salesChannelId, ['undefined','null'])) {
-            $this->dataService->setSalesChannelId($salesChannelId);
+        if ($request->get('salesChannelId') && !in_array($request->get('salesChannelId'), ['undefined','null'])) {
+            $this->dataService->setSalesChannelId($request->get('salesChannelId'));
         }
 
-        $this->dataService->remove($pluginName, 'demo');
-        $this->dataService->install($pluginName, 'demo');
+        $this->dataService->remove($request->get('pluginName'), 'demo');
+        $this->dataService->install($request->get('pluginName'), 'demo', $request->get('name'));
 
         return new JsonResponse([]);
     }
 
     /**
-     * @Route("/api/moorl-foundation/settings/demo-data/remove/{pluginName}/{salesChannelId}", name="api.moorl-foundation.settings.demo-data.remove", methods={"GET"})
+     * @Route("/api/moorl-foundation/settings/demo-data/remove", name="api.moorl-foundation.settings.demo-data.remove", methods={"POST"})
      */
-    public function demoDataRemove(?string $pluginName = null, ?string $salesChannelId = null): JsonResponse
+    public function demoDataRemove(Request $request): JsonResponse
     {
-        if ($salesChannelId && !in_array($salesChannelId, ['undefined','null'])) {
-            $this->dataService->setSalesChannelId($salesChannelId);
+        if ($request->get('salesChannelId') && !in_array($request->get('salesChannelId'), ['undefined','null'])) {
+            $this->dataService->setSalesChannelId($request->get('salesChannelId'));
         }
 
-        $this->dataService->remove($pluginName, 'demo');
+        $this->dataService->remove($request->get('pluginName'), 'demo');
 
         return new JsonResponse([]);
     }

@@ -1,0 +1,35 @@
+<sw-page class="moorl-foundation-settings-demo-data">
+    <template slot="content">
+        <sw-card-view>
+            <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.settingsDemoData')">
+                <sw-select-field
+                        :label="$tc('moorl-foundation.properties.type')"
+                        v-model="optionIndex"
+                        @change="selectOption()">
+                    <option v-for="(option, index) in options"
+                            :key="`option-${index}`"
+                            :value="index">
+                        {{ $tc('moorl-foundation.label.standardDemo') }} ({{ option.name }} | {{ option.pluginName }})
+                    </option>
+                </sw-select-field>
+
+                <sw-entity-single-select
+                        :label="$tc('moorl-foundation.properties.salesChannel')"
+                        v-model="item.salesChannelId"
+                        labelProperty="name"
+                        entity="sales_channel">
+                </sw-entity-single-select>
+
+                <sw-button variant="primary"
+                           @click="install()">
+                    {{ $tc('moorl-foundation.buttons.startButtonText') }}
+                </sw-button>
+
+                <sw-button variant="primary"
+                           @click="remove()">
+                    {{ $tc('moorl-foundation.buttons.removeButtonText') }}
+                </sw-button>
+            </sw-card>
+        </sw-card-view>
+    </template>
+</sw-page>
