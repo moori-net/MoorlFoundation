@@ -7,6 +7,8 @@ use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\FilesystemInterface;
+use Shopware\Core\Content\Media\File\FileSaver;
+use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
@@ -20,6 +22,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Theme\ThemeService;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
 
 class DataService
 {
@@ -27,6 +30,7 @@ class DataService
     private DefinitionInstanceRegistry $definitionInstanceRegistry;
     private SystemConfigService $systemConfigService;
     private MediaService $mediaService;
+    private FileSaver $fileSaver;
     private Context $context;
     private ClientInterface $client;
     private ?string $salesChannelId = null;
@@ -46,6 +50,7 @@ class DataService
         DefinitionInstanceRegistry $definitionInstanceRegistry,
         SystemConfigService $systemConfigService,
         MediaService $mediaService,
+        FileSaver $fileSaver,
         FilesystemInterface $filesystem,
         ThemeService $themeService,
         string $projectDir,
@@ -56,6 +61,7 @@ class DataService
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->systemConfigService = $systemConfigService;
         $this->mediaService = $mediaService;
+        $this->fileSaver = $fileSaver;
         $this->dataObjects = $dataObjects;
         $this->filesystem = $filesystem;
         $this->themeService = $themeService;
@@ -369,7 +375,7 @@ TWIG;
                 $item['previewMediaId'] = $this->getMediaId($item['previewMediaId'], $table, $dataObject);
             }
             if (isset($item['cover']) && isset($item['cover']['mediaId'])) {
-                $item['cover']['mediaId'] = $this->getMediaId($item['cover']['mediaId'], $table, $dataObject);
+                $item['cover']['mediaId'] = $this->getMediaId($item['cover']['mediaId'], 'product', $dataObject);
                 $item['cover']['id'] = md5($item['id']);
             }
             if (isset($item['price']) && isset($item['taxId'])) {
@@ -386,10 +392,70 @@ TWIG;
         }
     }
 
+    private function fetchFileFromURL(string $url, string $extension): MediaFile
+    {
+        $request = new Request();
+        $request->query->set('url', $url);
+        $request->query->set('extension', $extension);
+        $request->request->set('url', $url);
+        $request->request->set('extension', $extension);
+        $request->headers->set('content-type', 'application/json');
+
+        return $this->mediaService->fetchFile($request);
+    }
+
+    private function getMediaIdFromUrl(string $name, string $table, DataInterface $dataObject): ?string
+    {
+        if (isset($this->mediaCache[$name])) {
+            return $this->mediaCache[$name];
+        }
+
+        $name = str_replace('http:', 'https:', $name);
+        $query = explode("?", $name);
+        $basename = basename($query[0]);
+        $fileInfo = pathinfo($basename);
+        $filename = $fileInfo['filename'];
+        $extension = $fileInfo['extension'];
+
+        $criteria = new Criteria();
+        $criteria->addFilter(
+            new EqualsFilter('fileName', $filename),
+            new EqualsFilter('fileExtension', $extension),
+        );
+
+        $repository = $this->definitionInstanceRegistry->getRepository('media');
+        $media = $repository->search($criteria, $this->context)->first();
+
+        if ($media) {
+            $mediaId = $media->getId();
+        } else {
+            $mediaId = $this->mediaService->createMediaInFolder($table, $this->context, false);
+
+            try {
+                $uploadedFile = $this->fetchFileFromURL($query[0], $extension);
+                $this->fileSaver->persistFileToMedia(
+                    $uploadedFile,
+                    $filename,
+                    $mediaId,
+                    $this->context
+                );
+            } finally {
+            }
+        }
+
+        $this->mediaCache[$name] = $mediaId;
+
+        return $mediaId;
+    }
+
     private function getMediaId(string $name, string $table, DataInterface $dataObject): ?string
     {
         if (isset($this->mediaCache[$name])) {
             return $this->mediaCache[$name];
+        }
+
+        if (strpos($name, 'http') === 0) {
+            return $this->getMediaIdFromUrl($name, $table, $dataObject);
         }
 
         $filePath = sprintf('%s/media/%s', $dataObject->getPath(), $name);
