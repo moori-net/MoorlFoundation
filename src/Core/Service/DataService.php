@@ -266,11 +266,6 @@ TWIG;
         $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchColumn();
         $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchColumn();
 
-        $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` ORDER BY `tax_rate` DESC LIMIT 2;";
-        $query = $this->connection->executeQuery($sql);
-        $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchColumn();
-        $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchColumn();
-
         $sql = "SELECT LOWER(HEX(`language`.`id`)) AS `id`, `locale`.`code` AS `code` FROM `language` LEFT JOIN `locale` ON `locale`.`id` = `language`.`locale_id`";
         $query = $this->connection->executeQuery($sql);
         while (($row = $query->fetchAssociative()) !== false) {
@@ -338,6 +333,20 @@ TWIG;
         return $data;
     }
 
+    private function valueFromFile($data, DataInterface $dataObject): string
+    {
+        preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+        if (!empty($matches[1])) {
+            $filePath = sprintf('%s/%s', $dataObject->getPath(), $matches[1]);
+
+            if (file_exists($filePath)) {
+                $data = file_get_contents($filePath);
+            }
+        }
+
+        return $data;
+    }
+
     private function enrichThemeConfig(&$data, string $table, DataInterface $dataObject): void
     {
         foreach ($data as &$item) {
@@ -346,6 +355,11 @@ TWIG;
 
                 if ($mediaId) {
                     $item['value'] = $mediaId;
+                    return;
+                }
+
+                if (is_string($item['value'])) {
+                    $item['value'] = $this->valueFromFile($item['value'], $dataObject);
                 }
             }
         }
@@ -355,14 +369,7 @@ TWIG;
     {
         if (!is_array($data)) {
             if (is_string($data)) {
-                preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
-                if (!empty($matches[1])) {
-                    $filePath = sprintf('%s/%s', $dataObject->getPath(), $matches[1]);
-
-                    if (file_exists($filePath)) {
-                        $data = file_get_contents($filePath);
-                    }
-                }
+                $data = $this->valueFromFile($data, $dataObject);
             }
             return;
         }
