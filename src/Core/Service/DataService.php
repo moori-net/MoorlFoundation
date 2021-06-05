@@ -266,6 +266,17 @@ TWIG;
         $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchColumn();
         $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchColumn();
 
+        $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` ORDER BY `tax_rate` DESC LIMIT 2;";
+        $query = $this->connection->executeQuery($sql);
+        $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchColumn();
+        $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchColumn();
+
+        $sql = "SELECT LOWER(HEX(`language`.`id`)) AS `id`, `locale`.`code` AS `code` FROM `language` LEFT JOIN `locale` ON `locale`.`id` = `language`.`locale_id`";
+        $query = $this->connection->executeQuery($sql);
+        while (($row = $query->fetchAssociative()) !== false) {
+            $globalReplacers[sprintf("{%s}", $row['code'])] = $row['id'];
+        }
+
         if ($this->salesChannelId) {
             $sql = sprintf(
                 "SELECT LOWER(HEX(`id`)) AS `id`, LOWER(HEX(`navigation_category_id`)) AS `categoryId` FROM `sales_channel` WHERE `id` = UNHEX('%s');",
@@ -343,11 +354,44 @@ TWIG;
     private function enrichData(&$data, string $table, DataInterface $dataObject): void
     {
         if (!is_array($data)) {
+            if (is_string($data)) {
+                preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+                if (!empty($matches[1])) {
+                    $filePath = sprintf('%s/%s', $dataObject->getPath(), $matches[1]);
+
+                    if (file_exists($filePath)) {
+                        $data = file_get_contents($filePath);
+                    }
+                }
+            }
             return;
         }
         foreach ($data as &$item) {
             if (!is_array($item)) {
                 continue;
+            }
+            /* Handle Translations */
+            if (!empty($item['translations']) && is_array($item['translations'])) {
+                /* First Entry is always Default */
+                $firstKey = array_key_first($item['translations']);
+                $merge = $item['translations'][$firstKey];
+                /* Remove unused Translations */
+                foreach ($item['translations'] as $id => $translation) {
+                    preg_match('/{[a-z]{2}-[A-Z]{2}}/', $id, $matches, PREG_UNMATCHED_AS_NULL);
+                    if (!empty($matches[0])) {
+                        unset($item['translations'][$id]);
+                        continue;
+                    }
+                    if ($id === Defaults::LANGUAGE_SYSTEM) {
+                        $firstKey = null;
+                    }
+                }
+                /* Fallback if Translations are unknown */
+                if ($firstKey) {
+                    if (is_array($merge)) {
+                        $item = array_merge($item, $merge);
+                    }
+                }
             }
             if ($table === 'theme' && !empty($item['configValues'])) {
                 $this->enrichThemeConfig($item['configValues'], $table, $dataObject);
@@ -385,9 +429,7 @@ TWIG;
             }
             $item['createdAt'] = $dataObject->getCreatedAt();
             foreach ($item as &$value) {
-                if (is_array($value) && count($value) > 0) {
-                    $this->enrichData($value, $table, $dataObject);
-                }
+                $this->enrichData($value, $table, $dataObject);
             }
         }
     }

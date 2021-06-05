@@ -60,4 +60,9 @@ class DataExtension
     {
         return 500;
     }
+
+    public function getLocalReplacers(): array
+    {
+        return [];
+    }
 }
