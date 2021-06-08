@@ -1,6 +1,12 @@
 <sw-page class="moorl-foundation-settings-demo-data">
     <template slot="content">
         <sw-card-view>
+            <div class="sw-card">
+                <sw-alert variant="warning">
+                    {{ $tc('moorl-foundation.notification.demoDataHint') }}
+                </sw-alert>
+            </div>
+
             <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.settingsDemoData')">
                 <sw-select-field
                         :label="$tc('moorl-foundation.properties.type')"
