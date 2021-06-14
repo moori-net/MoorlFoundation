@@ -18,6 +18,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Theme\ThemeService;
 use Symfony\Component\Finder\Finder;
@@ -376,6 +377,9 @@ TWIG;
         foreach ($data as &$item) {
             if (!is_array($item)) {
                 continue;
+            }
+            if (!empty($item['id']) && $item['id'] === "{RANDOM_ID}") {
+                $item['id'] = Uuid::randomHex();
             }
             /* Handle Translations */
             if (!empty($item['translations']) && is_array($item['translations'])) {
