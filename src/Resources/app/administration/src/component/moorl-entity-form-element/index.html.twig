@@ -41,6 +41,17 @@
         </sw-code-editor>
     </template>
 
+    <template v-else-if="column.flags.moorl_edit_field == 'select'">
+        <sw-select-field
+                :label="column.label"
+                v-model="value[column.property]">
+            <option v-for="option in column.flags.moorl_edit_field_options.options"
+                    :value="option">
+                {{ $tc('moorl-foundation.option.' + option) }}
+            </option>
+        </sw-select-field>
+    </template>
+
     <template v-else>
         <template v-if="column.required">
             <sw-field :type="column.flags.moorl_edit_field"

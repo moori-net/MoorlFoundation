@@ -60,6 +60,7 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "testApi": "Test API",
             "refreshPreview": "Refresh preview",
             "startExportButtonText": "Start export",
             "pauseButtonText": "Pause",
@@ -89,6 +90,18 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "course": "Course",
+            "chapter": "Chapter",
+            "lesson": "Lesson",
+            "isPreview": "Is Preview",
+            "useChapters": "Use Chapters",
+            "cover": "Cover",
+            "streamType": "Stream Type",
+            "streamId": "Stream ID",
+            "embeddedUrl": "Embedded URL",
+            "position": "Position",
+            "subscriptionTime": "Subscription Time (Days)",
+            "duration": "Duration (Seconds)",
             "swCategory": "Shopware Category",
             "attachments": "Attachments",
             "productCount": "Products",
@@ -272,6 +285,13 @@
             "relationsCard": "Relations and Filters",
             "visibilityCard": "Visibility",
             "metaCard": "Meta"
+        },
+        "option": {
+            "vimeo": "Vimeo",
+            "youtube": "Youtube",
+            "media": "Media",
+            "iframe": "Iframe",
+            "embedded": "Embedded"
         },
         "cms": {
             "tab": {
