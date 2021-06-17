@@ -24,6 +24,7 @@
 
         <sw-button variant="primary"
                    :block="true"
+                   :disabled="items.length == 0"
                    size="small"
                    @click="onExportModal">
             <sw-icon name="default-action-cloud-download" size="16"></sw-icon>
