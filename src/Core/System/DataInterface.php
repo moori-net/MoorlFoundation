@@ -19,6 +19,7 @@ interface DataInterface
     public function setGlobalReplacers(?array $globalReplacers): void;
     public function process(): void;
     public function getStylesheets(): array;
+    public function getMediaProperties(): array;
 
     /**
      * @return array

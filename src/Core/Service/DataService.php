@@ -423,16 +423,22 @@ TWIG;
             if (!isset($item['id']) && !isset($item['salesChannelId'])) {
                 $item['id'] = md5(serialize($item));
             }
-            if (isset($item['mediaId'])) {
-                $item['mediaId'] = $this->getMediaId($item['mediaId'], $table, $dataObject);
-            }
-            if (isset($item['previewMediaId'])) {
-                $item['previewMediaId'] = $this->getMediaId($item['previewMediaId'], $table, $dataObject);
+            foreach ($dataObject->getMediaProperties() as $mediaProperty) {
+                if ($mediaProperty['table'] && $mediaProperty['table'] !== $table) {
+                    continue;
+                }
+                $mediaFolder = $mediaProperty['mediaFolder'] ?: $table;
+                foreach ($mediaProperty['properties'] as $property) {
+                    if (isset($item[$property])) {
+                        $item[$property] = $this->getMediaId($item[$property], $mediaFolder, $dataObject);
+                    }
+                }
             }
             if (isset($item['cover']) && isset($item['cover']['mediaId'])) {
                 $item['cover']['mediaId'] = $this->getMediaId($item['cover']['mediaId'], 'product', $dataObject);
                 $item['cover']['id'] = md5($item['id']);
             }
+
             if (isset($item['price']) && isset($item['taxId'])) {
                 $item['price'] = [
                     $this->enrichPrice($item['price'], $item['taxId'])

@@ -22,7 +22,9 @@ class DataExtension
         $this->globalReplacers = $globalReplacers;
     }
 
-    public function process(): void {}
+    public function process(): void
+    {
+    }
 
     public function getRemoveQueries(): array
     {
@@ -34,7 +36,8 @@ class DataExtension
         return [];
     }
 
-    public function getInstallConfig(): array {
+    public function getInstallConfig(): array
+    {
         return [];
     }
 
@@ -53,6 +56,20 @@ class DataExtension
             'CMS_BLOCK',
             'CMS_SLOT',
             'WILD'
+        ];
+    }
+
+    public function getMediaProperties(): array
+    {
+        return [
+            [
+                'table' => null,
+                'mediaFolder' => null,
+                'properties' => [
+                    'mediaId',
+                    'previewMediaId'
+                ]
+            ]
         ];
     }
 
