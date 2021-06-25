@@ -59,6 +59,9 @@ class DataExtension
         ];
     }
 
+    /**
+     * @deprecated tag:v1.4.11 Will be deleted. Use {MEDIA_FILE:path/to/file.jpg} in Future
+     */
     public function getMediaProperties(): array
     {
         return [

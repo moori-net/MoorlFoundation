@@ -19,6 +19,9 @@ interface DataInterface
     public function setGlobalReplacers(?array $globalReplacers): void;
     public function process(): void;
     public function getStylesheets(): array;
+    /**
+     * @deprecated tag:v1.4.11 Will be deleted. Use {MEDIA_FILE:path/to/file.jpg} in Future
+     */
     public function getMediaProperties(): array;
 
     /**
