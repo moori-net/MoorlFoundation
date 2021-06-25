@@ -334,6 +334,11 @@ TWIG;
         return $data;
     }
 
+    /**
+     * @param $data
+     * @param DataInterface $dataObject
+     * @return string
+     */
     private function valueFromFile($data, DataInterface $dataObject): string
     {
         preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
@@ -343,6 +348,33 @@ TWIG;
             if (file_exists($filePath)) {
                 $data = file_get_contents($filePath);
             }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $data
+     * @param string $table
+     * @param DataInterface $dataObject
+     * @return string|null
+     *
+     * Usage:
+     * {MEDIA_FILE:path/to/file.jpg|product} Save The File to Product Directory
+     * {MEDIA_FILE:path/to/file.jpg} Save The File to any Directory
+     *
+     * Replacement with Media ID
+     */
+    public function mediaFromFile($data, string $table, DataInterface $dataObject): ?string
+    {
+        preg_match('/{MEDIA_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+        if (!empty($matches[1])) {
+            $splitMatches = explode("|", $matches[1]);
+            $filePath = $splitMatches[0];
+            if (!empty($splitMatches[1])) {
+                $table = $splitMatches[1];
+            }
+            $data = $this->getMediaId($filePath, $table, $dataObject);
         }
 
         return $data;
@@ -371,6 +403,7 @@ TWIG;
         if (!is_array($data)) {
             if (is_string($data)) {
                 $data = $this->valueFromFile($data, $dataObject);
+                $data = $this->mediaFromFile($data, $table, $dataObject);
             }
             return;
         }
