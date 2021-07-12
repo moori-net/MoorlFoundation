@@ -327,7 +327,47 @@ TWIG;
             }
         }
 
-        $data = json_decode(strtr(file_get_contents($fileName), $dataObject->getGlobalReplacers()), true);
+        $content = file_get_contents($fileName);
+        $content = strtr($content, $dataObject->getGlobalReplacers());
+
+        /* Make unique IDs */
+        preg_match_all('/{ID:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $content = str_replace($matches[0][$i], md5($dataObject->getPluginName() . $matches[1][$i]), $content);
+            }
+        }
+
+        /* Read Files */
+        preg_match_all('/{READ_FILE:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $filePath = sprintf('%s/%s', $dataObject->getPath(), $matches[1][$i]);
+
+                if (file_exists($filePath)) {
+                    $data = json_encode(file_get_contents($filePath));
+                    $replacer = '"' . $matches[0][$i] . '"';
+                    $content = str_replace($replacer, $data, $content);
+                }
+            }
+        }
+
+        /* Upload Media */
+        preg_match_all('/{MEDIA_FILE:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $splitMatches = explode("|", $matches[1][$i]);
+                $filePath = $splitMatches[0];
+                $table2 = $table;
+                if (!empty($splitMatches[1])) {
+                    $table2 = $splitMatches[1];
+                }
+                $data = $this->getMediaId($filePath, $table2, $dataObject);
+                $content = str_replace($matches[0][$i], $data, $content);
+            }
+        }
+
+        $data = json_decode($content, true);
 
         $this->enrichData($data, $table, $dataObject);
 
@@ -401,10 +441,6 @@ TWIG;
     private function enrichData(&$data, string $table, DataInterface $dataObject): void
     {
         if (!is_array($data)) {
-            if (is_string($data)) {
-                $data = $this->valueFromFile($data, $dataObject);
-                $data = $this->mediaFromFile($data, $table, $dataObject);
-            }
             return;
         }
         foreach ($data as &$item) {
