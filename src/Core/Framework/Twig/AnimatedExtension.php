@@ -28,7 +28,7 @@ class AnimatedExtension extends AbstractExtension
 
         foreach ($ar as $ju => $das) {
             if (!empty($config[$ju]) && !empty($config[$ju]['value']) && $config[$ju]['value'] !== 'none') {
-                $html[] = sprintf("%s='%s'", $das, $config[$ju]['value']);
+                $html[] = sprintf("%s=%s", $das, $config[$ju]['value']);
             }
         }
 
