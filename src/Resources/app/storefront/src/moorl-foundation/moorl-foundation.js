@@ -67,8 +67,8 @@ export default class MoorlFoundation extends Plugin {
         }
 
         jQuery('body').on('hidden.bs.modal', function () {
-            jQuery('.modal video').trigger('pause');
-            jQuery('.modal iframe').attr('src', null);
+            jQuery('.moorl-foundation-modal-body video').trigger('pause');
+            jQuery('.moorl-foundation-modal-body iframe').attr('src', null);
         });
     }
 

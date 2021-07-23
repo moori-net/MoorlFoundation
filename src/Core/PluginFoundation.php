@@ -73,6 +73,8 @@ class PluginFoundation
         $this->filesystem = $filesystem;
         $this->projectDir = $projectDir;
         $this->systemConfigService = $systemConfigService;
+
+        $this->context = Context::createDefaultContext();
     }
 
     public function removeCmsPages($ids)
