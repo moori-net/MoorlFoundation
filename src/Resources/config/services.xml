@@ -44,5 +44,10 @@
         <service id="MoorlFoundation\Core\Framework\Twig\AnimatedExtension">
             <tag name="twig.extension"/>
         </service>
+
+        <!-- Entities -->
+        <service id="MoorlFoundation\Core\Content\CmsElementConfig\CmsElementConfigDefinition">
+            <tag name="shopware.entity.definition" entity="moorl_cms_element_config" />
+        </service>
     </services>
 </container>

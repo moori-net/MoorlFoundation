@@ -1,0 +1,47 @@
+{% block sw_cms_slot_content_overlay_action_settings %}
+    {% parent %}
+
+    <div class="sw-cms-slot__settings-action"
+         :class="cmsSlotSettingsClasses"
+         @click="onCmsElementConfigSaverButtonClick"
+         v-tooltip.bottom="tooltipDisabled">
+        <sw-icon name="default-action-save" size="16"></sw-icon>
+    </div>
+{% endblock %}
+
+{% block sw_cms_slot_content_settings_modal %}
+    {% parent %}
+
+    <sw-modal class="sw-cms-slot__config-modal"
+              v-if="showCmsElementConfigSaver"
+              :title="$tc(snippetPrefix + 'title')"
+              @modal-close="onCloseCmsElementConfigSaverModal">
+        <sw-field v-model="cmsElementConfig.name"
+                  type="text"
+                  :label="$tc(snippetPrefix + 'label.name')">
+        </sw-field>
+
+        <div class="sw-field">
+            <sw-button variant="primary" @click="onSaveCmsElementConfig">
+                {{ $tc(snippetPrefix + 'label.save') }}
+            </sw-button>
+        </div>
+
+        <sw-entity-single-select
+                :label="$tc(snippetPrefix + 'label.selectConfig')"
+                :criteria="cmsElementConfigCriteria"
+                entity="moorl_cms_element_config"
+                v-model="cmsElementConfigId">
+        </sw-entity-single-select>
+
+        <sw-button variant="primary" @click="onLoadCmsElementConfig">
+            {{ $tc(snippetPrefix + 'label.load') }}
+        </sw-button>
+
+        <template slot="modal-footer">
+            <sw-button variant="primary" @click="onCloseCmsElementConfigSaverModal">
+                {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
+            </sw-button>
+        </template>
+    </sw-modal>
+{% endblock %}

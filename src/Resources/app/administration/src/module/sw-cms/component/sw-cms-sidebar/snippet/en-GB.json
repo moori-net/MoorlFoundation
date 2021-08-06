@@ -1,0 +1,11 @@
+{
+    "sw-cms": {
+        "component": {
+            "sw-cms-sidebar": {
+                "blockMoorlCms": "+ moori CMS",
+                "blockMoorlLayout": "+ moori Layouts",
+                "blockMoorlPreset": "+ moori Presets"
+            }
+        }
+    }
+}

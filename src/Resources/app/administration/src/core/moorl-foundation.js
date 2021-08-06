@@ -46,7 +46,6 @@ const MoorlFoundation = function MoorlFoundation() {
             label: 'moorl-cms.elements.general.config.label.btnShopware'
         }
     ];
-
     this.btnClass = [
         {
             value: 'btn-primary',

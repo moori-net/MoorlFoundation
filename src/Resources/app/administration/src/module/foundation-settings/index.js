@@ -21,7 +21,7 @@ Module.register('moorl-foundation-settings', {
         {
             name: 'moorl-foundation-settings-demo-data',
             to: 'moorl.foundation.settings.demodata',
-            group: 'moorl-foundation',
+            group: 'shop',
             icon: 'default-object-lab-flask',
             label: 'moorl-foundation.label.settingsDemoData'
         }
