@@ -1,0 +1,32 @@
+.sw-cms-el-moorl-replacer {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    display: grid;
+    grid-template:
+            "a a" auto
+            "b c" auto / 2fr 1fr;
+    grid-gap: 10px;
+
+    > div {
+        box-sizing: border-box;
+        width: 100%;
+
+        &:nth-child(1) {
+            grid-area: a;
+        }
+        &:nth-child(2) {
+            grid-area: b;
+        }
+        &:nth-child(3) {
+            grid-area: c;
+        }
+        &:nth-child(4) {
+            grid-area: d;
+        }
+    }
+}

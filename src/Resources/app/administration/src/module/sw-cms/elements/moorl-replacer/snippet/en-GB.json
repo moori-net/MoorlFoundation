@@ -1,0 +1,14 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-replacer": {
+                "title": "Replace Me",
+                "description": "Replace this Element or load one with the moori Config Saver",
+                "label": {
+                    "load": "Load",
+                    "selectConfig": "Select a Configuration"
+                }
+            }
+        }
+    }
+}

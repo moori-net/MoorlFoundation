@@ -1,0 +1,25 @@
+<div class="sw-cms-el-moorl-replacer" :style="elementCss">
+    <div>
+        <h1>
+            <sw-icon name="default-arrow-switch" size="24"></sw-icon>
+            {{ $tc('sw-cms.elements.moorl-replacer.title') }}
+        </h1>
+        <p>{{ $tc('sw-cms.elements.moorl-replacer.description') }}</p>
+    </div>
+
+    <div>
+        <sw-entity-single-select
+                :placeholder="$tc('sw-cms.elements.moorl-replacer.label.selectConfig')"
+                :criteria="cmsElementConfigCriteria"
+                entity="moorl_cms_element_config"
+                v-model="cmsElementConfigId">
+        </sw-entity-single-select>
+    </div>
+
+    <div>
+        <sw-button variant="" @click="onLoadCmsElementConfig">
+            <sw-icon name="default-action-save" size="16"></sw-icon>
+            {{ $tc('sw-cms.elements.moorl-replacer.label.load') }}
+        </sw-button>
+    </div>
+</div>

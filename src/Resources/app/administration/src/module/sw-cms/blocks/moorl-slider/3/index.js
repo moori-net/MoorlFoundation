@@ -15,14 +15,8 @@ Shopware.Service('cmsService').registerCmsBlock({
         sizingMode: 'boxed'
     },
     slots: {
-        'slot-a': {
-            type: 'text'
-        },
-        'slot-b': {
-            type: 'text'
-        },
-        'slot-c': {
-            type: 'text'
-        }
+        'slot-a': 'moorl-replacer',
+        'slot-b': 'moorl-replacer',
+        'slot-c': 'moorl-replacer'
     }
 });
