@@ -4,7 +4,8 @@
             "sw-cms-sidebar": {
                 "blockMoorlCms": "+ moori CMS",
                 "blockMoorlLayout": "+ moori Layouts",
-                "blockMoorlPreset": "+ moori Presets"
+                "blockMoorlPreset": "+ moori Presets",
+                "blockMoorlSlider": "+ moori Slider"
             }
         }
     }
