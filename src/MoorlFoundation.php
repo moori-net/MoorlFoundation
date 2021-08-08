@@ -9,6 +9,7 @@ use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 class MoorlFoundation extends Plugin
 {
     public const NAME = 'MoorlFoundation';
+
     public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
 
     public const PLUGIN_TABLES = [

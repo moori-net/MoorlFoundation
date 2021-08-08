@@ -599,6 +599,11 @@ TWIG;
             return null;
         }
 
+        preg_match('/([0-9a-f]{32})/', $name, $matches, PREG_UNMATCHED_AS_NULL);
+        if (!empty($matches[0])) {
+            return $name;
+        }
+
         if (isset($this->mediaCache[$name])) {
             return $this->mediaCache[$name];
         }
