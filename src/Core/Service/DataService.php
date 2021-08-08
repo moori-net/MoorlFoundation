@@ -24,6 +24,7 @@ use Shopware\Storefront\Theme\ThemeService;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
+use Unirest\Exception;
 
 class DataService
 {
@@ -538,6 +539,21 @@ TWIG;
             return $this->mediaCache[$name];
         }
 
+        $headers = get_headers($name, 1);
+        if (!isset($headers['Content-Type'])) {
+            if (is_array($headers['Content-Type'])) {
+                $type = explode("/", $headers['Content-Type'][0]);
+            } else {
+                $type = explode("/", $headers['Content-Type']);
+            }
+
+            $type = $type[0];
+
+            if (!in_array($type,['image', 'video'])) {
+                return null;
+            }
+        }
+
         $name = str_replace('http:', 'https:', $name);
         $query = explode("?", $name);
         $basename = basename($query[0]);
@@ -567,7 +583,8 @@ TWIG;
                     $mediaId,
                     $this->context
                 );
-            } finally {
+            } catch (\Exception $exception) {
+                $mediaId = null;
             }
         }
 
@@ -578,6 +595,10 @@ TWIG;
 
     private function getMediaId(string $name, string $table, DataInterface $dataObject): ?string
     {
+        if (empty($name)) {
+            return null;
+        }
+
         if (isset($this->mediaCache[$name])) {
             return $this->mediaCache[$name];
         }

@@ -1,0 +1,23 @@
+<div class="col-12">
+    <div class="moorl-layout">
+        <div>
+            {% set element = block.slots.getSlot('slot-a') %}
+            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+        </div>
+
+        <div>
+            {% set element = block.slots.getSlot('slot-b') %}
+            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+        </div>
+
+        <div>
+            {% set element = block.slots.getSlot('slot-c') %}
+            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+        </div>
+
+        <div>
+            {% set element = block.slots.getSlot('slot-d') %}
+            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+        </div>
+    </div>
+</div>
