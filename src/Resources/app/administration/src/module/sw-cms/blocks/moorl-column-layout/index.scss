@@ -1,0 +1,26 @@
+[class^="sw-cms-preview-block-moorl-column-layout-"] {
+  padding: 10px;
+  width: 100%;
+  display: grid;
+  grid-gap: 5px;
+  height: 50px;
+
+  > div {
+    box-sizing: border-box;
+    background-color: rgba(78,133,222,.05);
+    border: 2px dashed rgba(78,133,222,.4);
+    width: 100%;
+  }
+}
+
+[class^="sw-cms-block-moorl-column-layout-"] {
+  width: 100%;
+  display: grid;
+  grid-gap: 20px;
+
+  > div {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+  }
+}

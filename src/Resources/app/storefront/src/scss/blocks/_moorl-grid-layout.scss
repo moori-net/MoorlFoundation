@@ -1,0 +1,92 @@
+.moorl-grid-layout {
+  width: 100%;
+  display: grid;
+  grid-gap: 20px;
+  grid-template:
+            "a" auto
+            "b" auto
+            "c" auto
+            "d" auto
+            "e" auto
+            "f" auto / 1fr;
+
+  > div {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+
+    &:nth-child(1) {
+      grid-area: a;
+    }
+    &:nth-child(2) {
+      grid-area: b;
+    }
+    &:nth-child(3) {
+      grid-area: c;
+    }
+    &:nth-child(4) {
+      grid-area: d;
+    }
+  }
+}
+
+.cms-block-moorl-grid-layout-two .moorl-grid-layout {
+  grid-template:
+            "a" auto
+            "c" auto
+            "d" auto
+            "b" auto / 1fr;
+}
+
+@include media-breakpoint-up(md) {
+  .cms-block-moorl-grid-layout-one .moorl-grid-layout {
+    grid-template:
+            "a a a a" auto
+            "d d d d" auto
+            "b b c c" auto / 1fr 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-two .moorl-grid-layout {
+    grid-template:
+            "a b" auto
+            "c b" auto
+            "d b" auto / 1fr 1fr;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .cms-block-moorl-grid-layout-one .moorl-grid-layout {
+    grid-template:
+            "a a a b b" auto
+            "c c d d d" auto / 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-two .moorl-grid-layout {
+    grid-template:
+            "a a b" auto
+            "c d b" auto / 1fr 1fr 1fr;
+  }
+}
+
+/* Helper Classes */
+.grid-gap-30 .moorl-grid-layout {
+  grid-gap: 30px;
+}
+.grid-gap-25 .moorl-grid-layout {
+  grid-gap: 25px;
+}
+.grid-gap-20 .moorl-grid-layout {
+  grid-gap: 20px;
+}
+.grid-gap-15 .moorl-grid-layout {
+  grid-gap: 15px;
+}
+.grid-gap-10 .moorl-grid-layout {
+  grid-gap: 10px;
+}
+.grid-gap-5 .moorl-grid-layout {
+  grid-gap: 5px;
+}
+.grid-gap-0 .moorl-grid-layout {
+  grid-gap: 0px;
+}

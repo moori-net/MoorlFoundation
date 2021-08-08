@@ -1,0 +1,56 @@
+.moorl-column-layout {
+  width: 100%;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr;
+
+  > div {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .cms-block-moorl-column-layout-1-1 .moorl-column-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cms-block-moorl-column-layout-1-1-1 .moorl-column-layout {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-column-layout-2-3 .moorl-column-layout {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .cms-block-moorl-column-layout-3-2 .moorl-column-layout {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+}
+
+/* Helper Classes */
+.grid-gap-30 .moorl-column-layout {
+  grid-gap: 30px;
+}
+.grid-gap-25 .moorl-column-layout {
+  grid-gap: 25px;
+}
+.grid-gap-20 .moorl-column-layout {
+  grid-gap: 20px;
+}
+.grid-gap-15 .moorl-column-layout {
+  grid-gap: 15px;
+}
+.grid-gap-10 .moorl-column-layout {
+  grid-gap: 10px;
+}
+.grid-gap-5 .moorl-column-layout {
+  grid-gap: 5px;
+}
+.grid-gap-0 .moorl-column-layout {
+  grid-gap: 0px;
+}

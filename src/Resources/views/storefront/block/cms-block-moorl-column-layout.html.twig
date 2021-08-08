@@ -1,0 +1,11 @@
+<div class="col">
+    <div class="moorl-column-layout">
+        {% for letter in 'a'..'z' %}
+            {% set element = block.slots.getSlot("slot-#{letter}") %}
+
+            {% if element %}
+                {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

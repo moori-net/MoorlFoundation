@@ -3,8 +3,9 @@
         "component": {
             "sw-cms-sidebar": {
                 "blockMoorlCms": "+ moori CMS",
-                "blockMoorlLayout": "+ moori Layouts",
-                "blockMoorlPreset": "+ moori Presets",
+                "blockMoorlGridLayout": "+ moori Grid Layouts",
+                "blockMoorlColumnLayout": "+ moori Column Layouts",
+                "blockMoorlAutofillLayout": "+ moori Autofill Layouts",
                 "blockMoorlSlider": "+ moori Slider",
                 "blockMoorlCmsOld": "+ moori CMS (Old)"
             }

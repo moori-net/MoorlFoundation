@@ -1,0 +1,10 @@
+{
+    "sw-cms": {
+        "blocks": {
+            "moorl-grid-layout": {
+                 "one": "Layout One",
+                 "two": "Layout Two"
+            }
+        }
+    }
+}
