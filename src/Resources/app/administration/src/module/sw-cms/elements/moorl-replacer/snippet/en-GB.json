@@ -3,7 +3,7 @@
         "elements": {
             "moorl-replacer": {
                 "title": "Replace Me",
-                "description": "Replace this Element or load one from moori Config Saver",
+                "description": "Replace this Element or load one from moori CMS Element Config Saver",
                 "storeLink": "Visit my Store Page for More",
                 "label": {
                     "load": "Load",
