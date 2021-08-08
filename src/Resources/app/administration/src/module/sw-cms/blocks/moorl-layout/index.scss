@@ -1,0 +1,52 @@
+[class^="sw-cms-preview-block-moorl-layout-"] {
+  padding: 10px;
+  width: 100%;
+  display: grid;
+  grid-gap: 10px;
+  height: 120px;
+
+  > div {
+    box-sizing: border-box;
+    background-color: rgba(78,133,222,.05);
+    border: 2px dashed rgba(78,133,222,.4);
+    width: 100%;
+
+    &:nth-child(1) {
+      grid-area: a;
+    }
+    &:nth-child(2) {
+      grid-area: b;
+    }
+    &:nth-child(3) {
+      grid-area: c;
+    }
+    &:nth-child(4) {
+      grid-area: d;
+    }
+  }
+}
+
+[class^="sw-cms-block-moorl-layout-"] {
+  width: 100%;
+  display: grid;
+  grid-gap: 20px;
+
+  > div {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+
+    &:nth-child(1) {
+      grid-area: a;
+    }
+    &:nth-child(2) {
+      grid-area: b;
+    }
+    &:nth-child(3) {
+      grid-area: c;
+    }
+    &:nth-child(4) {
+      grid-area: d;
+    }
+  }
+}
