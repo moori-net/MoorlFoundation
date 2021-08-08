@@ -5,12 +5,23 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-color: #0d0d0e;
     overflow: hidden;
     display: grid;
     grid-template:
             "a a" auto
-            "b c" auto / 2fr 1fr;
+            "b c" 48px / 1fr 110px;
     grid-gap: 10px;
+
+    .sw-field {
+        margin-bottom: 0;
+    }
+
+    .sw-button {
+        display: block;
+        height: 48px;
+        width: 100%;
+    }
 
     > div {
         box-sizing: border-box;
@@ -18,6 +29,8 @@
 
         &:nth-child(1) {
             grid-area: a;
+            background: rgba(255,255,255,.7);
+            padding: 10px;
         }
         &:nth-child(2) {
             grid-area: b;

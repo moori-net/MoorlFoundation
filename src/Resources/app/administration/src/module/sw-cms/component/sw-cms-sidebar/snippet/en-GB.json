@@ -5,7 +5,8 @@
                 "blockMoorlCms": "+ moori CMS",
                 "blockMoorlLayout": "+ moori Layouts",
                 "blockMoorlPreset": "+ moori Presets",
-                "blockMoorlSlider": "+ moori Slider"
+                "blockMoorlSlider": "+ moori Slider",
+                "blockMoorlCmsOld": "+ moori CMS (Old)"
             }
         }
     }
