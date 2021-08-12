@@ -514,7 +514,9 @@ TWIG;
                     $this->enrichPrice($item['price'], $item['taxId'])
                 ];
             }
-            $item['createdAt'] = $dataObject->getCreatedAt();
+            if (!isset($item['createdAt'])) {
+                $item['createdAt'] = $dataObject->getCreatedAt();
+            }
             foreach ($item as &$value) {
                 $this->enrichData($value, $table, $dataObject);
             }
