@@ -10,7 +10,8 @@
             "e" auto
             "f" auto / 1fr;
 
-  > div {
+  > div,
+  > a {
     box-sizing: border-box;
     height: auto;
     width: 100%;
