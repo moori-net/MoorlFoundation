@@ -27,6 +27,12 @@
     &:nth-child(4) {
       grid-area: d;
     }
+    &:nth-child(5) {
+      grid-area: d;
+    }
+    &:nth-child(6) {
+      grid-area: d;
+    }
   }
 }
 
@@ -65,6 +71,38 @@
     grid-template:
             "a a b" auto
             "c d b" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-three .moorl-grid-layout {
+    grid-template:
+            "a c b" auto
+            "a d b" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-four .moorl-grid-layout {
+    grid-template:
+            "a b" auto
+            "c b" auto
+            "c d" auto / 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-five .moorl-grid-layout {
+    grid-template:
+            "a b" auto
+            "c b" auto / 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-six .moorl-grid-layout {
+    grid-template:
+            "a b c" auto
+            "a d d" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-seven .moorl-grid-layout {
+    grid-template:
+            "a a b c" auto
+            "a a b c" auto
+            "d d d c" auto / 1fr 1fr 1fr 1fr;
   }
 }
 

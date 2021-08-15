@@ -46,6 +46,9 @@ class DataExtension
         return [];
     }
 
+    /**
+     * @deprecated tag:v1.4.16 Use {ID:XYZ123} in your JSON File instead
+     */
     public function getDemoPlaceholderTypes(): array
     {
         return [
@@ -76,6 +79,9 @@ class DataExtension
         ];
     }
 
+    /**
+     * @deprecated tag:v1.4.16 Use {ID:XYZ123} in your JSON File instead
+     */
     public function getDemoPlaceholderCount(): int
     {
         return 500;

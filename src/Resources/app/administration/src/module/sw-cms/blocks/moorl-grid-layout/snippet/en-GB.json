@@ -3,7 +3,12 @@
         "blocks": {
             "moorl-grid-layout": {
                  "one": "Layout One",
-                 "two": "Layout Two"
+                 "two": "Layout Two",
+                 "three": "Layout Three",
+                 "four": "Layout Four",
+                 "five": "Layout Five",
+                 "six": "Layout Six",
+                 "seven": "Layout Seven"
             }
         }
     }

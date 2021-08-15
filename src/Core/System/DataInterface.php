@@ -35,6 +35,12 @@ interface DataInterface
     public function getRemoveQueries(): array;
     public function getInstallQueries(): array;
     public function getInstallConfig(): array;
+    /**
+     * @deprecated tag:v1.4.16 Use {ID:XYZ123} in your JSON File instead
+     */
     public function getDemoPlaceholderTypes(): array;
+    /**
+     * @deprecated tag:v1.4.16 Use {ID:XYZ123} in your JSON File instead
+     */
     public function getDemoPlaceholderCount(): int;
 }

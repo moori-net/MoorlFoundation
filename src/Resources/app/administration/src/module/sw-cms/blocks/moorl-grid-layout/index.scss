@@ -23,6 +23,12 @@
     &:nth-child(4) {
       grid-area: d;
     }
+    &:nth-child(5) {
+      grid-area: e;
+    }
+    &:nth-child(6) {
+      grid-area: f;
+    }
   }
 }
 
@@ -47,6 +53,12 @@
     }
     &:nth-child(4) {
       grid-area: d;
+    }
+    &:nth-child(5) {
+      grid-area: e;
+    }
+    &:nth-child(6) {
+      grid-area: f;
     }
   }
 }
