@@ -5,4 +5,6 @@ import './1-1-1-1';
 import './1-1-1-1-1';
 import './2-3';
 import './3-2';
+import './nb-1-1';
+import './nb-1-1-1';
 import './index.scss';
