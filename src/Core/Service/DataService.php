@@ -147,13 +147,17 @@ class DataService
             }
 
             $this->initGlobalReplacers($dataObject);
+
+            foreach ($dataObject->getPreInstallQueries() as $sql) {
+                $this->connection->executeUpdate($this->processReplace($sql, $dataObject));
+            }
+
             $this->insertContent($dataObject);
             $this->copyAssets($dataObject);
             $this->addStylesheets($dataObject);
 
             foreach ($dataObject->getInstallQueries() as $sql) {
-                $sql = strtr($sql, $dataObject->getGlobalReplacers());
-                $this->connection->executeUpdate($sql);
+                $this->connection->executeUpdate($this->processReplace($sql, $dataObject));
             }
 
             foreach ($dataObject->getInstallConfig() as $k => $v) {
@@ -317,18 +321,8 @@ TWIG;
         }
     }
 
-    private function getContentFromFile(string $table, DataInterface $dataObject): ?array
+    private function processReplace(string $content, DataInterface $dataObject, ?string $table = null): string
     {
-        $fileName = sprintf('%s/content/%s.json', $dataObject->getPath(), $table);
-        if (!file_exists($fileName)) {
-            /* This File with the "_" is protected from deletion */
-            $fileName = sprintf('%s/content/_%s.json', $dataObject->getPath(), $table);
-            if (!file_exists($fileName)) {
-                return null;
-            }
-        }
-
-        $content = file_get_contents($fileName);
         $content = strtr($content, $dataObject->getGlobalReplacers());
 
         /* Make unique IDs */
@@ -367,6 +361,22 @@ TWIG;
                 $content = str_replace($matches[0][$i], $data, $content);
             }
         }
+
+        return $content;
+    }
+
+    private function getContentFromFile(string $table, DataInterface $dataObject): ?array
+    {
+        $fileName = sprintf('%s/content/%s.json', $dataObject->getPath(), $table);
+        if (!file_exists($fileName)) {
+            /* This File with the "_" is protected from deletion */
+            $fileName = sprintf('%s/content/_%s.json', $dataObject->getPath(), $table);
+            if (!file_exists($fileName)) {
+                return null;
+            }
+        }
+
+        $content = $this->processReplace(file_get_contents($fileName), $dataObject, $table);
 
         $data = json_decode($content, true);
 

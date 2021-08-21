@@ -31,6 +31,11 @@ class DataExtension
         return [];
     }
 
+    public function getPreInstallQueries(): array
+    {
+        return [];
+    }
+
     public function getInstallQueries(): array
     {
         return [];

@@ -33,6 +33,7 @@ interface DataInterface
      * In Addition we have to execute SQL manually.
      */
     public function getRemoveQueries(): array;
+    public function getPreInstallQueries(): array;
     public function getInstallQueries(): array;
     public function getInstallConfig(): array;
     /**
