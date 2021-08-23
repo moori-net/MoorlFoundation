@@ -1,0 +1,15 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-replacer": {
+                "title": "Tausch mich aus",
+                "description": "Tausche dieses Element aus oder wähle eine Konfiguration",
+                "storeLink": "Besuche meine Shopware Seite für mehr",
+                "label": {
+                    "load": "Laden",
+                    "selectConfig": "Wähle eine Konfiguration"
+                }
+            }
+        }
+    }
+}
