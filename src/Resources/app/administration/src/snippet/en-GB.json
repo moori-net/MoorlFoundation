@@ -90,6 +90,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "moorlAfCategory": "Accessory Category",
+            "kbaNumber": "KBA Number",
             "course": "Course",
             "chapter": "Chapter",
             "lesson": "Lesson",
