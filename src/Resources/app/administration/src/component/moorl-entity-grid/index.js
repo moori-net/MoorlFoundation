@@ -204,7 +204,7 @@ Component.register('moorl-entity-grid', {
                 column.property = property;
 
                 column.required = false;
-                if (column.type == 'association') {
+                if (column.type === 'association') {
                     if (properties[column.localField].flags.required) {
                         column.required = true;
                     }
