@@ -29,10 +29,10 @@
       grid-area: d;
     }
     &:nth-child(5) {
-      grid-area: d;
+      grid-area: e;
     }
     &:nth-child(6) {
-      grid-area: d;
+      grid-area: f;
     }
   }
 }
@@ -104,6 +104,64 @@
             "a a b c" auto
             "a a b c" auto
             "d d d c" auto / 1fr 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-eight .moorl-grid-layout {
+    grid-template:
+            "a b b" auto
+            "a c e" auto
+            "d d e" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-nine .moorl-grid-layout {
+    grid-template:
+            "a b b" auto
+            "a d e" auto
+            "c d e" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-ten .moorl-grid-layout {
+    grid-template:
+            "a b c" auto
+            "a b d" auto
+            "e b d" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-eleven .moorl-grid-layout {
+    grid-template:
+            "a b c" auto
+            "e b d" auto / 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-twelve .moorl-grid-layout {
+    grid-template:
+            "a b b b" auto
+            "a c c d" auto
+            "a c c d" auto
+            "e e e d" auto / 1fr 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-thirteen .moorl-grid-layout {
+    grid-template:
+            "a a a a" auto
+            "b b c c" auto
+            "d e c c" auto / 1fr 1fr 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-fourteen .moorl-grid-layout {
+    grid-template:
+            "a b" auto
+            "a c" auto
+            "d e" auto
+            "f e" auto / 1fr 1fr;
+  }
+
+  .cms-block-moorl-grid-layout-fifteen .moorl-grid-layout {
+    grid-template:
+            "a b b b" auto
+            "a c d e" auto
+            "f f d e" auto
+            "f f d e" auto / 1fr 1fr 1fr 1fr;
   }
 }
 

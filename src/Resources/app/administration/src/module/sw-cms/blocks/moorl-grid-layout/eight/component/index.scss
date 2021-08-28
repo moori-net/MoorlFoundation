@@ -1,0 +1,6 @@
+.sw-cms-block-moorl-grid-layout-eight {
+  grid-template:
+            "a b b" auto
+            "a c e" auto
+            "d d e" auto / 1fr 1fr 1fr;
+}
