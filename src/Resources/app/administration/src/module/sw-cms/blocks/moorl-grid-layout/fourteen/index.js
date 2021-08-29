@@ -17,9 +17,6 @@ Shopware.Service('cmsService').registerCmsBlock({
     slots: {
         'slot-a': 'moorl-replacer',
         'slot-b': 'moorl-replacer',
-        'slot-c': 'moorl-replacer',
-        'slot-d': 'moorl-replacer',
-        'slot-e': 'moorl-replacer',
-        'slot-f': 'moorl-replacer'
+        'slot-c': 'moorl-replacer'
     }
 });

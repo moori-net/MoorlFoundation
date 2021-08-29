@@ -10,7 +10,8 @@ class AnimatedExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('moorl_animated', [$this, 'animated'])
+            new TwigFunction('moorl_animated', [$this, 'animated']),
+            new TwigFunction('moorl_random_bg', [$this, 'randomBg']),
         ];
     }
 
@@ -33,5 +34,13 @@ class AnimatedExtension extends AbstractExtension
         }
 
         return implode(" ", $html);
+    }
+
+    /**
+     * @return string
+     */
+    public function randomBg(): string
+    {
+        return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
     }
 }

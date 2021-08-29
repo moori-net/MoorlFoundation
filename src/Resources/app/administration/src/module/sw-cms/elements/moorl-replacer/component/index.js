@@ -46,7 +46,15 @@ Component.register('sw-cms-el-moorl-replacer', {
         }
     },
 
+    created() {
+        this.createdComponent();
+    },
+
     methods: {
+        createdComponent() {
+            this.initElementConfig('moorl-replacer');
+        },
+
         onLoadCmsElementConfig() {
             this.cmsElementConfigRepository
                 .get(this.cmsElementConfigId, Shopware.Context.api, this.cmsElementConfigCriteria)
