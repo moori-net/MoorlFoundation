@@ -21,6 +21,21 @@
   z-index: 1060;
 }
 
+.cms-element-moorl-replacer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 240px;
+  height: 100%;
+
+  > div {
+    padding: 5px;
+    font-size: .7em;
+    color: #FFFFFF;
+    font-family: "Courier";
+  }
+}
+
 $foundation-colors: (
         "facebook": #3C5A99,
         "google": #0F9D58,

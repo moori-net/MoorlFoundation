@@ -1,1 +1,3 @@
-<div class="cms-element-{{ element.type }}" style="min-height: 240px; height: 100%; background: {{ moorl_random_bg() }}"></div>
+<div class="cms-element-{{ element.type }}" style="background: {{ moorl_random_bg() }}">
+    <div>{{ block.type }}|{{ element.slot }}</div>
+</div>
