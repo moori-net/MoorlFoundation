@@ -32,6 +32,13 @@
                 :criteria="cmsElementConfigCriteria"
                 entity="moorl_cms_element_config"
                 v-model="cmsElementConfigId">
+            <template #result-item="{ item, index }">
+                <slot name="result-item" v-bind="{ item, index }">
+                    <li is="sw-select-result" v-bind="{ item, index }">
+                        {{ item.type }} | {{ item.name }}
+                    </li>
+                </slot>
+            </template>
         </sw-entity-single-select>
 
         <sw-button variant="primary" @click="onLoadCmsElementConfig">

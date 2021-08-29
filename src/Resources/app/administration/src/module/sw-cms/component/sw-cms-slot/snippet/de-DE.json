@@ -1,0 +1,15 @@
+{
+    "sw-cms": {
+        "component": {
+            "sw-cms-slot": {
+                "title": "moori CMS Element Konfiguration",
+                "label": {
+                    "name": "Aktive Konfiguration Speichern unter",
+                    "save": "Speichern und Schließen",
+                    "load": "Laden und Schließen",
+                    "selectConfig": "Wähle eine Konfiguration"
+                }
+            }
+        }
+    }
+}

@@ -2,12 +2,12 @@
     "sw-cms": {
         "component": {
             "sw-cms-slot": {
-                "title": "moori CMS Element Config Saver",
+                "title": "moori CMS Element Configuration",
                 "label": {
-                    "name": "Save active Config as",
+                    "name": "Save active Configuration as",
                     "save": "Save and Close",
                     "load": "Load and Close",
-                    "selectConfig": "Select a Config"
+                    "selectConfig": "Select a Configuration"
                 }
             }
         }

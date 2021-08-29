@@ -27,7 +27,7 @@ Component.override('sw-cms-slot', {
 
         cmsElementConfigCriteria() {
             const criteria = new Criteria();
-            criteria.addFilter(Criteria.equals('type', this.element.type));
+            //criteria.addFilter(Criteria.equals('type', this.element.type));
             return criteria;
         },
     },
@@ -58,6 +58,7 @@ Component.override('sw-cms-slot', {
                 .get(this.cmsElementConfigId, Shopware.Context.api, this.cmsElementConfigCriteria)
                 .then((entity) => {
                     this.element.config = entity.config;
+                    this.element.type = entity.type;
                     this.element.data = entity.data;
                     this.$emit('element-update', this.element);
                     this.showCmsElementConfigSaver = false;
