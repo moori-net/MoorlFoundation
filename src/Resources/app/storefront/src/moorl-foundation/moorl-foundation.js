@@ -30,6 +30,8 @@ export default class MoorlFoundation extends Plugin {
     _registerEvents() {
         const that = this;
 
+
+
         $("[data-animate-in],[data-animate-out]").each(function () {
             let isVisible = $(this).isOverBottom();
             if (!isVisible) {

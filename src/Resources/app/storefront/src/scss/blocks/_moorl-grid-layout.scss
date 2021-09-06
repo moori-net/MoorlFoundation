@@ -1,3 +1,7 @@
+[class*="cms-block-moorl-grid-layout-"] {
+  overflow: visible;
+}
+
 .moorl-grid-layout {
   width: 100%;
   display: grid;
@@ -15,7 +19,6 @@
     box-sizing: border-box;
     height: auto;
     width: 100%;
-    overflow: hidden;
 
     &:nth-child(1) {
       grid-area: a;

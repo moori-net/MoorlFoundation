@@ -1,14 +1,18 @@
+[class*="cms-block-moorl-column-layout-"] {
+  overflow: visible;
+}
+
 .moorl-column-layout {
   width: 100%;
   display: grid;
   grid-gap: 20px;
   grid-template-columns: 1fr;
 
+  > a,
   > div {
     box-sizing: border-box;
     height: auto;
     width: 100%;
-    overflow: hidden;
   }
 }
 

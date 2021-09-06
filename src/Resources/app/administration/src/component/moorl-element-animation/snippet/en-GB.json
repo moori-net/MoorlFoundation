@@ -1,0 +1,19 @@
+{
+  "moorl-element-animation": {
+    "title": "moori element animation",
+    "label": {
+      "animateIn": "Animate in",
+      "animateHover": "Animate hover",
+      "animateOut": "Animate out",
+      "speed": "Speed (ms)",
+      "timeout": "Timeout (ms)",
+      "rule": "Rule",
+      "isLoaded": "Load",
+      "isOverBottom": "Over bottom",
+      "isInViewport": "In viewport"
+    },
+    "helpText": {
+      "animate": "Enable Animate.css in moori Foundation App Settings"
+    }
+  }
+}

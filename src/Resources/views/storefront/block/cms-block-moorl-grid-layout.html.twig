@@ -4,7 +4,15 @@
             {% set element = block.slots.getSlot("slot-#{letter}") %}
 
             {% if element %}
-                {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+                {% set elementAnimation = moorl_element_animation(element) %}
+
+                {% if elementAnimation %}
+                    <div data-moorl-animation='{{ elementAnimation }}'>
+                        {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+                    </div>
+                {% else %}
+                    {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>

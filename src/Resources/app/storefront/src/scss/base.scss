@@ -5,8 +5,13 @@
   background-attachment: fixed;
 }
 
-.moorl-foundation-hide {
+.moorl-foundation-hide,
+.moorl-animation-hidden {
   opacity: 0;
+}
+
+.moorl-animation-processing {
+  z-index: 9000;
 }
 
 .cms-block.no-gutters {
