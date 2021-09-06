@@ -1,0 +1,54 @@
+{% block sw_cms_element_image_slider_config_tab_content %}
+    {% parent %}
+
+    <sw-tabs-item :title="$tc(snippetPrefix + 'tab.extra')"
+                  name="extra"
+                  :activeTab="active">
+        {{ $tc(snippetPrefix + 'tab.extra') }}
+    </sw-tabs-item>
+{% endblock %}
+
+{% block sw_cms_element_image_slider_config_settings %}
+    {% parent %}
+
+    <sw-container v-if="active === 'extra'"
+                  class="sw-cms-el-config-image-slider__tab-extra">
+        <sw-select-field :label="$tc(snippetPrefix + 'label.animateIn')"
+                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
+                         v-model="element.config.animateIn.value">
+            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                <option v-for="value in item.options" :value="value">{{ value }}</option>
+            </optgroup>
+        </sw-select-field>
+
+        <sw-select-field :label="$tc(snippetPrefix + 'label.animateOut')"
+                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
+                         v-model="element.config.animateOut.value">
+            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                <option v-for="value in item.options" :value="value">{{ value }}</option>
+            </optgroup>
+        </sw-select-field>
+
+        <sw-field v-model="element.config.speed.value"
+                  type="number"
+                  :label="$tc(snippetPrefix + 'label.speed')">
+        </sw-field>
+
+        <sw-field v-model="element.config.autoplayTimeout.value"
+                  type="number"
+                  :label="$tc(snippetPrefix + 'label.autoplayTimeout')">
+        </sw-field>
+
+        <sw-field v-model="element.config.autoplay.value"
+                  bordered
+                  type="switch"
+                  :label="$tc(snippetPrefix + 'label.autoplay')">
+        </sw-field>
+
+        <sw-field v-model="element.config.autoplayHoverPause.value"
+                  bordered
+                  type="switch"
+                  :label="$tc(snippetPrefix + 'label.autoplayHoverPause')">
+        </sw-field>
+    </sw-container>
+{% endblock %}

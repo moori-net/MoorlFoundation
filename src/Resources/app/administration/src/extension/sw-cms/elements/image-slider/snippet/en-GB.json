@@ -1,0 +1,22 @@
+{
+    "sw-cms": {
+        "elements": {
+            "image-slider": {
+                "tab": {
+                    "extra": "moori Extra"
+                },
+                "label": {
+                    "speed": "Speed (ms)",
+                    "autoplay": "Autoplay",
+                    "autoplayHoverPause": "Autoplay hover pause",
+                    "animateIn": "Animate In",
+                    "animateOut": "Animate Out",
+                    "autoplayTimeout": "Autoplay timeout"
+                },
+                "helpText": {
+                    "animate": "Enable Animate.css in moori Foundation App Settings"
+                }
+            }
+        }
+    }
+}

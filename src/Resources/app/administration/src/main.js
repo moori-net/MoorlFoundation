@@ -11,4 +11,6 @@ import './core/moorl-foundation.scss';
 import './module/sw-cms';
 
 import './extension/sw-settings/page/sw-settings-index';
+import './extension/sw-cms/elements/image-slider';
+
 import './module/foundation-settings';

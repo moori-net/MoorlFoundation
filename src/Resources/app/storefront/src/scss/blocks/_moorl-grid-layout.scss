@@ -15,6 +15,7 @@
     box-sizing: border-box;
     height: auto;
     width: 100%;
+    overflow: hidden;
 
     &:nth-child(1) {
       grid-area: a;
