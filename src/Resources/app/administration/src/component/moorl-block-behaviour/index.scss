@@ -1,0 +1,45 @@
+@import "~scss/variables";
+
+.moorl-block-behaviour {
+    .collapse-header {
+        display: grid;
+        grid-template-columns: 1fr 24px;
+        grid-gap: 15px;
+        cursor: pointer;
+        padding: 15px;
+        color: #607182;
+        border-bottom: 1px solid #D1D9E0;
+
+        h4 {
+            margin: 0;
+        }
+
+        &.expanded {
+            background: #E3F3FF;
+            border: 1px solid #189eff;
+            border-bottom: none;
+        }
+
+        .drag-indicator,
+        .collapse-indicator {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .collapse-content {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 60px 1fr 1fr;
+        align-items: center;
+        padding: 15px;
+        background: #E3F3FF;
+        border: 1px solid #189eff;
+        border-top: none;
+
+        .sw-field--default {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    }
+}

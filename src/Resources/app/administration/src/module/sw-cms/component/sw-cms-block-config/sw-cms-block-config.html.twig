@@ -1,0 +1,8 @@
+{% block sw_cms_block_config_background_image_field %}
+    {% parent() %}
+
+    <moorl-block-behaviour
+            v-model="block.customFields.moorl_block_behaviour"
+            @change="updateBlockBehaviour">
+    </moorl-block-behaviour>
+{% endblock %}

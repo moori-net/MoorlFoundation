@@ -29,6 +29,10 @@ Component.register('moorl-element-animation', {
     methods: {
         async createdComponentExtra() {
             const extraConfig = {
+                animateInActive: {
+                    source: 'static',
+                    value: false
+                },
                 animateIn: {
                     source: 'static',
                     value: null
@@ -45,6 +49,10 @@ Component.register('moorl-element-animation', {
                     source: 'static',
                     value: 'isInViewport'
                 },
+                animateOutActive: {
+                    source: 'static',
+                    value: false
+                },
                 animateOut: {
                     source: 'static',
                     value: null
@@ -60,6 +68,10 @@ Component.register('moorl-element-animation', {
                 animateOutRule: {
                     source: 'static',
                     value: 'isInViewport'
+                },
+                animateHoverActive: {
+                    source: 'static',
+                    value: false
                 },
                 animateHover: {
                     source: 'static',

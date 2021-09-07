@@ -14,9 +14,45 @@ class AnimatedExtension extends AbstractExtension
     {
         return [
             new TwigFunction('moorl_animated', [$this, 'animated']),
-            new TwigFunction('moorl_element_animation', [$this, 'elementAnimation']),
             new TwigFunction('moorl_random_bg', [$this, 'randomBg']),
+            new TwigFunction('moorl_element_animation', [$this, 'elementAnimation']),
+            new TwigFunction('moorl_block_behaviour', [$this, 'blockBehaviour']),
         ];
+    }
+
+    public function blockBehaviour(?array $behaviours = null, bool $isRow = false): ?string
+    {
+        if (!$behaviours) {
+            return null;
+        }
+
+        $classes = [];
+
+        foreach ($behaviours as $breakpoint => $behaviour) {
+            if ($behaviour['inherit']) {
+                continue;
+            }
+
+            $classes[] = sprintf("d-%s-%s", $breakpoint, $behaviour['show'] ? 'block' : 'none');
+
+            if (!$isRow) {
+                continue;
+            }
+
+            if (!empty($behaviour['width'])) {
+                $classes[] = sprintf("col-%s-%d", $breakpoint, $behaviour['width']);
+            }
+
+            if (!empty($behaviour['order'])) {
+                $classes[] = sprintf("order-%s-%d", $breakpoint, $behaviour['order']);
+            }
+        }
+
+        if (empty($classes)) {
+            return null;
+        }
+
+        return trim(str_replace("xs-", "", implode(" ", $classes)));
     }
 
     /**

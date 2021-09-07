@@ -1,0 +1,9 @@
+{
+  "moorl-block-behaviour": {
+    "title": "moori block behaviour",
+    "label": {
+      "inherit": "Inherit",
+      "show": "show"
+    }
+  }
+}

@@ -1,2 +1,11 @@
 {% sw_extends '@Storefront/storefront/section/cms-section-block-container.html.twig' %}
 
+{% block section_content_block %}
+    {% set blockBehaviour = moorl_block_behaviour(block.customFields.moorl_block_behaviour) %}
+
+    {% if blockBehaviour %}
+        <div class='{{ blockBehaviour }}'>{{ parent() }}</div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
