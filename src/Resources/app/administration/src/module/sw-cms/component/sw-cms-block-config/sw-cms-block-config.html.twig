@@ -2,6 +2,7 @@
     {% parent() %}
 
     <moorl-block-behaviour
+            @change="onChange"
             v-model="block.customFields.moorl_block_behaviour">
     </moorl-block-behaviour>
 {% endblock %}

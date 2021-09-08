@@ -66,7 +66,6 @@ Component.register('moorl-animation', {
         },
 
         deleteEntry(index) {
-
             this.value.splice(index, 1);
         }
     }
