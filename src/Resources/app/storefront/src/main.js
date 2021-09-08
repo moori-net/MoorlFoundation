@@ -29,6 +29,13 @@ PluginManager.register('MoorlFoundation', MoorlFoundation);
 PluginManager.register('MoorlFoundationForm', MoorlFoundationForm, '[data-moorl-foundation-form]');
 PluginManager.register('MoorlAnimation', MoorlAnimation, '[data-moorl-animation]');
 
+if (window.moorlAnimation) {
+    for (let item of window.moorlAnimation) {
+        PluginManager.register('MoorlAnimation', MoorlAnimation, item.cssSelector, item);
+    }
+}
+
+
 if (module.hot) {
     module.hot.accept();
 }

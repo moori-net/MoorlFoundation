@@ -9,10 +9,9 @@
 
     {% if config('MoorlFoundation.config.animate') %}
         <link rel="stylesheet" href="{{ asset('bundles/moorlfoundation/storefront/css/animate.css') }}">
-        <script type="application/json" id="moorlFoundationAnimateConfig">{
-            "animateIn": "{{ config('MoorlFoundation.config.animateIn') | replace({"\n":';',"\r":';'}) }}",
-            "animateOut": "{{ config('MoorlFoundation.config.animateOut') | replace({"\n":';',"\r":';'}) }}",
-            "hover": "{{ config('MoorlFoundation.config.hover') | replace({"\n":';',"\r":';'}) }}"
-        }</script>
+    {% endif %}
+
+    {% if config('MoorlFoundation.config.moorlAnimation') %}
+        <script type="application/javascript">window.moorlAnimation = {{ moorl_animation(config('MoorlFoundation.config.moorlAnimation'))|raw }};</script>
     {% endif %}
 {% endblock %}

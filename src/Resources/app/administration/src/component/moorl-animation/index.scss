@@ -1,0 +1,13 @@
+.moorl-animation {
+    .sw-collapse {
+        margin-bottom: 10px;
+    }
+
+    .sw-collapse__header {
+        grid-template-columns: 1fr 1fr 24px 24px;
+    }
+
+    .sw-collapse__content {
+        grid-template-columns: 2fr 2fr 1fr 1fr;
+    }
+}

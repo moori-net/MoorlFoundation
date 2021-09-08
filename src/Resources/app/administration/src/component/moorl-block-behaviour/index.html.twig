@@ -1,52 +1,46 @@
 <div class="moorl-block-behaviour">
-    <sw-collapse :ref="'moorl-block-behaviour'">
+    <sw-collapse class="moorl-collapse">
         <template #header="{ expanded }">
-            <div class="collapse-header" :class="expanded ? 'expanded' : ''">
-                <h4>{{ $tc(snippetPrefix + 'title') }}</h4>
+            <h4>{{ $tc(snippetPrefix + 'title') }}</h4>
 
-                <div class="collapse-indicator">
-                    <sw-icon v-if="expanded"
-                             class="sw-media-collapse__button"
-                             name="small-arrow-small-down">
-                    </sw-icon>
-                    <sw-icon v-else
-                             class="sw-media-collapse__button"
-                             name="small-arrow-small-right">
-                    </sw-icon>
-                </div>
+            <div>
+                <sw-icon v-if="expanded"
+                         class="sw-media-collapse__button"
+                         name="small-arrow-small-down">
+                </sw-icon>
+                <sw-icon v-else
+                         class="sw-media-collapse__button"
+                         name="small-arrow-small-right">
+                </sw-icon>
             </div>
         </template>
 
         <template #content>
-            <div class="collapse-content">
-                <template v-for="behaviour in defaultBehaviour">
-                    <div class="collapse-badge">
-                        <sw-icon :name="behaviour.icon" />
-                        {{ behaviour.breakpoint }}
-                    </div>
+            <template v-for="behaviour in defaultBehaviour">
+                <div class="collapse-badge">
+                    <sw-icon :name="behaviour.icon"/>
+                    {{ behaviour.breakpoint }}
+                </div>
 
-                    <sw-field type="switch"
-                              bordered
-                              :label="$tc(snippetPrefix + 'label.inherit')"
-                              @change="emitChange"
-                              v-model="currentValue[behaviour.breakpoint].inherit"></sw-field>
+                <sw-field type="switch"
+                          bordered
+                          :label="$tc(snippetPrefix + 'label.inherit')"
+                          v-model="value[behaviour.breakpoint].inherit"></sw-field>
 
-                    <sw-field type="switch"
-                              bordered
-                              :label="$tc(snippetPrefix + 'label.show')"
-                              @change="emitChange"
-                              v-model="currentValue[behaviour.breakpoint].show"></sw-field>
+                <sw-field type="switch"
+                          bordered
+                          :label="$tc(snippetPrefix + 'label.show')"
+                          v-model="value[behaviour.breakpoint].show"></sw-field>
 
-                    <sw-select-field v-if="false" v-model="currentValue[behaviour.breakpoint].width">
-                        <option :value="0">auto</option>
-                        <option v-for="i in 12" :value="i">{{ i }}/12</option>
-                    </sw-select-field>
+                <sw-select-field v-if="false" v-model="value[behaviour.breakpoint].width">
+                    <option :value="0">auto</option>
+                    <option v-for="i in 12" :value="i">{{ i }}/12</option>
+                </sw-select-field>
 
-                    <sw-select-field v-if="false" v-model="currentValue[behaviour.breakpoint].order">
-                        <option v-for="i in 48" :value="i">{{ i }}</option>
-                    </sw-select-field>
-                </template>
-            </div>
+                <sw-select-field v-if="false" v-model="value[behaviour.breakpoint].order">
+                    <option v-for="i in 48" :value="i">{{ i }}</option>
+                </sw-select-field>
+            </template>
         </template>
     </sw-collapse>
 </div>

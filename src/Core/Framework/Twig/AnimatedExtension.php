@@ -16,6 +16,7 @@ class AnimatedExtension extends AbstractExtension
             new TwigFunction('moorl_animated', [$this, 'animated']),
             new TwigFunction('moorl_random_bg', [$this, 'randomBg']),
             new TwigFunction('moorl_element_animation', [$this, 'elementAnimation']),
+            new TwigFunction('moorl_animation', [$this, 'animation']),
             new TwigFunction('moorl_block_behaviour', [$this, 'blockBehaviour']),
         ];
     }
@@ -121,5 +122,40 @@ class AnimatedExtension extends AbstractExtension
                 'rule' => $config->get('animateHoverRule') ? $config->get('animateHoverRule')->getValue() : 'isInViewport'
             ]
         ]);
+    }
+
+    public function animation(?array $elements = null): ?string
+    {
+        if (!$elements || empty($elements)) {
+            return null;
+        }
+
+        $config = [];
+
+        foreach ($elements as $element) {
+            $config[] = [
+                'cssSelector' => $element['cssSelector'],
+                'animateIn' => [
+                    'type' => $element['animateIn'],
+                    'speed' => $element['animateInSpeed'],
+                    'timeout' => $element['animateInTimeout'],
+                    'rule' => $element['animateInRule']
+                ],
+                'animateOut' => [
+                    'type' => $element['animateOut'],
+                    'speed' => $element['animateOutSpeed'],
+                    'timeout' => $element['animateOutTimeout'],
+                    'rule' => $element['animateOutRule']
+                ],
+                'animateHover' => [
+                    'type' => $element['animateHover'],
+                    'speed' => $element['animateHoverSpeed'],
+                    'timeout' => $element['animateHoverTimeout'],
+                    'rule' => $element['animateHoverRule']
+                ]
+            ];
+        }
+
+        return json_encode($config);
     }
 }

@@ -2,8 +2,11 @@ import Plugin from 'src/plugin-system/plugin.class';
 
 export default class MoorlAnimation extends Plugin {
     init() {
-        /*this.elements = document.querySelectorAll('[data-moorl-animation]');*/
-        this.config = JSON.parse(this.el.dataset.moorlAnimation);
+        if (!this.el.dataset.moorlAnimation) {
+            this.config = this.options;
+        } else {
+            this.config = JSON.parse(this.el.dataset.moorlAnimation);
+        }
 
         this.activeAnimation = null;
         this.animateInit();

@@ -1,3 +1,5 @@
+import './main.scss';
+
 //import './core/font-awesome'
 import './component';
 

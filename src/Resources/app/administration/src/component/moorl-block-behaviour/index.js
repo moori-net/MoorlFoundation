@@ -9,7 +9,10 @@ Component.register('moorl-block-behaviour', {
     props: {
         value: {
             type: Object,
-            required: true
+            required: false,
+            default() {
+                return {};
+            }
         },
     },
 
@@ -82,13 +85,17 @@ Component.register('moorl-block-behaviour', {
         },
     },
 
-    created() {
-        this.currentValue = Object.assign(this.defaultValue, this.value);
+    watch: {
+        value(value) {
+            console.log(this.value);
+            console.log(value);
+            this.$emit('change', this.value);
+        }
     },
 
-    methods: {
-        emitChange() {
-            this.$emit('change', this.currentValue);
-        }
+    created() {
+        this.value = Object.assign(this.defaultValue, this.value);
+
+        console.log(this.value);
     }
 });

@@ -1,8 +1,10 @@
 {
-  "moorl-element-animation": {
+  "moorl-animation": {
     "title": "moori element animation",
     "label": {
-      "active": "Active",
+      "add": "Add new animation",
+      "delete": "Delete animation",
+      "cssSelector": "CSS Selector",
       "animateIn": "Animate in",
       "animateHover": "Animate hover",
       "animateOut": "Animate out",
@@ -15,6 +17,9 @@
     },
     "helpText": {
       "animate": "Enable Animate.css in moori Foundation App Settings"
+    },
+    "placeholder": {
+      "cssSelector": "#el-id, .el-class, [el-attribute]"
     }
   }
 }

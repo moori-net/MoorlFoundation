@@ -13,13 +13,5 @@ Component.override('sw-cms-block-config', {
         if (!this.block.customFields.moorl_block_behaviour) {
             this.$set(this.block.customFields, 'moorl_block_behaviour', {});
         }
-    },
-
-    methods: {
-        updateBlockBehaviour(value, e) {
-            console.log(e);
-            console.log(value);
-            this.$set(this.block.customFields, 'moorl_block_behaviour', value);
-        }
     }
 });
