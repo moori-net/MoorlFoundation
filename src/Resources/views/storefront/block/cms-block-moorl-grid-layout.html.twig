@@ -4,10 +4,10 @@
             {% set element = block.slots.getSlot("slot-#{letter}") %}
 
             {% if element %}
-                {% set elementAnimation = moorl_element_animation(element) %}
+                {% set moorlAnimation = element.config.moorlAnimation.value %}
 
-                {% if elementAnimation %}
-                    <div data-moorl-animation='{{ elementAnimation }}'>
+                {% if moorlAnimation %}
+                    <div data-moorl-animation='{{ moorlAnimation|json_encode|raw }}'>
                         {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
                     </div>
                 {% else %}

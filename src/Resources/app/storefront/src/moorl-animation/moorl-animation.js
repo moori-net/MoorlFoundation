@@ -26,7 +26,7 @@ export default class MoorlAnimation extends Plugin {
                 return;
             }
 
-            if (that.config.animateHover && that.config.animateHover.type && that.config.animateHover.type !== 'none') {
+            if (that.config.hover && that.config.hover.active) {
                 that.animateHover();
             }
         });
@@ -70,59 +70,59 @@ export default class MoorlAnimation extends Plugin {
     }
 
     animateHover() {
-        const config = this.config.animateHover;
+        const config = this.config.hover;
 
         if (this.el.classList.contains('moorl-animation-hidden')) {
             return;
         }
 
-        if (this._visible(config.rule)) {
+        if (this._visible(config.condition)) {
             this.activeAnimation = 'hover';
-            this.el.style.animation = config.type;
+            this.el.style.animation = config.name;
             this.el.style.zIndex = 9000;
-            this.el.style.animationDelay = this._ms(config.timeout);
-            this.el.style.animationDuration = this._ms(config.speed);
+            this.el.style.animationDelay = this._ms(config.delay);
+            this.el.style.animationDuration = this._ms(config.duration);
         }
     };
 
     animateIn() {
-        const config = this.config.animateIn;
+        const config = this.config.in;
 
         if (!this.el.classList.contains('moorl-animation-hidden')) {
             return;
         }
 
-        if (this._visible(config.rule)) {
+        if (this._visible(config.condition)) {
             this.activeAnimation = 'in';
-            this.el.style.animation = config.type;
+            this.el.style.animation = config.name;
             this.el.style.zIndex = 9000;
-            this.el.style.animationDelay = this._ms(config.timeout);
-            this.el.style.animationDuration = this._ms(config.speed);
+            this.el.style.animationDelay = this._ms(config.delay);
+            this.el.style.animationDuration = this._ms(config.duration);
         }
     };
 
     animateOut() {
-        const config = this.config.animateOut;
+        const config = this.config.out;
 
         if (this.el.classList.contains('moorl-animation-hidden')) {
             return;
         }
 
-        if (!this._visible(config.rule)) {
+        if (!this._visible(config.condition)) {
             this.activeAnimation = 'out';
-            this.el.style.animation = config.type;
-            this.el.style.animationDelay = this._ms(config.timeout);
-            this.el.style.animationDuration = this._ms(config.speed);
+            this.el.style.animation = config.name;
+            this.el.style.animationDelay = this._ms(config.delay);
+            this.el.style.animationDuration = this._ms(config.duration);
         }
     };
 
     animateInit() {
         const config = this.config;
 
-        if (config.animateIn && config.animateIn.type && config.animateIn.type !== 'none') {
-            if (!this._visible(config.animateIn.rule)) {
+        if (config.in && config.in.active) {
+            if (!this._visible(config.in.condition)) {
                 this.el.classList.add('moorl-animation-hidden');
-            } else if (config.animateIn.rule === 'isLoaded') {
+            } else if (config.in.condition === 'isLoaded') {
                 this.el.classList.add('moorl-animation-hidden');
             }
         }
@@ -133,11 +133,11 @@ export default class MoorlAnimation extends Plugin {
             return;
         }
 
-        if (this.config.animateIn && this.config.animateIn.type && this.config.animateIn.type !== 'none') {
+        if (this.config.in && this.config.in.active) {
             this.animateIn();
         }
 
-        if (this.config.animateOut && this.config.animateOut.type && this.config.animateOut.type !== 'none') {
+        if (this.config.out && this.config.out.active) {
             this.animateOut();
         }
     };

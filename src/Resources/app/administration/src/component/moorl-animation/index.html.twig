@@ -33,80 +33,38 @@
         </template>
 
         <template #content>
-            <sw-select-field :label="$tc(snippetPrefix + 'label.animateIn')"
-                             :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                             v-model="currentConfig.animateIn">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
+            <template v-for="type in ['in','out','hover']">
+                <sw-field type="switch"
+                          :label="$tc(snippetPrefix + 'label.active')"
+                          bordered
+                          v-model="currentConfig[type].active">
+                </sw-field>
 
-            <sw-select-field :label="$tc(snippetPrefix + 'label.rule')"
-                             v-model="currentConfig.animateInRule">
-                <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
-                    {{ $tc(snippetPrefix + 'label.' + value) }}
-                </option>
-            </sw-select-field>
+                <sw-select-field :label="$tc(snippetPrefix + 'label.name.' + type)"
+                                 :helpText="$tc(snippetPrefix + 'helpText.name')"
+                                 v-model="currentConfig[type].name">
+                    <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                        <option v-for="value in item.options" :value="value">{{ value }}</option>
+                    </optgroup>
+                </sw-select-field>
 
-            <sw-field v-model="currentConfig.animateInSpeed"
-                      type="number"
-                      :label="$tc(snippetPrefix + 'label.speed')">
-            </sw-field>
+                <sw-select-field :label="$tc(snippetPrefix + 'label.condition')"
+                                 v-model="currentConfig[type].condition">
+                    <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
+                        {{ $tc(snippetPrefix + 'label.' + value) }}
+                    </option>
+                </sw-select-field>
 
-            <sw-field v-model="currentConfig.animateInTimeout"
-                      type="number"
-                      :label="$tc(snippetPrefix + 'label.timeout')">
-            </sw-field>
+                <sw-field v-model="currentConfig[type].duration"
+                          type="number"
+                          :label="$tc(snippetPrefix + 'label.duration')">
+                </sw-field>
 
-            <sw-select-field :label="$tc(snippetPrefix + 'label.animateOut')"
-                             :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                             v-model="currentConfig.animateOut">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
-
-            <sw-select-field :label="$tc(snippetPrefix + 'label.rule')"
-                             v-model="currentConfig.animateOutRule">
-                <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
-                    {{ $tc(snippetPrefix + 'label.' + value) }}
-                </option>
-            </sw-select-field>
-
-            <sw-field v-model="currentConfig.animateOutSpeed"
-                      type="number"
-                      :label="$tc(snippetPrefix + 'label.speed')">
-            </sw-field>
-
-            <sw-field v-model="currentConfig.animateOutTimeout"
-                      type="number"
-                      :label="$tc(snippetPrefix + 'label.timeout')">
-            </sw-field>
-
-            <sw-select-field :label="$tc(snippetPrefix + 'label.animateHover')"
-                             :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                             v-model="currentConfig.animateHover">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
-
-            <sw-select-field :label="$tc(snippetPrefix + 'label.rule')"
-                             v-model="currentConfig.animateHoverRule">
-                <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
-                    {{ $tc(snippetPrefix + 'label.' + value) }}
-                </option>
-            </sw-select-field>
-
-            <sw-field v-model="currentConfig.animateHoverSpeed"
-                      type="number"
-                      :label="$tc(snippetPrefix + 'label.speed')">
-            </sw-field>
-
-            <sw-field v-model="currentConfig.animateHoverTimeout"
-                      type="number"
-                      :label="$tc(snippetPrefix + 'label.timeout')">
-            </sw-field>
+                <sw-field v-model="currentConfig[type].delay"
+                          type="number"
+                          :label="$tc(snippetPrefix + 'label.delay')">
+                </sw-field>
+            </template>
         </template>
     </sw-collapse>
 

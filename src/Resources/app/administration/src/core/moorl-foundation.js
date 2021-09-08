@@ -160,6 +160,7 @@ const MoorlFoundation = function MoorlFoundation() {
         {
             optgroup: '-',
             options: [
+                'disable',
                 'none'
             ]
         },

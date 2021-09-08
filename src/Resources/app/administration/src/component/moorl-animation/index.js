@@ -34,43 +34,40 @@ Component.register('moorl-animation', {
     computed: {
         moorlFoundation() {
             return MoorlFoundation;
-        },
-
-        defaultEntry() {
-            return {
-                cssSelector: '.cms-block',
-                animateInActive: false,
-                animateIn: null,
-                animateInSpeed: 1000,
-                animateInTimeout: 'static',
-                animateInRule: 'isInViewport',
-                animateOutActive: false,
-                animateOut: null,
-                animateOutSpeed: 1000,
-                animateOutTimeout: 0,
-                animateOutRule: 'isInViewport',
-                animateHoverActive: false,
-                animateHover: null,
-                animateHoverSpeed: 1000,
-                animateHoverTimeout: 0,
-                animateHoverRule: 'isInViewport',
-            };
         }
     },
 
     methods: {
         addEntry() {
-            this.currentValue.push(this.defaultEntry);
-            this.value.push(this.defaultEntry);
+            this.value.push({
+                cssSelector: '.cms-block',
+                in: {
+                    active: false,
+                    name: 'none',
+                    condition: 'isInViewport',
+                    duration: 1000,
+                    delay: 0,
+                },
+                out: {
+                    active: false,
+                    name: 'none',
+                    condition: 'isInViewport',
+                    duration: 1000,
+                    delay: 0,
+                },
+                hover: {
+                    active: false,
+                    name: 'none',
+                    condition: 'isInViewport',
+                    duration: 1000,
+                    delay: 0,
+                }
+            });
         },
 
         deleteEntry(index) {
-            this.currentValue.splice(index, 1);
-            this.value.splice(index, 1);
-        },
 
-        emitChange() {
-            this.$emit('change', this.currentValue);
+            this.value.splice(index, 1);
         }
     }
 });

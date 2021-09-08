@@ -12,6 +12,6 @@
     {% endif %}
 
     {% if config('MoorlFoundation.config.moorlAnimation') %}
-        <script type="application/javascript">window.moorlAnimation = {{ moorl_animation(config('MoorlFoundation.config.moorlAnimation'))|raw }};</script>
+        <script type="application/javascript">window.moorlAnimation = {{ config('MoorlFoundation.config.moorlAnimation')|json_encode|raw }};</script>
     {% endif %}
 {% endblock %}

@@ -3,18 +3,20 @@
     "title": "moori element animation",
     "label": {
       "active": "Active",
-      "animateIn": "Animate in",
-      "animateHover": "Animate hover",
-      "animateOut": "Animate out",
-      "speed": "Speed (ms)",
-      "timeout": "Timeout (ms)",
-      "rule": "Rule",
+      "name": {
+        "in": "Animate in",
+        "out": "Animate out",
+        "hover": "Animate hover"
+      },
+      "duration": "Duration (ms)",
+      "delay": "Delay (ms)",
+      "condition": "Condition",
       "isLoaded": "Load",
       "isOverBottom": "Over bottom",
       "isInViewport": "In viewport"
     },
     "helpText": {
-      "animate": "Enable Animate.css in moori Foundation App Settings"
+      "name": "Enable Animate.css in moori Foundation App Settings"
     }
   }
 }
