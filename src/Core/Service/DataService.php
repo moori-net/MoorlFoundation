@@ -278,20 +278,23 @@ TWIG;
             $globalReplacers[sprintf("{%s}", $row['code'])] = $row['id'];
         }
 
-        if ($this->salesChannelId) {
-            $sql = sprintf(
-                "SELECT LOWER(HEX(`id`)) AS `id`, LOWER(HEX(`navigation_category_id`)) AS `categoryId` FROM `sales_channel` WHERE `id` = UNHEX('%s');",
-                $this->salesChannelId
-            );
-        } else {
-            $sql = sprintf(
-                "SELECT LOWER(HEX(`id`)) AS `id`, LOWER(HEX(`navigation_category_id`)) AS `categoryId` FROM `sales_channel` WHERE `type_id` = UNHEX('%s');",
-                Defaults::SALES_CHANNEL_TYPE_STOREFRONT
-            );
+        try {
+            if ($this->salesChannelId) {
+                $sql = sprintf(
+                    "SELECT LOWER(HEX(`id`)) AS `id`, LOWER(HEX(`navigation_category_id`)) AS `categoryId` FROM `sales_channel` WHERE `id` = UNHEX('%s');",
+                    $this->salesChannelId
+                );
+            } else {
+                $sql = sprintf(
+                    "SELECT LOWER(HEX(`id`)) AS `id`, LOWER(HEX(`navigation_category_id`)) AS `categoryId` FROM `sales_channel` WHERE `type_id` = UNHEX('%s');",
+                    Defaults::SALES_CHANNEL_TYPE_STOREFRONT
+                );
+            }
+            $query = $this->connection->executeQuery($sql)->fetchAssociative();
+            $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
+            $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
+        } catch (\Exception $exception) {
         }
-        $query = $this->connection->executeQuery($sql)->fetchAssociative();
-        $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
-        $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
 
         $demoPlaceholderTypes = $dataObject->getDemoPlaceholderTypes();
 
