@@ -7,9 +7,11 @@
                 {% set moorlAnimation = element.config.moorlAnimation.value %}
 
                 {% if moorlAnimation %}
-                    <div data-moorl-animation='{{ moorlAnimation|json_encode|raw }}'>
-                        {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
-                    </div>
+                    {% if moorlAnimation.in.active or moorlAnimation.out.active or moorlAnimation.hover.active%}
+                        <div data-moorl-animation='{{ moorlAnimation|json_encode|raw }}'>
+                            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+                        </div>
+                    {% endif %}
                 {% else %}
                     {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
                 {% endif %}
