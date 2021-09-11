@@ -22,7 +22,7 @@ Module.register('moorl-foundation-settings', {
             name: 'moorl-foundation-settings-demo-data',
             to: 'moorl.foundation.settings.demodata',
             group: 'plugins',
-            icon: 'default-object-lab-flask',
+            icon: 'default-package-gift',
             label: 'moorl-foundation.label.settingsDemoData'
         }
     ]
