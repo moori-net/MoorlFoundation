@@ -90,6 +90,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "autoBreadcrumbPlain": "Auto breadcrumb",
             "moorlAfCategory": "Accessory Category",
             "kbaNumber": "KBA Number",
             "course": "Course",
