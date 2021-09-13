@@ -5,3 +5,4 @@ import './moorl-entity-grid';
 import './moorl-element-animation';
 import './moorl-animation';
 import './moorl-block-behaviour';
+import './moorl-collapse';

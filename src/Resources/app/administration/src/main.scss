@@ -10,7 +10,6 @@
 
         .sw-field__label label {
             padding-right: 0;
-            margin-right: 0;
         }
     }
 
@@ -22,9 +21,14 @@
         padding: 10px;
         background: $color-shopware-brand-50;
         border: 1px solid $color-gray-900;
+        grid-template-columns: 1fr 24px;
 
         h4 {
             margin: 0;
+        }
+
+        .sw-icon:hover {
+            color: $color-shopware-brand-900;
         }
     }
 
@@ -36,5 +40,24 @@
         background: $color-shopware-brand-50;
         border: 1px solid $color-gray-900;
         border-top: none;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    &.header--add {
+        .sw-collapse__header {
+            grid-template-columns: 1fr 24px 24px;
+        }
+    }
+
+    &.content--single {
+        .sw-collapse__content {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &.content--end {
+        .sw-collapse__content {
+            align-items: end;
+        }
     }
 }

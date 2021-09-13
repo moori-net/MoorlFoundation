@@ -1,0 +1,20 @@
+<div class="moorl-collapse" :class="expanded ? 'expanded' : ''">
+    <div class="moorl-collapse__header">
+        <slot name="header" v-bind="{ expanded }">
+            <h4 @click="collapseItem">{{ label }}</h4>
+
+            <div>
+                <slot name="header-content"></slot>
+            </div>
+
+            <div @click="collapseItem">
+                <sw-icon v-if="expanded" small name="small-arrow-small-down"></sw-icon>
+                <sw-icon v-else small name="small-arrow-small-right"></sw-icon>
+            </div>
+        </slot>
+    </div>
+
+    <div v-if="expanded" class="moorl-collapse__content">
+        <slot name="content"></slot>
+    </div>
+</div>
