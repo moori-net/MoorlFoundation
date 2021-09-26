@@ -5,6 +5,9 @@ import 'leaflet/dist/leaflet.css';
 const {Component} = Shopware;
 import L from 'leaflet';
 
+const urlTemplate = '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const attribution = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>';
+
 Component.register('moorl-map', {
     template,
 
@@ -60,8 +63,8 @@ Component.register('moorl-map', {
                 zoom: 16
             });
 
-            L.tileLayer(DewaShop.OSM.urlTemplate, {
-                attribution: DewaShop.OSM.attribution
+            L.tileLayer(urlTemplate, {
+                attribution: attribution
             }).addTo(this.leaflet.map);
 
             this.updateMap();
