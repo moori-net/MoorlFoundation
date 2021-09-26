@@ -6,3 +6,7 @@ import './moorl-element-animation';
 import './moorl-animation';
 import './moorl-block-behaviour';
 import './moorl-collapse';
+
+
+import './opening-hours';
+import './map';

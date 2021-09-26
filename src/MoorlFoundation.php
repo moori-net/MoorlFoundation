@@ -13,7 +13,8 @@ class MoorlFoundation extends Plugin
     public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
 
     public const PLUGIN_TABLES = [
-        'moorl_cms_element_config'
+        'moorl_cms_element_config',
+        'moorl_location'
     ];
 
     public function uninstall(UninstallContext $context): void

@@ -7,6 +7,7 @@ Component.register('moorl-foundation-settings-demo-data', {
 
     inject: [
         'repositoryFactory',
+        'acl',
         'foundationApiService'
     ],
 
