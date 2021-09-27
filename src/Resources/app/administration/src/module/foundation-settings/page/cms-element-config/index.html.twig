@@ -1,0 +1,13 @@
+<sw-page class="moorl-cms-element-config">
+    <template slot="content">
+        <sw-entity-listing
+                :items="items"
+                :repository="repository"
+                :showSelection="false"
+                :columns="columns"
+                :isLoading="isLoading"
+                @select-item="updateSelection"
+                @update-records="updateTotal">
+        </sw-entity-listing>
+    </template>
+</sw-page>

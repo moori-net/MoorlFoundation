@@ -1,6 +1,7 @@
 const {Module} = Shopware;
 
 import './page/demo-data';
+import './page/cms-element-config';
 
 Module.register('moorl-foundation-settings', {
     type: 'plugin',
@@ -14,16 +15,30 @@ Module.register('moorl-foundation-settings', {
             meta: {
                 parentPath: 'sw.settings.index'
             },
+        },
+        cmselementconfig: {
+            component: 'moorl-cms-element-config',
+            path: 'cmselementconfig',
+            meta: {
+                parentPath: 'sw.settings.index'
+            },
         }
     },
 
     settingsItem: [
         {
             name: 'moorl-foundation-settings-demo-data',
-            to: 'moorl.foundation.settings.demodata',
+            to: 'moorl.foundation.settings.demodate',
             group: 'plugins',
             icon: 'default-package-gift',
             label: 'moorl-foundation.label.settingsDemoData'
+        },
+        {
+            name: 'moorl-cms-element-config',
+            to: 'moorl.foundation.settings.cmselementconfig',
+            group: 'plugins',
+            icon: 'default-package-gift',
+            label: 'moorl-foundation.label.settingsCmsElementConfig'
         }
     ]
 });
