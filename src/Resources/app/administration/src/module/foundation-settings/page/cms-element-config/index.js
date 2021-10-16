@@ -23,7 +23,16 @@ Component.register('moorl-cms-element-config', {
             repository: null,
             items: null,
             sortBy: 'name',
-            isLoading: true
+            isLoading: true,
+            showImportModal: false,
+            selectedFile: null,
+            isImporting: false,
+            locale: null,
+            naturalSorting: true,
+            sortDirection: 'DESC',
+            showDeleteModal: false,
+            filterLoading: false,
+            filterCriteria: [],
         };
     },
 
@@ -50,7 +59,22 @@ Component.register('moorl-cms-element-config', {
                 label: this.$t('moorl-foundation.properties.type'),
                 inlineEdit: 'string'
             }];
-        }
+        },
+
+        defaultCriteria() {
+            const defaultCriteria = new Criteria(this.page, this.limit);
+            this.naturalSorting = this.sortBy === 'name';
+            defaultCriteria.setTerm(this.term);
+            this.sortBy.split(',').forEach(sortBy => {
+                defaultCriteria.addSorting(Criteria.sort(sortBy, this.sortDirection, this.naturalSorting));
+            });
+
+            this.filterCriteria.forEach(filter => {
+                defaultCriteria.addFilter(filter);
+            });
+
+            return defaultCriteria;
+        },
     },
 
     created() {
@@ -59,30 +83,22 @@ Component.register('moorl-cms-element-config', {
     },
 
     methods: {
-        getList() {
-            const criteria = new Criteria(this.page, this.limit);
-            //const params = this.getListingParams();
-            const params = {};
-
+        async getList() {
             this.isLoading = true;
-            this.naturalSorting = this.sortBy === 'name';
-            this.sortDirection = params.sortDirection || 'ASC';
 
-            criteria.setTerm(this.term);
-            criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection, this.naturalSorting));
+            try {
+                const items = await this.repository.search(this.defaultCriteria, Shopware.Context.api);
 
-            this.repository.search(criteria, Shopware.Context.api).then((items) => {
                 this.total = items.total;
-                this.isLoading = false;
                 this.items = items;
-                return items;
-            }).catch(() => {
+                this.selection = {};
                 this.isLoading = false;
-            });
+            } catch {
+                this.isLoading = false;
+            }
         },
 
-        updateSelection() {
-        },
+        updateSelection() {},
 
         updateTotal({total}) {
             this.total = total;

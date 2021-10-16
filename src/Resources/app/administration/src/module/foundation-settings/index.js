@@ -27,13 +27,15 @@ Module.register('moorl-foundation-settings', {
 
     settingsItem: [
         {
+            privilege: 'system.system_config',
             name: 'moorl-foundation-settings-demo-data',
-            to: 'moorl.foundation.settings.demodate',
+            to: 'moorl.foundation.settings.demodata',
             group: 'plugins',
             icon: 'default-package-gift',
             label: 'moorl-foundation.label.settingsDemoData'
         },
         {
+            privilege: 'system.system_config',
             name: 'moorl-cms-element-config',
             to: 'moorl.foundation.settings.cmselementconfig',
             group: 'plugins',
