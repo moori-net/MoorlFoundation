@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 
 interface DataInterface
 {
+    public function isCleanUp(): bool;
     public function getType(): string;
     public function getName(): string;
     public function getPluginName(): string;

@@ -161,7 +161,7 @@ class DataService
             }
 
             foreach ($dataObject->getInstallConfig() as $k => $v) {
-                $this->systemConfigService->set($k, $v);
+                $this->systemConfigService->set($k, $this->processReplace($v, $dataObject));
             }
 
             $dataObject->process();
@@ -697,7 +697,7 @@ TWIG;
             $this->cleanUpShopwareTables($dataObject);
 
             foreach ($dataObject->getRemoveQueries() as $sql) {
-                $sql = strtr($sql, $dataObject->getGlobalReplacers());
+                $sql = $this->processReplace($sql, $dataObject);
                 $this->connection->executeUpdate($sql);
             }
         }

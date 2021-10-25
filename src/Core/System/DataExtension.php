@@ -7,6 +7,14 @@ class DataExtension
     private ?array $globalReplacers = null;
 
     /**
+     * @return bool
+     */
+    public function isCleanUp(): bool
+    {
+        return true;
+    }
+
+    /**
      * @return array|null
      */
     public function getGlobalReplacers(): ?array
@@ -47,6 +55,21 @@ class DataExtension
     }
 
     public function getStylesheets(): array
+    {
+        return [];
+    }
+
+    public function getTables(): ?array
+    {
+        return [];
+    }
+
+    public function getShopwareTables(): ?array
+    {
+        return [];
+    }
+
+    public function getPluginTables(): ?array
     {
         return [];
     }
