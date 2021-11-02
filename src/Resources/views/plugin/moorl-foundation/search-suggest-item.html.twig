@@ -1,0 +1,26 @@
+<li class="moorl-search-suggest-item">
+    <a href="{{ url }}" title="{{ title }}">
+        <div class="moorl-search-suggest-item-image">
+            {% if media.url %}
+                {% sw_thumbnails 'moorl-search-suggest-item-image-thumbnails' with {
+                    media: media,
+                    attributes: {
+                        'alt': (media.translated.alt ?: ''),
+                        'title': (media.translated.title ?: '')
+                    }
+                } %}
+            {% else %}
+                {% sw_icon 'placeholder' style {
+                    'size': 'fluid'
+                } %}
+            {% endif %}
+        </div>
+        <div class="moorl-search-suggest-item-overlay">
+            <div class="moorl-search-suggest-item-title">{{ title }}</div>
+
+            {% if teaser %}
+                <div class="moorl-search-suggest-item-teaser">{{ teaser }}</div>
+            {% endif %}
+        </div>
+    </a>
+</li>
