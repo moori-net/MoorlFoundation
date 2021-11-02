@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="controllers.xml"/>
+        <import resource="subscribers.xml"/>
     </imports>
 
     <services>
@@ -27,6 +28,14 @@
             <argument>%kernel.project_dir%</argument>
 
             <argument type="tagged" tag="moorl.foundation.data" />
+        </service>
+
+        <service id="MoorlFoundation\Core\Service\SalesChannelEntitySearchService" public="true">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+
+            <argument type="tagged" tag="moorl.foundation.sales_channel_entity_search" />
         </service>
 
         <service id="MoorlFoundation\Core\Service\LocationService" public="true">

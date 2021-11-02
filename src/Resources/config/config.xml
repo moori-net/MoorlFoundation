@@ -2,6 +2,42 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
     <card>
+        <title>Add-ons</title>
+        <title lang="de-DE">Add-Ons</title>
+        <input-field type="bool">
+            <name>fontawesome</name>
+            <label>Enable Font Awesome 5 Free</label>
+            <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
+        </input-field>
+        <input-field type="bool">
+            <name>animate</name>
+            <label>Enable Animate.css</label>
+            <label lang="de-DE">Aktiviere Animate.css</label>
+        </input-field>
+    </card>
+
+    <card>
+        <title>Demo assistant</title>
+        <title lang="de-DE">Demo Assistent</title>
+        <input-field type="text">
+            <name>demoCustomerMail</name>
+            <label>Demo customer mail address</label>
+            <label lang="de-DE">Demo Kunden Mailadresse</label>
+            <defaultValue>test@example.com</defaultValue>
+            <helpText>When you install demo data you might need to have an customer mail</helpText>
+        </input-field>
+    </card>
+
+    <card>
+        <title>moori Animation</title>
+        <title lang="de-DE">moori Animation</title>
+
+        <component name="moorl-animation">
+            <name>moorlAnimation</name>
+        </component>
+    </card>
+
+    <card>
         <title>moori plugin settings</title>
         <title lang="de-DE">moori Plugin Einstellungen</title>
         <input-field type="bool">
@@ -28,29 +64,5 @@
             <label lang="de-DE">Entfernen/Erneuern von Textbausteinen beim Deinstallieren/Aktivieren</label>
             <defaultValue>true</defaultValue>
         </input-field>
-    </card>
-
-    <card>
-        <title>Add-ons</title>
-        <title lang="de-DE">Add-Ons</title>
-        <input-field type="bool">
-            <name>fontawesome</name>
-            <label>Enable Font Awesome 5 Free</label>
-            <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
-        </input-field>
-        <input-field type="bool">
-            <name>animate</name>
-            <label>Enable Animate.css</label>
-            <label lang="de-DE">Aktiviere Animate.css</label>
-        </input-field>
-    </card>
-
-    <card>
-        <title>moori Animation</title>
-        <title lang="de-DE">moori Animation</title>
-
-        <component name="moorl-animation">
-            <name>moorlAnimation</name>
-        </component>
     </card>
 </config>
