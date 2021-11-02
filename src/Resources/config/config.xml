@@ -17,14 +17,20 @@
     </card>
 
     <card>
-        <title>Demo assistant</title>
-        <title lang="de-DE">Demo Assistent</title>
-        <input-field type="text">
-            <name>demoCustomerMail</name>
-            <label>Demo customer mail address</label>
-            <label lang="de-DE">Demo Kunden Mailadresse</label>
-            <defaultValue>test@example.com</defaultValue>
-            <helpText>When you install demo data you might need to have an customer mail</helpText>
+        <title>Search settings</title>
+        <title lang="de-DE">Sucheinstellungen</title>
+        <input-field type="bool">
+            <name>advancedSearchActive</name>
+            <label>Enable advanced search</label>
+            <label lang="de-DE">Erweiterte Suche aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>advancedSearchHideEmptyResults</name>
+            <label>Hide empty search results</label>
+            <label lang="de-DE">Leere Suchergebnisse verstecken</label>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 

@@ -1,5 +1,8 @@
 {
   "moorl-foundation": {
+    "search": {
+      "product": "Produkte"
+    },
     "days": {
       "today": "Heute",
       "monday": "Montag",

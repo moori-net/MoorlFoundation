@@ -40,10 +40,16 @@ class SalesChannelEntitySearchService
 
     public function enrich(ProductListingResultEvent $event): void
     {
+        $salesChannelContext = $event->getSalesChannelContext();
+        if (!$this->systemConfigService->get('MoorlFoundation.config.advancedSearchActive', $salesChannelContext->getSalesChannelId())) {
+            return;
+        }
+
+        $advancedSearchHideEmptyResults = $this->systemConfigService->get('MoorlFoundation.config.advancedSearchHideEmptyResults', $salesChannelContext->getSalesChannelId());
+
         $request = $event->getRequest();
         $search = $request->get('search');
         $result = $event->getResult();
-        $salesChannelContext = $event->getSalesChannelContext();
         $context = $salesChannelContext->getContext();
         $moorlSearchResults = [];
 
@@ -77,6 +83,10 @@ class SalesChannelEntitySearchService
             } else {
                 $repo = $this->definitionInstanceRegistry->getRepository($searchEntity->getEntityName());
                 $moorlSearchResult = $repo->search($criteria, $context);
+            }
+
+            if ($moorlSearchResult->getTotal() === 0 && $advancedSearchHideEmptyResults) {
+                continue;
             }
 
             $searchEntity->processSearchResult($moorlSearchResult);

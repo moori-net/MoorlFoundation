@@ -1,7 +1,7 @@
 {% sw_extends '@Storefront/storefront/layout/header/search-suggest.html.twig' %}
 
 {% block layout_search_suggest_container %}
-    {% if page.searchResult.moorlSearchResults %}
+    {% if page.searchResult.moorlSearchResults and page.searchResult.moorlSearchResults|length > 0 %}
         {% set activeTab = "product" %}
         {% if page.searchResult.total == 0 %}
             {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
@@ -21,14 +21,12 @@
                 </li>
 
                 {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
-                    {% if moorlSearchResult.total > 0 %}
-                        <li class="nav-item">
-                            <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
-                                {{ moorlSearchResult.snippet|trans }}
-                                <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
-                            </a>
-                        </li>
-                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
+                            {{ moorlSearchResult.snippet|trans }}
+                            <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
+                        </a>
+                    </li>
                 {% endfor %}
             </ul>
 
@@ -41,22 +39,20 @@
                 </div>
 
                 {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
-                    {% if moorlSearchResult.total > 0 %}
-                        <div class="tab-pane{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" id="{{ moorlSearchResult.criteria.title }}">
-                            <ul class="moorl-search-suggest">
-                                {% if moorlSearchResult.entity == 'product' %}
-                                    {% set page = {
-                                        searchResult: moorlSearchResult,
-                                        searchTerm: page.searchTerm
-                                    } %}
-                                    {{ block('layout_search_suggest_results') }}
-                                    {{ block('layout_search_suggest_result_total') }}
-                                {% else %}
-                                    {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
-                                {% endif %}
-                            </ul>
-                        </div>
-                    {% endif %}
+                    <div class="tab-pane{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" id="{{ moorlSearchResult.criteria.title }}">
+                        <ul class="moorl-search-suggest">
+                            {% if moorlSearchResult.entity == 'product' %}
+                                {% set page = {
+                                    searchResult: moorlSearchResult,
+                                    searchTerm: page.searchTerm
+                                } %}
+                                {{ block('layout_search_suggest_results') }}
+                                {{ block('layout_search_suggest_result_total') }}
+                            {% else %}
+                                {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+                            {% endif %}
+                        </ul>
+                    </div>
                 {% endfor %}
             </div>
         </div>

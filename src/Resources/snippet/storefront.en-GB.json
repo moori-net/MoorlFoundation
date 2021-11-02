@@ -1,10 +1,7 @@
 {
     "moorl-foundation": {
         "search": {
-            "product": "Products",
-            "moorl-af-category": "Accessories",
-            "moorl-af-product": "Suitable Products",
-            "moorl-sw-category": "Accessories"
+            "product": "Products"
         },
         "days": {
             "today": "Today",
