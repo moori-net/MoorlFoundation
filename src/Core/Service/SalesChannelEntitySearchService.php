@@ -65,7 +65,7 @@ class SalesChannelEntitySearchService
                 $criteria = $result->getCriteria();
             } else {
                 if ($event instanceof ProductSearchResultEvent) {
-                    continue;
+                    //continue;
                 }
 
                 $criteria = new Criteria();
