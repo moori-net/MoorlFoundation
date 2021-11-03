@@ -18,16 +18,52 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
     data() {
         return {
             entity: 'moorl_magazine_article',
-            elementName: 'moorl-magazine',
-            defaultCriteria: null,
+            elementName: 'moorl-foundation-listing',
+            items: null
         };
     },
 
     computed: {
         listingCss() {
+            if (this.element.config.listingLayout.value === 'grid') {
+                return {
+                    'grid-template-columns': `repeat(auto-fit, minmax(${this.element.config.itemWidth.value}, 1fr))`,
+                    'grid-auto-rows': this.element.config.itemHeight.value,
+                    'grid-gap': this.element.config.gapSize.value
+                }
+            }
+            if (this.element.config.listingLayout.value === 'list') {
+                return {
+                    'grid-gap': this.element.config.gapSize.value,
+                    'grid-auto-rows': this.element.config.itemHeight.value,
+                }
+            }
+            if (this.element.config.listingLayout.value === 'slider') {
+                return {
+                    'grid-gap': this.element.config.gapSize.value,
+                    'height': this.element.config.itemHeight.value,
+                }
+            }
         },
 
-        itemCss() {
+        listingClass() {
+            return `moorl-listing-${this.element.config.listingLayout.value}`;
+        },
+
+        imageClass() {
+            return `is-${this.element.config.displayMode.value}`;
+        },
+
+        itemClass() {
+            return `moorl-listing-item-${this.element.config.itemLayout.value}`;
+        },
+
+        contentCss() {
+            return {
+                'padding': this.element.config.contentPadding.value,
+                'background-color': this.element.config.contentBackgroundColor.value,
+                'color': this.element.config.contentColor.value,
+            }
         },
 
         defaultCriteria() {
@@ -65,6 +101,14 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
                 .then((result) => {
                     this.items = result;
                 });
-        }
+        },
+
+        itemTitle(item) {
+            return item.title;
+        },
+
+        itemDescription(item) {
+            return item.teaser;
+        },
     }
 });

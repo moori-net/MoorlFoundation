@@ -12,16 +12,11 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
     data() {
         return {
             entity: 'moorl_magazine_article',
-            elementName: 'moorl-magazine',
-            defaultCriteria: null,
+            elementName: 'moorl-magazine'
         };
     },
 
-    computed: {
-        moorlFoundation() {
-            return MoorlFoundation;
-        }
-    },
+    computed: {},
 
     created() {
         this.createdComponent();
@@ -29,9 +24,8 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('moorl-magazine');
-            this.initElementData('moorl-magazine');
-
+            this.initElementConfig(this.elementName);
+            this.initElementData(this.elementName);
         },
     }
 });

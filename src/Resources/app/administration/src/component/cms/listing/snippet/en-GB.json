@@ -2,7 +2,37 @@
     "sw-cms": {
         "elements": {
             "moorl-foundation-listing": {
-                "name": "moori General Listing"
+                "name": "moori General Listing",
+                "label": {
+                    "listingLayout": "Listing layout",
+                    "itemLayout": "Item layout",
+                    "displayMode": "Display mode",
+                    "limit": "Result limit",
+                    "gapSize": "Gap size",
+                    "itemWidth": "Item (min) with",
+                    "itemHeight": "Item (min) height",
+                    "contentPadding": "Content padding",
+                    "contentBackgroundColor": "Content background color",
+                    "contentColor": "Content font color",
+                    "hasButton": "Has button",
+                    "buttonClass": "Button class",
+                    "buttonLabel": "Button label"
+                },
+                "listingLayout": {
+                    "grid": "Grid",
+                    "list": "List",
+                    "slider": "Slider"
+                },
+                "itemLayout": {
+                    "overlay": "Overlay",
+                    "imageContent": "Image -> Content",
+                    "contentImage": "Content -> Image"
+                },
+                "displayMode": {
+                    "standard": "Standard",
+                    "cover": "Cover",
+                    "contain": "Contain"
+                }
             }
         }
     }

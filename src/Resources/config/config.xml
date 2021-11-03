@@ -44,6 +44,20 @@
     </card>
 
     <card>
+        <title>moori Listing config</title>
+        <title lang="de-DE">moori Listing Konfiguration</title>
+
+        <component name="sw-entity-single-select">
+            <name>moorlFoundationListingConfig</name>
+            <entity>cms_page</entity>
+            <label>Select fallback</label>
+            <label lang="de-DE">Wähle Standard</label>
+            <helpText>Adopt a CMS listing configuration to prevent display errors on the search!</helpText>
+            <helpText lang="de-DE">Übernehme eine CMS Listing Konfiguration um Anzeigefehler in der Suche vorzubeugen!</helpText>
+        </component>
+    </card>
+
+    <card>
         <title>moori plugin settings</title>
         <title lang="de-DE">moori Plugin Einstellungen</title>
         <input-field type="bool">

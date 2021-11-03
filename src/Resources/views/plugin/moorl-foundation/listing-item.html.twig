@@ -1,38 +1,63 @@
-<li class="moorl-listing-item is-{{ displayMode }}">
-    {% block moorl_listing_item %}
-        <a href="{{ url }}" title="{{ title }}">
-            {% block moorl_listing_item_link %}
-                <div class="moorl-listing-item-image">
-                    {% block moorl_listing_item_image %}
-                        {% if media.url %}
-                            {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
-                                media: media,
-                                attributes: {
-                                    'alt': (media.translated.alt ?: ''),
-                                    'title': (media.translated.title ?: '')
-                                }
-                            } %}
-                        {% else %}
-                            {% sw_icon 'placeholder' style {
-                                'size': 'fluid'
-                            } %}
-                        {% endif %}
-                    {% endblock %}
-                </div>
-                <div class="moorl-listing-item-overlay">
-                    {% block moorl_listing_item_overlay %}
-                        <div class="moorl-listing-item-title">
-                            {% block moorl_listing_item_title %}{{ title }}{% endblock %}
-                        </div>
-
-                        {% if teaser %}
-                            <div class="moorl-listing-item-teaser">
-                                {% block moorl_listing_item_teaser %}{{ teaser }}{% endblock %}
-                            </div>
-                        {% endif %}
-                    {% endblock %}
-                </div>
+{% set itemContent %}
+    {% block moorl_foundation_listing_item %}
+        <div class="moorl-listing-item-image">
+            {% block moorl_listing_item_image %}
+                {% if media.url %}
+                    {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
+                        media: media,
+                        attributes: {
+                            'alt': (media.translated.alt ?: ''),
+                            'title': (media.translated.title ?: ''),
+                            'class': "is-#{config.displayMode.value}"
+                        }
+                    } %}
+                {% else %}
+                    {% sw_icon 'placeholder' style {
+                        'size': 'fluid'
+                    } %}
+                {% endif %}
             {% endblock %}
-        </a>
+        </div>
+
+        <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
+            {% block moorl_foundation_listing_item_content %}
+                <div class="moorl-listing-item-title">
+                    {% block moorl_foundation_listing_item_title %}
+                        {{ title }}
+                    {% endblock %}
+                </div>
+
+                {% if description %}
+                    <div class="moorl-listing-item-description">
+                        {% block moorl_foundation_listing_item_description %}
+                            {{ description }}
+                        {% endblock %}
+                    </div>
+                {% endif %}
+
+                {% if config.hasButton.value %}
+                    <a href="{{ url }}"
+                       title="{{ config.buttonLabel.value }}"
+                       class="{{ config.buttonClass.value }} moorl-listing-item-button">
+                        {% block moorl_foundation_listing_item_button_label %}
+                            {{ config.buttonLabel.value }}
+                        {% endblock %}
+                    </a>
+                {% endif %}
+            {% endblock %}
+        </div>
     {% endblock %}
-</li>
+{% endset %}
+
+{% if config.hasButton.value %}
+    <li class="moorl-listing-item-{{ config.itemLayout.value }}">
+        {{ itemContent }}
+    </li>
+{% else %}
+    <li>
+        <a href="{{ url }}" title="{{ title }}"
+           class="moorl-listing-item-{{ config.itemLayout.value }}">
+            {{ itemContent }}
+        </a>
+    </li>
+{% endif %}

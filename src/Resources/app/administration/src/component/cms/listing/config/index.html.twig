@@ -1,17 +1,23 @@
 <div class="sw-cms-el-config-moorl-foundation-listing">
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingType')"
-                     v-model="element.config.listingType.value">
-        <option value="grid">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingType.grid') }}</option>
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingLayout')"
+                     v-model="element.config.listingLayout.value">
+        <option value="grid">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.grid') }}</option>
+        <option value="list">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.list') }}</option>
+        <option value="slider">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.slider') }}</option>
     </sw-select-field>
 
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemType')"
-                     v-model="element.config.itemType.value">
-        <option value="overlay">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemType.overlay') }}</option>
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
+                     v-model="element.config.itemLayout.value">
+        <option value="overlay">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.overlay') }}</option>
+        <option value="image-content">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.imageContent') }}</option>
+        <option value="content-image">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.contentImage') }}</option>
     </sw-select-field>
 
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.mediaType')"
-                     v-model="element.config.mediaType.value">
-        <option value="cover">{{ $tc('sw-cms.elements.moorl-foundation-listing.mediaType.cover') }}</option>
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.displayMode')"
+                     v-model="element.config.displayMode.value">
+        <option value="cover">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.cover') }}</option>
+        <option value="contain">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.contain') }}</option>
+        <option value="standard">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.standard') }}</option>
     </sw-select-field>
 
     <sw-field v-model="element.config.limit.value"
@@ -34,5 +40,37 @@
               :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
     </sw-field>
 
-    {% block moorl_listing_config %}{% endblock %}
+    <sw-field v-model="element.config.contentPadding.value"
+              type="text"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentPadding')">
+    </sw-field>
+
+    <sw-colorpicker v-model="element.config.contentBackgroundColor.value"
+                    colorOutput="rgb"
+                    :alpha="true"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentBackgroundColor')">
+    </sw-colorpicker>
+
+    <sw-colorpicker v-model="element.config.contentColor.value"
+                    colorOutput="rgb"
+                    :alpha="true"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentColor')">
+    </sw-colorpicker>
+
+    <sw-field v-model="element.config.hasButton.value"
+              type="switch"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.hasButton')">
+    </sw-field>
+
+    <template v-if="element.config.hasButton.value">
+        <sw-field v-model="element.config.buttonClass.value"
+                  type="text"
+                  :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonClass')">
+        </sw-field>
+
+        <sw-field v-model="element.config.buttonLabel.value"
+                  type="text"
+                  :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonLabel')">
+        </sw-field>
+    </template>
 </div>
