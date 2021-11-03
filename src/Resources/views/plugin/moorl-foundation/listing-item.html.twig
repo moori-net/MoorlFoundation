@@ -1,11 +1,11 @@
-<li class="moorl-search-suggest-item is-{{ displayMode }}">
-    {% block moorl_search_suggest_item %}
+<li class="moorl-listing-item is-{{ displayMode }}">
+    {% block moorl_listing_item %}
         <a href="{{ url }}" title="{{ title }}">
-            {% block moorl_search_suggest_item_link %}
-                <div class="moorl-search-suggest-item-image">
-                    {% block moorl_search_suggest_item_image %}
+            {% block moorl_listing_item_link %}
+                <div class="moorl-listing-item-image">
+                    {% block moorl_listing_item_image %}
                         {% if media.url %}
-                            {% sw_thumbnails 'moorl-search-suggest-item-image-thumbnails' with {
+                            {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                                 media: media,
                                 attributes: {
                                     'alt': (media.translated.alt ?: ''),
@@ -19,15 +19,15 @@
                         {% endif %}
                     {% endblock %}
                 </div>
-                <div class="moorl-search-suggest-item-overlay">
-                    {% block moorl_search_suggest_item_overlay %}
-                        <div class="moorl-search-suggest-item-title">
-                            {% block moorl_search_suggest_item_title %}{{ title }}{% endblock %}
+                <div class="moorl-listing-item-overlay">
+                    {% block moorl_listing_item_overlay %}
+                        <div class="moorl-listing-item-title">
+                            {% block moorl_listing_item_title %}{{ title }}{% endblock %}
                         </div>
 
                         {% if teaser %}
-                            <div class="moorl-search-suggest-item-teaser">
-                                {% block moorl_search_suggest_item_teaser %}{{ teaser }}{% endblock %}
+                            <div class="moorl-listing-item-teaser">
+                                {% block moorl_listing_item_teaser %}{{ teaser }}{% endblock %}
                             </div>
                         {% endif %}
                     {% endblock %}

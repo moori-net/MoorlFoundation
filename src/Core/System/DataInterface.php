@@ -2,11 +2,10 @@
 
 namespace MoorlFoundation\Core\System;
 
-use Doctrine\DBAL\Connection;
-
 interface DataInterface
 {
     public function isCleanUp(): bool;
+    public function customerRequired(): bool;
     public function getType(): string;
     public function getName(): string;
     public function getPluginName(): string;
@@ -16,6 +15,12 @@ interface DataInterface
     public function getShopwareTables(): ?array;
     public function getPluginTables(): ?array;
     public function getGlobalReplacers(): ?array;
+    /**
+     * @param string $key
+     * @param string|null $fallback
+     * @return string|null
+     */
+    public function getReplacer(string $key, ?string $fallback = null): ?string;
     public function getLocalReplacers(): ?array;
     public function setGlobalReplacers(?array $globalReplacers): void;
     public function process(): void;
@@ -34,6 +39,9 @@ interface DataInterface
      * In Addition we have to execute SQL manually.
      */
     public function getRemoveQueries(): array;
+    /**
+     * @deprecated change to getBeforeInstallQueries, getAfterInstallQueries
+     */
     public function getPreInstallQueries(): array;
     public function getInstallQueries(): array;
     public function getInstallConfig(): array;

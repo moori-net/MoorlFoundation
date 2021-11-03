@@ -7,10 +7,8 @@ use MoorlFoundation\Core\System\SalesChannelEntitySearchInterface;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\Events\ProductSearchResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
-use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class SalesChannelEntitySearchService
@@ -18,8 +16,6 @@ class SalesChannelEntitySearchService
     private Connection $connection;
     private DefinitionInstanceRegistry $definitionInstanceRegistry;
     private SystemConfigService $systemConfigService;
-    private SalesChannelContext $salesChannelContext;
-    private Context $context;
     /**
      * @var SalesChannelEntitySearchInterface[]
      */
@@ -36,8 +32,6 @@ class SalesChannelEntitySearchService
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->systemConfigService = $systemConfigService;
         $this->searchEntities = $searchEntities;
-
-        $this->context = Context::createDefaultContext();
     }
 
     public function enrich(ProductListingResultEvent $event): void

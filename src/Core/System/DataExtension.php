@@ -7,6 +7,26 @@ class DataExtension
     private ?array $globalReplacers = null;
 
     /**
+     * @param string $key
+     * @param string|null $fallback
+     * @return string|null
+     */
+    public function getReplacer(string $key, ?string $fallback = null): ?string
+    {
+        $key = sprintf("{%s}", strtoupper($key));
+
+        return isset($this->globalReplacers[$key]) ? $this->globalReplacers[$key] : $fallback;
+    }
+
+    /**
+     * @return bool
+     */
+    public function customerRequired(): bool
+    {
+        return false;
+    }
+
+    /**
      * @return bool
      */
     public function isCleanUp(): bool

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MoorlFoundation\Core\Service;
 
@@ -7,6 +7,7 @@ use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\FilesystemInterface;
+use Shopware\Core\Content\MailTemplate\MailTemplateActions;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
@@ -24,7 +25,6 @@ use Shopware\Storefront\Theme\ThemeService;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
-use Unirest\Exception;
 
 class DataService
 {
@@ -37,6 +37,8 @@ class DataService
     private ClientInterface $client;
     private ?string $salesChannelId = null;
     private ?string $themeId = null;
+    private string $demoCustomerMail;
+    private ?string $customerId = null;
     private string $projectDir;
     private array $mediaCache = [];
     private EntityCollection $taxes;
@@ -74,6 +76,10 @@ class DataService
             'timeout' => 200,
             'allow_redirects' => false,
         ]);
+        /**
+         * When you install demo data you might need to have an customer mail
+         */
+        $this->demoCustomerMail = $systemConfigService->get('AppflixFoundation.config.demoCustomerMail') ?: 'test@example.com';
     }
 
     /**
@@ -92,6 +98,22 @@ class DataService
         $this->salesChannelId = $salesChannelId;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getCustomerId(): ?string
+    {
+        return $this->customerId;
+    }
+
+    /**
+     * @param string|null $customerId
+     */
+    public function setCustomerId(?string $customerId): void
+    {
+        $this->customerId = $customerId;
+    }
+
     public function getOptions(string $type = 'demo'): array
     {
         $options = [];
@@ -104,7 +126,8 @@ class DataService
             $options[] = [
                 'name' => $dataObject->getName(),
                 'pluginName' => $dataObject->getPluginName(),
-                'type' => $dataObject->getType()
+                'type' => $dataObject->getType(),
+                'customerRequired' => $dataObject->customerRequired()
             ];
         }
 
@@ -176,7 +199,7 @@ class DataService
         }
     }
 
-    private function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
+    public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
     {
         if ($isBundle) {
             return sprintf('bundles/%s/', strtolower($dataObject->getPluginName()));
@@ -185,7 +208,7 @@ class DataService
         return '';
     }
 
-    private function addStylesheets(DataInterface $dataObject, string $type = 'fontFaces'): void
+    public function addStylesheets(DataInterface $dataObject, string $type = 'fontFaces'): void
     {
         $cfgKey = sprintf('%s.config.%s', $dataObject->getPluginName(), $type);
         $fontFaces = $this->systemConfigService->get($cfgKey);
@@ -205,7 +228,7 @@ TWIG;
         $this->systemConfigService->set($cfgKey, $fontFaces);
     }
 
-    private function copyAssets(DataInterface $dataObject): void
+    public function copyAssets(DataInterface $dataObject): void
     {
         $targetDir = $this->getTargetDir($dataObject);
         $originDir = sprintf('%s/public', $dataObject->getPath());
@@ -231,7 +254,7 @@ TWIG;
         }
     }
 
-    private function initTaxes(): void
+    public function initTaxes(): void
     {
         /** @var EntityRepositoryInterface $repo */
         $repo = $this->definitionInstanceRegistry->getRepository('tax');
@@ -240,7 +263,7 @@ TWIG;
         $this->taxes = $repo->search($criteria, $this->context)->getEntities();
     }
 
-    private function initGlobalReplacers(DataInterface $dataObject): void
+    public function initGlobalReplacers(DataInterface $dataObject): void
     {
         if ($dataObject->getGlobalReplacers()) {
             return;
@@ -248,9 +271,12 @@ TWIG;
 
         $globalReplacers = [
             '{DATA_CREATED_AT}' => $dataObject->getCreatedAt(),
+            '{NOW}' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            '{365}' => (new \DateTime())->modify('+1 year')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             '{LANGUAGE_ID}' => Defaults::LANGUAGE_SYSTEM,
             '{CURRENCY_ID}' => Defaults::CURRENCY,
             '{VERSION_ID}' => Defaults::LIVE_VERSION,
+            '{MAIL_TEMPLATE_MAIL_SEND_ACTION}' => MailTemplateActions::MAIL_TEMPLATE_MAIL_SEND_ACTION,
             '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
         ];
 
@@ -258,8 +284,16 @@ TWIG;
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
             $dataObject->getPluginName()
         );
-        $this->themeId = $this->connection->executeQuery($sql)->fetchColumn();
+        $this->themeId = $this->connection->executeQuery($sql)->fetchColumn() ?: null;
         $globalReplacers['{THEME_ID}'] = $this->themeId;
+
+        if (!$this->customerId) {
+            $sql = sprintf(
+                "SELECT LOWER(HEX(`id`)) AS `id` FROM `customer` WHERE `email` = '%s';",
+                $this->demoCustomerMail
+            );
+            $this->customerId = $this->connection->executeQuery($sql)->fetchColumn() ?: null;
+        }
 
         $sql = "SELECT LOWER(HEX(`rule_id`)) AS `id` FROM `rule_condition` WHERE `type` = 'alwaysValid';";
         $globalReplacers['{RULE_ID}'] = $this->connection->executeQuery($sql)->fetchColumn();
@@ -276,6 +310,27 @@ TWIG;
         $query = $this->connection->executeQuery($sql);
         while (($row = $query->fetchAssociative()) !== false) {
             $globalReplacers[sprintf("{%s}", $row['code'])] = $row['id'];
+        }
+
+        /**
+         * Here we get the existing media folders
+         */
+        $sql = <<<SQL
+SELECT 
+       LOWER(HEX(`media_folder`.`id`)) AS `id`,
+       LOWER(HEX(`media_folder`.`media_folder_configuration_id`)) AS `cfg_id`,
+       `media_default_folder`.`entity` AS `entity`
+FROM `media_folder`
+    LEFT JOIN `media_default_folder`
+        ON `media_default_folder`.`id` = `media_folder`.`default_folder_id`
+WHERE `media_folder`.`use_parent_configuration` = '0';
+SQL;
+        $query = $this->connection->executeQuery($sql);
+        while (($row = $query->fetchAssociative()) !== false) {
+            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_CFG_ID}", strtoupper($row['entity']))] = $row['cfg_id'];
+            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_ID}", strtoupper($row['entity']))] = $row['id'];
+            $globalReplacers["{MEDIA_FOLDER_CFG_ID}"] = $row['cfg_id'];
+            $globalReplacers["{MEDIA_FOLDER_ID}"] = $row['id'];
         }
 
         try {
@@ -296,8 +351,10 @@ TWIG;
         } catch (\Exception $exception) {
         }
 
+        /**
+         * @depraced: v6.5 will be removed
+         */
         $demoPlaceholderTypes = $dataObject->getDemoPlaceholderTypes();
-
         foreach ($demoPlaceholderTypes as $type) {
             for ($x = 0; $x < $dataObject->getDemoPlaceholderCount(); $x++) {
                 $key = sprintf("{DEMO_%s_%d}", $type, $x);
@@ -310,7 +367,7 @@ TWIG;
         $dataObject->setGlobalReplacers($globalReplacers);
     }
 
-    private function insertContent(DataInterface $dataObject): void
+    public function insertContent(DataInterface $dataObject): void
     {
         foreach ($dataObject->getTables() as $table) {
             $data = $this->getContentFromFile($table, $dataObject);
@@ -324,15 +381,36 @@ TWIG;
         }
     }
 
-    private function processReplace(string $content, DataInterface $dataObject, ?string $table = null): string
+    public function processReplace(string $content, DataInterface $dataObject, ?string $table = null): string
     {
         $content = strtr($content, $dataObject->getGlobalReplacers());
+        $globalReplacers = $dataObject->getGlobalReplacers();
 
         /* Make unique IDs */
         preg_match_all('/{ID:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
                 $content = str_replace($matches[0][$i], md5($dataObject->getPluginName() . $matches[1][$i]), $content);
+            }
+        }
+        preg_match_all('/{MD5:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $content = str_replace($matches[0][$i], md5($matches[1][$i]), $content);
+            }
+        }
+        preg_match_all('/{PRICE:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $content = str_replace(
+                    '"' . $matches[0][$i] . '"',
+                    json_encode(
+                        [
+                            $this->enrichPriceV2($matches[1][$i], $globalReplacers['{TAX_ID_STANDARD}'])
+                        ]
+                    ),
+                    $content
+                );
             }
         }
 
@@ -368,7 +446,7 @@ TWIG;
         return $content;
     }
 
-    private function getContentFromFile(string $table, DataInterface $dataObject): ?array
+    public function getContentFromFile(string $table, DataInterface $dataObject): ?array
     {
         $fileName = sprintf('%s/content/%s.json', $dataObject->getPath(), $table);
         if (!file_exists($fileName)) {
@@ -393,7 +471,7 @@ TWIG;
      * @param DataInterface $dataObject
      * @return string
      */
-    private function valueFromFile($data, DataInterface $dataObject): string
+    public function valueFromFile($data, DataInterface $dataObject): string
     {
         preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
         if (!empty($matches[1])) {
@@ -434,25 +512,29 @@ TWIG;
         return $data;
     }
 
-    private function enrichThemeConfig(&$data, string $table, DataInterface $dataObject): void
+    public function enrichFallbackData(array &$item, string $table, DataInterface $dataObject): void
     {
-        foreach ($data as &$item) {
-            if (!empty($item['value'])) {
-                $mediaId = $this->getMediaId($item['value'], $table, $dataObject);
-
-                if ($mediaId) {
-                    $item['value'] = $mediaId;
-                    return;
-                }
-
-                if (is_string($item['value'])) {
-                    $item['value'] = $this->valueFromFile($item['value'], $dataObject);
-                }
+        foreach ($item as &$value) {
+            if (!is_string($value)) {
+                continue;
             }
+
+            if ($value === "{RANDOM_ID}") {
+                $value = Uuid::randomHex();
+                continue;
+            }
+
+            if ($value === "{CUSTOMER_ID}") {
+                $value = $this->customerId ?: null;
+                continue;
+            }
+
+            $value = preg_replace('/{MEDIA_FOLDER_CFG[.+]_ID}/', $dataObject->getReplacer('MEDIA_FOLDER_CFG_ID'), $value);
+            $value = preg_replace('/{MEDIA_FOLDER[.+]_ID}/', $dataObject->getReplacer('MEDIA_FOLDER_ID'), $value);
         }
     }
 
-    private function enrichData(&$data, string $table, DataInterface $dataObject): void
+    public function enrichData(&$data, string $table, DataInterface $dataObject): void
     {
         if (!is_array($data)) {
             return;
@@ -460,9 +542,6 @@ TWIG;
         foreach ($data as &$item) {
             if (!is_array($item)) {
                 continue;
-            }
-            if (!empty($item['id']) && $item['id'] === "{RANDOM_ID}") {
-                $item['id'] = Uuid::randomHex();
             }
             /* Handle Translations */
             if (!empty($item['translations']) && is_array($item['translations'])) {
@@ -487,13 +566,10 @@ TWIG;
                     }
                 }
             }
-            if ($table === 'theme' && !empty($item['configValues'])) {
-                $this->enrichThemeConfig($item['configValues'], $table, $dataObject);
-                continue;
-            }
+            /**
+             * @deprecated tag:v6.5
+             */
             if ($table === 'cms_page' && !empty($item['config'])) {
-                $this->enrichThemeConfig($item['config'], $table, $dataObject);
-
                 if (!isset($item['id'])) {
                     $item['id'] = md5(serialize($item));
                 }
@@ -503,9 +579,15 @@ TWIG;
                 unset($item['_skipEnrichData']);
                 continue;
             }
+            /**
+             * @deprecated tag:v6.5
+             */
             if (!isset($item['id']) && !isset($item['salesChannelId'])) {
                 $item['id'] = md5(serialize($item));
             }
+            /**
+             * @deprecated tag:v6.5
+             */
             foreach ($dataObject->getMediaProperties() as $mediaProperty) {
                 if ($mediaProperty['table'] && $mediaProperty['table'] !== $table) {
                     continue;
@@ -517,26 +599,34 @@ TWIG;
                     }
                 }
             }
+            /**
+             * @deprecated tag:v6.5 Use {MEDIA_FILE:xxx} in your JSON File instead
+             */
             if (isset($item['cover']) && isset($item['cover']['mediaId'])) {
                 $item['cover']['mediaId'] = $this->getMediaId($item['cover']['mediaId'], 'product', $dataObject);
                 $item['cover']['id'] = md5($item['id']);
             }
-
-            if (isset($item['price']) && isset($item['taxId'])) {
+            /**
+             * @deprecated tag:v6.5 Use {PRICE:999} in your JSON File instead
+             */
+            if (isset($item['price']) && !is_array($item['price']) && isset($item['taxId'])) {
                 $item['price'] = [
-                    $this->enrichPrice($item['price'], $item['taxId'])
+                    $this->enrichPrice($item)
                 ];
             }
             if (!isset($item['createdAt'])) {
                 $item['createdAt'] = $dataObject->getCreatedAt();
             }
+
+            $this->enrichFallbackData($item, $table, $dataObject);
+
             foreach ($item as &$value) {
                 $this->enrichData($value, $table, $dataObject);
             }
         }
     }
 
-    private function fetchFileFromURL(string $url, string $extension): MediaFile
+    public function fetchFileFromURL(string $url, string $extension): MediaFile
     {
         $request = new Request();
         $request->query->set('url', $url);
@@ -548,7 +638,7 @@ TWIG;
         return $this->mediaService->fetchFile($request);
     }
 
-    private function getMediaIdFromUrl(string $name, string $table, DataInterface $dataObject): ?string
+    public function getMediaIdFromUrl(string $name, string $table, DataInterface $dataObject): ?string
     {
         if (isset($this->mediaCache[$name])) {
             return $this->mediaCache[$name];
@@ -608,7 +698,7 @@ TWIG;
         return $mediaId;
     }
 
-    private function getMediaId(string $name, string $table, DataInterface $dataObject): ?string
+    public function getMediaId(string $name, string $table, DataInterface $dataObject): ?string
     {
         if (empty($name)) {
             return null;
@@ -667,19 +757,46 @@ TWIG;
         return $mediaId;
     }
 
-    private function enrichPrice(float $price, string $taxId): ?array
+    public function enrichPriceV2(string $price, string $taxId): ?array
     {
+        $item = [
+            'price' => (float) $price,
+            'taxId' => $taxId,
+        ];
+
+        return $this->enrichPrice($item);
+    }
+
+    public function enrichPrice(array $item): ?array
+    {
+        $price = $item['price'];
+        $taxId = $item['taxId'];
+        $listPrice = isset($item['listPrice']) ? $item['listPrice'] : null;
+        if ($listPrice) {
+            $listPrice = [
+                'currencyId' => Defaults::CURRENCY,
+                'net' => $listPrice / 100 * (100 - $this->taxes->get($taxId)->getTaxRate()),
+                'gross' => $listPrice,
+                'linked' => true
+            ];
+        }
+
         return [
             'currencyId' => Defaults::CURRENCY,
             'net' => $price / 100 * (100 - $this->taxes->get($taxId)->getTaxRate()),
             'gross' => $price,
-            'linked' => true
+            'linked' => true,
+            'listPrice' => $listPrice
         ];
     }
 
-    public function remove(string $pluginName, ?string $type = null, ?string $name = null): void
+    public function remove(string $pluginName, string $type = 'data', ?string $name = null): void
     {
         foreach ($this->dataObjects as $dataObject) {
+            if (!$dataObject->isCleanUp()) {
+                continue;
+            }
+
             if ($pluginName !== $dataObject->getPluginName()) {
                 continue;
             }
@@ -703,7 +820,7 @@ TWIG;
         }
     }
 
-    private function cleanUpPluginTables(DataInterface $dataObject): void
+    public function cleanUpPluginTables(DataInterface $dataObject): void
     {
         if (!$dataObject->getPluginTables()) {
             return;
@@ -727,7 +844,7 @@ TWIG;
         }
     }
 
-    private function cleanUpShopwareTables(DataInterface $dataObject): void
+    public function cleanUpShopwareTables(DataInterface $dataObject): void
     {
         if (!$dataObject->getShopwareTables()) {
             return;
@@ -751,12 +868,12 @@ TWIG;
         }
     }
 
-    private function contentFileExists(string $table, DataInterface $dataObject): bool
+    public function contentFileExists(string $table, DataInterface $dataObject): bool
     {
         return file_exists(sprintf('%s/content/%s.json', $dataObject->getPath(), $table));
     }
 
-    private function dropTables(DataInterface $dataObject): void
+    public function dropTables(DataInterface $dataObject): void
     {
         if (!$dataObject->getPluginTables()) {
             return;
