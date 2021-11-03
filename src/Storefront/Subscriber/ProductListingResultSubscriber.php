@@ -4,6 +4,7 @@ namespace MoorlFoundation\Storefront\Subscriber;
 
 use MoorlFoundation\Core\Service\SalesChannelEntitySearchService;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
+use Shopware\Core\Content\Product\Events\ProductSearchResultEvent;
 use Shopware\Core\Content\Product\Events\ProductSuggestResultEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -21,11 +22,12 @@ class ProductListingResultSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            ProductSuggestResultEvent::class => 'onProductSuggestResultEvent'
+            ProductSuggestResultEvent::class => 'onProductListingResultEvent',
+            ProductSearchResultEvent::class => 'onProductListingResultEvent',
         ];
     }
 
-    public function onProductSuggestResultEvent(ProductSuggestResultEvent $event): void
+    public function onProductListingResultEvent(ProductListingResultEvent $event): void
     {
         $this->searchService->enrich($event);
     }

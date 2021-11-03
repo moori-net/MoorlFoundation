@@ -5,6 +5,8 @@ namespace MoorlFoundation\Core\Service;
 use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\System\SalesChannelEntitySearchInterface;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
+use Shopware\Core\Content\Product\Events\ProductSearchResultEvent;
+use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -68,6 +70,10 @@ class SalesChannelEntitySearchService
 
                 $criteria = $result->getCriteria();
             } else {
+                if ($event instanceof ProductSearchResultEvent) {
+                    continue;
+                }
+
                 $criteria = new Criteria();
                 $criteria->setLimit($searchEntity->getLimit());
                 $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_EXACT);
@@ -87,6 +93,13 @@ class SalesChannelEntitySearchService
 
             if ($moorlSearchResult->getTotal() === 0 && $advancedSearchHideEmptyResults) {
                 continue;
+            }
+
+            if ($searchEntity->inheritCriteria() && $event instanceof ProductSearchResultEvent) {
+                /** @var ProductListingResult $moorlSearchResult */
+                $moorlSearchResult = ProductListingResult::createFrom($moorlSearchResult);
+                $moorlSearchResult->setAvailableSortings($result->getAvailableSortings());
+                $moorlSearchResult->setSorting($result->getSorting());
             }
 
             $searchEntity->processSearchResult($moorlSearchResult);
