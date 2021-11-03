@@ -543,6 +543,14 @@ SQL;
             if (!is_array($item)) {
                 continue;
             }
+            /* Handle duplicate default media folder entity */
+            if ($table === 'media_default_folder' && !empty($item['entity']) && is_array($item['folder'])) {
+                $defaultMediaFolderId = $dataObject->getReplacer(sprintf("MEDIA_FOLDER_%s_ID", $item['entity']));
+                if ($defaultMediaFolderId) {
+                    $data = null;
+                    return;
+                }
+            }
             /* Handle Translations */
             if (!empty($item['translations']) && is_array($item['translations'])) {
                 /* First Entry is always Default */
