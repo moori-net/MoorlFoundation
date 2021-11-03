@@ -1,0 +1,38 @@
+<div class="sw-cms-el-config-moorl-foundation-listing">
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingType')"
+                     v-model="element.config.listingType.value">
+        <option value="grid">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingType.grid') }}</option>
+    </sw-select-field>
+
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemType')"
+                     v-model="element.config.itemType.value">
+        <option value="overlay">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemType.overlay') }}</option>
+    </sw-select-field>
+
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.mediaType')"
+                     v-model="element.config.mediaType.value">
+        <option value="cover">{{ $tc('sw-cms.elements.moorl-foundation-listing.mediaType.cover') }}</option>
+    </sw-select-field>
+
+    <sw-field v-model="element.config.limit.value"
+              type="number"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
+    </sw-field>
+
+    <sw-field v-model="element.config.gapSize.value"
+              type="text"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
+    </sw-field>
+
+    <sw-field v-model="element.config.itemWidth.value"
+              type="text"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')">
+    </sw-field>
+
+    <sw-field v-model="element.config.itemHeight.value"
+              type="text"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
+    </sw-field>
+
+    {% block moorl_listing_config %}{% endblock %}
+</div>

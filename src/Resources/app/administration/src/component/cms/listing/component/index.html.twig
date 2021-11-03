@@ -1,0 +1,42 @@
+<div class="sw-cms-el-moorl-foundation-listing">
+    <ul :style="listingCss"
+        class="moorl-listing-{{ element.config.listingType.value }}">
+        <li class="navigation">
+            <sw-icon name="default-arrow-head-left" size="24"></sw-icon>
+        </li>
+
+        <li v-for="item in items"
+            :style="itemCss"
+            class="moorl-listing-item is-{{ element.config.mediaType.value }}">
+            {% block moorl_listing_item %}
+                <a href="#" title="{{ item.name }}">
+                    {% block moorl_listing_item_link %}
+                        <div class="moorl-listing-item-image">
+                            <img v-if="item.media" :src="item.media.url">
+                        </div>
+
+                        <div class="moorl-listing-item-content">
+                            {% block moorl_listing_item_overlay %}
+                                <div class="moorl-listing-item-title">
+                                    {% block moorl_listing_item_title %}
+                                        {{ item.name }}
+                                    {% endblock %}
+                                </div>
+
+                                <div v-if="item.teaser" class="moorl-listing-item-teaser">
+                                    {% block moorl_listing_item_teaser %}
+                                        {{ item.teaser }}
+                                    {% endblock %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                </a>
+            {% endblock %}
+        </li>
+
+        <li class="navigation">
+            <sw-icon name="default-arrow-head-right" size="24"></sw-icon>
+        </li>
+    </ul>
+</div>

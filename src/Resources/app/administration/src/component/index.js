@@ -1,3 +1,5 @@
+/* TODO: Remove moorl from file names */
+
 import './moorl-entity-form-element';
 import './moorl-csv-import';
 import './moorl-csv-export';
@@ -7,6 +9,6 @@ import './moorl-animation';
 import './moorl-block-behaviour';
 import './moorl-collapse';
 
-
 import './opening-hours';
 import './map';
+import './cms';
