@@ -10,6 +10,9 @@
                 {% endif %}
             {% endfor %}
         {% endif %}
+        {% if app.request.query.get('tab') %}
+            {% set activeTab = app.request.query.get('tab') %}
+        {% endif %}
 
         <div class="cms-page search-page moorl-search-page">
             <ul class="nav nav-tabs">

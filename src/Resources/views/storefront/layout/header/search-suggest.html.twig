@@ -51,6 +51,15 @@
                             </ul>
                         {% else %}
                             {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+
+                            <div class="js-result search-suggest-total">
+                                <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ moorlSearchResult.criteria.title }}"
+                                   title="{{ "header.searchAllResults"|trans|striptags }}"
+                                   class="search-suggest-total-link">
+                                    {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
+                                    {{ "header.searchAllResults"|trans|sw_sanitize }}
+                                </a>
+                            </div>
                         {% endif %}
                     </div>
                 {% endfor %}
