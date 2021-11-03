@@ -54,6 +54,15 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
             return `is-${this.element.config.displayMode.value}`;
         },
 
+        itemCss() {
+            return {
+                'padding': this.element.config.itemPadding.value,
+                'background-color': this.element.config.itemBackgroundColor.value,
+                'border': this.element.config.itemHasBorder.value ? '1px solid #333' : null,
+                'border-radius': this.element.config.itemHasBorder.value ? '6px' : null,
+            }
+        },
+
         itemClass() {
             return `moorl-listing-item-${this.element.config.itemLayout.value}`;
         },

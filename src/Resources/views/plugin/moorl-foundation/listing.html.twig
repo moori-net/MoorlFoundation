@@ -25,6 +25,10 @@
             "background-color: #{config.contentBackgroundColor.value}",
             "color: #{config.contentColor.value}",
         ] %}
+        {% set itemCss = [
+            "padding: #{config.itemPadding.value}",
+            "background-color: #{config.itemBackgroundColor.value}",
+        ] %}
         <ul class="js-listing-wrapper moorl-listing-{{ config.listingLayout.value }}"
             style="{{ listingCss|join(';')|raw }}">
             {% for item in searchResult %}

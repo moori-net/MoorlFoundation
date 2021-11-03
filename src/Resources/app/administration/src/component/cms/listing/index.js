@@ -39,17 +39,29 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: '240px'
         },
+        itemPadding: {
+            source: 'static',
+            value: '20px'
+        },
+        itemBackgroundColor: {
+            source: 'static',
+            value: '#f9f9f9'
+        },
+        itemHasBorder: {
+            source: 'static',
+            value: true
+        },
         contentPadding: {
             source: 'static',
             value: '20px'
         },
         contentBackgroundColor: {
             source: 'static',
-            value: '#000'
+            value: '#f9f9f9'
         },
         contentColor: {
             source: 'static',
-            value: '#FFF'
+            value: null
         },
         hasButton: {
             source: 'static',

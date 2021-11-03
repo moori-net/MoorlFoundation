@@ -27,6 +27,14 @@
                     {% endblock %}
                 </div>
 
+                {% if meta %}
+                    <div class="moorl-listing-item-meta">
+                        {% block moorl_foundation_listing_item_meta %}
+                            {{ meta }}
+                        {% endblock %}
+                    </div>
+                {% endif %}
+
                 {% if description %}
                     <div class="moorl-listing-item-description">
                         {% block moorl_foundation_listing_item_description %}
@@ -50,13 +58,15 @@
 {% endset %}
 
 {% if config.hasButton.value %}
-    <li class="moorl-listing-item-{{ config.itemLayout.value }}">
+    <li style="{{ itemCss|join(';')|raw }}" class="moorl-listing-item-{{ config.itemLayout.value }}{% if config.itemHasBorder.value %} has-border{% endif %}">
         {{ itemContent }}
     </li>
 {% else %}
     <li>
-        <a href="{{ url }}" title="{{ title }}"
-           class="moorl-listing-item-{{ config.itemLayout.value }}">
+        <a href="{{ url }}"
+           title="{{ title }}"
+           style="{{ itemCss|join(';')|raw }}"
+           class="moorl-listing-item-{{ config.itemLayout.value }}{% if config.itemHasBorder.value %} has-border{% endif %}">
             {{ itemContent }}
         </a>
     </li>

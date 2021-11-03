@@ -87,25 +87,26 @@
     }
 
     .moorl-listing-item-title,
-    .moorl-listing-item-description {
+    .moorl-listing-item-description,
+    .moorl-listing-item-meta {
         overflow: hidden;
         text-overflow: ellipsis;
         line-height: 20px;
+        margin-bottom: 10px;
     }
 
     .moorl-listing-item-title {
-        margin-bottom: 10px;
-        height: 24px;
         font-size: 1.3em;
+        margin-bottom: 5px;
+    }
+
+    .moorl-listing-item-meta {
+        height: 16px;
+        font-size: .8em;
     }
 
     .moorl-listing-item-description {
         height: 60px;
-    }
-
-    .sw-button,
-    .moorl-listing-item-button {
-        margin-top: 10px;
     }
 
     /* displayMode */

@@ -40,6 +40,22 @@
               :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
     </sw-field>
 
+    <sw-field v-model="element.config.itemPadding.value"
+              type="text"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemPadding')">
+    </sw-field>
+
+    <sw-colorpicker v-model="element.config.itemBackgroundColor.value"
+                    colorOutput="rgb"
+                    :alpha="false"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemBackgroundColor')">
+    </sw-colorpicker>
+
+    <sw-field v-model="element.config.itemHasBorder.value"
+              type="switch"
+              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHasBorder')">
+    </sw-field>
+
     <sw-field v-model="element.config.contentPadding.value"
               type="text"
               :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentPadding')">

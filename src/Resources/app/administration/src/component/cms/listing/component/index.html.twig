@@ -6,7 +6,8 @@
         </li>
 
         <li v-for="item in items"
-            :class="itemClass">
+            :class="itemClass"
+            :style="itemCss">
             {% block moorl_foundation_listing_item %}
                 {% block moorl_foundation_listing_item_link %}
                     <div class="moorl-listing-item-image">
