@@ -23,6 +23,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'cover'
         },
+        textAlign: {
+            source: 'static',
+            value: 'left'
+        },
         limit: {
             source: 'static',
             value: 12
@@ -74,6 +78,34 @@ Shopware.Service('cmsService').registerCmsElement({
         buttonLabel: {
             source: 'static',
             value: 'Click here!'
+        },
+        speed: {
+            source: 'static',
+            value: 2000
+        },
+        autoplayTimeout: {
+            source: 'static',
+            value: 6000
+        },
+        autoplay: {
+            source: 'static',
+            value: true
+        },
+        autoplayHoverPause: {
+            source: 'static',
+            value: true
+        },
+        animateIn: {
+            source: 'static',
+            value: null
+        },
+        animateOut: {
+            source: 'static',
+            value: null
+        },
+        navigation: {
+            source: 'static',
+            value: true
         }
     }
 });

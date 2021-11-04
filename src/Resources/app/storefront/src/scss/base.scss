@@ -7,6 +7,10 @@
 @import "component/search-suggest";
 @import "component/search-page";
 
+main {
+  overflow: hidden;
+}
+
 .bg-fixed {
   background-attachment: fixed;
 }

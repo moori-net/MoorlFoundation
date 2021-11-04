@@ -5,35 +5,37 @@
             <sw-icon name="default-arrow-head-left" size="24"></sw-icon>
         </li>
 
-        <li v-for="item in items"
-            :class="itemClass"
-            :style="itemCss">
+        <li v-for="item in items">
             {% block moorl_foundation_listing_item %}
-                {% block moorl_foundation_listing_item_link %}
-                    <div class="moorl-listing-item-image">
-                        <img v-if="item.media" :src="item.media.url" :class="imageClass">
-                    </div>
-
-                    <div class="moorl-listing-item-content" :style="contentCss">
-                        {% block moorl_foundation_listing_item_content %}
-                            <div class="moorl-listing-item-title">
-                                {% block moorl_foundation_listing_item_title %}
-                                    {{ itemTitle(item) }}
-                                {% endblock %}
+                <div class="moorl-listing-item-wrapper" :style="itemCss">
+                    <div :class="itemClass">
+                        {% block moorl_foundation_listing_item_link %}
+                            <div class="moorl-listing-item-image">
+                                <img v-if="item.media" :src="item.media.url" :class="imageClass">
                             </div>
 
-                            <div v-if="itemDescription(item)" class="moorl-listing-item-description">
-                                {% block moorl_foundation_listing_item_description %}
-                                    {{ itemDescription(item) }}
+                            <div class="moorl-listing-item-content" :style="contentCss">
+                                {% block moorl_foundation_listing_item_content %}
+                                    <div class="moorl-listing-item-title">
+                                        {% block moorl_foundation_listing_item_title %}
+                                            {{ itemTitle(item) }}
+                                        {% endblock %}
+                                    </div>
+
+                                    <div v-if="itemDescription(item)" class="moorl-listing-item-description">
+                                        {% block moorl_foundation_listing_item_description %}
+                                            {{ itemDescription(item) }}
+                                        {% endblock %}
+                                    </div>
+
+                                    <sw-button v-if="element.config.hasButton.value">
+                                        {{ element.config.buttonLabel.value }}
+                                    </sw-button>
                                 {% endblock %}
                             </div>
-
-                            <sw-button v-if="element.config.hasButton.value">
-                                {{ element.config.buttonLabel.value }}
-                            </sw-button>
                         {% endblock %}
                     </div>
-                {% endblock %}
+                </div>
             {% endblock %}
         </li>
 

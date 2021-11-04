@@ -1,3 +1,9 @@
+$light: #f9f9f9 !default;
+$sw-border-color: #bcc1c7 !default;
+$border-radius: 10px;
+$sw-background-color: #FFFFFF;
+$sw-headline-color: #4a545b !default;
+
 .sw-cms-el-moorl-foundation-listing {
     width: 100%;
 
@@ -5,15 +11,52 @@
         display: none;
     }
 
+    .moorl-listing-slider {
+        display: flex;
+
+        justify-content: space-between;
+
+        li.navigation {
+            display: block;
+            width: auto;
+            height: auto;
+        }
+
+        li:not(.navigation) {
+            display: none;
+        }
+
+        li:not(.navigation):nth-child(-n+4) {
+            display: list-item;
+        }
+    }
+
+    /* Same as Storefront CSS */
+
     /* listingLayout */
     .moorl-listing-list,
     .moorl-listing-slider,
     .moorl-listing-grid {
         list-style: none;
+        align-items: center;
         padding: 0;
+        margin: 0;
+
+        > li {
+            width: 100%;
+            height: 100%;
+
+            > div {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .moorl-listing-list,
+    .moorl-listing-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        align-items: center;
         grid-gap: 20px;
     }
 
@@ -21,7 +64,7 @@
         grid-template-columns: 1fr;
 
         .moorl-listing-item-image-content,
-        .moorl-listing-item-content-image  {
+        .moorl-listing-item-content-image {
             display: flex;
             flex-direction: row;
 
@@ -36,19 +79,21 @@
             }
         }
 
-        .moorl-listing-item-content-image  {
+        .moorl-listing-item-content-image {
             flex-direction: row-reverse;
         }
     }
 
-    .moorl-listing-slider {
-        grid-template-columns: 24px repeat(auto-fit, minmax(1px, 1fr)) 24px;
-        .navigation {
-            display: block;
+    /* itemLayout */
+    .moorl-listing-item-wrapper {
+        background-color: $light;
+
+        &.has-border {
+            border: 1px solid $sw-border-color;
+            border-radius: $border-radius;
         }
     }
 
-    /* itemLayout */
     .moorl-listing-item-overlay,
     .moorl-listing-item-image-content,
     .moorl-listing-item-content-image {
@@ -65,11 +110,12 @@
         .moorl-listing-item-content {
             position: absolute;
             bottom: 0;
+            background-color: rgba($sw-background-color, .7);
         }
     }
 
     .moorl-listing-item-image-content,
-    .moorl-listing-item-content-image  {
+    .moorl-listing-item-content-image {
         display: flex;
         flex-direction: column;
 
@@ -82,7 +128,7 @@
         }
     }
 
-    .moorl-listing-item-content-image  {
+    .moorl-listing-item-content-image {
         flex-direction: column-reverse;
     }
 
@@ -148,5 +194,6 @@
     .moorl-listing-item-content {
         padding: 15px;
         width: 100%;
+        background-color: $sw-background-color;
     }
 }

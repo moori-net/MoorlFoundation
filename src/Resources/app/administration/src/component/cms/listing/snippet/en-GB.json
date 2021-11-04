@@ -3,7 +3,22 @@
         "elements": {
             "moorl-foundation-listing": {
                 "name": "moori General Listing",
+                "tab": {
+                    "layout": "Layout",
+                    "slider": "Slider",
+                    "item": "Item",
+                    "listing": "Listing",
+                    "content": "Content"
+                },
                 "label": {
+                    "textAlign": "Text align",
+                    "speed": "Speed (ms)",
+                    "autoplayTimeout": "Autoplay timeout (ms)",
+                    "autoplay": "Autoplay",
+                    "autoplayHoverPause": "Pause on hover",
+                    "navigation": "Navigation",
+                    "animateIn": "Animate in",
+                    "animateOut": "Animate out",
                     "listingLayout": "Listing layout",
                     "itemLayout": "Item layout",
                     "displayMode": "Display mode",
@@ -35,6 +50,11 @@
                     "standard": "Standard",
                     "cover": "Cover",
                     "contain": "Contain"
+                },
+                "textAlign": {
+                    "left": "Left",
+                    "center": "Center",
+                    "right": "Right"
                 }
             }
         }

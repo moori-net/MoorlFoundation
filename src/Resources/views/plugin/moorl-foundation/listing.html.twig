@@ -1,34 +1,90 @@
 {% block moorl_foundation_listing %}
-    {% set config = element.fieldConfig.elements %}
+    {% if not config %}
+        {% set config = element.fieldConfig.elements %}
+    {% endif %}
     {% if not config %}
         {% set config = context.moorlFoundationListingConfig %}
     {% endif %}
 
+    {% set listingCss = [] %}
+    {% if config.listingLayout.value == 'grid' %}
+        {% set listingCss = listingCss|merge([
+            "grid-template-columns:repeat(auto-fit, minmax(#{config.itemWidth.value}, 1fr))",
+            "grid-auto-rows:#{config.itemHeight.value}",
+            "grid-gap:#{config.gapSize.value}",
+        ]) %}
+    {% elseif config.listingLayout.value == 'list' %}
+        {% set listingCss = listingCss|merge([
+            "grid-auto-rows:#{config.itemHeight.value}",
+            "grid-gap:#{config.gapSize.value}",
+        ]) %}
+    {% elseif config.listingLayout.value == 'slider' %}
+        {% set listingCss = listingCss|merge([
+            "height:#{config.itemHeight.value}",
+        ]) %}
+    {% endif %}
+    {% set contentCss = [
+        "padding:#{config.contentPadding.value}",
+        "background-color:#{config.contentBackgroundColor.value}",
+        "color:#{config.contentColor.value}",
+        "text-align:#{config.textAlign.value}",
+    ] %}
+    {% set itemCss = [
+        "padding:#{config.itemPadding.value}",
+        "background-color:#{config.itemBackgroundColor.value}",
+    ] %}
+
     {% if config.listingLayout.value == 'slider' %}
-        {% sw_include '@Storefront/plugin/moorl-foundation/listing-slider.html.twig' %}
+        {% set productSliderOptions = {
+            productboxMinWidth: config.itemWidth.value,
+            slider: {
+                navPosition: 'bottom',
+                speed: sliderConfig.speed.value ?: 400,
+                autoHeight: false,
+                autoplay: config.autoplay.value ? true : false,
+                autoplayHoverPause: config.autoplayHoverPause.value ? true : false,
+                autoplayTimeout: config.autoplayTimeout.value ?: 3500,
+                autoplayButtonOutput: false,
+                swipeAngle: false,
+                mode: config.animateIn.value ? "gallery" : "carousel",
+                gutter: config.animateIn.value ? null : (config.gapSize.value|number_format * 1),
+                animateIn: config.animateIn.value ?: null,
+                animateOut: config.animateOut.value ?: null,
+                autoplayButtonOutput: false,
+                nav: config.navigation.value ? false : true,
+                mouseDrag: config.navigation.value ? false : true,
+                controls: config.navigation.value ? true : false
+            }
+        } %}
+
+        <div class="base-slider product-slider"
+             data-product-slider="true"
+             data-product-slider-options='{{ productSliderOptions|json_encode }}'>
+            <ul class="moorl-listing-slider"
+                 style="{{ listingCss|join(';')|raw }}"
+                 data-product-slider-container="true">
+                {% for item in searchResult %}
+                    {% block moorl_foundation_listing_slider_item %}
+                        {% sw_include '@Storefront/plugin/moorl-foundation/listing-item.html.twig' %}
+                    {% endblock %}
+                {% endfor %}
+            </ul>
+
+            {% if config.navigation.value %}
+                <div class="product-slider-controls-container">
+                    <div class="base-slider-controls"
+                         data-product-slider-controls="true">
+                        <button class="base-slider-controls-prev product-slider-controls-prev">
+                            {% sw_icon 'arrow-head-left' %}
+                        </button>
+                        <button class="base-slider-controls-next product-slider-controls-next">
+                            {% sw_icon 'arrow-head-right' %}
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     {% else %}
-        {% set listingCss = [] %}
-        {% if config.listingLayout.value == 'grid' %}
-            {% set listingCss = listingCss|merge([
-                "grid-template-columns: repeat(auto-fit, minmax(#{config.itemWidth.value}, 1fr))",
-                "grid-auto-rows: #{config.itemHeight.value}",
-                "grid-gap: #{config.gapSize.value}",
-            ]) %}
-        {% elseif config.listingLayout.value == 'list' %}
-            {% set listingCss = listingCss|merge([
-                "grid-auto-rows: #{config.itemHeight.value}",
-                "grid-gap: #{config.gapSize.value}",
-            ]) %}
-        {% endif %}
-        {% set contentCss = [
-            "padding: #{config.contentPadding.value}",
-            "background-color: #{config.contentBackgroundColor.value}",
-            "color: #{config.contentColor.value}",
-        ] %}
-        {% set itemCss = [
-            "padding: #{config.itemPadding.value}",
-            "background-color: #{config.itemBackgroundColor.value}",
-        ] %}
         <ul class="js-listing-wrapper moorl-listing-{{ config.listingLayout.value }}"
             style="{{ listingCss|join(';')|raw }}">
             {% for item in searchResult %}

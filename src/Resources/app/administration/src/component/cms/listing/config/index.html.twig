@@ -1,92 +1,186 @@
 <div class="sw-cms-el-config-moorl-foundation-listing">
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingLayout')"
-                     v-model="element.config.listingLayout.value">
-        <option value="grid">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.grid') }}</option>
-        <option value="list">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.list') }}</option>
-        <option value="slider">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.slider') }}</option>
-    </sw-select-field>
+    <sw-tabs defaultItem="layout">
+        <template slot-scope="{ active }">
+            <sw-tabs-item name="layout"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.layout') }}
+            </sw-tabs-item>
 
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
-                     v-model="element.config.itemLayout.value">
-        <option value="overlay">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.overlay') }}</option>
-        <option value="image-content">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.imageContent') }}</option>
-        <option value="content-image">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.contentImage') }}</option>
-    </sw-select-field>
+            <sw-tabs-item name="slider"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.slider') }}
+            </sw-tabs-item>
 
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.displayMode')"
-                     v-model="element.config.displayMode.value">
-        <option value="cover">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.cover') }}</option>
-        <option value="contain">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.contain') }}</option>
-        <option value="standard">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.standard') }}</option>
-    </sw-select-field>
+            <sw-tabs-item name="item"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.item') }}
+            </sw-tabs-item>
 
-    <sw-field v-model="element.config.limit.value"
-              type="number"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
-    </sw-field>
+            <sw-tabs-item name="content"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.content') }}
+            </sw-tabs-item>
 
-    <sw-field v-model="element.config.gapSize.value"
-              type="text"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
-    </sw-field>
+            <sw-tabs-item name="listing"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.listing') }}
+            </sw-tabs-item>
+        </template>
 
-    <sw-field v-model="element.config.itemWidth.value"
-              type="text"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')">
-    </sw-field>
+        <template slot="content" slot-scope="{ active }">
+            <sw-container v-if="active === 'layout'">
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingLayout')"
+                                 v-model="element.config.listingLayout.value">
+                    <option value="grid">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.grid') }}</option>
+                    <option value="list">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.list') }}</option>
+                    <option value="slider">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.slider') }}</option>
+                </sw-select-field>
 
-    <sw-field v-model="element.config.itemHeight.value"
-              type="text"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
-    </sw-field>
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
+                                 v-model="element.config.itemLayout.value">
+                    <option value="overlay">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.overlay') }}</option>
+                    <option value="image-content">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.imageContent') }}</option>
+                    <option value="content-image">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.contentImage') }}</option>
+                </sw-select-field>
 
-    <sw-field v-model="element.config.itemPadding.value"
-              type="text"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemPadding')">
-    </sw-field>
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.displayMode')"
+                                 v-model="element.config.displayMode.value">
+                    <option value="cover">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.cover') }}</option>
+                    <option value="contain">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.contain') }}</option>
+                    <option value="standard">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.standard') }}</option>
+                </sw-select-field>
 
-    <sw-colorpicker v-model="element.config.itemBackgroundColor.value"
-                    colorOutput="rgb"
-                    :alpha="false"
-                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemBackgroundColor')">
-    </sw-colorpicker>
+                <sw-field v-model="element.config.gapSize.value"
+                          type="text"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
+                </sw-field>
+            </sw-container>
 
-    <sw-field v-model="element.config.itemHasBorder.value"
-              type="switch"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHasBorder')">
-    </sw-field>
+            <sw-container v-if="active === 'slider'">
+                <sw-field v-model="element.config.speed.value"
+                          type="number"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')">
+                </sw-field>
 
-    <sw-field v-model="element.config.contentPadding.value"
-              type="text"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentPadding')">
-    </sw-field>
+                <sw-field v-model="element.config.autoplayTimeout.value"
+                          type="number"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayTimeout')">
+                </sw-field>
 
-    <sw-colorpicker v-model="element.config.contentBackgroundColor.value"
-                    colorOutput="rgb"
-                    :alpha="true"
-                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentBackgroundColor')">
-    </sw-colorpicker>
+                <sw-field v-model="element.config.autoplay.value"
+                          type="switch"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplay')">
+                </sw-field>
 
-    <sw-colorpicker v-model="element.config.contentColor.value"
-                    colorOutput="rgb"
-                    :alpha="true"
-                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentColor')">
-    </sw-colorpicker>
+                <sw-field v-model="element.config.autoplayHoverPause.value"
+                          type="switch"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')">
+                </sw-field>
 
-    <sw-field v-model="element.config.hasButton.value"
-              type="switch"
-              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.hasButton')">
-    </sw-field>
+                <sw-field v-model="element.config.navigation.value"
+                          type="switch"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')">
+                </sw-field>
 
-    <template v-if="element.config.hasButton.value">
-        <sw-field v-model="element.config.buttonClass.value"
-                  type="text"
-                  :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonClass')">
-        </sw-field>
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
+                                 :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
+                                 v-model="element.config.animateIn.value">
+                    <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                        <option v-for="value in item.options" :value="value">{{ value }}</option>
+                    </optgroup>
+                </sw-select-field>
 
-        <sw-field v-model="element.config.buttonLabel.value"
-                  type="text"
-                  :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonLabel')">
-        </sw-field>
-    </template>
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateOut')"
+                                 :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
+                                 v-model="element.config.animateOut.value">
+                    <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                        <option v-for="value in item.options" :value="value">{{ value }}</option>
+                    </optgroup>
+                </sw-select-field>
+            </sw-container>
+
+            <sw-container v-if="active === 'item'">
+                <sw-field v-model="element.config.itemWidth.value"
+                          type="text"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')">
+                </sw-field>
+
+                <sw-field v-model="element.config.itemHeight.value"
+                          type="text"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
+                </sw-field>
+
+                <sw-field v-model="element.config.itemPadding.value"
+                          type="text"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemPadding')">
+                </sw-field>
+
+                <sw-colorpicker v-model="element.config.itemBackgroundColor.value"
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :alpha="false"
+                                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemBackgroundColor')">
+                </sw-colorpicker>
+
+                <sw-field v-model="element.config.itemHasBorder.value"
+                          type="switch"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHasBorder')">
+                </sw-field>
+            </sw-container>
+
+            <sw-container v-if="active === 'listing'">
+                <sw-field v-model="element.config.limit.value"
+                          type="number"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
+                </sw-field>
+
+                {% block sw_cms_element_moorl_foundation_listing_config %}{% endblock %}
+            </sw-container>
+
+            <sw-container v-if="active === 'content'">
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.textAlign')"
+                                 v-model="element.config.textAlign.value">
+                    <option value="left">{{ $tc('sw-cms.elements.moorl-foundation-listing.textAlign.left') }}</option>
+                    <option value="center">{{ $tc('sw-cms.elements.moorl-foundation-listing.textAlign.center') }}</option>
+                    <option value="right">{{ $tc('sw-cms.elements.moorl-foundation-listing.textAlign.right') }}</option>
+                </sw-select-field>
+
+                <sw-field v-model="element.config.contentPadding.value"
+                          type="text"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentPadding')">
+                </sw-field>
+
+                <sw-colorpicker v-model="element.config.contentBackgroundColor.value"
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :alpha="true"
+                                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentBackgroundColor')">
+                </sw-colorpicker>
+
+                <sw-colorpicker v-model="element.config.contentColor.value"
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :alpha="false"
+                                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentColor')">
+                </sw-colorpicker>
+
+                <sw-field v-model="element.config.hasButton.value"
+                          type="switch"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.hasButton')">
+                </sw-field>
+
+                <template v-if="element.config.hasButton.value">
+                    <sw-field v-model="element.config.buttonClass.value"
+                              type="text"
+                              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonClass')">
+                    </sw-field>
+
+                    <sw-field v-model="element.config.buttonLabel.value"
+                              type="text"
+                              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonLabel')">
+                    </sw-field>
+                </template>
+            </sw-container>
+        </template>
+    </sw-tabs>
 </div>

@@ -12,11 +12,15 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
     data() {
         return {
             entity: 'moorl_magazine_article',
-            elementName: 'moorl-magazine'
+            elementName: 'moorl-foundation-listing'
         };
     },
 
-    computed: {},
+    computed: {
+        moorlFoundation() {
+            return MoorlFoundation;
+        }
+    },
 
     created() {
         this.createdComponent();

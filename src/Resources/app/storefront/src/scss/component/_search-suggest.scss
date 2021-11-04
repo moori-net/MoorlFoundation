@@ -1,13 +1,13 @@
-.moorl-search-suggest-list {
-  @extend .moorl-listing-list;
-}
-
-.moorl-search-suggest-grid {
-  @extend .moorl-listing-grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
-  grid-auto-rows: 135px;
-  grid-gap: 15px;
-  margin-bottom: 0;
-  margin-top: 15px;
+.search-suggest {
+  .moorl-listing-item-meta {
+    display: none;
+  }
+  .moorl-listing-item-description {
+    height: 40px;
+    margin-bottom: 0;
+  }
+  .moorl-listing-list,
+  .moorl-listing-grid {
+    margin-top: 1rem;
+  }
 }

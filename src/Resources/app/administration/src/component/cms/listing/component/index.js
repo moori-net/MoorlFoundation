@@ -72,11 +72,15 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
                 'padding': this.element.config.contentPadding.value,
                 'background-color': this.element.config.contentBackgroundColor.value,
                 'color': this.element.config.contentColor.value,
+                'text-align': this.element.config.textAlign.value,
             }
         },
 
         defaultCriteria() {
-            return new Criteria();
+            const criteria = new Criteria();
+            criteria.setLimit(12);
+
+            return criteria;
         },
 
         repository() {

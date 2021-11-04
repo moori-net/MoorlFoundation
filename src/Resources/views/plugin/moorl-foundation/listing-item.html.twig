@@ -21,7 +21,7 @@
 
         <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
             {% block moorl_foundation_listing_item_content %}
-                <div class="moorl-listing-item-title">
+                <div class="moorl-listing-item-title h4">
                     {% block moorl_foundation_listing_item_title %}
                         {{ title }}
                     {% endblock %}
@@ -58,16 +58,22 @@
 {% endset %}
 
 {% if config.hasButton.value %}
-    <li style="{{ itemCss|join(';')|raw }}" class="moorl-listing-item-{{ config.itemLayout.value }}{% if config.itemHasBorder.value %} has-border{% endif %}">
-        {{ itemContent }}
+    <li>
+        <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
+             style="{{ itemCss|join(';')|raw }}">
+            <div class="moorl-listing-item-{{ config.itemLayout.value }}">
+                {{ itemContent }}
+            </div>
+        </div>
     </li>
 {% else %}
     <li>
-        <a href="{{ url }}"
-           title="{{ title }}"
+        <a href="{{ url }}" class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
            style="{{ itemCss|join(';')|raw }}"
-           class="moorl-listing-item-{{ config.itemLayout.value }}{% if config.itemHasBorder.value %} has-border{% endif %}">
-            {{ itemContent }}
+           title="{{ title }}">
+            <div class="moorl-listing-item-{{ config.itemLayout.value }}">
+                {{ itemContent }}
+            </div>
         </a>
     </li>
 {% endif %}
