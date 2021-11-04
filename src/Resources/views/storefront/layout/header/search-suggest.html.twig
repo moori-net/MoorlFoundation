@@ -1,5 +1,37 @@
 {% sw_extends '@Storefront/storefront/layout/header/search-suggest.html.twig' %}
 
+{% block layout_search_suggest_result_total %}
+    {% if page.searchResult.total == 0 %}
+        {% block layout_search_suggest_no_result %}
+            <div class="search-suggest-no-result">
+                {{ "header.searchNoResult"|trans|sw_sanitize }}
+            </div>
+        {% endblock %}
+    {% else %}
+        {% block layout_search_suggest_result_total_result %}
+            <div class="js-result search-suggest-total">
+                <div class="row form-row align-items-center">
+                    <div class="col-auto">
+                        {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
+                    </div>
+                    <div class="col">
+                        <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ page.activeTab ?? 'product' }}"
+                           title="{{ "header.searchAllResults"|trans|striptags }}"
+                           class="search-suggest-total-link d-block">
+                            {{ "header.searchAllResults"|trans|sw_sanitize }}
+                        </a>
+                    </div>
+                    <div class="col-auto search-suggest-total-count">
+                        {{ "header.searchResults"|trans({
+                            '%count%': page.searchResult.total,
+                        })|sw_sanitize }}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+{% endblock %}
+
 {% block layout_search_suggest_container %}
     {% if page.searchResult.moorlSearchResults and page.searchResult.moorlSearchResults|length > 0 %}
         {% set activeTab = "product" %}
@@ -34,33 +66,27 @@
                 <div class="tab-pane {% if activeTab == "product" %} active{% endif %}" id="{{ page.searchResult.entity }}">
                     <ul class="moorl-search-suggest-list">
                         {{ block('layout_search_suggest_results') }}
-                        {{ block('layout_search_suggest_result_total') }}
                     </ul>
+                    {{ block('layout_search_suggest_result_total') }}
                 </div>
 
                 {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
                     <div class="tab-pane{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" id="{{ moorlSearchResult.criteria.title }}">
+                        {% set page = {
+                            searchResult: moorlSearchResult,
+                            searchTerm: page.searchTerm,
+                            activeTab: moorlSearchResult.criteria.title
+                        } %}
+
                         {% if moorlSearchResult.entity == 'product' %}
-                            {% set page = {
-                                searchResult: moorlSearchResult,
-                                searchTerm: page.searchTerm
-                            } %}
                             <ul class="moorl-search-suggest-list">
                                 {{ block('layout_search_suggest_results') }}
-                                {{ block('layout_search_suggest_result_total') }}
                             </ul>
                         {% else %}
                             {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
-
-                            <div class="js-result search-suggest-total">
-                                <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ moorlSearchResult.criteria.title }}"
-                                   title="{{ "header.searchAllResults"|trans|striptags }}"
-                                   class="search-suggest-total-link">
-                                    {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
-                                    {{ "header.searchAllResults"|trans|sw_sanitize }}
-                                </a>
-                            </div>
                         {% endif %}
+
+                        {{ block('layout_search_suggest_result_total') }}
                     </div>
                 {% endfor %}
             </div>

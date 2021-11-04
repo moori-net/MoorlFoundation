@@ -20,39 +20,41 @@
         </div>
 
         <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
-            {% block moorl_foundation_listing_item_content %}
-                <div class="moorl-listing-item-title h4">
-                    {% block moorl_foundation_listing_item_title %}
-                        {{ title }}
-                    {% endblock %}
-                </div>
-
-                {% if meta %}
-                    <div class="moorl-listing-item-meta">
-                        {% block moorl_foundation_listing_item_meta %}
-                            {{ meta }}
+            <div>
+                {% block moorl_foundation_listing_item_content %}
+                    <div class="moorl-listing-item-title">
+                        {% block moorl_foundation_listing_item_title %}
+                            {{ title }}
                         {% endblock %}
                     </div>
-                {% endif %}
 
-                {% if description %}
-                    <div class="moorl-listing-item-description">
-                        {% block moorl_foundation_listing_item_description %}
-                            {{ description }}
-                        {% endblock %}
-                    </div>
-                {% endif %}
+                    {% if meta %}
+                        <div class="moorl-listing-item-meta">
+                            {% block moorl_foundation_listing_item_meta %}
+                                {{ meta }}
+                            {% endblock %}
+                        </div>
+                    {% endif %}
 
-                {% if config.hasButton.value %}
-                    <a href="{{ url }}"
-                       title="{{ config.buttonLabel.value }}"
-                       class="{{ config.buttonClass.value }} moorl-listing-item-button">
-                        {% block moorl_foundation_listing_item_button_label %}
-                            {{ config.buttonLabel.value }}
-                        {% endblock %}
-                    </a>
-                {% endif %}
-            {% endblock %}
+                    {% if description %}
+                        <div class="moorl-listing-item-description">
+                            {% block moorl_foundation_listing_item_description %}
+                                {{ description }}
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+
+                    {% if config.hasButton.value %}
+                        <a href="{{ url }}"
+                           title="{{ config.buttonLabel.value }}"
+                           class="{{ config.buttonClass.value }} moorl-listing-item-button">
+                            {% block moorl_foundation_listing_item_button_label %}
+                                {{ config.buttonLabel.value }}
+                            {% endblock %}
+                        </a>
+                    {% endif %}
+                {% endblock %}
+            </div>
         </div>
     {% endblock %}
 {% endset %}

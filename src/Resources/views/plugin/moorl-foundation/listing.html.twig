@@ -5,6 +5,37 @@
     {% if not config %}
         {% set config = context.moorlFoundationListingConfig %}
     {% endif %}
+    {% if not config %}
+        {% set config = {
+            listingLayout: {
+                value: 'grid'
+            },
+            itemLayout: {
+                value: 'overlay'
+            },
+            itemWidth: {
+                value: "360px"
+            },
+            itemHeight: {
+                value: "360px"
+            },
+            gapSize: {
+                value: "20px"
+            },
+            contentPadding: {
+                value: "20px"
+            },
+            itemPadding: {
+                value: 0
+            },
+            hasButton: {
+                value: true
+            },
+            buttonLabel: {
+                value: "general.readMore"|trans
+            }
+        } %}
+    {% endif %}
 
     {% set listingCss = [] %}
     {% if config.listingLayout.value == 'grid' %}
