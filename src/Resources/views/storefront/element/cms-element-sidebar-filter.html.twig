@@ -5,7 +5,7 @@
 
     {% if cmsPage is defined %}
         {% set config = element.fieldConfig.elements %}
-        {% set slot = cmsPage.firstElementOfType('produst-listing') %}
+        {% set slot = cmsPage.firstElementOfType('product-listing') %}
         {% if not slot %}
             {% for section in cmsPage.sections %}
                 {% for blocks in section.blocks %}

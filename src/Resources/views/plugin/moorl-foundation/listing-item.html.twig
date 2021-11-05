@@ -6,8 +6,7 @@
                     {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                         media: media,
                         attributes: {
-                            'alt': (media.translated.alt ?: ''),
-                            'title': (media.translated.title ?: ''),
+                            'alt': title,
                             'class': "is-#{config.displayMode.value}"
                         }
                     } %}
@@ -22,7 +21,7 @@
         <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
             <div>
                 {% block moorl_foundation_listing_item_content %}
-                    <div class="moorl-listing-item-title">
+                    <div class="moorl-listing-item-title" title="{{ title }}">
                         {% block moorl_foundation_listing_item_title %}
                             {{ title }}
                         {% endblock %}
