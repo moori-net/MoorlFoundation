@@ -3,19 +3,25 @@
 {% block page_search %}
     {% if page.listing.moorlSearchResults and page.listing.moorlSearchResults|length > 0 %}
         {% set activeTab = "product" %}
-        {% if page.listing.total == 0 %}
-            {% for moorlSearchResult in page.listing.moorlSearchResults %}
-                {% if moorlSearchResult.total > 0 and activeTab == "product" %}
-                    {% set activeTab = moorlSearchResult.criteria.title %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+        {% set count = page.listing.total %}
         {% if app.request.query.get('tab') %}
             {% set activeTab = app.request.query.get('tab') %}
         {% endif %}
+        {% for moorlSearchResult in page.listing.moorlSearchResults %}
+            {% if moorlSearchResult.criteria.title == activeTab %}
+                {% set count = moorlSearchResult.total %}
+            {% endif %}
+        {% endfor %}
 
         <div class="cms-page search-page moorl-search-page">
-            <h1 class="search-headline">{{ block('page_search_headline_text') }}</h1>
+            <h1 class="search-headline">
+                {% block page_search_headline_text %}
+                    {{ "moorl-foundation.search.headline"|trans({
+                        '%count%': count,
+                        '%searchTerm%': page.searchTerm,
+                    }) }}
+                {% endblock %}
+            </h1>
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">

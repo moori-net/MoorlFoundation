@@ -1,0 +1,72 @@
+{% sw_extends '@Storefront/plugin/moorl-foundation/listing.html.twig' %}
+
+{% if not searchResult %}
+    {% set searchResult = element.data.listing %}
+    {% set config = element.fieldConfig.elements %}
+
+    {% set filterUrl = null %}
+    {% set dataUrl = null %}
+
+    {% if searchResult.currentFilters.navigationId %}
+        {% set filterUrl = url('frontend.cms.navigation.filter', { navigationId: searchResult.currentFilters.navigationId }) %}
+        {% set dataUrl = url('frontend.cms.navigation.page', { navigationId: searchResult.currentFilters.navigationId }) %}
+    {% endif %}
+{% endif %}
+
+{% set currentPage = ((searchResult.criteria.offset + 1) / searchResult.criteria.limit )|round(0, 'ceil') %}
+{% set paginationConfig = { page: currentPage }|json_encode %}
+
+{% if disableEmptyFilter is not defined %}
+    {% set disableEmptyFilter = config('core.listing.disableEmptyFilterOptions') %}
+{% endif %}
+
+{% set listingPagination = {
+    sidebar: (sectionType == 'sidebar'),
+    params: {slots: element.id, 'no-aggregations': 1},
+    dataUrl: dataUrl,
+    filterUrl: filterUrl,
+    disableEmptyFilter: disableEmptyFilter,
+    snippets: {
+        resetAllButtonText: 'listing.filterPanelResetAll'|trans|sw_sanitize
+    }
+} %}
+
+{% block moorl_foundation_listing %}
+    {% if config.listingSource.value == 'auto' %}
+        <div class="cms-element-product-listing-wrapper cms-element-moorl-foundation-listing-wrapper"
+             data-listing-pagination="true"
+             data-listing-pagination-options='{{ paginationConfig }}'
+             data-listing="true"
+             data-listing-options='{{ listingPagination|json_encode }}'>
+            <div class="cms-element-product-listing cms-element-moorl-foundation-listing">
+                {% if searchResult.total > 0 %}
+                    <div class="cms-element-product-listing-actions row justify-content-between">
+                        <div class="col-md-auto">
+                            {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                                entities: searchResult,
+                                criteria: searchResult.criteria
+                            } %}
+                        </div>
+                        <div class="col-md-auto">
+                            {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
+                                current: searchResult.sorting,
+                                sortings: searchResult.availableSortings
+                            } %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if searchResult.total > 0 %}
+                    {{ parent() }}
+                {% else %}
+                    {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                        type: 'info',
+                        content: 'listing.emptyResultMessage'|trans|sw_sanitize
+                    } %}
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

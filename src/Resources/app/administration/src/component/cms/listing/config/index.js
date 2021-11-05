@@ -1,4 +1,5 @@
 const {Component, Mixin} = Shopware;
+const {Criteria} = Shopware.Data;
 import template from './index.html.twig';
 import './index.scss';
 
@@ -7,6 +8,10 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
     mixins: [
         Mixin.getByName('cms-element')
+    ],
+
+    inject: [
+        'repositoryFactory'
     ],
 
     data() {
@@ -19,7 +24,13 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
     computed: {
         moorlFoundation() {
             return MoorlFoundation;
-        }
+        },
+
+        sortingCriteria() {
+            const criteria = new Criteria
+            criteria.addFilter(Criteria.equals('entity', this.entity));
+            return criteria;
+        },
     },
 
     created() {

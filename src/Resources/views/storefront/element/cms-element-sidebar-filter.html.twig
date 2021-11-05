@@ -1,0 +1,39 @@
+{% sw_extends '@Storefront/storefront/element/cms-element-sidebar-filter.html.twig' %}
+
+{% block element_sidebar_filter %}
+    {% set slot = null %}
+
+    {% if cmsPage is defined %}
+        {% set config = element.fieldConfig.elements %}
+        {% set slot = cmsPage.firstElementOfType('produst-listing') %}
+        {% if not slot %}
+            {% for section in cmsPage.sections %}
+                {% for blocks in section.blocks %}
+                    {% if blocks.slots %}
+                        {% for _slot in blocks.slots %}
+                            {% if _slot.fieldConfig.elements.listingSource.value == 'auto' %}
+                                {% set slot = _slot %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {% if not slot %}
+            {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                type: 'warning',
+                content: 'moorl-foundation.search.noListingSlotFound'|trans|sw_sanitize
+            } %}
+        {% endif %}
+
+        {% set listing = slot.data.listing %}
+        {% set sidebar = block.sectionPosition == 'sidebar' %}
+    {% endif %}
+
+    {% if listing.aggregations.elements|length > 0 %}
+        <div class="cms-element-sidebar-filter">
+            {{ block('element_product_listing_filter_button') }}
+            {{ block('element_sidebar_filter_panel') }}
+        </div>
+    {% endif %}
+{% endblock %}

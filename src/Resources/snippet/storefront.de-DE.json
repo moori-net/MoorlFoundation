@@ -1,7 +1,9 @@
 {
   "moorl-foundation": {
     "search": {
-      "product": "Produkte"
+      "noListingSlotFound": "This page do not have a listing element. Check your listing settings and chose \"Automatic items\"",
+      "product": "Produkte",
+      "headline": "{0} Keine Treffer für \"%searchTerm%\" | {1} Ein Treffer für \"%searchTerm%\" | ]1,Inf[ %count% Treffer für \"%searchTerm%\""
     },
     "days": {
       "today": "Heute",

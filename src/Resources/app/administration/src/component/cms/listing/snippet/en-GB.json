@@ -11,6 +11,9 @@
                     "content": "Content"
                 },
                 "label": {
+                    "listingSorting": "Sorting",
+                    "listingItemIds": "Select items",
+                    "listingSource": "Listing Source",
                     "textAlign": "Text align",
                     "speed": "Speed (ms)",
                     "autoplayTimeout": "Autoplay timeout (ms)",
@@ -35,6 +38,11 @@
                     "hasButton": "Has button",
                     "buttonClass": "Button class",
                     "buttonLabel": "Button label"
+                },
+                "listingSource": {
+                    "static": "Static items",
+                    "select": "Select items",
+                    "auto": "Automatic items (with pagination)"
                 },
                 "listingLayout": {
                     "grid": "Grid",

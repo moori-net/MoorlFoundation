@@ -1,5 +1,5 @@
 <div class="sw-cms-el-config-moorl-foundation-listing">
-    <sw-tabs defaultItem="layout">
+    <sw-tabs defaultItem="listing">
         <template slot-scope="{ active }">
             <sw-tabs-item name="layout"
                           :activeTab="active">
@@ -28,6 +28,30 @@
         </template>
 
         <template slot="content" slot-scope="{ active }">
+            <sw-container v-if="active === 'listing'">
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
+                                 v-model="element.config.listingSource.value">
+                    <option value="static">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingSource.static') }}</option>
+                    <option value="select" disabled>{{ $tc('sw-cms.elements.moorl-foundation-listing.listingSource.select') }}</option>
+                    <option value="auto">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingSource.auto') }}</option>
+                </sw-select-field>
+
+                <sw-entity-single-select
+                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSorting')"
+                        v-model="element.config.listingSorting.value"
+                        entity="moorl_sorting"
+                        labelProperty="label"
+                        :criteria="sortingCriteria">
+                </sw-entity-single-select>
+
+                <sw-field v-model="element.config.limit.value"
+                          type="number"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
+                </sw-field>
+
+                {% block sw_cms_element_moorl_foundation_listing_config %}{% endblock %}
+            </sw-container>
+
             <sw-container v-if="active === 'layout'">
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingLayout')"
                                  v-model="element.config.listingLayout.value">
@@ -126,15 +150,6 @@
                           type="switch"
                           :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHasBorder')">
                 </sw-field>
-            </sw-container>
-
-            <sw-container v-if="active === 'listing'">
-                <sw-field v-model="element.config.limit.value"
-                          type="number"
-                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
-                </sw-field>
-
-                {% block sw_cms_element_moorl_foundation_listing_config %}{% endblock %}
             </sw-container>
 
             <sw-container v-if="active === 'content'">

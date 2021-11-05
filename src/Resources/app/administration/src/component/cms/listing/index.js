@@ -5,12 +5,22 @@ import './preview';
 Shopware.Service('cmsService').registerCmsElement({
     name: 'moorl-foundation-listing',
     label: 'moorl-foundation-listing',
-    hidden: true,
-    removable: false,
     component: 'sw-cms-el-moorl-foundation-listing',
     previewComponent: 'sw-cms-el-preview-moorl-foundation-listing',
     configComponent: 'sw-cms-el-config-moorl-foundation-listing',
     defaultConfig: {
+        listingSource: {
+            source: 'static',
+            value: 'static'
+        },
+        listingSorting: {
+            source: 'static',
+            value: null
+        },
+        listingItemIds: {
+            source: 'static',
+            value: []
+        },
         listingLayout: {
             source: 'static',
             value: 'grid'
@@ -41,11 +51,11 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         itemHeight: {
             source: 'static',
-            value: '240px'
+            value: '360px'
         },
         itemPadding: {
             source: 'static',
-            value: '20px'
+            value: '0px'
         },
         itemBackgroundColor: {
             source: 'static',
@@ -53,7 +63,7 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         itemHasBorder: {
             source: 'static',
-            value: true
+            value: false
         },
         contentPadding: {
             source: 'static',
