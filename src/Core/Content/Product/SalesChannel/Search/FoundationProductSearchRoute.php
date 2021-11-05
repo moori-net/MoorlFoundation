@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Content\Product\SalesChannel\Listing;
+namespace MoorlFoundation\Core\Content\Product\SalesChannel\Search;
 
 use MoorlFoundation\Core\Service\EntitySearchService;
-use Shopware\Core\Content\Product\SalesChannel\Listing\AbstractProductListingRoute;
-use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
+use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
+use Shopware\Core\Content\Product\SalesChannel\Search\AbstractProductSearchRoute;
+use Shopware\Core\Content\Product\SalesChannel\Search\ProductSearchRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -14,14 +15,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @RouteScope(scopes={"store-api"})
  */
-class FoundationProductListingRoute extends AbstractProductListingRoute
+class FoundationProductSearchRoute extends AbstractProductSearchRoute
 {
-    private AbstractProductListingRoute $decorated;
+    private AbstractProductSearchRoute $decorated;
     private EventDispatcherInterface $dispatcher;
     private EntitySearchService $searchService;
 
     public function __construct(
-        AbstractProductListingRoute $decorated,
+        AbstractProductSearchRoute $decorated,
         EntitySearchService $searchService,
         EventDispatcherInterface $dispatcher
     ) {
@@ -30,12 +31,12 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
         $this->searchService = $searchService;
     }
 
-    public function getDecorated(): AbstractProductListingRoute
+    public function getDecorated(): AbstractProductSearchRoute
     {
         return $this->decorated;
     }
 
-    public function load(string $categoryId, Request $request, SalesChannelContext $context, Criteria $criteria): ProductListingRouteResponse
+    public function load(Request $request, SalesChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
         $entityListing = $this->searchService->getEntityListing($request, $context->getContext());
         if ($entityListing) {
@@ -43,9 +44,13 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
             $entityListing->setRequest($request);
             $entityListing->setSalesChannelContext($context);
 
-            return $entityListing->listingRoute($criteria, $categoryId);
+            $result = $entityListing->listingRoute($criteria)->getResult();
+            $result = ProductListingResult::createFrom($result);
+            $result->addCurrentFilter('search', $request->get('search'));
+
+            return new ProductSearchRouteResponse($result);
         }
 
-        return $this->decorated->load($categoryId, $request, $context, $criteria);
+        return $this->decorated->load($request, $context, $criteria);
     }
 }

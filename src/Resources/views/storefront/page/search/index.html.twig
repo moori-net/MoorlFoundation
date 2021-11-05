@@ -15,9 +15,12 @@
         {% endif %}
 
         <div class="cms-page search-page moorl-search-page">
+            <h1 class="search-headline">{{ block('page_search_headline_text') }}</h1>
+
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link{% if activeTab == "product" %} active{% endif %}" data-toggle="tab" href="#product">
+                    <a class="nav-link{% if activeTab == "product" %} active{% endif %}"
+                       href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}">
                         {{ "moorl-foundation.search.product"|trans }}
                         <span class="badge badge-primary">{{ page.listing.total }}</span>
                     </a>
@@ -25,7 +28,8 @@
 
                 {% for moorlSearchResult in page.listing.moorlSearchResults %}
                     <li class="nav-item">
-                        <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
+                        <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ moorlSearchResult.criteria.title }}"
+                           class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}">
                             {{ moorlSearchResult.snippet|trans }}
                             <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
                         </a>
@@ -34,25 +38,7 @@
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane {% if activeTab == "product" %} active{% endif %}" id="{{ page.listing.entity }}">
-                    <h1 class="search-headline">{{ block('page_search_headline_text') }}</h1>
-                    {% sw_include '@Storefront/storefront/page/search/search-pagelet.html.twig' with { page: page } %}
-                </div>
-
-                {% for moorlSearchResult in page.listing.moorlSearchResults %}
-                    <div class="tab-pane{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" id="{{ moorlSearchResult.criteria.title }}">
-                        {% if moorlSearchResult.entity == 'product' %}
-                            {% set page = {
-                                listing: moorlSearchResult,
-                                searchTerm: page.searchTerm
-                            } %}
-                            <h1 class="search-headline">{{ block('page_search_headline_text') }}</h1>
-                            {% sw_include '@Storefront/storefront/page/search/search-pagelet.html.twig' with { page: page } %}
-                        {% else %}
-                            {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                {% sw_include '@Storefront/storefront/page/search/search-pagelet.html.twig' %}
             </div>
         </div>
     {% else %}

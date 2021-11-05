@@ -2,10 +2,6 @@
 
 namespace MoorlFoundation\Core\System;
 
-use MoorlMagazine\Core\Content\MagazineArticle\MagazineArticleCollection;
-use MoorlMagazine\Core\Content\MagazineArticle\MagazineArticleDefinition;
-use MoorlMagazine\Core\Content\MagazineArticle\SalesChannel\Events\MagazineArticleListingCriteriaEvent;
-use MoorlMagazine\Core\Content\MagazineArticle\SalesChannel\Events\MagazineArticleListingResultEvent;
 use MoorlMagazine\Core\Content\MagazineArticle\SalesChannel\Listing\MagazineArticleListingResult;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
@@ -32,12 +28,21 @@ class EntityListingExtension
     protected Request $request;
     protected ?SalesChannelRepositoryInterface $salesChannelRepository = null;
     protected Filter $filter;
+    protected string $route;
 
     public function __construct(
         ?SalesChannelRepositoryInterface $salesChannelRepository = null
     )
     {
         $this->salesChannelRepository = $salesChannelRepository;
+    }
+
+    public function isWidget(): bool
+    {
+        return in_array($this->route, [
+            "widgets.search.filter",
+            "widgets.search.pagelet.v2",
+        ]);
     }
 
     /**
@@ -54,6 +59,7 @@ class EntityListingExtension
     public function setRequest(Request $request): void
     {
         $this->request = $request;
+        $this->route = $request->get('_route');
     }
 
     /**
@@ -63,7 +69,7 @@ class EntityListingExtension
     {
         $this->event = $event;
         $this->salesChannelContext = $event->getSalesChannelContext();
-        $this->request = $event->getRequest();
+        $this->setRequest($event->getRequest());
     }
 
     /**
@@ -157,6 +163,7 @@ class EntityListingExtension
     public function listingRoute(Criteria $criteria, ?string $categoryId = null): ProductListingRouteResponse
     {
         $this->processCriteria($criteria);
+        $criteria->setTitle($this->getTitle());
 
         $entities = $this->listingLoader($criteria);
 

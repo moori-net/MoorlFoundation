@@ -39,7 +39,24 @@ class EntitySearchService
 
     public function getEntityListing(Request $request, Context $context): ?EntityListingInterface
     {
+        if ($request->get('_route') === "frontend.search.page") {
+            return null;
+        }
+
         $slotId = $request->query->get('slots');
+        $tab = $request->query->get('tab');
+        if (!$slotId && !$tab) {
+            return null;
+        }
+
+        if ($tab) {
+            foreach ($this->searchEntities as $searchEntity) {
+                if ($searchEntity->getTitle() === $tab) {
+                    return $searchEntity;
+                }
+            }
+        }
+
         if (!$slotId) {
             return null;
         }
