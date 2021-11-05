@@ -14,7 +14,8 @@ class MoorlFoundation extends Plugin
 
     public const PLUGIN_TABLES = [
         'moorl_cms_element_config',
-        'moorl_location'
+        'moorl_location',
+        'moorl_sorting'
     ];
 
     public function uninstall(UninstallContext $context): void

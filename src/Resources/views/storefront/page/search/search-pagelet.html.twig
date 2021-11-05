@@ -1,0 +1,58 @@
+{% set listingColumns = 'col-sm-6 col-lg-4 col-xl-3' %}
+
+{% block element_product_listing_wrapper %}
+    <div class="cms-element-sidebar-filter">
+        {% block shop_studio_advanced_search_element_product_listing_wrapper %}
+            {% set shstAdvancedSearchTab = app.request.query.get('shst-advanced-search-tab') %}
+
+            {% if shstAdvancedSearchTab == 'shop-studio-blog' and page.shstAdvancedSearchShopStudioBlogListing is defined %}
+                {% block shop_studio_advanced_search_element_product_listing_wrapper_shop_studio_blog %}
+                    {% sw_include '@ShopStudioBlog/storefront/component/shop-studio-blog-blog-post/listing.html.twig' ignore missing  with {
+                        searchResult: page.shstAdvancedSearchShopStudioBlogListing,
+                        dataUrl: url('widgets.search.pagelet.v2'),
+                        filterUrl: url('widgets.search.filter'),
+                        params: { search: page.searchTerm },
+                        sidebar: 0,
+                        boxLayout: 'standard',
+                        displayMode: '',
+                        listingColumns: 'col-sm-6 col-lg-4 col-xl-3'
+                    } %}
+                {% endblock %}
+            {% elseif shstAdvancedSearchTab == 'shop-studio-recipes' and page.shstAdvancedSearchShopStudioRecipesListing is defined %}
+                {% block shop_studio_advanced_search_element_product_listing_wrapper_shop_studio_recipes %}
+                    {% sw_include '@ShopStudioRecipes/storefront/component/shop-studio-recipes-recipe/listing.html.twig' ignore missing  with {
+                        searchResult: page.shstAdvancedSearchShopStudioRecipesListing,
+                        dataUrl: url('widgets.search.pagelet.v2'),
+                        filterUrl: url('widgets.search.filter'),
+                        params: { search: page.searchTerm },
+                        sidebar: 0,
+                        boxLayout: 'standard',
+                        displayMode: '',
+                        listingColumns: 'col-sm-6 col-lg-4 col-xl-3'
+                    } %}
+                {% endblock %}
+            {% else %}
+                {% block shop_studio_advanced_search_element_product_listing_wrapper_product %}
+                    <div id="filter-panel-wrapper"
+                         class="filter-panel-wrapper"
+                         data-offcanvas-filter-content="true">
+                        {% sw_include '@Storefront/storefront/component/listing/filter-panel.html.twig' with {
+                            listing: page.listing,
+                            sidebar: false
+                        } %}
+                    </div>
+
+                    {% sw_include '@Storefront/storefront/component/product/listing.html.twig' with {
+                        searchResult: page.listing,
+                        dataUrl: url('widgets.search.pagelet.v2'),
+                        filterUrl: url('widgets.search.filter'),
+                        params: { search: page.searchTerm },
+                        sidebar: 0,
+                        boxLayout: 'minimal',
+                        displayMode: ''
+                    } %}
+                {% endblock %}
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}

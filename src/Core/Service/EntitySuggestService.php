@@ -2,9 +2,6 @@
 
 namespace MoorlFoundation\Core\Service;
 
-/**
- * TODO: Count Page Loads
- */
-class SalesChannelEntityTrackerService
+class EntitySuggestService extends EntitySearchService
 {
 }

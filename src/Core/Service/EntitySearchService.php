@@ -1,37 +1,62 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MoorlFoundation\Core\Service;
 
-use Doctrine\DBAL\Connection;
-use MoorlFoundation\Core\System\SalesChannelEntitySearchInterface;
+use MoorlFoundation\Core\System\EntityListingInterface;
+use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\Events\ProductSearchResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 
-class SalesChannelEntitySearchService
+class EntitySearchService
 {
-    private Connection $connection;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
+    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
+    protected SystemConfigService $systemConfigService;
+    protected EventDispatcherInterface $eventDispatcher;
     /**
-     * @var SalesChannelEntitySearchInterface[]
+     * @var EntityListingInterface[]
      */
-    private iterable $searchEntities;
+    protected iterable $searchEntities;
 
     public function __construct(
-        Connection $connection,
         DefinitionInstanceRegistry $definitionInstanceRegistry,
         SystemConfigService $systemConfigService,
+        EventDispatcherInterface $eventDispatcher,
         iterable $searchEntities
     )
     {
-        $this->connection = $connection;
+        $this->eventDispatcher = $eventDispatcher;
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->systemConfigService = $systemConfigService;
         $this->searchEntities = $searchEntities;
+    }
+
+    public function getEntityListing(Request $request, Context $context): ?EntityListingInterface
+    {
+        $slotId = $request->query->get('slots');
+        if (!$slotId) {
+            return null;
+        }
+
+        $slotRepository = $this->definitionInstanceRegistry->getRepository('cms_slot');
+        $criteria = new Criteria([$slotId]);
+        $criteria->setLimit(1);
+        /** @var CmsSlotEntity $slot */
+        $slot = $slotRepository->search($criteria, $context)->get($slotId);
+
+        foreach ($this->searchEntities as $searchEntity) {
+            if ($searchEntity->getTitle() === $slot->getType()) {
+                return $searchEntity;
+            }
+        }
+
+        return null;
     }
 
     public function enrich(ProductListingResultEvent $event): void
@@ -51,7 +76,7 @@ class SalesChannelEntitySearchService
 
         foreach ($this->searchEntities as $searchEntity) {
             $searchEntity->setSystemConfigService($this->systemConfigService);
-            $searchEntity->setSalesChannelContext($salesChannelContext);
+            $searchEntity->setEvent($event);
 
             if (!$searchEntity->isActive()) {
                 continue;
@@ -64,19 +89,16 @@ class SalesChannelEntitySearchService
 
                 $criteria = $result->getCriteria();
             } else {
-                if ($event instanceof ProductSearchResultEvent) {
-                    //continue;
-                }
-
                 $criteria = new Criteria();
                 $criteria->setLimit($searchEntity->getLimit());
                 $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_EXACT);
                 $criteria->setTerm($searchEntity->getTerm($search));
             }
 
-            $criteria->setTitle($searchEntity->getTitle());
-
+            $searchEntity->setEventDispatcher($this->eventDispatcher);
             $searchEntity->processCriteria($criteria);
+
+            $criteria->setTitle($searchEntity->getTitle());
 
             if ($searchEntity->getSalesChannelRepository()) {
                 $moorlSearchResult = $searchEntity->getSalesChannelRepository()->search($criteria, $salesChannelContext);
@@ -89,9 +111,9 @@ class SalesChannelEntitySearchService
                 continue;
             }
 
+            /** @var ProductListingResult $moorlSearchResult */
+            $moorlSearchResult = ProductListingResult::createFrom($moorlSearchResult);
             if ($searchEntity->inheritCriteria() && $event instanceof ProductSearchResultEvent) {
-                /** @var ProductListingResult $moorlSearchResult */
-                $moorlSearchResult = ProductListingResult::createFrom($moorlSearchResult);
                 $moorlSearchResult->setAvailableSortings($result->getAvailableSortings());
                 $moorlSearchResult->setSorting($result->getSorting());
             }

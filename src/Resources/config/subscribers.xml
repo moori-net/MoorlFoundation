@@ -6,13 +6,16 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="MoorlFoundation\Storefront\Subscriber\ProductListingResultSubscriber" public="true">
-            <argument type="service" id="MoorlFoundation\Core\Service\SalesChannelEntitySearchService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\EntitySearchService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\EntitySuggestService"/>
+
             <tag name="kernel.event_subscriber"/>
         </service>
 
         <service id="MoorlFoundation\Storefront\Subscriber\SalesChannelContextResolvedSubscriber" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="cms_page.repository"/>
+
             <tag name="kernel.event_subscriber"/>
         </service>
     </services>

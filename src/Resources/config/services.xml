@@ -10,6 +10,10 @@
 
     <services>
         <!-- Services -->
+        <service id="MoorlFoundation\Core\Service\SortingService" public="true">
+            <argument type="service" id="moorl_sorting.repository"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Service\EntityEnricherService" public="true">
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
@@ -30,12 +34,20 @@
             <argument type="tagged" tag="moorl.foundation.data" />
         </service>
 
-        <service id="MoorlFoundation\Core\Service\SalesChannelEntitySearchService" public="true">
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        <service id="MoorlFoundation\Core\Service\EntitySearchService" public="true">
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="event_dispatcher"/>
 
-            <argument type="tagged" tag="moorl.foundation.sales_channel_entity_search" />
+            <argument type="tagged" tag="moorl.foundation.entity_search" />
+        </service>
+
+        <service id="MoorlFoundation\Core\Service\EntitySuggestService" public="true">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="event_dispatcher"/>
+
+            <argument type="tagged" tag="moorl.foundation.entity_suggest" />
         </service>
 
         <service id="MoorlFoundation\Core\Service\LocationService" public="true">
@@ -73,6 +85,24 @@
 
         <service id="MoorlFoundation\Core\Content\Location\LocationDefinition">
             <tag name="shopware.entity.definition" entity="moorl_location" />
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Sorting\SortingDefinition">
+            <tag name="shopware.entity.definition" entity="moorl_sorting" />
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Sorting\SortingTranslationDefinition">
+            <tag name="shopware.entity.definition" entity="moorl_sorting_translation" />
+        </service>
+
+        <!-- Listing Route Decorator -->
+        <service id="MoorlFoundation\Core\Content\Product\SalesChannel\Listing\FoundationProductListingRoute"
+                 decorates="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRoute"
+                 decoration-priority="-9999"
+                 public="true">
+            <argument type="service" id="MoorlFoundation\Core\Content\Product\SalesChannel\Listing\FoundationProductListingRoute.inner"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\EntitySearchService"/>
+            <argument type="service" id="event_dispatcher" />
         </service>
     </services>
 </container>
