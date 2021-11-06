@@ -11,6 +11,7 @@
                     "content": "Content"
                 },
                 "label": {
+                    "itemLayoutTemplate": "Item layout template path",
                     "listingSorting": "Sorting",
                     "listingItemIds": "Select items",
                     "listingSource": "Listing Source",
@@ -51,6 +52,8 @@
                     "slider": "Slider"
                 },
                 "itemLayout": {
+                    "custom": "Custom template",
+                    "standard": "Standard",
                     "overlay": "Overlay",
                     "imageContent": "Image -> Content",
                     "contentImage": "Content -> Image"

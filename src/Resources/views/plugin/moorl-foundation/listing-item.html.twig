@@ -58,7 +58,14 @@
     {% endblock %}
 {% endset %}
 
-{% if config.hasButton.value %}
+{% if config.itemLayout.value == 'custom' %}
+    {% set product = item %}
+
+
+    <li class="{{ listingColumns }}">
+        {% sw_include config.itemLayoutTemplate.value %}
+    </li>
+{% elseif config.hasButton.value %}
     <li class="{{ listingColumns }}">
         <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
              style="{{ itemCss|join(';')|raw }}">

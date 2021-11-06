@@ -16,7 +16,7 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
     data() {
         return {
-            entity: 'moorl_magazine_article',
+            entity: null,
             elementName: 'moorl-foundation-listing'
         };
     },

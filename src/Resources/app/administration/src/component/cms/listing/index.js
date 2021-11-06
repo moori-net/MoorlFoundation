@@ -30,6 +30,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'overlay'
         },
+        itemLayoutTemplate: {
+            source: 'static',
+            value: '@Storefront/storefront/component/product/card/box.html.twig'
+        },
         displayMode: {
             source: 'static',
             value: 'cover'

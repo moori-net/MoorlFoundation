@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Service;
 
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
+use MoorlFoundation\Core\Content\Sorting\SortingEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -33,5 +34,22 @@ class SortingService
         $sortings = $this->sortingRepository->search($criteria, $context)->getEntities();
 
         return $sortings;
+    }
+
+    public function getSorting(string $id, Context $context): ?SortingEntity
+    {
+        $criteria = new Criteria([$id]);
+
+        return $this->sortingRepository->search($criteria, $context)->get($id);
+    }
+
+    public function addSortingCriteria(string $id, Criteria $criteria, Context $context): void
+    {
+        $sorting = $this->getSorting($id, $context);
+        if (!$sorting) {
+            return;
+        }
+
+        $criteria->addSorting(...$sorting->createDalSorting());
     }
 }
