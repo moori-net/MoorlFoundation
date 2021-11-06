@@ -1,58 +1,5 @@
 {% sw_extends '@Storefront/plugin/moorl-foundation/listing.html.twig' %}
 
 {% block moorl_foundation_listing %}
-    {% set config = context.moorlFoundationListingConfig %}
-    {% if not config %}
-        {% set config = {
-            listingLayout: {
-                value: 'grid'
-            },
-            itemLayout: {
-                value: 'overlay'
-            },
-            itemWidth: {
-                value: "200px"
-            },
-            itemHeight: {
-                value: "160px"
-            },
-            gapSize: {
-                value: "10px"
-            },
-            contentPadding: {
-                value: "10px"
-            },
-            itemPadding: {
-                value: 0
-            },
-            hasButton: {
-                value: false
-            }
-        } %}
-    {% else %}
-        {% set config = config|merge({
-            listingLayout: {
-                value: config.listingLayout.value == 'slider' ? 'grid' : config.listingLayout.value
-            },
-            itemWidth: {
-                value: "#{config.itemWidth.value|number_format / 2}px"
-            },
-            itemHeight: {
-                value: "#{config.itemHeight.value|number_format / 2}px"
-            },
-            gapSize: {
-                value: "#{config.gapSize.value|number_format / 2}px"
-            },
-            contentPadding: {
-                value: "#{config.contentPadding.value|number_format / 2}px"
-            },
-            itemPadding: {
-                value: 0
-            },
-            hasButton: {
-                value: false
-            }
-        }) %}
-    {% endif %}
     {{ parent() }}
 {% endblock %}

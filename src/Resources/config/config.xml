@@ -17,43 +17,34 @@
     </card>
 
     <card>
-        <title>Search settings</title>
-        <title lang="de-DE">Sucheinstellungen</title>
+        <title>moori Advanced search</title>
+        <title lang="de-DE">Erweiterte Suche</title>
         <input-field type="bool">
             <name>advancedSearchActive</name>
             <label>Enable advanced search</label>
             <label lang="de-DE">Erweiterte Suche aktivieren</label>
             <defaultValue>true</defaultValue>
         </input-field>
-
         <input-field type="bool">
             <name>advancedSearchHideEmptyResults</name>
             <label>Hide empty search results</label>
             <label lang="de-DE">Leere Suchergebnisse verstecken</label>
             <defaultValue>true</defaultValue>
         </input-field>
+        <input-field type="text">
+            <name>advancedSearchWidth</name>
+            <label>Width of the search suggest element</label>
+            <label lang="de-DE">Breite des Suchvorschläge Elementes</label>
+            <defaultValue>600px</defaultValue>
+            <placeholder>100%,600px,90vw</placeholder>
+        </input-field>
     </card>
 
     <card>
         <title>moori Animation</title>
         <title lang="de-DE">moori Animation</title>
-
         <component name="moorl-animation">
             <name>moorlAnimation</name>
-        </component>
-    </card>
-
-    <card>
-        <title>moori Listing config</title>
-        <title lang="de-DE">moori Listing Konfiguration</title>
-
-        <component name="sw-entity-single-select">
-            <name>moorlFoundationListingConfig</name>
-            <entity>cms_page</entity>
-            <label>Select fallback</label>
-            <label lang="de-DE">Wähle Standard</label>
-            <helpText>Adopt a CMS listing configuration to prevent display errors on the search!</helpText>
-            <helpText lang="de-DE">Übernehme eine CMS Listing Konfiguration um Anzeigefehler in der Suche vorzubeugen!</helpText>
         </component>
     </card>
 

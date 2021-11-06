@@ -14,4 +14,12 @@
     {% if config('MoorlFoundation.config.moorlAnimation') %}
         <script type="application/javascript">window.moorlAnimation = {{ config('MoorlFoundation.config.moorlAnimation')|json_encode|raw }};</script>
     {% endif %}
+
+    {% if config('MoorlFoundation.config.advancedSearchWidth') %}
+        <style>
+            :root {
+                --moorl-advanced-search-width: {{ config('MoorlFoundation.config.advancedSearchWidth') }};
+            }
+        </style>
+    {% endif %}
 {% endblock %}

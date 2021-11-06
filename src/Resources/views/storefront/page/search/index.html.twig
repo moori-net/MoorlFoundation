@@ -2,6 +2,7 @@
 
 {% block page_search %}
     {% if page.listing.moorlSearchResults and page.listing.moorlSearchResults|length > 0 %}
+        {# Has advanced search results - Load tabs #}
         {% set activeTab = "product" %}
         {% set count = page.listing.total %}
         {% if app.request.query.get('tab') %}
@@ -44,10 +45,12 @@
             </ul>
 
             <div class="tab-content">
+                {# Search page #}
                 {% sw_include '@Storefront/storefront/page/search/search-pagelet.html.twig' %}
             </div>
         </div>
     {% else %}
+        {# Do nothing #}
         {{ parent() }}
     {% endif %}
 {% endblock %}

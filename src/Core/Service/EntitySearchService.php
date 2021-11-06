@@ -40,6 +40,8 @@ class EntitySearchService
     public function getEntityListing(Request $request, Context $context): ?EntityListingInterface
     {
         if ($request->get('_route') === "frontend.search.page") {
+            $request->query->set('order', 'score');
+
             return null;
         }
 
@@ -140,6 +142,7 @@ class EntitySearchService
             $moorlSearchResult->assign([
                 'snippet' => $searchEntity->getSnippet(),
                 'templatePath' => $searchEntity->getTemplatePath(),
+                'elementConfig' => $searchEntity->getElementConfig()
             ]);
 
             $moorlSearchResults[] = $moorlSearchResult;

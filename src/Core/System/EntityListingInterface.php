@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface EntityListingInterface
 {
+    public function getElementConfig(): array;
     public function setRequest(Request $request): void;
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void;
     public function setSalesChannelContext(SalesChannelContext $salesChannelContext): void;

@@ -2,41 +2,17 @@
     {% if not config %}
         {% set config = element.fieldConfig.elements %}
     {% endif %}
-    {% if not config %}
-        {% set config = context.moorlFoundationListingConfig %}
-    {% endif %}
-    {% if not config %}
-        {% set config = {
-            listingLayout: {
-                value: 'grid'
-            },
-            itemLayout: {
-                value: 'overlay'
-            },
-            itemWidth: {
-                value: "360px"
-            },
-            itemHeight: {
-                value: "360px"
-            },
-            gapSize: {
-                value: "20px"
-            },
-            contentPadding: {
-                value: "20px"
-            },
-            itemPadding: {
-                value: 0
-            },
-            hasButton: {
-                value: true
-            },
-            buttonLabel: {
-                value: "general.readMore"|trans
-            }
-        } %}
-    {% endif %}
 
+    {% set itemCss = [
+        "padding:#{config.itemPadding.value}",
+        "background-color:#{config.itemBackgroundColor.value}",
+    ] %}
+    {% set contentCss = [
+        "padding:#{config.contentPadding.value}",
+        "background-color:#{config.contentBackgroundColor.value}",
+        "color:#{config.contentColor.value}",
+        "text-align:#{config.textAlign.value}",
+    ] %}
     {% set listingCss = [] %}
     {% if config.listingLayout.value == 'grid' %}
         {% set listingCss = listingCss|merge([
@@ -53,19 +29,32 @@
         {% set listingCss = listingCss|merge([
             "height:#{config.itemHeight.value}",
         ]) %}
+    {% elseif config.listingLayout.value == 'standard' %}
+        {% set itemCss = itemCss|merge([
+            "height:#{config.itemHeight.value}",
+        ]) %}
     {% endif %}
-    {% set contentCss = [
-        "padding:#{config.contentPadding.value}",
-        "background-color:#{config.contentBackgroundColor.value}",
-        "color:#{config.contentColor.value}",
-        "text-align:#{config.textAlign.value}",
-    ] %}
-    {% set itemCss = [
-        "padding:#{config.itemPadding.value}",
-        "background-color:#{config.itemBackgroundColor.value}",
-    ] %}
+
+    {% set listingContent %}
+        {% if config.listingLayout.value == 'standard' %}
+            {% set listingColumns = 'cms-listing-col col-sm-6 col-lg-4 col-xl-3' %}
+
+            {% if section and section.type == 'sidebar' %}
+                {% set listingColumns = 'cms-listing-col col-sm-6 col-lg-6 col-xl-4' %}
+            {% endif %}
+        {% else %}
+            {% set listingColumns = null %}
+        {% endif %}
+
+        {% for item in searchResult %}
+            {% block moorl_foundation_listing_item %}
+                {% sw_include '@Storefront/plugin/moorl-foundation/listing-item.html.twig' %}
+            {% endblock %}
+        {% endfor %}
+    {% endset %}
 
     {% if config.listingLayout.value == 'slider' %}
+        {# Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns #}
         {% set productSliderOptions = {
             productboxMinWidth: config.itemWidth.value,
             slider: {
@@ -94,11 +83,7 @@
             <ul class="moorl-listing-slider"
                  style="{{ listingCss|join(';')|raw }}"
                  data-product-slider-container="true">
-                {% for item in searchResult %}
-                    {% block moorl_foundation_listing_slider_item %}
-                        {% sw_include '@Storefront/plugin/moorl-foundation/listing-item.html.twig' %}
-                    {% endblock %}
-                {% endfor %}
+                {{ listingContent }}
             </ul>
 
             {% if config.navigation.value %}
@@ -115,14 +100,14 @@
                 </div>
             {% endif %}
         </div>
+    {% elseif config.listingLayout.value == 'standard' %}
+        <ul class="row cms-listing-row js-listing-wrapper moorl-listing-standard">
+            {{ listingContent }}
+        </ul>
     {% else %}
         <ul class="js-listing-wrapper moorl-listing-{{ config.listingLayout.value }}"
             style="{{ listingCss|join(';')|raw }}">
-            {% for item in searchResult %}
-                {% block moorl_foundation_listing_item %}
-                    {% sw_include '@Storefront/plugin/moorl-foundation/listing-item.html.twig' %}
-                {% endblock %}
-            {% endfor %}
+            {{ listingContent }}
         </ul>
     {% endif %}
 {% endblock %}

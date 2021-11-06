@@ -43,7 +43,7 @@
             {% endfor %}
         {% endif %}
 
-        <div class="search-suggest-container">
+        <div class="search-suggest-container{% if config('MoorlFoundation.config.advancedSearchWidth') %} moorl-search-suggest-container{% endif %}">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link{% if activeTab == "product" %} active{% endif %}" data-toggle="tab" href="#product">

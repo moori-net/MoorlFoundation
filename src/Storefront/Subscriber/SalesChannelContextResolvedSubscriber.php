@@ -32,6 +32,8 @@ class SalesChannelContextResolvedSubscriber implements EventSubscriberInterface
 
     public function onSalesChannelContextResolvedEvent(SalesChannelContextResolvedEvent $event): void
     {
+        return;
+
         $salesChannelContext = $event->getSalesChannelContext();
         $salesChannelId = $salesChannelContext->getSalesChannelId();
 

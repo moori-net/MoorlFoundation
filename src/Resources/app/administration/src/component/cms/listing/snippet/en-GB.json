@@ -45,7 +45,8 @@
                     "auto": "Automatic items (with pagination)"
                 },
                 "listingLayout": {
-                    "grid": "Grid",
+                    "standard": "Shopware standard",
+                    "grid": "Responsive Grid",
                     "list": "List",
                     "slider": "Slider"
                 },

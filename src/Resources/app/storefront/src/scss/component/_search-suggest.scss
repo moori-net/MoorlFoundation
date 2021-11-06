@@ -35,3 +35,11 @@
     }
   }
 }
+
+@include media-breakpoint-up(md) {
+  .search-suggest {
+    .moorl-search-suggest-container {
+      width: var(--moorl-advanced-search-width);
+    }
+  }
+}

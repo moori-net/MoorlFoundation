@@ -45,6 +45,55 @@ class EntityListingExtension
         ]);
     }
 
+    public function isSearch(): bool
+    {
+        return in_array($this->route, [
+            "frontend.search.page",
+            "widgets.search.pagelet.v2"
+        ]);
+    }
+
+    public function isSuggest(): bool
+    {
+        return in_array($this->route, [
+            "frontend.search.suggest"
+        ]);
+    }
+
+    public function getElementConfig(): array
+    {
+        if ($this->isSuggest()) {
+            return [
+                'listingLayout' => ['value' => 'grid'],
+                'itemLayout' => ['value' => 'overlay'],
+                'displayMode' => ['value' => 'cover'],
+                'textAlign' => ['value' => 'left'],
+                'gapSize' => ['value' => '10px'],
+                'itemWidth' => ['value' => '150px'],
+                'itemHeight' => ['value' => '200px'],
+                'itemHasBorder' => ['value' => false],
+                'contentPadding' => ['value' => '10px'],
+                'hasButton' => ['value' => false]
+            ];
+        }
+
+        return [
+            'listingSource' => ['value' => 'auto'],
+            'listingLayout' => ['value' => 'grid'],
+            'itemLayout' => ['value' => 'overlay'],
+            'displayMode' => ['value' => 'cover'],
+            'textAlign' => ['value' => 'left'],
+            'gapSize' => ['value' => '20px'],
+            'itemWidth' => ['value' => '300px'],
+            'itemHeight' => ['value' => '400px'],
+            'itemHasBorder' => ['value' => false],
+            'contentPadding' => ['value' => '20px'],
+            'hasButton' => ['value' => true],
+            'buttonClass' => ['value' => 'btn btn-dark'],
+            'buttonLabel' => ['value' => null],
+        ];
+    }
+
     /**
      * @param SalesChannelContext $salesChannelContext
      */
@@ -170,6 +219,10 @@ class EntityListingExtension
         /** @var ProductListingResult $result */
         $result = ProductListingResult::createFrom($entities);
         $result->addState(...$entities->getStates());
+
+        $result->assign([
+            'elementConfig' => $this->getElementConfig()
+        ]);
 
         $result->addCurrentFilter('navigationId', $categoryId);
 

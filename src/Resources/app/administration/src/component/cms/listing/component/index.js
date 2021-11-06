@@ -25,7 +25,7 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
 
     computed: {
         listingCss() {
-            if (this.element.config.listingLayout.value === 'grid') {
+            if (this.element.config.listingLayout.value === 'grid' || this.element.config.listingLayout.value === 'standard') {
                 return {
                     'grid-template-columns': `repeat(auto-fit, minmax(${this.element.config.itemWidth.value}, 1fr))`,
                     'grid-auto-rows': this.element.config.itemHeight.value,

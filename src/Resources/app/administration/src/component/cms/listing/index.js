@@ -3,8 +3,9 @@ import './config';
 import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
+    hidden: true,
     name: 'moorl-foundation-listing',
-    label: 'moorl-foundation-listing',
+    label: 'sw-cms.elements.moorl-foundation-listing.name',
     component: 'sw-cms-el-moorl-foundation-listing',
     previewComponent: 'sw-cms-el-preview-moorl-foundation-listing',
     configComponent: 'sw-cms-el-config-moorl-foundation-listing',
@@ -47,11 +48,11 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         itemWidth: {
             source: 'static',
-            value: '320px'
+            value: '300px'
         },
         itemHeight: {
             source: 'static',
-            value: '360px'
+            value: '400px'
         },
         itemPadding: {
             source: 'static',
