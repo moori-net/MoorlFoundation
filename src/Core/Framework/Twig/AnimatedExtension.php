@@ -2,9 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\Twig;
 
-use MoorlFoundation\Core\Content\CmsElementConfig\CmsElementConfigEntity;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
-use Shopware\Core\Content\Cms\DataResolver\FieldConfig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -30,6 +28,10 @@ class AnimatedExtension extends AbstractExtension
         $classes = [];
 
         foreach ($behaviours as $breakpoint => $behaviour) {
+            if (!is_array($behaviour)) {
+                continue;
+            }
+
             if ($behaviour['inherit']) {
                 continue;
             }
