@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `moorl_sorting` (
     
     PRIMARY KEY (`id`),
     
-    CONSTRAINT `uniq.moorl_sorting.url_key` UNIQUE (`url_key`),
     CONSTRAINT `json.moorl_sorting.fields` CHECK (JSON_VALID(`fields`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;

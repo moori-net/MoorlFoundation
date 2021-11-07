@@ -11,12 +11,14 @@
         {% for moorlSearchResult in page.listing.moorlSearchResults %}
             {% if activeTab == moorlSearchResult.criteria.title %}
                 {# Search page #}
+                {% set config = moorlSearchResult.elementConfig %}
                 {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
             {% endif %}
         {% endfor %}
     {% else %}
         {# Widget #}
         {% set moorlSearchResult = page.listing %}
+        {% set config = moorlSearchResult.elementConfig %}
         {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
     {% endif %}
 {% endblock %}

@@ -55,11 +55,15 @@
 
     {% if config.listingLayout.value == 'slider' %}
         {# Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns #}
+        {% set listingCss = listingCss|merge([
+            "margin-right:-#{config.gapSize.value}",
+        ]) %}
+
         {% set productSliderOptions = {
             productboxMinWidth: config.itemWidth.value,
             slider: {
                 navPosition: 'bottom',
-                speed: sliderConfig.speed.value ?: 400,
+                speed: config.speed.value ?: 400,
                 autoHeight: false,
                 autoplay: config.autoplay.value ? true : false,
                 autoplayHoverPause: config.autoplayHoverPause.value ? true : false,
@@ -67,7 +71,7 @@
                 autoplayButtonOutput: false,
                 swipeAngle: false,
                 mode: config.animateIn.value ? "gallery" : "carousel",
-                gutter: config.animateIn.value ? null : (config.gapSize.value|number_format * 1),
+                gutter: (config.gapSize.value|number_format * 1),
                 animateIn: config.animateIn.value ?: null,
                 animateOut: config.animateOut.value ?: null,
                 autoplayButtonOutput: false,
@@ -77,12 +81,12 @@
             }
         } %}
 
-        <div class="base-slider product-slider"
+        <div class="base-slider product-slider product-slider{% if config.navigation.value %} has-nav{% endif %}"
              data-product-slider="true"
              data-product-slider-options='{{ productSliderOptions|json_encode }}'>
             <ul class="moorl-listing-slider"
-                 style="{{ listingCss|join(';')|raw }}"
-                 data-product-slider-container="true">
+                style="{{ listingCss|join(';')|raw }}"
+                data-product-slider-container="true">
                 {{ listingContent }}
             </ul>
 
