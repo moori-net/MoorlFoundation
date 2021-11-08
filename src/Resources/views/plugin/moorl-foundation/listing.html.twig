@@ -13,6 +13,7 @@
         "color:#{config.contentColor.value}",
         "text-align:#{config.textAlign.value}",
     ] %}
+
     {% set listingCss = [] %}
     {% if config.listingLayout.value == 'grid' %}
         {% set listingCss = listingCss|merge([

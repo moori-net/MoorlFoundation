@@ -18,8 +18,9 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
     data() {
         return {
             entity: null,
-            elementName: 'moorl-foundation-listing',
-            items: null
+            items: [],
+            criteria: new Criteria(1, 12),
+            elementName: 'moorl-foundation-listing'
         };
     },
 
@@ -76,16 +77,19 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
             }
         },
 
-        defaultCriteria() {
-            const criteria = new Criteria();
-            criteria.setLimit(12);
-
-            return criteria;
-        },
-
         repository() {
             return this.repositoryFactory.create(this.entity);
         },
+
+        defaultCriteria() {
+            this.criteria.setLimit(this.element.config.limit.value);
+            this.criteria.setIds([]);
+            if (this.element.config.listingSource.value === 'select') {
+                this.criteria.setIds(this.element.config.listingItemIds.value);
+            }
+
+            return this.criteria;
+        }
     },
 
     watch: {
@@ -113,6 +117,7 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
                 .search(this.defaultCriteria, Shopware.Context.api)
                 .then((result) => {
                     this.items = result;
+                    this.$set(this.element.data, 'listingItems', result);
                 });
         },
 

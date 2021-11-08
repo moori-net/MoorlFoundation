@@ -10,11 +10,6 @@
                             'class': "is-#{config.displayMode.value}"
                         }
                     } %}
-                {% elseif replaceImageWithTitle %}
-                    <div class="moorl-listing-item-image-title"
-                         title="{{ title }}">
-                        {{ title }}
-                    </div>
                 {% else %}
                     {% sw_icon 'placeholder' style {
                         'size': 'fluid'
@@ -23,45 +18,43 @@
             {% endblock %}
         </div>
 
-        {% if not replaceImageWithTitle %}
-            <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
-                <div class="">
-                    {% block moorl_foundation_listing_item_content %}
-                        <div class="moorl-listing-item-title" title="{{ title }}">
-                            {% block moorl_foundation_listing_item_title %}
-                                {{ title }}
+        <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
+            <div class="">
+                {% block moorl_foundation_listing_item_content %}
+                    <div class="moorl-listing-item-title" title="{{ title }}">
+                        {% block moorl_foundation_listing_item_title %}
+                            {{ title }}
+                        {% endblock %}
+                    </div>
+
+                    {% if meta %}
+                        <div class="moorl-listing-item-meta">
+                            {% block moorl_foundation_listing_item_meta %}
+                                {{ meta }}
                             {% endblock %}
                         </div>
+                    {% endif %}
 
-                        {% if meta %}
-                            <div class="moorl-listing-item-meta">
-                                {% block moorl_foundation_listing_item_meta %}
-                                    {{ meta }}
-                                {% endblock %}
-                            </div>
-                        {% endif %}
+                    {% if description %}
+                        <div class="moorl-listing-item-description">
+                            {% block moorl_foundation_listing_item_description %}
+                                {{ description }}
+                            {% endblock %}
+                        </div>
+                    {% endif %}
 
-                        {% if description %}
-                            <div class="moorl-listing-item-description">
-                                {% block moorl_foundation_listing_item_description %}
-                                    {{ description }}
-                                {% endblock %}
-                            </div>
-                        {% endif %}
-
-                        {% if config.hasButton.value %}
-                            <a href="{{ url }}"
-                               title="{{ config.buttonLabel.value }}"
-                               class="{{ config.buttonClass.value }} moorl-listing-item-button">
-                                {% block moorl_foundation_listing_item_button_label %}
-                                    {{ config.buttonLabel.value ?? "moorl-foundation.search.moreButton"|trans }}
-                                {% endblock %}
-                            </a>
-                        {% endif %}
-                    {% endblock %}
-                </div>
+                    {% if config.hasButton.value %}
+                        <a href="{{ url }}"
+                           title="{{ config.buttonLabel.value }}"
+                           class="{{ config.buttonClass.value }} moorl-listing-item-button">
+                            {% block moorl_foundation_listing_item_button_label %}
+                                {{ config.buttonLabel.value ?? "moorl-foundation.search.moreButton"|trans }}
+                            {% endblock %}
+                        </a>
+                    {% endif %}
+                {% endblock %}
             </div>
-        {% endif %}
+        </div>
     {% endblock %}
 {% endset %}
 

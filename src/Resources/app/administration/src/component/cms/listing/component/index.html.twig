@@ -1,11 +1,11 @@
-<div v-if="items" class="sw-cms-el-moorl-foundation-listing">
+<div v-if="element.data.listingItems" class="sw-cms-el-moorl-foundation-listing">
     <ul :style="listingCss"
         :class="listingClass">
         <li class="navigation">
             <sw-icon name="default-arrow-head-left" size="24"></sw-icon>
         </li>
 
-        <li v-for="item in items">
+        <li v-for="item in element.data.listingItems">
             {% block moorl_foundation_listing_item %}
                 <div class="moorl-listing-item-wrapper" :style="itemCss">
                     <div :class="itemClass">

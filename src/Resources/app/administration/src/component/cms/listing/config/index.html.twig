@@ -28,27 +28,42 @@
         </template>
 
         <template slot="content" slot-scope="{ active }">
-            <sw-container v-if="active === 'listing'" columns="1fr 1fr" gap="0px 30px">
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
-                                 v-model="element.config.listingSource.value">
-                    <option value="static">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingSource.static') }}</option>
-                    <option value="select" disabled>{{ $tc('sw-cms.elements.moorl-foundation-listing.listingSource.select') }}</option>
-                    <option value="auto">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingSource.auto') }}</option>
-                </sw-select-field>
+            <sw-container v-if="active === 'listing'" key="listing">
+                <sw-container columns="1fr 1fr" gap="0px 30px">
+                    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
+                                     @change="onSelectionChange"
+                                     v-model="element.config.listingSource.value">
+                        <option v-for="option in elementOptions.listingSource" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
 
-                <sw-entity-single-select
-                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSorting')"
-                        v-model="element.config.listingSorting.value"
-                        entity="moorl_sorting"
-                        labelProperty="label"
-                        show-clearable-button
-                        :criteria="sortingCriteria">
-                </sw-entity-single-select>
+                    <sw-entity-single-select
+                            :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSorting')"
+                            v-model="element.config.listingSorting.value"
+                            entity="moorl_sorting"
+                            labelProperty="label"
+                            show-clearable-button
+                            :criteria="sortingCriteria">
+                    </sw-entity-single-select>
 
-                <sw-field v-model="element.config.limit.value"
-                          type="number"
-                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
-                </sw-field>
+                    <sw-field v-model="element.config.limit.value"
+                              @change="onSelectionChange"
+                              type="number"
+                              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
+                    </sw-field>
+                </sw-container>
+
+                <sw-entity-multi-select
+                        v-if="element.config.listingSource.value === 'select'"
+                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingItemIds')"
+                        v-model="entityCollection"
+                        @change="onSelectionChange">
+                    <template #selection-label-property="{ item }">
+                        {{ item.translated.name || item.name || item.translated.title || item.title }}
+                    </template>
+                    <template #result-label-property="{ item, index }">
+                        {{ item.translated.name || item.name || item.translated.title || item.title }}
+                    </template>
+                </sw-entity-multi-select>
 
                 {% block sw_cms_element_moorl_foundation_listing_config %}{% endblock %}
             </sw-container>
@@ -56,19 +71,12 @@
             <sw-container v-if="active === 'layout'" columns="1fr 1fr" gap="0px 30px">
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingLayout')"
                                  v-model="element.config.listingLayout.value">
-                    <option value="grid">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.grid') }}</option>
-                    <option value="list">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.list') }}</option>
-                    <option value="standard">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.standard') }}</option>
-                    <option value="slider">{{ $tc('sw-cms.elements.moorl-foundation-listing.listingLayout.slider') }}</option>
+                    <option v-for="option in elementOptions.listingLayout" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
                                  v-model="element.config.itemLayout.value">
-                    <option value="overlay">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.overlay') }}</option>
-                    <option value="image-content">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.imageContent') }}</option>
-                    <option value="content-image">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.contentImage') }}</option>
-                    <option value="standard" :disabled="true">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.standard') }}</option>
-                    <option value="custom">{{ $tc('sw-cms.elements.moorl-foundation-listing.itemLayout.custom') }}</option>
+                    <option v-for="option in elementOptions.itemLayout" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
                 <sw-field v-if="element.config.itemLayout.value == 'custom'"
@@ -79,9 +87,7 @@
 
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.displayMode')"
                                  v-model="element.config.displayMode.value">
-                    <option value="cover">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.cover') }}</option>
-                    <option value="contain">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.contain') }}</option>
-                    <option value="standard">{{ $tc('sw-cms.elements.moorl-foundation-listing.displayMode.standard') }}</option>
+                    <option v-for="option in elementOptions.displayMode" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
                 <sw-field v-model="element.config.gapSize.value"
@@ -165,9 +171,7 @@
             <sw-container v-if="active === 'content'" columns="1fr 1fr" gap="0px 30px">
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.textAlign')"
                                  v-model="element.config.textAlign.value">
-                    <option value="left">{{ $tc('sw-cms.elements.moorl-foundation-listing.textAlign.left') }}</option>
-                    <option value="center">{{ $tc('sw-cms.elements.moorl-foundation-listing.textAlign.center') }}</option>
-                    <option value="right">{{ $tc('sw-cms.elements.moorl-foundation-listing.textAlign.right') }}</option>
+                    <option v-for="option in elementOptions.textAlign" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
                 <sw-field v-model="element.config.contentPadding.value"

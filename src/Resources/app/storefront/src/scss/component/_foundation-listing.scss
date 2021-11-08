@@ -114,14 +114,10 @@
 .moorl-listing-item-title,
 .moorl-listing-item-description,
 .moorl-listing-item-meta {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 20px;
-  margin-bottom: 10px;
+
 }
 
 .moorl-listing-item-title {
-  margin-bottom: 5px;
   font-size: 1.4em;
   height: 24px;
   line-height: 24px;
@@ -181,4 +177,15 @@
   padding: 15px;
   width: 100%;
   background-color: $sw-background-color;
+
+  > div > div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 20px;
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

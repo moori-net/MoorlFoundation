@@ -22,6 +22,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: []
         },
+        listingItems: {
+            source: 'static',
+            value: []
+        },
         listingLayout: {
             source: 'static',
             value: 'grid'

@@ -55,8 +55,8 @@
                     "custom": "Custom template",
                     "standard": "Standard",
                     "overlay": "Overlay",
-                    "imageContent": "Image -> Content",
-                    "contentImage": "Content -> Image"
+                    "image-content": "1st Image - 2nd Content",
+                    "content-image": "1st Content - 2nd Image"
                 },
                 "displayMode": {
                     "standard": "Standard",
