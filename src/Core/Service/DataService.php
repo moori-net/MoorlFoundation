@@ -317,13 +317,13 @@ TWIG;
          */
         $sql = <<<SQL
 SELECT 
-       LOWER(HEX(`media_folder`.`id`)) AS `id`,
-       LOWER(HEX(`media_folder`.`media_folder_configuration_id`)) AS `cfg_id`,
-       `media_default_folder`.`entity` AS `entity`
+    LOWER(HEX(`media_folder`.`id`)) AS `id`,
+    LOWER(HEX(`media_folder`.`media_folder_configuration_id`)) AS `cfg_id`,
+    `media_default_folder`.`entity` AS `entity`
 FROM `media_folder`
-    LEFT JOIN `media_default_folder`
-        ON `media_default_folder`.`id` = `media_folder`.`default_folder_id`
-WHERE `media_folder`.`use_parent_configuration` = '0';
+    LEFT JOIN `media_default_folder` ON `media_default_folder`.`id` = `media_folder`.`default_folder_id`
+WHERE `media_folder`.`use_parent_configuration` = '0' 
+  AND `media_default_folder`.`entity` IS NOT NULL;
 SQL;
         $query = $this->connection->executeQuery($sql);
         while (($row = $query->fetchAssociative()) !== false) {
