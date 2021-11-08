@@ -56,6 +56,7 @@
                     "custom": "Custom template",
                     "standard": "Standard",
                     "overlay": "Overlay",
+                    "image-or-title": "Image (if not set use title)",
                     "image-content": "1st Image - 2nd Content",
                     "content-image": "1st Content - 2nd Image"
                 },

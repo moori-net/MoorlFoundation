@@ -95,18 +95,15 @@ $sw-headline-color: #4a545b !default;
             border: 1px solid $sw-border-color;
             border-radius: $border-radius;
         }
+
+        > div {
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
     }
 
-    .moorl-listing-item-standard,
-    .moorl-listing-item-custom,
-    .moorl-listing-item-overlay,
-    .moorl-listing-item-image-content,
-    .moorl-listing-item-content-image {
-        height: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-
+    .moorl-listing-item-image-or-title,
     .moorl-listing-item-overlay {
         .moorl-listing-item-image {
             position: absolute;
@@ -159,6 +156,7 @@ $sw-headline-color: #4a545b !default;
         display: flex;
         align-items: center;
         justify-content: center;
+        text-align: center;
 
         img {
             display: block;
@@ -185,6 +183,10 @@ $sw-headline-color: #4a545b !default;
             &.is-standard {
                 object-fit: scale-down;
             }
+        }
+
+        .moorl-listing-item-title {
+            height: auto;
         }
     }
 

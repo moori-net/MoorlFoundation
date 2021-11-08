@@ -61,16 +61,15 @@
     border: 1px solid $sw-border-color;
     border-radius: $border-radius;
   }
+
+  > div {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
 }
 
-.moorl-listing-item-overlay,
-.moorl-listing-item-image-content,
-.moorl-listing-item-content-image {
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
+.moorl-listing-item-image-or-title,
 .moorl-listing-item-overlay {
   .moorl-listing-item-image {
     position: absolute;
@@ -79,7 +78,7 @@
   .moorl-listing-item-content {
     position: absolute;
     bottom: 0;
-    background-color: rgba($sw-background-color, .8);
+    background-color: rgba($sw-background-color, .7);
   }
 }
 
@@ -111,11 +110,7 @@
   text-align: center;
 }
 
-.moorl-listing-item-title,
-.moorl-listing-item-description,
-.moorl-listing-item-meta {
 
-}
 
 .moorl-listing-item-title {
   font-size: 1.4em;
@@ -139,6 +134,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 
   img {
     display: block;
@@ -170,6 +166,10 @@
   .icon-fluid {
     width: 80%;
     height: 80%;
+  }
+
+  .moorl-listing-item-title {
+    height: auto;
   }
 }
 
