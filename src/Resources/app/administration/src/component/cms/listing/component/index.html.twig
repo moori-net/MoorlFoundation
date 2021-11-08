@@ -20,23 +20,25 @@
 
                             <div v-if="element.config.itemLayout.value !== 'image-or-title'"
                                  class="moorl-listing-item-content" :style="contentCss">
-                                {% block moorl_foundation_listing_item_content %}
-                                    <div class="moorl-listing-item-title">
-                                        {% block moorl_foundation_listing_item_title %}
-                                            {{ itemTitle(item) }}
-                                        {% endblock %}
-                                    </div>
+                                <div>
+                                    {% block moorl_foundation_listing_item_content %}
+                                        <div class="moorl-listing-item-title">
+                                            {% block moorl_foundation_listing_item_title %}
+                                                {{ itemTitle(item) }}
+                                            {% endblock %}
+                                        </div>
 
-                                    <div v-if="itemDescription(item)" class="moorl-listing-item-description">
-                                        {% block moorl_foundation_listing_item_description %}
-                                            {{ itemDescription(item) }}
-                                        {% endblock %}
-                                    </div>
+                                        <div v-if="itemDescription(item)" class="moorl-listing-item-description">
+                                            {% block moorl_foundation_listing_item_description %}
+                                                {{ itemDescription(item) }}
+                                            {% endblock %}
+                                        </div>
 
-                                    <sw-button v-if="element.config.hasButton.value">
-                                        {{ element.config.buttonLabel.value }}
-                                    </sw-button>
-                                {% endblock %}
+                                        <sw-button v-if="element.config.hasButton.value">
+                                            {{ element.config.buttonLabel.value }}
+                                        </sw-button>
+                                    {% endblock %}
+                                </div>
                             </div>
                         {% endblock %}
                     </div>
