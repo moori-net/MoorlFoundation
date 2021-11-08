@@ -20,7 +20,7 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
             entity: null,
             criteria: new Criteria(1, 12),
             entityCollection: [],
-            elementName: 'moorl-foundation-listing',
+            elementName: null,
             configWhitelist: null
         };
     },
@@ -103,8 +103,11 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig(this.elementName);
-            this.initElementData(this.elementName);
+            if (this.elementName) {
+                this.initElementConfig(this.elementName);
+                this.initElementData(this.elementName);
+            }
+            this.initElementConfig('moorl-foundation-listing');
             this.initEntityCollection();
         },
 

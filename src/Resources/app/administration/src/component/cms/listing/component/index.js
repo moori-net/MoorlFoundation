@@ -20,7 +20,7 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
             entity: null,
             items: [],
             criteria: new Criteria(1, 12),
-            elementName: 'moorl-foundation-listing'
+            elementName: null
         };
     },
 
@@ -107,8 +107,12 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig(this.elementName);
-            this.initElementData(this.elementName);
+            if (this.elementName) {
+                this.initElementConfig(this.elementName);
+                this.initElementData(this.elementName);
+            }
+
+            this.initElementConfig('moorl-foundation-listing');
             this.getList();
         },
 

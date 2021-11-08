@@ -68,7 +68,7 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         itemBackgroundColor: {
             source: 'static',
-            value: '#f9f9f9'
+            value: null
         },
         itemHasBorder: {
             source: 'static',
@@ -80,7 +80,7 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         contentBackgroundColor: {
             source: 'static',
-            value: '#f9f9f9'
+            value: null
         },
         contentColor: {
             source: 'static',
@@ -104,11 +104,11 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         speed: {
             source: 'static',
-            value: 2000
+            value: 1000
         },
         autoplayTimeout: {
             source: 'static',
-            value: 6000
+            value: 3000
         },
         autoplay: {
             source: 'static',

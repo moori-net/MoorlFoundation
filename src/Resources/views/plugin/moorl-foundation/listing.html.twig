@@ -6,6 +6,7 @@
     {% set itemCss = [
         "padding:#{config.itemPadding.value}",
         "background-color:#{config.itemBackgroundColor.value}",
+        "height:#{config.itemHeight.value}",
     ] %}
     {% set contentCss = [
         "padding:#{config.contentPadding.value}",
@@ -18,12 +19,10 @@
     {% if config.listingLayout.value == 'grid' %}
         {% set listingCss = listingCss|merge([
             "grid-template-columns:repeat(auto-fit, minmax(#{config.itemWidth.value}, 1fr))",
-            "grid-auto-rows:#{config.itemHeight.value}",
             "grid-gap:#{config.gapSize.value}",
         ]) %}
     {% elseif config.listingLayout.value == 'list' %}
         {% set listingCss = listingCss|merge([
-            "grid-auto-rows:#{config.itemHeight.value}",
             "grid-gap:#{config.gapSize.value}",
         ]) %}
     {% elseif config.listingLayout.value == 'slider' %}

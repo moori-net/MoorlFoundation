@@ -56,7 +56,7 @@ class SortingService
 
     public function enrichCmsElementResolverCriteria(CmsSlotEntity $slot, Criteria $criteria, Context $context): void
     {
-        $criteria->setTitle($slot->getType());
+        $criteria->setTitle("cms::" . $slot->getType());
 
         $config = $slot->getFieldConfig();
         $limitConfig = $config->get('limit');
@@ -65,9 +65,11 @@ class SortingService
         }
 
         $listingSourceConfig = $config->get('listingSource');
-        $listingItemIdsConfig = $config->get('listingItemIds');
-        if ($listingSourceConfig->getValue() === 'select') {
-            $criteria->setIds($listingItemIdsConfig->getArrayValue());
+        if ($listingSourceConfig && $listingSourceConfig->getValue() === 'select') {
+            $listingItemIdsConfig = $config->get('listingItemIds');
+            if ($listingItemIdsConfig && $listingItemIdsConfig->getArrayValue()) {
+                $criteria->setIds($listingItemIdsConfig->getArrayValue());
+            }
         }
 
         $listingSortingConfig = $config->get('listingSorting');
