@@ -111,18 +111,10 @@
   flex-direction: column-reverse;
 }
 
-.moorl-listing-item-image-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 1.4em;
-  max-height: 48px;
-  line-height: 24px;
-  text-align: center;
-}
-
 .moorl-listing-item-title {
   font-size: 1.4em;
   height: 24px;
+  line-height: 24px;
 }
 
 .moorl-listing-item-meta {
@@ -187,7 +179,6 @@
   > div > div {
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 20px;
     margin-bottom: 10px;
 
     &:last-child {

@@ -68,7 +68,7 @@
     <li class="{{ listingColumns }}">
         {% sw_include config.itemLayoutTemplate.value %}
     </li>
-{% elseif config.hasButton.value %}
+{% elseif config.hasButton.value or not url %}
     <li class="{{ listingColumns }}">
         <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
              style="{{ itemCss|join(';')|raw }}">
