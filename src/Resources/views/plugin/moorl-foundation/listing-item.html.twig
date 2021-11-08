@@ -44,7 +44,7 @@
                     {% endif %}
 
                     {% if config.hasButton.value %}
-                        <a href="{{ url }}"
+                        <a href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
                            title="{{ config.buttonLabel.value }}"
                            class="{{ config.buttonClass.value }} moorl-listing-item-button">
                             {% block moorl_foundation_listing_item_button_label %}
@@ -73,7 +73,8 @@
     </li>
 {% else %}
     <li class="{{ listingColumns }}">
-        <a href="{{ url }}" class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
+        <a href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
+           class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
            style="{{ itemCss|join(';')|raw }}"
            title="{{ title }}">
             <div class="moorl-listing-item-{{ config.itemLayout.value }}">

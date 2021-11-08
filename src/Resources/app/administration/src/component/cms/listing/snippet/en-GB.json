@@ -11,6 +11,7 @@
                     "content": "Content"
                 },
                 "label": {
+                    "urlNewTab": "Open URLs in new tab",
                     "itemLayoutTemplate": "Item layout template path",
                     "listingSorting": "Sorting",
                     "listingItemIds": "Select items",

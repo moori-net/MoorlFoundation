@@ -98,6 +98,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'Click here!'
         },
+        urlNewTab: {
+            source: 'static',
+            value: true
+        },
         speed: {
             source: 'static',
             value: 2000

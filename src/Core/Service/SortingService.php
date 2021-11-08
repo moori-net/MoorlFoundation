@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Service;
 
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
 use MoorlFoundation\Core\Content\Sorting\SortingEntity;
+use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -51,5 +52,27 @@ class SortingService
         }
 
         $criteria->addSorting(...$sorting->createDalSorting());
+    }
+
+    public function enrichCmsElementResolverCriteria(CmsSlotEntity $slot, Criteria $criteria, Context $context): void
+    {
+        $criteria->setTitle($slot->getType());
+
+        $config = $slot->getFieldConfig();
+        $limitConfig = $config->get('limit');
+        if ($limitConfig && $limitConfig->getValue()) {
+            $criteria->setLimit($limitConfig->getValue());
+        }
+
+        $listingSourceConfig = $config->get('listingSource');
+        $listingItemIdsConfig = $config->get('listingItemIds');
+        if ($listingSourceConfig->getValue() === 'select') {
+            $criteria->setIds($listingItemIdsConfig->getArrayValue());
+        }
+
+        $listingSortingConfig = $config->get('listingSorting');
+        if ($listingSortingConfig && $listingSortingConfig->getValue()) {
+            $this->addSortingCriteria($listingSortingConfig->getValue(), $criteria, $context);
+        }
     }
 }

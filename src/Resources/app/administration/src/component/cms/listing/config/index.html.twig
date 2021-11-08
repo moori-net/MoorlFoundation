@@ -193,6 +193,11 @@
                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentColor')">
                 </sw-colorpicker>
 
+                <sw-field v-model="element.config.urlNewTab.value"
+                          type="switch"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.urlNewTab')">
+                </sw-field>
+
                 <sw-field v-model="element.config.hasButton.value"
                           type="switch"
                           :label="$tc('sw-cms.elements.moorl-foundation-listing.label.hasButton')">
