@@ -184,7 +184,11 @@ class DataService
             }
 
             foreach ($dataObject->getInstallConfig() as $k => $v) {
-                $this->systemConfigService->set($k, $this->processReplace($v, $dataObject));
+                if (is_string($v)) {
+                    $this->systemConfigService->set($k, $this->processReplace($v, $dataObject));
+                } else {
+                    $this->systemConfigService->set($k, $v);
+                }
             }
 
             $dataObject->process();

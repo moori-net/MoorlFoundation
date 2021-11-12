@@ -139,4 +139,14 @@ class DataExtension
     {
         return [];
     }
+
+    public function getName(): string
+    {
+        return 'standard';
+    }
+
+    public function getType(): string
+    {
+        return 'demo';
+    }
 }

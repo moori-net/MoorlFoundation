@@ -16,12 +16,10 @@
 
         <div class="cms-page search-page moorl-search-page">
             <h1 class="search-headline">
-                {% block page_search_headline_text %}
-                    {{ "moorl-foundation.search.headline"|trans({
-                        '%count%': count,
-                        '%searchTerm%': page.searchTerm,
-                    }) }}
-                {% endblock %}
+                {{ "moorl-foundation.search.headline"|trans({
+                    '%count%': count,
+                    '%searchTerm%': page.searchTerm,
+                }) }}
             </h1>
 
             <ul class="nav nav-tabs">
