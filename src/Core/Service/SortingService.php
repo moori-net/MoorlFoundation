@@ -11,6 +11,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\Framework\Uuid\Uuid;
 
 class SortingService
 {
@@ -23,6 +24,34 @@ class SortingService
         $this->sortingRepository = $sortingRepository;
     }
 
+    public function getFallbackSorting(string $entityName): SortingEntity
+    {
+        $sorting = new SortingEntity();
+        $sorting->setId(Uuid::randomHex());
+        $sorting->setPriority(0);
+        $sorting->setActive(true);
+        $sorting->setKey('created-at-desc');
+        $sorting->setTranslated([
+            'label' => 'New entries first (Fallback)'
+        ]);
+        $sorting->setFields([
+            [
+                'field' => $entityName . '.createdAt',
+                'order' => 'desc',
+                'priority' => 1,
+                'naturalSorting' => 0
+            ],
+            [
+                'field' => $entityName . '.id',
+                'order' => 'desc',
+                'priority' => 0,
+                'naturalSorting' => 0
+            ]
+        ]);
+
+        return $sorting;
+    }
+
     public function getAvailableSortings(string $entityName, Context $context): EntityCollection
     {
         $criteria = new Criteria();
@@ -33,6 +62,11 @@ class SortingService
 
         /** @var SortingCollection $sortings */
         $sortings = $this->sortingRepository->search($criteria, $context)->getEntities();
+
+        /* Fallback sorting */
+        if ($sortings->count() < 1) {
+            $sortings->add($this->getFallbackSorting($entityName));
+        }
 
         return $sortings;
     }

@@ -11,7 +11,10 @@ use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Shopware\Core\System\Country\CountryEntity;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -42,6 +45,28 @@ class LocationService
 
         $this->now = new \DateTimeImmutable();
         $this->context = Context::createDefaultContext();
+    }
+
+    public function getCountryByIso(?string $iso): ?CountryEntity
+    {
+        if (!$iso) {
+            return null;
+        }
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new MultiFilter(
+            MultiFilter::CONNECTION_OR,
+            [
+                new EqualsFilter('iso', $iso),
+                new EqualsFilter('iso3', $iso),
+                new EqualsFilter('name', $iso)
+            ]
+        ));
+        $criteria->setLimit(1);
+
+        $countryRepository = $this->definitionInstanceRegistry->getRepository('country');
+
+        return $countryRepository->search($criteria, $this->context)->first();
     }
 
     public function getCustomerLocation(?CustomerEntity $customer = null): ?GeoPoint
