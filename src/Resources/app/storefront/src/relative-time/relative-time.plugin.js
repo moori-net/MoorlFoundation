@@ -12,6 +12,9 @@ export default class MoorlRelativeTimePlugin extends Plugin {
         const time = new Intl.RelativeTimeFormat(this.options.locale);
         const from = new Date(this.options.from);
         const el = this.el;
+
+        el.innerText = '---';
+
         let relTime = '';
 
         let x = setInterval(function () {
