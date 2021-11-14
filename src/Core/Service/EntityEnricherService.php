@@ -6,7 +6,7 @@ use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollectio
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
-use Shopware\Core\Content\Product\SalesChannel\Price\ProductPriceCalculator;
+use Shopware\Core\Content\Product\SalesChannel\Price\AbstractProductPriceCalculator;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
@@ -17,7 +17,7 @@ class EntityEnricherService
 {
     private DefinitionInstanceRegistry $definitionInstanceRegistry;
     private SystemConfigService $systemConfigService;
-    private ProductPriceCalculator $productPriceCalculator;
+    private AbstractProductPriceCalculator $productPriceCalculator;
     private UrlGeneratorInterface $urlGenerator;
 
     private ?Context $context = null;
@@ -26,7 +26,7 @@ class EntityEnricherService
     public function __construct(
         DefinitionInstanceRegistry $definitionInstanceRegistry,
         SystemConfigService $systemConfigService,
-        ProductPriceCalculator $productPriceCalculator,
+        AbstractProductPriceCalculator $productPriceCalculator,
         UrlGeneratorInterface $urlGenerator
     )
     {
