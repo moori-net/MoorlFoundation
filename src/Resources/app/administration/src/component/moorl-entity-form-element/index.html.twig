@@ -47,7 +47,7 @@
                 v-model="value[column.property]">
             <option v-for="option in column.flags.moorl_edit_field_options.options"
                     :value="option">
-                {{ $tc('moorl-foundation.option.' + option) }}
+                {{ $tc(snippetSrc + '.' + column.property + '.' + option) }}
             </option>
         </sw-select-field>
     </template>

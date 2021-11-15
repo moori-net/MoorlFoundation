@@ -85,7 +85,8 @@
               @modal-close="onCloseModal">
         <moorl-entity-form-element v-for="column in editColumns"
                                    :value="selectedItem"
-                                   :column="column">
+                                   :column="column"
+                                   :snippetSrc="snippetSrc">
         </moorl-entity-form-element>
         <template #modal-footer>
             <sw-button @click="onCloseModal" size="small">

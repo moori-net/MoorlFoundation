@@ -15,5 +15,10 @@ Component.register('moorl-entity-form-element', {
             type: Object,
             required: true
         },
+        snippetSrc: {
+            type: String,
+            required: false,
+            default: 'moorl-foundation'
+        },
     }
 });
