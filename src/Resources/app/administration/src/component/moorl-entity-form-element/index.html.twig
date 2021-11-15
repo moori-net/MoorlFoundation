@@ -11,22 +11,35 @@
         </template>
 
         <template v-else>
-            <template v-if="column.required">
-                <sw-entity-single-select :label="column.label"
-                                         :helpText="column.helpText"
-                                         v-model="value[column.localField]"
-                                         :labelProperty="column.flags.moorl_label_property"
-                                         :entity="column.entity"
-                                         required
-                                         validation="required">
+            <template v-if="column.localField === 'productId'">
+                <sw-entity-single-select
+                        entity="product"
+                        :criteria="productSearchCriteria"
+                        :context="productSearchContext"
+                        :label="column.label"
+                        :required="column.required"
+                        v-model="value[column.localField]">
+                    <template #result-item="{ item, index }">
+                        <slot name="result-item" v-bind="{ item, index }">
+                            <li is="sw-select-result" v-bind="{ item, index }">
+                                <span class="sw-select-result__result-item-text">
+                                    <sw-product-variant-info :variations="item.variation">
+                                        {{ item.translated.name || item.name }}
+                                    </sw-product-variant-info>
+                                </span>
+                            </li>
+                        </slot>
+                    </template>
                 </sw-entity-single-select>
             </template>
+
             <template v-else>
                 <sw-entity-single-select :label="column.label"
                                          :helpText="column.helpText"
                                          v-model="value[column.localField]"
                                          :labelProperty="column.flags.moorl_label_property"
-                                         :entity="column.entity">
+                                         :entity="column.entity"
+                                         :required="column.required">
                 </sw-entity-single-select>
             </template>
         </template>

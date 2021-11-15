@@ -1,7 +1,8 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const { Component } = Shopware;
+const {Component, Context} = Shopware;
+const {Criteria} = Shopware.Data;
 
 Component.register('moorl-entity-form-element', {
     template,
@@ -20,5 +21,21 @@ Component.register('moorl-entity-form-element', {
             required: false,
             default: 'moorl-foundation'
         },
-    }
+    },
+
+    computed: {
+        productSearchCriteria() {
+            const criteria = new Criteria(1, 25);
+            criteria.addAssociation('options.group');
+
+            return criteria;
+        },
+
+        productSearchContext() {
+            return {
+                ...Context.api,
+                inheritance: true
+            };
+        }
+    },
 });
