@@ -5,10 +5,16 @@ export default class MoorlRelativeTimePlugin extends Plugin {
     static options = {
         locale: document.documentElement.lang,
         intervalTimeout: 1000,
-        from: 'now'
+        from: 'now',
+        actionUrl: null
     };
 
     init() {
+        if (this.options.actionUrl) {
+            console.log(this.options.actionUrl);
+        }
+
+        const actionUrl = this.options.actionUrl;
         const time = new Intl.RelativeTimeFormat(this.options.locale);
         const from = new Date(this.options.from);
         const el = this.el;
@@ -20,6 +26,10 @@ export default class MoorlRelativeTimePlugin extends Plugin {
         let x = setInterval(function () {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
+
+            if (actionUrl && diff < 1) {
+                location.href = actionUrl;
+            }
 
             let days = Math.trunc(diff / (60 * 60 * 24));
             let hours = Math.trunc((diff % (60 * 60 * 24)) / (60 * 60));

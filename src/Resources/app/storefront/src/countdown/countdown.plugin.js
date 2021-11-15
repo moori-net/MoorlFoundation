@@ -10,10 +10,16 @@ export default class MoorlCountdownPlugin extends Plugin {
             seconds: "Seconds"
         },
         intervalTimeout: 1000,
-        from: 'now'
+        from: 'now',
+        actionUrl: null
     };
 
     init() {
+        if (this.options.actionUrl) {
+            console.log(this.options.actionUrl);
+        }
+
+        const actionUrl = this.options.actionUrl;
         const cdItems = this.buildContainer();
         const from = new Date(this.options.from);
         const zeroPad = (num, places) => String(num).padStart(places, '0');
@@ -21,6 +27,10 @@ export default class MoorlCountdownPlugin extends Plugin {
         let x = setInterval(function () {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
+
+            if (actionUrl && diff < 1) {
+                location.href = actionUrl;
+            }
 
             let days = Math.trunc(diff / (60 * 60 * 24));
             let hours = Math.trunc((diff % (60 * 60 * 24)) / (60 * 60));
