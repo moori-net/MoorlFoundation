@@ -8,8 +8,10 @@
 @import "component/search-page";
 @import "component/countdown";
 
-main {
-  overflow: hidden;
+.is-ctl-navigation {
+  main {
+    overflow: hidden;
+  }
 }
 
 .bg-fixed {
