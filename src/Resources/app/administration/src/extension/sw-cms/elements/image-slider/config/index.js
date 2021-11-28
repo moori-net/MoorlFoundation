@@ -24,6 +24,10 @@ Component.override('sw-cms-el-config-image-slider', {
     methods: {
         async createdComponentExtra() {
             const extraConfig = {
+                enableFeature: {
+                    source: 'static',
+                    value: true
+                },
                 speed: {
                     source: 'static',
                     value: 2000

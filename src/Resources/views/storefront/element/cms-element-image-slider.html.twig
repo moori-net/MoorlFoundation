@@ -1,23 +1,25 @@
 {% sw_extends "@Storefront/storefront/element/cms-element-image-slider.html.twig" %}
 
 {% block element_image_slider_alignment %}
-    {% set baseSliderOptions = {
-        slider: {
-            navPosition: 'bottom',
-            speed: sliderConfig.speed.value ?: 400,
-            nav: sliderConfig.navigationDots.value ? true : false,
-            controls: sliderConfig.navigationArrows.value ? true : false,
-            autoHeight: (sliderConfig.displayMode.value == "standard") ? true : false,
-            autoplay: sliderConfig.autoplay.value ? true : false,
-            autoplayHoverPause: sliderConfig.autoplayHoverPause.value ? true : false,
-            autoplayTimeout: sliderConfig.autoplayTimeout.value ?: 3500,
-            autoplayButtonOutput: false,
-            swipeAngle: false,
-            mode: "gallery",
-            animateIn: sliderConfig.animateIn.value ?: null,
-            animateOut: sliderConfig.animateOut.value ?: null,
-        }
-    } %}
+    {% if sliderConfig.enableFeature.value %}
+        {% set baseSliderOptions = {
+            slider: {
+                navPosition: 'bottom',
+                speed: sliderConfig.speed.value ?: 400,
+                nav: sliderConfig.navigationDots.value ? true : false,
+                controls: sliderConfig.navigationArrows.value ? true : false,
+                autoHeight: (sliderConfig.displayMode.value == "standard") ? true : false,
+                autoplay: sliderConfig.autoplay.value ? true : false,
+                autoplayHoverPause: sliderConfig.autoplayHoverPause.value ? true : false,
+                autoplayTimeout: sliderConfig.autoplayTimeout.value ?: 3500,
+                autoplayButtonOutput: false,
+                swipeAngle: false,
+                mode: "gallery",
+                animateIn: sliderConfig.animateIn.value ?: null,
+                animateOut: sliderConfig.animateOut.value ?: null,
+            }
+        } %}
+    {% endif %}
 
     {{ parent() }}
 {% endblock %}

@@ -6,6 +6,7 @@
                     "extra": "moori Extra"
                 },
                 "label": {
+                    "enableFeature": "Enable feature",
                     "speed": "Speed (ms)",
                     "autoplay": "Autoplay",
                     "autoplayHoverPause": "Autoplay hover pause",

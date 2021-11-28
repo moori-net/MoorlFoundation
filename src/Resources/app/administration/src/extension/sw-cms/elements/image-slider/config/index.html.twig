@@ -13,21 +13,11 @@
 
     <sw-container v-if="active === 'extra'"
                   class="sw-cms-el-config-image-slider__tab-extra">
-        <sw-select-field :label="$tc(snippetPrefix + 'label.animateIn')"
-                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                         v-model="element.config.animateIn.value">
-            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                <option v-for="value in item.options" :value="value">{{ value }}</option>
-            </optgroup>
-        </sw-select-field>
-
-        <sw-select-field :label="$tc(snippetPrefix + 'label.animateOut')"
-                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                         v-model="element.config.animateOut.value">
-            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                <option v-for="value in item.options" :value="value">{{ value }}</option>
-            </optgroup>
-        </sw-select-field>
+        <sw-field v-model="element.config.enableFeature.value"
+                  bordered
+                  type="switch"
+                  :label="$tc(snippetPrefix + 'label.enableFeature')">
+        </sw-field>
 
         <sw-field v-model="element.config.speed.value"
                   type="number"
@@ -50,5 +40,21 @@
                   type="switch"
                   :label="$tc(snippetPrefix + 'label.autoplayHoverPause')">
         </sw-field>
+
+        <sw-select-field :label="$tc(snippetPrefix + 'label.animateIn')"
+                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
+                         v-model="element.config.animateIn.value">
+            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                <option v-for="value in item.options" :value="value">{{ value }}</option>
+            </optgroup>
+        </sw-select-field>
+
+        <sw-select-field :label="$tc(snippetPrefix + 'label.animateOut')"
+                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
+                         v-model="element.config.animateOut.value">
+            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                <option v-for="value in item.options" :value="value">{{ value }}</option>
+            </optgroup>
+        </sw-select-field>
     </sw-container>
 {% endblock %}
