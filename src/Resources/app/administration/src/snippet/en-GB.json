@@ -60,6 +60,9 @@
             "connectionSuccess": "Connection Success"
         },
         "buttons": {
+            "add": "Add",
+            "remove": "Remove",
+            "configuration": "Configuration",
             "testApi": "Test API",
             "refreshPreview": "Refresh preview",
             "startExportButtonText": "Start export",

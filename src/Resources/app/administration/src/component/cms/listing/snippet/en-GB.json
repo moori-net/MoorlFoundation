@@ -11,6 +11,8 @@
                     "content": "Content"
                 },
                 "label": {
+                    "activeSlot": "Active slot",
+                    "slots": "Slots",
                     "urlNewTab": "Open URLs in new tab",
                     "itemLayoutTemplate": "Item layout template path",
                     "listingSorting": "Sorting",

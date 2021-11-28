@@ -1,4 +1,5 @@
-[class^="sw-cms-preview-block-moorl-slider-"] {
+[class^="sw-cms-preview-block-moorl-slider-"],
+.sw-cms-preview-block-moorl-interactive-slider {
   padding: 10px;
   width: 100%;
   display: grid;
@@ -16,6 +17,13 @@
   }
 }
 
+.sw-cms-preview-block-moorl-interactive-slider {
+  > div {
+    background-color: rgba(222,78,78,.05);
+    border: 2px dashed rgb(222,78,78,.4);
+  }
+}
+
 [class^="sw-cms-block-moorl-slider-"] {
   width: 100%;
   display: grid;
@@ -25,5 +33,40 @@
     box-sizing: border-box;
     height: auto;
     width: 100%;
+  }
+}
+
+.sw-cms-block-moorl-interactive-slider {
+  .sw-cms-block-moorl-interactive-slider-config {
+    background-color: rgba(78,133,222,.05);
+    border: 2px dashed rgba(78,133,222,.4);
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+
+    .sw-button {
+      margin-right: 15px;
+    }
+
+    .sw-field {
+      display: inline-block;
+      width: auto;
+      margin-bottom: 0;
+      vertical-align: middle;
+
+      select {
+        padding: 8px 20px;
+      }
+    }
+  }
+
+  .sw-cms-block-moorl-interactive-slider-content {
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
+
+    .sw-cms-block-moorl-interactive-slider-slot {
+      width: 100%;
+    }
   }
 }
