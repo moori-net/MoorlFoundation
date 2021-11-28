@@ -29,7 +29,7 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
 
         slotStyle() {
             return {
-                'min-height': this.block.customFields.moorl_slider_interactive.itemHeight,
+                'min-height': this.block.customFields.moorl_interactive_slider.itemHeight,
             }
         }
     },
@@ -41,14 +41,14 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
             this.$set(this.block, 'customFields', {});
         }
 
-        if (!this.block.customFields.moorl_slider_interactive) {
-            this.$set(this.block.customFields, 'moorl_slider_interactive', {
+        if (!this.block.customFields.moorl_interactive_slider) {
+            this.$set(this.block.customFields, 'moorl_interactive_slider', {
                 slots: 1,
                 itemWidth: '100%',
                 itemHeight: '340px',
                 gapSize: '0px',
-                speed: 500,
-                autoplayTimeout: 500,
+                speed: 800,
+                autoplayTimeout: 2000,
                 autoplay: true,
                 autoplayHoverPause: true,
                 navigation: false,

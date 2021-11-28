@@ -1,0 +1,97 @@
+<div class="col-12">
+    {# Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns #}
+    {% set config = block.customFields.moorl_interactive_slider %}
+
+    {% set listingCss = [
+        "margin-right:-#{config.gapSize}",
+    ] %}
+
+    {% set sliderOptions = {
+        productboxMinWidth: config.itemWidth,
+        slider: {
+            navPosition: 'bottom',
+            speed: config.speed ?: 400,
+            autoHeight: false,
+            autoplay: config.autoplay ? true : false,
+            autoplayHoverPause: config.autoplayHoverPause ? true : false,
+            autoplayTimeout: config.autoplayTimeout ?: 3500,
+            autoplayButtonOutput: false,
+            swipeAngle: false,
+            mode: config.animateIn ? "gallery" : "carousel",
+            gutter: (config.gapSize|number_format * 1),
+            animateIn: config.animateIn ?: null,
+            animateOut: config.animateOut ?: null,
+            autoplayButtonOutput: false,
+            nav: config.navigation ? false : true,
+            mouseDrag: config.autoplay ? false : true,
+            controls: config.navigation ? true : false
+        }
+    } %}
+
+    {% if config.itemWidth == '100%' %}
+        <div class="base-slider image-slider{% if config.navigation %} has-nav{% endif %}"
+             data-base-slider="true"
+             data-base-slider-options='{{ sliderOptions|json_encode }}'>
+            <div class="image-slider-container"
+                 style="{{ listingCss|join(';')|raw }}"
+                 data-base-slider-container="true">
+                {% for letter in 'a'..'z' %}
+                    {% set element = block.slots.getSlot("slot-#{letter}") %}
+
+                    {% if element %}
+                        <div class="">
+                            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if config.navigation %}
+                <div class="image-slider-controls-container">
+                    <div class="base-slider-controls"
+                         data-base-slider-controls="true">
+                        <button class="base-slider-controls-prev image-slider-controls-previs-nav-prev-inside">
+                            {% sw_icon 'arrow-head-left' %}
+                        </button>
+
+                        <button class="base-slider-controls-next image-slider-controls-next is-nav-next-inside">
+                            {% sw_icon 'arrow-head-right' %}
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="base-slider product-slider product-slider{% if config.navigation %} has-nav{% endif %}"
+             data-product-slider="true"
+             data-product-slider-options='{{ sliderOptions|json_encode }}'>
+            <div class="moorl-listing-slider"
+                style="{{ listingCss|join(';')|raw }}"
+                data-product-slider-container="true">
+                {% for letter in 'a'..'z' %}
+                    {% set element = block.slots.getSlot("slot-#{letter}") %}
+
+                    {% if element %}
+                        <div class="">
+                            {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if config.navigation %}
+                <div class="product-slider-controls-container">
+                    <div class="base-slider-controls"
+                         data-product-slider-controls="true">
+                        <button class="base-slider-controls-prev product-slider-controls-prev">
+                            {% sw_icon 'arrow-head-left' %}
+                        </button>
+                        <button class="base-slider-controls-next product-slider-controls-next">
+                            {% sw_icon 'arrow-head-right' %}
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

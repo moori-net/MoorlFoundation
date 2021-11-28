@@ -34,44 +34,44 @@
               :title="$tc('global.default.edit')"
               @modal-close="showConfigurationModal = false">
         <sw-container columns="1fr 1fr" gap="0px 30px">
-            <sw-field v-model="block.customFields.moorl_slider_interactive.itemWidth"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.itemWidth"
                       type="text"
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')">
             </sw-field>
 
-            <sw-field v-model="block.customFields.moorl_slider_interactive.itemHeight"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.itemHeight"
                       type="text"
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
             </sw-field>
 
-            <sw-field v-model="block.customFields.moorl_slider_interactive.gapSize"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.gapSize"
                       type="text"
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
             </sw-field>
             
-            <sw-field v-model="block.customFields.moorl_slider_interactive.speed"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.speed"
                       type="number"
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')">
             </sw-field>
 
-            <sw-field v-model="block.customFields.moorl_slider_interactive.autoplayTimeout"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.autoplayTimeout"
                       type="number"
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayTimeout')">
             </sw-field>
 
-            <sw-field v-model="block.customFields.moorl_slider_interactive.autoplay"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.autoplay"
                       type="switch"
                       bordered
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplay')">
             </sw-field>
 
-            <sw-field v-model="block.customFields.moorl_slider_interactive.autoplayHoverPause"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.autoplayHoverPause"
                       type="switch"
                       bordered
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')">
             </sw-field>
 
-            <sw-field v-model="block.customFields.moorl_slider_interactive.navigation"
+            <sw-field v-model="block.customFields.moorl_interactive_slider.navigation"
                       type="switch"
                       bordered
                       :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')">
@@ -79,7 +79,7 @@
 
             <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
                              :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             v-model="block.customFields.moorl_slider_interactive.animateIn">
+                             v-model="block.customFields.moorl_interactive_slider.animateIn">
                 <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
                     <option v-for="value in item.options" :value="value">{{ value }}</option>
                 </optgroup>
@@ -87,7 +87,7 @@
 
             <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateOut')"
                              :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             v-model="block.customFields.moorl_slider_interactive.animateOut">
+                             v-model="block.customFields.moorl_interactive_slider.animateOut">
                 <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
                     <option v-for="value in item.options" :value="value">{{ value }}</option>
                 </optgroup>
