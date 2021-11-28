@@ -29,7 +29,7 @@
     } %}
 
     {% if config.itemWidth == '100%' %}
-        <div class="base-slider image-slider{% if config.navigation %} has-nav{% endif %}"
+        <div class="base-slider image-slider"
              data-base-slider="true"
              data-base-slider-options='{{ sliderOptions|json_encode }}'>
             <div class="image-slider-container"
@@ -50,7 +50,7 @@
                 <div class="image-slider-controls-container">
                     <div class="base-slider-controls"
                          data-base-slider-controls="true">
-                        <button class="base-slider-controls-prev image-slider-controls-previs-nav-prev-inside">
+                        <button class="base-slider-controls-prev image-slider-controls-prev is-nav-prev-inside">
                             {% sw_icon 'arrow-head-left' %}
                         </button>
 
@@ -62,7 +62,7 @@
             {% endif %}
         </div>
     {% else %}
-        <div class="base-slider product-slider product-slider{% if config.navigation %} has-nav{% endif %}"
+        <div class="base-slider product-slider product-slider"
              data-product-slider="true"
              data-product-slider-options='{{ sliderOptions|json_encode }}'>
             <div class="moorl-listing-slider"
@@ -80,13 +80,14 @@
             </div>
 
             {% if config.navigation %}
-                <div class="product-slider-controls-container">
+                <div class="image-slider-controls-container">
                     <div class="base-slider-controls"
                          data-product-slider-controls="true">
-                        <button class="base-slider-controls-prev product-slider-controls-prev">
+                        <button class="base-slider-controls-prev image-slider-controls-prev is-nav-prev-inside">
                             {% sw_icon 'arrow-head-left' %}
                         </button>
-                        <button class="base-slider-controls-next product-slider-controls-next">
+
+                        <button class="base-slider-controls-next image-slider-controls-next is-nav-next-inside">
                             {% sw_icon 'arrow-head-right' %}
                         </button>
                     </div>

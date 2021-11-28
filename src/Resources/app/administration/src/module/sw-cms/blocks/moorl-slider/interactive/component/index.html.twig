@@ -1,16 +1,16 @@
 <div class="sw-cms-block-moorl-interactive-slider">
     <div class="sw-cms-block-moorl-interactive-slider-config">
-        <sw-button variant="primary"
+        <sw-button variant="light"
                    @click="showConfigurationModal = true">
             {{ $tc('moorl-foundation.buttons.configuration') }}
         </sw-button>
 
-        <sw-button variant="primary"
+        <sw-button variant="light"
                    @click="addSlot()">
             {{ $tc('moorl-foundation.buttons.add') }}
         </sw-button>
 
-        <sw-button variant="primary"
+        <sw-button variant="light"
                    @click="removeSlot()">
             {{ $tc('moorl-foundation.buttons.remove') }}
         </sw-button>
@@ -31,7 +31,7 @@
     </div>
 
     <sw-modal v-if="showConfigurationModal"
-              :title="$tc('global.default.edit')"
+              :title="$tc('sw-cms.blocks.moorl-slider.interactive')"
               @modal-close="showConfigurationModal = false">
         <sw-container columns="1fr 1fr" gap="0px 30px">
             <sw-field v-model="block.customFields.moorl_interactive_slider.itemWidth"
