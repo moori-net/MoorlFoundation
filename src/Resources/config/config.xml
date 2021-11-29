@@ -8,11 +8,13 @@
             <name>fontawesome</name>
             <label>Enable Font Awesome 5 Free</label>
             <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
+            <defaultValue>true</defaultValue>
         </input-field>
         <input-field type="bool">
             <name>animate</name>
             <label>Enable Animate.css</label>
             <label lang="de-DE">Aktiviere Animate.css</label>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 
