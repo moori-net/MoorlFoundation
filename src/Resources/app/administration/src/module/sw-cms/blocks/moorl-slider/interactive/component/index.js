@@ -57,12 +57,26 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
             });
         }
 
+        this.sanitizeSlots();
+
         this.activeSlot = this.block.slots.last().id
     },
 
     methods: {
+        sanitizeSlots() {
+            this.block.slots.sort((a, b) => a.slot > b.slot && 1 || -1);
+            this.block.slots.forEach(function (element, index) {
+                let char = String.fromCharCode(index + 97);
+                element.slot = `slot-${char}`;
+            });
+        },
+
         addSlot() {
             let slotCount = this.block.slots.length;
+            if (slotCount > 25) {
+                return;
+            }
+
             let char = String.fromCharCode(slotCount + 97);
 
             const slot = this.slotRepository.create();
@@ -79,7 +93,6 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
 
         removeSlot() {
             let slotCount = this.block.slots.length;
-
             if (slotCount < 2) {
                 return;
             }
