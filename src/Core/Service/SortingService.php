@@ -12,6 +12,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\Request;
 
 class SortingService
 {
@@ -88,14 +89,26 @@ class SortingService
         $criteria->addSorting(...$sorting->createDalSorting());
     }
 
-    public function enrichCmsElementResolverCriteria(CmsSlotEntity $slot, Criteria $criteria, Context $context): void
+    public function enrichCmsElementResolverCriteria(
+        CmsSlotEntity $slot,
+        Criteria $criteria,
+        Context $context,
+        ?Request $request = null
+    ): void
     {
+        if ($request) {
+            $request->query->set('slots', $slot->getId());
+        }
+
         $criteria->setTitle("cms::" . $slot->getType());
 
         $config = $slot->getFieldConfig();
         $limitConfig = $config->get('limit');
         if ($limitConfig && $limitConfig->getValue()) {
             $criteria->setLimit($limitConfig->getValue());
+            if ($request) {
+                $request->query->set('limit', $limitConfig->getValue());
+            }
         }
 
         $listingSourceConfig = $config->get('listingSource');
