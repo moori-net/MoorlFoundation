@@ -1,0 +1,95 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-foundation-listing": {
+                "name": "moorl Standard Listing",
+                "tab": {
+                    "layout": "Layout",
+                    "slider": "Slider",
+                    "item": "Element",
+                    "listing": "Listing",
+                    "content": "Inhalt"
+                },
+                "label": {
+                    "mode": "Modus",
+                    "navigationArrows": "Navigation Pfeile",
+                    "navigationDots": "Navigation Punkte",
+                    "mouseDrag": "Maus Drag",
+                    "activeSlot": "Aktiver Slot",
+                    "slots": "Slots",
+                    "urlNewTab": "URL im neuen Tab öffnen",
+                    "itemLayoutTemplate": "Template Pfad zum Layout",
+                    "listingSorting": "Sortierung",
+                    "listingItemIds": "Elemente auswählen",
+                    "listingSource": "Quellen",
+                    "textAlign": "Text Ausrichtung",
+                    "speed": "Schnelligkeit (ms)",
+                    "autoplayTimeout": "Autoplay Wartezeit (ms)",
+                    "autoplay": "Autoplay",
+                    "autoplayHoverPause": "Pause wenn hover",
+                    "navigation": "Navigation",
+                    "animateIn": "Animate in",
+                    "animateOut": "Animate out",
+                    "listingLayout": "Listing Layout",
+                    "itemLayout": "Element Layout",
+                    "displayMode": "Anzeigemodus",
+                    "limit": "Max. Elemente",
+                    "gapSize": "Abstände",
+                    "itemWidth": "Element Mindestbreite",
+                    "itemHeight": "Element Mindesthöhe",
+                    "itemPadding": "Element Außenabstand",
+                    "itemBackgroundColor": "Element Hintergrundfarbe",
+                    "itemHasBorder": "Element Umrandung",
+                    "contentPadding": "Inhalt Außenabstand",
+                    "contentBackgroundColor": "Inhalt Hintergrundfarbe",
+                    "contentColor": "Inhalt Schriftfarbe",
+                    "hasButton": "Hat Button",
+                    "buttonClass": "Button CSS Klasse",
+                    "buttonLabel": "Button Bezeichung"
+                },
+                "listingSource": {
+                    "static": "Statische Elemente",
+                    "select": "Elemente auswählen",
+                    "auto": "Automatisch mit Paginierung"
+                },
+                "listingLayout": {
+                    "standard": "Shopware standard",
+                    "grid": "Responsive Grid",
+                    "list": "Liste",
+                    "slider": "Slider"
+                },
+                "itemLayout": {
+                    "custom": "Individuell",
+                    "standard": "Standard",
+                    "overlay": "Overlay",
+                    "image-or-title": "Bild (wenn nicht vorhanden Titel)",
+                    "image-content": "Bild und Inhalt",
+                    "content-image": "Inhalt und Bild"
+                },
+                "displayMode": {
+                    "standard": "Standard",
+                    "cover": "Füllen",
+                    "contain": "Strecken"
+                },
+                "textAlign": {
+                    "left": "Links",
+                    "center": "Mittig",
+                    "right": "Rechts"
+                },
+                "mode": {
+                    "carousel": "Carousel",
+                    "gallery": "Gallerie"
+                },
+                "navigationArrows": {
+                    "inside": "Innen",
+                    "outside": "Außen"
+                },
+                "navigationDots": {
+                    "inside": "Innen",
+                    "outside": "Außen"
+                },
+                "none": "Keine"
+            }
+        }
+    }
+}
