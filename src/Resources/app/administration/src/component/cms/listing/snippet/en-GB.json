@@ -11,6 +11,10 @@
                     "content": "Content"
                 },
                 "label": {
+                    "mode": "Mode",
+                    "navigationArrows": "Navigation arrows",
+                    "navigationDots": "Navigation dots",
+                    "mouseDrag": "Mouse drag",
                     "activeSlot": "Active slot",
                     "slots": "Slots",
                     "urlNewTab": "Open URLs in new tab",
@@ -71,7 +75,20 @@
                     "left": "Left",
                     "center": "Center",
                     "right": "Right"
-                }
+                },
+                "mode": {
+                    "carousel": "Carousel",
+                    "gallery": "Gallery"
+                },
+                "navigationArrows": {
+                    "inside": "Inside",
+                    "outside": "Outside"
+                },
+                "navigationDots": {
+                    "inside": "Inside",
+                    "outside": "Outside"
+                },
+                "none": "None"
             }
         }
     }

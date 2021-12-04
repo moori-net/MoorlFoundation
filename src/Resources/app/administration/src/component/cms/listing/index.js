@@ -126,9 +126,21 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: null
         },
-        navigation: {
+        mode: {
             source: 'static',
-            value: true
-        }
+            value: 'carousel'
+        },
+        navigationArrows: {
+            source: 'static',
+            value: 'outside',
+        },
+        navigationDots: {
+            source: 'static',
+            value: null,
+        },
+        mouseDrag: {
+            source: 'static',
+            value: false,
+        },
     }
 });

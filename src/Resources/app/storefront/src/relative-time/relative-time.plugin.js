@@ -19,7 +19,9 @@ export default class MoorlRelativeTimePlugin extends Plugin {
         const from = new Date(this.options.from);
         const el = this.el;
 
-        el.innerText = '---';
+        if (!el.dataset.originalTitle) {
+            el.innerText = '---';
+        }
 
         let relTime = '';
 

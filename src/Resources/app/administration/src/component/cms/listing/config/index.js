@@ -66,6 +66,20 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                     {value: 'left', label: 'sw-cms.elements.moorl-foundation-listing.textAlign.left'},
                     {value: 'center', label: 'sw-cms.elements.moorl-foundation-listing.textAlign.center'},
                     {value: 'right', label: 'sw-cms.elements.moorl-foundation-listing.textAlign.right'}
+                ],
+                mode: [
+                    {value: 'carousel', label: 'sw-cms.elements.moorl-foundation-listing.mode.carousel'},
+                    {value: 'gallery', label: 'sw-cms.elements.moorl-foundation-listing.mode.gallery'}
+                ],
+                navigationArrows: [
+                    {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
+                    {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationArrows.outside'},
+                    {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationArrows.inside'}
+                ],
+                navigationDots: [
+                    {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
+                    {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.outside'},
+                    {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.inside'}
                 ]
             };
 

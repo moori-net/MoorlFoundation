@@ -11,7 +11,8 @@
                 {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.layout') }}
             </sw-tabs-item>
 
-            <sw-tabs-item name="slider"
+            <sw-tabs-item v-if="element.config.listingLayout.value === 'slider'"
+                          name="slider"
                           :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.slider') }}
             </sw-tabs-item>
@@ -96,7 +97,27 @@
                 </sw-field>
             </sw-container>
 
-            <sw-container v-if="active === 'slider'" columns="1fr 1fr" gap="0px 30px">
+            <sw-container v-if="active === 'slider'"
+                          columns="1fr 1fr"
+                          gap="0px 30px">
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.mode')"
+                                 v-model="element.config.mode.value"
+                                 show-clearable-button>
+                    <option v-for="option in elementOptions.mode" :value="option.value">{{ $tc(option.label) }}</option>
+                </sw-select-field>
+
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigationArrows')"
+                                 v-model="element.config.navigationArrows.value"
+                                 show-clearable-button>
+                    <option v-for="option in elementOptions.navigationArrows" :value="option.value">{{ $tc(option.label) }}</option>
+                </sw-select-field>
+
+                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigationDots')"
+                                 v-model="element.config.navigationDots.value"
+                                 show-clearable-button>
+                    <option v-for="option in elementOptions.navigationDots" :value="option.value">{{ $tc(option.label) }}</option>
+                </sw-select-field>
+
                 <sw-field v-model="element.config.speed.value"
                           type="number"
                           :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')">
@@ -119,13 +140,14 @@
                           :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')">
                 </sw-field>
 
-                <sw-field v-model="element.config.navigation.value"
+                <sw-field v-model="element.config.mouseDrag.value"
                           type="switch"
                           bordered
-                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')">
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.mouseDrag')">
                 </sw-field>
 
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
+                <sw-select-field v-if="element.config.mode.value === 'gallery'"
+                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
                                  :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
                                  v-model="element.config.animateIn.value">
                     <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
@@ -133,7 +155,8 @@
                     </optgroup>
                 </sw-select-field>
 
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateOut')"
+                <sw-select-field v-if="element.config.mode.value === 'gallery'"
+                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateOut')"
                                  :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
                                  v-model="element.config.animateOut.value">
                     <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">

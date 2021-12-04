@@ -64,24 +64,24 @@
             slider: {
                 navPosition: 'bottom',
                 speed: config.speed.value ?: 400,
-                autoHeight: false,
                 autoplay: config.autoplay.value ? true : false,
                 autoplayHoverPause: config.autoplayHoverPause.value ? true : false,
                 autoplayTimeout: config.autoplayTimeout.value ?: 3500,
+                mode: config.mode.value ? config.mode.value : "carousel",
+                gutter: (config.gapSize.value|number_format * 1),
+                animateIn: config.mode.value == 'gallery' ? config.animateIn.value ?: null,
+                animateOut: config.mode.value == 'gallery' ? config.animateOut.value ?: null,
+                nav: config.navigationDots.value ? true : false,
+                controls: config.navigationArrows.value ? true : false,
+                mouseDrag: config.mouseDrag.value ? true : false,
                 autoplayButtonOutput: false,
                 swipeAngle: false,
-                mode: config.animateIn.value ? "gallery" : "carousel",
-                gutter: (config.gapSize.value|number_format * 1),
-                animateIn: config.animateIn.value ?: null,
-                animateOut: config.animateOut.value ?: null,
-                autoplayButtonOutput: false,
-                nav: config.navigation.value ? false : true,
-                mouseDrag: config.navigation.value ? false : true,
-                controls: config.navigation.value ? true : false
+                autoHeight: false,
+                autoplayButtonOutput: false
             }
         } %}
 
-        <div class="base-slider product-slider product-slider{% if config.navigation.value %} has-nav{% endif %}"
+        <div class="base-slider product-slider product-slider{% if config.navigationArrows.value == "outside" %} has-nav-outside{% endif %}{% if config.navigationDots.value == "outside" %} has-dots-outside{% endif %}"
              data-product-slider="true"
              data-product-slider-options='{{ productSliderOptions|json_encode }}'>
             <ul class="moorl-listing-slider"
@@ -90,15 +90,19 @@
                 {{ listingContent }}
             </ul>
 
-            {% if config.navigation.value %}
-                <div class="product-slider-controls-container">
+            {% if config.navigationArrows.value %}
+                <div class="">
                     <div class="base-slider-controls"
                          data-product-slider-controls="true">
-                        <button class="base-slider-controls-prev product-slider-controls-prev">
-                            {% sw_icon 'arrow-head-left' %}
+                        <button class="base-slider-controls-prev image-slider-controls-prev{% if config.navigationArrows.value == "outside" %} is-nav-prev-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-prev-inside{% endif %}">
+                            {% block moorl_foundation_listing_slider_controls_items_prev_icon %}
+                                {% sw_icon 'arrow-head-left' %}
+                            {% endblock %}
                         </button>
-                        <button class="base-slider-controls-next product-slider-controls-next">
-                            {% sw_icon 'arrow-head-right' %}
+                        <button class="base-slider-controls-next image-slider-controls-next{% if config.navigationArrows.value == "outside" %} is-nav-next-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-next-inside{% endif %}">
+                            {% block moorl_foundation_listing_slider_controls_items_next_icon %}
+                                {% sw_icon 'arrow-head-right' %}
+                            {% endblock %}
                         </button>
                     </div>
                 </div>
