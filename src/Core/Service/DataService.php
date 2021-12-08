@@ -533,8 +533,8 @@ SQL;
                 continue;
             }
 
-            $value = preg_replace('/{MEDIA_FOLDER_CFG[.+]_ID}/', $dataObject->getReplacer('MEDIA_FOLDER_CFG_ID'), $value);
-            $value = preg_replace('/{MEDIA_FOLDER[.+]_ID}/', $dataObject->getReplacer('MEDIA_FOLDER_ID'), $value);
+            $value = preg_replace('/{MEDIA_FOLDER_CFG[.+]_ID}/', $dataObject->getReplacer('MEDIA_FOLDER_CFG_ID', ''), $value);
+            $value = preg_replace('/{MEDIA_FOLDER[.+]_ID}/', $dataObject->getReplacer('MEDIA_FOLDER_ID', ''), $value);
         }
     }
 
