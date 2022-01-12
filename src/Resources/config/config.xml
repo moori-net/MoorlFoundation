@@ -53,6 +53,13 @@
     <card>
         <title>moori plugin settings</title>
         <title lang="de-DE">moori Plugin Einstellungen</title>
+        <input-field type="text">
+            <name>fileExtensions</name>
+            <label>Additional file types</label>
+            <label lang="de-DE">Zusätzliche Dateitypen</label>
+            <placeholder>zip,rar,psd,docx etc...</placeholder>
+            <defaultValue>zip,rar,psd,docx</defaultValue>
+        </input-field>
         <input-field type="bool">
             <name>cmsElements</name>
             <label>Remove CMS elements when uninstalling</label>
