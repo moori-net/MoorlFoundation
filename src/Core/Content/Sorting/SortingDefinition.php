@@ -47,7 +47,7 @@ class SortingDefinition extends EntityDefinition
             (new BoolField('active', 'active'))->addFlags(new Required()),
             (new JsonField('fields', 'fields'))->addFlags(new Required()),
             (new TranslatedField('label'))->addFlags(new ApiAware()),
-            (new TranslationsAssociationField(SortingTranslationDefinition::class, 'appflix_ad_sorting_id'))->addFlags(new Inherited(), new Required()),
+            (new TranslationsAssociationField(SortingTranslationDefinition::class, 'moorl_sorting_id'))->addFlags(new Inherited(), new Required()),
         ]);
 
         return $collection;
