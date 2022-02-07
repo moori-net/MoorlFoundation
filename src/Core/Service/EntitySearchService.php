@@ -45,9 +45,9 @@ class EntitySearchService
             return null;
         }
 
-        $slotId = $request->query->get('slots');
+        $slotIds = $request->query->get('slots');
         $tab = $request->query->get('tab');
-        if (!$slotId && !$tab) {
+        if (!$slotIds && !$tab) {
             return null;
         }
 
@@ -59,22 +59,25 @@ class EntitySearchService
             }
         }
 
-        if (!$slotId) {
+        if (!$slotIds) {
             return null;
         }
 
         $slotRepository = $this->definitionInstanceRegistry->getRepository('cms_slot');
-        $criteria = new Criteria([$slotId]);
-        $criteria->setLimit(1);
+        $slotIds = explode('|', $slotIds);
+        $criteria = new Criteria($slotIds);
+        $criteria->setLimit(count($slotIds));
         /** @var CmsSlotEntity $slot */
-        $slot = $slotRepository->search($criteria, $context)->get($slotId);
+        $slots = $slotRepository->search($criteria, $context)->getEntities();
 
         foreach ($this->searchEntities as $searchEntity) {
-            if ($searchEntity->getTitle() === $slot->getType()) {
-                return $searchEntity;
+            foreach ($slots as $slot) {
+                if ($searchEntity->getTitle() === $slot->getType()) {
+                    return $searchEntity;
+                }
             }
-        }
 
+        }
         return null;
     }
 
