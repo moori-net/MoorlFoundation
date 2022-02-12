@@ -1,4 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
+import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlCountdownPlugin extends Plugin {
     static options = {
@@ -11,7 +12,8 @@ export default class MoorlCountdownPlugin extends Plugin {
         },
         intervalTimeout: 1000,
         from: 'now',
-        actionUrl: null
+        actionUrl: null,
+        debug: false
     };
 
     init() {
@@ -20,16 +22,26 @@ export default class MoorlCountdownPlugin extends Plugin {
         }
 
         const actionUrl = this.options.actionUrl;
+        const debug = this.options.debug;
         const cdItems = this.buildContainer();
         const from = new Date(this.options.from);
         const zeroPad = (num, places) => String(num).padStart(places, '0');
+        const client = new HttpClient(window.accessKey, window.contextToken);
 
         let x = setInterval(function () {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
 
-            if (actionUrl && diff < 1) {
-                location.href = actionUrl;
+            if (actionUrl && (debug || diff < 1)) {
+                client.get(actionUrl, (response) => {
+                    response = JSON.parse(response);
+
+                    if (response.url) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.reload();
+                    }
+                });
             }
 
             let days = Math.trunc(diff / (60 * 60 * 24));
