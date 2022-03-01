@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Content\Product\SalesChannel\Search;
 
 use MoorlFoundation\Core\Service\EntitySearchService;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
+use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductDefinition;
 use Shopware\Core\Content\Product\SalesChannel\Search\AbstractProductSearchRoute;
 use Shopware\Core\Content\Product\SalesChannel\Search\ProductSearchRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -39,7 +40,7 @@ class FoundationProductSearchRoute extends AbstractProductSearchRoute
     public function load(Request $request, SalesChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
         $entityListing = $this->searchService->getEntityListing($request, $context->getContext());
-        if ($entityListing) {
+        if ($entityListing && $entityListing->getEntityName() !== SalesChannelProductDefinition::ENTITY_NAME) {
             $entityListing->setEventDispatcher($this->dispatcher);
             $entityListing->setRequest($request);
             $entityListing->setSalesChannelContext($context);
