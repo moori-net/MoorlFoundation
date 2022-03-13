@@ -59,6 +59,7 @@
                     "slider": "Slider"
                 },
                 "itemLayout": {
+                    "avatar": "Avatar (320px/240px)",
                     "custom": "Individuell",
                     "standard": "Standard",
                     "overlay": "Overlay",

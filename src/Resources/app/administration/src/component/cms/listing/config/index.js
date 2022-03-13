@@ -54,6 +54,7 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                     {value: 'image-or-title', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.image-or-title'},
                     {value: 'image-content', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.image-content'},
                     {value: 'content-image', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.content-image'},
+                    {value: 'avatar', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.avatar'},
                     {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.standard'},
                     {value: 'custom', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.custom'}
                 ],

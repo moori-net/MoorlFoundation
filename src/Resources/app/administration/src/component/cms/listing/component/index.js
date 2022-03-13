@@ -129,6 +129,10 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
             return item.title;
         },
 
+        itemMedia(item) {
+            return item.media;
+        },
+
         itemDescription(item) {
             return item.teaser;
         },
