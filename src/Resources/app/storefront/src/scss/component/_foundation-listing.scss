@@ -115,22 +115,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 320px !important;
 
   .moorl-listing-item-image {
-    height: 240px;
     margin-bottom: 10px;
 
     img {
-      width: 240px !important;
-      height: 240px !important;
       border-radius: 50%;
     }
   }
 
   .moorl-listing-item-content {
-    height: 70px;
-
     .moorl-listing-item-description {
       display: none;
     }

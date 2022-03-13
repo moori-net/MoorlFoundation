@@ -55,6 +55,15 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
             return `is-${this.element.config.displayMode.value}`;
         },
 
+        imageCss() {
+            if (this.element.config.itemLayout.value === 'avatar') {
+                return {
+                    'width': this.element.config.itemWidth.value,
+                    'height': this.element.config.itemWidth.value
+                }
+            }
+        },
+
         itemCss() {
             return {
                 'padding': this.element.config.itemPadding.value,

@@ -3,11 +3,20 @@
         <div class="moorl-listing-item-image">
             {% block moorl_listing_item_image %}
                 {% if media.url %}
+                    {% set imageCss = [] %}
+                    {% if config.itemLayout.value == 'avatar' %}
+                        {% set imageCss = imageCss|merge([
+                            "height:#{config.itemWidth.value}",
+                            "width:#{config.itemWidth.value}",
+                        ]) %}
+                    {% endif %}
+
                     {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                         media: media,
                         attributes: {
                             'alt': title,
-                            'class': "is-#{config.displayMode.value}"
+                            'class': "is-#{config.displayMode.value}",
+                            'style': imageCss|join(';')
                         }
                     } %}
                 {% elseif config.itemLayout.value == 'image-or-title' %}

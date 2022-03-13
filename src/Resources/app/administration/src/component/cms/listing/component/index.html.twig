@@ -11,7 +11,10 @@
                     <div :class="itemClass">
                         {% block moorl_foundation_listing_item_link %}
                             <div class="moorl-listing-item-image">
-                                <img v-if="itemMedia(item)" :src="itemMedia(item).url" :class="imageClass">
+                                <img v-if="itemMedia(item)"
+                                     :src="itemMedia(item).url"
+                                     :class="imageClass"
+                                     :style="imageCss">
                                 <div v-else-if="element.config.itemLayout.value === 'image-or-title'"
                                      class="moorl-listing-item-title" title="{{ title }}">
                                     {{ itemTitle(item) }}
