@@ -1,160 +1,85 @@
 const MoorlFoundation = function MoorlFoundation() {
-
+    this.listingLayout = [
+        {value: 'grid', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.grid'},
+        {value: 'list', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.list'},
+        {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.standard'},
+        {value: 'slider', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.slider'}
+    ];
+    this.itemLayout = [
+        {value: 'overlay', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.overlay'},
+        {value: 'image-or-title', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.image-or-title'},
+        {value: 'image-content', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.image-content'},
+        {value: 'content-image', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.content-image'},
+        {value: 'avatar', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.avatar'},
+        {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.standard'},
+        {value: 'custom', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.custom'}
+    ];
+    this.displayMode = [
+        {value: 'cover', label: 'sw-cms.elements.moorl-foundation-listing.displayMode.cover'},
+        {value: 'contain', label: 'sw-cms.elements.moorl-foundation-listing.displayMode.contain'},
+        {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.displayMode.standard'}
+    ];
+    this.mode = [
+        {value: 'carousel', label: 'sw-cms.elements.moorl-foundation-listing.mode.carousel'},
+        {value: 'gallery', label: 'sw-cms.elements.moorl-foundation-listing.mode.gallery'}
+    ];
+    this.navigationArrows = [
+        {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
+        {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationArrows.outside'},
+        {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationArrows.inside'}
+    ];
+    this.navigationDots = [
+        {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
+        {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.outside'},
+        {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.inside'}
+    ];
     this.colorScheme = [
-        {
-            value: 'primary',
-            label: 'moorl-cms.elements.general.config.label.btnPrimary'
-        },
-        {
-            value: 'danger',
-            label: 'moorl-cms.elements.general.config.label.btnDanger'
-        },
-        {
-            value: 'success',
-            label: 'moorl-cms.elements.general.config.label.btnSuccess'
-        },
-        {
-            value: 'warning',
-            label: 'moorl-cms.elements.general.config.label.btnWarning'
-        },
-        {
-            value: 'info',
-            label: 'moorl-cms.elements.general.config.label.btnInfo'
-        },
-        {
-            value: 'dark',
-            label: 'moorl-cms.elements.general.config.label.btnDark'
-        },
-        {
-            value: 'light',
-            label: 'moorl-cms.elements.general.config.label.btnLight'
-        },
-        {
-            value: 'facebook',
-            label: 'moorl-cms.elements.general.config.label.btnFacebook'
-        },
-        {
-            value: 'twitter',
-            label: 'moorl-cms.elements.general.config.label.btnTwitter'
-        },
-        {
-            value: 'google',
-            label: 'moorl-cms.elements.general.config.label.btnGoogle'
-        },
-        {
-            value: 'shopware',
-            label: 'moorl-cms.elements.general.config.label.btnShopware'
-        }
+        {value: 'primary', label: 'moorl-cms.elements.general.config.label.btnPrimary'},
+        {value: 'danger', label: 'moorl-cms.elements.general.config.label.btnDanger'},
+        {value: 'success', label: 'moorl-cms.elements.general.config.label.btnSuccess'},
+        {value: 'warning', label: 'moorl-cms.elements.general.config.label.btnWarning'},
+        {value: 'info', label: 'moorl-cms.elements.general.config.label.btnInfo'},
+        {value: 'dark', label: 'moorl-cms.elements.general.config.label.btnDark'},
+        {value: 'light', label: 'moorl-cms.elements.general.config.label.btnLight'},
+        {value: 'facebook', label: 'moorl-cms.elements.general.config.label.btnFacebook'},
+        {value: 'twitter', label: 'moorl-cms.elements.general.config.label.btnTwitter'},
+        {value: 'google', label: 'moorl-cms.elements.general.config.label.btnGoogle'},
+        {value: 'shopware', label: 'moorl-cms.elements.general.config.label.btnShopware'}
     ];
     this.btnClass = [
-        {
-            value: 'btn-primary',
-            label: 'moorl-cms.elements.general.config.label.btnPrimary'
-        },
-        {
-            value: 'btn-outline-primary',
-            label: 'moorl-cms.elements.general.config.label.btnPrimaryOutline'
-        },
-        {
-            value: 'btn-danger',
-            label: 'moorl-cms.elements.general.config.label.btnDanger'
-        },
-        {
-            value: 'btn-outline-danger',
-            label: 'moorl-cms.elements.general.config.label.btnDangerOutline'
-        },
-        {
-            value: 'btn-success',
-            label: 'moorl-cms.elements.general.config.label.btnSuccess'
-        },
-        {
-            value: 'btn-outline-success',
-            label: 'moorl-cms.elements.general.config.label.btnSuccessOutline'
-        },
-        {
-            value: 'btn-warning',
-            label: 'moorl-cms.elements.general.config.label.btnWarning'
-        },
-        {
-            value: 'btn-outline-warning',
-            label: 'moorl-cms.elements.general.config.label.btnWarningOutline'
-        },
-        {
-            value: 'btn-info',
-            label: 'moorl-cms.elements.general.config.label.btnInfo'
-        },
-        {
-            value: 'btn-outline-info',
-            label: 'moorl-cms.elements.general.config.label.btnInfoOutline'
-        },
-        {
-            value: 'btn-dark',
-            label: 'moorl-cms.elements.general.config.label.btnDark'
-        },
-        {
-            value: 'btn-outline-dark',
-            label: 'moorl-cms.elements.general.config.label.btnDarkOutline'
-        },
-        {
-            value: 'btn-link',
-            label: 'moorl-cms.elements.general.config.label.btnLink'
-        }
+        {value: 'btn-primary', label: 'moorl-cms.elements.general.config.label.btnPrimary'},
+        {value: 'btn-outline-primary', label: 'moorl-cms.elements.general.config.label.btnPrimaryOutline'},
+        {value: 'btn-danger', label: 'moorl-cms.elements.general.config.label.btnDanger'},
+        {value: 'btn-outline-danger', label: 'moorl-cms.elements.general.config.label.btnDangerOutline'},
+        {value: 'btn-success', label: 'moorl-cms.elements.general.config.label.btnSuccess'},
+        {value: 'btn-outline-success', label: 'moorl-cms.elements.general.config.label.btnSuccessOutline'},
+        {value: 'btn-warning', label: 'moorl-cms.elements.general.config.label.btnWarning'},
+        {value: 'btn-outline-warning', label: 'moorl-cms.elements.general.config.label.btnWarningOutline'},
+        {value: 'btn-info', label: 'moorl-cms.elements.general.config.label.btnInfo'},
+        {value: 'btn-outline-info', label: 'moorl-cms.elements.general.config.label.btnInfoOutline'},
+        {value: 'btn-dark', label: 'moorl-cms.elements.general.config.label.btnDark'},
+        {value: 'btn-outline-dark', label: 'moorl-cms.elements.general.config.label.btnDarkOutline'},
+        {value: 'btn-link', label: 'moorl-cms.elements.general.config.label.btnLink'}
     ];
     this.verticalAlign = [
-        {
-            value: 'flex-start',
-            label: 'moorl-cms.elements.general.config.label.top'
-        },
-        {
-            value: 'center',
-            label: 'moorl-cms.elements.general.config.label.center'
-        },
-        {
-            value: 'flex-end',
-            label: 'moorl-cms.elements.general.config.label.bottom'
-        }
+        {value: 'flex-start', label: 'moorl-cms.elements.general.config.label.top'},
+        {value: 'center', label: 'moorl-cms.elements.general.config.label.center'},
+        {value: 'flex-end', label: 'moorl-cms.elements.general.config.label.bottom'}
     ];
     this.horizontalAlign = [
-        {
-            value: 'flex-start',
-            label: 'moorl-cms.elements.general.config.label.left'
-        },
-        {
-            value: 'center',
-            label: 'moorl-cms.elements.general.config.label.center'
-        },
-        {
-            value: 'flex-end',
-            label: 'moorl-cms.elements.general.config.label.right'
-        }
+        {value: 'flex-start', label: 'moorl-cms.elements.general.config.label.left'},
+        {value: 'center', label: 'moorl-cms.elements.general.config.label.center'},
+        {value: 'flex-end', label: 'moorl-cms.elements.general.config.label.right'}
     ];
     this.textAlign = [
-        {
-            value: 'left',
-            label: 'moorl-cms.elements.general.config.label.left'
-        },
-        {
-            value: 'center',
-            label: 'moorl-cms.elements.general.config.label.center'
-        },
-        {
-            value: 'right',
-            label: 'moorl-cms.elements.general.config.label.right'
-        }
+        {value: 'left', label: 'moorl-cms.elements.general.config.label.left'},
+        {value: 'center', label: 'moorl-cms.elements.general.config.label.center'},
+        {value: 'right', label: 'moorl-cms.elements.general.config.label.right'}
     ];
     this.verticalTextAlign = [
-        {
-            value: 'top',
-            label: 'moorl-cms.elements.general.config.label.top'
-        },
-        {
-            value: 'center',
-            label: 'moorl-cms.elements.general.config.label.center'
-        },
-        {
-            value: 'bottom',
-            label: 'moorl-cms.elements.general.config.label.bottom'
-        }
+        {value: 'top', label: 'moorl-cms.elements.general.config.label.top'},
+        {value: 'center', label: 'moorl-cms.elements.general.config.label.center'},
+        {value: 'bottom', label: 'moorl-cms.elements.general.config.label.bottom'}
     ];
     this.animateCss = [
         {
