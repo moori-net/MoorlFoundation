@@ -54,6 +54,7 @@ class EntitySearchService
         if ($tab) {
             foreach ($this->searchEntities as $searchEntity) {
                 if ($searchEntity->getTitle() === $tab) {
+                    $searchEntity->setSystemConfigService($this->systemConfigService);
                     return $searchEntity;
                 }
             }
