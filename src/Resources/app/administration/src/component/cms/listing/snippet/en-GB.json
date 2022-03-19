@@ -10,6 +10,9 @@
                     "listing": "Listing",
                     "content": "Content"
                 },
+                "helpText": {
+                    "listingSorting": "Manage your sortings at: Settings - Extensions - moori Sorting"
+                },
                 "label": {
                     "mode": "Mode",
                     "navigationArrows": "Navigation arrows",
