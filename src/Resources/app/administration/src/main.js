@@ -13,3 +13,4 @@ import './module/sw-cms';
 import './extension/sw-cms/elements/image-slider';
 
 import './module/foundation-settings';
+import './module/sorting';

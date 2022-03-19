@@ -1,0 +1,14 @@
+{
+  "moorl-sorting": {
+    "properties": {
+      "active": "Active",
+      "entity": "Entity",
+      "priority": "Priority",
+      "label": "Label"
+    },
+    "general": {
+      "mainMenuItemGeneral": "moori Sorting",
+      "textHeadline": "moori Sorting"
+    }
+  }
+}
