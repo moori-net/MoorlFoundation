@@ -1,3 +1,4 @@
+import './component/sorting-option-criteria-grid';
 import './page/list';
 import './page/detail';
 import './page/create';

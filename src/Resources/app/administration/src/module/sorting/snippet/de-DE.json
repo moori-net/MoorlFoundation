@@ -4,11 +4,15 @@
       "active": "Aktiv",
       "entity": "Tabelle",
       "priority": "Priorität",
-      "label": "Bezeichnung"
+      "label": "Bezeichnung",
+      "name": "Name",
+      "order": "Sortierung"
     },
     "general": {
       "mainMenuItemGeneral": "moori Sortierung",
-      "textHeadline": "moori Sortierung"
+      "textHeadline": "moori Sortierung",
+      "criteria": "Kriterien",
+      "selectField": "Wähle ein Feld aus"
     }
   }
 }

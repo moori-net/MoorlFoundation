@@ -24,8 +24,9 @@ Component.register('moorl-sorting-detail', {
     data() {
         return {
             item: null,
-            isLoading: false,
-            processSuccess: false
+            isLoading: true,
+            processSuccess: false,
+            productSortingEntity: null,
         };
     },
 
@@ -38,21 +39,137 @@ Component.register('moorl-sorting-detail', {
             return new Criteria();
         },
 
+        entityOptions() {
+            const storeOptions = [];
+            const definitionRegistry = Shopware.EntityDefinition.getDefinitionRegistry();
+
+            definitionRegistry.forEach(function (value, key, map) {
+                storeOptions.push({
+                    name: `${key}`
+                });
+            });
+
+            return storeOptions;
+        },
+
         identifier() {
             return this.placeholder(this.item, 'label');
         }
     },
 
     created() {
-        this.getItem();
+        this.createdComponent();
     },
 
     methods: {
+        createdComponent() {
+            this.getItem()
+        },
+
+        saveProductSorting() {
+            return this.repository.save(this.item);
+        },
+
+        onSave() {
+            this.transformCustomFieldCriterias();
+
+            this.item.fields = this.item.fields.filter(field => {
+                return field.field !== 'customField';
+            });
+
+            return this.saveProductSorting()
+                .then(() => {
+                    const sortingOptionName = this.item.label;
+
+                    this.createNotificationSuccess({
+                        message: this.$t('sw-settings-listing.base.notification.saveSuccess', { sortingOptionName }),
+                    });
+                })
+                .catch(() => {
+                    const sortingOptionName = this.item.label;
+
+                    this.createNotificationError({
+                        message: this.$t('sw-settings-listing.base.notification.saveError', { sortingOptionName }),
+                    });
+                });
+        },
+
+        getCriteriaTemplate(fieldName) {
+            return { field: fieldName, order: 'asc', priority: 1, naturalSorting: 0 };
+        },
+
+        onDeleteCriteria(toBeRemovedItem) {
+            this.toBeDeletedCriteria = toBeRemovedItem;
+        },
+
+        onConfirmDeleteCriteria() {
+            // filter out criteria
+            this.item.fields = this.item.fields.filter(currentCriteria => {
+                return currentCriteria.field !== this.toBeDeletedCriteria.field;
+            });
+
+            // save product sorting entity
+            this.saveProductSorting();
+
+            // close delete modal
+            this.toBeDeletedCriteria = null;
+        },
+
+        onAddCriteria(fieldName) {
+            if (!fieldName) {
+                return;
+            }
+
+            const newCriteria = this.getCriteriaTemplate(fieldName);
+
+            if (!this.item.fields) {
+                this.item.fields = [];
+            }
+
+            this.item.fields.push(newCriteria);
+        },
+
+        onCancelEditCriteria(item) {
+            if (this.getProductSortingEntityId()) {
+                this.fetchProductSortingEntity();
+
+                return;
+            }
+
+            this.item.fields = this.item.fields.filter(currentCriteria => {
+                return currentCriteria.field !== item.field;
+            });
+        },
+
+        isCriteriaACustomField(technicalName) {
+            return this.customFields.some(currentCustomField => {
+                return currentCustomField.name === technicalName;
+            });
+        },
+
+        transformCustomFieldCriterias() {
+            this.item.fields = this.item.fields.map(currentField => {
+                if (!this.isCriteriaACustomField(currentField.field)) {
+                    return currentField;
+                }
+
+                currentField.field = `customFields.${currentField.field}`;
+
+                return currentField;
+            });
+        },
+
         getItem() {
             this.repository
                 .get(this.$route.params.id, Shopware.Context.api, this.defaultCriteria)
-                .then((entity) => {
-                    this.item = entity;
+                .then((response) => {
+                    if (!Array.isArray(response.fields)) {
+                        response.fields = [];
+                    }
+
+                    this.item = response;
+
+                    this.isLoading = false;
                 });
         },
 

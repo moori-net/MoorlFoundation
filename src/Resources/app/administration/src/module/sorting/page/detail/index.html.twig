@@ -12,17 +12,29 @@
             {{ $tc('moorl-foundation.buttons.saveButtonText') }}
         </sw-button-process>
     </template>
+
     <template #language-switch>
-        <sw-language-switch slot="language-switch" :disabled="item && item.isNew()"
-                            @on-change="onChangeLanguage"></sw-language-switch>
+        <sw-language-switch slot="language-switch"
+                            :disabled="item && item.isNew()"
+                            @on-change="onChangeLanguage">
+        </sw-language-switch>
     </template>
+
     <template slot="content">
         <sw-card-view>
-            <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.generalCard')">
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-foundation.label.generalCard')">
                 <sw-field type="switch"
                           bordered
                           :label="$tc('moorl-sorting.properties.active')"
                           v-model="item.active"></sw-field>
+
+                <sw-single-select v-model="item.entity"
+                                  valueProperty="name"
+                                  labelProperty="name"
+                                  :options="entityOptions"
+                                  :label="$tc('moorl-sorting.properties.entity')"
+                                  @on-change="onChangeLanguage">
+                </sw-single-select>
 
                 <sw-field :label="$tc('moorl-sorting.properties.label')"
                           v-model="item.label"></sw-field>
@@ -31,6 +43,15 @@
                           v-model="item.priority">
                 </sw-number-field>
             </sw-card>
+
+            <moorl-sorting-option-criteria-grid
+                    v-if="item.entity"
+                    :item="item"
+                    @criteria-delete="onDeleteCriteria"
+                    @criteria-add="onAddCriteria"
+                    @inline-edit-save="onSave"
+                    @inline-edit-cancel="onCancelEditCriteria"
+            />
         </sw-card-view>
     </template>
 </sw-page>

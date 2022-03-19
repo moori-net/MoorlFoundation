@@ -1,0 +1,77 @@
+<sw-card
+    class="moorl-sorting-option-criteria-grid__criteria-card"
+    position-identifier="moorl-sorting-option-criteria-grid"
+    :title="$tc('moorl-sorting.general.criteria')"
+>
+    <template #toolbar>
+        <sw-single-select
+            :value="selectedCriteria"
+            :options="criteriaOptions"
+            :placeholder="$tc('moorl-sorting.general.selectField')"
+            value-property="value"
+            label-property="label"
+            show-clearable-button
+            @change="onAddCriteria"
+        />
+    </template>
+
+    <sw-data-grid
+        v-if="item && item.fields.length > 0"
+        ref="dataGrid"
+        :columns="itemColumns"
+        :data-source="sortedProductSortingFields"
+        :show-actions="true"
+        :allow-inline-edit="true"
+        :compact-mode="false"
+        :show-selection="false"
+        plain-appearance
+        item-identifier-property="field"
+        @inline-edit-save="onSaveInlineEdit"
+        @inline-edit-cancel="onCancelInlineEdit"
+    >
+        <template #column-field="{item, isInlineEdit}">
+            <span>
+                {{ item.field }}
+            </span>
+        </template>
+
+        <template #column-order="{item, isInlineEdit}">
+            <div v-if="!isInlineEdit">
+                {{ getOrderSnippet(item.order) }}
+            </div>
+
+            <sw-single-select
+                v-else
+                v-model="item.order"
+                :options="orderOptions"
+                value-property="value"
+                label-property="label"
+                show-clearable-button
+                :placeholder="$tc('global.sw-single-select.valuePlaceholder')"
+            />
+        </template>
+
+        <template #actions="{item}">
+            <sw-context-menu-item
+                variant="danger"
+                @click="onRemoveCriteria(item)"
+            >
+                {{ $tc('global.default.delete') }}
+            </sw-context-menu-item>
+        </template>
+    </sw-data-grid>
+
+    <sw-empty-state
+        v-else
+        class="moorl-sorting-option-criteria-grid__criteria-empty-state"
+        title=""
+        :subline="$tc('sorting.base.criteria.emptyStateSubline')"
+    >
+        <template #icon>
+            <img
+                :src="'administration/static/img/empty-states/settings-empty-state.svg' | asset"
+                alt=""
+            >
+        </template>
+    </sw-empty-state>
+</sw-card>
