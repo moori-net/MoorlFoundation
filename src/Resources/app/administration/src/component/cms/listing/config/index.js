@@ -33,6 +33,7 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
         sortingCriteria() {
             const criteria = new Criteria
             criteria.addFilter(Criteria.equals('entity', this.entity));
+            criteria.addFilter(Criteria.equals('active', 1));
             return criteria;
         },
 

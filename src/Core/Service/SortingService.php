@@ -79,14 +79,16 @@ class SortingService
         return $this->sortingRepository->search($criteria, $context)->get($id);
     }
 
-    public function addSortingCriteria(string $id, Criteria $criteria, Context $context): void
+    public function addSortingCriteria(string $id, Criteria $criteria, Context $context): ?SortingEntity
     {
         $sorting = $this->getSorting($id, $context);
         if (!$sorting) {
-            return;
+            return null;
         }
 
         $criteria->addSorting(...$sorting->createDalSorting());
+
+        return $sorting;
     }
 
     public function enrichCmsElementResolverCriteria(
@@ -121,7 +123,10 @@ class SortingService
 
         $listingSortingConfig = $config->get('listingSorting');
         if ($listingSortingConfig && $listingSortingConfig->getValue()) {
-            $this->addSortingCriteria($listingSortingConfig->getValue(), $criteria, $context);
+            $sorting = $this->addSortingCriteria($listingSortingConfig->getValue(), $criteria, $context);
+            if ($request && !$request->get('order') && $sorting) {
+                $request->query->set('order', $sorting->getKey());
+            }
         }
     }
 }
