@@ -6,13 +6,15 @@
       "priority": "Priority",
       "label": "Label",
       "name": "Name",
-      "order": "Order"
+      "order": "Order",
+      "key": "URL Key"
     },
     "general": {
       "mainMenuItemGeneral": "moori Sorting",
       "textHeadline": "moori Sorting",
       "criteria": "Criteria",
-      "selectField": "Select a field"
+      "selectField": "Select a field",
+      "criteriaAlreadyUsed": "The sorting criterion \"{criteriaName}\" is already in use."
     }
   }
 }

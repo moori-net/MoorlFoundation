@@ -6,7 +6,10 @@ Component.extend('moorl-sorting-create', 'moorl-sorting-detail', {
     template,
     methods: {
         getItem() {
-            this.item = this.repo.create(Shopware.Context.api);
+            this.item = this.repository.create(Shopware.Context.api);
+            this.item.fields = [];
+            this.item.priority = 0;
+            this.isLoading = false;
         },
 
         onClickSave() {

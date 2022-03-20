@@ -35,6 +35,15 @@ class SortingDefinition extends EntityDefinition
         return SortingCollection::class;
     }
 
+    public function getDefaults(): array
+    {
+        return [
+            'active' => false,
+            'priority' => 0,
+            'fields' => []
+        ];
+    }
+
     protected function defineFields(): FieldCollection
     {
         $collection = new FieldCollection([

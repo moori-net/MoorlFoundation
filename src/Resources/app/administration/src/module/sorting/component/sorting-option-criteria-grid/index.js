@@ -123,12 +123,6 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
                 if (!this.item || !this.item.fields) {
                     return;
                 }
-
-                this.item.fields.forEach(field => {
-                    if (field.field === null) {
-                        field.field = 'customField';
-                    }
-                });
             },
             deep: true,
         },
@@ -149,7 +143,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
             criteria.addFilter(Criteria.equals('relations.entityName', this.item.entity));
             criteria.addAssociation('customFields').addSorting(Criteria.sort('config.customFieldPosition', 'ASC', true));
 
-            this.customFieldRepository
+            this.customFieldSetRepository
                 .search(criteria, Shopware.Context.api)
                 .then((searchResult) => {
                     this.customFieldSets = searchResult;
@@ -172,7 +166,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
 
             this.createNotificationError({
                 message: this.$t(
-                    'sorting.general.productSortingCriteriaGrid.options.criteriaAlreadyUsed',
+                    'moorl-sorting.general.criteriaAlreadyUsed',
                     {fieldName},
                 ),
             });

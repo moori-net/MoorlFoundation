@@ -27,6 +27,7 @@ Component.register('moorl-sorting-detail', {
             isLoading: true,
             processSuccess: false,
             productSortingEntity: null,
+            toBeDeletedCriteria: null
         };
     },
 
@@ -71,12 +72,6 @@ Component.register('moorl-sorting-detail', {
         },
 
         onSave() {
-            this.transformCustomFieldCriterias();
-
-            this.item.fields = this.item.fields.filter(field => {
-                return field.field !== 'customField';
-            });
-
             return this.saveProductSorting()
                 .then(() => {
                     const sortingOptionName = this.item.label;
@@ -103,15 +98,10 @@ Component.register('moorl-sorting-detail', {
         },
 
         onConfirmDeleteCriteria() {
-            // filter out criteria
             this.item.fields = this.item.fields.filter(currentCriteria => {
                 return currentCriteria.field !== this.toBeDeletedCriteria.field;
             });
-
-            // save product sorting entity
             this.saveProductSorting();
-
-            // close delete modal
             this.toBeDeletedCriteria = null;
         },
 
@@ -138,24 +128,6 @@ Component.register('moorl-sorting-detail', {
 
             this.item.fields = this.item.fields.filter(currentCriteria => {
                 return currentCriteria.field !== item.field;
-            });
-        },
-
-        isCriteriaACustomField(technicalName) {
-            return this.customFields.some(currentCustomField => {
-                return currentCustomField.name === technicalName;
-            });
-        },
-
-        transformCustomFieldCriterias() {
-            this.item.fields = this.item.fields.map(currentField => {
-                if (!this.isCriteriaACustomField(currentField.field)) {
-                    return currentField;
-                }
-
-                currentField.field = `customFields.${currentField.field}`;
-
-                return currentField;
             });
         },
 

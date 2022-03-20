@@ -3,6 +3,7 @@
         <sw-button :routerLink="{ name: 'moorl.sorting.list' }">
             {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
         </sw-button>
+
         <sw-button-process
                 :isLoading="isLoading"
                 :processSuccess="processSuccess"
@@ -33,14 +34,21 @@
                                   labelProperty="name"
                                   :options="entityOptions"
                                   :label="$tc('moorl-sorting.properties.entity')"
-                                  @on-change="onChangeLanguage">
+                                  @on-change="onChangeLanguage"
+                                  :required="true">
                 </sw-single-select>
 
+                <sw-field :label="$tc('moorl-sorting.properties.key')"
+                          v-model="item.key"
+                          :required="true"></sw-field>
+
                 <sw-field :label="$tc('moorl-sorting.properties.label')"
-                          v-model="item.label"></sw-field>
+                          v-model="item.label"
+                          :required="true"></sw-field>
 
                 <sw-number-field :label="$tc('moorl-sorting.properties.priority')"
-                          v-model="item.priority">
+                                 v-model="item.priority"
+                                 :required="true">
                 </sw-number-field>
             </sw-card>
 
@@ -53,5 +61,13 @@
                     @inline-edit-cancel="onCancelEditCriteria"
             />
         </sw-card-view>
+
+        <sw-settings-listing-delete-modal
+                v-if="toBeDeletedCriteria"
+                :title="$tc('sw-settings-listing.base.delete.modalTitle')"
+                :description="$tc('sw-settings-listing.base.delete.modalDescription')"
+                @cancel="toBeDeletedCriteria = null"
+                @delete="onConfirmDeleteCriteria"
+        />
     </template>
 </sw-page>
