@@ -124,8 +124,11 @@ class SortingService
         $listingSortingConfig = $config->get('listingSorting');
         if ($listingSortingConfig && $listingSortingConfig->getValue()) {
             $sorting = $this->addSortingCriteria($listingSortingConfig->getValue(), $criteria, $context);
-            if ($request && !$request->get('order') && $sorting) {
-                $request->query->set('order', $sorting->getKey());
+            if ($listingSourceConfig && $listingSourceConfig->getValue() === 'auto') {
+                $criteria->resetSorting();
+                if ($request && !$request->get('order') && $sorting) {
+                    $request->query->set('order', $sorting->getKey());
+                }
             }
         }
     }
