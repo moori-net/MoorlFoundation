@@ -31,21 +31,33 @@
         <template slot="content" slot-scope="{ active }">
             <sw-container v-if="active === 'listing'" key="listing">
                 <sw-container columns="1fr 1fr" gap="0px 30px">
-                    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
-                                     @change="onSelectionChange"
-                                     v-model="element.config.listingSource.value">
-                        <option v-for="option in elementOptions.listingSource" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                    <div class="link-field">
+                        <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
+                                         @change="onSelectionChange"
+                                         v-model="element.config.listingSource.value">
+                            <option v-for="option in elementOptions.listingSource" :value="option.value">{{ $tc(option.label) }}</option>
+                        </sw-select-field>
 
-                    <sw-entity-single-select
-                            :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSorting')"
-                            :helpText="$tc('sw-cms.elements.moorl-foundation-listing.helpText.listingSorting')"
-                            v-model="element.config.listingSorting.value"
-                            entity="moorl_sorting"
-                            labelProperty="label"
-                            show-clearable-button
-                            :criteria="sortingCriteria">
-                    </sw-entity-single-select>
+                        <router-link v-if="contentRoute" target="_blank" rel="noopener" :to="{ name: contentRoute }">
+                            {{ $tc('sw-cms.elements.moorl-foundation-listing.label.manageContent') }}
+                        </router-link>
+                    </div>
+
+                    <div class="link-field">
+                        <sw-entity-single-select
+                                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSorting')"
+                                :helpText="$tc('sw-cms.elements.moorl-foundation-listing.helpText.listingSorting')"
+                                v-model="element.config.listingSorting.value"
+                                entity="moorl_sorting"
+                                labelProperty="label"
+                                show-clearable-button
+                                :criteria="sortingCriteria">
+                        </sw-entity-single-select>
+
+                        <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.sorting.list', params: { entity: entity } }">
+                            {{ $tc('sw-cms.elements.moorl-foundation-listing.label.manageSorting') }}
+                        </router-link>
+                    </div>
 
                     <sw-field v-model="element.config.limit.value"
                               @change="onSelectionChange"

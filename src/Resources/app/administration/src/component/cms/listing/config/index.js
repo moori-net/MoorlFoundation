@@ -21,7 +21,8 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
             criteria: new Criteria(1, 12),
             entityCollection: [],
             elementName: null,
-            configWhitelist: null
+            configWhitelist: null,
+            contentRoute: null
         };
     },
 

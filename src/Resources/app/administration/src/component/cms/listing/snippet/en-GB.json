@@ -14,6 +14,8 @@
                     "listingSorting": "Manage your sortings at: Settings - Extensions - moori Sorting"
                 },
                 "label": {
+                    "manageSorting": "Manage sortings",
+                    "manageContent": "Manage content",
                     "mode": "Mode",
                     "navigationArrows": "Navigation arrows",
                     "navigationDots": "Navigation dots",
