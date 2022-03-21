@@ -4,6 +4,7 @@
             "sw-cms-slot": {
                 "title": "moori CMS Element Konfiguration",
                 "label": {
+                    "manageConfigs": "Konfigurationen verwalten",
                     "name": "Aktive Konfiguration Speichern unter",
                     "save": "Speichern und Schließen",
                     "load": "Laden und Schließen",
