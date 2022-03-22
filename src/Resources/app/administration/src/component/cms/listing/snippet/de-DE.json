@@ -14,6 +14,7 @@
                     "listingSorting": "Verwalte deine Sortierungen unter: Einstellungen - Erweiterungen - moori Sortierung"
                 },
                 "label": {
+                    "contentHighlightColor": "Hervorgehobene Farbe",
                     "manageSorting": "Sortierungen bearbeiten",
                     "manageContent": "Inhalte bearbeiten",
                     "mode": "Modus",

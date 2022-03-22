@@ -2,10 +2,14 @@
 Base slider fix https://github.com/shopware/platform/commit/bf4d022ed3d4a717465e0cae5655e715abccb37c
 */
 
-.base-slider {
+.moorl-slider {
     overflow: visible;
 
     .tns-ovh {
         overflow: hidden;
+    }
+
+    &.has-nav-outside {
+        /*position: static;*/
     }
 }

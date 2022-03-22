@@ -39,5 +39,5 @@ Module.register('moorl-sorting', {
         to: 'moorl.sorting.list',
         group: 'plugins',
         icon: 'default-package-gift'
-    },
+    }
 });

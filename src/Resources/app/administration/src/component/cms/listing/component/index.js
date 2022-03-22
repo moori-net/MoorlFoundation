@@ -70,6 +70,10 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
                 'background-color': this.element.config.itemBackgroundColor.value,
                 'border': this.element.config.itemHasBorder.value ? '1px solid #333' : null,
                 'border-radius': this.element.config.itemHasBorder.value ? '6px' : null,
+                '--content-color': this.element.config.contentColor.value,
+                '--content-background-color': this.element.config.contentBackgroundColor.value,
+                '--content-highlight-color': this.element.config.contentHighlightColor.value
+
             }
         },
 

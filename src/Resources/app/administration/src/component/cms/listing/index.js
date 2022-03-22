@@ -82,6 +82,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: null
         },
+        contentHighlightColor: {
+            source: 'static',
+            value: null
+        },
         contentColor: {
             source: 'static',
             value: null

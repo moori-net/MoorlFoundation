@@ -7,6 +7,9 @@
         "padding:#{config.itemPadding.value}",
         "background-color:#{config.itemBackgroundColor.value}",
         "height:#{config.itemHeight.value}",
+        "--content-highlight-color:#{config.contentHighlightColor.value}",
+        "--content-background-color:#{config.contentBackgroundColor.value}",
+        "--content-color:#{config.contentColor.value}",
     ] %}
     {% set contentCss = [
         "padding:#{config.contentPadding.value}",
@@ -81,7 +84,7 @@
             }
         } %}
 
-        <div class="base-slider product-slider product-slider{% if config.navigationArrows.value == "outside" %} has-nav-outside{% endif %}{% if config.navigationDots.value == "outside" %} has-dots-outside{% endif %}"
+        <div class="base-slider moorl-slider product-slider product-slider{% if config.navigationArrows.value == "outside" %} has-nav-outside{% endif %}{% if config.navigationDots.value == "outside" %} has-dots-outside{% endif %}"
              data-product-slider="true"
              data-product-slider-options='{{ productSliderOptions|json_encode }}'>
             <ul class="moorl-listing-slider"

@@ -226,6 +226,13 @@
                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentBackgroundColor')">
                 </sw-colorpicker>
 
+                <sw-colorpicker v-model="element.config.contentHighlightColor.value"
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :alpha="false"
+                                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentHighlightColor')">
+                </sw-colorpicker>
+
                 <sw-colorpicker v-model="element.config.contentColor.value"
                                 colorOutput="hex"
                                 :zIndex="1000"
@@ -256,6 +263,8 @@
                               :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonLabel')">
                     </sw-field>
                 </template>
+
+                {% block sw_cms_element_moorl_foundation_listing_config_content %}{% endblock %}
             </sw-container>
         </template>
     </sw-tabs>
