@@ -6,9 +6,9 @@
 
     .moorl-product-buy-list-item {
       display: grid;
-      grid-template-columns: 30px 130px 1fr 48px;
+      grid-template-columns: auto 120px 1fr auto;
       align-items: center;
-      grid-gap: 15px;
+      grid-gap: 10px;
       border-bottom: 1px solid $border-color;
     }
   }

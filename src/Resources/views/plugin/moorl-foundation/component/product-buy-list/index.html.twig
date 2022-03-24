@@ -1,3 +1,10 @@
+{% if enablePrices is not defined %}
+    {% set enablePrices = true %}
+{% endif %}
+{% if enableAddToCart is not defined %}
+    {% set enableAddToCart = true %}
+{% endif %}
+
 <div class="moorl-product-buy-list" data-moorl-product-buy-list>
     <ul class="moorl-product-buy-list-items">
         {% for product in products %}
@@ -12,23 +19,27 @@
                 <span class="selected-items">0</span>
             </div>
 
-            <div class="text-right">
-                {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
-                <span class="total-price">{{ 0|currency }}</span>
-            </div>
+            {% if enablePrices %}
+                <div class="text-right">
+                    {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
+                    <span class="total-price">{{ 0|currency }}</span>
+                </div>
+            {% endif %}
         </div>
 
-        <form action="{{ path('frontend.checkout.line-item.add') }}"
-              method="post"
-              data-add-to-cart="true">
-            {{ sw_csrf('frontend.checkout.line-item.add') }}
-            <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
-            <div class="form-values"><!-- Will be set by JavaScript --></div>
-            <button class="btn btn-primary btn-block btn-buy"
-                    title="{{ "detail.addProduct"|trans|striptags }}"
-                    aria-label="{{ "detail.addProduct"|trans|striptags }}">
-                {{ "detail.addProduct"|trans|striptags }}
-            </button>
-        </form>
+        {% if enableAddToCart %}
+            <form action="{{ path('frontend.checkout.line-item.add') }}"
+                  method="post"
+                  data-add-to-cart="true">
+                {{ sw_csrf('frontend.checkout.line-item.add') }}
+                <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+                <div class="form-values"><!-- Will be set by JavaScript --></div>
+                <button class="btn btn-primary btn-block btn-buy"
+                        title="{{ "detail.addProduct"|trans|striptags }}"
+                        aria-label="{{ "detail.addProduct"|trans|striptags }}">
+                    {{ "detail.addProduct"|trans|striptags }}
+                </button>
+            </form>
+        {% endif %}
     </div>
 </div>
