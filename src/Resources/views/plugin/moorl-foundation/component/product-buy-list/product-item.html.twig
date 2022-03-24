@@ -3,10 +3,6 @@
     {% set price = product.calculatedPrices.first() %}
 {% endif %}
 
-<li>
-    {{ dump(product) }}
-</li>
-
 <li class="moorl-product-buy-list-item">
     <div class="custom-control custom-checkbox">
         <input type="checkbox"
@@ -33,11 +29,16 @@
     <div class="product-content">
         <div class="product-title">
             <a href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
+               data-toggle="modal"
                data-modal-class="quickview-modal"
                data-url="{{ path('widgets.quickview.minimal', { 'productId': product.id }) }}">
                 {{ product.translated.name }}
             </a>
         </div>
+
+        {% if product.parentId %}
+            {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/product-configurator.html.twig' %}
+        {% endif %}
 
         <div class="products-buy-form-list-item-info-price">
             {{ price.unitPrice|currency }}{{ "general.star"|trans|sw_sanitize }}

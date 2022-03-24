@@ -13,6 +13,19 @@
     }
   }
 
+  .product-title {
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .product-detail-configurator-option {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 5px;
+    align-items: center;
+  }
+
   .total-price,
   .products-buy-form-list-item-info-price {
     font-size: 1.2em;

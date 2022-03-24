@@ -1,0 +1,44 @@
+{% block page_product_buy_list_configurator %}
+    <div class="product-detail-configurator">
+        {% set config = {
+            url: url('frontend.detail.switch', { productId: product.parentId }),
+            useAjax: true
+        } %}
+
+        {% block page_product_buy_list_configurator_form %}
+            <form data-variant-switch="true" data-variant-switch-options="{{ config|json_encode }}">
+                {% block page_product_buy_list_configurator_csrf %}
+                    {{ sw_csrf('frontend.detail.switch') }}
+                {% endblock %}
+
+                {% block page_product_buy_list_configurator_groups %}
+                    {% for group in product.sortedProperties %}
+                        {% block page_product_detail_configurator_select %}
+                            <div class="product-detail-configurator-option">
+                                <label>
+                                    {{ group.translated.name }}
+                                </label>
+
+                                <div class="">
+                                    <select name="{{ group.id }}" class="custom-select">
+                                        {% for option in group.options %}
+                                            {% set selected = false %}
+                                            {% if option.id in product.optionIds %}
+                                                {% set selected = true %}
+                                            {% endif %}
+                                            {% block page_product_detail_configurator_select_option %}
+                                                <option value="{{ option.id }}"{% if selected %} selected="selected"{% endif %}>
+                                                    {{ option.translated.name }}
+                                                </option>
+                                            {% endblock %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        {% endblock %}
+                    {% endfor %}
+                {% endblock %}
+            </form>
+        {% endblock %}
+    </div>
+{% endblock %}
