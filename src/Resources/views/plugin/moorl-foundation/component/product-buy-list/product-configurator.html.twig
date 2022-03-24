@@ -1,26 +1,19 @@
 {% block page_product_buy_list_configurator %}
-    <div class="product-detail-configurator">
-        {% set config = {
-            url: url('frontend.detail.switch', { productId: product.parentId }),
-            useAjax: true
-        } %}
-
+    <div class="product-configurator">
         {% block page_product_buy_list_configurator_form %}
-            <form data-variant-switch="true" data-variant-switch-options="{{ config|json_encode }}">
-                {% block page_product_buy_list_configurator_csrf %}
-                    {{ sw_csrf('frontend.detail.switch') }}
-                {% endblock %}
+            <form data-variant-switch="true">
+                {{ sw_csrf('frontend.detail.switch') }}
 
                 {% block page_product_buy_list_configurator_groups %}
                     {% for group in product.sortedProperties %}
                         {% block page_product_detail_configurator_select %}
-                            <div class="product-detail-configurator-option">
-                                <label>
+                            <div class="product-configurator-option">
+                                <label for="{{ product.id }}{{ group.id }}">
                                     {{ group.translated.name }}
                                 </label>
 
                                 <div class="">
-                                    <select name="{{ group.id }}" class="custom-select">
+                                    <select name="{{ group.id }}" id="{{ product.id }}{{ group.id }}" class="custom-select">
                                         {% for option in group.options %}
                                             {% set selected = false %}
                                             {% if option.id in product.optionIds %}
