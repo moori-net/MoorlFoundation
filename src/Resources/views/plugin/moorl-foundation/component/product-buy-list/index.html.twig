@@ -1,0 +1,28 @@
+{% set priceTotal = 0 %}
+
+<div class="moorl-product-buy-list">
+    <ul class="moorl-product-buy-list-items">
+        {% for product in products %}
+            {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig' %}
+        {% endfor %}
+    </ul>
+
+    <div class="moorl-product-buy-list-form">
+        <div class="text-right mb-2">
+            {{ "account.orderItemColumnTotal"|trans|sw_sanitize }}: {{ priceTotal|currency }}{{ "general.star"|trans|sw_sanitize }}
+        </div>
+
+        <form action="{{ path('frontend.checkout.line-item.add') }}"
+              method="post"
+              data-add-to-cart="true">
+            {{ sw_csrf('frontend.checkout.line-item.add') }}
+            <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+            <div class="form-values"><!-- Will be set by JavaScript --></div>
+            <button class="btn btn-primary btn-block btn-buy"
+                    title="{{ "detail.addProduct"|trans|striptags }}"
+                    aria-label="{{ "detail.addProduct"|trans|striptags }}">
+                {{ "detail.addProduct"|trans|striptags }}
+            </button>
+        </form>
+    </div>
+</div>
