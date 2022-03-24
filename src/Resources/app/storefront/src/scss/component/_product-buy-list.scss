@@ -26,8 +26,19 @@
     align-items: center;
   }
 
+  .product-buy-form {
+    height: 100%;
+    .btn {
+      height: 100%;
+      border-radius: 0;
+    }
+  }
+
   .total-price,
   .products-buy-form-list-item-info-price {
     font-size: 1.2em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: right;
   }
 }

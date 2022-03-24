@@ -47,7 +47,8 @@
 
     <form action="{{ path('frontend.checkout.line-item.add') }}"
           method="post"
-          data-add-to-cart="true">
+          data-add-to-cart="true"
+          class="product-buy-form">
         {{ sw_csrf('frontend.checkout.line-item.add') }}
         <input type="hidden" name="lineItems[{{ product.id }}][id]" value="{{ product.id }}">
         <input type="hidden" name="lineItems[{{ product.id }}][type]" value="product">
@@ -56,7 +57,7 @@
         <input type="hidden" name="lineItems[{{ product.id }}][removable]" value="1">
         <input type="hidden" name="lineItems[{{ product.id }}][quantity]" value="1">
         <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
-        <button class="btn btn-primary btn-sm btn-buy"
+        <button class="btn btn-light"
                 title="{{ "detail.addProduct"|trans|striptags }}"
                 aria-label="{{ "detail.addProduct"|trans|striptags }}">
             {% sw_icon 'plus' %}
