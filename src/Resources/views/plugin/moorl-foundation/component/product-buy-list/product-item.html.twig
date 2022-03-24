@@ -1,8 +1,11 @@
 {% set price = product.calculatedPrice %}
-            {% if product.calculatedPrices|length > 0 %}
-                {% set price = product.calculatedPrices.first() %}
-            {% endif %}
-            {% set priceTotal = priceTotal + price.unitPrice %}
+{% if product.calculatedPrices|length > 0 %}
+    {% set price = product.calculatedPrices.first() %}
+{% endif %}
+
+<li>
+    {{ dump(product) }}
+</li>
 
 <li class="moorl-product-buy-list-item">
     <div class="custom-control custom-checkbox">
@@ -11,7 +14,7 @@
                name="productId[]"
                value="{{ product.id }}"
                id="product{{ product.id }}"
-               data-unit-price="{{ price.unitPrice }}"
+               data-price="{{ price.unitPrice }}"
                checked>
         <label class="custom-control-label" for="product{{ product.id }}"></label>
     </div>
@@ -55,7 +58,7 @@
         <button class="btn btn-primary btn-sm btn-buy"
                 title="{{ "detail.addProduct"|trans|striptags }}"
                 aria-label="{{ "detail.addProduct"|trans|striptags }}">
-            {% sw_icon 'bag' %}
+            {% sw_icon 'plus' %}
         </button>
     </form>
 </li>

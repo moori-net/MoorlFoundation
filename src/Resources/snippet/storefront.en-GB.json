@@ -35,6 +35,10 @@
             "overwriteText": "Overwrite existing datarows (originId need to be set).",
             "mediaFolder": "Save images in this folder"
         },
+        "general": {
+            "subTotal": "Subtotal",
+            "selectedItems": "Selected items"
+        },
         "properties": {
             "customerNumber": "Customer number",
             "closed": "Closed",

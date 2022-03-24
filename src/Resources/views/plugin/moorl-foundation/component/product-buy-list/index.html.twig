@@ -1,6 +1,4 @@
-{% set priceTotal = 0 %}
-
-<div class="moorl-product-buy-list">
+<div class="moorl-product-buy-list" data-moorl-product-buy-list>
     <ul class="moorl-product-buy-list-items">
         {% for product in products %}
             {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig' %}
@@ -8,8 +6,16 @@
     </ul>
 
     <div class="moorl-product-buy-list-form">
-        <div class="text-right mb-2">
-            {{ "account.orderItemColumnTotal"|trans|sw_sanitize }}: {{ priceTotal|currency }}{{ "general.star"|trans|sw_sanitize }}
+        <div class="mb-2">
+            <div class="text-left">
+                {{ "moorl-foundation.general.selectedItems"|trans|sw_sanitize }}:
+                <span class="selected-items">0</span>
+            </div>
+
+            <div class="text-right">
+                {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
+                <span class="total-price">{{ 0|currency }}</span>
+            </div>
         </div>
 
         <form action="{{ path('frontend.checkout.line-item.add') }}"
