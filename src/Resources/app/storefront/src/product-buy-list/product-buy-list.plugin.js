@@ -27,8 +27,8 @@ export default class MoorlProductBuyListPlugin extends Plugin {
     _registerEvents() {
         const that = this;
 
-        document.addEventListener('change', event => {
-            that._priceElements.forEach(item => {
+        this.el.addEventListener('change', event => {
+            that.el.querySelectorAll('[data-price]').forEach(item => {
                 if (event.target === item) {
                     that._updateTotalPrice();
                 }
@@ -37,6 +37,10 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             if (event.target.nodeName === 'SELECT') {
                 const item = event.target.closest('[data-moorl-product-buy-list-item]');
                 const form = event.target.form;
+                if (!item && !form) {
+                    return;
+                }
+
                 const actionUrl = form.action;
                 const formData = new FormData(form);
                 const object = {};
@@ -71,7 +75,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
 
         this._formValuesElement.innerHTML = null;
 
-        this._priceElements.forEach(item => {
+        this.el.querySelectorAll('[data-price]').forEach(item => {
             if (!item.checked) {
                 return;
             }
