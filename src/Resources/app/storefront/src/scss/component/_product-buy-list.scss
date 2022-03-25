@@ -6,10 +6,14 @@
 
     .moorl-product-buy-list-item {
       display: grid;
-      grid-template-columns: auto 120px 1fr auto;
+      grid-template-columns: 120px 1fr;
       align-items: center;
-      grid-gap: 10px;
+      grid-gap: 8px;
       border-bottom: 1px solid $border-color;
+
+      &.enable-add-to-cart {
+        grid-template-columns: auto 120px 1fr auto;
+      }
     }
   }
 

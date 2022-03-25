@@ -16,8 +16,7 @@
      data-moorl-product-buy-list-options='{{ options|json_encode|raw }}'>
     <ul class="moorl-product-buy-list-items">
         {% for product in products %}
-            <li class="moorl-product-buy-list-item"
-                data-moorl-product-buy-list-item>
+            <li data-moorl-product-buy-list-item>
                 {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig' %}
             </li>
         {% endfor %}
@@ -25,12 +24,14 @@
 
     <div class="moorl-product-buy-list-form">
         <div class="mb-2">
-            <div class="text-left">
-                {{ "moorl-foundation.general.selectedItems"|trans|sw_sanitize }}:
-                <span class="selected-items">0</span>
-            </div>
+            {% if enableAddToCart %}
+                <div class="text-left">
+                    {{ "moorl-foundation.general.selectedItems"|trans|sw_sanitize }}:
+                    <span class="selected-items">0</span>
+                </div>
+            {% endif %}
 
-            {% if enablePrices %}
+            {% if enablePrices and enableAddToCart %}
                 <div class="text-right">
                     {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
                     <span class="total-price">{{ 0|currency }}</span>
@@ -45,7 +46,8 @@
                 {{ sw_csrf('frontend.checkout.line-item.add') }}
                 <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
                 <div class="form-values"><!-- Will be set by JavaScript --></div>
-                <button class="btn btn-primary btn-block btn-buy"
+                <button data-moorl-product-buy-list-button
+                        class="btn btn-primary btn-block btn-buy"
                         title="{{ "detail.addProduct"|trans|striptags }}"
                         aria-label="{{ "detail.addProduct"|trans|striptags }}">
                     {{ "detail.addProduct"|trans|striptags }}

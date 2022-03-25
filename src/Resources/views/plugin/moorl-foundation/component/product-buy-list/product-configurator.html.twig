@@ -11,7 +11,8 @@
                                 </label>
 
                                 <div class="">
-                                    <select name="{{ group.id }}" id="{{ product.id }}{{ group.id }}" class="custom-select">
+                                    <select name="{{ group.id }}" id="{{ product.id }}{{ group.id }}"
+                                            class="form-control form-control-sm">
                                         {% for option in group.options %}
                                             {% set selected = false %}
                                             {% if option.id in product.optionIds %}

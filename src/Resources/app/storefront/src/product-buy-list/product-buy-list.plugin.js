@@ -1,6 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import HttpClient from 'src/service/http-client.service';
-import FormSerializeUtil from 'src/utility/form/form-serialize.util';
 import queryString from 'query-string';
 
 export default class MoorlProductBuyListPlugin extends Plugin {
@@ -14,6 +13,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
     init() {
         this._priceElements = this.el.querySelectorAll('[data-price]');
         this._productListItems = this.el.querySelectorAll('[data-moorl-product-buy-list-item]');
+        this._buyButton = this.el.querySelector('[data-moorl-product-buy-list-button]');
         this._totalPriceElement = this.el.querySelector('.total-price');
         this._selectedItemsElement = this.el.querySelector('.selected-items');
         this._formValuesElement = this.el.querySelector('.form-values');
@@ -82,13 +82,26 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             totalPrice = totalPrice + parseFloat(item.dataset.price);
             selectedItems++;
             that._createFormValues(item.value);
-        })
+        });
 
-        this._totalPriceElement.innerText = currency.format(totalPrice);
-        this._selectedItemsElement.innerText = selectedItems;
+        if (this.options.enablePrices) {
+            this._totalPriceElement.innerText = currency.format(totalPrice);
+        }
+        if (this.options.enableAddToCart) {
+            this._selectedItemsElement.innerText = selectedItems;
+
+            if (selectedItems === 0) {
+                this._buyButton.disabled = true;
+            } else {
+                this._buyButton.disabled = false;
+            }
+        }
     }
 
     _createFormValues(productId) {
+        if (!this.options.enableAddToCart) {
+            return;
+        }
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][id]`, productId));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][type]`, 'product'));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][referencedId]`, productId));
