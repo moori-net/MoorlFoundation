@@ -1,18 +1,24 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import HttpClient from 'src/service/http-client.service';
+import FormSerializeUtil from 'src/utility/form/form-serialize.util';
+import queryString from 'query-string';
 
 export default class MoorlProductBuyListPlugin extends Plugin {
     static options = {
         locale: document.documentElement.lang,
         currencyIso: "EUR",
-        actionUrl: null
+        enablePrices: true,
+        enableAddToCart: true
     };
 
     init() {
         this._priceElements = this.el.querySelectorAll('[data-price]');
+        this._productListItems = this.el.querySelectorAll('[data-moorl-product-buy-list-item]');
         this._totalPriceElement = this.el.querySelector('.total-price');
         this._selectedItemsElement = this.el.querySelector('.selected-items');
         this._formValuesElement = this.el.querySelector('.form-values');
+
+        this._client = new HttpClient(window.accessKey, window.contextToken);
 
         this._updateTotalPrice();
         this._registerEvents();
@@ -26,7 +32,30 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                 if (event.target === item) {
                     that._updateTotalPrice();
                 }
-            })
+            });
+
+            if (event.target.nodeName === 'SELECT') {
+                const item = event.target.closest('[data-moorl-product-buy-list-item]');
+                const form = event.target.form;
+                const actionUrl = form.action;
+                const formData = new FormData(form);
+                const object = {};
+                formData.forEach(function (value, key) {
+                    object[key] = value;
+                });
+                const query = {
+                    switched: event.target.name,
+                    options: JSON.stringify(object),
+                    enablePrices: that.options.enablePrices,
+                    enableAddToCart: that.options.enableAddToCart
+                };
+
+                that._client.get(actionUrl + "?" + queryString.stringify(query), (response) => {
+                    console.log(response);
+                    item.innerHTML = response;
+                    that._updateTotalPrice();
+                });
+            }
         });
     }
 

@@ -5,10 +5,21 @@
     {% set enableAddToCart = true %}
 {% endif %}
 
-<div class="moorl-product-buy-list" data-moorl-product-buy-list>
+{% set options = {
+    enablePrices: enablePrices,
+    enableAddToCart: enableAddToCart,
+    currencyIso: context.currency.isoCode
+} %}
+
+<div class="moorl-product-buy-list"
+     data-moorl-product-buy-list
+     data-moorl-product-buy-list-options='{{ options|json_encode|raw }}'>
     <ul class="moorl-product-buy-list-items">
         {% for product in products %}
-            {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig' %}
+            <li class="moorl-product-buy-list-item"
+                data-moorl-product-buy-list-item>
+                {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig' %}
+            </li>
         {% endfor %}
     </ul>
 
