@@ -37,7 +37,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             if (event.target.nodeName === 'SELECT') {
                 const item = event.target.closest('[data-moorl-product-buy-list-item]');
                 const form = event.target.form;
-                if (!item && !form) {
+                if (!item || !form) {
                     return;
                 }
 
@@ -55,7 +55,6 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                 };
 
                 that._client.get(actionUrl + "?" + queryString.stringify(query), (response) => {
-                    console.log(response);
                     item.innerHTML = response;
                     that._updateTotalPrice();
                 });
@@ -64,6 +63,10 @@ export default class MoorlProductBuyListPlugin extends Plugin {
     }
 
     _updateTotalPrice() {
+        if (!this.options.enableAddToCart && !this.options.enablePrices) {
+            return;
+        }
+
         const that = this;
         const currency = new Intl.NumberFormat(this.options.locale, {
             style: 'currency',
@@ -73,7 +76,9 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         let totalPrice = 0;
         let selectedItems = 0;
 
-        this._formValuesElement.innerHTML = null;
+        if (this.options.enableAddToCart) {
+            this._formValuesElement.innerHTML = null;
+        }
 
         this.el.querySelectorAll('[data-price]').forEach(item => {
             if (!item.checked) {
