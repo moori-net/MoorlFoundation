@@ -1,5 +1,17 @@
 @import "~scss/variables";
 
+.moorl-link-field {
+    margin-bottom: 20px;
+
+    > .sw-field {
+        margin-bottom: 0;
+    }
+
+    > a {
+        height: 24px;
+    }
+}
+
 .moorl-collapse {
     .sw-field {
         margin-bottom: 0;
