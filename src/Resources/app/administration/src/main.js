@@ -11,6 +11,7 @@ import './module/sw-cms';
 
 //import './extension/sw-settings/page/sw-settings-index';
 import './extension/sw-cms/elements/image-slider';
+import './extension/sw-cms/component/sw-cms-mapping-field';
 
 import './module/foundation-settings';
 import './module/sorting';
