@@ -34,6 +34,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'grid'
         },
+        listingHeaderTitle: {
+            source: 'static',
+            value: null
+        },
         itemLayout: {
             source: 'static',
             value: 'overlay'

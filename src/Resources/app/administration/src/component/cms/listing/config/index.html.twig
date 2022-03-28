@@ -100,6 +100,12 @@
                     <option v-for="option in elementOptions.itemLayout" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
+                <sw-field v-model="element.config.listingHeaderTitle.value"
+                          type="text"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingHeaderTitle')"
+                          :helpText="$tc('sw-cms.elements.moorl-foundation-listing.helpText.listingHeaderTitle')">
+                </sw-field>
+
                 <sw-field v-if="element.config.itemLayout.value == 'custom'"
                           v-model="element.config.itemLayoutTemplate.value"
                           type="text"

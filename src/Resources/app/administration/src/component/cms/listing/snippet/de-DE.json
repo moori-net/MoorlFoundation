@@ -11,10 +11,12 @@
                     "content": "Inhalt"
                 },
                 "helpText": {
+                    "listingHeaderTitle": "Du kannst Plazhalter wie z.B. `%name%` für jede Seiten-Entität nutzen.",
                     "listingSorting": "Verwalte deine Sortierungen unter: Einstellungen - Erweiterungen - moori Sortierung",
                     "foreignKey": "If you use an entity page, like `product` you can set a foreign key. For example: `products.id`."
                 },
                 "label": {
+                    "listingHeaderTitle": "Titel",
                     "foreignKey": "Fremdschlüssel",
                     "contentHighlightColor": "Hervorgehobene Farbe",
                     "manageSorting": "Sortierungen bearbeiten",

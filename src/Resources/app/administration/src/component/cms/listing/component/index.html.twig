@@ -1,4 +1,8 @@
 <div v-if="element.data.listingItems" class="sw-cms-el-moorl-foundation-listing">
+    <div v-if="element.config.listingHeaderTitle.value" class="moorl-listing-header-title">
+        {{ element.config.listingHeaderTitle.value }}
+    </div>
+
     <ul :style="listingCss"
         :class="listingClass">
         <li class="navigation">

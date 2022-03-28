@@ -33,6 +33,12 @@ $sw-headline-color: #4a545b !default;
     }
 
     /* Same as Storefront CSS */
+    .moorl-listing-header-title {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.8em;
+    }
 
     /* listingLayout */
     .moorl-listing-standard,

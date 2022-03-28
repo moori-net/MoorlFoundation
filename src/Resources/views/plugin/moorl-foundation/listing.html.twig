@@ -3,6 +3,20 @@
         {% set config = element.fieldConfig.elements %}
     {% endif %}
 
+    {# Set listing title by a page entity #}
+    {% set listingHeaderTitle = element.translated.config.listingHeaderTitle.value %}
+    {% if listingHeaderTitle %}
+        {% if page.product %}
+            {% set listingHeaderTitle = moorl_replace_from_entity(listingHeaderTitle, page.product) %}
+        {% endif %}
+        {% if page.category %}
+            {% set listingHeaderTitle = moorl_replace_from_entity(listingHeaderTitle, page.category) %}
+        {% endif %}
+        {% if page.creator %}
+            {% set listingHeaderTitle = moorl_replace_from_entity(listingHeaderTitle, page.creator) %}
+        {% endif %}
+    {% endif %}
+
     {% set itemCss = [
         "padding:#{config.itemPadding.value}",
         "background-color:#{config.itemBackgroundColor.value}",
@@ -56,69 +70,87 @@
         {% endfor %}
     {% endset %}
 
-    {% if config.listingLayout.value == 'slider' %}
-        {# Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns #}
-        {% set listingCss = listingCss|merge([
-            "margin-right:-#{config.gapSize.value}",
-        ]) %}
+    <div class="cms-element-moorl-listing">
+        {% if listingHeaderTitle %}
+            <div class="moorl-listing-header-title">
+                {{ listingHeaderTitle }}
+            </div>
+        {% endif %}
 
-        {% set productSliderOptions = {
-            productboxMinWidth: config.itemWidth.value,
-            slider: {
-                navPosition: 'bottom',
-                speed: config.speed.value ?: 400,
-                autoplay: config.autoplay.value ? true : false,
-                autoplayHoverPause: config.autoplayHoverPause.value ? true : false,
-                autoplayTimeout: config.autoplayTimeout.value ?: 3500,
-                mode: config.mode.value ? config.mode.value : "carousel",
-                gutter: (config.gapSize.value|number_format * 1),
-                animateIn: config.mode.value == 'gallery' ? config.animateIn.value ?: null,
-                animateOut: config.mode.value == 'gallery' ? config.animateOut.value ?: null,
-                nav: config.navigationDots.value ? true : false,
-                controls: config.navigationArrows.value ? true : false,
-                mouseDrag: config.mouseDrag.value ? true : false,
-                autoplayButtonOutput: false,
-                swipeAngle: false,
-                autoHeight: false,
-                autoplayButtonOutput: false
-            }
-        } %}
+        {% if listingHeaderLink %}
+            <div class="moorl-listing-header-link">
+                <a class=""
+                   href="{{ listingHeaderLink }}"
+                   title="{{ "moorl-foundation.search.moreButton"|trans }}">
+                    {{ "moorl-foundation.search.moreButton"|trans }}
+                </a>
+            </div>
+        {% endif %}
 
-        <div class="base-slider moorl-slider product-slider product-slider{% if config.navigationArrows.value == "outside" %} has-nav-outside{% endif %}{% if config.navigationDots.value == "outside" %} has-dots-outside{% endif %}"
-             data-product-slider="true"
-             data-product-slider-options='{{ productSliderOptions|json_encode }}'>
-            <ul class="moorl-listing-slider"
-                style="{{ listingCss|join(';')|raw }}"
-                data-product-slider-container="true">
+        {% if config.listingLayout.value == 'slider' %}
+            {# Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns #}
+            {% set listingCss = listingCss|merge([
+                "margin-right:-#{config.gapSize.value}",
+            ]) %}
+
+            {% set productSliderOptions = {
+                productboxMinWidth: config.itemWidth.value,
+                slider: {
+                    navPosition: 'bottom',
+                    speed: config.speed.value ?: 400,
+                    autoplay: config.autoplay.value ? true : false,
+                    autoplayHoverPause: config.autoplayHoverPause.value ? true : false,
+                    autoplayTimeout: config.autoplayTimeout.value ?: 3500,
+                    mode: config.mode.value ? config.mode.value : "carousel",
+                    gutter: (config.gapSize.value|number_format * 1),
+                    animateIn: config.mode.value == 'gallery' ? config.animateIn.value ?: null,
+                    animateOut: config.mode.value == 'gallery' ? config.animateOut.value ?: null,
+                    nav: config.navigationDots.value ? true : false,
+                    controls: config.navigationArrows.value ? true : false,
+                    mouseDrag: config.mouseDrag.value ? true : false,
+                    autoplayButtonOutput: false,
+                    swipeAngle: false,
+                    autoHeight: false,
+                    autoplayButtonOutput: false
+                }
+            } %}
+
+            <div class="base-slider moorl-slider product-slider product-slider{% if config.navigationArrows.value == "outside" %} has-nav-outside{% endif %}{% if config.navigationDots.value == "outside" %} has-dots-outside{% endif %}"
+                 data-product-slider="true"
+                 data-product-slider-options='{{ productSliderOptions|json_encode }}'>
+                <ul class="moorl-listing-slider"
+                    style="{{ listingCss|join(';')|raw }}"
+                    data-product-slider-container="true">
+                    {{ listingContent }}
+                </ul>
+
+                {% if config.navigationArrows.value %}
+                    <div class="">
+                        <div class="base-slider-controls"
+                             data-product-slider-controls="true">
+                            <button class="base-slider-controls-prev image-slider-controls-prev{% if config.navigationArrows.value == "outside" %} is-nav-prev-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-prev-inside{% endif %}">
+                                {% block moorl_foundation_listing_slider_controls_items_prev_icon %}
+                                    {% sw_icon 'arrow-head-left' %}
+                                {% endblock %}
+                            </button>
+                            <button class="base-slider-controls-next image-slider-controls-next{% if config.navigationArrows.value == "outside" %} is-nav-next-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-next-inside{% endif %}">
+                                {% block moorl_foundation_listing_slider_controls_items_next_icon %}
+                                    {% sw_icon 'arrow-head-right' %}
+                                {% endblock %}
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% elseif config.listingLayout.value == 'standard' %}
+            <ul class="row cms-listing-row js-listing-wrapper moorl-listing-standard">
                 {{ listingContent }}
             </ul>
-
-            {% if config.navigationArrows.value %}
-                <div class="">
-                    <div class="base-slider-controls"
-                         data-product-slider-controls="true">
-                        <button class="base-slider-controls-prev image-slider-controls-prev{% if config.navigationArrows.value == "outside" %} is-nav-prev-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-prev-inside{% endif %}">
-                            {% block moorl_foundation_listing_slider_controls_items_prev_icon %}
-                                {% sw_icon 'arrow-head-left' %}
-                            {% endblock %}
-                        </button>
-                        <button class="base-slider-controls-next image-slider-controls-next{% if config.navigationArrows.value == "outside" %} is-nav-next-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-next-inside{% endif %}">
-                            {% block moorl_foundation_listing_slider_controls_items_next_icon %}
-                                {% sw_icon 'arrow-head-right' %}
-                            {% endblock %}
-                        </button>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    {% elseif config.listingLayout.value == 'standard' %}
-        <ul class="row cms-listing-row js-listing-wrapper moorl-listing-standard">
-            {{ listingContent }}
-        </ul>
-    {% else %}
-        <ul class="js-listing-wrapper moorl-listing-{{ config.listingLayout.value }}"
-            style="{{ listingCss|join(';')|raw }}">
-            {{ listingContent }}
-        </ul>
-    {% endif %}
+        {% else %}
+            <ul class="js-listing-wrapper moorl-listing-{{ config.listingLayout.value }}"
+                style="{{ listingCss|join(';')|raw }}">
+                {{ listingContent }}
+            </ul>
+        {% endif %}
+    </div>
 {% endblock %}
