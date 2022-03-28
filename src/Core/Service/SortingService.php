@@ -2,18 +2,17 @@
 
 namespace MoorlFoundation\Core\Service;
 
-use MoorlCreator\Core\Content\Creator\CreatorEntity;
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
 use MoorlFoundation\Core\Content\Sorting\SortingEntity;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
-use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
@@ -156,6 +155,10 @@ class SortingService
                     $foreignKeyConfig->getValue(),
                     $resolverContext->getEntity()->getUniqueIdentifier()
                 ));
+            } else {
+                $criteria->addFilter(new NotFilter(NotFilter::CONNECTION_AND, [
+                    new EqualsFilter('id', $resolverContext->getEntity()->getUniqueIdentifier())
+                ]));
             }
         }
     }
