@@ -2,9 +2,13 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use MoorlCreator\Core\Content\Creator\CreatorEntity;
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
 use MoorlFoundation\Core\Content\Sorting\SortingEntity;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
+use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
+use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
@@ -129,6 +133,29 @@ class SortingService
                 if ($request && !$request->get('order') && $sorting) {
                     $request->query->set('order', $sorting->getKey());
                 }
+            }
+        }
+    }
+
+    public function enrichCmsElementResolverCriteriaV2(
+        CmsSlotEntity $slot,
+        Criteria $criteria,
+        ResolverContext $resolverContext
+    ): void
+    {
+        $request = $resolverContext->getRequest();
+        $salesChannelContext = $resolverContext->getSalesChannelContext();
+
+        $this->enrichCmsElementResolverCriteria($slot, $criteria, $salesChannelContext->getContext(), $request);
+
+        if ($resolverContext instanceof EntityResolverContext) {
+            $config = $slot->getFieldConfig();
+            $foreignKeyConfig = $config->get('foreignKey');
+            if ($foreignKeyConfig && $foreignKeyConfig->getValue()) {
+                $criteria->addFilter(new EqualsFilter(
+                    $foreignKeyConfig->getValue(),
+                    $resolverContext->getEntity()->getUniqueIdentifier()
+                ));
             }
         }
     }

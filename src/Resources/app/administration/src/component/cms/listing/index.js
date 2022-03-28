@@ -14,6 +14,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'static'
         },
+        foreignKey: {
+            source: 'static',
+            value: null
+        },
         listingSorting: {
             source: 'static',
             value: null

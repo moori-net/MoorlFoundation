@@ -11,9 +11,11 @@
                     "content": "Content"
                 },
                 "helpText": {
-                    "listingSorting": "Manage your sortings at: Settings - Extensions - moori Sorting"
+                    "listingSorting": "Manage your sortings at: Settings - Extensions - moori Sorting",
+                    "foreignKey": "If you use an entity page, like `product` you can set a foreign key. For example: `products.id`."
                 },
                 "label": {
+                    "foreignKey": "Foreign key",
                     "contentHighlightColor": "Highlight color",
                     "manageSorting": "Manage sortings",
                     "manageContent": "Manage content",

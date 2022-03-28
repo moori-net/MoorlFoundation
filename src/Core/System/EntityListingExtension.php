@@ -28,7 +28,7 @@ class EntityListingExtension
     protected Request $request;
     protected ?SalesChannelRepositoryInterface $salesChannelRepository = null;
     protected ?Filter $filter = null;
-    protected string $route;
+    protected ?string $route;
 
     public function __construct(
         ?SalesChannelRepositoryInterface $salesChannelRepository = null
