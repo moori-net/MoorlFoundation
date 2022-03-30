@@ -1,0 +1,12 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-share": {
+                "name": "moori Share",
+                "label": {
+                    "provider": "Platform"
+                }
+            }
+        }
+    }
+}
