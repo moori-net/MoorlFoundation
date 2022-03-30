@@ -1,32 +1,23 @@
-{% block sw_cms_sidebar_navigator_main_elements %}
+{% block sw_cms_sidebar_block_overview_category_options %}
+    {% block sw_cms_sidebar_block_overview_category_moorl %}
+        {% block sw_cms_sidebar_block_overview_category_moorl_column_layout %}
+            <option value="moorl-column-layout">{{ $tc(snippetPrefix + 'blockMoorlColumnLayout') }}</option>
+        {% endblock %}
+        {% block sw_cms_sidebar_block_overview_category_moorl_grid_layout %}
+            <option value="moorl-grid-layout">{{ $tc(snippetPrefix + 'blockMoorlGridLayout') }}</option>
+        {% endblock %}
+        {% block sw_cms_sidebar_block_overview_category_moorl_slider %}
+            <option value="moorl-slider">{{ $tc(snippetPrefix + 'blockMoorlSlider') }}</option>
+        {% endblock %}
+        {% block sw_cms_sidebar_block_overview_category_moorl_cms %}
+            <option value="moorl-cms">{{ $tc(snippetPrefix + 'blockMoorlCms') }}</option>
+        {% endblock %}
+        {% block sw_cms_sidebar_block_overview_category_moorl_cms_old %}
+            <option value="moorl-cms-old">{{ $tc(snippetPrefix + 'blockMoorlCmsOld') }}</option>
+        {% endblock %}
+        {% block sw_cms_sidebar_block_overview_category_moorl_autofill_layout %}
+        {% endblock %}
+    {% endblock %}
+
     {% parent %}
-
-    <template v-if="section.type === 'sidebar-right'">
-        <div class="sw-cms-sidebar__navigator-section-spacer"></div>
-
-        <template v-if="getSidebarContentBlocks(section.blocks).length > 0">
-            <template v-for="block in getSidebarContentBlocks(section.blocks)">
-                <sw-cms-sidebar-nav-element
-                        :key="block.id"
-                        v-draggable="getDragData(block, sectionIndex)"
-                        v-droppable="getDropData(block, sectionIndex)"
-                        :block="block"
-                        :removable="blockIsRemovable(block)"
-                        class="sw-cms-sidebar__navigator-block is--sidebar"
-                        :class="{ 'is--dragging': block.isDragging }"
-                        @block-delete="onBlockDelete($event, section)"
-                        @block-duplicate="onBlockDuplicate($event, section)"
-                />
-            </template>
-        </template>
-
-        <template v-else>
-            <div
-                    :key="section.id + '_sidebar'"
-                    v-droppable="getDropData({ position: 0, sectionPosition: 'sidebar' }, sectionIndex)"
-                    class="sw-cms-sidebar__navigator-empty-element">
-                {{ $tc('sw-cms.detail.label.addBlocks') }}
-            </div>
-        </template>
-    </template>
 {% endblock %}

@@ -1,5 +1,4 @@
 const {Component, Mixin} = Shopware;
-const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
@@ -18,14 +17,6 @@ Component.register('sw-cms-el-moorl-share', {
     mixins: [
         Mixin.getByName('cms-element')
     ],
-
-    inject: [
-        'repositoryFactory'
-    ],
-
-    data() {},
-
-    computed: {},
 
     created() {
         this.createdComponent();

@@ -17,6 +17,7 @@ Component.override('sw-cms-slot', {
             cmsElementConfigId: null,
             showCmsElementConfigSaver: false,
             snippetPrefix: 'sw-cms.component.sw-cms-slot.',
+            plugins: [],
         };
     },
 
@@ -26,13 +27,40 @@ Component.override('sw-cms-slot', {
         },
 
         cmsElementConfigCriteria() {
+            return new Criteria();
+        },
+
+        pluginRepository() {
+            return this.repositoryFactory.create('plugin');
+        },
+
+        pluginCriteria() {
             const criteria = new Criteria();
-            //criteria.addFilter(Criteria.equals('type', this.element.type));
+            criteria.addFilter(new Criteria.equals('active', 1));
             return criteria;
         },
     },
 
     methods: {
+        getPlugin(element) {
+            if (!element.plugin || this.plugins.length === 0) {
+                return null;
+            }
+
+            return this.plugins.find(item => item.name === element.plugin);
+        },
+
+        onElementButtonClick() {
+            if (this.plugins.length) {
+                return;
+            }
+            this.pluginRepository.search(this.pluginCriteria, Shopware.Context.api)
+                .then(result => {
+                    this.plugins = result;
+                    this.showElementSelection = true;
+                });
+        },
+
         onCmsElementConfigSaverButtonClick() {
             if (!this.elementConfig.defaultConfig || this.element.locked) {
                 return;

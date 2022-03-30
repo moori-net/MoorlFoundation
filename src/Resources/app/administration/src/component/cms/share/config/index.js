@@ -18,8 +18,6 @@ Component.register('sw-cms-el-config-moorl-share', {
         Mixin.getByName('cms-element')
     ],
 
-    data() {},
-
     computed: {
         elementOptions() {
             return {

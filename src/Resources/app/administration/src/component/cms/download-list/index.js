@@ -3,6 +3,7 @@ import './config';
 import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
+    plugin: 'MoorlFoundation',
     name: 'moorl-download-list',
     label: 'sw-cms.elements.moorl-download-list.name',
     component: 'sw-cms-el-moorl-download-list',

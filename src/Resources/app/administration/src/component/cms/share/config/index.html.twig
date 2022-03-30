@@ -2,6 +2,6 @@
     <sw-multi-select
             :label="$tc('sw-cms.elements.moorl-share.label.provider')"
             :options="elementOptions.provider"
-            :value="element.config.provider.value"
+            v-model="element.config.provider.value"
     />
 </div>
