@@ -41,27 +41,26 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
         $data = new DownloadListStruct();
         $slot->setData($data);
 
-        $searchResult = $result->get('media_' . $slot->getUniqueIdentifier());
-        if (!$searchResult) {
-            return;
-        }
-
         $downloadsConfig = $fieldConfig->get('downloads');
+
         if ($downloadsConfig->isStatic()) {
-            $data->setDownloads($searchResult->getEntities());
+            $searchResult = $result->get('media_' . $slot->getUniqueIdentifier());
+            if (!$searchResult) {
+                return;
+            }
+
+            $downloads = $searchResult->getEntities();
         }
 
         if ($downloadsConfig->isMapped() && $resolverContext instanceof EntityResolverContext) {
             $downloads = $this->resolveEntityValue($resolverContext->getEntity(), $downloadsConfig->getStringValue());
-
             if ($downloads === null || \count($downloads) < 1) {
                 return;
             }
-
-            $this->sortItemsByFileName($downloads);
-
-            $data->setDownloads($downloads);
         }
+
+        $this->sortItemsByFileName($downloads);
+        $data->setDownloads($downloads);
     }
 
     protected function sortItemsByFileName(MediaCollection $downloads): void
@@ -70,8 +69,8 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
             return;
         }
 
-        $downloads->sort(static function (MediaEntity $a, MediaEntity $b) {
-            return $a->get('position') - $b->get('position');
+        $downloads->sort(function (MediaEntity $a, MediaEntity $b) {
+            return strnatcasecmp($a->getFileName(), $b->getFileName());
         });
     }
 }
