@@ -1,0 +1,71 @@
+<li class="{{ listConfig.listItemClass }}">
+    <div class="d-flex align-items-center">
+        <div class="d-block">
+            {% if file.fileExtension in ['png','gif','jpg','jpeg','bmp','webp'] %}
+                {% if config('MoorlDownloadCenter.config.showImages') %}
+                    {% sw_thumbnails 'moorl-download-center-image' with {
+                        media: file,
+                        sizes: {
+                            'default': '100px'
+                        },
+                        attributes: {
+                            'style': 'width: 100px',
+                            'class': 'moorl-download-center-image',
+                            'alt': file.title,
+                            'title': file.fileName
+                        }
+                    } %}
+                {% else %}
+                    <i class="far fa-file-image {{ listConfig.iconClass }}"></i>
+                {% endif %}
+            {% elseif file.fileExtension in ['pdf'] %}
+                <i class="far fa-file-pdf {{ listConfig.iconClass }}"></i>
+            {% elseif file.fileExtension in ['csv','xls'] %}
+                <i class="far fa-file-excel {{ listConfig.iconClass }}"></i>
+            {% elseif file.fileExtension in ['zip','rar','gz'] %}
+                <i class="far fa-file-archive {{ listConfig.iconClass }}"></i>
+            {% else %}
+                <i class="far fa-file-alt {{ listConfig.iconClass }}"></i>
+            {% endif %}
+        </div>
+        <div class="d-block ml-3">
+            {% if listConfig.useFilenameAsDownload %}
+                <a title="{{ "moorl-download-center.download"|trans }}"
+                   href="{{ file.url }}"
+                   download="{{ file.fileName }}.{{ file.fileExtension }}">
+                    {{ file.fileName }}.{{ file.fileExtension }}
+                </a>
+            {% else %}
+                {{ file.fileName }}.{{ file.fileExtension }}
+            {% endif %}
+            {% if file.fileSize %}<span class="text-muted">({{ file.fileSize|format_bytes }})</span>{% endif %}
+            <br><span class="text-muted">{{ file.title }}</span>
+        </div>
+    </div>
+
+    {% if listConfig.useButtonAsDownload %}
+        <div>
+            {% if file.fileExtension in ['avi','mov','mp4','ogg','ogm','ogv'] %}
+                {% sw_include "@Storefront/plugin/moorl-download-center/video-modal.html.twig" %}
+
+                {% if not config('MoorlDownloadCenter.config.videoHideDownload') %}
+                    <a class="btn btn-primary"
+                       aria-label="{{ "moorl-download-center.download"|trans }}"
+                       title="{{ "moorl-download-center.download"|trans }}"
+                       href="{{ file.url }}"
+                       download="{{ file.fileName }}.{{ file.fileExtension }}">
+                        <i class="fas fa-file-download"></i> {{ "moorl-download-center.download"|trans }}
+                    </a>
+                {% endif %}
+            {% else %}
+                <a class="btn btn-primary"
+                   aria-label="{{ "moorl-download-center.download"|trans }}"
+                   title="{{ "moorl-download-center.download"|trans }}"
+                   href="{{ file.url }}"
+                   download="{{ file.fileName }}.{{ file.fileExtension }}">
+                    <i class="fas fa-file-download"></i> {{ "moorl-download-center.download"|trans }}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</li>
