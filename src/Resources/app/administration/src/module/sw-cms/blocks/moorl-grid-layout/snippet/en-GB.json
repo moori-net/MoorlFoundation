@@ -1,23 +1,28 @@
 {
-    "sw-cms": {
-        "blocks": {
-            "moorl-grid-layout": {
-                 "one": "Layout One",
-                 "two": "Layout Two",
-                 "three": "Layout Three",
-                 "four": "Layout Four",
-                 "five": "Layout Five",
-                 "six": "Layout Six",
-                 "seven": "Layout Seven",
-                 "eight": "Layout Eight",
-                 "nine": "Layout Nine",
-                 "ten": "Layout Ten",
-                 "eleven": "Layout Eleven",
-                 "twelve": "Layout Twelve",
-                 "thirteen": "Layout Thirteen",
-                 "fourteen": "Layout Fourteen",
-                 "fifteen": "Layout Fifteen"
-            }
-        }
+  "sw-cms": {
+    "blocks": {
+      "moorl-grid-layout": {
+        "one": "Layout One",
+        "two": "Layout Two",
+        "three": "Layout Three",
+        "four": "Layout Four",
+        "five": "Layout Five",
+        "six": "Layout Six",
+        "seven": "Layout Seven",
+        "eight": "Layout Eight",
+        "nine": "Layout Nine",
+        "ten": "Layout Ten",
+        "eleven": "Layout Eleven",
+        "twelve": "Layout Twelve",
+        "thirteen": "Layout Thirteen",
+        "fourteen": "Layout Fourteen",
+        "fifteen": "Layout Fifteen",
+        "sixteen": "Layout Sixteen",
+        "seventeen": "Layout Seventeen",
+        "eighteen": "Layout Fifteen",
+        "nineteen": "Layout Nineteen",
+        "twenty": "Layout Twenty"
+      }
     }
+  }
 }

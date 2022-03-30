@@ -20,7 +20,8 @@
     <div class="product-cover">
         {% if product.cover.media.url %}
             {% set attributes = {
-                'alt': product.translated.name
+                'alt': product.translated.name,
+                'title': product.translated.name
             } %}
             {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
         {% else %}
