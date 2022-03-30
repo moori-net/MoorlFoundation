@@ -1,0 +1,32 @@
+{% block sw_cms_sidebar_navigator_main_elements %}
+    {% parent %}
+
+    <template v-if="section.type === 'sidebar-right'">
+        <div class="sw-cms-sidebar__navigator-section-spacer"></div>
+
+        <template v-if="getSidebarContentBlocks(section.blocks).length > 0">
+            <template v-for="block in getSidebarContentBlocks(section.blocks)">
+                <sw-cms-sidebar-nav-element
+                        :key="block.id"
+                        v-draggable="getDragData(block, sectionIndex)"
+                        v-droppable="getDropData(block, sectionIndex)"
+                        :block="block"
+                        :removable="blockIsRemovable(block)"
+                        class="sw-cms-sidebar__navigator-block is--sidebar"
+                        :class="{ 'is--dragging': block.isDragging }"
+                        @block-delete="onBlockDelete($event, section)"
+                        @block-duplicate="onBlockDuplicate($event, section)"
+                />
+            </template>
+        </template>
+
+        <template v-else>
+            <div
+                    :key="section.id + '_sidebar'"
+                    v-droppable="getDropData({ position: 0, sectionPosition: 'sidebar' }, sectionIndex)"
+                    class="sw-cms-sidebar__navigator-empty-element">
+                {{ $tc('sw-cms.detail.label.addBlocks') }}
+            </div>
+        </template>
+    </template>
+{% endblock %}

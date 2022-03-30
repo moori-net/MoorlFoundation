@@ -1,0 +1,16 @@
+{% block sw_cms_stage_section_selection__sidebar %}
+    {% parent %}
+
+    <div
+        class="sw-cms-stage-section-selection__sidebar"
+        @click="selectSection('sidebar-right')"
+    >
+        <div class="sw-cms-stage-section-selection__sidebar-preview">
+            <div class="sw-cms-stage-section-selection__sidebar-right-preview-inner">
+                <div class="sw-cms-stage-section-selection__sidebar-preview-placeholder"></div>
+                <div class="sw-cms-stage-section-selection__sidebar-preview-placeholder"></div>
+            </div>
+        </div>
+        {{ $tc('sw-cms.section.sidebar-right') }}
+    </div>
+{% endblock %}

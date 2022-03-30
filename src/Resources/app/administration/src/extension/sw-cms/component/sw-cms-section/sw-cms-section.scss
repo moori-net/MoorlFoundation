@@ -1,0 +1,16 @@
+.sw-cms-section {
+    &.is--sidebar-right {
+        .sw-cms-section__wrapper {
+            display: grid;
+            grid-template-columns: 4fr 2fr;
+            grid-gap: 28px;
+        }
+    }
+
+    &.is--sidebar-right.is--boxed {
+        .sw-cms-section__wrapper {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+        }
+    }
+}

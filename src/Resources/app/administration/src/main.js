@@ -12,6 +12,9 @@ import './module/sw-cms';
 //import './extension/sw-settings/page/sw-settings-index';
 import './extension/sw-cms/elements/image-slider';
 //import './extension/sw-cms/component/sw-cms-mapping-field';
+import './extension/sw-cms/component/sw-cms-stage-section-selection';
+import './extension/sw-cms/component/sw-cms-section';
+import './extension/sw-cms/component/sw-cms-sidebar';
 
 import './module/foundation-settings';
 import './module/sorting';

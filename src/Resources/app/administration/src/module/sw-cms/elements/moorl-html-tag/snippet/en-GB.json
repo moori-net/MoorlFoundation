@@ -1,0 +1,15 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-html-tag": {
+                "title": "HTML Tag",
+                "label": {
+                    "tag": "Tag",
+                    "content": "Content",
+                    "cssClass": "CSS Class",
+                    "style": "Style"
+                }
+            }
+        }
+    }
+}
