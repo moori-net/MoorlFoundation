@@ -4,11 +4,12 @@
             "moorl-product-buy-list": {
                 "name": "moori Einkaufsliste",
                 "label": {
-                    "products": "Produkte",
-                    "enablePrices": "Preise anzeigen",
-                    "enableVariantSwitch": "Variantenwechsel anzeigen",
-                    "enableAddToCartAll": "Alle in den Warenkorb",
-                    "enableAddToCartSingle": "Einzeln in den Warenkorb"
+                    "products": "Products",
+                    "enablePrices": "Show prices",
+                    "enableVariantSwitch": "Show variant switch",
+                    "enableAddToCartAll": "Add all products to cart",
+                    "enableAddToCartSingle": "Add single product to cart",
+                    "enableDirectUrl": "Links lead to the product pages"
                 }
             }
         }

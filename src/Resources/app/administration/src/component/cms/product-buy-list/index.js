@@ -38,6 +38,10 @@ Shopware.Service('cmsService').registerCmsElement({
         enableAddToCartSingle: {
             source: 'static',
             value: true
+        },
+        enableDirectUrl: {
+            source: 'static',
+            value: false
         }
     },
     collect: function collect(elem) {

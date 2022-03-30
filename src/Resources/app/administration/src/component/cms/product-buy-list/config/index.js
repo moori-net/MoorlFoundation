@@ -7,6 +7,14 @@ import './index.scss';
 Component.register('sw-cms-el-config-moorl-product-buy-list', {
     template,
 
+    props: {
+        element: {
+            type: Object,
+            required: false,
+            default: null,
+        }
+    },
+
     mixins: [
         Mixin.getByName('cms-element')
     ],
@@ -56,8 +64,10 @@ Component.register('sw-cms-el-config-moorl-product-buy-list', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('moorl-product-buy-list');
-            this.initElementData('moorl-product-buy-list');
+            if (!Object.keys(this.element.config).length) {
+                this.initElementConfig('moorl-product-buy-list');
+                this.initElementData('moorl-product-buy-list');
+            }
 
             this.productCollection = new EntityCollection('/product', 'product', Shopware.Context.api);
 
@@ -78,6 +88,7 @@ Component.register('sw-cms-el-config-moorl-product-buy-list', {
         onProductsChange() {
             this.element.config.products.value = this.productCollection.getIds();
             this.$set(this.element.data, 'products', this.productCollection);
+            this.$emit('products-change');
         }
     }
 });

@@ -50,5 +50,11 @@
                   bordered
                   :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')">
         </sw-field>
+
+        <sw-field v-model="element.config.enableDirectUrl.value"
+                  bordered
+                  type="switch"
+                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')">
+        </sw-field>
     </sw-container>
 </div>

@@ -8,7 +8,8 @@
                     "enablePrices": "Preise anzeigen",
                     "enableVariantSwitch": "Variantenwechsel anzeigen",
                     "enableAddToCartAll": "Alle in den Warenkorb",
-                    "enableAddToCartSingle": "Einzeln in den Warenkorb"
+                    "enableAddToCartSingle": "Einzeln in den Warenkorb",
+                    "enableDirectUrl": "Links führen zu den Produktseiten"
                 }
             }
         }
