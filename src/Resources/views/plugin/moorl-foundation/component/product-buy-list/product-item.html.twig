@@ -3,8 +3,8 @@
     {% set price = product.calculatedPrices.first() %}
 {% endif %}
 
-<div class="moorl-product-buy-list-item{% if enableAddToCart %} enable-add-to-cart{% endif %}">
-    {% if enableAddToCart %}
+<div class="moorl-product-buy-list-item enable-add-to-cart{% if enableAddToCartAll %}-all{% endif %}{% if enableAddToCartSingle %}-single{% endif %}">
+    {% if enableAddToCartAll %}
         <div class="custom-control custom-checkbox">
             <input type="checkbox"
                    class="custom-control-input"
@@ -49,7 +49,7 @@
         {% endif %}
     </div>
 
-    {% if enableAddToCart %}
+    {% if enableAddToCartSingle %}
         <form action="{{ path('frontend.checkout.line-item.add') }}"
               method="post"
               data-add-to-cart="true"

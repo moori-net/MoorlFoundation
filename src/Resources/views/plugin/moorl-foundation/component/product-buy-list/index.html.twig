@@ -1,13 +1,17 @@
 {% if enablePrices is not defined %}
     {% set enablePrices = true %}
 {% endif %}
-{% if enableAddToCart is not defined %}
-    {% set enableAddToCart = true %}
+{% if enableAddToCartAll is not defined %}
+    {% set enableAddToCartAll = true %}
+{% endif %}
+{% if enableAddToCartSingle is not defined %}
+    {% set enableAddToCartSingle = true %}
 {% endif %}
 
 {% set options = {
     enablePrices: enablePrices,
-    enableAddToCart: enableAddToCart,
+    enableAddToCartAll: enableAddToCartAll,
+    enableAddToCartSingle: enableAddToCartSingle,
     currencyIso: context.currency.isoCode
 } %}
 
@@ -22,24 +26,22 @@
         {% endfor %}
     </ul>
 
-    <div class="moorl-product-buy-list-form">
-        <div class="mb-2">
-            {% if enableAddToCart %}
+    {% if enableAddToCartAll %}
+        <div class="moorl-product-buy-list-form">
+            <div class="mb-2">
                 <div class="text-left">
                     {{ "moorl-foundation.general.selectedItems"|trans|sw_sanitize }}:
                     <span class="selected-items">0</span>
                 </div>
-            {% endif %}
 
-            {% if enablePrices and enableAddToCart %}
-                <div class="text-right">
-                    {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
-                    <span class="total-price">{{ 0|currency }}</span>
-                </div>
-            {% endif %}
-        </div>
+                {% if enablePrices %}
+                    <div class="text-right">
+                        {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
+                        <span class="total-price">{{ 0|currency }}</span>
+                    </div>
+                {% endif %}
+            </div>
 
-        {% if enableAddToCart %}
             <form action="{{ path('frontend.checkout.line-item.add') }}"
                   method="post"
                   data-add-to-cart="true">
@@ -53,6 +55,6 @@
                     {{ "detail.addProduct"|trans|striptags }}
                 </button>
             </form>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 </div>

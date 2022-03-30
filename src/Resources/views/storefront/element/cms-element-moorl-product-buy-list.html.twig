@@ -1,4 +1,8 @@
 <div class="cms-element-{{ element.type }}">
+    {% set enablePrices = element.config.enablePrices.value %}
+    {% set enableAddToCartSingle = element.config.enableAddToCartSingle.value %}
+    {% set enableAddToCartAll = element.config.enableAddToCartAll.value %}
+
     {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/index.html.twig' with {
         products: element.data.products
     } %}

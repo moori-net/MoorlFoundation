@@ -31,6 +31,19 @@ Component.register('sw-cms-el-moorl-product-buy-list', {
     },
 
     computed: {
+        itemClass() {
+            let className = "enable-add-to-cart";
+
+            if (this.element.config.enableAddToCartAll.value) {
+                className += "-all";
+            }
+            if (this.element.config.enableAddToCartSingle.value) {
+                className += "-single";
+            }
+
+            return className;
+        },
+
         priceTotal() {
             let price = 0;
 

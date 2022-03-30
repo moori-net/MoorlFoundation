@@ -37,8 +37,16 @@ $sw-headline-color: #4a545b !default;
       grid-gap: 8px;
       border-bottom: 1px solid $sw-border-color;
 
-      &.enable-add-to-cart {
+      &.enable-add-to-cart-all-single {
         grid-template-columns: auto 120px 1fr auto;
+      }
+
+      &.enable-add-to-cart-all {
+        grid-template-columns: auto 120px 1fr;
+      }
+
+      &.enable-add-to-cart-single {
+        grid-template-columns: 120px 1fr auto;
       }
     }
   }

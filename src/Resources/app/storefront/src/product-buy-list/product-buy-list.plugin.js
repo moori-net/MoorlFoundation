@@ -7,7 +7,8 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         locale: document.documentElement.lang,
         currencyIso: "EUR",
         enablePrices: true,
-        enableAddToCart: true
+        enableAddToCartSingle: true,
+        enableAddToCartAll: true,
     };
 
     init() {
@@ -51,7 +52,8 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                     switched: event.target.name,
                     options: JSON.stringify(object),
                     enablePrices: that.options.enablePrices,
-                    enableAddToCart: that.options.enableAddToCart
+                    enableAddToCartSingle: that.options.enableAddToCartSingle,
+                    enableAddToCartAll: that.options.enableAddToCartAll,
                 };
 
                 that._client.get(actionUrl + "?" + queryString.stringify(query), (response) => {
@@ -63,7 +65,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
     }
 
     _updateTotalPrice() {
-        if (!this.options.enableAddToCart && !this.options.enablePrices) {
+        if (!this.options.enableAddToCartAll) {
             return;
         }
 
@@ -76,9 +78,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         let totalPrice = 0;
         let selectedItems = 0;
 
-        if (this.options.enableAddToCart) {
-            this._formValuesElement.innerHTML = null;
-        }
+        this._formValuesElement.innerHTML = null;
 
         this.el.querySelectorAll('[data-price]').forEach(item => {
             if (!item.checked) {
@@ -89,24 +89,18 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             that._createFormValues(item.value);
         });
 
-        if (this.options.enablePrices) {
-            this._totalPriceElement.innerText = currency.format(totalPrice);
-        }
-        if (this.options.enableAddToCart) {
-            this._selectedItemsElement.innerText = selectedItems;
 
-            if (selectedItems === 0) {
-                this._buyButton.disabled = true;
-            } else {
-                this._buyButton.disabled = false;
-            }
+        this._totalPriceElement.innerText = currency.format(totalPrice);
+        this._selectedItemsElement.innerText = selectedItems;
+
+        if (selectedItems === 0) {
+            this._buyButton.disabled = true;
+        } else {
+            this._buyButton.disabled = false;
         }
     }
 
     _createFormValues(productId) {
-        if (!this.options.enableAddToCart) {
-            return;
-        }
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][id]`, productId));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][type]`, 'product'));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][referencedId]`, productId));
