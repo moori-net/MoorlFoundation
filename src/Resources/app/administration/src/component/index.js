@@ -11,5 +11,6 @@ import './moorl-collapse';
 import './moorl-listing-config';
 
 import './opening-hours';
+import './layout-card';
 import './map';
 import './cms';

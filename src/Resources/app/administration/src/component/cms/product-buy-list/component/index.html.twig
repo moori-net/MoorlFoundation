@@ -1,0 +1,59 @@
+<div class="sw-cms-el-moorl-product-buy-list" v-if="element.config.enableAddToCartAll">
+    <ul class="moorl-product-buy-list-items">
+        <li v-for="product in element.data.products">
+            <div class="moorl-product-buy-list-item enable-add-to-cart">
+                <div v-if="element.config.enableAddToCartAll.value"
+                     class="custom-control custom-checkbox">
+                    <input type="checkbox" checked>
+                </div>
+
+                <div class="product-cover">
+                    <img v-if="product.cover && product.cover.media"
+                         :src="product.cover.media.url"
+                         :alt="product.name">
+                </div>
+
+                <div class="product-content">
+                    <div class="product-title">
+                        {{ product.translated.name }}
+                    </div>
+
+                    <div v-if="product.parentId">
+                        --CONFIGURATOR--
+                    </div>
+
+                    <div v-if="element.config.enablePrices.value"
+                         class="products-buy-form-list-item-info-price">
+                        {{ product.price[0].gross | numberFormat }}
+                    </div>
+                </div>
+
+                <div v-if="element.config.enableAddToCartSingle.value"
+                     class="product-buy-form">
+                    <a class="btn sw-button" href="#">
+                        <sw-icon name="small-default-plus-line-small"/>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div v-if="element.config.enableAddToCartAll.value"
+         class="moorl-product-buy-list-form">
+        <div class="mb-2">
+            <div class="text-left">
+                Selected items
+                <span class="selected-items">{{ selectedItems }}</span>
+            </div>
+
+            <div class="text-right">
+                Total:
+                <span class="total-price">{{ priceTotal | numberFormat }}</span>
+            </div>
+        </div>
+
+        <a class="btn sw-button sw-button--primary" href="#">
+            Add to Cart
+        </a>
+    </div>
+</div>

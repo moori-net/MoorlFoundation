@@ -1,0 +1,16 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-product-buy-list": {
+                "name": "moori Einkaufsliste",
+                "label": {
+                    "products": "Produkte",
+                    "enablePrices": "Preise anzeigen",
+                    "enableVariantSwitch": "Variantenwechsel anzeigen",
+                    "enableAddToCartAll": "Alle in den Warenkorb",
+                    "enableAddToCartSingle": "Einzeln in den Warenkorb"
+                }
+            }
+        }
+    }
+}

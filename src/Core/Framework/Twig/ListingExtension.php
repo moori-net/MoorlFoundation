@@ -23,7 +23,10 @@ class ListingExtension extends AbstractExtension
 
         $variables = $entity->getTranslated();
 
-        foreach($variables as $key => $value){
+        foreach($variables as $key => $value) {
+            if (!is_string($value)) {
+                continue;
+            }
             $text = str_replace('%'.$key.'%', $value, $text);
         }
 

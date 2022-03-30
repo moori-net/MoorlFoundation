@@ -1,0 +1,12 @@
+{
+    "moorl-layout-card": {
+        "title": "Layout-Zuweisung",
+        "changeLayout": "Layout ändern",
+        "changeLayoutEmpty": "Layout zuweisen",
+        "editInPagebuilder": "Im Designer bearbeiten",
+        "editInPagebuilderEmpty": "Neues Layout erstellen",
+        "editContent": "Inhalte bearbeiten",
+        "defaultTitle": "Standard-Layout",
+        "defaultDesc": "Seite"
+    }
+}

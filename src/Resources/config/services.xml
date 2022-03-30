@@ -117,5 +117,13 @@
             <argument type="service" id="MoorlFoundation\Core\Service\EntitySearchService"/>
             <argument type="service" id="event_dispatcher" />
         </service>
+
+        <!-- CMS Resolver -->
+        <service id="MoorlFoundation\Core\Content\Product\Cms\ProductBuyListCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
     </services>
 </container>
