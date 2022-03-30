@@ -1,0 +1,23 @@
+<div class="sw-cms-el-config-moorl-download-list">
+    <sw-cms-mapping-field
+            v-model="element.config.downloads"
+            entity="media"
+            value-types="entity"
+            :label="$tc('sw-cms.elements.moorl-download-list.label.downloads')"
+    >
+        <sw-entity-multi-select
+                class="sw-cms-el-config-download-slider__downloads"
+                :placeholder="$tc('sw-cms.elements.downloadSlider.config.placeholder.selection')"
+                v-model="downloadCollection"
+                @change="onDownloadsChange"
+                labelProperty="fileName"
+                :context="downloadSearchContext"
+                :criteria="downloadSearchCriteria">
+        </sw-entity-multi-select>
+    </sw-cms-mapping-field>
+
+    <sw-select-field :label="$tc('sw-cms.elements.moorl-download-list.label.layout')"
+                     v-model="element.config.layout.value">
+        <option v-for="option in elementOptions.layout" :value="option.value">{{ $tc(option.label) }}</option>
+    </sw-select-field>
+</div>

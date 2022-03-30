@@ -1,0 +1,5 @@
+<div class="cms-element-{{ element.type }}">
+    {% sw_include '@Storefront/plugin/moorl-foundation/component/download-list/index.html.twig' with {
+        downloads: element.data.downloads
+    } %}
+</div>

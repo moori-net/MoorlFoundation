@@ -14,6 +14,10 @@ Shopware.Service('cmsService').registerCmsElement({
     previewComponent: 'sw-cms-el-preview-moorl-product-buy-list',
     configComponent: 'sw-cms-el-config-moorl-product-buy-list',
     defaultConfig: {
+        layout: {
+            source: 'static',
+            value: 'default'
+        },
         products: {
             source: 'static',
             value: [],

@@ -1,0 +1,15 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-download-list": {
+                "name": "moori Downloads",
+                "label": {
+                    "downloads": "Downloads",
+                    "layout": "Layout",
+                    "default": "Standard",
+                    "minimal": "Minimal"
+                }
+            }
+        }
+    }
+}

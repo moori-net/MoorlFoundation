@@ -1,4 +1,30 @@
-.moorl-download-list {
+$light: #f9f9f9 !default;
+$sw-border-color: #bcc1c7 !default;
+$border-radius: 10px;
+$sw-background-color: #FFFFFF;
+$sw-headline-color: #4a545b !default;
+
+.sw-cms-el-moorl-download-list {
+  width: 100%;
+  min-height: 200px;
+
+  /* Fixes */
+  .text-right {
+    text-align: right;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    border: 0;
+    justify-content: center;
+  }
+
+  .mb-2 {
+    margin-bottom: 10px;
+  }
+
+  /* Same as Storefront CSS */
   .moorl-download-list-items {
     list-style: none;
     margin: 0;
@@ -13,25 +39,14 @@
     }
   }
 
-  .download-icon {
-    font-size: 2em;
-  }
-
-  .download-content {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-
   .download-title {
     font-size: 1.2em;
+    margin-top: 8px;
+    margin-bottom: 8px;
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .download-meta {
-    color: $text-muted;
   }
 
   .download-form {
@@ -40,7 +55,6 @@
     .btn {
       height: 100%;
       border-radius: 0;
-      display: flex;
     }
   }
 }

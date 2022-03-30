@@ -1,40 +1,19 @@
-{% if config('MoorlDownloadCenter.config.listStyle') == 'default' %}
-    {% set listConfig = {
-        'titleClass': 'moorl-download-center-title',
-        'teaserClass': 'moorl-download-center-description',
-        'listClass': 'list-group mb-4',
-        'listItemClass': 'list-group-item d-flex justify-content-between align-items-center',
-        'useButtonAsDownload': true,
-        'useFilenameAsDownload': false,
-        'iconClass': 'fa-w-12 fa-3x'
-    } %}
-{% else %}
-    {% set listConfig = {
-        'titleClass': 'font-weight-bold mb-1',
-        'teaserClass': 'mb-1',
-        'listClass': 'list-unstyled',
-        'listItemClass': 'd-flex justify-content-between align-items-top',
-        'useButtonAsDownload': false,
-        'useFilenameAsDownload': true,
-        'iconClass': 'fa-w-8 fa-2x'
-    } %}
-{% endif %}
+{% set allowDownload = true %}
+{% set tunnelDownload = true %}
+{% set showDownloads = true %}
+{% set showImage = true %}
 
-{% if downloadCenter.showHeader %}
-    <p class="{{ listConfig.titleClass }}">{{ downloadCenter.translated.name }}</p>
-    <p class="{{ listConfig.teaserClass }}">{{ downloadCenter.translated.description|raw }}</p>
-{% endif %}
-
-{% if downloadCenter.mediaFolder.media.count > 0 %}
-    <ul class="list-group mb-4">
-        {% for file in downloadCenter.mediaFolder.media %}
-            {% sw_include '@Storefront/plugin/moorl-foundation/component/download-list/download-item.html.twig' %}
-        {% endfor %}
-    </ul>
+{% if downloads.count > 0 and showDownloads %}
+    <div class="moorl-download-list">
+        <ul class="moorl-download-list-items">
+            {% for file in downloads %}
+                {% sw_include '@Storefront/plugin/moorl-foundation/component/download-list/download-item.html.twig' %}
+            {% endfor %}
+        </ul>
+    </div>
 {% else %}
-    {% if downloadCenter.errorMessage %}
-        {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {type: "danger", content: downloadCenter.errorMessage } %}
-    {% else %}
-        {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {type: "info", content: "moorl-download-center.empty"|trans } %}
-    {% endif %}
+    {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+        type: "primary",
+        content: "moorl-foundation.search.notAvailable"|trans
+    } %}
 {% endif %}
