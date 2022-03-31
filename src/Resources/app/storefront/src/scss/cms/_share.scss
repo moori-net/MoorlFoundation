@@ -1,0 +1,42 @@
+.cms-element-moorl-share {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 24px;
+
+  .icon {
+    color: $primary;
+    margin-right: 8px;
+    > svg {
+      top: 0;
+    }
+  }
+
+  ul {
+    margin: 20px 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 4px 16px;
+      border-right: 1px solid $border-color;
+
+      div > a,
+      div > span {
+        &:after {
+          content: ",";
+        }
+        &:last-child:after {
+          content: none;
+        }
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+}
