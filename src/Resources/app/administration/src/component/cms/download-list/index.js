@@ -21,6 +21,10 @@ Shopware.Service('cmsService').registerCmsElement({
         layout: {
             source: 'static',
             value: 'default'
+        },
+        emptyText: {
+            source: 'static',
+            value: 'No downloads available'
         }
     }
 });

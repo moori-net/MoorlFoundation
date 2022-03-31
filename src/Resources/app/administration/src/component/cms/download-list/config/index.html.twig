@@ -19,4 +19,9 @@
                      v-model="element.config.layout.value">
         <option v-for="option in elementOptions.layout" :value="option.value">{{ $tc(option.label) }}</option>
     </sw-select-field>
+
+    <sw-field v-model="element.config.emptyText.value"
+              type="text"
+              :label="$tc('sw-cms.elements.moorl-download-list.label.emptyText')">
+    </sw-field>
 </div>

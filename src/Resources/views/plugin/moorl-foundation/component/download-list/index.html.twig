@@ -11,9 +11,9 @@
             {% endfor %}
         </ul>
     </div>
-{% else %}
+{% elseif emptyText %}
     {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
         type: "primary",
-        content: "moorl-foundation.search.notAvailable"|trans
+        content: emptyText ?: "moorl-foundation.search.notAvailable"|trans
     } %}
 {% endif %}

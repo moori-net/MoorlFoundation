@@ -10,7 +10,8 @@
                     "enableAddToCartAll": "Add all products to cart",
                     "enableAddToCartSingle": "Add single product to cart",
                     "enableDirectUrl": "Links lead to the product pages",
-                    "notAvailable": "Not available"
+                    "notAvailable": "Not available",
+                    "emptyText": "Empty text"
                 }
             }
         }

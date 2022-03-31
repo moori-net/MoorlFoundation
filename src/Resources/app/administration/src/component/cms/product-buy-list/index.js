@@ -48,6 +48,10 @@ Shopware.Service('cmsService').registerCmsElement({
         enableDirectUrl: {
             source: 'static',
             value: false
+        },
+        emptyText: {
+            source: 'static',
+            value: 'No products available'
         }
     },
     collect: function collect(elem) {

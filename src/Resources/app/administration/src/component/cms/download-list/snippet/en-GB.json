@@ -8,7 +8,8 @@
                     "layout": "Layout",
                     "default": "Default",
                     "minimal": "Minimal",
-                    "notAvailable": "Not available"
+                    "notAvailable": "Not available",
+                    "emptyText": "Empty text"
                 }
             }
         }

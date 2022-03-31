@@ -39,7 +39,7 @@
     </ul>
 
     <sw-alert v-else variant="info">
-        {{ $tc('sw-cms.elements.moorl-product-buy-list.label.notAvailable') }}
+        {{ element.config.emptyText.value }}
     </sw-alert>
 
     <div v-if="element.config.enableAddToCartAll.value"

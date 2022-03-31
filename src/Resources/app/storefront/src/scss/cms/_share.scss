@@ -1,7 +1,4 @@
 .cms-element-moorl-share {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   line-height: 24px;
 
   .icon {
@@ -17,6 +14,7 @@
     padding: 0;
     display: flex;
     list-style: none;
+    justify-content: center;
 
     li {
       display: flex;

@@ -4,6 +4,7 @@
     {% set enableAddToCartAll = element.config.enableAddToCartAll.value %}
 
     {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/index.html.twig' with {
-        products: element.data.products
+        products: element.data.products,
+        emptyText: element.translated.config.emptyText.value
     } %}
 </div>
