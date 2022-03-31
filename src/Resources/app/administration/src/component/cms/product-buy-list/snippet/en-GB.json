@@ -2,7 +2,7 @@
     "sw-cms": {
         "elements": {
             "moorl-product-buy-list": {
-                "name": "moori Buy list",
+                "name": "Buy list",
                 "label": {
                     "products": "Products",
                     "enablePrices": "Show prices",

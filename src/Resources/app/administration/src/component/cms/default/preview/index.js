@@ -14,5 +14,13 @@ Component.register('sw-cms-el-preview-moorl-default', {
             type: Object,
             required: true
         }
+    },
+
+    computed: {
+        style() {
+            if (this.element.color) {
+                return `background: linear-gradient(transparent 50%, ${this.element.color} 50%);`
+            }
+        }
     }
 });

@@ -2,7 +2,7 @@
     "sw-cms": {
         "elements": {
             "moorl-foundation-listing": {
-                "name": "moorl Standard Listing",
+                "name": "Listing/Slider",
                 "tab": {
                     "layout": "Layout",
                     "slider": "Slider",

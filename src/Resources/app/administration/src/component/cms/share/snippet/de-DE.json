@@ -2,7 +2,7 @@
     "sw-cms": {
         "elements": {
             "moorl-share": {
-                "name": "moori Share",
+                "name": "Share",
                 "label": {
                     "provider": "Platform"
                 }

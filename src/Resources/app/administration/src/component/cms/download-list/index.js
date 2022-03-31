@@ -1,13 +1,13 @@
 import './component';
 import './config';
-import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
+    icon: 'default-action-cloud-download',
     name: 'moorl-download-list',
     label: 'sw-cms.elements.moorl-download-list.name',
     component: 'sw-cms-el-moorl-download-list',
-    previewComponent: 'sw-cms-el-preview-moorl-download-list',
+    previewComponent: true,
     configComponent: 'sw-cms-el-config-moorl-download-list',
     defaultConfig: {
         downloads: {

@@ -8,6 +8,8 @@ criteria.addAssociation('options.group');
 criteria.addAssociation('cover');
 
 Shopware.Service('cmsService').registerCmsElement({
+    plugin: 'MoorlFoundation',
+    icon: 'default-shopping-cart',
     name: 'moorl-product-buy-list',
     label: 'sw-cms.elements.moorl-product-buy-list.name',
     component: 'sw-cms-el-moorl-product-buy-list',

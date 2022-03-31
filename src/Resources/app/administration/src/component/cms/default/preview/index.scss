@@ -2,34 +2,57 @@
 
 .sw-cms-el-preview-moorl-default {
   width: 100%;
-  background: #fff;
-  font-size: 22px;
-  color: $color-darkgray-200;
-  font-weight: 600;
+  height: 100%;
+  background: linear-gradient($color-gray-300 50%, $color-shopware-brand-200 50%);
 
-  p {
-    font-size: $font-size-small;
-    margin-bottom: 10px;
-  }
+  .moorl-default {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  hr {
-    max-width: 100%;
-    margin: 10px auto;
-    height: 1px;
-    border: 0;
-    background-color: $color-gray-300;
-  }
-
-  .sw-cms-el-preview-moorl-share-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 5px;
-
-    > div {
-      background-color: $color-gray-300;
+    .moorl-default-box {
       width: 100%;
-      height: 32px;
-      border-radius: $border-radius-default;
+      text-align: center;
+
+      .moorl-default-box-icons {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+
+        li {
+          display: flex;
+          -ms-flex-align: center;
+          align-items: center;
+          padding: 4px 12px;
+          border-right: 1px solid currentColor;
+
+          img {
+            width: 48px;
+            height: 48px;
+          }
+
+          .sw-icon {
+            width: 48px;
+            height: 48px;
+            padding: 4px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 5px;
+          }
+
+          &:last-child {
+            border-right: 0;
+          }
+        }
+      }
+
+      div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }

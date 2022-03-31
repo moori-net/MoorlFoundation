@@ -2,7 +2,7 @@
     "sw-cms": {
         "elements": {
             "moorl-download-list": {
-                "name": "moori Downloads",
+                "name": "Downloads",
                 "label": {
                     "downloads": "Downloads",
                     "layout": "Layout",
