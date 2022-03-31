@@ -7,6 +7,6 @@ Application.getContainer('service').cmsService.registerCmsElement({
     name: 'moorl-replacer',
     label: 'sw-cms.elements.moorl-replacer.title',
     component: 'sw-cms-el-moorl-replacer',
-    configComponent: true,
+    previewComponent: true,
     defaultConfig: null
 });

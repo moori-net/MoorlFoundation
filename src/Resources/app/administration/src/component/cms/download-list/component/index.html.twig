@@ -1,5 +1,5 @@
 <div class="sw-cms-el-moorl-download-list">
-    <ul class="moorl-download-list-items">
+    <ul v-if="element.data.downloads" class="moorl-download-list-items">
         <li v-for="download in element.data.downloads">
             <div class="moorl-download-list-item">
                 <div class="download-icon">
@@ -24,4 +24,8 @@
             </div>
         </li>
     </ul>
+
+    <sw-alert v-else variant="info">
+        {{ $tc('sw-cms.elements.moorl-download-list.label.notAvailable') }}
+    </sw-alert>
 </div>

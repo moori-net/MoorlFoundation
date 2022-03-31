@@ -1,5 +1,5 @@
 <div class="sw-cms-el-moorl-product-buy-list" v-if="element.config.enableAddToCartAll">
-    <ul class="moorl-product-buy-list-items">
+    <ul v-if="element.data.products" class="moorl-product-buy-list-items">
         <li v-for="product in element.data.products">
             <div class="moorl-product-buy-list-item" :class="itemClass">
                 <div v-if="element.config.enableAddToCartAll.value"
@@ -37,6 +37,10 @@
             </div>
         </li>
     </ul>
+
+    <sw-alert v-else variant="info">
+        {{ $tc('sw-cms.elements.moorl-product-buy-list.label.notAvailable') }}
+    </sw-alert>
 
     <div v-if="element.config.enableAddToCartAll.value"
          class="moorl-product-buy-list-form">

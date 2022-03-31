@@ -7,7 +7,8 @@
                     "downloads": "Downloads",
                     "layout": "Layout",
                     "default": "Standard",
-                    "minimal": "Minimal"
+                    "minimal": "Minimal",
+                    "notAvailable": "Nicht Verfügbar"
                 }
             }
         }

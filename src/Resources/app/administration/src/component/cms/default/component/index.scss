@@ -1,0 +1,14 @@
+@import "~scss/variables";
+
+.sw-cms-el-moorl-default {
+    width: 100%;
+    color: $color-gray-600;
+    min-height: 140px;
+    font-size: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-gray-100;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+}

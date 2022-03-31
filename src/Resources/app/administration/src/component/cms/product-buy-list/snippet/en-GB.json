@@ -9,7 +9,8 @@
                     "enableVariantSwitch": "Show variant switch",
                     "enableAddToCartAll": "Add all products to cart",
                     "enableAddToCartSingle": "Add single product to cart",
-                    "enableDirectUrl": "Links lead to the product pages"
+                    "enableDirectUrl": "Links lead to the product pages",
+                    "notAvailable": "Not available"
                 }
             }
         }

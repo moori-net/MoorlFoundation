@@ -2,7 +2,6 @@ import './component';
 import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
-    hidden: true,
     plugin: 'MoorlFoundation',
     icon: 'default-action-cloud-download',
     name: 'moorl-download-list',
