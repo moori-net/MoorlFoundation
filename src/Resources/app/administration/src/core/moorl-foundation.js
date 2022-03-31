@@ -1,4 +1,43 @@
 const MoorlFoundation = function MoorlFoundation() {
+    this.extendCmsElement = function (settings) {
+        settings = {
+            name: null,
+            plugin: 'MoorlMagazine',
+            icon: null,
+            color: null,
+            parentName: null,
+            defaultConfig: {},
+            previewComponent: true,
+            ...settings
+        };
+
+        let parentComponent = `sw-cms-el-${settings.parentName}`;
+        let parentConfigComponent = `sw-cms-el-config-${settings.parentName}`;
+        let component = `sw-cms-el-${settings.name}`;
+        let configComponent = `sw-cms-el-config-${settings.name}`;
+
+        /*
+        Shopware.Component.extend(component, parentComponent, {
+            data() {return {elementName: settings.name}}
+        });
+
+        Shopware.Component.extend(configComponent, parentConfigComponent, {
+            data() {return {elementName: settings.name}}
+        });*/
+
+        const config = {
+            name: settings.name,
+            plugin: settings.plugin,
+            icon: settings.icon,
+            color: settings.color,
+            component: parentComponent,
+            configComponent: parentConfigComponent,
+            previewComponent: settings.previewComponent,
+            defaultConfig: settings.defaultConfig
+        };
+
+        Shopware.Service('cmsService').registerCmsElement(config);
+    };
     this.listingLayout = [
         {value: 'grid', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.grid'},
         {value: 'list', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.list'},

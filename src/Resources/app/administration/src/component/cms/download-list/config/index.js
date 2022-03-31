@@ -70,10 +70,8 @@ Component.register('sw-cms-el-config-moorl-download-list', {
 
     methods: {
         createdComponent() {
-            if (!Object.keys(this.element.config).length) {
-                this.initElementConfig('moorl-download-list');
-                this.initElementData('moorl-download-list');
-            }
+            this.initElementConfig('moorl-download-list');
+            this.initElementData('moorl-download-list');
 
             this.downloadCollection = new EntityCollection('/media', 'media', Shopware.Context.api);
 

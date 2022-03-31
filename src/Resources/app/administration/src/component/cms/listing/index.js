@@ -3,6 +3,7 @@ import './config';
 import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
+    hidden: true,
     plugin: 'MoorlFoundation',
     icon: 'default-view-grid',
     name: 'moorl-foundation-listing',
