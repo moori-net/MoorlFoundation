@@ -38,7 +38,8 @@
         },
         "general": {
             "subTotal": "Subtotal",
-            "selectedItems": "Selected items"
+            "selectedItems": "Selected items",
+            "share": "Share"
         },
         "properties": {
             "customerNumber": "Customer number",

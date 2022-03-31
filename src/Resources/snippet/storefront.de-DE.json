@@ -36,7 +36,8 @@
     },
     "general": {
       "subTotal": "Gesamtpreis",
-      "selectedItems": "Ausgewählt"
+      "selectedItems": "Ausgewählt",
+      "share": "Teilen"
     },
     "properties": {
       "closed": "Geschlossen",
