@@ -4,36 +4,37 @@
         {% if activeRoute == 'moorl.magazine.article' %}
             {% set currentUrl = seoUrl(activeRoute, {magazineArticleId:page.magazineArticle.id}) %}
         {% endif %}
+        <div class="sticky-top">
+            <ul>
+                <li>{{ "moorl-foundation.general.share"|trans }}</li>
 
-        <ul>
-            <li>{{ "moorl-foundation.general.share"|trans }}</li>
+                {% if 'facebook' in element.config.provider.value %}
+                    <li>
+                        <a title="" class="btn btn-facebook"
+                           href="https://www.facebook.com/sharer/sharer.php?u={{ currentUrl }}" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </li>
+                {% endif %}
 
-            {% if 'facebook' in element.config.provider.value %}
-                <li>
-                    <a title="" class="btn btn-facebook"
-                       href="https://www.facebook.com/sharer/sharer.php?u={{ currentUrl }}" target="_blank">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                </li>
-            {% endif %}
+                {% if 'twitter' in element.config.provider.value %}
+                    <li>
+                        <a title="" class="btn btn-twitter"
+                           href="https://twitter.com/intent/tweet?url={{ currentUrl }}" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                {% endif %}
 
-            {% if 'twitter' in element.config.provider.value %}
-                <li>
-                    <a title="" class="btn btn-twitter"
-                       href="https://twitter.com/intent/tweet?url={{ currentUrl }}" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-            {% endif %}
-
-            {% if 'pinterest' in element.config.provider.value %}
-                <li>
-                    <a title="" class="btn btn-pinterest"
-                       href="http://pinterest.com/pin/create/button/?url={{ currentUrl }}" target="_blank">
-                        <i class="fab fa-pinterest"></i>
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
+                {% if 'pinterest' in element.config.provider.value %}
+                    <li>
+                        <a title="" class="btn btn-pinterest"
+                           href="http://pinterest.com/pin/create/button/?url={{ currentUrl }}" target="_blank">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     {% endif %}
 </div>
