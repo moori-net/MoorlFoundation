@@ -1,7 +1,6 @@
 const Application = Shopware.Application;
 import './component';
 import './config';
-import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
@@ -10,7 +9,7 @@ Application.getContainer('service').cmsService.registerCmsElement({
     label: 'sw-cms.elements.moorl-html-tag.title',
     component: 'sw-cms-el-moorl-html-tag',
     configComponent: 'sw-cms-el-config-moorl-html-tag',
-    previewComponent: 'sw-cms-el-preview-moorl-html-tag',
+    previewComponent: true,
     defaultConfig: {
         tag: {
             source: 'static',
