@@ -75,16 +75,18 @@ Component.register('sw-cms-el-config-moorl-download-list', {
 
             this.downloadCollection = new EntityCollection('/media', 'media', Shopware.Context.api);
 
-            if (this.element.config.downloads.value.length > 0) {
-                const criteria = new Criteria(1, 25);
-                criteria.setIds(this.element.config.downloads.value);
-
-                this.downloadRepository.search(criteria, this.downloadSearchContext)
-                    .then(result => {
-                        this.downloadCollection = result;
-                        this.onDownloadsChange();
-                    });
+            if (this.element.config.downloads.value.length <= 0) {
+                return;
             }
+
+            const criteria = new Criteria(1, 25);
+            criteria.setIds(this.element.config.downloads.value);
+
+            this.downloadRepository.search(criteria, this.downloadSearchContext)
+                .then(result => {
+                    this.downloadCollection = result;
+                    this.onDownloadsChange();
+                });
         },
 
         onDownloadsChange() {

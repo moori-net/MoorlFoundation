@@ -71,18 +71,20 @@ Component.register('sw-cms-el-config-moorl-product-buy-list', {
 
             this.productCollection = new EntityCollection('/product', 'product', Shopware.Context.api);
 
-            if (this.element.config.products.value.length > 0) {
-                const criteria = new Criteria(1, 25);
-                criteria.addAssociation('options.group');
-                criteria.addAssociation('cover');
-                criteria.setIds(this.element.config.products.value);
-
-                this.productRepository.search(criteria, this.productSearchContext)
-                    .then(result => {
-                        this.productCollection = result;
-                        this.onProductsChange();
-                    });
+            if (this.element.config.products.value.length <= 0) {
+                return;
             }
+
+            const criteria = new Criteria(1, 25);
+            criteria.addAssociation('options.group');
+            criteria.addAssociation('cover');
+            criteria.setIds(this.element.config.products.value);
+
+            this.productRepository.search(criteria, this.productSearchContext)
+                .then(result => {
+                    this.productCollection = result;
+                    this.onProductsChange();
+                });
         },
 
         onProductsChange() {

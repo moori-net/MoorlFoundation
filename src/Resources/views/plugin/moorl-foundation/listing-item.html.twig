@@ -21,7 +21,7 @@
                     } %}
                 {% elseif config.itemLayout.value == 'image-or-title' %}
                     <div class="moorl-listing-item-title" title="{{ title }}">
-                        {{ title }}
+                        {{ title|raw }}
                     </div>
                 {% else %}
                     {% sw_icon 'placeholder' style {
@@ -37,7 +37,7 @@
                     {% block moorl_foundation_listing_item_content %}
                         <div class="moorl-listing-item-title" title="{{ title }}">
                             {% block moorl_foundation_listing_item_title %}
-                                {{ title }}
+                                {{ title|raw }}
                             {% endblock %}
                         </div>
 
@@ -52,7 +52,7 @@
                         {% if description %}
                             <div class="moorl-listing-item-description">
                                 {% block moorl_foundation_listing_item_description %}
-                                    {{ description }}
+                                    {{ description|raw }}
                                 {% endblock %}
                             </div>
                         {% endif %}

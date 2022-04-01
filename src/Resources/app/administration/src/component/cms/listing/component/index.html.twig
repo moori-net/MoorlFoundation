@@ -1,7 +1,7 @@
 <div v-if="element.data.listingItems" class="sw-cms-el-moorl-foundation-listing">
-    <div v-if="element.config.listingHeaderTitle.value" class="moorl-listing-header-title">
+    <h2 v-if="element.config.listingHeaderTitle.value" class="moorl-listing-header-title">
         {{ element.config.listingHeaderTitle.value }}
-    </div>
+    </h2>
 
     <ul :style="listingCss"
         :class="listingClass">

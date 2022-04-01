@@ -284,6 +284,11 @@ TWIG;
             '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
         ];
 
+        try {
+            $data = json_encode(file_get_contents(__DIR__ . '/demo-html.html'));
+            $globalReplacers['"{DEMO_HTML}"'] = $data;
+        } catch (\Exception $exception) {}
+
         $sql = sprintf(
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
             $dataObject->getPluginName()
