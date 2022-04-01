@@ -9,7 +9,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     background-color: $color-gray-100;
     text-transform: uppercase;
     letter-spacing: 6px;
+    padding: 15px;
+
+    .sw-button,
+    .small {
+        text-align: center;
+        margin-top: 10px;
+        letter-spacing: normal;
+        font-size: 14px;
+        text-transform: none;
+    }
 }
