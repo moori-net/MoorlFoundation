@@ -16,8 +16,7 @@ Component.override('sw-cms-slot', {
             cmsElementConfig: null,
             cmsElementConfigId: null,
             showCmsElementConfigSaver: false,
-            snippetPrefix: 'sw-cms.component.sw-cms-slot.',
-            plugins: [],
+            snippetPrefix: 'sw-cms.component.sw-cms-slot.'
         };
     },
 
@@ -39,6 +38,10 @@ Component.override('sw-cms-slot', {
             criteria.addFilter(new Criteria.equals('active', 1));
             return criteria;
         },
+
+        plugins() {
+            return Shopware.State.get('moorlFoundationState').plugins;
+        }
     },
 
     methods: {
@@ -50,15 +53,16 @@ Component.override('sw-cms-slot', {
             return this.plugins.find(item => item.name === element.plugin);
         },
 
-        onElementButtonClick() {
+        async onElementButtonClick() {
             if (this.plugins.length) {
-                return;
+                return this.$super('onElementButtonClick');
             }
-            this.pluginRepository.search(this.pluginCriteria, Shopware.Context.api)
-                .then(result => {
-                    this.plugins = result;
-                    this.showElementSelection = true;
-                });
+
+            const plugins = await this.pluginRepository.search(this.pluginCriteria);
+
+            Shopware.State.commit('moorlFoundationState/setPlugins', plugins);
+
+            this.$super('onElementButtonClick');
         },
 
         onCmsElementConfigSaverButtonClick() {
