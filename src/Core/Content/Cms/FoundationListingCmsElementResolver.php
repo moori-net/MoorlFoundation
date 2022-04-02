@@ -92,6 +92,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $salesChannelContext = $resolverContext->getSalesChannelContext();
 
         if ($request) {
+            /* Unset immediately in EntitySearchService, because its not compatible with product listing */
             $request->query->set('slots', $slot->getId());
         }
 
@@ -155,6 +156,15 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
             $translatedConfig['listingHeaderTitle']['value'] = $this->resolveEntityValues(
                 $resolverContext,
                 $translatedConfig['listingHeaderTitle']['value']
+            );
+
+            $slot->addTranslated('config', $translatedConfig);
+        }
+
+        if (!empty($translatedConfig['buttonLabel']['value'])) {
+            $translatedConfig['buttonLabel']['value'] = $this->resolveEntityValues(
+                $resolverContext,
+                $translatedConfig['buttonLabel']['value']
             );
 
             $slot->addTranslated('config', $translatedConfig);

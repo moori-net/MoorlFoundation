@@ -16,7 +16,8 @@
                         attributes: {
                             'alt': title,
                             'class': "is-#{config.displayMode.value}",
-                            'style': imageCss|join(';')
+                            'style': imageCss|join(';'),
+                            'title': ''
                         }
                     } %}
                 {% elseif config.itemLayout.value == 'image-or-title' %}
