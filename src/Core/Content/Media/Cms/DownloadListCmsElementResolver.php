@@ -54,6 +54,9 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
 
         if ($downloadsConfig->isMapped() && $resolverContext instanceof EntityResolverContext) {
             $downloads = $this->resolveEntityValue($resolverContext->getEntity(), $downloadsConfig->getStringValue());
+            if ($downloads instanceof MediaEntity) {
+                $downloads = new MediaCollection([$downloads]);
+            }
             if ($downloads === null || \count($downloads) < 1) {
                 return;
             }
