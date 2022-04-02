@@ -18,23 +18,21 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 
 class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
 {
-    protected ?AbstractProductListingRoute $listingRoute = null;
     protected SortingService $sortingService;
+    protected ?AbstractProductListingRoute $listingRoute = null;
 
     /**
      * FoundationListingCmsElementResolver constructor.
      * @param AbstractProductListingRoute $listingRoute
      * @param SortingService $sortingService
-     *
-     * @deprecated arguments need to be swapped
      */
     public function __construct(
-        AbstractProductListingRoute $listingRoute,
-        SortingService $sortingService
+        SortingService $sortingService,
+        ?AbstractProductListingRoute $listingRoute = null
     )
     {
-        $this->listingRoute = $listingRoute;
         $this->sortingService = $sortingService;
+        $this->listingRoute = $listingRoute;
     }
 
     /**
