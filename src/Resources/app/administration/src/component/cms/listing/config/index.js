@@ -123,6 +123,8 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                         option => whitelist.includes(option.value)
                     );
                 }
+
+                return options;
             }
 
             return options;
