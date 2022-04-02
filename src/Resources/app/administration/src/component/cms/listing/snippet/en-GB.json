@@ -11,7 +11,7 @@
                     "content": "Content"
                 },
                 "helpText": {
-                    "listingHeaderTitle": "You can use placeholder like `%name%` for any page entity",
+                    "listingHeaderTitle": "You can use placeholder like `{{ product.name }}`",
                     "listingSorting": "Manage your sortings at: Settings - Extensions - moori Sorting",
                     "foreignKey": "If you use an entity page, like `product` you can set a foreign key. For example: `products.id`."
                 },

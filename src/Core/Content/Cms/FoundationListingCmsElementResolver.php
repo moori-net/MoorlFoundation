@@ -23,8 +23,8 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
 
     /**
      * FoundationListingCmsElementResolver constructor.
-     * @param AbstractProductListingRoute $listingRoute
      * @param SortingService $sortingService
+     * @param AbstractProductListingRoute|null $listingRoute
      */
     public function __construct(
         SortingService $sortingService,
