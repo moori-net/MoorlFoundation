@@ -1,4 +1,4 @@
-const {Component, Mixin} = Shopware;
+const {Entity, Component, Mixin} = Shopware;
 const {Criteria, EntityCollection} = Shopware.Data;
 
 import template from './index.html.twig';
@@ -12,7 +12,8 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
     ],
 
     inject: [
-        'repositoryFactory'
+        'repositoryFactory',
+        'cmsService'
     ],
 
     data() {
@@ -83,8 +84,38 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                     {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
                     {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.outside'},
                     {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.inside'}
+                ],
+                foreignKey: [
+                    {value: null, label: this.$tc('sw-cms.elements.moorl-foundation-listing.none')}
                 ]
             };
+
+            if (this.entityForeignKeys) {
+                for (let value of this.entityForeignKeys.string) {
+                    if (value.match(/\./g).length > 1) {
+                        continue;
+                    }
+                    if (value.lastIndexOf("Id") === -1) {
+                        continue;
+                    }
+                    options.foreignKey.push({
+                        value: value,
+                        label: value
+                    });
+                }
+
+                Object.values(this.entityForeignKeys.entity).forEach(entity => {
+                    for (let value of entity) {
+                        if (value.match(/\./g).length > 1) {
+                            continue;
+                        }
+                        options.foreignKey.push({
+                            value: value + '.id',
+                            label: value + '.id'
+                        });
+                    }
+                });
+            }
 
             if (this.configWhitelist) {
                 for (const [key, whitelist] of Object.entries(this.configWhitelist)) {
@@ -92,8 +123,6 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                         option => whitelist.includes(option.value)
                     );
                 }
-
-                return options;
             }
 
             return options;
@@ -111,6 +140,10 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
             }
 
             return this.criteria;
+        },
+
+        entityForeignKeys() {
+            return this.cmsService.getEntityMappingTypes(this.entity);
         }
     },
 

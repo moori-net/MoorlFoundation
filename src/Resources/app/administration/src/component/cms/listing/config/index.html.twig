@@ -65,12 +65,11 @@
                               :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')">
                     </sw-field>
 
-                    <sw-field v-model="element.config.foreignKey.value"
-                              @change="onSelectionChange"
-                              type="text"
-                              :helpText="$tc('sw-cms.elements.moorl-foundation-listing.helpText.foreignKey')"
-                              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')">
-                    </sw-field>
+                    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
+                                     @change="onSelectionChange"
+                                     v-model="element.config.foreignKey.value">
+                        <option v-for="option in elementOptions.foreignKey" :value="option.value">{{ option.label }}</option>
+                    </sw-select-field>
                 </sw-container>
 
                 <sw-entity-multi-select
