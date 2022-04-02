@@ -5,17 +5,6 @@
 
     {# Set listing title by a page entity #}
     {% set listingHeaderTitle = element.translated.config.listingHeaderTitle.value %}
-    {% if listingHeaderTitle %}
-        {% if page.product %}
-            {% set listingHeaderTitle = moorl_replace_from_entity(listingHeaderTitle, page.product) %}
-        {% endif %}
-        {% if page.category %}
-            {% set listingHeaderTitle = moorl_replace_from_entity(listingHeaderTitle, page.category) %}
-        {% endif %}
-        {% if page.creator %}
-            {% set listingHeaderTitle = moorl_replace_from_entity(listingHeaderTitle, page.creator) %}
-        {% endif %}
-    {% endif %}
 
     {% set itemCss = [
         "padding:#{config.itemPadding.value}",

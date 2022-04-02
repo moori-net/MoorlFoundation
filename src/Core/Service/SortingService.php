@@ -94,6 +94,9 @@ class SortingService
         return $sorting;
     }
 
+    /**
+     * @deprecated extend FoundationListingCmsElementResolver instead
+     */
     public function enrichCmsElementResolverCriteria(
         CmsSlotEntity $slot,
         Criteria $criteria,
@@ -136,6 +139,9 @@ class SortingService
         }
     }
 
+    /**
+     * @deprecated extend FoundationListingCmsElementResolver instead
+     */
     public function enrichCmsElementResolverCriteriaV2(
         CmsSlotEntity $slot,
         Criteria $criteria,
