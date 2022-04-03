@@ -37,7 +37,8 @@
     "general": {
       "subTotal": "Gesamtpreis",
       "selectedItems": "Ausgewählt",
-      "share": "Teilen"
+      "share": "Teilen",
+      "toc": "Inhaltsverzeichnis"
     },
     "properties": {
       "closed": "Geschlossen",

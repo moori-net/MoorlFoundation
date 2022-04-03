@@ -1,0 +1,64 @@
+.cms-element-moorl-toc {
+  line-height: 24px;
+
+  ol {
+    overflow-y: hidden;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      margin-top: 8px;
+
+      a {
+        display: block;
+        padding-left: 8px;
+        color: $body-color;
+        transition: all .3s;
+
+        &:hover {
+          border-left: $primary solid 3px !important;
+          color: $primary !important;
+        }
+      }
+
+      &.active {
+        > a {
+          border-left: $primary solid 3px !important;
+          color: $primary !important;
+        }
+
+        > ol {
+          max-height: none;
+        }
+      }
+    }
+
+    > li {
+      > a {
+        border-left: $border-color solid 3px;
+      }
+    }
+
+    .toc-lvl-2 {
+      padding-left: 11px;
+      margin-top: 4px;
+
+      > li {
+        > a {
+          border-left: 3px solid $body-bg;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .cms-element-moorl-toc {
+    ol {
+      .toc-lvl-2 {
+        max-height: 0;
+      }
+    }
+  }
+}

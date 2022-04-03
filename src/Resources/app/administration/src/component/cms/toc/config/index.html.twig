@@ -1,0 +1,20 @@
+<div class="sw-cms-el-config-moorl-toc">
+    <sw-alert variant="info">
+        {{ $tc('sw-cms.elements.moorl-toc.description') }}
+    </sw-alert>
+
+    <sw-number-field
+            :label="$tc('sw-cms.elements.moorl-toc.label.offsetTop')"
+            v-model="element.config.offsetTop.value">
+    </sw-number-field>
+
+    <sw-cms-mapping-field
+            v-model="element.config.content"
+            value-types="string">
+        <sw-code-editor
+                :label="$tc('sw-cms.elements.moorl-toc.label.content')"
+                :softWraps="false"
+                v-model="element.config.content.value">
+        </sw-code-editor>
+    </sw-cms-mapping-field>
+</div>

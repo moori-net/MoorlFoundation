@@ -2,6 +2,8 @@
 @import "blocks/moorl-column-layout";
 
 @import "cms/share";
+@import "cms/toc";
+@import "cms/replacer";
 
 @import "component/opening-hours";
 //@import "component/listing";
@@ -13,6 +15,8 @@
 @import "component/product-buy-list";
 @import "component/download-list";
 
+@import "helpers/cms-helpers";
+
 .is-ctl-navigation {
   main {
     overflow: hidden;
@@ -21,10 +25,6 @@
 
 .bg-fixed {
   background-attachment: fixed;
-}
-
-.cms-element-image-slider {
-  overflow: hidden;
 }
 
 .moorl-foundation-hide,
@@ -36,31 +36,8 @@
   z-index: 9000;
 }
 
-.cms-block.no-gutters {
-  overflow: visible;
-
-  .cms-block-container-row {
-    @extend .no-gutters;
-  }
-}
-
 .modal {
   z-index: 1060;
-}
-
-.cms-element-moorl-replacer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  min-height: 240px;
-  height: 100%;
-
-  > div {
-    padding: 5px;
-    font-size: .7em;
-    color: #FFFFFF;
-    font-family: "Courier";
-  }
 }
 
 $foundation-colors: (

@@ -14,4 +14,5 @@ import './thirteen';
 import './fourteen';
 import './fifteen';
 import './sixteen';
+import './seventeen';
 import './index.scss';

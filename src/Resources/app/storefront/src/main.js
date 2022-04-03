@@ -28,6 +28,7 @@ import MoorlAnimation from './moorl-animation/moorl-animation';
 import MoorlRelativeTimePlugin from './relative-time/relative-time.plugin';
 import MoorlCountdownPlugin from './countdown/countdown.plugin';
 import MoorlProductBuyListPlugin from './product-buy-list/product-buy-list.plugin';
+import MoorlTocPlugin from './toc/toc.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -38,6 +39,7 @@ PluginManager.register('MoorlAnimation', MoorlAnimation, '[data-moorl-animation]
 PluginManager.register('MoorlRelativeTime', MoorlRelativeTimePlugin, '[data-moorl-relative-time]');
 PluginManager.register('MoorlCountdown', MoorlCountdownPlugin, '[data-moorl-countdown]');
 PluginManager.register('MoorlProductBuyList', MoorlProductBuyListPlugin, '[data-moorl-product-buy-list]');
+PluginManager.register('MoorlToc', MoorlTocPlugin, '[data-moorl-toc]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {

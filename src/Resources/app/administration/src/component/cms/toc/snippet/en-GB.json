@@ -1,0 +1,14 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-toc": {
+                "name": "Table of contents",
+                "description": "You have to give IDs to your H2-H6 tags. The table of contents will then be generated automatically. H1 tags are ignored!",
+                "label": {
+                    "content": "Content",
+                    "offsetTop": "Offset top"
+                }
+            }
+        }
+    }
+}

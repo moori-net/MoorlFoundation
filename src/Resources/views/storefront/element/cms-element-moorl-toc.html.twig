@@ -1,0 +1,14 @@
+<div class="cms-element-{{ element.type }}">
+    {% if element.data.content %}
+        {% set options = {
+            offsetTop: element.config.offsetTop.value ?: 20
+        } %}
+
+        <div data-moorl-toc data-moorl-toc-options='{{ options|json_encode|raw }}' class="sticky-top">
+            <div class="h3">
+                {{ "moorl-foundation.general.toc"|trans }}
+            </div>
+            {{ element.data.content|raw }}
+        </div>
+    {% endif %}
+</div>

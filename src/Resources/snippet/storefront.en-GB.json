@@ -39,7 +39,8 @@
         "general": {
             "subTotal": "Subtotal",
             "selectedItems": "Selected items",
-            "share": "Share"
+            "share": "Share",
+            "toc": "Table of contents"
         },
         "properties": {
             "customerNumber": "Customer number",

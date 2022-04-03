@@ -1,0 +1,14 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-toc": {
+                "name": "Inhaltsverzeichnis",
+                "description": "Du musst deinen H2-H6 Tags IDs geben. Das Inhaltsverzeichnis wird dann automatisch generiert. H1 Tags werden ignoriert!",
+                "label": {
+                    "content": "Inhalt",
+                    "offsetTop": "Abstand nach Oben"
+                }
+            }
+        }
+    }
+}

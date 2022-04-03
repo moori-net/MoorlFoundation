@@ -1,0 +1,14 @@
+.cms-element-moorl-replacer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 240px;
+  height: 100%;
+
+  > div {
+    padding: 5px;
+    font-size: .7em;
+    color: #FFFFFF;
+    font-family: "Courier";
+  }
+}
