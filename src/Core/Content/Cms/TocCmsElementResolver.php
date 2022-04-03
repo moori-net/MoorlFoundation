@@ -61,6 +61,10 @@ class TocCmsElementResolver extends TextCmsElementResolver
         $previousLI = false;
 
         foreach ($allHeadings as $heading) {
+            if (!$heading->hasAttribute('id')) {
+                continue;
+            }
+
             $iHeading++;
             $headingDepth = $this->getHeadingDepth($heading);
 
@@ -88,10 +92,6 @@ class TocCmsElementResolver extends TextCmsElementResolver
             $currentAnchorLink = $doc->createElement('a');
             $currentAnchorLink->textContent = $heading->textContent;
 
-            if (!$heading->hasAttribute('id')) {
-                continue;
-            }
-
             $currentAnchorLink->setAttribute('href', '#' . $heading->getAttribute('id'));
 
             $currentLI->appendChild($currentAnchorLink);
@@ -102,20 +102,9 @@ class TocCmsElementResolver extends TextCmsElementResolver
             $previousHeadingDepth = $headingDepth;
         }
 
-        $allAutomaticTablesOfContents = $doc->getElementsByTagName('auto-toc');
-        foreach ($allAutomaticTablesOfContents as $automaticTableOfContents) {
-            $tableOfContentsToUse = $tableOfContents->cloneNode(true);
-            if ($automaticTableOfContents->hasAttribute('class')) {
-                $tableOfContentsToUse->setAttribute(
-                    'class',
-                    $tableOfContentsToUse->getAttribute('class') . ' ' . $automaticTableOfContents->getAttribute('class')
-                );
-            }
-
-            $automaticTableOfContents->parentNode->replaceChild(
-                $tableOfContentsToUse,
-                $automaticTableOfContents
-            );
+        if ($iHeading === 0) {
+            $text->setContent("");
+            return;
         }
 
         $text->setContent($doc->saveHTML($tableOfContents));
