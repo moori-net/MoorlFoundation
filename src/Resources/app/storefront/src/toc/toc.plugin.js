@@ -38,7 +38,7 @@ export default class MoorlTocPlugin extends Plugin {
         }
 
         if (scrollTop < tocNavTop) {
-            this.el.style.paddingTop = 0;
+            this.el.style.paddingTop = '0';
         } else {
             this.el.style.paddingTop = this.options.offsetTop + 'px';
         }
