@@ -1,3 +1,7 @@
+{% if not schemaOrgType %}
+    {% set schemaOrgType = 'Thing' %}
+{% endif %}
+
 {% set itemContent %}
     {% block moorl_foundation_listing_item %}
         <div class="moorl-listing-item-image">
@@ -14,6 +18,7 @@
                     {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                         media: media,
                         attributes: {
+                            'itemprop': 'image',
                             'alt': title,
                             'class': "is-#{config.displayMode.value}",
                             'style': imageCss|join(';'),
@@ -21,7 +26,7 @@
                         }
                     } %}
                 {% elseif config.itemLayout.value == 'image-or-title' %}
-                    <div class="moorl-listing-item-title" title="{{ title }}">
+                    <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
                         {{ title|raw }}
                     </div>
                 {% else %}
@@ -36,7 +41,7 @@
             <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
                 <div class="">
                     {% block moorl_foundation_listing_item_content %}
-                        <div class="moorl-listing-item-title" title="{{ title }}">
+                        <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
                             {% block moorl_foundation_listing_item_title %}
                                 {{ title|raw }}
                             {% endblock %}
@@ -51,7 +56,7 @@
                         {% endif %}
 
                         {% if description %}
-                            <div class="moorl-listing-item-description">
+                            <div itemprop="description" class="moorl-listing-item-description">
                                 {% block moorl_foundation_listing_item_description %}
                                     {{ description|raw }}
                                 {% endblock %}
@@ -59,7 +64,8 @@
                         {% endif %}
 
                         {% if config.hasButton.value %}
-                            <a href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
+                            <a itemprop="mainEntityOfPage"
+                               href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
                                title="{{ config.buttonLabel.value }}"
                                class="{{ config.buttonClass.value }} moorl-listing-item-button">
                                 {% block moorl_foundation_listing_item_button_label %}
@@ -79,7 +85,7 @@
         {% sw_include config.itemLayoutTemplate.value %}
     </li>
 {% elseif config.hasButton.value or not url %}
-    <li class="{{ listingColumns }}">
+    <li class="{{ listingColumns }}" itemscope itemtype="https://schema.org/{{ schemaOrgType }}">
         <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
              style="{{ itemCss|join(';')|raw }}">
             <div class="moorl-listing-item-{{ config.itemLayout.value }}">
@@ -88,8 +94,8 @@
         </div>
     </li>
 {% else %}
-    <li class="{{ listingColumns }}">
-        <a href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
+    <li class="{{ listingColumns }}" itemscope itemtype="https://schema.org/{{ schemaOrgType }}">
+        <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
            class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
            style="{{ itemCss|join(';')|raw }}"
            title="{{ title }}">
