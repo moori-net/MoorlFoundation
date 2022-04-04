@@ -140,10 +140,13 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
 
         $foreignKeyConfig = $config->get('foreignKey');
         if ($foreignKeyConfig && $foreignKeyConfig->getValue()) {
-            $criteria->addFilter(new EqualsFilter(
-                $foreignKeyConfig->getValue(),
-                $resolverContext->getEntity()->getUniqueIdentifier()
-            ));
+            /* Ignore filter if manual selected */
+            if (!$listingSourceConfig || $listingSourceConfig->getValue() !== 'select') {
+                $criteria->addFilter(new EqualsFilter(
+                    $foreignKeyConfig->getValue(),
+                    $resolverContext->getEntity()->getUniqueIdentifier()
+                ));
+            }
         } else {
             /* Exclude self id - show only `other` entities */
             $criteria->addFilter(new NotFilter(NotFilter::CONNECTION_AND, [
