@@ -1,0 +1,18 @@
+{% set columns = section.customFields.moorl_section_column_count %}
+{% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
+
+<div class="cms-section-moorl-grid {{ layout }}">
+    <div class="row">
+        {% for i in range(0, columns - 1) %}
+            {% set sectionPosition = 'moorl_grid_' ~ i %}
+            {% set sectionGridConfig = section.customFields.moorl_section_grid_config[i] %}
+            {% set blockBehaviour = moorl_block_behaviour(sectionGridConfig.value, true) %}
+
+            <div class="{{ blockBehaviour }} {% if sectionGridConfig.isSticky %}sticky-top{% endif %}">
+                {% for block in section.blocks|filter(b => b.sectionPosition == sectionPosition) %}
+                    {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

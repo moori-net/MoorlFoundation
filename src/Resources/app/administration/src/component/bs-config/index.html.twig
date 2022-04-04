@@ -18,17 +18,22 @@
                       :label="$tc('moorl-bs-config.label.inherit')"
                       v-model="value[behaviour.breakpoint].inherit"></sw-field>
 
-            <sw-field v-if="showShow"
+            <sw-field :disabled="value[behaviour.breakpoint].inherit"
+                      v-if="showShow"
                       type="switch"
                       :label="$tc('moorl-bs-config.label.show')"
                       v-model="value[behaviour.breakpoint].show"></sw-field>
 
-            <sw-select-field v-if="showWidth" v-model="value[behaviour.breakpoint].width">
+            <sw-select-field :disabled="value[behaviour.breakpoint].inherit"
+                             v-if="showWidth"
+                             v-model="value[behaviour.breakpoint].width">
                 <option :value="0">auto</option>
                 <option v-for="i in 12" :value="i">{{ i }}/12</option>
             </sw-select-field>
 
-            <sw-select-field v-if="showOrder" v-model="value[behaviour.breakpoint].order">
+            <sw-select-field :disabled="value[behaviour.breakpoint].inherit"
+                             v-if="showOrder"
+                             v-model="value[behaviour.breakpoint].order">
                 <option v-for="i in 48" :value="i">{{ i }}</option>
             </sw-select-field>
         </div>
