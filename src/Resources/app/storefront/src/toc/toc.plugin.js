@@ -1,9 +1,7 @@
 import Plugin from 'src/plugin-system/plugin.class';
 
 export default class MoorlTocPlugin extends Plugin {
-    static options = {
-        offsetTop: 0
-    };
+    static options = {};
 
     init() {
         //this._progressBar = document.querySelector('.moorl-toc-progressbar');
@@ -27,26 +25,14 @@ export default class MoorlTocPlugin extends Plugin {
     }
 
     _onScroll() {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
         let headline = this._currentSection();
-        let tocNavTop = this.el.getBoundingClientRect().top +
-            this.el.ownerDocument.defaultView.pageYOffset
-
         if (headline !== this._selectedTocLink) {
             this._selectedTocLink = headline;
             this._selectTocLink(this._selectedTocLink)
         }
-
-        if (scrollTop < tocNavTop) {
-            this.el.style.paddingTop = '0';
-        } else {
-            this.el.style.paddingTop = this.options.offsetTop + 'px';
-        }
     }
 
     _currentSection() {
-        let navHeight = this.options.offsetTop;
-
         this._headingElements.forEach((el) => {
             if (el.id !== '') {
                 if (this._selectedTocLink === '') {
@@ -54,7 +40,7 @@ export default class MoorlTocPlugin extends Plugin {
                     this._selectedTocLink = ' '
                 }
                 let top = el.getBoundingClientRect().top;
-                if (top <= navHeight + 50) {
+                if (top <= 50) {
                     this._selectedHeadline = el
                 }
             }

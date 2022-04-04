@@ -73,3 +73,19 @@
         }
     }
 }
+
+.sw-cms-el-text {
+    pre {
+        white-space: pre-line;
+        font-size: 14px;
+        background: $color-shopware-brand-50;
+        border: 1px solid $color-gray-900;
+        padding: 20px;
+
+        code {
+            font-size: inherit;
+            color: inherit;
+            word-break: normal;
+        }
+    }
+}

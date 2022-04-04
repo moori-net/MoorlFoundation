@@ -7,11 +7,30 @@
             {% set sectionPosition = 'moorl_grid_' ~ i %}
             {% set sectionGridConfig = section.customFields.moorl_section_grid_config[i] %}
             {% set blockBehaviour = moorl_block_behaviour(sectionGridConfig.value, true) %}
+            {% set options = {
+                offsetTop: sectionGridConfig.offsetTop ?: '30px',
+                isSticky: sectionGridConfig.isSticky
+            } %}
 
-            <div class="{{ blockBehaviour }} {% if sectionGridConfig.isSticky %}sticky-top{% endif %}">
-                {% for block in section.blocks|filter(b => b.sectionPosition == sectionPosition) %}
-                    {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" %}
-                {% endfor %}
+            {% set sectionCss = [] %}
+            {% if not sectionGridConfig.isSticky %}
+                {% set sectionCss = [
+                    "height:100%",
+                    "display:flex",
+                    "flex-direction:column",
+                    "align-items:#{sectionGridConfig.alignItems}",
+                    "justify-content:#{sectionGridConfig.justifyContent}",
+                ] %}
+            {% endif %}
+
+            <div class="{{ blockBehaviour }}">
+                <div style="{{ sectionCss|join(';')|raw }}"
+                     data-moorl-grid
+                     data-moorl-grid-options='{{ options|json_encode|raw }}'>
+                    {% for block in section.blocks|filter(b => b.sectionPosition == sectionPosition) %}
+                        {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" %}
+                    {% endfor %}
+                </div>
             </div>
         {% endfor %}
     </div>
