@@ -1,0 +1,13 @@
+@import "~scss/variables";
+
+.sw-cms-stage-section-selection {
+    height: auto;
+
+    > div {
+        justify-self: start;
+
+        &:nth-child(odd) {
+            justify-self: end;
+        }
+    }
+}

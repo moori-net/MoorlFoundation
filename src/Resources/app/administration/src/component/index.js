@@ -14,3 +14,5 @@ import './opening-hours';
 import './layout-card';
 import './map';
 import './cms';
+import './section-grid-config';
+import './bs-config';

@@ -1,0 +1,46 @@
+@import "~scss/variables";
+
+.moorl-bs-config {
+    .moorl-bs-config-items {
+        border: 1px solid $color-gray-300;
+        border-bottom: 0;
+    }
+
+    .moorl-bs-config-item {
+        display: grid;
+        grid-template-columns: 48px repeat(auto-fit, minmax(1px, 1fr));
+        border-bottom: 1px solid $color-gray-300;
+
+        .moorl-bs-config-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 8px;
+            color: $color-darkgray-200;
+        }
+
+        .sw-field,
+        .sw-field--switch {
+            margin-top: 0;
+            margin-bottom: 0;
+
+            > div {
+                border: 0;
+                border-radius: 0;
+
+                select {
+                    padding: 15px 3px;
+                }
+            }
+
+            &:last-child {
+
+            }
+        }
+
+        .sw-field--switch .sw-field__label label {
+            padding: 15px 3px;
+        }
+    }
+}

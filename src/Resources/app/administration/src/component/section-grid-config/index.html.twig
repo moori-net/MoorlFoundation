@@ -1,0 +1,44 @@
+<div class="moorl-section-grid-config">
+    <sw-select-field
+            v-model="section.customFields.moorl_section_column_count"
+            :label="$tc('moorl-section-grid-config.label.sectionColumnCount')"
+            @change="initCustomFields">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </sw-select-field>
+
+    <div v-for="(configItem, configIndex) in section.customFields.moorl_section_grid_config"
+         :key="configIndex">
+        <moorl-bs-config
+                :label="$tc('moorl-section-grid-config.label.sectionNumber') + (configIndex + 1)"
+                v-model="configItem.value"
+                :showInherit="false"
+                :showOrder="false"
+        />
+
+        <sw-field type="switch"
+                  bordered
+                  :label="$tc('moorl-section-grid-config.label.isSticky')"
+                  v-model="configItem.isSticky"
+        />
+
+        <sw-text-field
+                v-if="configItem.isSticky"
+                :label="$tc('moorl-section-grid-config.label.offsetTop')"
+                v-model="configItem.offsetTop"
+        />
+
+        <sw-select-field
+                v-model="configItem.justifyContent"
+                :options="flexAlignments"
+                :label="$tc('moorl-section-grid-config.label.justifyContent')"
+        />
+
+        <sw-select-field
+                v-model="configItem.alignItems"
+                :options="flexAlignments"
+                :label="$tc('moorl-section-grid-config.label.alignItems')"
+        />
+    </div>
+</div>

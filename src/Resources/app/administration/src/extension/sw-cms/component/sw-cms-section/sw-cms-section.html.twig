@@ -1,0 +1,72 @@
+{% block sw_cms_section_content %}
+    <template v-if="isSectionGrid">
+        <div v-if="isSectionGridInitialized" class="moorl-grid-row">
+            <div class="sw-cms-section__content moorl-grid-column"
+                 v-for="(n, gridCol) in sectionGridConfig"
+                 :key="gridCol"
+                 :style="getSectionGridStyle(gridCol)">
+                <template v-if="isGridContentEmpty(gridCol)">
+                    <div
+                            v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(blockCount, gridCol) }"
+                            class="sw-cms-section__empty-stage"
+                            @click="openBlockBar">
+                        <sw-icon
+                                name="default-basic-plus-circle"
+                                size="24"
+                        />
+                        <p>{{ $tc('sw-cms.detail.label.addBlocks') }}</p>
+                    </div>
+                </template>
+
+                <template v-else>
+                    <div class="moorl-grid-add-block">
+                        <sw-cms-stage-add-block
+                                v-if="isSystemDefaultLanguage && !disabled"
+                                :key="0"
+                                v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(0, gridCol) }"
+                                @stage-block-add="onAddSectionBlock"
+                        />
+                    </div>
+
+                    <template v-for="(block, index) in sectionGridBlocks(gridCol)">
+                        <sw-cms-block
+                                :key="block.id"
+                                class="sw-cms-stage-block"
+                                :disabled="disabled"
+                                :block="block"
+                                :active="selectedBlock !== null && selectedBlock.id === block.id"
+                                @block-overlay-click="onBlockSelection(block)">
+                            <component :is="`sw-cms-block-${block.type}`">
+                                <sw-cms-slot
+                                        v-for="el in block.slots"
+                                        :slot="el.slot"
+                                        :key="el.id"
+                                        :element="el"
+                                        :disabled="disabled"
+                                        :active="selectedBlock !== null && selectedBlock.id === block.id"
+                                />
+                            </component>
+                        </sw-cms-block>
+
+                        <div class="moorl-grid-add-block">
+                            <sw-cms-stage-add-block
+                                    v-if="isSystemDefaultLanguage && !disabled"
+                                    :key="index + 1"
+                                    v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(block.position + 1, gridCol) }"
+                                    @stage-block-add="onAddSectionBlock"
+                            />
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </div>
+
+        <template v-else>
+            mot allowed
+        </template>
+    </template>
+
+    <template v-else>
+        {% parent %}
+    </template>
+{% endblock %}

@@ -1,0 +1,36 @@
+<div class="moorl-bs-config sw-field">
+    <div v-if="label">
+        <div class="sw-field__label">
+            <label>{{ label }}</label>
+        </div>
+    </div>
+
+    <div class="moorl-bs-config-items">
+        <div class="moorl-bs-config-item"
+             v-for="behaviour in defaultBehaviour">
+            <div class="moorl-bs-config-icon">
+                <sw-icon :name="behaviour.icon"/>
+                <span>{{ behaviour.breakpoint }}</span>
+            </div>
+
+            <sw-field v-if="showInherit"
+                      type="switch"
+                      :label="$tc('moorl-bs-config.label.inherit')"
+                      v-model="value[behaviour.breakpoint].inherit"></sw-field>
+
+            <sw-field v-if="showShow"
+                      type="switch"
+                      :label="$tc('moorl-bs-config.label.show')"
+                      v-model="value[behaviour.breakpoint].show"></sw-field>
+
+            <sw-select-field v-if="showWidth" v-model="value[behaviour.breakpoint].width">
+                <option :value="0">auto</option>
+                <option v-for="i in 12" :value="i">{{ i }}/12</option>
+            </sw-select-field>
+
+            <sw-select-field v-if="showOrder" v-model="value[behaviour.breakpoint].order">
+                <option v-for="i in 48" :value="i">{{ i }}</option>
+            </sw-select-field>
+        </div>
+    </div>
+</div>

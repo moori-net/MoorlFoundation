@@ -1,0 +1,13 @@
+{
+  "moorl-section-grid-config": {
+    "title": "moori grid section",
+    "label": {
+      "sectionColumnCount": "Section columns",
+      "isSticky": "Sticky",
+      "offsetTop": "Offset top",
+      "alignItems": "Align items",
+      "justifyContent": "Justify content",
+      "sectionNumber": "Section No."
+    }
+  }
+}

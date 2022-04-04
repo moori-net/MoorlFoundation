@@ -1,0 +1,9 @@
+{
+  "moorl-bs-config": {
+    "title": "moori block behaviour",
+    "label": {
+      "inherit": "Inherit",
+      "show": "Show"
+    }
+  }
+}
