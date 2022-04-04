@@ -12,10 +12,6 @@ Shopware.Service('cmsService').registerCmsElement({
         content: {
             source: 'static',
             value: null
-        },
-        offsetTop: {
-            source: 'static',
-            value: 20
         }
     }
 });

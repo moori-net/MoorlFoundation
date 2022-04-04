@@ -3,11 +3,6 @@
         {{ $tc('sw-cms.elements.moorl-toc.description') }}
     </sw-alert>
 
-    <sw-number-field
-            :label="$tc('sw-cms.elements.moorl-toc.label.offsetTop')"
-            v-model="element.config.offsetTop.value">
-    </sw-number-field>
-
     <sw-cms-mapping-field
             v-model="element.config.content"
             value-types="string">
