@@ -71,8 +71,8 @@ Component.register('moorl-section-grid-config', {
             for (let i = 0; i < this.section.customFields.moorl_section_column_count; i++) {
                 if (!this.section.customFields.moorl_section_grid_config[i]) {
                     this.$set(this.section.customFields.moorl_section_grid_config, i, {
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-start',
+                        alignItems: 'normal',
+                        justifyContent: 'normal',
                         isSticky: false,
                         offsetTop: '30px',
                         value: {}
