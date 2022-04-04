@@ -637,7 +637,12 @@ SQL;
 
             $this->enrichFallbackData($item, $table, $dataObject);
 
-            foreach ($item as &$value) {
+            foreach ($item as $key => &$value) {
+                /* Do not enrich custom fields */
+                if ($key === 'customFields') {
+                    continue;
+                }
+
                 $this->enrichData($value, $table, $dataObject);
             }
         }
