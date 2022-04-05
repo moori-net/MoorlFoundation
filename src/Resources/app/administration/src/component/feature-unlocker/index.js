@@ -21,7 +21,7 @@ Component.register('moorl-feature-unlocker', {
 
     data() {
         return {
-            open: false,
+            open: false
         };
     },
 
