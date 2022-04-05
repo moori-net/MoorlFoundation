@@ -639,7 +639,7 @@ SQL;
 
             foreach ($item as $key => &$value) {
                 /* Do not enrich custom fields */
-                if ($key === 'customFields') {
+                if ($table === 'cms_page' && $key === 'customFields') {
                     continue;
                 }
 
