@@ -18,14 +18,17 @@
 @import "helpers/cms-helpers";
 @import "helpers/foundation-demo-html";
 
-.is-ctl-navigation {
-  main {
-    overflow: hidden;
-  }
-}
-
 .bg-fixed {
   background-attachment: fixed;
+}
+
+/* The moorl-grid section need "overflow: visible" for sticky columns */
+.cms-section {
+  overflow: visible;
+
+  &.cms-section-default {
+    overflow: hidden;
+  }
 }
 
 .moorl-foundation-hide,
