@@ -10,10 +10,7 @@ Component.register('moorl-feature-unlocker', {
         'SYSTEMKEY+m': 'openModal',
     },
 
-    inject: [
-        'cacheApiService',
-        'acl',
-    ],
+    inject: ['acl'],
 
     mixins: [
         Mixin.getByName('notification'),
