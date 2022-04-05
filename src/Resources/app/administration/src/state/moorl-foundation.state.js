@@ -11,6 +11,9 @@ Shopware.State.registerModule('moorlFoundationState', {
         setPlugins(state, plugins) {
             state.plugins = plugins;
         },
+        setUnlocked(state, value) {
+            state.unlocked = value;
+        },
         toggleUnlocked(state) {
             state.unlocked = !state.unlocked;
         },

@@ -41,9 +41,17 @@ Component.register('moorl-feature-unlocker', {
                 return;
             }
 
-            this.createNotificationInfo({
-                message: this.$tc('moorl-feature-unlocker.notifications.welcome'),
-            });
+            if (localStorage.getItem('moorl-foundation-unlocked')) {
+                Shopware.State.commit('moorlFoundationState/setUnlocked', true)
+            }
+
+            if (!localStorage.getItem('moorl-foundation-welcome-seen')) {
+                this.createNotificationInfo({
+                    message: this.$tc('moorl-feature-unlocker.notifications.welcome'),
+                });
+
+                localStorage.setItem('moorl-foundation-welcome-seen', '1')
+            }
 
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Alt' || (event.key === 'm' && event.altKey)) {
@@ -57,23 +65,27 @@ Component.register('moorl-feature-unlocker', {
                 return;
             }
 
+            if (this.toggleUnlocked()) {
+                this.open = true;
+            }
+        },
+
+        toggleUnlocked() {
             if (this.moorlIsUnlocked) {
+                localStorage.removeItem('moorl-foundation-unlocked');
+                Shopware.State.commit('moorlFoundationState/setUnlocked', false);
                 this.createNotificationInfo({
                     message: this.$tc('moorl-feature-unlocker.notifications.locked'),
                 });
+                return false;
             } else {
+                localStorage.setItem('moorl-foundation-unlocked', '1');
+                Shopware.State.commit('moorlFoundationState/setUnlocked', true);
                 this.createNotificationInfo({
                     message: this.$tc('moorl-feature-unlocker.notifications.unlocked'),
                 });
-
-                if (!this.unlockInfoSeen) {
-                    Shopware.State.commit('moorlFoundationState/setUnlockModalSeen');
-
-                    this.open = true;
-                }
+                return true;
             }
-
-            Shopware.State.commit('moorlFoundationState/toggleUnlocked');
         },
 
         closeModal() {
