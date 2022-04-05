@@ -17,3 +17,4 @@ import './cms';
 import './section-grid-config';
 import './bs-config';
 import './feature-unlocker';
+import './support-link';
