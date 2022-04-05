@@ -3,6 +3,7 @@ Shopware.State.registerModule('moorlFoundationState', {
 
     state: {
         unlocked: false,
+        unlockInfoSeen: false,
         plugins: [],
     },
 
@@ -12,6 +13,9 @@ Shopware.State.registerModule('moorlFoundationState', {
         },
         toggleUnlocked(state) {
             state.unlocked = !state.unlocked;
+        },
+        setUnlockModalSeen(state) {
+            state.unlockInfoSeen = true;
         }
     },
 

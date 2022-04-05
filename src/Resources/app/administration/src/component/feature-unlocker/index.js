@@ -25,6 +25,9 @@ Component.register('moorl-feature-unlocker', {
     computed: {
         moorlIsUnlocked() {
             return Shopware.State.get('moorlFoundationState').unlocked;
+        },
+        unlockInfoSeen() {
+            return Shopware.State.get('moorlFoundationState').unlockInfoSeen;
         }
     },
 
@@ -63,7 +66,11 @@ Component.register('moorl-feature-unlocker', {
                     message: this.$tc('moorl-feature-unlocker.notifications.unlocked'),
                 });
 
-                this.open = true;
+                if (!this.unlockInfoSeen) {
+                    Shopware.State.commit('moorlFoundationState/setUnlockModalSeen');
+
+                    this.open = true;
+                }
             }
 
             Shopware.State.commit('moorlFoundationState/toggleUnlocked');

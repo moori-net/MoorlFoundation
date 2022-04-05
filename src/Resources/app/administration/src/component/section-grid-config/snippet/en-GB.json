@@ -7,7 +7,7 @@
       "offsetTop": "Offset top",
       "alignItems": "Align items",
       "justifyContent": "Justify content",
-      "sectionNumber": "Section No."
+      "colNumber": "Column No."
     }
   }
 }

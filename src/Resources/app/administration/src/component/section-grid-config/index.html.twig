@@ -11,7 +11,7 @@
     <div v-for="(configItem, configIndex) in section.customFields.moorl_section_grid_config"
          :key="configIndex">
         <moorl-bs-config
-                :label="$tc('moorl-section-grid-config.label.sectionNumber') + (configIndex + 1)"
+                :label="$tc('moorl-section-grid-config.label.colNumber') + (configIndex + 1)"
                 v-model="configItem.value"
                 :showOrder="false"
         />
