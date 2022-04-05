@@ -35,7 +35,7 @@ Component.override('sw-cms-slot', {
 
         pluginCriteria() {
             const criteria = new Criteria();
-            criteria.addFilter(new Criteria.equals('active', 1));
+            criteria.addFilter(Criteria.equals('active', 1));
             return criteria;
         },
 
