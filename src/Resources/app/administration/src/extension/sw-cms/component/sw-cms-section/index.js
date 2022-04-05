@@ -9,16 +9,6 @@ const {cloneDeep} = Shopware.Utils.object;
 Component.override('sw-cms-section', {
     template,
 
-    watchers: {
-        section() {
-            this.initSectionGrid();
-        },
-
-        blocks() {
-            this.initSectionGrid();
-        }
-    },
-
     computed: {
         isSectionGrid() {
             return (this.section.type === 'moorl-grid');
