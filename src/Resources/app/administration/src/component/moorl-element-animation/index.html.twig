@@ -1,53 +1,34 @@
 <div class="moorl-element-animation">
-    <sw-collapse :ref="'moorl-element-animation'" class="moorl-collapse">
-        <template #header="{ expanded }">
-            <h4>{{ $tc(snippetPrefix + 'title') }}</h4>
+    <template v-for="type in ['in','out','hover']">
+        <sw-field type="switch"
+                  :label="$tc(snippetPrefix + 'label.active')"
+                  bordered
+                  v-model="element.config.moorlAnimation.value[type].active">
+        </sw-field>
 
-            <div class="collapse-indicator">
-                <sw-icon v-if="expanded"
-                         class="sw-media-collapse__button"
-                         name="small-arrow-small-down">
-                </sw-icon>
-                <sw-icon v-else
-                         class="sw-media-collapse__button"
-                         name="small-arrow-small-right">
-                </sw-icon>
-            </div>
-        </template>
+        <sw-select-field :label="$tc(snippetPrefix + 'label.name.' + type)"
+                         :helpText="$tc(snippetPrefix + 'helpText.name')"
+                         v-model="element.config.moorlAnimation.value[type].name">
+            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
+                <option v-for="value in item.options" :value="value">{{ value }}</option>
+            </optgroup>
+        </sw-select-field>
 
-        <template #content>
-            <template v-for="type in ['in','out','hover']">
-                <sw-field type="switch"
-                          :label="$tc(snippetPrefix + 'label.active')"
-                          bordered
-                          v-model="element.config.moorlAnimation.value[type].active">
-                </sw-field>
+        <sw-select-field :label="$tc(snippetPrefix + 'label.condition')"
+                         v-model="element.config.moorlAnimation.value[type].condition">
+            <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
+                {{ $tc(snippetPrefix + 'label.' + value) }}
+            </option>
+        </sw-select-field>
 
-                <sw-select-field :label="$tc(snippetPrefix + 'label.name.' + type)"
-                                 :helpText="$tc(snippetPrefix + 'helpText.name')"
-                                 v-model="element.config.moorlAnimation.value[type].name">
-                    <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                        <option v-for="value in item.options" :value="value">{{ value }}</option>
-                    </optgroup>
-                </sw-select-field>
+        <sw-field v-model="element.config.moorlAnimation.value[type].duration"
+                  type="number"
+                  :label="$tc(snippetPrefix + 'label.duration')">
+        </sw-field>
 
-                <sw-select-field :label="$tc(snippetPrefix + 'label.condition')"
-                                 v-model="element.config.moorlAnimation.value[type].condition">
-                    <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
-                        {{ $tc(snippetPrefix + 'label.' + value) }}
-                    </option>
-                </sw-select-field>
-
-                <sw-field v-model="element.config.moorlAnimation.value[type].duration"
-                          type="number"
-                          :label="$tc(snippetPrefix + 'label.duration')">
-                </sw-field>
-
-                <sw-field v-model="element.config.moorlAnimation.value[type].delay"
-                          type="number"
-                          :label="$tc(snippetPrefix + 'label.delay')">
-                </sw-field>
-            </template>
-        </template>
-    </sw-collapse>
+        <sw-field v-model="element.config.moorlAnimation.value[type].delay"
+                  type="number"
+                  :label="$tc(snippetPrefix + 'label.delay')">
+        </sw-field>
+    </template>
 </div>

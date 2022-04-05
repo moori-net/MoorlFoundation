@@ -1,8 +1,10 @@
 import template from './sw-cms-section.html.twig';
+import moorlGridDefault from './moorl-grid.default.json';
 import './sw-cms-section.scss';
 import './sw-cms-section-config';
 
 const {Component} = Shopware;
+const {cloneDeep} = Shopware.Utils.object;
 
 Component.override('sw-cms-section', {
     template,
@@ -53,11 +55,16 @@ Component.override('sw-cms-section', {
 
     methods: {
         initSectionGrid() {
-            if (!this.isSectionGrid || !this.isSectionGridInitialized) {
+            if (!this.isSectionGrid) {
                 return;
             }
 
-            return true;
+            if (!this.isSectionGridInitialized) {
+                Object.assign(
+                    this.section,
+                    cloneDeep(moorlGridDefault)
+                );
+            }
         },
 
         isGridContentEmpty(index) {

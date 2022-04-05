@@ -4,5 +4,11 @@ import './sw-cms-stage-section-selection.scss';
 const {Component} = Shopware;
 
 Component.override('sw-cms-stage-section-selection', {
-    template
+    template,
+
+    computed: {
+        moorlIsUnlocked() {
+            return Shopware.State.get('moorlFoundationState').unlocked;
+        }
+    },
 });

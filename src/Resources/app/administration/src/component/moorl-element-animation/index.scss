@@ -1,9 +1,5 @@
 .moorl-element-animation {
-    .sw-collapse__header {
-        grid-template-columns: 1fr 24px;
-    }
-
-    .sw-collapse__content {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
 }

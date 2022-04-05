@@ -1,0 +1,136 @@
+<sw-modal
+        class="moorl-feature-unlocker"
+        v-if="open"
+        :title="$tc('moorl-feature-unlocker.modal.title')"
+        @modal-close="closeModal">
+    <p>{{ $tc('moorl-feature-unlocker.modal.message') }}</p>
+
+    <table>
+        <tr>
+            <th style="width: 180px">Feature</th>
+            <th>Description</th>
+            <th style="width: 60px">FREE</th>
+        </tr>
+
+        <tr>
+            <td>CMS responsible block configuration</td>
+            <td>
+                Hide and show your blocks on different viewports of your customers device.
+            </td>
+            <td>
+                <sw-icon name="default-basic-checkmark-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>CMS `Animate.css` element configuration</td>
+            <td>
+                Configure `On Scroll` and `On Load` animations for your CMS elements.
+                Fully supported Animate.css.
+            </td>
+            <td>
+                <sw-icon name="default-basic-x-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>CMS config saver</td>
+            <td>
+                Makes is possible to save a CMS element and copy it multiple times into new
+                CMS elements.
+            </td>
+            <td>
+                <sw-icon name="default-basic-x-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>CMS section "Bootstrap Grid"</td>
+            <td>
+                Enables a new section. This can have multiple full adjustable columns with
+                sticky feature and responsible viewport configuration with Bootstrap.
+            </td>
+            <td>
+                <sw-icon name="default-basic-x-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>CMS section "Slider"</td>
+            <td>
+                Enables a new section. This can be configured as a powerful and
+                responsive slider. It will also replace the slider blocks from
+                moori Foundation.
+            </td>
+            <td>
+                <sw-icon name="default-basic-x-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>CMS blocks Columns/Grid/Slider</td>
+            <td>
+                Enables all additional moori Foundation blocks.
+            </td>
+            <td>
+                <sw-icon name="default-basic-x-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>CMS Elements</td>
+            <td>
+                Additional CMS elements "Buy list, Downloads, HTML tag, Share, Table of contents"
+                and following.
+            </td>
+            <td>
+                <sw-icon name="default-basic-checkmark-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Demo assistant</td>
+            <td>
+                Many moori plugins have demo packages, you can install them by `One-Click`.
+                <a href="https://docs.moori.net/en/MoorlFoundation/demo-assistant/" target="_blank" rel="noopener">
+                    More information
+                </a>
+            </td>
+            <td>
+                <sw-icon name="default-basic-checkmark-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Sorting</td>
+            <td>
+                Some plugins have sorting options for listings. You can translate and configure them.
+                <a href="https://docs.moori.net/en/MoorlFoundation/sorting/" target="_blank" rel="noopener">
+                    More information
+                </a>
+            </td>
+            <td>
+                <sw-icon name="default-basic-checkmark-block" size="16"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>`Animate.css` configuration by CSS selector</td>
+            <td>
+                In the moori Foundation plugin configuration you can configure
+                `On Scroll` and `On Load` animations for any elements by CSS selectors,
+                supported by Animate.css. This feature may be removed if its not usable
+                without jQuery support.
+            </td>
+            <td>
+                <sw-icon name="default-basic-checkmark-block" size="16"/>
+            </td>
+        </tr>
+    </table>
+
+    <template slot="modal-footer">
+        <sw-button @click="closeModal">
+            {{ $tc('moorl-feature-unlocker.modal.actions.close') }}
+        </sw-button>
+    </template>
+</sw-modal>

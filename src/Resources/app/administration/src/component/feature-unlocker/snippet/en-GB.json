@@ -1,0 +1,17 @@
+{
+  "moorl-feature-unlocker": {
+    "notifications": {
+      "welcome": "Click ALT+M to unlock moori Foundation features",
+      "unlocked": "moori Foundation features has been unlocked",
+      "locked": "moori Foundation features has been locked"
+    },
+    "modal": {
+      "title": "moori Foundation features",
+      "message": "As of Shopware v6.5, the built-in features of `moori Foundation` are disabled. These can be made available again through an `Unlocker Plugin`. The `Unlocker Plugin` will be available at the start for a price of 10€ (excluding VAT) in the Shopware Community Store. The table explains the features and which of them remain free of charge.",
+      "actions": {
+        "cancel": "Cancel",
+        "close": "Close"
+      }
+    }
+  }
+}

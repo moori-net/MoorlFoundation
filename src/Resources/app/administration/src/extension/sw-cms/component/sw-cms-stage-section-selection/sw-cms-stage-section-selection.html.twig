@@ -1,17 +1,19 @@
 {% block sw_cms_stage_section_selection__fullwidth %}
     {% parent %}
 
-    <div @click="selectSection('moorl-grid')">
-        <div class="sw-cms-stage-section-selection__default-preview">
-            <div class="sw-cms-stage-section-selection__default-preview-inner"></div>
+    <template v-if="moorlIsUnlocked">
+        <div @click="selectSection('moorl-grid')">
+            <div class="sw-cms-stage-section-selection__default-preview">
+                <div class="sw-cms-stage-section-selection__default-preview-inner"></div>
+            </div>
+            {{ $tc('sw-cms.section.moorlGrid') }}
         </div>
-        {{ $tc('sw-cms.section.moorlGrid') }}
-    </div>
 
-    <div v-if="false" @click="selectSection('moorl-slider')">
-        <div class="sw-cms-stage-section-selection__default-preview">
-            <div class="sw-cms-stage-section-selection__default-preview-inner"></div>
+        <div v-if="false" @click="selectSection('moorl-slider')">
+            <div class="sw-cms-stage-section-selection__default-preview">
+                <div class="sw-cms-stage-section-selection__default-preview-inner"></div>
+            </div>
+            {{ $tc('sw-cms.section.moorlSlider') }}
         </div>
-        {{ $tc('sw-cms.section.moorlSlider') }}
-    </div>
+    </template>
 {% endblock %}

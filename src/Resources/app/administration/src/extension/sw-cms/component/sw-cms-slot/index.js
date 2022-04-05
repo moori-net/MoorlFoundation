@@ -16,7 +16,7 @@ Component.override('sw-cms-slot', {
             cmsElementConfig: null,
             cmsElementConfigId: null,
             showCmsElementConfigSaver: false,
-            snippetPrefix: 'sw-cms.component.sw-cms-slot.'
+            showCmsElementAnimationModal: false
         };
     },
 
@@ -41,6 +41,10 @@ Component.override('sw-cms-slot', {
 
         plugins() {
             return Shopware.State.get('moorlFoundationState').plugins;
+        },
+
+        moorlIsUnlocked() {
+            return Shopware.State.get('moorlFoundationState').unlocked;
         }
     },
 
