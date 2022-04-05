@@ -7,7 +7,8 @@
     },
     "modal": {
       "title": "moori Foundation features",
-      "message": "Ab Shopware v6.5 sind die eingebauten Funktionen von `moori Foundation` deaktiviert. Diese können durch ein `Unlocker Plugin` wieder verfügbar gemacht werden. Das `Unlocker Plugin` wird zum Start für einen Preis von 10€ (ohne MwSt.) im Shopware Community Store erhältlich sein. Die Tabelle erklärt die Features und welche davon kostenlos bleiben.",
+      "message1": "Das moori Foundation Plugin wird in der Regel verwendet, um die Basis-Plugins von moori zu optimieren und Redundanzen zu vermeiden. Im Laufe der Zeit sind jedoch viele Funktionen hinzugekommen, die keinen technischen Zweck erfüllen und für Shop-Betreiber \\\"nice-to-have\\\" sind. Leider gab es einige Anfragen, diese Funktionen zu entfernen und auch technische Probleme mit anderen Plug-ins. Daher habe ich mich entschlossen, die Premium-Funktionen zu deaktivieren, mit ALT+M können Sie sie optional aktivieren.",
+      "message2": "Ab Shopware 6.5 werden die Funktionen entfernt und können mit einem Unlocker Plugin wieder verfügbar gemacht werden. Das 'Unlocker Plugin' wird zum Start für einen Preis von 10€ im Shopware Community Store erhältlich sein. Die Tabelle erklärt die Funktionen und welche davon kostenlos bleiben.",
       "actions": {
         "cancel": "Cancel",
         "close": "Close"
