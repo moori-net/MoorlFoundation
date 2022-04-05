@@ -1,13 +1,22 @@
 {% block sw_cms_sidebar_block_overview_category_options %}
     {% block sw_cms_sidebar_block_overview_category_moorl %}
         {% block sw_cms_sidebar_block_overview_category_moorl_column_layout %}
-            <option value="moorl-column-layout">{{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlColumnLayout') }}</option>
+            <option v-if="moorlIsUnlocked"
+                    value="moorl-column-layout">
+                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlColumnLayout') }}
+            </option>
         {% endblock %}
         {% block sw_cms_sidebar_block_overview_category_moorl_grid_layout %}
-            <option value="moorl-grid-layout">{{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlGridLayout') }}</option>
+            <option v-if="moorlIsUnlocked"
+                    value="moorl-grid-layout">
+                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlGridLayout') }}
+            </option>
         {% endblock %}
         {% block sw_cms_sidebar_block_overview_category_moorl_slider %}
-            <option value="moorl-slider">{{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlSlider') }}</option>
+            <option v-if="moorlIsUnlocked"
+                    value="moorl-slider">
+                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlSlider') }}
+            </option>
         {% endblock %}
         {% block sw_cms_sidebar_block_overview_category_moorl_cms %}
             <option value="moorl-cms">{{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlCms') }}</option>
