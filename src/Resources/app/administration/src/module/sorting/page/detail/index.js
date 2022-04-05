@@ -10,10 +10,6 @@ Component.register('moorl-sorting-detail', {
         'repositoryFactory'
     ],
 
-    shortcuts: {
-        'SYSTEMKEY+m': 'openModal',
-    },
-
     mixins: [
         Mixin.getByName('notification'),
         Mixin.getByName('placeholder')
@@ -36,10 +32,6 @@ Component.register('moorl-sorting-detail', {
     },
 
     computed: {
-        openModal() {
-            alert("test");
-        },
-
         repository() {
             return this.repositoryFactory.create('moorl_sorting');
         },
