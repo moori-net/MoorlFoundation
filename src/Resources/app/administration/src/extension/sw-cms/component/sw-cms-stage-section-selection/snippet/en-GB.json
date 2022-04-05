@@ -1,7 +1,7 @@
 {
     "sw-cms": {
         "section": {
-            "moorlGrid": "Grid",
+            "moorlGrid": "Bootstrap Grid",
             "moorlSlider": "Slider"
         }
     }
