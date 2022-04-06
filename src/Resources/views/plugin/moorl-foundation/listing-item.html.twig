@@ -85,7 +85,9 @@
         {% sw_include config.itemLayoutTemplate.value %}
     </li>
 {% elseif config.hasButton.value or not url %}
-    <li class="{{ listingColumns }}" itemscope itemtype="https://schema.org/{{ schemaOrgType }}">
+    <li class="{{ listingColumns }}"
+        itemscope
+        itemtype="https://schema.org/{{ schemaOrgType }}">
         <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
              style="{{ itemCss|join(';')|raw }}">
             <div class="moorl-listing-item-{{ config.itemLayout.value }}">
@@ -94,7 +96,9 @@
         </div>
     </li>
 {% else %}
-    <li class="{{ listingColumns }}" itemscope itemtype="https://schema.org/{{ schemaOrgType }}">
+    <li class="{{ listingColumns }}"
+        itemscope
+        itemtype="https://schema.org/{{ schemaOrgType }}">
         <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank" rel="noopener"{% endif %}
            class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
            style="{{ itemCss|join(';')|raw }}"
