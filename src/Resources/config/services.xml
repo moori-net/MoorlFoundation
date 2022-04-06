@@ -6,6 +6,7 @@
     <imports>
         <import resource="controllers.xml"/>
         <import resource="subscribers.xml"/>
+        <import resource="data.xml"/>
     </imports>
 
     <services>
