@@ -1,3 +1,5 @@
+@import "~scss/variables";
+
 .sw-cms-el-moorl-replacer {
     position: relative;
     width: 100%;
@@ -10,16 +12,28 @@
     display: grid;
     grid-template:
             "a a" auto
-            "b c" 48px / 1fr 40px;
-    grid-gap: 10px;
+            "b c" 46px / 1fr 40px;
+    grid-gap: 0;
+    text-align: center;
+
+    .moorl-replacer-title {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
 
     .sw-field {
         margin-bottom: 0;
     }
 
+    .sw-block-field .sw-block-field__block,
+    .sw-button {
+        border: 0 !important;
+        border-radius: 0 !important;
+    }
+
     .sw-button {
         display: block;
-        height: 48px;
+        height: 46px;
         width: 100%;
         padding: 2px 0;
         text-align: center;
@@ -34,8 +48,9 @@
 
         &:nth-child(1) {
             grid-area: a;
-            background: rgba(255,255,255,.7);
+            background: rgba(255,255,255,.85);
             padding: 10px;
+            border-bottom: 2px solid $color-gray-900;
         }
         &:nth-child(2) {
             grid-area: b;

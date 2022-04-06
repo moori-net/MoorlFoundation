@@ -1,18 +1,23 @@
 <div class="sw-cms-el-moorl-replacer" :style="elementCss">
     <div>
-        <h1>
-            <sw-icon name="default-arrow-switch" size="24"></sw-icon>
+        <p class="moorl-replacer-title">
+            <sw-icon name="default-arrow-switch" size="24"/>
             {{ $tc('sw-cms.elements.moorl-replacer.title') }}
-        </h1>
+        </p>
+
         <p>{{ $tc('sw-cms.elements.moorl-replacer.description') }}</p>
+
         <p>
-            <a href="https://store.shopware.com/moori.html" target="_blank">{{ $tc('sw-cms.elements.moorl-replacer.storeLink') }}</a>
+            <a href="https://store.shopware.com/moori.html"
+               target="_blank"
+               rel="noopener">
+                {{ $tc('sw-cms.elements.moorl-replacer.storeLink') }}
+            </a>
         </p>
     </div>
 
     <div>
         <sw-entity-single-select
-                :placeholder="$tc('sw-cms.elements.moorl-replacer.label.selectConfig')"
                 :criteria="cmsElementConfigCriteria"
                 entity="moorl_cms_element_config"
                 v-model="cmsElementConfigId">
@@ -27,8 +32,9 @@
     </div>
 
     <div>
-        <sw-button variant="" @click="onLoadCmsElementConfig">
-            <sw-icon name="default-action-save" size="16"></sw-icon>
+        <sw-button :disabled="!cmsElementConfigId"
+                   @click="onLoadCmsElementConfig">
+            <sw-icon name="default-basic-checkmark-wide" size="16"/>
         </sw-button>
     </div>
 </div>
