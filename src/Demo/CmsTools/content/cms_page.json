@@ -869,7 +869,7 @@
                 "config": {
                   "content": {
                     "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Sliders</h2><div style=\"text-align: center;\">With moori Foundation Unlocker you have a full responsible special slider block with multiple elements. Here are two examples.</div>"
+                    "value": "<h2 style=\"text-align: center;\">Sliders</h2><div style=\"text-align: center;\">With moori Foundation Unlocker you have a full responsive special slider block with multiple elements. Here are two examples.</div>"
                   },
                   "verticalAlign": {
                     "source": "static",
@@ -1108,7 +1108,7 @@
                 "config": {
                   "content": {
                     "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Responsible blocks</h2><div style=\"text-align: center;\">With moori Foundation Unlocker you can hide or show blocks based on your customers viewport. Just rezise you browser to see the change.</div>"
+                    "value": "<h2 style=\"text-align: center;\">Responsive blocks</h2><div style=\"text-align: center;\">With moori Foundation Unlocker you can hide or show blocks based on your customers viewport. Just rezise you browser to see the change.</div>"
                   },
                   "verticalAlign": {
                     "source": "static",
