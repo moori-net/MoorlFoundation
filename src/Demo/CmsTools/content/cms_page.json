@@ -60,7 +60,7 @@
                 "config": {
                   "content": {
                     "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Bootstrap grid</h2><div style=\"text-align: center;\">This is the Bootstrap grid section of moori Foundation. The first colum is sticky, the second is filled with content and the third have the property: \"justify-content: space-between\"</div>"
+                    "value": "<h2 style=\"text-align: center;\">Bootstrap grid</h2><div style=\"text-align: center;\">This is the Bootstrap grid section of moori Foundation. The first column is sticky, the second is filled with content and the third have the property: \"justify-content: space-between\"</div>"
                   },
                   "verticalAlign": {
                     "source": "static",
