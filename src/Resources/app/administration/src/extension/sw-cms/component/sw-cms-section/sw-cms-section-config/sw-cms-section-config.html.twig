@@ -2,7 +2,7 @@
     {% parent %}
 
     <moorl-section-grid-config
-            v-if="section.type == 'moorl-grid'"
+            v-if="moorlIsUnlocked && section.type == 'moorl-grid'"
             v-bind="{ section }"
     />
 {% endblock %}
