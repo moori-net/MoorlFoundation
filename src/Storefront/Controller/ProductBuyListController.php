@@ -69,7 +69,8 @@ class ProductBuyListController extends StorefrontController
         return $this->renderStorefront('@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig', [
             'product' => $product,
             'enablePrices' => $request->query->getBoolean('enablePrices'),
-            'enableAddToCart' => $request->query->getBoolean('enableAddToCart')
+            'enableAddToCartSingle' => $request->query->getBoolean('enableAddToCartSingle'),
+            'enableAddToCartAll' => $request->query->getBoolean('enableAddToCartAll'),
         ]);
     }
 }
