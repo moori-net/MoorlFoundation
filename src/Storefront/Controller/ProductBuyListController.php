@@ -52,8 +52,6 @@ class ProductBuyListController extends StorefrontController
             $newOptions = [];
         }
 
-        $redirect = $this->combinationFinder->find($productId, $switchedOption, $newOptions, $salesChannelContext);
-
         try {
             $redirect = $this->combinationFinder->find($productId, $switchedOption, $newOptions, $salesChannelContext);
 
@@ -70,8 +68,8 @@ class ProductBuyListController extends StorefrontController
 
         return $this->renderStorefront('@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig', [
             'product' => $product,
-            'enablePrices' => $request->query->get('enablePrices') === 'true',
-            'enableAddToCart' => $request->query->get('enableAddToCart') === 'true'
+            'enablePrices' => $request->query->getBoolean('enablePrices'),
+            'enableAddToCart' => $request->query->getBoolean('enableAddToCart')
         ]);
     }
 }
