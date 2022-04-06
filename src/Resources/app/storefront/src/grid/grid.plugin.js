@@ -11,7 +11,7 @@ export default class MoorlGridPlugin extends Plugin {
             return;
         }
 
-        this.el.classList.add('sticky-top');
+        /*this.el.classList.add('sticky-top');*/
 
         this._registerEvents();
     }

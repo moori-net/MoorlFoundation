@@ -10,7 +10,10 @@
                 isSidebar: configItem.isSidebar,
                 isSticky: configItem.isSticky
             } %}
-            {% set sectionCss = [] %}
+            {% set sectionCss = [
+                "position:sticky",
+                "top:0"
+            ] %}
             {% if not configItem.isSticky %}
                 {% set sectionCss = [
                     "height:100%",
