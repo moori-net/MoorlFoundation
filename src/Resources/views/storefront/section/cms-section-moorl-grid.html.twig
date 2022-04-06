@@ -3,13 +3,13 @@
 <div class="cms-section-moorl-grid {{ layout }}">
     <div class="row">
         {% for configIndex, configItem in section.customFields.moorl_section_grid_config %}
-            {% set sectionPosition = 'moorl_grid_' ~ configIndex %}
+            {% set sectionPosition = "moorl_grid_#{configIndex}" %}
             {% set blockBehaviour = moorl_block_behaviour(configItem.value, true) %}
             {% set options = {
                 offsetTop: configItem.offsetTop ?: '30px',
+                isSidebar: configItem.isSidebar,
                 isSticky: configItem.isSticky
             } %}
-
             {% set sectionCss = [] %}
             {% if not configItem.isSticky %}
                 {% set sectionCss = [
@@ -22,8 +22,7 @@
             {% endif %}
 
             <div class="{{ blockBehaviour }}">
-                <div style="{{ sectionCss|join(';')|raw }}"
-                     data-moorl-grid
+                <div style="{{ sectionCss|join(';')|raw }}" data-moorl-grid
                      data-moorl-grid-options='{{ options|json_encode|raw }}'>
                     {% for block in section.blocks.filterBySectionPosition(sectionPosition) %}
                         {% if configItem.isSidebar %}{{ block.setSectionPosition('sidebar') }}{% endif %}
