@@ -1,19 +1,17 @@
-{% set columns = section.customFields.moorl_section_column_count %}
 {% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
 
 <div class="cms-section-moorl-grid {{ layout }}">
     <div class="row">
-        {% for i in range(0, columns - 1) %}
-            {% set sectionPosition = 'moorl_grid_' ~ i %}
-            {% set sectionGridConfig = section.customFields.moorl_section_grid_config[i] %}
-            {% set blockBehaviour = moorl_block_behaviour(sectionGridConfig.value, true) %}
+        {% for configIndex, configItem in section.customFields.moorl_section_grid_config %}
+            {% set sectionPosition = 'moorl_grid_' ~ configIndex %}
+            {% set blockBehaviour = moorl_block_behaviour(configItem.value, true) %}
             {% set options = {
-                offsetTop: sectionGridConfig.offsetTop ?: '30px',
-                isSticky: sectionGridConfig.isSticky
+                offsetTop: configItem.offsetTop ?: '30px',
+                isSticky: configItem.isSticky
             } %}
 
             {% set sectionCss = [] %}
-            {% if not sectionGridConfig.isSticky %}
+            {% if not configItem.isSticky %}
                 {% set sectionCss = [
                     "height:100%",
                     "display:flex",
@@ -27,8 +25,9 @@
                 <div style="{{ sectionCss|join(';')|raw }}"
                      data-moorl-grid
                      data-moorl-grid-options='{{ options|json_encode|raw }}'>
-                    {% for block in section.blocks|filter(b => b.sectionPosition == sectionPosition) %}
-                        {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" %}
+                    {% for block in section.blocks.filterBySectionPosition(sectionPosition) %}
+                        {% if configItem.isSidebar %}{{ block.setSectionPosition('sidebar') }}{% endif %}
+                        {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" ignore missing %}
                     {% endfor %}
                 </div>
             </div>

@@ -73,6 +73,7 @@ Component.register('moorl-section-grid-config', {
                     this.$set(this.section.customFields.moorl_section_grid_config, i, {
                         alignItems: 'normal',
                         justifyContent: 'normal',
+                        isSidebar: false,
                         isSticky: false,
                         offsetTop: '30px',
                         value: {}

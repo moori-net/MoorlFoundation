@@ -3,6 +3,7 @@
     "title": "moori grid section",
     "label": {
       "sectionColumnCount": "Section columns",
+      "isSidebar": "Sidebar",
       "isSticky": "Sticky",
       "offsetTop": "Offset top",
       "alignItems": "Align items",
