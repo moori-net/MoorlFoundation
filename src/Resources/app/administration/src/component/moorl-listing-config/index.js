@@ -1,7 +1,9 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
+import defaultValue from './default.json';
+
+const {Component} = Shopware;
+const {cloneDeep} = Shopware.Utils.object;
 
 Component.register('moorl-listing-config', {
     template,
@@ -10,99 +12,13 @@ Component.register('moorl-listing-config', {
         value: {
             type: Object,
             required: false,
-            default: {
-                listingLayout: {
-                    value: 'grid'
-                },
-                itemLayout: {
-                    value: 'overlay'
-                },
-                itemLayoutTemplate: {
-                    value: '@Storefront/storefront/component/product/card/box.html.twig'
-                },
-                displayMode: {
-                    value: 'cover'
-                },
-                textAlign: {
-                    value: 'left'
-                },
-                gapSize: {
-                    value: '20px'
-                },
-                itemWidth: {
-                    value: '300px'
-                },
-                itemHeight: {
-                    value: '400px'
-                },
-                itemPadding: {
-                    value: '0px'
-                },
-                itemBackgroundColor: {
-                    value: null
-                },
-                itemHasBorder: {
-                    value: false
-                },
-                contentPadding: {
-                    value: '20px'
-                },
-                contentBackgroundColor: {
-                    value: null
-                },
-                contentColor: {
-                    value: null
-                },
-                hasButton: {
-                    value: true
-                },
-                buttonClass: {
-                    value: 'btn btn-primary'
-                },
-                buttonLabel: {
-                    value: 'Click here!'
-                },
-                urlNewTab: {
-                    value: true
-                },
-                speed: {
-                    value: 1000
-                },
-                autoplayTimeout: {
-                    value: 3000
-                },
-                autoplay: {
-                    value: true
-                },
-                autoplayHoverPause: {
-                    value: true
-                },
-                animateIn: {
-                    value: null
-                },
-                animateOut: {
-                    value: null
-                },
-                mode: {
-                    value: 'carousel'
-                },
-                navigationArrows: {
-                    value: 'outside'
-                },
-                navigationDots: {
-                    value: null
-                },
-                mouseDrag: {
-                    value: false
-                }
-            }
+            default: {}
         }
     },
 
     data() {
         return {
-            currentValue: null,
-            snippetPrefix: 'moorl-listing-config.',
+            isLoading: true
         };
     },
 
@@ -117,7 +33,12 @@ Component.register('moorl-listing-config', {
     },
 
     created() {
-        this.currentValue = JSON.parse(JSON.stringify(this.value));
+        this.value = Object.assign(
+            cloneDeep(defaultValue),
+            this.value
+        );
+
+        this.isLoading = false;
     },
 
     computed: {
@@ -132,6 +53,14 @@ Component.register('moorl-listing-config', {
                     {value: 'list', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.list'},
                     {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.standard'},
                     {value: 'slider', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.slider'}
+                ],
+                listingJustifyContent: [
+                    {value: 'normal', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.normal'},
+                    {value: 'flex-start', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.flex-start'},
+                    {value: 'flex-end', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.flex-end'},
+                    {value: 'center', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.center'},
+                    {value: 'space-between', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.space-between'},
+                    {value: 'space-around', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.space-around'},
                 ],
                 itemLayout: [
                     {value: 'overlay', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.overlay'},

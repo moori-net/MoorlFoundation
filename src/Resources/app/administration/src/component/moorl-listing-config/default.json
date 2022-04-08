@@ -1,0 +1,89 @@
+{
+  "listingLayout": {
+    "value": "grid"
+  },
+  "listingJustifyContent": {
+    "value": "normal"
+  },
+  "itemLayout": {
+    "value": "overlay"
+  },
+  "itemLayoutTemplate": {
+    "value": "@Storefront/storefront/component/product/card/box.html.twig"
+  },
+  "displayMode": {
+    "value": "cover"
+  },
+  "textAlign": {
+    "value": "left"
+  },
+  "gapSize": {
+    "value": "20px"
+  },
+  "itemWidth": {
+    "value": "300px"
+  },
+  "itemHeight": {
+    "value": "400px"
+  },
+  "itemPadding": {
+    "value": "0px"
+  },
+  "itemBackgroundColor": {
+    "value": null
+  },
+  "itemHasBorder": {
+    "value": false
+  },
+  "contentPadding": {
+    "value": "20px"
+  },
+  "contentBackgroundColor": {
+    "value": null
+  },
+  "contentColor": {
+    "value": null
+  },
+  "hasButton": {
+    "value": true
+  },
+  "buttonClass": {
+    "value": "btn btn-primary"
+  },
+  "buttonLabel": {
+    "value": "Click here!"
+  },
+  "urlNewTab": {
+    "value": true
+  },
+  "speed": {
+    "value": 1000
+  },
+  "autoplayTimeout": {
+    "value": 3000
+  },
+  "autoplay": {
+    "value": true
+  },
+  "autoplayHoverPause": {
+    "value": true
+  },
+  "animateIn": {
+    "value": null
+  },
+  "animateOut": {
+    "value": null
+  },
+  "mode": {
+    "value": "carousel"
+  },
+  "navigationArrows": {
+    "value": "outside"
+  },
+  "navigationDots": {
+    "value": null
+  },
+  "mouseDrag": {
+    "value": false
+  }
+}

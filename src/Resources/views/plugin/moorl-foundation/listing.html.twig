@@ -2,6 +2,12 @@
     {% if not config %}
         {% set config = element.fieldConfig.elements %}
     {% endif %}
+    {% if not config %}
+        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+            type: 'danger',
+            content: 'moorl-foundation.search.missingConfiguration'|trans|sw_sanitize
+        } %}
+    {% endif %}
 
     {# Set listing title by a page entity #}
     {% set listingHeaderTitle = element.translated.config.listingHeaderTitle.value %}

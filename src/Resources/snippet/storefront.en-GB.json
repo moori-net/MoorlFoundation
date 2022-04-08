@@ -5,7 +5,8 @@
             "noListingSlotFound": "This page do not have a listing element. Check your listing settings and chose \"Automatic items\"",
             "product": "Products",
             "headline": "{0} No matches for \"%searchTerm%\" | {1} One match for \"%searchTerm%\" | ]1,Inf[ %count% matches for \"%searchTerm%\"",
-            "notAvailable": "Not available"
+            "notAvailable": "Not available",
+            "missingConfiguration": "Missing configuration for this listing!"
         },
         "days": {
             "today": "Today",

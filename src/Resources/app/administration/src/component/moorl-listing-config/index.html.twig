@@ -1,4 +1,4 @@
-<div class="moorl-listing-config">
+<div v-if="!isLoading" class="moorl-listing-config">
     <sw-tabs defaultItem="layout">
         <template slot-scope="{ active }">
             <sw-tabs-item name="layout"
@@ -28,6 +28,12 @@
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingLayout')"
                                  v-model="value.listingLayout.value">
                     <option v-for="option in elementOptions.listingLayout" :value="option.value">{{ $tc(option.label) }}</option>
+                </sw-select-field>
+
+                <sw-select-field v-if="value.listingLayout.value == 'standard'"
+                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingJustifyContent')"
+                                 v-model="value.listingJustifyContent.value">
+                    <option v-for="option in elementOptions.listingJustifyContent" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
