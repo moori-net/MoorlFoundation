@@ -1108,7 +1108,7 @@
                 "config": {
                   "content": {
                     "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Responsive blocks</h2><div style=\"text-align: center;\">With moori Foundation you can hide or show blocks based on your customers viewport. Just rezise you browser to see the change.</div>"
+                    "value": "<h2 style=\"text-align: center;\">Responsive blocks</h2><div style=\"text-align: center;\">With moori Foundation you can hide or show blocks based on your customers viewport. Just resize your browser to see the change.</div>"
                   },
                   "verticalAlign": {
                     "source": "static",
