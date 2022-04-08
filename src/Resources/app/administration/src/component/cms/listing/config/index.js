@@ -52,6 +52,14 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                     {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.standard'},
                     {value: 'slider', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.slider'}
                 ],
+                listingJustifyContent: [
+                    {value: 'normal', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.normal'},
+                    {value: 'flex-start', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.flex-start'},
+                    {value: 'flex-end', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.flex-end'},
+                    {value: 'center', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.center'},
+                    {value: 'space-between', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.space-between'},
+                    {value: 'space-around', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.space-around'},
+                ],
                 itemLayout: [
                     {value: 'overlay', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.overlay'},
                     {value: 'image-or-title', label: 'sw-cms.elements.moorl-foundation-listing.itemLayout.image-or-title'},

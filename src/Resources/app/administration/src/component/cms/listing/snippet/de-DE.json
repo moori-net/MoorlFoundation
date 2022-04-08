@@ -16,6 +16,7 @@
                     "foreignKey": "If you use an entity page, like `product` you can set a foreign key. For example: `products.id`."
                 },
                 "label": {
+                    "listingJustifyContent": "Horizontale Ausrichtung",
                     "listingHeaderTitle": "Titel",
                     "foreignKey": "Fremdschlüssel",
                     "contentHighlightColor": "Hervorgehobene Farbe",
@@ -67,6 +68,14 @@
                     "grid": "Responsive Grid",
                     "list": "Liste",
                     "slider": "Slider"
+                },
+                "listingJustifyContent": {
+                    "normal": "Normal",
+                    "flex-start": "Anfang",
+                    "flex-end": "Ende",
+                    "center": "Mittig",
+                    "space-between": "Freiraum dazwischen",
+                    "space-around": "Freiraum um"
                 },
                 "itemLayout": {
                     "avatar": "Avatar (Rundes Bild)",

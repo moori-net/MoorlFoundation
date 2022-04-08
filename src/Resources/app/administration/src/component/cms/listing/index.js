@@ -36,6 +36,10 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'grid'
         },
+        listingJustifyContent: {
+            source: 'static',
+            value: 'normal'
+        },
         listingHeaderTitle: {
             source: 'static',
             value: null

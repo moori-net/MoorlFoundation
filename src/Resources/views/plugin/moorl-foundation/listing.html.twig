@@ -39,6 +39,9 @@
         {% set itemCss = itemCss|merge([
             "height:#{config.itemHeight.value}",
         ]) %}
+        {% set listingCss = listingCss|merge([
+            "justify-content:#{config.listingJustifyContent.value}",
+        ]) %}
     {% endif %}
 
     {% set listingContent %}
@@ -132,7 +135,8 @@
                 {% endif %}
             </div>
         {% elseif config.listingLayout.value == 'standard' %}
-            <ul class="row cms-listing-row js-listing-wrapper moorl-listing-standard">
+            <ul class="row cms-listing-row js-listing-wrapper moorl-listing-standard"
+                style="{{ listingCss|join(';')|raw }}">
                 {{ listingContent }}
             </ul>
         {% else %}

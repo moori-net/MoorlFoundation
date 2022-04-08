@@ -94,6 +94,12 @@
                     <option v-for="option in elementOptions.listingLayout" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
+                <sw-select-field v-if="element.config.listingLayout.value == 'standard'"
+                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingJustifyContent')"
+                                 v-model="element.config.listingJustifyContent.value">
+                    <option v-for="option in elementOptions.listingJustifyContent" :value="option.value">{{ $tc(option.label) }}</option>
+                </sw-select-field>
+
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
                                  v-model="element.config.itemLayout.value">
                     <option v-for="option in elementOptions.itemLayout" :value="option.value">{{ $tc(option.label) }}</option>
