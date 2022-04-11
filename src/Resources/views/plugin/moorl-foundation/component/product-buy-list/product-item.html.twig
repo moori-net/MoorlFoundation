@@ -3,7 +3,57 @@
     {% set price = product.calculatedPrices.first() %}
 {% endif %}
 
-<div class="moorl-product-buy-list-item enable-add-to-cart{% if enableAddToCartAll %}-all{% endif %}{% if enableAddToCartSingle %}-single{% endif %}">
+<div itemscope
+     itemtype="https://schema.org/Product"
+     class="moorl-product-buy-list-item enable-add-to-cart{% if enableAddToCartAll %}-all{% endif %}{% if enableAddToCartSingle %}-single{% endif %}">
+
+    {% block product_buy_list_item_rich_snippets_gtin13 %}
+        {% if product.ean %}
+            <meta itemprop="gtin13"
+                  content="{{ product.ean }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_mpn %}
+        {% if product.manufacturerNumber %}
+            <meta itemprop="mpn"
+                  content="{{ product.manufacturerNumber }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_weight %}
+        {% if product.weight %}
+            <meta itemprop="weight"
+                  content="{{ product.weight }} kg"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_height %}
+        {% if product.height %}
+            <meta itemprop="height"
+                  content="{{ product.height }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_width %}
+        {% if product.width %}
+            <meta itemprop="width"
+                  content="{{product.width }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_depth %}
+        {% if product.length %}
+            <meta itemprop="depth"
+                  content="{{product.length }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_release_date %}
+        <meta itemprop="releaseDate"
+              content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
+    {% endblock %}
+
     {% if enableAddToCartAll %}
         <div class="custom-control custom-checkbox">
             <input type="checkbox"
@@ -20,6 +70,7 @@
     <div class="product-cover">
         {% if product.cover.media.url %}
             {% set attributes = {
+                'itemprop': 'image',
                 'alt': product.translated.name,
                 'title': product.translated.name
             } %}
@@ -31,11 +82,14 @@
 
     <div class="product-content">
         <div class="product-title">
-            <a href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
+            <a itemprop="url"
+               href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
                data-toggle="modal"
                data-modal-class="quickview-modal"
                data-url="{{ path('widgets.quickview.minimal', { 'productId': product.id }) }}">
-                {{ product.translated.name }}
+                <span itemprop="name">
+                    {{ product.translated.name }}
+                </span>
             </a>
         </div>
 
@@ -44,7 +98,14 @@
         {% endif %}
 
         {% if enablePrices %}
-            <div class="products-buy-form-list-item-info-price">
+            <div itemprop="offers"
+                 itemscope
+                 itemtype="http://schema.org/Offer"
+                 class="products-buy-form-list-item-info-price">
+                <meta itemprop="priceCurrency"
+                      content="{{ context.currency.translated.shortName }}"/>
+                <meta itemprop="price" content="{{ price.unitPrice }}" />
+                <link itemprop="availability" href="https://schema.org/InStock" />
                 {{ price.unitPrice|currency }}{{ "general.star"|trans|sw_sanitize }}
             </div>
         {% endif %}

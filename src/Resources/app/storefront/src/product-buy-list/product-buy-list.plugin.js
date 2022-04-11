@@ -59,6 +59,8 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                 that._client.get(actionUrl + "?" + queryString.stringify(query), (response) => {
                     item.innerHTML = response;
                     that._updateTotalPrice();
+
+                    window.PluginManager.initializePlugins();
                 });
             }
         });
