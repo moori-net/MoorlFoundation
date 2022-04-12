@@ -17,6 +17,7 @@ Component.register('moorl-bs-config', {
         showWidth: {type: Boolean, required: false, default: true},
         showOrder: {type: Boolean, required: false, default: true},
         label: {type: String, required: false, default: null},
+        name: {type: String, required: false, default: null},
     },
 
     computed: {
@@ -43,6 +44,13 @@ Component.register('moorl-bs-config', {
                     'breakpoint': 'xl'
                 },
             ];
+        },
+
+        elementName() {
+            if (this.name) {
+                return this.name;
+            }
+            return this.$tc('moorl-bs-config.label.elementName');
         }
     },
 
@@ -61,6 +69,18 @@ Component.register('moorl-bs-config', {
                         'order': 0
                     });
                 }
+            }
+        },
+
+        helpText(breakpoint, property) {
+            return {
+                position: 'top',
+                showDelay: 1000,
+                hideDelay: 0,
+                message: this.$tc(`moorl-bs-config.helpText.${property}`, 0, {
+                    breakpoint,
+                    elementName: this.elementName,
+                })
             }
         }
     }
