@@ -69,6 +69,7 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "formElement": "Formular Feld",
             "stateMachineState": "Status",
             "start": "Start",
             "site": "Einbaustelle",

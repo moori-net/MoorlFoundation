@@ -93,6 +93,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "formElement": "Form field",
             "stateMachineState": "Status",
             "start": "Start",
             "site": "Installation site",
