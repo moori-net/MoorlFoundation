@@ -69,6 +69,8 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "stateMachineState": "Status",
+            "start": "Start",
             "site": "Einbaustelle",
             "swCategory": "Shopware Kategorie",
             "attachments": "Anhänge",

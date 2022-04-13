@@ -93,6 +93,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "stateMachineState": "Status",
+            "start": "Start",
             "site": "Installation site",
             "autoBreadcrumbPlain": "Auto breadcrumb",
             "moorlAfCategory": "Accessory Category",
