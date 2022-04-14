@@ -109,11 +109,28 @@
                     autoplayButtonOutput: false,
                     swipeAngle: false,
                     autoHeight: false,
-                    autoplayButtonOutput: false
+                    autoplayButtonOutput: false,
+                    navAsThumbnails: config.navigationDots.value == 'thumbnails' ? true : false,
+                    navContainer: config.navigationDots.value == 'thumbnails' ? "#thumbnails#{element.id}" : null
                 }
             } %}
 
-            <div class="base-slider moorl-slider product-slider product-slider{% if config.navigationArrows.value == "outside" %} has-nav-outside{% endif %}{% if config.navigationDots.value == "outside" %} has-dots-outside{% endif %}"
+            {% set sliderClasses = ['base-slider','moorl-slider','product-slider'] %}
+            {% set controlsPrevClasses = ['base-slider-controls-prev','image-slider-controls-prev'] %}
+            {% set controlsNextClasses = ['base-slider-controls-next','image-slider-controls-next'] %}
+            {% if config.navigationArrows.value == "outside" %}
+                {% set sliderClasses = sliderClasses|merge(['has-nav-outside']) %}
+                {% set controlsPrevClasses = controlsPrevClasses|merge(['is-nav-prev-outside']) %}
+                {% set controlsNextClasses = controlsNextClasses|merge(['is-nav-next-outside']) %}
+            {% elseif config.navigationArrows.value == "inside" %}
+                {% set controlsPrevClasses = controlsPrevClasses|merge(['is-nav-prev-inside']) %}
+                {% set controlsNextClasses = controlsNextClasses|merge(['is-nav-next-inside']) %}
+            {% endif %}
+            {% if config.navigationDots.value == "outside" %}
+                {% set sliderClasses = sliderClasses|merge(['has-dots-outside']) %}
+            {% endif %}
+
+            <div class="{{ sliderClasses|join(' ') }}"
                  data-product-slider="true"
                  data-product-slider-options='{{ productSliderOptions|json_encode }}'>
                 <ul class="moorl-listing-slider"
@@ -122,16 +139,35 @@
                     {{ listingContent }}
                 </ul>
 
+                {% if config.navigationDots.value == "thumbnails" %}
+                    <div class="moorl-listing-slider-thumbnails">
+                        {% block moorl_foundation_listing_slider_thumbnails %}
+                            <ul id="thumbnails{{ element.id }}">
+                                {% for item in searchResult %}
+                                    <li>
+                                        {% block moorl_foundation_listing_slider_thumbnails_item %}
+                                            {% sw_thumbnails 'moorl-listing-slider-thumbnail' with {
+                                                media: item.media,
+                                                attributes: {alt: '',title: ''}
+                                            } %}
+                                        {% endblock %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endblock %}
+                    </div>
+                {% endif %}
+
                 {% if config.navigationArrows.value %}
                     <div class="">
                         <div class="base-slider-controls"
                              data-product-slider-controls="true">
-                            <button class="base-slider-controls-prev image-slider-controls-prev{% if config.navigationArrows.value == "outside" %} is-nav-prev-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-prev-inside{% endif %}">
+                            <button class="{{ controlsPrevClasses|join(' ') }}">
                                 {% block moorl_foundation_listing_slider_controls_items_prev_icon %}
                                     {% sw_icon 'arrow-head-left' %}
                                 {% endblock %}
                             </button>
-                            <button class="base-slider-controls-next image-slider-controls-next{% if config.navigationArrows.value == "outside" %} is-nav-next-outside{% elseif config.navigationArrows.value == "inside" %} is-nav-next-inside{% endif %}">
+                            <button class="{{ controlsNextClasses|join(' ') }}">
                                 {% block moorl_foundation_listing_slider_controls_items_next_icon %}
                                     {% sw_icon 'arrow-head-right' %}
                                 {% endblock %}

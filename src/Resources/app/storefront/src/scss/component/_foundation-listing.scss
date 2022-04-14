@@ -25,6 +25,36 @@
   }
 }
 
+.moorl-listing-slider-thumbnails {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+
+    li {
+      cursor: pointer;
+      margin: 0 6px;
+      padding-top: 3px;
+
+      img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        filter: grayscale(1);
+        transition: all .8s;
+      }
+
+      &.tns-nav-active {
+        img {
+          filter: grayscale(0);
+        }
+      }
+    }
+  }
+}
+
 .moorl-listing-list,
 .moorl-listing-grid {
   display: grid;

@@ -91,7 +91,8 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                 navigationDots: [
                     {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
                     {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.outside'},
-                    {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.inside'}
+                    {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.inside'},
+                    {value: 'thumbnails', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.thumbnails'}
                 ],
                 foreignKey: [
                     {value: null, label: this.$tc('sw-cms.elements.moorl-foundation-listing.none')}
