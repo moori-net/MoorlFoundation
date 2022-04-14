@@ -1,7 +1,7 @@
 {
   "moorl-feature-unlocker": {
     "notifications": {
-      "welcome": "Click ALT+M to unlock moori Foundation features",
+      "welcome": "Hit ALT+M (Win/Linux) or CONTROL+M (Mac) to unlock moori Foundation features",
       "unlocked": "moori Foundation features has been unlocked",
       "locked": "moori Foundation features has been locked"
     },

@@ -6,7 +6,7 @@ Component.register('moorl-support-link', {
     template,
 
     props: {
-        label: {
+        path: {
             type: String,
             required: true
         }
@@ -14,7 +14,7 @@ Component.register('moorl-support-link', {
 
     computed: {
         supportLink() {
-            return this.$tc('moorl-support-link.supportLink') + this.label;
+            return this.$tc('moorl-support-link.supportLink') + this.path;
         }
     }
 });

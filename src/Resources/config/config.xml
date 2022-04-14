@@ -4,35 +4,56 @@
     <card>
         <title>Add-ons</title>
         <title lang="de-DE">Add-Ons</title>
+
         <input-field type="bool">
             <name>fontawesome</name>
             <label>Enable Font Awesome 5 Free</label>
             <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
         <input-field type="bool">
             <name>animate</name>
             <label>Enable Animate.css</label>
             <label lang="de-DE">Aktiviere Animate.css</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
+        <input-field>
+            <name>googleMapsApiKey</name>
+            <label>Google Maps API key</label>
+            <label lang="de-DE">Google Maps API Schlüssel</label>
+            <helpText>This API key is used by moori plugins</helpText>
+            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
+        </input-field>
+
+        <input-field>
+            <name>deeplApiKey</name>
+            <label>DeepL API key</label>
+            <label lang="de-DE">DeepL API Schlüssel</label>
+            <helpText>This API key is used by moori plugins</helpText>
+            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
+        </input-field>
     </card>
 
     <card>
         <title>moori Advanced search</title>
         <title lang="de-DE">Erweiterte Suche</title>
+
         <input-field type="bool">
             <name>advancedSearchActive</name>
             <label>Enable advanced search</label>
             <label lang="de-DE">Erweiterte Suche aktivieren</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
         <input-field type="bool">
             <name>advancedSearchHideEmptyResults</name>
             <label>Hide empty search results</label>
             <label lang="de-DE">Leere Suchergebnisse verstecken</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
         <input-field type="text">
             <name>advancedSearchWidth</name>
             <label>Width of the search suggest element</label>
@@ -40,19 +61,31 @@
             <defaultValue>600px</defaultValue>
             <placeholder>100%,600px,90vw</placeholder>
         </input-field>
+
+        <component name="moorl-support-link">
+            <name>null</name>
+            <path>/MoorlFoundation/advanced-search/</path>
+        </component>
     </card>
 
     <card>
         <title>moori Animation</title>
         <title lang="de-DE">moori Animation</title>
+
         <component name="moorl-animation">
             <name>moorlAnimation</name>
+        </component>
+
+        <component name="moorl-support-link">
+            <name>null</name>
+            <path>/MoorlFoundation/features-free/</path>
         </component>
     </card>
 
     <card>
         <title>moori plugin settings</title>
         <title lang="de-DE">moori Plugin Einstellungen</title>
+
         <input-field type="text">
             <name>fileExtensions</name>
             <label>Additional file types</label>
@@ -60,24 +93,28 @@
             <placeholder>zip,rar,psd,docx etc...</placeholder>
             <defaultValue>zip,rar,psd,docx</defaultValue>
         </input-field>
+
         <input-field type="bool">
             <name>cmsElements</name>
             <label>Remove CMS elements when uninstalling</label>
             <label lang="de-DE">CMS Elemente beim deinstallieren entfernen</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
         <input-field type="bool">
             <name>mailTemplates</name>
             <label>Remove/Refresh email templates when uninstalling/activating</label>
             <label lang="de-DE">Entfernen/Erneuern von E-Mail Templates beim Deinstallieren/Aktivieren</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
         <input-field type="bool">
             <name>customFields</name>
             <label>Remove/Refresh custom fields when uninstalling/activating</label>
             <label lang="de-DE">Entfernen/Erneuern von Freitextfeldern beim Deinstallieren/Aktivieren</label>
             <defaultValue>true</defaultValue>
         </input-field>
+
         <input-field type="bool">
             <name>snippets</name>
             <label>Remove/Refresh snippets when uninstalling/activating</label>
