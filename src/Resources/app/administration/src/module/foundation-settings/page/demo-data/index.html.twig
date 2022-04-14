@@ -19,12 +19,18 @@
                             entity="sales_channel">
                     </sw-entity-single-select>
 
-                    <sw-alert variant="info">
-                        {{ $tc('moorl-foundation.notification.demoDataHint') }}
+                    <sw-alert variant="warning">
+                        {{ $tc('moorl-foundation-settings-demo-data.notification') }}
                     </sw-alert>
 
+                    <sw-field
+                        type="switch"
+                        :label="$tc('moorl-foundation-settings-demo-data.confirm')"
+                        v-model="confirmed"
+                    ></sw-field>
+
                     <sw-button variant="primary"
-                               :disabled="!acl.can('system.system_config')"
+                               :disabled="!acl.can('system.system_config') || !confirmed"
                                @click="install()">
                         {{ $tc('moorl-foundation.buttons.startButtonText') }}
                     </sw-button>

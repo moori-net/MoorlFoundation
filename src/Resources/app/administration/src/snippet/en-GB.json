@@ -45,9 +45,6 @@
             "completedMessage": "Import complete - Skipped: {skipped} - New: {new} - Total: {total} -  Errors: {errors}"
         },
         "notification": {
-            "demoDataHint": "In some Cases Demo Data will add a CMS Page to your main Category - if you are installing Demo Data in Live System, please do not forget to remove/hide the Demo CMS Page.",
-            "demoDataInstalled": "Demo Data has been Installed",
-            "demoDataRemoved": "Demo Data has been Removed",
             "errorTitle": "Error notification",
             "errorRequiredText": "Fields marked with * are required.",
             "errorDuplicateEntryText": "The entry can not be saved because a entry for the same association already exists.",

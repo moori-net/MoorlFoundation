@@ -29,7 +29,6 @@
             "processText": "Verarbeitung: {remaining} von {count} Datensätze verbleibend."
         },
         "notification": {
-            "demoDataHint": "In einigen Fällen fügt Demo Data eine CMS-Seite zu Ihrer Hauptkategorie hinzu - wenn Sie Demo Data im Live-System installieren, vergessen Sie bitte nicht, die Demo-CMS-Seite zu entfernen/auszublenden.",
             "errorTitle": "Ein Fehler ist aufgetreten",
             "errorRequiredText": "Felder die mit * gekennzeichned sind sind erforderlich.",
             "errorDuplicateEntryText": "Der Eintrag kann nicht gespeichert werden weil es bereits einen Eintrag für die selbe Assoziation gibt.",

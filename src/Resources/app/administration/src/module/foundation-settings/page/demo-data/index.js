@@ -23,6 +23,7 @@ Component.register('moorl-foundation-settings-demo-data', {
                 pluginName: null,
                 name: null,
             },
+            confirmed: false,
             optionIndex: 0,
             options: null,
             isLoading: true,
@@ -72,7 +73,7 @@ Component.register('moorl-foundation-settings-demo-data', {
 
             this.foundationApiService.post(`/moorl-foundation/settings/demo-data/install`, this.item).then(response => {
                 this.createNotificationSuccess({
-                    message: this.$tc('moorl-foundation.notification.demoDataInstalled')
+                    message: this.$tc('moorl-foundation-settings-demo-data.installed')
                 });
 
                 this.isLoading = false;
@@ -91,7 +92,7 @@ Component.register('moorl-foundation-settings-demo-data', {
 
             this.foundationApiService.post(`/moorl-foundation/settings/demo-data/remove`, this.item).then(response => {
                 this.createNotificationSuccess({
-                    message: this.$tc('moorl-foundation.notification.demoDataRemoved')
+                    message: this.$tc('moorl-foundation-settings-demo-data.removed')
                 });
 
                 this.isLoading = false;
