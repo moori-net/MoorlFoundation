@@ -7,14 +7,20 @@ export default class MoorlPaintPlugin extends Plugin {
 
     init() {
         if ('paintWorklet' in CSS) {
-            this._addModules()
-        }
-    }
+            const modules = [
+                'checkerboard',
+                'dots',
+                'generated-dots',
+                'twinkle',
+            ];
 
-    _addModules() {
-        CSS.paintWorklet.addModule(this.options.assetPath + 'checkerboard.js');
-        CSS.paintWorklet.addModule(this.options.assetPath + 'dots.js');
-        CSS.paintWorklet.addModule(this.options.assetPath + 'generated-dots.js');
-        CSS.paintWorklet.addModule(this.options.assetPath + 'twinkle.js');
+            for (const module of modules) {
+                let path = `${this.options.assetPath}${module}.js`;
+                console.log(path);
+                console.log(CSS);
+                console.log(CSS.PaintWorklet);
+                CSS.paintWorklet.addModule(path);
+            }
+        }
     }
 }

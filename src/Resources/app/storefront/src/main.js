@@ -30,6 +30,7 @@ import MoorlCountdownPlugin from './countdown/countdown.plugin';
 import MoorlProductBuyListPlugin from './product-buy-list/product-buy-list.plugin';
 import MoorlTocPlugin from './toc/toc.plugin';
 import MoorlGridPlugin from './grid/grid.plugin';
+import MoorlPaintPlugin from './paint/paint.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -42,6 +43,7 @@ PluginManager.register('MoorlCountdown', MoorlCountdownPlugin, '[data-moorl-coun
 PluginManager.register('MoorlProductBuyList', MoorlProductBuyListPlugin, '[data-moorl-product-buy-list]');
 PluginManager.register('MoorlToc', MoorlTocPlugin, '[data-moorl-toc]');
 PluginManager.register('MoorlGrid', MoorlGridPlugin, '[data-moorl-grid]');
+PluginManager.register('MoorlPaint', MoorlPaintPlugin);
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
