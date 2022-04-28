@@ -13,8 +13,10 @@ export default class MoorlPaintPlugin extends Plugin {
         }
 
         this.el.addEventListener("mousemove", e => {
-            this.el.style.setProperty('--mouse-x', e.clientX + "px");
-            this.el.style.setProperty('--mouse-y', e.clientY + "px");
+            let bounds = this.el.getBoundingClientRect();
+
+            this.el.style.setProperty('--mouse-x', e.clientX - bounds.left);
+            this.el.style.setProperty('--mouse-y', e.clientY - bounds.top);
         });
 
         this.el.style.backgroundImage = `paint(${this.options.module})`;

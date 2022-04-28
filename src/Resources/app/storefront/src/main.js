@@ -43,7 +43,7 @@ PluginManager.register('MoorlCountdown', MoorlCountdownPlugin, '[data-moorl-coun
 PluginManager.register('MoorlProductBuyList', MoorlProductBuyListPlugin, '[data-moorl-product-buy-list]');
 PluginManager.register('MoorlToc', MoorlTocPlugin, '[data-moorl-toc]');
 PluginManager.register('MoorlGrid', MoorlGridPlugin, '[data-moorl-grid]');
-PluginManager.register('MoorlPaint', MoorlPaintPlugin, '.cms-section');
+PluginManager.register('MoorlPaint', MoorlPaintPlugin, '[data-moorl-paint]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
