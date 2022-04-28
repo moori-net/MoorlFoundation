@@ -3,14 +3,14 @@ const rand = (min, max) => min + Math.floor(Math.random() * max);
 class GeneratedDots {
   static get inputProperties() {
     return [
-      '--bg-color',
-      '--dot-color',
+      '--light',
+      '--primary',
       '--tick',
     ];
   }
   paint(ctx, { width, height }, properties) {
-    const bgColor = properties.get('--bg-color').toString();
-    const dotColor = properties.get('--dot-color').toString();
+    const bgColor = properties.get('--light').toString();
+    const dotColor = properties.get('--primary').toString();
     const size = 24;
 
     // Draw background colour

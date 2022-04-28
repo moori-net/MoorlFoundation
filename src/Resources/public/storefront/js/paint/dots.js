@@ -3,14 +3,14 @@ const rand = (min, max) => min + Math.floor(Math.random() * max);
 class Dots {
   static get inputProperties() {
     return [
-      '--bg-color',
-      '--dot-color',
+      '--light',
+      '--primary',
       '--mouse-x',
       '--mouse-y',
     ];
   }
   paint(ctx, { width, height }, properties) {
-    const bgColor = properties.get('--bg-color').toString();
+    const bgColor = properties.get('--light').toString();
     const mouseX = properties.get('--mouse-x').toString();
     const mouseY = properties.get('--mouse-y').toString();
     const size = 24;
