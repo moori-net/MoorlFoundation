@@ -2,32 +2,21 @@ import Plugin from 'src/plugin-system/plugin.class';
 
 export default class MoorlPaintPlugin extends Plugin {
     static options = {
-        assetPath: '/bundles/moorlfoundation/storefront/js/paint/'
+        assetPath: '/bundles/moorlfoundation/storefront/js/paint/',
+        module: 'dots'
     };
 
     init() {
-        let root = document.documentElement;
+        if ('paintWorklet' in CSS) {
+            let path = `${this.options.assetPath}${this.options.module}.js`;
+            CSS.paintWorklet.addModule(path);
+        }
 
-        root.addEventListener("mousemove", e => {
-            root.style.setProperty('--mouse-x', e.clientX + "px");
-            root.style.setProperty('--mouse-y', e.clientY + "px");
+        this.el.addEventListener("mousemove", e => {
+            this.el.style.setProperty('--mouse-x', e.clientX + "px");
+            this.el.style.setProperty('--mouse-y', e.clientY + "px");
         });
 
-        if ('paintWorklet' in CSS) {
-            const modules = [
-                'checkerboard',
-                'dots',
-                'generated-dots',
-                'twinkle',
-            ];
-
-            for (const module of modules) {
-                let path = `${this.options.assetPath}${module}.js`;
-                console.log(path);
-                console.log(CSS);
-                console.log(CSS.PaintWorklet);
-                CSS.paintWorklet.addModule(path);
-            }
-        }
+        this.el.style.backgroundImage = `paint(${this.options.module})`;
     }
 }
