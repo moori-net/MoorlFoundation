@@ -35,7 +35,10 @@ Component.register('moorl-entity-form-element', {
     computed: {
         price: {
             get() {
-                if (!this.value.price) {
+                let price = []
+                if (this.value && Array.isArray(this.value.price)) {
+                    price = [...this.value.price];
+                } else {
                     const cPrice = {};
                     cPrice[`c${this.defaultCurrency.id}`] = {
                         net: 0,
@@ -45,11 +48,6 @@ Component.register('moorl-entity-form-element', {
                     }
                     this.$set(this.value, 'price', cPrice);
                     return cPrice;
-                }
-
-                let price = []
-                if (this.value && Array.isArray(this.value.price)) {
-                    price = [...this.value.price];
                 }
                 return price;
             },
