@@ -83,11 +83,15 @@
     <sw-modal v-if="showEditModal"
               :title="$tc('global.default.edit')"
               @modal-close="onCloseModal">
-        <moorl-entity-form-element v-for="column in editColumns"
-                                   :value="selectedItem"
-                                   :column="column"
-                                   :snippetSrc="snippetSrc">
-        </moorl-entity-form-element>
+        <moorl-entity-form-element
+                v-for="column in editColumns"
+                :value="selectedItem"
+                :column="column"
+                :snippetSrc="snippetSrc"
+                :tax="tax"
+                :defaultCurrency="defaultCurrency"
+        />
+
         <template #modal-footer>
             <sw-button @click="onCloseModal" size="small">
                 {{ $t('moorl-foundation.buttons.cancelButtonText') }}

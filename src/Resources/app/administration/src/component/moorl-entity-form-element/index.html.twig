@@ -65,6 +65,14 @@
         </sw-select-field>
     </template>
 
+    <template v-else-if="column.flags.moorl_edit_field === 'price' && column.property === 'price'">
+        <sw-price-field
+                :price="price"
+                :tax-rate="tax"
+                :currency="defaultCurrency"
+        />
+    </template>
+
     <template v-else>
         <template v-if="column.required">
             <sw-field :type="column.flags.moorl_edit_field"

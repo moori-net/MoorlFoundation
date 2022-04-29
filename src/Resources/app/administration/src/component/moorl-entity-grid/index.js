@@ -99,7 +99,16 @@ Component.register('moorl-entity-grid', {
             default() {
                 return {};
             }
-        }
+        },
+        /* Handling for prices */
+        tax: {
+            type: Object,
+            required: false
+        },
+        defaultCurrency: {
+            type: Object,
+            required: false
+        },
     },
 
     data() {
@@ -184,10 +193,12 @@ Component.register('moorl-entity-grid', {
             let properties = Shopware.EntityDefinition.get(this.entity).properties
 
             for (const [property, column] of Object.entries(properties)) {
-                switch (column.type) {
-                    case 'uuid':
-                    case 'json_object':
-                        continue;
+                if (column.type === 'uuid') {
+                    continue;
+                }
+
+                if (column.type === 'json_object' && property !== 'price') {
+                    continue;
                 }
 
                 if (Object.keys(this.defaultItem).indexOf(property) !== -1) {
