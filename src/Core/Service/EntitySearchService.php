@@ -47,7 +47,7 @@ class EntitySearchService
 
         $slotIds = $request->query->get('slots');
         /* Unset immediately, because its not compatible with product listing */
-        $request->query->set('slots', false);
+        $request->query->remove('slots');
         $tab = $request->query->get('tab');
         if (!$slotIds && !$tab) {
             return null;
