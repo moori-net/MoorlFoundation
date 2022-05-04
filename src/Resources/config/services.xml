@@ -127,9 +127,10 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="MoorlFoundation\Core\Content\Media\Cms\DownloadListCmsElementResolver">
+        <!--service id="MoorlFoundation\Core\Content\Media\Cms\DownloadListCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Content\Media\Cms\DefaultMediaResolver"/>
             <tag name="shopware.cms.data_resolver"/>
-        </service>
+        </service-->
 
         <service id="MoorlFoundation\Core\Content\Cms\HtmlTagCmsElementResolver">
             <argument type="service" id="Shopware\Core\Framework\Util\HtmlSanitizer"/>
