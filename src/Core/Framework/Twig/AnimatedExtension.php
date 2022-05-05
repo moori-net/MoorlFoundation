@@ -19,10 +19,10 @@ class AnimatedExtension extends AbstractExtension
         ];
     }
 
-    public function blockBehaviour(?array $behaviours = null, bool $isRow = false): ?string
+    public function blockBehaviour(?array $behaviours = null, bool $isRow = false): string
     {
         if (!$behaviours) {
-            return null;
+            return "col";
         }
 
         $classes = [];
@@ -43,7 +43,7 @@ class AnimatedExtension extends AbstractExtension
             }
 
             if (!empty($behaviour['width'])) {
-                $classes[] = sprintf("col-%s-%d", $breakpoint, $behaviour['width']);
+                $classes[] = sprintf("col-%s-%s", $breakpoint, $behaviour['width']);
             }
 
             if (!empty($behaviour['order'])) {
@@ -52,10 +52,14 @@ class AnimatedExtension extends AbstractExtension
         }
 
         if (empty($classes)) {
-            return null;
+            return "col";
         }
 
-        return trim(str_replace("xs-", "", implode(" ", $classes)));
+        $string = implode(" ", $classes);
+        $string = str_replace("xs-", "", $string);
+        $string = str_replace("--1", "-auto", $string);
+
+        return trim($string);
     }
 
     /**

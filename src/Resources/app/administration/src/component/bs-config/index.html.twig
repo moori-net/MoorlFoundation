@@ -34,7 +34,8 @@
                              v-if="showWidth"
                              v-model="value[behaviour.breakpoint].width"
                              v-tooltip="helpText(behaviour.breakpoint,'width')">
-                <option :value="0">auto</option>
+                <option :value="-1">auto-fill</option>
+                <option :value="0">auto-fit</option>
                 <option v-for="i in 12" :value="i">{{ i }}/12</option>
             </sw-select-field>
 
