@@ -67,7 +67,8 @@
                     "standard": "Shopware standard",
                     "grid": "Responsive Grid",
                     "list": "Liste",
-                    "slider": "Slider"
+                    "slider": "Slider",
+                    "search-suggest": "Schnellsuche-Liste (minimal)"
                 },
                 "listingJustifyContent": {
                     "normal": "Normal",

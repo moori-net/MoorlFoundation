@@ -52,7 +52,8 @@ Component.register('moorl-listing-config', {
                     {value: 'grid', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.grid'},
                     {value: 'list', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.list'},
                     {value: 'standard', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.standard'},
-                    {value: 'slider', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.slider'}
+                    {value: 'slider', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.slider'},
+                    {value: 'search-suggest', label: 'sw-cms.elements.moorl-foundation-listing.listingLayout.search-suggest'},
                 ],
                 listingJustifyContent: [
                     {value: 'normal', label: 'sw-cms.elements.moorl-foundation-listing.listingJustifyContent.normal'},

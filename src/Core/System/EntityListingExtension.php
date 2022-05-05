@@ -64,16 +64,7 @@ class EntityListingExtension
     {
         if ($this->isSuggest()) {
             return [
-                'listingLayout' => ['value' => 'grid'],
-                'itemLayout' => ['value' => 'overlay'],
-                'displayMode' => ['value' => 'cover'],
-                'textAlign' => ['value' => 'left'],
-                'gapSize' => ['value' => '10px'],
-                'itemWidth' => ['value' => '150px'],
-                'itemHeight' => ['value' => '200px'],
-                'itemHasBorder' => ['value' => false],
-                'contentPadding' => ['value' => '10px'],
-                'hasButton' => ['value' => false]
+                'listingLayout' => ['value' => 'search-suggest']
             ];
         }
 

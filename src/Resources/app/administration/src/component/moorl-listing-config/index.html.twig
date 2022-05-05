@@ -12,12 +12,14 @@
                 {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.slider') }}
             </sw-tabs-item>
 
-            <sw-tabs-item name="item"
+            <sw-tabs-item v-if="value.listingLayout.value !== 'search-suggest'"
+                          name="item"
                           :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.item') }}
             </sw-tabs-item>
 
-            <sw-tabs-item name="content"
+            <sw-tabs-item v-if="value.listingLayout.value !== 'search-suggest'"
+                          name="content"
                           :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.content') }}
             </sw-tabs-item>
@@ -36,26 +38,28 @@
                     <option v-for="option in elementOptions.listingJustifyContent" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
-                                 v-model="value.itemLayout.value">
-                    <option v-for="option in elementOptions.itemLayout" :value="option.value">{{ $tc(option.label) }}</option>
-                </sw-select-field>
+                <template v-if="value.listingLayout.value !== 'search-suggest'">
+                    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayout')"
+                                     v-model="value.itemLayout.value">
+                        <option v-for="option in elementOptions.itemLayout" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
 
-                <sw-field v-if="value.itemLayout.value == 'custom'"
-                          v-model="value.itemLayoutTemplate.value"
-                          type="text"
-                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayoutTemplate')">
-                </sw-field>
+                    <sw-field v-if="value.itemLayout.value == 'custom'"
+                              v-model="value.itemLayoutTemplate.value"
+                              type="text"
+                              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayoutTemplate')">
+                    </sw-field>
 
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.displayMode')"
-                                 v-model="value.displayMode.value">
-                    <option v-for="option in elementOptions.displayMode" :value="option.value">{{ $tc(option.label) }}</option>
-                </sw-select-field>
+                    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.displayMode')"
+                                     v-model="value.displayMode.value">
+                        <option v-for="option in elementOptions.displayMode" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
 
-                <sw-field v-model="value.gapSize.value"
-                          type="text"
-                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
-                </sw-field>
+                    <sw-field v-model="value.gapSize.value"
+                              type="text"
+                              :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
+                    </sw-field>
+                </template>
             </sw-container>
 
             <sw-container v-if="active === 'slider'"

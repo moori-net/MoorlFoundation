@@ -181,6 +181,10 @@
                 style="{{ listingCss|join(';')|raw }}">
                 {{ listingContent }}
             </ul>
+        {% elseif config.listingLayout.value == 'search-suggest' %}
+            <ul class="moorl-search-suggest-list">
+                {{ listingContent }}
+            </ul>
         {% else %}
             <ul class="js-listing-wrapper moorl-listing-{{ config.listingLayout.value }}"
                 style="{{ listingCss|join(';')|raw }}">
