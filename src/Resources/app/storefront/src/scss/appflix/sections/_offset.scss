@@ -1,7 +1,3 @@
-.cms-sections{
-    overflow: hidden;
-}
-
 @include media-breakpoint-up(lg) {
     [class*='moorl-offset-']{
         overflow: visible;
