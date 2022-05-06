@@ -1,0 +1,31 @@
+{% sw_extends "@Storefront/storefront/page/content/detail.html.twig" %}
+
+{% block page_content_section %}
+    {% set moorlSection = section.customFields.moorl_section %}
+    {% if moorlSection.color and moorlSection.color != 'none' %}
+        {% set sectionClasses = ["text-#{moorlSection.color}"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.backgroundColor and moorlSection.backgroundColor != 'none' %}
+        {% set sectionClasses = ["bg-#{moorlSection.backgroundColor}"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.top and moorlSection.top != 'none' %}
+        {% set sectionClasses = ["moorl-separator-#{moorlSection.top}-top"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.bottom and moorlSection.bottom != 'none' %}
+        {% set sectionClasses = ["moorl-separator-#{moorlSection.bottom}-bottom"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.offsetTop and moorlSection.offsetTop != 'none' %}
+        {% set sectionClasses = ["moorl-offset-#{moorlSection.offsetTop}-top"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.offsetBottom and moorlSection.offsetBottom != 'none' %}
+        {% set sectionClasses = ["moorl-offset-#{moorlSection.offsetBottom}-bottom"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.separatorBackground and moorlSection.separatorBackground != 'none' %}
+        {% set sectionClasses = ["bg-moorl-separator-#{moorlSection.separatorBackground}"]|merge(sectionClasses) %}
+    {% endif %}
+    {% if moorlSection.fixedBackground %}
+        {% set sectionClasses = ["bg-fixed"]|merge(sectionClasses) %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
