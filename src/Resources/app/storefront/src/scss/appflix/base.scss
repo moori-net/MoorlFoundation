@@ -3,8 +3,7 @@
 @import "global/colors";
 @import "global/root";
 @import "global/helper";
-@import "blocks/grid-layout";
-@import "blocks/column-layout";
+
 @import "elements/cta-banner";
 @import "elements/accordion";
 @import "elements/table-registration";
@@ -12,16 +11,13 @@
 @import "elements/newsletter";
 @import "elements/brand-slider";
 @import "elements/hero-search";
+
 @import "sections/separator";
 @import "sections/boxed";
 @import "sections/offset";
+
 @import "component/form/customer-upload";
 @import "component/form/input";
-@import "component/countdown";
-@import "component/foundation-listing";
-@import "component/opening-hours";
-@import "component/search-page";
-@import "component/search-suggest";
 
 [class*=cms-element-appflix]{
     &.has-vertical-alignment{
