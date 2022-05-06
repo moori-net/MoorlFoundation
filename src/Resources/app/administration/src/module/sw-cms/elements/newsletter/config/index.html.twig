@@ -1,0 +1,69 @@
+<div class="sw-cms-el-config-appflix-newsletter">
+    <sw-tabs class="sw-cms-el-config-appflix-newsletter__tabs" defaultItem="general">
+        <template slot-scope="{ active }" >
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
+                          name="general"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.general') }}
+            </sw-tabs-item>
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.colors')"
+                          name="colors"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.colors') }}
+            </sw-tabs-item>
+
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.text')"
+                          name="text"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.text') }}
+            </sw-tabs-item>
+        </template>
+
+        <template slot="content" slot-scope="{ active }">
+            <sw-container v-if="active === 'general'" class="sw-cms-el-config-appflix-newsletter__tab-general">
+                <sw-field type="switch"
+                          bordered
+                          :label="$tc(snippetPrefix + 'config.optin')"
+                          v-model="element.config.optin.value">
+                </sw-field>
+            </sw-container>
+
+            <sw-container v-if="active === 'colors'" class="sw-cms-el-config-appflix-newsletter__tab-colors">
+                <sw-colorpicker
+                    colorOutput="hex"
+                    :zIndex="1000"
+                    :label="$tc(snippetPrefix + 'config.buttonBackground')"
+                    v-model="element.config.buttonBackground.value">
+                </sw-colorpicker>
+                <sw-colorpicker
+                    colorOutput="hex"
+                    :zIndex="1000"
+                    :label="$tc(snippetPrefix + 'config.buttonTextColor')"
+                    v-model="element.config.buttonTextColor.value">
+                </sw-colorpicker>
+                <sw-colorpicker
+                    colorOutput="hex"
+                    :zIndex="1000"
+                    :label="$tc(snippetPrefix + 'config.privacyColor')"
+                    v-model="element.config.privacyColor.value">
+                </sw-colorpicker>
+            </sw-container>
+
+            <sw-container v-if="active === 'text'" class="sw-cms-el-config-appflix-newsletter__tab-text">
+                <sw-alert variant="info">
+                    {{ $tc(snippetPrefix + 'config.hint') }}
+                </sw-alert>
+
+                <sw-field v-model="element.config.placeholder.value"
+                          type="text"
+                          :label="$tc(snippetPrefix + 'config.placeholder')">
+                </sw-field>
+                <sw-field v-model="element.config.buttonText.value"
+                          type="text"
+                          :label="$tc(snippetPrefix + 'config.buttonText')">
+                </sw-field>
+            </sw-container>
+        </template>
+
+    </sw-tabs>
+</div>

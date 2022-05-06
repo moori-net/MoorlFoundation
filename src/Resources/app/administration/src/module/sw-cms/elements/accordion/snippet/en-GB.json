@@ -1,0 +1,18 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-accordion": {
+                "title": "Accordion",
+                "label": {
+                    "autoClose": "Close accordion in group",
+                    "name": "Name",
+                    "cssClass": "Classes",
+                    "cssId": "Anchor",
+                    "content": "Content",
+                    "add": "Add new entry",
+                    "remove": "Remove entry"
+                }
+            }
+        }
+    }
+}

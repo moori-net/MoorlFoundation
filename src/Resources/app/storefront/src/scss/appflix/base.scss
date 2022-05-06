@@ -1,0 +1,98 @@
+@import "default-variables";
+
+@import "global/colors";
+@import "global/root";
+@import "global/helper";
+@import "blocks/grid-layout";
+@import "blocks/column-layout";
+@import "elements/cta-banner";
+@import "elements/accordion";
+@import "elements/table-registration";
+@import "elements/usps";
+@import "elements/newsletter";
+@import "elements/brand-slider";
+@import "elements/hero-search";
+@import "sections/separator";
+@import "sections/boxed";
+@import "sections/offset";
+@import "component/form/customer-upload";
+@import "component/form/input";
+@import "component/countdown";
+@import "component/foundation-listing";
+@import "component/opening-hours";
+@import "component/search-page";
+@import "component/search-suggest";
+
+[class*=cms-element-appflix]{
+    &.has-vertical-alignment{
+        display:flex;
+        height: 100%;
+
+        .cms-element-alignment{
+            width: 100%;
+        }
+    }
+}
+
+.cms-element-image-slider {
+  overflow: hidden;
+}
+
+.moorl-foundation-hide,
+.moorl-animation-hidden {
+  opacity: 0;
+}
+
+.moorl-animation-processing {
+  z-index: 9000;
+}
+
+.cms-block.no-gutters {
+  overflow: visible;
+
+  .cms-block-container-row {
+    @extend .no-gutters;
+  }
+}
+
+.modal {
+  z-index: 1060;
+}
+
+.cms-element-appflix-replacer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 240px;
+  height: 100%;
+
+  > div {
+    padding: 5px;
+    font-size: .7em;
+    color: #FFFFFF;
+    font-family: "Courier";
+  }
+}
+
+$foundation-colors: (
+        "facebook": #3C5A99,
+        "google": #0F9D58,
+        "azure": #00A4EF,
+        "amazon": #FF9900,
+        "office365": #00A4EF,
+        "paypal": #0173b9,
+        "generic": #efc34a,
+        "discord": #7289DA,
+        "twitter": #55acee,
+        "instagram": #eee,
+        "pinterest": #bd081c,
+        "whatsapp": #25d366,
+        "youtube": #ff0000,
+        "xing": #126567
+);
+
+@each $color, $value in $foundation-colors {
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}

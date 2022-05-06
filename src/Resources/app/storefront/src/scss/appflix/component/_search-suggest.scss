@@ -1,0 +1,51 @@
+.search-suggest {
+  .moorl-listing-item-wrapper {
+    background-color: transparent;
+
+    &.has-border {
+      border: none;
+    }
+  }
+
+  .moorl-search-suggest-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+
+  .moorl-listing-item-meta {
+    display: none;
+  }
+
+  .moorl-listing-item-description {
+    height: 40px;
+  }
+
+  .moorl-listing-list,
+  .moorl-listing-grid {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .moorl-listing-list {
+    .moorl-listing-item-content {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .moorl-listing-item-content {
+    padding: 10px;
+    > div > div {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .search-suggest {
+    .moorl-search-suggest-container {
+      width: var(--moorl-advanced-search-width);
+    }
+  }
+}

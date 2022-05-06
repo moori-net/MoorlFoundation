@@ -19,10 +19,10 @@ class AnimatedExtension extends AbstractExtension
         ];
     }
 
-    public function blockBehaviour(?array $behaviours = null, bool $isRow = false): string
+    public function blockBehaviour(?array $behaviours = null, bool $isRow = false): ?string
     {
         if (!$behaviours) {
-            return "col";
+            return null;
         }
 
         $classes = [];

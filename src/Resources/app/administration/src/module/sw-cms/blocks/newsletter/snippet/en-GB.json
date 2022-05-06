@@ -1,0 +1,9 @@
+{
+    "sw-cms": {
+        "blocks": {
+            "appflix-newsletter": {
+                "label": "Text + Newsletter"
+            }
+        }
+    }
+}

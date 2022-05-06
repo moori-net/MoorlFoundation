@@ -1,0 +1,17 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-brand-slider": {
+                "title": "Markenslider",
+                "config": {
+                    "selectBrands": "Marken auswählen",
+                    "height": "Höhe der Marken",
+                    "minWidth": "Min. Breite der Marken",
+                    "rotate": "Zufällige Reihenfolge",
+                    "useLink": "URL der Marken aktivieren",
+                    "onlyImages": "Nur Marken mit Bildern anzeigen"
+                }
+            }
+        }
+    }
+}

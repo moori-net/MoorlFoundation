@@ -1,0 +1,5 @@
+{% for entityMedia in entityMediaCollection %}
+    {% sw_include '@Storefront/plugin/moorl-foundation/component/form/customer-upload-image.html.twig' with {
+        media: entityMedia.media
+    } %}
+{% endfor %}

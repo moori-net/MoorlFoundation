@@ -1,0 +1,16 @@
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            {% sw_icon 'fas-fa-map-marker-alt' style {
+                'namespace': 'AppflixFoundation',
+                'pack': 'fontawesome'
+            } %}
+        </span>
+    </div>
+
+    <input id="location"
+           name="location"
+           class="form-control location"
+           aria-label="{{ "moorl-foundation.properties.location"|trans }}"
+           placeholder="{{ "moorl-foundation.properties.location"|trans }}">
+</div>

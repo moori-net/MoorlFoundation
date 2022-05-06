@@ -1,0 +1,37 @@
+{% set customerUploadId = "customerUpload#{random()}" %}
+
+{% set customerUploadOptions = {
+    url: path('appflix.customer-upload.send'),
+    params: {
+        _csrf_token: sw_csrf('appflix.customer-upload.send', {mode: 'raw'}),
+        entityId: entityId,
+        initiator: initiator,
+        redirectParameters: redirectParameters,
+        redirectTo: redirectTo,
+    },
+    dictDefaultMessage: 'moorl-foundation.customerUpload.dictDefaultMessage'|trans
+} %}
+
+{% if formLabel %}
+    <label class="form-label" for="{{ customerUploadId }}">
+        {{ formLabel }}
+    </label>
+{% endif %}
+
+<div class="appflix-customer-upload"
+     data-appflix-customer-upload="true"
+     data-appflix-customer-upload-options='{{ customerUploadOptions|json_encode }}'>
+    <div class="dropzone" id="{{ customerUploadId }}">
+        <div class="appflix-dropzone-uploaded-files-container">
+            {% if media or mediaId %}
+                <div class="appflix-customer-upload-image row">
+                    {% sw_include '@Storefront/plugin/moorl-foundation/component/form/customer-upload-image.html.twig' %}
+                </div>
+            {% else %}
+                <div class="appflix-customer-upload-files row form-row">
+                    {% sw_include '@Storefront/plugin/moorl-foundation/component/form/customer-upload-files.html.twig' %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

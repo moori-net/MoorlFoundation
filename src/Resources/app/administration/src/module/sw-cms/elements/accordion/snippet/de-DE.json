@@ -1,0 +1,17 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-accordion": {
+                "title": "Akkordeon",
+                "label": {
+                    "name": "Name",
+                    "cssClass": "CSS Klassen",
+                    "cssId": "CSS ID",
+                    "content": "Inhalt",
+                    "add": "Neues Element",
+                    "remove": "Element entfernen"
+                }
+            }
+        }
+    }
+}

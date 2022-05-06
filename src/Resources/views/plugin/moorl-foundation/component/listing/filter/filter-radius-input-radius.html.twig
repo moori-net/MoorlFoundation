@@ -1,0 +1,11 @@
+<div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">{{ "moorl-foundation.properties.km"|trans }}</span>
+    </div>
+
+    <select id="distance" name="distance" class="custom-select form-control distance">
+        {% for distance in '0,5,10,20,30' | split(',') %}
+            <option value="{{ distance }}">{{ distance }}</option>
+        {% endfor %}
+    </select>
+</div>

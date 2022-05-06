@@ -1,0 +1,13 @@
+.sw-cms-preview-block-appflix-slider-brand-slider{
+    grid-template-columns: 20px 1fr 1fr 1fr 20px;
+
+    > div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .sw-icon{
+            color:#189eff;
+        }
+    }
+}

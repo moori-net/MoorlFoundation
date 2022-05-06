@@ -1,0 +1,15 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-table-registration": {
+                "title": "Table Registration",
+                "label": {
+                    "newsletterActive": "Activate Newsletter Checkbox",
+                    "privacyActive": "Activate Privacy Checkbox",
+                    "confirmationText": "Confirmation Text",
+                    "content": "Entry Text"
+                }
+            }
+        }
+    }
+}

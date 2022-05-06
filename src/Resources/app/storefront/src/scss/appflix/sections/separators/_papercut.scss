@@ -1,0 +1,38 @@
+.moorl-separator-papercut-both,
+.moorl-separator-papercut-top,
+.moorl-separator-papercut-bottom {
+    position: relative;
+}
+
+.moorl-separator-papercut-both, .moorl-separator-papercut-top {
+    &:before {
+        top:0px;
+        position: absolute;
+        content: "";
+        height: 27px;
+        width: 100%;
+        z-index: 10;
+        bottom: -1px;
+        mask-image: url("/bundles/moorlfoundation/assets/feature/papercut.svg");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100%;
+        -webkit-mask-position: bottom;
+
+        transform: rotate(180deg);
+    }
+}
+
+.moorl-separator-papercut-both, .moorl-separator-papercut-bottom {
+    &:after {
+        bottom: 0px;
+        position: absolute;
+        content: "";
+        height: 27px;
+        width: 100%;
+        z-index: 10;
+        mask-image: url("/bundles/moorlfoundation/assets/feature/papercut.svg");
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100%;
+        -webkit-mask-position: bottom;
+    }
+}

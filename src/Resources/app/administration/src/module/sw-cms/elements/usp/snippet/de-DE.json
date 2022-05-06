@@ -1,0 +1,26 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-usp": {
+                "title": "USP + Icon",
+                "tab": {
+                    "general": "Allgemein",
+                    "textColor": "Text - Farbe"
+                },
+                "config": {
+                    "iconActive": "Icon aktivieren",
+                    "iconClass": "Font Awesome Icon - Klasse",
+                    "iconClassHelpText": "Font-Awesome Icons finden Sie hier: <b>https://fontawesome.com/v5.15/icons</b>",
+                    "headline": "Überschrift",
+                    "subHeadline": "Sub - Überschrift",
+                    "iconColor": "Icon - Farbe",
+                    "headlineColor": "Überschrift - Farbe",
+                    "subHeadlineColor": "Sub Überschrift - Farbe",
+                    "alignment": "Ausrichtung",
+                    "left": "Links",
+                    "center": "Zentriert"
+                }
+            }
+        }
+    }
+}

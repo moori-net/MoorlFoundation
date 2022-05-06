@@ -1,0 +1,9 @@
+{
+    "sw-cms": {
+        "blocks": {
+            "appflix-usp": {
+                "label": "Icon + Text (3 Columns)"
+            }
+        }
+    }
+}

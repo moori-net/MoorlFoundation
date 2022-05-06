@@ -1,0 +1,411 @@
+<div class="sw-cms-el-config-appflix-cta-banner">
+    <sw-tabs defaultItem="general">
+        <template slot-scope="{ active }" >
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
+                          name="general"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.general') }}
+            </sw-tabs-item>
+
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.media')"
+                          name="media"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.media') }}
+            </sw-tabs-item>
+
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.content')"
+                          name="content"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.content') }}
+            </sw-tabs-item>
+
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.position')"
+                          name="position"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.position') }}
+            </sw-tabs-item>
+
+            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.scss')"
+                          name="scss"
+                          :activeTab="active">
+                {{ $tc(snippetPrefix + 'tab.scss') }}
+            </sw-tabs-item>
+        </template>
+
+        <template slot="content" slot-scope="{ active }">
+            <sw-container v-if="active === 'general'">
+                <sw-container columns="1fr 1fr" gap="0 10px">
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.elementType')"
+                                     v-model="element.config.elementType.value">
+                        <option v-for="option in elementTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-field v-model="element.config.height.value"
+                              type="text"
+                              :label="$tc(snippetPrefix + 'label.height')">
+                    </sw-field>
+
+                    <sw-colorpicker
+                            colorOutput="hex"
+                            :zIndex="1000"
+                            :label="$tc(snippetPrefix + 'label.elementBackground')"
+                            v-model="element.config.elementBackground.value">
+                    </sw-colorpicker>
+
+                    <sw-field v-model="element.config.elementClickable.value"
+                              bordered
+                              type="switch"
+                              :label="$tc(snippetPrefix + 'label.elementClickable')">
+                    </sw-field>
+
+                    <template v-if="element.config.elementType.value === 'category'">
+                        <sw-entity-single-select
+                                :label="$tc(snippetPrefix + 'label.category')"
+                                v-model="element.config.category.value"
+                                labelProperty="name"
+                                entity="category"
+                                @change="onChangeCategory">
+                        </sw-entity-single-select>
+
+                        <sw-field v-model="element.config.contentLength.value"
+                                  type="number"
+                                  :label="$tc(snippetPrefix + 'label.contentLength')">
+                        </sw-field>
+                    </template>
+
+                    <template v-else-if="element.config.elementType.value === 'product'">
+                        <sw-entity-single-select
+                                :label="$tc(snippetPrefix + 'label.product')"
+                                v-model="element.config.product.value"
+                                labelProperty="name"
+                                entity="product"
+                                @change="onChangeProduct">
+                        </sw-entity-single-select>
+
+                        <sw-field v-model="element.config.contentLength.value"
+                                  type="number"
+                                  :label="$tc(snippetPrefix + 'label.contentLength')">
+                        </sw-field>
+                    </template>
+
+                    <template v-else>
+                        <template v-if="element.config.elementClickable.value">
+                            <sw-field v-model="element.config.elementUrl.value"
+                                      type="text"
+                                      :label="$tc(snippetPrefix + 'label.elementUrl')">
+                            </sw-field>
+
+                            <sw-field v-model="element.config.elementNewTab.value"
+                                      bordered
+                                      type="switch"
+                                      :label="$tc(snippetPrefix + 'label.elementNewTab')">
+                            </sw-field>
+                        </template>
+                    </template>
+                </sw-container>
+            </sw-container>
+
+            <sw-container v-if="active === 'media'">
+                <sw-container columns="1fr 1fr" gap="0 10px">
+                    <sw-field v-model="element.config.mediaActive.value"
+                              bordered
+                              type="switch"
+                              :label="$tc(snippetPrefix + 'label.mediaActive')">
+                    </sw-field>
+
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.mediaHover')"
+                                     v-model="element.config.mediaHover.value">
+                        <option v-for="option in mediaHoverOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-field v-model="element.config.backgroundFixed.value"
+                              bordered
+                              type="switch"
+                              :label="$tc(snippetPrefix + 'label.backgroundFixed')">
+                    </sw-field>
+
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.backgroundDisplayMode')"
+                                     v-model="element.config.backgroundDisplayMode.value">
+                        <option v-for="option in backgroundSizeOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+                </sw-container>
+
+                <sw-container v-if="element.config.backgroundDisplayMode.value == 'custom'"
+                              columns="1fr 1fr" gap="0 10px">
+                    <sw-field v-model="element.config.backgroundSizeX.value"
+                              type="text"
+                              :label="$tc(snippetPrefix + 'label.backgroundSizeX')">
+                    </sw-field>
+
+                    <sw-field v-model="element.config.backgroundSizeY.value"
+                              type="text"
+                              :label="$tc(snippetPrefix + 'label.backgroundSizeY')">
+                    </sw-field>
+                </sw-container>
+
+                <sw-container columns="1fr 1fr" gap="0 10px">
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.backgroundVerticalAlign')"
+                                     v-model="element.config.backgroundVerticalAlign.value">
+                        <option v-for="option in verticalTextAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.backgroundHorizontalAlign')"
+                                     v-model="element.config.backgroundHorizontalAlign.value">
+                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+                </sw-container>
+
+                <template v-if="element.config.mediaActive.value">
+                    <div class="sw-field">
+                        <sw-upload-listener
+                                :uploadTag="uploadTag + 'media'"
+                                autoUpload
+                                @media-upload-finish="onImageUpload($event, 'media')">
+                        </sw-upload-listener>
+
+                        <sw-media-upload-v2 variant="regular"
+                                            :uploadTag="uploadTag + 'media'"
+                                            :source="previewSource('media')"
+                                            :allowMultiSelect="false"
+                                            :defaultFolder="cmsPageState.pageEntityName"
+                                            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                                            @media-upload-sidebar-open="onOpenMediaModal('media')"
+                                            @media-upload-remove-image="onImageRemove($event, 'media')">
+                        </sw-media-upload-v2>
+                    </div>
+
+                    <sw-container columns="1fr 1fr" gap="0 10px">
+                        <sw-field v-model="element.config.videoActive.value"
+                                  bordered
+                                  type="switch"
+                                  :label="$tc(snippetPrefix + 'label.videoActive')">
+                        </sw-field>
+
+                        <template v-if="element.config.videoActive.value">
+                            <sw-field v-model="element.config.videoAutoplay.value"
+                                      bordered
+                                      type="switch"
+                                      :label="$tc(snippetPrefix + 'label.videoAutoplay')">
+                            </sw-field>
+
+                            <sw-field v-model="element.config.videoLoop.value"
+                                      bordered
+                                      type="switch"
+                                      :label="$tc(snippetPrefix + 'label.videoLoop')">
+                            </sw-field>
+                        </template>
+                    </sw-container>
+                </template>
+            </sw-container>
+
+            <sw-container v-if="active === 'content'">
+                <template v-if="element.config.elementType.value === 'custom'">
+                    <sw-text-editor v-model="element.config.content.value"
+                                    :label="$tc(snippetPrefix + 'label.content')"
+                                    @input="onInput"
+                                    @blur="onBlur">
+                    </sw-text-editor>
+                </template>
+
+                <template v-else>
+                    <template v-if="element.config.elementType.value === 'cta'">
+                        <sw-field v-model="element.config.title.value"
+                                  type="text"
+                                  :label="$tc(snippetPrefix + 'label.title')">
+                        </sw-field>
+
+                        <sw-field v-model="element.config.quote.value"
+                                  type="text"
+                                  :label="$tc(snippetPrefix + 'label.quote')">
+                        </sw-field>
+                    </template>
+
+                    <sw-field v-model="element.config.btnActive.value"
+                              bordered
+                              type="switch"
+                              :label="$tc(snippetPrefix + 'label.btnActive')">
+                    </sw-field>
+
+                    <template v-if="element.config.btnActive.value">
+                        <sw-field v-model="element.config.btnText.value"
+                                  type="text"
+                                  :label="$tc(snippetPrefix + 'label.btnText')">
+                        </sw-field>
+
+                        <sw-select-field :label="$tc(snippetPrefix + 'label.btnClass')"
+                                         v-model="element.config.btnClass.value">
+                            <option v-for="item in appflixFoundation.btnClass" :value="item.value">{{ $tc(item.label) }}</option>
+                        </sw-select-field>
+
+                        <template v-if="element.config.elementType.value != 'category'">
+                            <sw-field v-model="element.config.btnUrl.value"
+                                      type="text"
+                                      :label="$tc(snippetPrefix + 'label.btnUrl')">
+                            </sw-field>
+
+                            <sw-field v-model="element.config.btnNewTab.value"
+                                      bordered
+                                      type="switch"
+                                      :label="$tc(snippetPrefix + 'label.btnNewTab')">
+                            </sw-field>
+                        </template>
+                    </template>
+                </template>
+
+                <sw-select-field :label="$tc(snippetPrefix + 'label.iconType')"
+                                 v-model="element.config.iconType.value">
+                    <option v-for="option in iconTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                </sw-select-field>
+
+                <template v-if="element.config.iconType.value !== 'none'">
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.iconPosition')"
+                                     v-model="element.config.iconPosition.value">
+                        <option v-for="option in iconPositionOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <template v-if="element.config.iconType.value === 'fa'">
+                        <sw-select-field :label="$tc(snippetPrefix + 'label.iconClass')"
+                                         v-model="element.config.iconClass.value">
+                            <option v-for="item in appflixFoundation.iconClass" :value="item.value"><i :class="item.value"></i> {{ item.label }}</option>
+                        </sw-select-field>
+
+                        <sw-field v-model="element.config.iconClass.value"
+                                  type="text"
+                                  :label="$tc(snippetPrefix + 'label.iconClass')">
+                        </sw-field>
+                    </template>
+
+                    <template v-if="element.config.iconType.value === 'svg'">
+                        <sw-code-editor
+                                :label="$tc(snippetPrefix + 'label.iconSvg')"
+                                :softWraps="false"
+                                v-model="element.config.iconSvg.value">
+                        </sw-code-editor>
+                    </template>
+
+                    <template v-if="element.config.iconType.value === 'media'">
+                        <div class="sw-field">
+                            <sw-upload-listener
+                                        :uploadTag="uploadTag + 'iconMedia'"
+                                        autoUpload
+                                        @media-upload-finish="onImageUpload($event, 'iconMedia')">
+                            </sw-upload-listener>
+
+                            <sw-media-upload-v2 variant="regular"
+                                                :uploadTag="uploadTag + 'iconMedia'"
+                                                :source="previewSource('iconMedia')"
+                                                :allowMultiSelect="false"
+                                                :defaultFolder="cmsPageState.pageEntityName"
+                                                :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                                                @media-upload-sidebar-open="onOpenMediaModal('iconMedia')"
+                                                @media-upload-remove-image="onImageRemove($event, 'iconMedia')">
+                            </sw-media-upload-v2>
+                        </div>
+                    </template>
+
+                    <sw-field v-model="element.config.iconFontSize.value"
+                              type="text"
+                              :label="$tc(snippetPrefix + 'label.iconFontSize')">
+                    </sw-field>
+
+                    <sw-field v-model="element.config.iconMarginRight.value"
+                              type="text"
+                              :label="$tc(snippetPrefix + 'label.iconMarginRight')">
+                    </sw-field>
+
+                    <sw-field v-model="element.config.iconMarginBottom.value"
+                              type="text"
+                              :label="$tc(snippetPrefix + 'label.iconMarginBottom')">
+                    </sw-field>
+                </template>
+            </sw-container>
+
+            <sw-container v-if="active === 'position'">
+                <sw-container columns="1fr 1fr" gap="0 10px">
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.boxVerticalAlign')"
+                                     v-model="element.config.boxVerticalAlign.value">
+                        <option v-for="option in verticalAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.boxHorizontalAlign')"
+                                     v-model="element.config.boxHorizontalAlign.value">
+                        <option v-for="option in horizontalAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-field type="text"
+                              :label="$tc(snippetPrefix + 'label.boxWidth')"
+                              v-model="element.config.boxWidth.value">
+                    </sw-field>
+
+                    <sw-field type="text"
+                              :label="$tc(snippetPrefix + 'label.boxHeight')"
+                              v-model="element.config.boxHeight.value">
+                    </sw-field>
+
+                    <sw-field type="text"
+                              :label="$tc(snippetPrefix + 'label.boxMargin')"
+                              v-model="element.config.boxMargin.value">
+                    </sw-field>
+
+                    <sw-field type="text"
+                              :label="$tc(snippetPrefix + 'label.boxPadding')"
+                              v-model="element.config.boxPadding.value">
+                    </sw-field>
+
+                    <sw-select-field :label="$tc(snippetPrefix + 'label.boxTextAlign')"
+                                     v-model="element.config.boxTextAlign.value">
+                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-colorpicker
+                            colorOutput="hex"
+                            :zIndex="1000"
+                            :label="$tc(snippetPrefix + 'label.boxColor')"
+                            v-model="element.config.boxColor.value">
+                    </sw-colorpicker>
+
+                    <sw-colorpicker
+                            colorOutput="hex"
+                            :zIndex="1000"
+                            :label="$tc(snippetPrefix + 'label.boxBackground')"
+                            v-model="element.config.boxBackground.value">
+                    </sw-colorpicker>
+
+                    <sw-field type="text"
+                              :label="$tc(snippetPrefix + 'label.boxBorderRadius')"
+                              v-model="element.config.boxBorderRadius.value">
+                    </sw-field>
+
+                    <sw-field v-model="element.config.boxMaxWidth.value"
+                              bordered
+                              type="switch"
+                              :label="$tc(snippetPrefix + 'label.boxMaxWidth')">
+                    </sw-field>
+                </sw-container>
+            </sw-container>
+
+            <sw-container v-if="active === 'scss'">
+                <sw-field v-model="element.config.enableScss.value"
+                          bordered
+                          type="switch"
+                          :label="$tc(snippetPrefix + 'label.enableScss')">
+                </sw-field>
+
+                <sw-code-editor v-model="element.config.scss.value"
+                                :softWraps="false">
+                </sw-code-editor>
+            </sw-container>
+        </template>
+    </sw-tabs>
+
+    <sw-media-modal-v2
+            variant="regular"
+            v-if="mediaModalIsOpen"
+            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+            :entityContext="cmsPageState.entityName"
+            :allowMultiSelect="false"
+            :initialFolderId="cmsPageState.defaultMediaFolderId"
+            @media-modal-selection-change="onSelectionChanges"
+            @modal-close="onCloseModal">
+    </sw-media-modal-v2>
+</div>

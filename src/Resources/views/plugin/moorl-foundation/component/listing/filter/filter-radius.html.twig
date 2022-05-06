@@ -1,0 +1,66 @@
+{% set filterItemId = 'filter-' ~ name ~ '-' ~ random() %}
+
+{% block component_filter_radius %}
+    {% set filterRadiusOptions = {
+        name: name,
+        displayName: displayName,
+        snippets: {
+            filterRadiusActiveLocationLabel: 'moorl-foundation.properties.inRadiusOf'|trans|sw_sanitize,
+            filterRadiusActiveDistanceLabel: 'moorl-foundation.properties.km'|trans|sw_sanitize
+        }
+    } %}
+
+    {% block component_filter_radius_panel_item %}
+        <div class="filter-panel-item"
+             data-moorl-foundation-filter-radius="true"
+             data-moorl-foundation-filter-radius-options='{{ filterRadiusOptions|json_encode }}'>
+            {% block component_filter_radius_toggle %}
+                <button class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
+                        aria-expanded="true"
+                        {% if sidebar %}
+                    data-toggle="collapse"
+                    data-target="#{{ filterItemId }}"
+                {% else %}
+                    data-toggle="dropdown"
+                    data-boundary="viewport"
+                    data-offset="0,8"
+                    aria-haspopup="true"
+                        {% endif %}>
+
+                    {% block component_filter_radius_display_name %}
+                        {{ displayName }}
+                    {% endblock %}
+
+                    {% block component_filter_radius_toggle_icon %}
+                        {% sw_icon 'arrow-medium-down' style {'pack': 'solid', 'size': 'xs', 'class': 'filter-panel-item-toggle'} %}
+                    {% endblock %}
+                </button>
+            {% endblock %}
+
+            {% block component_filter_radius_dropdown %}
+                <div class="filter-radius-dropdown filter-panel-item-dropdown{% if sidebar %} collapse show{% else %} dropdown-menu{% endif %}"
+                     id="{{ filterItemId }}">
+                    {% block component_filter_radius_dropdown_container %}
+                        <div class="filter-radius-container">
+                            {% block component_filter_location_container %}
+                                <div class="filter-multi-select-list-item">
+                                    <label for="location">{{ "moorl-foundation.properties.location"|trans }}</label>
+
+                                    {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-radius-input-location.html.twig' %}
+                                </div>
+                            {% endblock %}
+
+                            {% block component_filter_distance_container %}
+                                <div class="filter-multi-select-list-item">
+                                    <label for="distance">{{ "moorl-foundation.properties.distance"|trans }}</label>
+
+                                    {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-radius-input-radius.html.twig' %}
+                                </div>
+                            {% endblock %}
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% set config = element.config %}
+<div class="cms-element-{{ element.type }}">
+    <div class="usp-container {{ config.alignment.value }}">
+        {% if config.iconActive.value %}
+            <div class="icon-container" style="color:{{ config.iconColor.value }}">
+                <i class="fa-fw {{ config.iconClass.value }}"></i>
+            </div>
+        {% endif %}
+        <div class="text-container">
+            {% if config.title.value %}
+            <div class="headline" style="color:{{ config.headlineColor.value }}">
+                {{ config.title.value }}
+            </div>
+            {% endif %}
+            {% if config.text.value %}
+            <div class="subheadline" style="color:{{ config.subHeadlineColor.value }}">
+                {{ config.text.value }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+.cms-block-moorl-usp-inner{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.cms-element-appflix-usp{
+    .usp-container{
+        display: flex;
+        align-items: center;
+        margin:10px 0;
+
+        .icon-container{
+            font-size: 2.1em;
+            margin-right: 20px;
+        }
+
+        .text-container{
+
+            .headline{
+                font-size: 1.3em;
+                font-weight: 500;
+            }
+
+            .subheadline{
+                font-size: 1.1em;
+            }
+        }
+
+        &.center{
+            flex-direction: column;
+            text-align: center;
+
+            .icon-container{
+                margin-right: 0;
+                margin-bottom:15px;
+            }
+        }
+    }
+}

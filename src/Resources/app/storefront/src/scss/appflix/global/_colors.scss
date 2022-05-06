@@ -1,0 +1,31 @@
+$foundation-gradient-colors: (
+        "primary-dark": darken($primary, 5%),
+        "primary-light": lighten($primary, 5%),
+        "text-color": $sw-text-color,
+        "background-color": $sw-background-color,
+        "primary-top-secondary-bottom": linear-gradient(to bottom, $primary, $secondary 100%),
+        "primary-top-dark-bottom": linear-gradient(to bottom, $primary, $dark 100%),
+        "primary-top-light-bottom": linear-gradient(to bottom, $primary, $light 100%),
+        "primary-top-background-bottom": linear-gradient(to bottom, $primary, $sw-background-color 100%),
+        "primary-top-text-bottom": linear-gradient(to bottom, $primary, $sw-text-color 100%),
+        "primary-top-indigo-bottom": linear-gradient(to bottom, $primary, var(--indigo) 100%),
+        "indigo-top-primary-bottom": linear-gradient(to bottom, var(--indigo), $primary 100%),
+        "light-top-primary-bottom": linear-gradient(to bottom, $light, $primary 100%),
+        "dark-top-primary-bottom": linear-gradient(to bottom, $dark, $primary 100%),
+        "background-top-text-bottom": linear-gradient(to bottom, $sw-background-color, $sw-text-color 100%),
+        "background-top-primary-bottom": linear-gradient(to bottom, $sw-background-color, $primary 100%),
+);
+
+@each $color, $value in $foundation-gradient-colors {
+  .bg-#{$color} {
+    background: $value;
+  }
+
+  .text-#{$color} {
+    color: $value;
+  }
+}
+
+.bg-fixed {
+  background-attachment: fixed;
+}

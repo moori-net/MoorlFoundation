@@ -1,0 +1,14 @@
+{% set element = block.slots.getSlot('one') %}
+<div class="col-12 col-lg-4">
+    {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+</div>
+
+{% set element = block.slots.getSlot('two') %}
+<div class="col-12 col-lg-4">
+    {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+</div>
+
+{% set element = block.slots.getSlot('three') %}
+<div class="col-12 col-lg-4">
+    {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
+</div>

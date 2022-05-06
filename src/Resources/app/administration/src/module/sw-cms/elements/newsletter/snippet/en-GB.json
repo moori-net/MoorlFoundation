@@ -1,0 +1,23 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-newsletter": {
+                "title": "Newsletter",
+                "tab": {
+                    "general": "General",
+                    "colors": "Color Management",
+                    "text": "Text Management"
+                },
+                "config": {
+                    "optin": "Activate Optin",
+                    "buttonBackground": "Button Background Color",
+                    "buttonTextColor": "Button Text Color",
+                    "buttonText": "Button Text",
+                    "placeholder": "Placeholder Text",
+                    "hint": "To edit the privacy notice text, you have to do it globally in the Shopware 6 Snippets.",
+                    "privacyColor": "Optin Text Color"
+                }
+            }
+        }
+    }
+}

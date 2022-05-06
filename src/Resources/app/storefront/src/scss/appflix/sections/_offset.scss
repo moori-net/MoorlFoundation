@@ -1,0 +1,44 @@
+.cms-sections{
+    overflow: hidden;
+}
+
+@include media-breakpoint-up(lg) {
+    [class*='moorl-offset-']{
+        overflow: visible;
+
+        [class*='cms-section-']{
+            position: relative;
+            z-index: 20;
+        }
+    }
+
+    .cms-section{
+        overflow: visible;
+
+        &.moorl-offset-50-top{
+            [class*='cms-section-']{
+                top:-50px;
+            }
+        }
+
+        &.moorl-offset-100-top{
+            [class*='cms-section-']{
+                top:-100px;
+            }
+        }
+
+        &.moorl-offset-150-top{
+            [class*='cms-section-']{
+                top:-150px;
+            }
+        }
+
+        &.moorl-offset-200-top{
+            [class*='cms-section-']{
+                top:-200px;
+            }
+        }
+    }
+}
+
+

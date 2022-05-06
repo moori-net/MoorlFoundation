@@ -1,0 +1,23 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-newsletter": {
+                "title": "Newsletter",
+                "tab": {
+                    "general": "Allgemein",
+                    "colors": "Farbmanagement",
+                    "text": "Text Management"
+                },
+                "config": {
+                    "optin": "Optin aktivieren",
+                    "buttonBackground": "Button Hintergrundfarbe",
+                    "buttonTextColor": "Button Textfarbe",
+                    "buttonText": "Button Text",
+                    "placeholder": "Platzhalter Text",
+                    "hint": "Um den Text des Datenschutzhinweises zu bearbeiten, müssen Sie diesen global in den Shopware 6 Snippets anpassen.",
+                    "privacyColor": "Optin Textfarbe"
+                }
+            }
+        }
+    }
+}

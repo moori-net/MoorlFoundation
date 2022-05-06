@@ -1,0 +1,67 @@
+.cms-element-appflix-newsletter{
+
+    form{
+        .form-group{
+            .form-label{
+                display: none;
+            }
+        }
+
+        .moorl-newsletter-privacy{
+            margin-top: 15px;
+
+            div{
+                &:first-child{
+                    display:none;
+                }
+            }
+
+            .custom-control-label{
+
+                &:before{
+                    top: 4px;
+                }
+            }
+        }
+
+        .moorl-input-container{
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            height: 50px;
+
+            .form-group{
+                margin-bottom: 0;
+            }
+
+            input{
+                height: 50px;
+                font-size: 1em;
+            }
+
+            button{
+                font-size: 1em;
+                transition: ease all .2s;
+
+                &:hover{
+                    opacity: .9;
+                }
+            }
+        }
+    }
+}
+
+.cms-block-studygood-newsletter{
+
+    .cms-block-container-row{
+        align-items: center;
+
+        .cms-element-text{
+
+            p{
+                &:last-child{
+                    margin-bottom:0;
+                }
+            }
+        }
+    }
+}

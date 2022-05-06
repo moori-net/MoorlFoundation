@@ -1,0 +1,16 @@
+<div class="sw-cms-el-appflix-search-hero">
+    <div class="hero-container">
+        <img :src="mediaUrl">
+        <div v-if="element.config.captionActive.value || element.config.searchActive.value" class="hero-caption-search">
+            <div v-if="element.config.captionActive.value" class="caption" :style="captionCss">
+                <p class="headline">{{ element.config.headline.value }}</p>
+                <p class="subheadline">{{ element.config.subHeadline.value }}</p>
+            </div>
+            <div v-if="element.config.searchActive.value" class="search">
+                <div class="hero-searchbar">
+                    Search ...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

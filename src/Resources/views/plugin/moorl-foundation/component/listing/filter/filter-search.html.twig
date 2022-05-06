@@ -1,0 +1,53 @@
+{% set filterItemId = 'filter-' ~ name ~ '-' ~ random() %}
+
+{% block component_filter_search %}
+    {% set filterBooleanOptions = {
+        name: name,
+        displayName: displayName,
+        snippets: {
+            disabledFilterText: 'listing.disabledFilterTooltip'|trans|sw_sanitize
+        }
+    } %}
+
+    {% block component_filter_search_panel_item %}
+        <div class="filter-panel-item"
+             data-moorl-foundation-filter-search="true">
+            {% block component_filter_search_toggle %}
+                <button class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
+                        aria-expanded="true"
+                        {% if sidebar %}
+                    data-toggle="collapse"
+                    data-target="#{{ filterItemId }}"
+                {% else %}
+                    data-toggle="dropdown"
+                    data-boundary="viewport"
+                    data-offset="0,8"
+                    aria-haspopup="true"
+                        {% endif %}>
+
+                    {% block component_filter_search_display_name %}
+                        {{ displayName }}
+                    {% endblock %}
+
+                    {% block component_filter_search_toggle_icon %}
+                        {% sw_icon 'arrow-medium-down' style {'pack': 'solid', 'size': 'xs', 'class': 'filter-panel-item-toggle'} %}
+                    {% endblock %}
+                </button>
+            {% endblock %}
+
+            {% block component_filter_search_dropdown %}
+                <div class="filter-search-dropdown filter-panel-item-dropdown{% if sidebar %} collapse show{% else %} dropdown-menu{% endif %}"
+                     id="{{ filterItemId }}">
+
+                    {% block component_filter_search_container %}
+                        <div class="filter-search-container">
+                            <div class="filter-multi-select-list-item">
+                                {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-search-input.html.twig' %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,43 @@
+<div class="sw-cms-el-config-appflix-table-registration">
+
+    <sw-tabs class="sw-cms-el-config-image-gallery__tabs" defaultItem="content">
+        <template slot-scope="{ active }" >
+            <sw-tabs-item :title="$tc('sw-cms.elements.general.config.tab.content')"
+                          name="content"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.general.config.tab.content') }}
+            </sw-tabs-item>
+            <sw-tabs-item :title="$tc('sw-cms.elements.general.config.tab.settings')"
+                          name="settings"
+                          :activeTab="active">
+                {{ $tc('sw-cms.elements.general.config.tab.settings') }}
+            </sw-tabs-item>
+        </template>
+
+        <template slot="content" slot-scope="{ active }">
+            <sw-container v-if="active === 'content'">
+                <sw-text-editor
+                    v-model="element.config.content.value"
+                    :label="$tc(snippetPrefix + 'label.content')">
+                </sw-text-editor>
+
+                <sw-field
+                    :label="$tc(snippetPrefix + 'label.privacyActive')"
+                    v-model="element.config.privacyActive.value"
+                    bordered
+                    type="switch">
+                </sw-field>
+            </sw-container>
+
+            <sw-container v-if="active === 'settings'">
+                <sw-select-field :label="$tc('sw-cms.elements.general.config.label.verticalAlign')"
+                                 v-model="element.config.verticalAlign.value"
+                                 :placeholder="$tc('sw-cms.elements.general.config.label.verticalAlign')">
+                    <option value="flex-start">{{ $tc('sw-cms.elements.general.config.label.verticalAlignTop') }}</option>
+                    <option value="center">{{ $tc('sw-cms.elements.general.config.label.verticalAlignCenter') }}</option>
+                    <option value="flex-end">{{ $tc('sw-cms.elements.general.config.label.verticalAlignBottom') }}</option>
+                </sw-select-field>
+            </sw-container>
+        </template>
+    </sw-tabs>
+</div>

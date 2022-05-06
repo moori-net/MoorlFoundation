@@ -1,0 +1,63 @@
+{% set config = element.config %}
+{% set mediaId = config.media.value %}
+{% set mediaCollection = searchMedia([mediaId], context.context) %}
+{% set media = mediaCollection.get(mediaId) %}
+{% set mediaUrl = media.url %}
+
+<div
+    class="cms-element-{{ element.type }}"
+    style="
+        height:{{ config.elementHeight.value }};
+        background-image:url({{ mediaUrl }});
+        background-size:{{ config.backgroundSize.value }};
+        background-attachment:{{ config.backgroundAttachment.value }};
+        background-repeat:{{ config.backgroundRepeat.value }};
+        background-position:{{ config.backgroundPosition.value }};
+        ">
+
+    {% if config.searchActive.value or config.captionActive.value %}
+        <div class="container">
+            <div class="moorl-hero-inner-container">
+                {% if config.captionActive.value %}
+                    <div class="moorl-hero-caption" style="color:{{ config.textColor.value }};{% if config.textShadowActive.value %}text-shadow:2px 2px 15px #000{% endif %}">
+                        <div class="moorl-hero-headline">{{ config.headline.value }}</div>
+                        <div class="moorl-hero-text">{{ config.subHeadline.value }}</div>
+                    </div>
+                {% endif %}
+
+                {% if config.searchActive.value %}
+                    <div class="moorl-hero-search">
+                        <form action="{{ seoUrl('frontend.search.page') }}"
+                              method="get"
+                              data-search-form="true"
+                              data-url="{{ seoUrl('frontend.search.suggest') }}?default=1&search="
+                              class="header-search-form">
+                            <div class="input-group">
+                                <input type="search"
+                                       name="search"
+                                       class="form-control header-search-input"
+                                       autocomplete="off"
+                                       autocapitalize="off"
+                                       placeholder="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                       aria-label="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                       value="{{ page.searchTerm }}"
+                                >
+                                <div class="input-group-append">
+                                    <button type="submit"
+                                            class="btn header-search-btn"
+                                            aria-label="{{ "header.searchButton"|trans|striptags }}">
+                                    <span class="header-search-icon">
+                                        <i class="fas fa-search fa-lg"></i>
+                                    </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+

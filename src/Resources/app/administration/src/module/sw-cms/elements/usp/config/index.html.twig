@@ -1,0 +1,70 @@
+<sw-tabs class="sw-cms-el-config-search-hero__tabs" defaultItem="general">
+    <template slot-scope="{ active }" >
+        <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
+                      name="general"
+                      :activeTab="active">
+            {{ $tc(snippetPrefix + 'tab.general') }}
+        </sw-tabs-item>
+        <sw-tabs-item :title="$tc(snippetPrefix + 'tab.textColor')"
+                      name="textColor"
+                      :activeTab="active">
+            {{ $tc(snippetPrefix + 'tab.textColor') }}
+        </sw-tabs-item>
+    </template>
+
+    <template slot="content" slot-scope="{ active }">
+        <sw-container v-if="active === 'general'" class="sw-cms-el-config-appflix-usp__tab-general">
+            <sw-field v-model="element.config.iconActive.value"
+                      bordered
+                      type="switch"
+                      :label="$tc(snippetPrefix + 'config.iconActive')">
+            </sw-field>
+
+            <template v-if="element.config.iconActive.value">
+                <sw-field v-model="element.config.iconClass.value"
+                          type="text"
+                          :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
+                          :label="$tc(snippetPrefix + 'config.iconClass')">
+                </sw-field>
+            </template>
+
+            <sw-field v-model="element.config.title.value"
+                      type="text"
+                      :label="$tc(snippetPrefix + 'config.headline')">
+            </sw-field>
+
+            <sw-field v-model="element.config.text.value"
+                      type="text"
+                      :label="$tc(snippetPrefix + 'config.subHeadline')">
+            </sw-field>
+
+            <sw-select-field :label="$tc(snippetPrefix + 'config.alignment')"
+                             v-model="element.config.alignment.value">
+                <option value="left">{{ $tc(snippetPrefix + 'config.left') }}</option>
+                <option value="center">{{ $tc(snippetPrefix + 'config.center') }}</option>
+            </sw-select-field>
+        </sw-container>
+
+        <sw-container v-if="active === 'textColor'" class="sw-cms-el-config-appflix-usp__tab-colors">
+            <sw-colorpicker
+                colorOutput="hex"
+                :zIndex="1000"
+                :label="$tc(snippetPrefix + 'config.iconColor')"
+                v-model="element.config.iconColor.value">
+            </sw-colorpicker>
+            <sw-colorpicker
+                colorOutput="hex"
+                :zIndex="1000"
+                :label="$tc(snippetPrefix + 'config.headlineColor')"
+                v-model="element.config.headlineColor.value">
+            </sw-colorpicker>
+
+            <sw-colorpicker
+                colorOutput="hex"
+                :zIndex="1000"
+                :label="$tc(snippetPrefix + 'config.subHeadlineColor')"
+                v-model="element.config.subHeadlineColor.value">
+            </sw-colorpicker>
+        </sw-container>
+    </template>
+</sw-tabs>

@@ -1,0 +1,22 @@
+@import "separators/scratch";
+@import "separators/toothed";
+@import "separators/waves";
+@import "separators/papercut";
+
+[class*="moorl-separator-"] {
+    @each $color, $value in $theme-colors {
+        &.bg-moorl-separator-#{$color} {
+            &:after, &:before {
+                background-color: $value;
+            }
+        }
+    }
+
+    @each $color, $value in $foundation-gradient-colors {
+        &.bg-moorl-separator-#{$color} {
+            &:after, &:before {
+                background: $value;
+            }
+        }
+    }
+}

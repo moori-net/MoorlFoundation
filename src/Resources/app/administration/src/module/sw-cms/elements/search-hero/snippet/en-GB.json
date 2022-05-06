@@ -1,0 +1,42 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-search-hero": {
+                "title": "Search + Hero Banner",
+                "tab": {
+                    "general": "General",
+                    "media": "Media",
+                    "caption": "Text"
+                },
+                "config": {
+                    "searchActive": "Activate Searchbar",
+                    "captionActive": "Activate Caption",
+                    "elementHeight": "Height of Element",
+                    "backgroundAttachment": "Background Attachment",
+                    "backgroundRepeat": "Background Repeat",
+                    "backgroundSize": "Background Size",
+                    "backgroundPosition": "Background Position",
+                    "fixed": "Fixed",
+                    "notFixed": "Not Fixed",
+                    "repeat": "Repeat",
+                    "noRepeat": "No Repeat",
+                    "cover": "Cover",
+                    "contain": "Contain",
+                    "leftTop": "Left - Top",
+                    "leftCenter": "Left - Center",
+                    "leftBottom": "Left - Bottom",
+                    "rightTop": "Right - Top",
+                    "rightCenter": "Right - Center",
+                    "rightBottom": "Right - Bottom",
+                    "centerTop": "Center - Top",
+                    "centerCenter": "Center - Center",
+                    "centerBottom": "Center - Bottom",
+                    "headline": "Headline",
+                    "subHeadline": "Sub - Headline",
+                    "textColor": "Text - Color",
+                    "textShadowActive": "Activate Text - Shadow"
+                }
+            }
+        }
+    }
+}

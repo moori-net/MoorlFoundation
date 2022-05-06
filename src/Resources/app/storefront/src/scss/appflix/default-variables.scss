@@ -1,0 +1,16 @@
+// Generals
+$moorl-general-box-shadow:0 0.5rem 1rem rgb(0 0 0 / 15%) !default;
+$moorl-general-input-placeholder-color: lighten($sw-text-color, 30%) !default;
+$moorl-general-rating-color: #ffb700 !default;
+$moorl-general-content-highlight-background: #ecf0f1 !default;
+
+// Product Detail
+$moorl-product-detail-header-background: #212529 !default;
+$moorl-product-detail-section-spacing: 60px !default;
+$moorl-product-detail-card-box-shadow: 0 0 1px 1px rgb(20 23 28 / 10%), 0 3px 1px 0 rgb(20 23 28 / 10%) !default;
+$moorl-product-detail-card-rating-size: 2.1em !default;
+
+// Listing
+$moorl-listing-box-box-shadow:0 0 1px 1px rgb(20 23 28 / 10%), 0 3px 1px 0 rgb(20 23 28 / 10%) !default;
+$moorl-listing-box-box-shadow-hover:0px 0px 8px 1px #b4bcc2 !default;
+$moorl-listing-box-badge-height:26px !default;

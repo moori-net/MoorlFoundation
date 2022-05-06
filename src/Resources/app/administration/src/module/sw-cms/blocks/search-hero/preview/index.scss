@@ -1,0 +1,50 @@
+.sw-cms-preview-block-appflix-column-layout-appflix-search-hero {
+    grid-template-columns: 1fr;
+    height:100px;
+
+    > div{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+
+        img{
+            width: 100%;
+            position: absolute;
+            opacity: .2;
+        }
+
+        .searchbar{
+            width:60%;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            background-color: #fff;
+            border:1px solid #d1d9e0;
+            border-radius: 5px;
+            position: relative;
+            z-index: 5;
+
+            .icon-container{
+                background-color:#189eff;
+                height: 100%;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                display: flex;
+                align-items: center;
+                width: 30px;
+                justify-content: center;
+
+                .sw-icon{
+                    color:#fff;
+                }
+            }
+        }
+    }
+}
+
+
+
+

@@ -1,0 +1,15 @@
+{
+    "sw-cms": {
+        "elements": {
+            "appflix-table-registration": {
+                "title": "Tischreservierung",
+                "label": {
+                    "newsletterActive": "Newsletter Checkbox aktivieren",
+                    "privacyActive": "Datenschutz Check ist erforderlich",
+                    "confirmationText": "Erfolgsnachricht bei Absenden",
+                    "content": "Einleitungstext"
+                }
+            }
+        }
+    }
+}

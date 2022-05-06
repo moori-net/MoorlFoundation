@@ -1,0 +1,31 @@
+.moorl-opening-hours {
+  margin: 10px 0;
+  font-size: 0.8em;
+
+  .form-row {
+    &:nth-child(odd) {
+      background-color: darken($sw-background-color, 8%);
+    }
+
+    .moorl-opening-hours-range {
+      &.closed {
+        background-color: $sw-color-danger;
+        color: color-yiq($sw-color-danger);
+        font-weight: 700;
+        padding: 0 10px;
+        border-radius: $border-radius;
+        font-size: .7em;
+      }
+    }
+  }
+
+  span {
+    &:after {
+      content: ",";
+    }
+
+    &:last-child:after {
+      content: none;
+    }
+  }
+}

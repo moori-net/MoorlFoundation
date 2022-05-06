@@ -1,0 +1,37 @@
+.sw-cms-el-appflix-newsletter {
+    height: auto;
+    background-color: #e0e0e0;
+    padding: 15px;
+    width: 100%;
+
+    .appflix-newsletter-input-button-container{
+        display: grid;
+        width: 100%;
+        grid-template-columns:2fr 1fr;
+
+        .appflix-newsletter-input{
+            background-color: #fff;
+            padding: 10px 15px;
+        }
+
+        .appflix-newsletter-button{
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            justify-content: center;
+        }
+    }
+
+    .appflix-newsletter-optin-container{
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+
+        span.checkbox{
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            background-color: #fff;
+        }
+    }
+}

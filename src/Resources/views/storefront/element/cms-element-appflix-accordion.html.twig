@@ -1,0 +1,44 @@
+{% set config = element.config %}
+
+{% block element_moorl_accordion %}
+    <div class="cms-element-{{ element.type }}{% if config.verticalAlign.value %} has-vertical-alignment{% endif %}">
+
+        {% if config.verticalAlign.value %}
+            <div class="cms-element-alignment{% if config.verticalAlign.value == "center" %} align-self-center{% elseif config.verticalAlign.value == "flex-end" %} align-self-end{% else %} align-self-start{% endif %}">
+        {% endif %}
+
+        <h2 class="mb-3">{{ config.name.value }}</h2>
+
+        <div id="moorl-accordion-{{ element.id }}" class="moorl-accordion-content">
+            {% for index, entry in config.entries.value %}
+                <div class="section">
+                    <div id="moorl-accordion-{{ element.id }}-{{ index }}-heading">
+                        <a href="#moorl-accordion-{{ element.id }}-{{ index }}-content"
+                           class="h3 section-heading"
+                           type="button"
+                           data-toggle="collapse"
+                           data-target="#moorl-accordion-{{ element.id }}-{{ index }}-content"
+                           aria-expanded="false"
+                           aria-controls="moorl-accordion-{{ element.id }}-{{ index }}-content">
+                            {{ entry.name|raw }}
+                            <span class="moorl-accordion-icon">{% sw_icon 'arrow-head-down' %}</span>
+                        </a>
+                    </div>
+
+                    <div id="moorl-accordion-{{ element.id }}-{{ index }}-content"
+                         class="collapse"
+                         aria-labelledby="moorl-accordion-{{ element.id }}-{{ index }}-heading"
+                         data-parent="#moorl-accordion-{{ element.id }}">
+                        <div class="section-content">
+                            {{ entry.content|raw }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if config.verticalAlign.value %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
