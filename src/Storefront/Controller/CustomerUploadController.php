@@ -189,7 +189,7 @@ class CustomerUploadController extends StorefrontController
                 }
             }
 
-            $body .= $this->renderView('@Storefront/plugin/appflix-foundation/component/form/customer-upload-image.html.twig', [
+            $body .= $this->renderView('@Storefront/plugin/moorl-foundation/component/form/customer-upload-image.html.twig', [
                 'media' => $media,
                 'entityMedia' => $entityMedia,
                 'entityCoverId' => $entityCoverId,
