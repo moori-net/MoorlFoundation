@@ -12,8 +12,8 @@ Component.register('sw-cms-el-appflix-cta-banner', {
     inject: ['repositoryFactory'],
 
     computed: {
-        appflixFoundation() {
-            return AppflixFoundation;
+        moorlFoundation() {
+            return MoorlFoundation;
         },
 
         category() {

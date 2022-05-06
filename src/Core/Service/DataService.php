@@ -79,7 +79,7 @@ class DataService
         /**
          * When you install demo data you might need to have an customer mail
          */
-        $this->demoCustomerMail = $systemConfigService->get('AppflixFoundation.config.demoCustomerMail') ?: 'test@example.com';
+        $this->demoCustomerMail = $systemConfigService->get('MoorlFoundation.config.demoCustomerMail') ?: 'test@example.com';
     }
 
     /**

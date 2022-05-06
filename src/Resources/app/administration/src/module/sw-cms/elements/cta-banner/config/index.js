@@ -203,8 +203,8 @@ Component.register('sw-cms-el-config-appflix-cta-banner', {
             ];
         },
 
-        appflixFoundation() {
-            return AppflixFoundation;
+        moorlFoundation() {
+            return MoorlFoundation;
         },
 
         mediaRepository() {

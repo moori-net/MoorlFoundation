@@ -234,7 +234,7 @@
 
                         <sw-select-field :label="$tc(snippetPrefix + 'label.btnClass')"
                                          v-model="element.config.btnClass.value">
-                            <option v-for="item in appflixFoundation.btnClass" :value="item.value">{{ $tc(item.label) }}</option>
+                            <option v-for="item in moorlFoundation.btnClass" :value="item.value">{{ $tc(item.label) }}</option>
                         </sw-select-field>
 
                         <template v-if="element.config.elementType.value != 'category'">
@@ -266,7 +266,7 @@
                     <template v-if="element.config.iconType.value === 'fa'">
                         <sw-select-field :label="$tc(snippetPrefix + 'label.iconClass')"
                                          v-model="element.config.iconClass.value">
-                            <option v-for="item in appflixFoundation.iconClass" :value="item.value"><i :class="item.value"></i> {{ item.label }}</option>
+                            <option v-for="item in moorlFoundation.iconClass" :value="item.value"><i :class="item.value"></i> {{ item.label }}</option>
                         </sw-select-field>
 
                         <sw-field v-model="element.config.iconClass.value"
