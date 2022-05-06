@@ -19,3 +19,4 @@ import './bs-config';
 import './feature-unlocker';
 import './support-link';
 import './animation-v2';
+import './section-config';

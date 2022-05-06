@@ -1,0 +1,58 @@
+{
+    "moorl-section-config": {
+        "tab": {
+            "content": "Inhalt",
+            "background": "Hintergrund",
+            "transition": "Übergänge",
+            "offset": "Versatz"
+        },
+        "title": "Erweiterte Einstellungen",
+        "label": {
+            "none": "Keine",
+            "scratch": "Scratch",
+            "waves": "Waves",
+            "toothed": "Gezahnt",
+            "papercut": "Papierschnitt",
+            "primary": "Primary",
+            "secondary": "Secondary",
+            "light": "Light",
+            "dark": "Dark",
+            "primary-top-secondary-bottom": "Primary zu Secondary",
+            "primary-top-dark-bottom": "Primary zu Dark",
+            "primary-top-light-bottom": "Primary zu Light",
+            "primary-top-background-bottom": "Primary zu Background",
+            "primary-top-text-bottom": "Primary zu Text",
+            "primary-top-indigo-bottom": "Primary zu Indigo",
+            "indigo-top-primary-bottom": "Indigo zu Primary",
+            "light-top-primary-bottom": "Light zu Primary",
+            "dark-top-primary-bottom": "Dark zu Primary",
+            "background-top-text-bottom": "Background zu Text",
+            "background-top-primary-bottom": "Background zu Primary",
+            "grayscale": "Grayscale",
+            "blur": "Blur",
+            "fixedBackground": "Fixer Hintergrund",
+            "backgroundFilter": "Hintergrund Filter",
+            "top": "Übergang Oben",
+            "bottom": "Übergang Unten",
+            "color": "Schriftfarbe",
+            "backgroundColor": "Sektion Hintergrundfarbe",
+            "offsetTop": "Negativ-Versatz Oben",
+            "offsetBottom": "Negativ-Versatz Unten",
+            "50": "50px",
+            "100": "100px",
+            "150": "150px",
+            "200": "200px",
+            "separatorBackground": "Übergang Hintergrundfarbe"
+        },
+        "helpText": {
+            "color": "Überschreibe die Schriftfarbe des gesamten Inhalts der Sektion mit dieser Einstellung.",
+            "backgroundColor": "Setze eine Hintergrundfarbe anhand vorgegebener Tamplate-Variablen. Auch Verläufe sind möglich.",
+            "fixedBackground": "Wenn du der Sektion ein Hintergrundbild zugewiesen hast, wirkt dieser Effekt super!",
+            "offsetTop": "Mit dieser Einstellung stellst du einen Negativ-Versatz ein. Die Sektion schiebt sich um die Pixelanzahl über die <b>darüberliegende</b> Sektion.",
+            "offsetBottom": "Mit dieser Einstellung stellst du einen Negativ-Versatz ein. Die Sektion schiebt sich um die Pixelanzahl über die <b>darunterliegende</b> Sektion.",
+            "top": "Mit dieser Einstellung kannst du ein Pseudo-Element <b>über</b> der Sektion erzeugen, die einen Übergang zwischen Sektionen darstellt. (Bspw. eine 'Welle' oder ein 'gezackter Rand')",
+            "bottom": "Mit dieser Einstellung kannst du ein Pseudo-Element <b>unter</b> der Sektion erzeugen, die einen Übergang zwischen Sektionen darstellt. (Bspw. eine 'Welle' oder ein 'gezackter Rand')",
+            "separatorBackground": "Setze eine Hintergrundfarbe für das Pseudo-Element."
+        }
+    }
+}

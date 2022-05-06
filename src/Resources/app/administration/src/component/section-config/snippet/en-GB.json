@@ -1,0 +1,62 @@
+{
+    "moorl-section-config": {
+        "tab": {
+            "content": "Content",
+            "background": "Background",
+            "transition": "Transitions",
+            "offset": "Offset"
+        },
+        "title": "Advanced Settings",
+        "label": {
+            "none": "None",
+            "scratch": "Scratch",
+            "waves": "Waves",
+            "toothed": "Toothed",
+            "papercut": "Papercut",
+            "primary": "Primary",
+            "primary-dark": "Primary Dark",
+            "primary-light": "Primary Light",
+            "secondary": "Secondary",
+            "light": "Light",
+            "dark": "Dark",
+            "text-color": "Text Color",
+            "background-color": "Body Background Color",
+            "primary-top-secondary-bottom": "Primary to Secondary",
+            "primary-top-dark-bottom": "Primary to Dark",
+            "primary-top-light-bottom": "Primary to Light",
+            "primary-top-background-bottom": "Primary to Background",
+            "primary-top-text-bottom": "Primary to Text",
+            "primary-top-indigo-bottom": "Primary to Indigo",
+            "indigo-top-primary-bottom": "Indigo to Primary",
+            "light-top-primary-bottom": "Light to Primary",
+            "dark-top-primary-bottom": "Dark to Primary",
+            "background-top-text-bottom": "Background to Text",
+            "background-top-primary-bottom": "Background to Primary",
+            "grayscale": "Grayscale",
+            "blur": "Blur",
+            "fixedBackground": "Fixed Background",
+            "backgroundFilter": "Background Filter",
+            "top": "Separator Top",
+            "bottom": "Separator Bottom",
+            "color": "Font Color",
+            "backgroundColor": "Section Background ",
+            "offsetTop": "Negative-Offset Top",
+            "offsetBottom": "Negative-Offset Bottom",
+            "50": "50px",
+            "100": "100px",
+            "150": "150px",
+            "200": "200px",
+            "separatorBackground": "Separator Background"
+        },
+        "helpText": {
+            "color": "Overwrite the font color of the entire content of the section with this setting.",
+            "backgroundColor": "Set a background color based on given tamplate variables. Gradients are also possible.",
+            "fixedBackground": "If you have assigned a background image to the section, this effect works great!",
+            "offsetTop": "With this setting you set a negative offset. The section shifts by the number of pixels above the <b>overlying</b> section.",
+            "offsetBottom": "With this setting you set a negative offset. The section shifts by the number of pixels above the <b>underneath</b> section.",
+            "top": "With this setting you can create a pseudo element <b>above</b> the section that represents a transition between sections. (For example, a 'wave' or a 'jagged edge')",
+            "bottom": "With this setting you can create a pseudo element <b>under</b> the section, which represents a transition between sections. (For example, a 'wave' or a 'jagged edge')",
+            "separatorBackground": "Set a background color for the pseudo element."
+        }
+    }
+}

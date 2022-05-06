@@ -1,6 +1,11 @@
 {% block sw_cms_section_config_background_image_position_field %}
     {% parent %}
 
+    <moorl-section-config
+            v-if="moorlIsUnlocked"
+            v-bind="{ section }"
+    />
+
     <moorl-section-grid-config
             v-if="moorlIsUnlocked && section.type == 'moorl-grid'"
             v-bind="{ section }"
