@@ -1,0 +1,17 @@
+{% sw_extends '@Storefront/storefront/utilities/icon.html.twig' %}
+
+{% block utilities_icon %}
+    {% if fileName %}{% set name = fileName %}{% endif %}
+    {% if pack == 'fab' %}
+        {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/fa/brands/'~ name ~'.svg', ignore_missing = true) %}
+        <span class="icon icon-{{ name }}">{{ icon|sw_icon_cache|raw }}</span>
+    {% elseif pack == 'far' %}
+        {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/fa/regular/'~ name ~'.svg', ignore_missing = true) %}
+        <span class="icon icon-{{ name }}">{{ icon|sw_icon_cache|raw }}</span>
+    {% elseif pack == 'fas' %}
+        {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/fa/solid/'~ name ~'.svg', ignore_missing = true) %}
+        <span class="icon icon-{{ name }}">{{ icon|sw_icon_cache|raw }}</span>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

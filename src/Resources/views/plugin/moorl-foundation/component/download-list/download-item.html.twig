@@ -1,15 +1,15 @@
 <li class="moorl-download-list-item">
     <div class="download-icon">
         {% if file.fileExtension in ['png','gif','jpg','jpeg','bmp','webp'] %}
-            <i class="far fa-file-image"></i>
+            {% sw_icon 'file-image' style {pack: 'far'} %}
         {% elseif file.fileExtension in ['pdf'] %}
-            <i class="far fa-file-pdf"></i>
+            {% sw_icon 'file-pdf' style {pack: 'far'} %}
         {% elseif file.fileExtension in ['csv','xls'] %}
-            <i class="far fa-file-excel"></i>
+            {% sw_icon 'file-excel' style {pack: 'far'} %}
         {% elseif file.fileExtension in ['zip','rar','gz'] %}
-            <i class="far fa-file-archive"></i>
+            {% sw_icon 'file-archive' style {pack: 'far'} %}
         {% else %}
-            <i class="far fa-file-alt"></i>
+            {% sw_icon 'file-alt' style {pack: 'far'} %}
         {% endif %}
     </div>
 
