@@ -2,8 +2,7 @@ import Plugin from 'src/plugin-system/plugin.class';
 
 export default class MoorlPaintPlugin extends Plugin {
     static options = {
-        assetPath: '/bundles/moorlfoundation/storefront/js/paint/',
-        module: 'dots'
+        assetPath: '/bundles/moorlfoundation/storefront/js/paint/'
     };
 
     init() {
@@ -18,7 +17,5 @@ export default class MoorlPaintPlugin extends Plugin {
             this.el.style.setProperty('--mouse-x', e.clientX - bounds.left);
             this.el.style.setProperty('--mouse-y', e.clientY - bounds.top);
         });
-
-        this.el.style.backgroundImage = `paint(${this.options.module})`;
     }
 }

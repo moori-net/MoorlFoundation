@@ -1,10 +1,10 @@
 <div class="moorl-section-config">
-    <sw-button
-        size="large"
-        block
-        @click="show = true">
-        {{ $tc(snippetPrefix + 'title') }}
-    </sw-button>
+    <div class="sw-cms-section__action" @click="show = true">
+        <sw-icon
+                name="default-os-layers"
+                size="20"
+        />
+    </div>
 
     <sw-modal class="sw-cms-slot__config-modal"
               v-if="show"
@@ -32,30 +32,23 @@
 
             <template slot="content" slot-scope="{ active }">
                 <sw-container v-if="active === 'content'">
-                    <sw-field type="switch"
-                              :label="$tc(snippetPrefix + 'label.overflowHidden')"
-                              :helpText="$tc(snippetPrefix + 'helpText.overflowHidden')"
-                              bordered
-                              v-model="section.customFields.moorl_section_config.overflowHidden">
-                    </sw-field>
-
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.color')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.color')"
-                                     v-model="section.customFields.moorl_section_config.color">
-                        <option v-for="value in colorOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.color')"
+                            :helpText="$tc(snippetPrefix + 'helpText.color')"
+                            :options="colorOptions"
+                            v-model="section.customFields.moorl_section_config.color"
+                            show-clearable-button
+                    />
                 </sw-container>
 
                 <sw-container v-if="active === 'background'">
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.backgroundColor')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.backgroundColor')"
-                                     v-model="section.customFields.moorl_section_config.backgroundColor">
-                        <option v-for="value in colorOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.backgroundColor')"
+                            :helpText="$tc(snippetPrefix + 'helpText.backgroundColor')"
+                            :options="colorOptions"
+                            v-model="section.customFields.moorl_section_config.backgroundColor"
+                            show-clearable-button
+                    />
 
                     <sw-field type="switch"
                               :label="$tc(snippetPrefix + 'label.fixedBackground')"
@@ -63,49 +56,58 @@
                               bordered
                               v-model="section.customFields.moorl_section_config.fixedBackground">
                     </sw-field>
+
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.backgroundPaint')"
+                            :helpText="$tc(snippetPrefix + 'helpText.backgroundPaint')"
+                            :options="paintOptions"
+                            v-model="section.customFields.moorl_section_config.backgroundPaint"
+                            show-clearable-button
+                    />
                 </sw-container>
 
                 <sw-container v-if="active === 'offset'">
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.offsetTop')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.offsetTop')"
-                                     v-model="section.customFields.moorl_section_config.offsetTop">
-                        <option v-for="value in offsetOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.offsetBottom')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.offsetBottom')"
-                                     v-model="section.customFields.moorl_section_config.offsetBottom">
-                        <option v-for="value in offsetOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.offsetTop')"
+                            :helpText="$tc(snippetPrefix + 'helpText.offsetTop')"
+                            :options="offsetOptions"
+                            v-model="section.customFields.moorl_section_config.offsetTop"
+                            show-clearable-button
+                    />
+
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.offsetBottom')"
+                            :helpText="$tc(snippetPrefix + 'helpText.offsetBottom')"
+                            :options="offsetOptions"
+                            v-model="section.customFields.moorl_section_config.offsetBottom"
+                            show-clearable-button
+                    />
                 </sw-container>
 
                 <sw-container v-if="active === 'transition'">
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.top')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.top')"
-                                     v-model="section.customFields.moorl_section_config.top">
-                        <option v-for="value in separatorOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.top')"
+                            :helpText="$tc(snippetPrefix + 'helpText.top')"
+                            :options="separatorOptions"
+                            v-model="section.customFields.moorl_section_config.top"
+                            show-clearable-button
+                    />
 
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.bottom')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.bottom')"
-                                     v-model="section.customFields.moorl_section_config.bottom">
-                        <option v-for="value in separatorOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.bottom')"
+                            :helpText="$tc(snippetPrefix + 'helpText.bottom')"
+                            :options="separatorOptions"
+                            v-model="section.customFields.moorl_section_config.bottom"
+                            show-clearable-button
+                    />
 
-                    <sw-select-field :label="$tc(snippetPrefix + 'label.separatorBackground')"
-                                     :helpText="$tc(snippetPrefix + 'helpText.separatorBackground')"
-                                     v-model="section.customFields.moorl_section_config.separatorBackground">
-                        <option v-for="value in colorOptions" :value="value">
-                            {{ $tc(snippetPrefix + 'label.' + value) }}
-                        </option>
-                    </sw-select-field>
+                    <sw-single-select
+                            :label="$tc(snippetPrefix + 'label.separatorBackground')"
+                            :helpText="$tc(snippetPrefix + 'helpText.separatorBackground')"
+                            :options="colorOptions"
+                            v-model="section.customFields.moorl_section_config.separatorBackground"
+                            show-clearable-button
+                    />
                 </sw-container>
             </template>
         </sw-tabs>

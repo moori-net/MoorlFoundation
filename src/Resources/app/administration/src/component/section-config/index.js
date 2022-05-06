@@ -23,54 +23,57 @@ Component.register('moorl-section-config', {
     computed: {
         separatorOptions() {
             return [
-                'none',
-                'scratch',
-                'toothed',
-                'waves',
-                'papercut'
+                {value: 'scratch', label: 'scratch'},
+                {value: 'toothed', label: 'toothed'},
+                {value: 'waves', label: 'waves'},
+                {value: 'papercut', label: 'papercut'},
             ];
         },
 
         offsetOptions() {
             return [
-                'none',
-                '50',
-                '100',
-                '150',
-                '200'
+                {value: '50', label: '50'},
+                {value: '100', label: '100'},
+                {value: '150', label: '150'},
+                {value: '200', label: '200'},
             ];
         },
 
         colorOptions() {
             return [
-                'none',
-                'primary',
-                'primary-dark',
-                'primary-light',
-                'secondary',
-                'light',
-                'dark',
-                'text-color',
-                'background-color',
-                'primary-top-secondary-bottom',
-                'primary-top-dark-bottom',
-                'primary-top-light-bottom',
-                'primary-top-background-bottom',
-                'primary-top-text-bottom',
-                'primary-top-indigo-bottom',
-                'indigo-top-primary-bottom',
-                'light-top-primary-bottom',
-                'dark-top-primary-bottom',
-                'background-top-text-bottom',
-                'background-top-primary-bottom'
+                {value: 'primary', label: 'primary'},
+                {value: 'primary-dark', label: 'primary-dark'},
+                {value: 'primary-light', label: 'primary-light'},
+                {value: 'secondary', label: 'secondary'},
+                {value: 'light', label: 'light'},
+                {value: 'dark', label: 'dark'},
+                {value: 'text-color', label: 'text-color'},
+                {value: 'background-color', label: 'background-color'},
+                {value: 'primary-top-secondary-bottom', label: 'primary-top-secondary-bottom'},
+                {value: 'primary-top-dark-bottom', label: 'primary-top-dark-bottom'},
+                {value: 'primary-top-light-bottom', label: 'primary-top-light-bottom'},
+                {value: 'primary-top-background-bottom', label: 'primary-top-background-bottom'},
+                {value: 'primary-top-text-bottom', label: 'primary-top-text-bottom'},
+                {value: 'primary-top-indigo-bottom', label: 'primary-top-indigo-bottom'},
+                {value: 'indigo-top-primary-bottom', label: 'indigo-top-primary-bottom'},
+                {value: 'light-top-primary-bottom', label: 'light-top-primary-bottom'},
+                {value: 'dark-top-primary-bottom', label: 'dark-top-primary-bottom'},
+                {value: 'background-top-text-bottom', label: 'background-top-text-bottom'},
+                {value: 'background-top-primary-bottom', label: 'background-top-primary-bottom'}
             ];
         },
 
         filterOptions() {
             return [
-                'none',
-                'grayscale',
-                'blur'
+                {value: 'grayscale', label: 'grayscale'},
+                {value: 'blur', label: 'blur'},
+            ];
+        },
+
+        paintOptions() {
+            return [
+                {value: 'dots', label: 'dots'},
+                {value: 'generateddots', label: 'generateddots'},
             ];
         }
     },
@@ -87,7 +90,7 @@ Component.register('moorl-section-config', {
             if (!this.section.customFields) {
                 this.$set(this.section, 'customFields', {});
             }
-            if (!this.section.customFields.moorl_section_grid_config) {
+            if (!this.section.customFields.moorl_section_config) {
                 this.$set(this.section.customFields, 'moorl_section_config', {});
             }
         }

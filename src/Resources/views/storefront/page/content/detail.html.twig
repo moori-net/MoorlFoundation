@@ -1,31 +1,16 @@
 {% sw_extends "@Storefront/storefront/page/content/detail.html.twig" %}
 
 {% block page_content_section %}
-    {% set moorlSection = section.customFields.moorl_section %}
-    {% if moorlSection.color and moorlSection.color != 'none' %}
-        {% set sectionClasses = ["text-#{moorlSection.color}"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.backgroundColor and moorlSection.backgroundColor != 'none' %}
-        {% set sectionClasses = ["bg-#{moorlSection.backgroundColor}"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.top and moorlSection.top != 'none' %}
-        {% set sectionClasses = ["moorl-separator-#{moorlSection.top}-top"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.bottom and moorlSection.bottom != 'none' %}
-        {% set sectionClasses = ["moorl-separator-#{moorlSection.bottom}-bottom"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.offsetTop and moorlSection.offsetTop != 'none' %}
-        {% set sectionClasses = ["moorl-offset-#{moorlSection.offsetTop}-top"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.offsetBottom and moorlSection.offsetBottom != 'none' %}
-        {% set sectionClasses = ["moorl-offset-#{moorlSection.offsetBottom}-bottom"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.separatorBackground and moorlSection.separatorBackground != 'none' %}
-        {% set sectionClasses = ["bg-moorl-separator-#{moorlSection.separatorBackground}"]|merge(sectionClasses) %}
-    {% endif %}
-    {% if moorlSection.fixedBackground %}
-        {% set sectionClasses = ["bg-fixed"]|merge(sectionClasses) %}
-    {% endif %}
-
+    {% set mfs = section.customFields.moorl_section_config %}
+    {% if mfs.color %}{% set sectionClasses = ["text-#{mfs.color}"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.backgroundColor %}{% set sectionClasses = ["bg-#{mfs.backgroundColor}"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.top %}{% set sectionClasses = ["moorl-separator-#{mfs.top}-top"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.bottom %}{% set sectionClasses = ["moorl-separator-#{mfs.bottom}-bottom"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.offsetTop %}{% set sectionClasses = ["moorl-offset-#{mfs.offsetTop}-top"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.offsetBottom %}{% set sectionClasses = ["moorl-offset-#{mfs.offsetBottom}-bottom"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.separatorBackground %}{% set sectionClasses = ["bg-moorl-separator-#{mfs.separatorBackground}"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.fixedBackground %}{% set sectionClasses = ["bg-fixed"]|merge(sectionClasses) %}{% endif %}
+    {% if mfs.backgroundPaint %}{% set sectionClasses = ["moorl-paint","moorl-paint-#{mfs.backgroundPaint}"]|merge(sectionClasses) %}{% endif %}
+    
     {{ parent() }}
 {% endblock %}

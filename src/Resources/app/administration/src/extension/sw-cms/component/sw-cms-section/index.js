@@ -2,6 +2,7 @@ import template from './sw-cms-section.html.twig';
 import moorlGridDefault from './moorl-grid.default.json';
 import './sw-cms-section.scss';
 import './sw-cms-section-config';
+import './sw-cms-section-actions';
 
 const {Component} = Shopware;
 const {cloneDeep} = Shopware.Utils.object;
