@@ -7,8 +7,8 @@ export default class MoorlPaintPlugin extends Plugin {
 
     init() {
         if ('paintWorklet' in CSS) {
-            let path = `${this.options.assetPath}${this.options.module}.js`;
-            CSS.paintWorklet.addModule(path);
+            CSS.paintWorklet.addModule(`${this.options.assetPath}dots.js`);
+            CSS.paintWorklet.addModule(`${this.options.assetPath}generateddots.js`);
         }
 
         this.el.addEventListener("mousemove", e => {
