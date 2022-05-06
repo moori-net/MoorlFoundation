@@ -4,7 +4,8 @@
     {{ parent() }}
 
     {% if config('MoorlFoundation.config.fontawesome') %}
-        <link rel="stylesheet" href="{{ asset('bundles/moorlfoundation/storefront/css/font-awesome-free.css') }}">
+        <!-- Deprecated: Will be completely removed and replaced by SVG -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
     {% endif %}
 
     {% if config('MoorlFoundation.config.animate') %}
