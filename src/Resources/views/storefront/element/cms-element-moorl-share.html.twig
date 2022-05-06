@@ -12,7 +12,7 @@
                     <li>
                         <a title="" class="btn btn-facebook"
                            href="https://www.facebook.com/sharer/sharer.php?u={{ currentUrl }}" target="_blank">
-                            <i class="fab fa-facebook"></i>
+                            {% sw_icon 'facebook' style {pack: 'fab'} %}
                         </a>
                     </li>
                 {% endif %}
@@ -21,7 +21,7 @@
                     <li>
                         <a title="" class="btn btn-twitter"
                            href="https://twitter.com/intent/tweet?url={{ currentUrl }}" target="_blank">
-                            <i class="fab fa-twitter"></i>
+                            {% sw_icon 'twitter' style {pack: 'fab'} %}
                         </a>
                     </li>
                 {% endif %}
@@ -30,7 +30,7 @@
                     <li>
                         <a title="" class="btn btn-pinterest"
                            href="http://pinterest.com/pin/create/button/?url={{ currentUrl }}" target="_blank">
-                            <i class="fab fa-pinterest"></i>
+                            {% sw_icon 'pinterest' style {pack: 'fab'} %}
                         </a>
                     </li>
                 {% endif %}

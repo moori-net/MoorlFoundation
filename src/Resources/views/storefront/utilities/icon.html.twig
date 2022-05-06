@@ -2,16 +2,24 @@
 
 {% block utilities_icon %}
     {% if fileName %}{% set name = fileName %}{% endif %}
-    {% if pack == 'fab' %}
-        {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/fa/brands/'~ name ~'.svg', ignore_missing = true) %}
-        <span class="icon icon-{{ name }}">{{ icon|sw_icon_cache|raw }}</span>
-    {% elseif pack == 'far' %}
-        {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/fa/regular/'~ name ~'.svg', ignore_missing = true) %}
-        <span class="icon icon-{{ name }}">{{ icon|sw_icon_cache|raw }}</span>
-    {% elseif pack == 'fas' %}
-        {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/fa/solid/'~ name ~'.svg', ignore_missing = true) %}
-        <span class="icon icon-{{ name }}">{{ icon|sw_icon_cache|raw }}</span>
-    {% else %}
+
+    {% set styles = [ size, color, rotation, flip, class ] %}
+    {% set iconPacks = {fab: 'fa/brands/',far: 'fa/regular/',fas: 'fa/solid/'} %}
+
+    {% set inherit = true %}
+
+    {% for key, path in iconPacks %}
+        {% if pack == key %}
+            {% set inherit = false %}
+
+            <span class="icon icon-{{ pack }} icon-{{ pack }}-{{ name }}{% for entry in styles %}{% if entry != "" %} icon-{{ entry }}{% endif %}{% endfor %}">
+                {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
+                {{ icon|sw_icon_cache|raw }}
+            </span>
+        {% endif %}
+    {% endfor %}
+
+    {% if inherit %}
         {{ parent() }}
     {% endif %}
 {% endblock %}

@@ -21,6 +21,15 @@
 @import "helpers/cms-helpers";
 @import "helpers/foundation-demo-html";
 
+.icon-far,
+.icon-fas,
+.icon-fab {
+  color: inherit;
+  > svg {
+    top: 0;
+  }
+}
+
 .bg-fixed {
   background-attachment: fixed;
 }
