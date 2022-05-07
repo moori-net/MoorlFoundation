@@ -1,7 +1,6 @@
 const { Component, Mixin } = Shopware;
 
 import template from './index.html.twig';
-import './index.scss';
 
 Component.register('sw-cms-el-config-moorl-usp', {
     template,
@@ -15,7 +14,6 @@ Component.register('sw-cms-el-config-moorl-usp', {
             snippetPrefix: 'sw-cms.elements.moorl-usp.',
         };
     },
-
 
     created() {
         this.createdComponent();

@@ -2,7 +2,6 @@ const {Component, Mixin} = Shopware;
 const {Criteria, EntityCollection} = Shopware.Data;
 
 import template from './index.html.twig';
-import './index.scss';
 
 Component.register('sw-cms-el-config-moorl-download-list', {
     template,

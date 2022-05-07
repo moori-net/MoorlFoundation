@@ -2062,23 +2062,6 @@ const MoorlFoundation = function MoorlFoundation() {
             "label": "500px"
         }
     ];
-    this._iconClass = function() {
-        let fonts = [];
-        FontAwesome.hits.forEach(function(item){
-            if (item && item.name && item.styles) {
-                item.styles.forEach(function (style) {
-                    if (item.membership.free.includes(style)) {
-                        fonts.push({
-                            value: item.name + '|fa' + style.charAt(0),
-                            label: item.label
-                        });
-                    }
-                });
-            }
-        });
-        return fonts;
-    };
-
 };
 
 MoorlFoundation.prototype = {};

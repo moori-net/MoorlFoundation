@@ -36,7 +36,7 @@ Component.override('sw-cms-section', {
         },
 
         sectionColumnCount() {
-            return parseInt(this.section.customFields.moorl_section_column_count);
+            return parseInt(this.section.customFields.moorl_section_column_count, 10);
         }
     },
 

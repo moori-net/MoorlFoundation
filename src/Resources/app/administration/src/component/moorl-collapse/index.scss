@@ -56,9 +56,6 @@
     }
 
     &.expanded {
-        .moorl-collapse__content {
-        }
-
         .moorl-collapse__header {
             background: $color-gray-100;
             border-bottom: 1px dotted $color-gray-400;

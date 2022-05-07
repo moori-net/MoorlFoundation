@@ -2,7 +2,6 @@ const {Component} = Shopware;
 const Criteria = Shopware.Data.Criteria;
 
 import template from './sw-cms-slot.html.twig';
-import './sw-cms-slot.scss';
 
 Component.override('sw-cms-slot', {
     template,

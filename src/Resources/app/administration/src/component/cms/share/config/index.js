@@ -1,7 +1,6 @@
 const {Component, Mixin} = Shopware;
 
 import template from './index.html.twig';
-import './index.scss';
 
 Component.register('sw-cms-el-config-moorl-share', {
     template,

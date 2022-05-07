@@ -506,7 +506,7 @@ Component.register('moorl-csv-import', {
                             newItem[newProperty] = isBool.test(currentValue);
                             break;
                         case 'int':
-                            newItem[newProperty] = parseInt(currentValue);
+                            newItem[newProperty] = parseInt(currentValue, 10);
                             break;
                         case 'float':
                             newItem[newProperty] = parseFloat(currentValue);

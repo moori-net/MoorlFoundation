@@ -20,13 +20,12 @@ Component.register('sw-cms-el-config-moorl-search-hero', {
     },
 
     computed: {
-
         mediaRepository() {
             return this.repositoryFactory.create('media');
         },
 
         uploadTag() {
-            return 'cms-element-media-config-${this.element.id}';
+            return this.element.id
         },
 
         previewSource() {

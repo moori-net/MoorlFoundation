@@ -11,7 +11,6 @@ Component.register('sw-cms-el-moorl-search-hero', {
 
     computed: {
         captionCss() {
-
             const css = {color:this.element.config.textColor.value}
 
             if(this.element.config.textShadowActive.value){
@@ -45,6 +44,7 @@ Component.register('sw-cms-el-moorl-search-hero', {
 
             return this.assetFilter('administration/static/img/cms/preview_mountain_large.jpg');
         },
+
         assetFilter() {
             return Filter.getByName('asset');
         }

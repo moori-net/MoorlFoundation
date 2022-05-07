@@ -39,59 +39,11 @@ Component.override('sw-cms-sidebar', {
         },
 
         sectionColumnCount(section) {
-            return parseInt(section.customFields.moorl_section_column_count);
+            return parseInt(section.customFields.moorl_section_column_count, 10);
         },
 
         onBlockStageDrop(dragData, dropData) {
             return this.$super('onBlockStageDrop', dragData, dropData);
-
-
-            if (!dropData || !dragData.block || dropData.dropIndex < 0 || !dropData.section) {
-                return;
-            }
-
-            if (dropData.section.type !== 'moorl-grid') {
-                return this.$super('onBlockStageDrop', dragData, dropData);
-            }
-
-            const section = dropData.section;
-            const blockConfig = this.cmsBlocks[dragData.block.name];
-            const newBlock = this.blockRepository.create();
-
-            newBlock.type = dragData.block.name;
-            newBlock.position = dropData.dropIndex;
-            newBlock.sectionPosition = dropData.sectionPosition;
-            newBlock.sectionId = section.id;
-
-            Object.assign(
-                newBlock,
-                cloneDeep(this.blockConfigDefaults),
-                cloneDeep(blockConfig.defaultConfig || {}),
-            );
-
-            Object.keys(blockConfig.slots).forEach((slotName) => {
-                const slotConfig = blockConfig.slots[slotName];
-                const element = this.slotRepository.create();
-                element.blockId = newBlock.id;
-                element.slot = slotName;
-
-                if (typeof slotConfig === 'string') {
-                    element.type = slotConfig;
-                } else if (types.isPlainObject(slotConfig)) {
-                    element.type = slotConfig.type;
-
-                    if (slotConfig.default && types.isPlainObject(slotConfig.default)) {
-                        Object.assign(element, cloneDeep(slotConfig.default));
-                    }
-                }
-
-                newBlock.slots.add(element);
-            });
-
-            this.page.sections[section.position].blocks.splice(dropData.dropIndex, 0, newBlock);
-
-            this.$emit('block-stage-drop');
-            this.$emit('current-block-change', section.id, newBlock);
         },
 
         getSectionGridContentBlocks(sectionBlocks, gridCol) {
