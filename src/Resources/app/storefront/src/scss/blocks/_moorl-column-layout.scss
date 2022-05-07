@@ -51,9 +51,6 @@
   }
 }
 
-@include media-breakpoint-up(lg) {
-}
-
 /* Helper Classes */
 .grid-gap-30 .moorl-column-layout {
   grid-gap: 30px;
@@ -74,5 +71,5 @@
   grid-gap: 5px;
 }
 .grid-gap-0 .moorl-column-layout {
-  grid-gap: 0px;
+  grid-gap: 0;
 }
