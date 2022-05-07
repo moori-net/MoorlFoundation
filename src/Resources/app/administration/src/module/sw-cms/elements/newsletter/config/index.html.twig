@@ -1,5 +1,5 @@
-<div class="sw-cms-el-config-appflix-newsletter">
-    <sw-tabs class="sw-cms-el-config-appflix-newsletter__tabs" defaultItem="general">
+<div class="sw-cms-el-config-moorl-newsletter">
+    <sw-tabs class="sw-cms-el-config-moorl-newsletter__tabs" defaultItem="general">
         <template slot-scope="{ active }" >
             <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
                           name="general"
@@ -20,7 +20,7 @@
         </template>
 
         <template slot="content" slot-scope="{ active }">
-            <sw-container v-if="active === 'general'" class="sw-cms-el-config-appflix-newsletter__tab-general">
+            <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-newsletter__tab-general">
                 <sw-field type="switch"
                           bordered
                           :label="$tc(snippetPrefix + 'config.optin')"
@@ -28,7 +28,7 @@
                 </sw-field>
             </sw-container>
 
-            <sw-container v-if="active === 'colors'" class="sw-cms-el-config-appflix-newsletter__tab-colors">
+            <sw-container v-if="active === 'colors'" class="sw-cms-el-config-moorl-newsletter__tab-colors">
                 <sw-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
@@ -49,7 +49,7 @@
                 </sw-colorpicker>
             </sw-container>
 
-            <sw-container v-if="active === 'text'" class="sw-cms-el-config-appflix-newsletter__tab-text">
+            <sw-container v-if="active === 'text'" class="sw-cms-el-config-moorl-newsletter__tab-text">
                 <sw-alert variant="info">
                     {{ $tc(snippetPrefix + 'config.hint') }}
                 </sw-alert>

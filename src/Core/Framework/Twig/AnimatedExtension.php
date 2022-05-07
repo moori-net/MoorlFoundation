@@ -51,7 +51,7 @@ class AnimatedExtension extends AbstractExtension
             }
         }
 
-        if (empty($classes)) {
+        if (empty($classes) && $isRow) {
             return "col";
         }
 

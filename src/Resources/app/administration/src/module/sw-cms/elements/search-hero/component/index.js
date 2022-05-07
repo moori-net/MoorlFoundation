@@ -2,7 +2,7 @@ const { Component, Application, Mixin, Filter, Utils } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-appflix-search-hero', {
+Component.register('sw-cms-el-moorl-search-hero', {
     template,
 
     mixins: [
@@ -74,8 +74,8 @@ Component.register('sw-cms-el-appflix-search-hero', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-search-hero');
-            this.initElementData('appflix-search-hero');
+            this.initElementConfig('moorl-search-hero');
+            this.initElementData('moorl-search-hero');
         }
     }
 });

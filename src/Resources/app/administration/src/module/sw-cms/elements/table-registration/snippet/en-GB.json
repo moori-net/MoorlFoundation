@@ -1,7 +1,7 @@
 {
     "sw-cms": {
         "elements": {
-            "appflix-table-registration": {
+            "moorl-table-registration": {
                 "title": "Table Registration",
                 "label": {
                     "newsletterActive": "Activate Newsletter Checkbox",

@@ -2,7 +2,7 @@ import template from './index.html.twig';
 
 const { Component, Mixin } = Shopware;
 
-Component.register('sw-cms-el-config-appflix-table-registration', {
+Component.register('sw-cms-el-config-moorl-table-registration', {
     template,
 
     inject: [],
@@ -13,7 +13,7 @@ Component.register('sw-cms-el-config-appflix-table-registration', {
 
     data() {
         return {
-            snippetPrefix: 'sw-cms.elements.appflix-table-registration.'
+            snippetPrefix: 'sw-cms.elements.moorl-table-registration.'
         };
     },
 
@@ -25,7 +25,7 @@ Component.register('sw-cms-el-config-appflix-table-registration', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-table-registration');
+            this.initElementConfig('moorl-table-registration');
         }
     }
 });

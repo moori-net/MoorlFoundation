@@ -1,9 +1,0 @@
-{
-    "sw-cms": {
-        "blocks": {
-            "appflix-search-hero": {
-                "label": "Suche + Hero Banner"
-            }
-        }
-    }
-}

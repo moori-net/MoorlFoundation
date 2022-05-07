@@ -3,7 +3,7 @@ const { Component, Mixin } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-config-appflix-newsletter', {
+Component.register('sw-cms-el-config-moorl-newsletter', {
     template,
 
     inject: ['repositoryFactory'],
@@ -14,7 +14,7 @@ Component.register('sw-cms-el-config-appflix-newsletter', {
 
     data() {
         return{
-            snippetPrefix: 'sw-cms.elements.appflix-newsletter.',
+            snippetPrefix: 'sw-cms.elements.moorl-newsletter.',
         }
     },
 

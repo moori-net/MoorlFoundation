@@ -3,7 +3,7 @@ const { Component, Mixin } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-config-appflix-usp', {
+Component.register('sw-cms-el-config-moorl-usp', {
     template,
 
     mixins: [
@@ -12,7 +12,7 @@ Component.register('sw-cms-el-config-appflix-usp', {
 
     data() {
         return {
-            snippetPrefix: 'sw-cms.elements.appflix-usp.',
+            snippetPrefix: 'sw-cms.elements.moorl-usp.',
         };
     },
 
@@ -23,8 +23,8 @@ Component.register('sw-cms-el-config-appflix-usp', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-usp');
-            this.initElementData('appflix-usp');
+            this.initElementConfig('moorl-usp');
+            this.initElementData('moorl-usp');
         }
     }
 });

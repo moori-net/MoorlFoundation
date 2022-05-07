@@ -1,7 +1,7 @@
 {
     "sw-cms": {
         "elements": {
-            "appflix-table-registration": {
+            "moorl-table-registration": {
                 "title": "Tischreservierung",
                 "label": {
                     "newsletterActive": "Newsletter Checkbox aktivieren",

@@ -1,5 +1,9 @@
 @import "appflix/base";
 
+@import "sections/separator";
+@import "sections/boxed";
+@import "sections/offset";
+
 @import "blocks/moorl-grid-layout";
 @import "blocks/moorl-column-layout";
 
@@ -7,6 +11,10 @@
 @import "cms/toc";
 @import "cms/replacer";
 @import "cms/accordion";
+@import "cms/hero-search";
+@import "cms/newsletter";
+@import "cms/table-registration";
+@import "cms/usps";
 
 @import "component/opening-hours";
 //@import "component/listing";

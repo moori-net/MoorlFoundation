@@ -1,13 +1,13 @@
-<div class="sw-cms-el-appflix-newsletter">
-    <div class="appflix-newsletter-input-button-container">
-        <div class="appflix-newsletter-input">
+<div class="sw-cms-el-moorl-newsletter">
+    <div class="moorl-newsletter-input-button-container">
+        <div class="moorl-newsletter-input">
             {{ element.config.placeholder.value }}
         </div>
-        <div class="appflix-newsletter-button" :style="newsletterButtonCss">
+        <div class="moorl-newsletter-button" :style="newsletterButtonCss">
             {{ element.config.buttonText.value }}
         </div>
     </div>
-    <div v-if="element.config.optin.value" class="appflix-newsletter-optin-container" :style="{ 'color': element.config.privacyColor.value }">
+    <div v-if="element.config.optin.value" class="moorl-newsletter-optin-container" :style="{ 'color': element.config.privacyColor.value }">
         <span class="checkbox"></span> I have read the privacy notice
     </div>
 </div>

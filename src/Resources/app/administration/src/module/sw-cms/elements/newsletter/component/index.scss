@@ -1,20 +1,20 @@
-.sw-cms-el-appflix-newsletter {
+.sw-cms-el-moorl-newsletter {
     height: auto;
     background-color: #e0e0e0;
     padding: 15px;
     width: 100%;
 
-    .appflix-newsletter-input-button-container{
+    .moorl-newsletter-input-button-container{
         display: grid;
         width: 100%;
         grid-template-columns:2fr 1fr;
 
-        .appflix-newsletter-input{
+        .moorl-newsletter-input{
             background-color: #fff;
             padding: 10px 15px;
         }
 
-        .appflix-newsletter-button{
+        .moorl-newsletter-button{
             display: flex;
             align-items: center;
             padding: 10px 15px;
@@ -22,7 +22,7 @@
         }
     }
 
-    .appflix-newsletter-optin-container{
+    .moorl-newsletter-optin-container{
         display: flex;
         align-items: center;
         margin-top: 10px;

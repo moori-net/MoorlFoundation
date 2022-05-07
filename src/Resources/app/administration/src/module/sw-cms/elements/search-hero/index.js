@@ -1,15 +1,15 @@
 const Application = Shopware.Application;
 import './component';
 import './config';
-import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
-    hidden: true,
-    name: 'appflix-search-hero',
-    label: 'sw-cms.elements.appflix-search-hero.title',
-    component: 'sw-cms-el-appflix-search-hero',
-    configComponent: 'sw-cms-el-config-appflix-search-hero',
-    previewComponent: 'sw-cms-el-preview-appflix-search-hero',
+    plugin: 'MoorlFoundation',
+    icon: 'default-action-search',
+    name: 'moorl-search-hero',
+    label: 'sw-cms.elements.moorl-search-hero.title',
+    component: 'sw-cms-el-moorl-search-hero',
+    configComponent: 'sw-cms-el-config-moorl-search-hero',
+    previewComponent: true,
     defaultConfig: {
         searchActive: {
             source: 'static',

@@ -13,7 +13,7 @@
     </template>
 
     <template slot="content" slot-scope="{ active }">
-        <sw-container v-if="active === 'general'" class="sw-cms-el-config-appflix-usp__tab-general">
+        <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-usp__tab-general">
             <sw-field v-model="element.config.iconActive.value"
                       bordered
                       type="switch"
@@ -45,7 +45,7 @@
             </sw-select-field>
         </sw-container>
 
-        <sw-container v-if="active === 'textColor'" class="sw-cms-el-config-appflix-usp__tab-colors">
+        <sw-container v-if="active === 'textColor'" class="sw-cms-el-config-moorl-usp__tab-colors">
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"

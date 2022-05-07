@@ -1,14 +1,14 @@
 import './component';
 import './config';
-import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
-    hidden: true,
-    name: 'appflix-table-registration',
-    label: 'sw-cms.elements.appflix-table-registration.title',
-    component: 'sw-cms-el-appflix-table-registration',
-    configComponent: 'sw-cms-el-config-appflix-table-registration',
-    previewComponent: 'sw-cms-el-preview-appflix-table-registration',
+    plugin: 'AppflixDewaShop',
+    icon: 'default-time-clock',
+    name: 'moorl-table-registration',
+    label: 'sw-cms.elements.moorl-table-registration.title',
+    component: 'sw-cms-el-moorl-table-registration',
+    configComponent: 'sw-cms-el-config-moorl-table-registration',
+    previewComponent: true,
     defaultConfig: {
         type: {
             source: 'static',

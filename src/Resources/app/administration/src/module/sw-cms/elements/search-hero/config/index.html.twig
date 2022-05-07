@@ -1,5 +1,5 @@
-<div class="sw-cms-el-config-appflix-search-hero">
-    <sw-tabs class="sw-cms-el-config-appflix-search-hero__tabs" defaultItem="general">
+<div class="sw-cms-el-config-moorl-search-hero">
+    <sw-tabs class="sw-cms-el-config-moorl-search-hero__tabs" defaultItem="general">
         <template slot-scope="{ active }" >
             <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
                           name="general"
@@ -20,7 +20,7 @@
         </template>
 
         <template slot="content" slot-scope="{ active }">
-            <sw-container v-if="active === 'general'" class="sw-cms-el-config-appflix-search-hero__tab-general">
+            <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-search-hero__tab-general">
                 <sw-field v-model="element.config.elementHeight.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.elementHeight')">
@@ -38,7 +38,7 @@
                 </sw-field>
             </sw-container>
 
-            <sw-container v-if="active === 'media'" class="sw-cms-el-config-appflix-search-hero__tab-media">
+            <sw-container v-if="active === 'media'" class="sw-cms-el-config-moorl-search-hero__tab-media">
                 <sw-cms-mapping-field valueTypes="entity" entity="media" v-model="element.config.media">
                     <sw-media-upload-v2 variant="regular"
                                         :uploadTag="uploadTag"
@@ -97,7 +97,7 @@
 
             </sw-container>
 
-            <sw-container v-if="active === 'caption'" class="sw-cms-el-config-appflix-search-hero__tab-caption">
+            <sw-container v-if="active === 'caption'" class="sw-cms-el-config-moorl-search-hero__tab-caption">
                 <sw-field v-model="element.config.headline.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.headline')">

@@ -2,7 +2,7 @@ const { Component, Mixin } = Shopware;
 
 import template from './index.html.twig';
 
-Component.register('sw-cms-el-config-appflix-search-hero', {
+Component.register('sw-cms-el-config-moorl-search-hero', {
     template,
 
     mixins: [
@@ -15,7 +15,7 @@ Component.register('sw-cms-el-config-appflix-search-hero', {
         return {
             mediaModalIsOpen: false,
             initialFolderId: null,
-            snippetPrefix: 'sw-cms.elements.appflix-search-hero.',
+            snippetPrefix: 'sw-cms.elements.moorl-search-hero.',
         };
     },
 
@@ -44,7 +44,7 @@ Component.register('sw-cms-el-config-appflix-search-hero', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-search-hero');
+            this.initElementConfig('moorl-search-hero');
         },
 
         onChangeMedia() {

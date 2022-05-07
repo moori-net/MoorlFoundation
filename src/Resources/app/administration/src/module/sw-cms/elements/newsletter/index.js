@@ -1,15 +1,15 @@
 const Application = Shopware.Application;
 import './component';
 import './config';
-import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
-    hidden: true,
-    name: 'appflix-newsletter',
-    label: 'sw-cms.elements.appflix-newsletter.title',
-    component: 'sw-cms-el-appflix-newsletter',
-    configComponent: 'sw-cms-el-config-appflix-newsletter',
-    previewComponent: 'sw-cms-el-preview-appflix-newsletter',
+    plugin: 'MoorlFoundation',
+    icon: 'default-object-paperplane',
+    name: 'moorl-newsletter',
+    label: 'sw-cms.elements.moorl-newsletter.title',
+    component: 'sw-cms-el-moorl-newsletter',
+    configComponent: 'sw-cms-el-config-moorl-newsletter',
+    previewComponent: true,
     defaultConfig: {
         optin: {
             source: 'static',

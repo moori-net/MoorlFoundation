@@ -1,11 +1,10 @@
 const Application = Shopware.Application;
 import './component';
 import './config';
-import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-text-code',
+    icon: 'default-basic-stack-circle',
     name: 'moorl-accordion',
     label: 'sw-cms.elements.moorl-accordion.title',
     component: 'sw-cms-el-moorl-accordion',

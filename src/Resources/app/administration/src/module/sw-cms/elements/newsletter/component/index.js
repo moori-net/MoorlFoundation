@@ -2,7 +2,7 @@ const { Component, Application, Mixin } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-appflix-newsletter', {
+Component.register('sw-cms-el-moorl-newsletter', {
     template,
 
     mixins: [
@@ -42,8 +42,8 @@ Component.register('sw-cms-el-appflix-newsletter', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-newsletter');
-            this.initElementData('appflix-newsletter');
+            this.initElementConfig('moorl-newsletter');
+            this.initElementData('moorl-newsletter');
         }
     }
 });

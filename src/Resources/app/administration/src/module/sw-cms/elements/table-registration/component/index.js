@@ -3,7 +3,7 @@ import './index.scss';
 
 const { Component, Mixin } = Shopware;
 
-Component.register('sw-cms-el-appflix-table-registration', {
+Component.register('sw-cms-el-moorl-table-registration', {
     template,
 
     components: {},
@@ -14,7 +14,7 @@ Component.register('sw-cms-el-appflix-table-registration', {
 
     data() {
         return {
-            snippetPrefix: 'sw-cms.elements.appflix-table-registration.'
+            snippetPrefix: 'sw-cms.elements.moorl-table-registration.'
         };
     },
 
@@ -26,7 +26,7 @@ Component.register('sw-cms-el-appflix-table-registration', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-table-registration');
+            this.initElementConfig('moorl-table-registration');
         }
     }
 });

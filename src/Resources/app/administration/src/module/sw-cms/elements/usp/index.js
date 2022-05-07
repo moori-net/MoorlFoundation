@@ -1,15 +1,15 @@
 const Application = Shopware.Application;
 import './component';
 import './config';
-import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
-    hidden: true,
-    name: 'appflix-usp',
-    label: 'sw-cms.elements.appflix-usp.title',
-    component: 'sw-cms-el-appflix-usp',
-    configComponent: 'sw-cms-el-config-appflix-usp',
-    previewComponent: 'sw-cms-el-preview-appflix-usp',
+    plugin: 'MoorlFoundation',
+    icon: 'default-basic-checkmark-wide',
+    name: 'moorl-usp',
+    label: 'sw-cms.elements.moorl-usp.title',
+    component: 'sw-cms-el-moorl-usp',
+    configComponent: 'sw-cms-el-config-moorl-usp',
+    previewComponent: true,
     defaultConfig: {
         iconActive: {
             source: 'static',
