@@ -9,10 +9,6 @@ Component.register('sw-cms-el-moorl-newsletter', {
         Mixin.getByName('cms-element')
     ],
 
-    data() {
-
-    },
-
     computed: {
         newsletterButtonCss(){
             return{
@@ -22,22 +18,8 @@ Component.register('sw-cms-el-moorl-newsletter', {
         }
     },
 
-    watch: {
-
-        cmsPageState: {
-            deep: true,
-            handler() {
-                this.$forceUpdate();
-            }
-        },
-    },
-
     created() {
         this.createdComponent();
-    },
-
-    mounted() {
-        this.mountedComponent();
     },
 
     methods: {
