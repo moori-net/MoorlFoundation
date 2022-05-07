@@ -1,7 +1,7 @@
 {
     "sw-cms": {
         "elements": {
-            "appflix-accordion": {
+            "moorl-accordion": {
                 "title": "Akkordeon",
                 "label": {
                     "name": "Name",

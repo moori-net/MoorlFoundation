@@ -3,6 +3,7 @@ import './config';
 import './preview';
 
 Shopware.Service('cmsService').registerCmsElement({
+    hidden: true,
     name: 'appflix-table-registration',
     label: 'sw-cms.elements.appflix-table-registration.title',
     component: 'sw-cms-el-appflix-table-registration',

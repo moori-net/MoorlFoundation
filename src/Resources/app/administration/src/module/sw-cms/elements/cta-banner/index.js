@@ -11,6 +11,7 @@ const productCriteria = new Criteria();
 productCriteria.addAssociation('cover.media');
 
 Application.getContainer('service').cmsService.registerCmsElement({
+    hidden: true,
     name: 'appflix-cta-banner',
     label: 'sw-cms.elements.appflix-cta-banner.title',
     component: 'sw-cms-el-appflix-cta-banner',

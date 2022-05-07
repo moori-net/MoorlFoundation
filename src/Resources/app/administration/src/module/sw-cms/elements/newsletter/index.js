@@ -4,6 +4,7 @@ import './config';
 import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
+    hidden: true,
     name: 'appflix-newsletter',
     label: 'sw-cms.elements.appflix-newsletter.title',
     component: 'sw-cms-el-appflix-newsletter',

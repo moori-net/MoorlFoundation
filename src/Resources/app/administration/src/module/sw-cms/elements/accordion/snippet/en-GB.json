@@ -1,7 +1,7 @@
 {
     "sw-cms": {
         "elements": {
-            "appflix-accordion": {
+            "moorl-accordion": {
                 "title": "Accordion",
                 "label": {
                     "autoClose": "Close accordion in group",

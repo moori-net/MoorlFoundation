@@ -143,14 +143,5 @@
 
             <tag name="shopware.cms.data_resolver"/>
         </service>
-
-        <!-- Appflix migration -->
-        <service id="MoorlFoundation\Core\Content\Cms\CmsCtaBanner\CmsCtaBannerTypeDataResolver">
-            <tag name="shopware.cms.data_resolver"/>
-        </service>
-
-        <service id="MoorlFoundation\Core\Content\Cms\CmsBrandslider\AppflixBrandSliderCmsElementResolver">
-            <tag name="shopware.cms.data_resolver"/>
-        </service>
     </services>
 </container>

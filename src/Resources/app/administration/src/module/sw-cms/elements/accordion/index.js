@@ -4,11 +4,13 @@ import './config';
 import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
-    name: 'appflix-accordion',
-    label: 'sw-cms.elements.appflix-accordion.title',
-    component: 'sw-cms-el-appflix-accordion',
-    configComponent: 'sw-cms-el-config-appflix-accordion',
-    previewComponent: 'sw-cms-el-preview-appflix-accordion',
+    plugin: 'MoorlFoundation',
+    icon: 'default-text-code',
+    name: 'moorl-accordion',
+    label: 'sw-cms.elements.moorl-accordion.title',
+    component: 'sw-cms-el-moorl-accordion',
+    configComponent: 'sw-cms-el-config-moorl-accordion',
+    previewComponent: true,
     defaultConfig: {
         name: {
             source: 'static',

@@ -7,6 +7,7 @@ const Criteria = Shopware.Data.Criteria;
 const criteria = new Criteria();
 
 Application.getContainer('service').cmsService.registerCmsElement({
+    hidden: true,
     name: 'appflix-brand-slider',
     label: 'sw-cms.elements.appflix-brand-slider.title',
     component: 'sw-cms-el-appflix-brand-slider',

@@ -1,4 +1,4 @@
-<div class="sw-cms-el-config-appflix-accordion">
+<div class="sw-cms-el-config-moorl-accordion">
     <sw-tabs class="sw-cms-el-config-image-gallery__tabs" defaultItem="content">
         <template slot-scope="{ active }" >
             <sw-tabs-item :title="$tc('sw-cms.elements.general.config.tab.content')"
@@ -23,7 +23,7 @@
 
                 <div class="sw-field">
                     <draggable
-                        class="config-appflix_faq_list"
+                        class="config-moorl_faq_list"
                         v-model="element.config.entries.value"
                         handle=".drag-indicator"
                         @choose="dragChoose"
@@ -71,7 +71,7 @@
                         </sw-collapse>
                     </draggable>
 
-                    <div class="config-appflix_faq_actions">
+                    <div class="config-moorl_faq_actions">
                         <sw-button :block="true" @click="addEntry" variant="ghost">
                             <span>
                                 <sw-icon name="small-default-plus-line-large" :small="true"></sw-icon>

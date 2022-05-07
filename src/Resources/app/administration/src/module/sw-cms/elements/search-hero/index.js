@@ -4,6 +4,7 @@ import './config';
 import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
+    hidden: true,
     name: 'appflix-search-hero',
     label: 'sw-cms.elements.appflix-search-hero.title',
     component: 'sw-cms-el-appflix-search-hero',

@@ -2,7 +2,7 @@ const { Component, Mixin } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-appflix-accordion', {
+Component.register('sw-cms-el-moorl-accordion', {
     template,
 
     mixins: [
@@ -15,8 +15,8 @@ Component.register('sw-cms-el-appflix-accordion', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-accordion');
-            this.initElementData('appflix-accordion');
+            this.initElementConfig('moorl-accordion');
+            this.initElementData('moorl-accordion');
         }
     }
 });

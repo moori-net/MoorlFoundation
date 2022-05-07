@@ -278,1787 +278,1787 @@ const MoorlFoundation = function MoorlFoundation() {
     ];
     this.iconClass = [
         {
-            "value": "fab fa-elementor",
+            "value": "fab|elementor",
             "label": "Elementor"
         },
         {
-            "value": "fas fa-eject",
+            "value": "fas|eject",
             "label": "eject"
         },
         {
-            "value": "fas fa-egg",
+            "value": "fas|egg",
             "label": "Egg"
         },
         {
-            "value": "fas fa-edit",
+            "value": "fas|edit",
             "label": "Edit"
         },
         {
-            "value": "far fa-edit",
+            "value": "far|edit",
             "label": "Edit"
         },
         {
-            "value": "fab fa-edge",
+            "value": "fab|edge",
             "label": "Edge Browser"
         },
         {
-            "value": "fab fa-ebay",
+            "value": "fab|ebay",
             "label": "eBay"
         },
         {
-            "value": "fab fa-earlybirds",
+            "value": "fab|earlybirds",
             "label": "Earlybirds"
         },
         {
-            "value": "fab fa-dyalog",
+            "value": "fab|dyalog",
             "label": "Dyalog"
         },
         {
-            "value": "fas fa-dungeon",
+            "value": "fas|dungeon",
             "label": "Dungeon"
         },
         {
-            "value": "fas fa-dumpster-fire",
+            "value": "fas|dumpster-fire",
             "label": "Dumpster Fire"
         },
         {
-            "value": "fas fa-dumpster",
+            "value": "fas|dumpster",
             "label": "Dumpster"
         },
         {
-            "value": "fas fa-dumbbell",
+            "value": "fas|dumbbell",
             "label": "Dumbbell"
         },
         {
-            "value": "fab fa-drupal",
+            "value": "fab|drupal",
             "label": "Drupal Logo"
         },
         {
-            "value": "fas fa-drumstick-bite",
+            "value": "fas|drumstick-bite",
             "label": "Drumstick with Bite Taken Out"
         },
         {
-            "value": "fas fa-drum-steelpan",
+            "value": "fas|drum-steelpan",
             "label": "Drum Steelpan"
         },
         {
-            "value": "fas fa-drum",
+            "value": "fas|drum",
             "label": "Drum"
         },
         {
-            "value": "fab fa-dropbox",
+            "value": "fab|dropbox",
             "label": "Dropbox"
         },
         {
-            "value": "fab fa-dribbble-square",
+            "value": "fab|dribbble-square",
             "label": "Dribbble Square"
         },
         {
-            "value": "fab fa-dribbble",
+            "value": "fab|dribbble",
             "label": "Dribbble"
         },
         {
-            "value": "fas fa-draw-polygon",
+            "value": "fas|draw-polygon",
             "label": "Draw Polygon"
         },
         {
-            "value": "fas fa-dragon",
+            "value": "fas|dragon",
             "label": "Dragon"
         },
         {
-            "value": "fas fa-drafting-compass",
+            "value": "fas|drafting-compass",
             "label": "Drafting Compass"
         },
         {
-            "value": "fab fa-draft2digital",
+            "value": "fab|draft2digital",
             "label": "Draft2digital"
         },
         {
-            "value": "fas fa-download",
+            "value": "fas|download",
             "label": "Download"
         },
         {
-            "value": "fas fa-dove",
+            "value": "fas|dove",
             "label": "Dove"
         },
         {
-            "value": "fas fa-dot-circle",
+            "value": "fas|dot-circle",
             "label": "Dot Circle"
         },
         {
-            "value": "far fa-dot-circle",
+            "value": "far|dot-circle",
             "label": "Dot Circle"
         },
         {
-            "value": "fas fa-door-open",
+            "value": "fas|door-open",
             "label": "Door Open"
         },
         {
-            "value": "fas fa-door-closed",
+            "value": "fas|door-closed",
             "label": "Door Closed"
         },
         {
-            "value": "fas fa-donate",
+            "value": "fas|donate",
             "label": "Donate"
         },
         {
-            "value": "fas fa-dolly-flatbed",
+            "value": "fas|dolly-flatbed",
             "label": "Dolly Flatbed"
         },
         {
-            "value": "fas fa-dolly",
+            "value": "fas|dolly",
             "label": "Dolly"
         },
         {
-            "value": "fas fa-dollar-sign",
+            "value": "fas|dollar-sign",
             "label": "Dollar Sign"
         },
         {
-            "value": "fas fa-dog",
+            "value": "fas|dog",
             "label": "Dog"
         },
         {
-            "value": "fab fa-docker",
+            "value": "fab|docker",
             "label": "Docker"
         },
         {
-            "value": "fab fa-dochub",
+            "value": "fab|dochub",
             "label": "DocHub"
         },
         {
-            "value": "fas fa-dna",
+            "value": "fas|dna",
             "label": "DNA"
         },
         {
-            "value": "fas fa-dizzy",
+            "value": "fas|dizzy",
             "label": "Dizzy Face"
         },
         {
-            "value": "far fa-dizzy",
+            "value": "far|dizzy",
             "label": "Dizzy Face"
         },
         {
-            "value": "fas fa-divide",
+            "value": "fas|divide",
             "label": "Divide"
         },
         {
-            "value": "fab fa-discourse",
+            "value": "fab|discourse",
             "label": "Discourse"
         },
         {
-            "value": "fab fa-discord",
+            "value": "fab|discord",
             "label": "Discord"
         },
         {
-            "value": "fas fa-directions",
+            "value": "fas|directions",
             "label": "Directions"
         },
         {
-            "value": "fas fa-digital-tachograph",
+            "value": "fas|digital-tachograph",
             "label": "Digital Tachograph"
         },
         {
-            "value": "fab fa-digital-ocean",
+            "value": "fab|digital-ocean",
             "label": "Digital Ocean"
         },
         {
-            "value": "fab fa-digg",
+            "value": "fab|digg",
             "label": "Digg Logo"
         },
         {
-            "value": "fas fa-dice-two",
+            "value": "fas|dice-two",
             "label": "Dice Two"
         },
         {
-            "value": "fas fa-dice-three",
+            "value": "fas|dice-three",
             "label": "Dice Three"
         },
         {
-            "value": "fas fa-dice-six",
+            "value": "fas|dice-six",
             "label": "Dice Six"
         },
         {
-            "value": "fas fa-dice-one",
+            "value": "fas|dice-one",
             "label": "Dice One"
         },
         {
-            "value": "fas fa-dice-four",
+            "value": "fas|dice-four",
             "label": "Dice Four"
         },
         {
-            "value": "fas fa-dice-five",
+            "value": "fas|dice-five",
             "label": "Dice Five"
         },
         {
-            "value": "fas fa-dice-d6",
+            "value": "fas|dice-d6",
             "label": "Dice D6"
         },
         {
-            "value": "fas fa-dice-d20",
+            "value": "fas|dice-d20",
             "label": "Dice D20"
         },
         {
-            "value": "fas fa-dice",
+            "value": "fas|dice",
             "label": "Dice"
         },
         {
-            "value": "fab fa-diaspora",
+            "value": "fab|diaspora",
             "label": "Diaspora"
         },
         {
-            "value": "fas fa-diagnoses",
+            "value": "fas|diagnoses",
             "label": "Diagnoses"
         },
         {
-            "value": "fab fa-dhl",
+            "value": "fab|dhl",
             "label": "DHL"
         },
         {
-            "value": "fas fa-dharmachakra",
+            "value": "fas|dharmachakra",
             "label": "Dharmachakra"
         },
         {
-            "value": "fab fa-deviantart",
+            "value": "fab|deviantart",
             "label": "deviantART"
         },
         {
-            "value": "fab fa-dev",
+            "value": "fab|dev",
             "label": "DEV"
         },
         {
-            "value": "fas fa-desktop",
+            "value": "fas|desktop",
             "label": "Desktop"
         },
         {
-            "value": "fab fa-deskpro",
+            "value": "fab|deskpro",
             "label": "Deskpro"
         },
         {
-            "value": "fab fa-deploydog",
+            "value": "fab|deploydog",
             "label": "deploy.dog"
         },
         {
-            "value": "fas fa-democrat",
+            "value": "fas|democrat",
             "label": "Democrat"
         },
         {
-            "value": "fab fa-delicious",
+            "value": "fab|delicious",
             "label": "Delicious"
         },
         {
-            "value": "fas fa-deaf",
+            "value": "fas|deaf",
             "label": "Deaf"
         },
         {
-            "value": "fas fa-database",
+            "value": "fas|database",
             "label": "Database"
         },
         {
-            "value": "fab fa-dashcube",
+            "value": "fab|dashcube",
             "label": "DashCube"
         },
         {
-            "value": "fab fa-dailymotion",
+            "value": "fab|dailymotion",
             "label": "dailymotion"
         },
         {
-            "value": "fab fa-d-and-d-beyond",
+            "value": "fab|d-and-d-beyond",
             "label": "D&D Beyond"
         },
         {
-            "value": "fab fa-d-and-d",
+            "value": "fab|d-and-d",
             "label": "Dungeons & Dragons"
         },
         {
-            "value": "fab fa-cuttlefish",
+            "value": "fab|cuttlefish",
             "label": "Cuttlefish"
         },
         {
-            "value": "fas fa-cut",
+            "value": "fas|cut",
             "label": "Cut"
         },
         {
-            "value": "fas fa-cubes",
+            "value": "fas|cubes",
             "label": "Cubes"
         },
         {
-            "value": "fas fa-cube",
+            "value": "fas|cube",
             "label": "Cube"
         },
         {
-            "value": "fab fa-css3-alt",
+            "value": "fab|css3-alt",
             "label": "Alternate CSS3 Logo"
         },
         {
-            "value": "fab fa-css3",
+            "value": "fab|css3",
             "label": "CSS 3 Logo"
         },
         {
-            "value": "fas fa-crutch",
+            "value": "fas|crutch",
             "label": "Crutch"
         },
         {
-            "value": "fas fa-crown",
+            "value": "fas|crown",
             "label": "Crown"
         },
         {
-            "value": "fas fa-crow",
+            "value": "fas|crow",
             "label": "Crow"
         },
         {
-            "value": "fas fa-crosshairs",
+            "value": "fas|crosshairs",
             "label": "Crosshairs"
         },
         {
-            "value": "fas fa-cross",
+            "value": "fas|cross",
             "label": "Cross"
         },
         {
-            "value": "fas fa-crop-alt",
+            "value": "fas|crop-alt",
             "label": "Alternate Crop"
         },
         {
-            "value": "fas fa-crop",
+            "value": "fas|crop",
             "label": "crop"
         },
         {
-            "value": "fab fa-critical-role",
+            "value": "fab|critical-role",
             "label": "Critical Role"
         },
         {
-            "value": "fas fa-credit-card",
+            "value": "fas|credit-card",
             "label": "Credit Card"
         },
         {
-            "value": "far fa-credit-card",
+            "value": "far|credit-card",
             "label": "Credit Card"
         },
         {
-            "value": "fab fa-creative-commons-zero",
+            "value": "fab|creative-commons-zero",
             "label": "Creative Commons CC0"
         },
         {
-            "value": "fab fa-creative-commons-share",
+            "value": "fab|creative-commons-share",
             "label": "Creative Commons Share"
         },
         {
-            "value": "fab fa-creative-commons-sampling-plus",
+            "value": "fab|creative-commons-sampling-plus",
             "label": "Creative Commons Sampling +"
         },
         {
-            "value": "fab fa-creative-commons-sampling",
+            "value": "fab|creative-commons-sampling",
             "label": "Creative Commons Sampling"
         },
         {
-            "value": "fab fa-creative-commons-sa",
+            "value": "fab|creative-commons-sa",
             "label": "Creative Commons Share Alike"
         },
         {
-            "value": "fab fa-creative-commons-remix",
+            "value": "fab|creative-commons-remix",
             "label": "Creative Commons Remix"
         },
         {
-            "value": "fab fa-creative-commons-pd-alt",
+            "value": "fab|creative-commons-pd-alt",
             "label": "Alternate Creative Commons Public Domain"
         },
         {
-            "value": "fab fa-creative-commons-pd",
+            "value": "fab|creative-commons-pd",
             "label": "Creative Commons Public Domain"
         },
         {
-            "value": "fab fa-creative-commons-nd",
+            "value": "fab|creative-commons-nd",
             "label": "Creative Commons No Derivative Works"
         },
         {
-            "value": "fab fa-creative-commons-nc-jp",
+            "value": "fab|creative-commons-nc-jp",
             "label": "Creative Commons Noncommercial (Yen Sign)"
         },
         {
-            "value": "fab fa-creative-commons-nc-eu",
+            "value": "fab|creative-commons-nc-eu",
             "label": "Creative Commons Noncommercial (Euro Sign)"
         },
         {
-            "value": "fab fa-creative-commons-nc",
+            "value": "fab|creative-commons-nc",
             "label": "Creative Commons Noncommercial"
         },
         {
-            "value": "fab fa-creative-commons-by",
+            "value": "fab|creative-commons-by",
             "label": "Creative Commons Attribution"
         },
         {
-            "value": "fab fa-creative-commons",
+            "value": "fab|creative-commons",
             "label": "Creative Commons"
         },
         {
-            "value": "fab fa-cpanel",
+            "value": "fab|cpanel",
             "label": "cPanel"
         },
         {
-            "value": "fas fa-couch",
+            "value": "fas|couch",
             "label": "Couch"
         },
         {
-            "value": "fab fa-cotton-bureau",
+            "value": "fab|cotton-bureau",
             "label": "Cotton Bureau"
         },
         {
-            "value": "fas fa-copyright",
+            "value": "fas|copyright",
             "label": "Copyright"
         },
         {
-            "value": "far fa-copyright",
+            "value": "far|copyright",
             "label": "Copyright"
         },
         {
-            "value": "fas fa-copy",
+            "value": "fas|copy",
             "label": "Copy"
         },
         {
-            "value": "far fa-copy",
+            "value": "far|copy",
             "label": "Copy"
         },
         {
-            "value": "fas fa-cookie-bite",
+            "value": "fas|cookie-bite",
             "label": "Cookie Bite"
         },
         {
-            "value": "fas fa-cookie",
+            "value": "fas|cookie",
             "label": "Cookie"
         },
         {
-            "value": "fab fa-contao",
+            "value": "fab|contao",
             "label": "Contao"
         },
         {
-            "value": "fab fa-connectdevelop",
+            "value": "fab|connectdevelop",
             "label": "Connect Develop"
         },
         {
-            "value": "fab fa-confluence",
+            "value": "fab|confluence",
             "label": "Confluence"
         },
         {
-            "value": "fas fa-concierge-bell",
+            "value": "fas|concierge-bell",
             "label": "Concierge Bell"
         },
         {
-            "value": "fas fa-compress-arrows-alt",
+            "value": "fas|compress-arrows-alt",
             "label": "Alternate Compress Arrows"
         },
         {
-            "value": "fas fa-compress-alt",
+            "value": "fas|compress-alt",
             "label": "Alternate Compress"
         },
         {
-            "value": "fas fa-compress",
+            "value": "fas|compress",
             "label": "Compress"
         },
         {
-            "value": "fas fa-compass",
+            "value": "fas|compass",
             "label": "Compass"
         },
         {
-            "value": "far fa-compass",
+            "value": "far|compass",
             "label": "Compass"
         },
         {
-            "value": "fas fa-compact-disc",
+            "value": "fas|compact-disc",
             "label": "Compact Disc"
         },
         {
-            "value": "fas fa-comments-dollar",
+            "value": "fas|comments-dollar",
             "label": "Comments Dollar"
         },
         {
-            "value": "fas fa-comments",
+            "value": "fas|comments",
             "label": "comments"
         },
         {
-            "value": "far fa-comments",
+            "value": "far|comments",
             "label": "comments"
         },
         {
-            "value": "fas fa-comment-slash",
+            "value": "fas|comment-slash",
             "label": "Comment Slash"
         },
         {
-            "value": "fas fa-comment-medical",
+            "value": "fas|comment-medical",
             "label": "Alternate Medical Chat"
         },
         {
-            "value": "fas fa-comment-dots",
+            "value": "fas|comment-dots",
             "label": "Comment Dots"
         },
         {
-            "value": "far fa-comment-dots",
+            "value": "far|comment-dots",
             "label": "Comment Dots"
         },
         {
-            "value": "fas fa-comment-dollar",
+            "value": "fas|comment-dollar",
             "label": "Comment Dollar"
         },
         {
-            "value": "fas fa-comment-alt",
+            "value": "fas|comment-alt",
             "label": "Alternate Comment"
         },
         {
-            "value": "far fa-comment-alt",
+            "value": "far|comment-alt",
             "label": "Alternate Comment"
         },
         {
-            "value": "fas fa-comment",
+            "value": "fas|comment",
             "label": "comment"
         },
         {
-            "value": "far fa-comment",
+            "value": "far|comment",
             "label": "comment"
         },
         {
-            "value": "fas fa-columns",
+            "value": "fas|columns",
             "label": "Columns"
         },
         {
-            "value": "fas fa-coins",
+            "value": "fas|coins",
             "label": "Coins"
         },
         {
-            "value": "fas fa-cogs",
+            "value": "fas|cogs",
             "label": "cogs"
         },
         {
-            "value": "fas fa-cog",
+            "value": "fas|cog",
             "label": "cog"
         },
         {
-            "value": "fas fa-coffee",
+            "value": "fas|coffee",
             "label": "Coffee"
         },
         {
-            "value": "fab fa-codiepie",
+            "value": "fab|codiepie",
             "label": "Codie Pie"
         },
         {
-            "value": "fab fa-codepen",
+            "value": "fab|codepen",
             "label": "Codepen"
         },
         {
-            "value": "fas fa-code-branch",
+            "value": "fas|code-branch",
             "label": "Code Branch"
         },
         {
-            "value": "fas fa-code",
+            "value": "fas|code",
             "label": "Code"
         },
         {
-            "value": "fas fa-cocktail",
+            "value": "fas|cocktail",
             "label": "Cocktail"
         },
         {
-            "value": "fab fa-cloudversify",
+            "value": "fab|cloudversify",
             "label": "cloudversify"
         },
         {
-            "value": "fab fa-cloudsmith",
+            "value": "fab|cloudsmith",
             "label": "Cloudsmith"
         },
         {
-            "value": "fab fa-cloudscale",
+            "value": "fab|cloudscale",
             "label": "cloudscale.ch"
         },
         {
-            "value": "fas fa-cloud-upload-alt",
+            "value": "fas|cloud-upload-alt",
             "label": "Alternate Cloud Upload"
         },
         {
-            "value": "fas fa-cloud-sun-rain",
+            "value": "fas|cloud-sun-rain",
             "label": "Cloud with Sun and Rain"
         },
         {
-            "value": "fas fa-cloud-sun",
+            "value": "fas|cloud-sun",
             "label": "Cloud with Sun"
         },
         {
-            "value": "fas fa-cloud-showers-heavy",
+            "value": "fas|cloud-showers-heavy",
             "label": "Cloud with Heavy Showers"
         },
         {
-            "value": "fas fa-cloud-rain",
+            "value": "fas|cloud-rain",
             "label": "Cloud with Rain"
         },
         {
-            "value": "fas fa-cloud-moon-rain",
+            "value": "fas|cloud-moon-rain",
             "label": "Cloud with Moon and Rain"
         },
         {
-            "value": "fas fa-cloud-moon",
+            "value": "fas|cloud-moon",
             "label": "Cloud with Moon"
         },
         {
-            "value": "fas fa-cloud-meatball",
+            "value": "fas|cloud-meatball",
             "label": "Cloud with (a chance of) Meatball"
         },
         {
-            "value": "fas fa-cloud-download-alt",
+            "value": "fas|cloud-download-alt",
             "label": "Alternate Cloud Download"
         },
         {
-            "value": "fas fa-cloud",
+            "value": "fas|cloud",
             "label": "Cloud"
         },
         {
-            "value": "fas fa-closed-captioning",
+            "value": "fas|closed-captioning",
             "label": "Closed Captioning"
         },
         {
-            "value": "far fa-closed-captioning",
+            "value": "far|closed-captioning",
             "label": "Closed Captioning"
         },
         {
-            "value": "fas fa-clone",
+            "value": "fas|clone",
             "label": "Clone"
         },
         {
-            "value": "far fa-clone",
+            "value": "far|clone",
             "label": "Clone"
         },
         {
-            "value": "fas fa-clock",
+            "value": "fas|clock",
             "label": "Clock"
         },
         {
-            "value": "far fa-clock",
+            "value": "far|clock",
             "label": "Clock"
         },
         {
-            "value": "fas fa-clipboard-list",
+            "value": "fas|clipboard-list",
             "label": "Clipboard List"
         },
         {
-            "value": "fas fa-clipboard-check",
+            "value": "fas|clipboard-check",
             "label": "Clipboard with Check"
         },
         {
-            "value": "fas fa-clipboard",
+            "value": "fas|clipboard",
             "label": "Clipboard"
         },
         {
-            "value": "far fa-clipboard",
+            "value": "far|clipboard",
             "label": "Clipboard"
         },
         {
-            "value": "fas fa-clinic-medical",
+            "value": "fas|clinic-medical",
             "label": "Medical Clinic"
         },
         {
-            "value": "fas fa-city",
+            "value": "fas|city",
             "label": "City"
         },
         {
-            "value": "fas fa-circle-notch",
+            "value": "fas|circle-notch",
             "label": "Circle Notched"
         },
         {
-            "value": "fas fa-circle",
+            "value": "fas|circle",
             "label": "Circle"
         },
         {
-            "value": "far fa-circle",
+            "value": "far|circle",
             "label": "Circle"
         },
         {
-            "value": "fas fa-church",
+            "value": "fas|church",
             "label": "Church"
         },
         {
-            "value": "fab fa-chromecast",
+            "value": "fab|chromecast",
             "label": "Chromecast"
         },
         {
-            "value": "fab fa-chrome",
+            "value": "fab|chrome",
             "label": "Chrome"
         },
         {
-            "value": "fas fa-child",
+            "value": "fas|child",
             "label": "Child"
         },
         {
-            "value": "fas fa-chevron-up",
+            "value": "fas|chevron-up",
             "label": "chevron-up"
         },
         {
-            "value": "fas fa-chevron-right",
+            "value": "fas|chevron-right",
             "label": "chevron-right"
         },
         {
-            "value": "fas fa-chevron-left",
+            "value": "fas|chevron-left",
             "label": "chevron-left"
         },
         {
-            "value": "fas fa-chevron-down",
+            "value": "fas|chevron-down",
             "label": "chevron-down"
         },
         {
-            "value": "fas fa-chevron-circle-up",
+            "value": "fas|chevron-circle-up",
             "label": "Chevron Circle Up"
         },
         {
-            "value": "fas fa-chevron-circle-right",
+            "value": "fas|chevron-circle-right",
             "label": "Chevron Circle Right"
         },
         {
-            "value": "fas fa-chevron-circle-left",
+            "value": "fas|chevron-circle-left",
             "label": "Chevron Circle Left"
         },
         {
-            "value": "fas fa-chevron-circle-down",
+            "value": "fas|chevron-circle-down",
             "label": "Chevron Circle Down"
         },
         {
-            "value": "fas fa-chess-rook",
+            "value": "fas|chess-rook",
             "label": "Chess Rook"
         },
         {
-            "value": "fas fa-chess-queen",
+            "value": "fas|chess-queen",
             "label": "Chess Queen"
         },
         {
-            "value": "fas fa-chess-pawn",
+            "value": "fas|chess-pawn",
             "label": "Chess Pawn"
         },
         {
-            "value": "fas fa-chess-knight",
+            "value": "fas|chess-knight",
             "label": "Chess Knight"
         },
         {
-            "value": "fas fa-chess-king",
+            "value": "fas|chess-king",
             "label": "Chess King"
         },
         {
-            "value": "fas fa-chess-board",
+            "value": "fas|chess-board",
             "label": "Chess Board"
         },
         {
-            "value": "fas fa-chess-bishop",
+            "value": "fas|chess-bishop",
             "label": "Chess Bishop"
         },
         {
-            "value": "fas fa-chess",
+            "value": "fas|chess",
             "label": "Chess"
         },
         {
-            "value": "fas fa-cheese",
+            "value": "fas|cheese",
             "label": "Cheese"
         },
         {
-            "value": "fas fa-check-square",
+            "value": "fas|check-square",
             "label": "Check Square"
         },
         {
-            "value": "far fa-check-square",
+            "value": "far|check-square",
             "label": "Check Square"
         },
         {
-            "value": "fas fa-check-double",
+            "value": "fas|check-double",
             "label": "Double Check"
         },
         {
-            "value": "fas fa-check-circle",
+            "value": "fas|check-circle",
             "label": "Check Circle"
         },
         {
-            "value": "far fa-check-circle",
+            "value": "far|check-circle",
             "label": "Check Circle"
         },
         {
-            "value": "fas fa-check",
+            "value": "fas|check",
             "label": "Check"
         },
         {
-            "value": "fas fa-chart-pie",
+            "value": "fas|chart-pie",
             "label": "Pie Chart"
         },
         {
-            "value": "fas fa-chart-line",
+            "value": "fas|chart-line",
             "label": "Line Chart"
         },
         {
-            "value": "fas fa-chart-bar",
+            "value": "fas|chart-bar",
             "label": "Bar Chart"
         },
         {
-            "value": "far fa-chart-bar",
+            "value": "far|chart-bar",
             "label": "Bar Chart"
         },
         {
-            "value": "fas fa-chart-area",
+            "value": "fas|chart-area",
             "label": "Area Chart"
         },
         {
-            "value": "fas fa-charging-station",
+            "value": "fas|charging-station",
             "label": "Charging Station"
         },
         {
-            "value": "fas fa-chalkboard-teacher",
+            "value": "fas|chalkboard-teacher",
             "label": "Chalkboard Teacher"
         },
         {
-            "value": "fas fa-chalkboard",
+            "value": "fas|chalkboard",
             "label": "Chalkboard"
         },
         {
-            "value": "fas fa-chair",
+            "value": "fas|chair",
             "label": "Chair"
         },
         {
-            "value": "fas fa-certificate",
+            "value": "fas|certificate",
             "label": "certificate"
         },
         {
-            "value": "fab fa-centos",
+            "value": "fab|centos",
             "label": "Centos"
         },
         {
-            "value": "fab fa-centercode",
+            "value": "fab|centercode",
             "label": "Centercode"
         },
         {
-            "value": "fab fa-cc-visa",
+            "value": "fab|cc-visa",
             "label": "Visa Credit Card"
         },
         {
-            "value": "fab fa-cc-stripe",
+            "value": "fab|cc-stripe",
             "label": "Stripe Credit Card"
         },
         {
-            "value": "fab fa-cc-paypal",
+            "value": "fab|cc-paypal",
             "label": "Paypal Credit Card"
         },
         {
-            "value": "fab fa-cc-mastercard",
+            "value": "fab|cc-mastercard",
             "label": "MasterCard Credit Card"
         },
         {
-            "value": "fab fa-cc-jcb",
+            "value": "fab|cc-jcb",
             "label": "JCB Credit Card"
         },
         {
-            "value": "fab fa-cc-discover",
+            "value": "fab|cc-discover",
             "label": "Discover Credit Card"
         },
         {
-            "value": "fab fa-cc-diners-club",
+            "value": "fab|cc-diners-club",
             "label": "Diner's Club Credit Card"
         },
         {
-            "value": "fab fa-cc-apple-pay",
+            "value": "fab|cc-apple-pay",
             "label": "Apple Pay Credit Card"
         },
         {
-            "value": "fab fa-cc-amex",
+            "value": "fab|cc-amex",
             "label": "American Express Credit Card"
         },
         {
-            "value": "fab fa-cc-amazon-pay",
+            "value": "fab|cc-amazon-pay",
             "label": "Amazon Pay Credit Card"
         },
         {
-            "value": "fas fa-cat",
+            "value": "fas|cat",
             "label": "Cat"
         },
         {
-            "value": "fas fa-cash-register",
+            "value": "fas|cash-register",
             "label": "Cash Register"
         },
         {
-            "value": "fas fa-cart-plus",
+            "value": "fas|cart-plus",
             "label": "Add to Shopping Cart"
         },
         {
-            "value": "fas fa-cart-arrow-down",
+            "value": "fas|cart-arrow-down",
             "label": "Shopping Cart Arrow Down"
         },
         {
-            "value": "fas fa-carrot",
+            "value": "fas|carrot",
             "label": "Carrot"
         },
         {
-            "value": "fas fa-caret-up",
+            "value": "fas|caret-up",
             "label": "Caret Up"
         },
         {
-            "value": "fas fa-caret-square-up",
+            "value": "fas|caret-square-up",
             "label": "Caret Square Up"
         },
         {
-            "value": "far fa-caret-square-up",
+            "value": "far|caret-square-up",
             "label": "Caret Square Up"
         },
         {
-            "value": "fas fa-caret-square-right",
+            "value": "fas|caret-square-right",
             "label": "Caret Square Right"
         },
         {
-            "value": "far fa-caret-square-right",
+            "value": "far|caret-square-right",
             "label": "Caret Square Right"
         },
         {
-            "value": "fas fa-caret-square-left",
+            "value": "fas|caret-square-left",
             "label": "Caret Square Left"
         },
         {
-            "value": "far fa-caret-square-left",
+            "value": "far|caret-square-left",
             "label": "Caret Square Left"
         },
         {
-            "value": "fas fa-caret-square-down",
+            "value": "fas|caret-square-down",
             "label": "Caret Square Down"
         },
         {
-            "value": "far fa-caret-square-down",
+            "value": "far|caret-square-down",
             "label": "Caret Square Down"
         },
         {
-            "value": "fas fa-caret-right",
+            "value": "fas|caret-right",
             "label": "Caret Right"
         },
         {
-            "value": "fas fa-caret-left",
+            "value": "fas|caret-left",
             "label": "Caret Left"
         },
         {
-            "value": "fas fa-caret-down",
+            "value": "fas|caret-down",
             "label": "Caret Down"
         },
         {
-            "value": "fas fa-caravan",
+            "value": "fas|caravan",
             "label": "Caravan"
         },
         {
-            "value": "fas fa-car-side",
+            "value": "fas|car-side",
             "label": "Car Side"
         },
         {
-            "value": "fas fa-car-crash",
+            "value": "fas|car-crash",
             "label": "Car Crash"
         },
         {
-            "value": "fas fa-car-battery",
+            "value": "fas|car-battery",
             "label": "Car Battery"
         },
         {
-            "value": "fas fa-car-alt",
+            "value": "fas|car-alt",
             "label": "Alternate Car"
         },
         {
-            "value": "fas fa-car",
+            "value": "fas|car",
             "label": "Car"
         },
         {
-            "value": "fas fa-capsules",
+            "value": "fas|capsules",
             "label": "Capsules"
         },
         {
-            "value": "fas fa-cannabis",
+            "value": "fas|cannabis",
             "label": "Cannabis"
         },
         {
-            "value": "fas fa-candy-cane",
+            "value": "fas|candy-cane",
             "label": "Candy Cane"
         },
         {
-            "value": "fab fa-canadian-maple-leaf",
+            "value": "fab|canadian-maple-leaf",
             "label": "Canadian Maple Leaf"
         },
         {
-            "value": "fas fa-campground",
+            "value": "fas|campground",
             "label": "Campground"
         },
         {
-            "value": "fas fa-camera-retro",
+            "value": "fas|camera-retro",
             "label": "Retro Camera"
         },
         {
-            "value": "fas fa-camera",
+            "value": "fas|camera",
             "label": "camera"
         },
         {
-            "value": "fas fa-calendar-week",
+            "value": "fas|calendar-week",
             "label": "Calendar with Week Focus"
         },
         {
-            "value": "fas fa-calendar-times",
+            "value": "fas|calendar-times",
             "label": "Calendar Times"
         },
         {
-            "value": "far fa-calendar-times",
+            "value": "far|calendar-times",
             "label": "Calendar Times"
         },
         {
-            "value": "fas fa-calendar-plus",
+            "value": "fas|calendar-plus",
             "label": "Calendar Plus"
         },
         {
-            "value": "far fa-calendar-plus",
+            "value": "far|calendar-plus",
             "label": "Calendar Plus"
         },
         {
-            "value": "fas fa-calendar-minus",
+            "value": "fas|calendar-minus",
             "label": "Calendar Minus"
         },
         {
-            "value": "far fa-calendar-minus",
+            "value": "far|calendar-minus",
             "label": "Calendar Minus"
         },
         {
-            "value": "fas fa-calendar-day",
+            "value": "fas|calendar-day",
             "label": "Calendar with Day Focus"
         },
         {
-            "value": "fas fa-calendar-check",
+            "value": "fas|calendar-check",
             "label": "Calendar Check"
         },
         {
-            "value": "far fa-calendar-check",
+            "value": "far|calendar-check",
             "label": "Calendar Check"
         },
         {
-            "value": "fas fa-calendar-alt",
+            "value": "fas|calendar-alt",
             "label": "Alternate Calendar"
         },
         {
-            "value": "far fa-calendar-alt",
+            "value": "far|calendar-alt",
             "label": "Alternate Calendar"
         },
         {
-            "value": "fas fa-calendar",
+            "value": "fas|calendar",
             "label": "Calendar"
         },
         {
-            "value": "far fa-calendar",
+            "value": "far|calendar",
             "label": "Calendar"
         },
         {
-            "value": "fas fa-calculator",
+            "value": "fas|calculator",
             "label": "Calculator"
         },
         {
-            "value": "fab fa-buysellads",
+            "value": "fab|buysellads",
             "label": "BuySellAds"
         },
         {
-            "value": "fab fa-buy-n-large",
+            "value": "fab|buy-n-large",
             "label": "Buy n Large"
         },
         {
-            "value": "fas fa-business-time",
+            "value": "fas|business-time",
             "label": "Business Time"
         },
         {
-            "value": "fas fa-bus-alt",
+            "value": "fas|bus-alt",
             "label": "Bus Alt"
         },
         {
-            "value": "fas fa-bus",
+            "value": "fas|bus",
             "label": "Bus"
         },
         {
-            "value": "fab fa-buromobelexperte",
+            "value": "fab|buromobelexperte",
             "label": "Büromöbel-Experte GmbH & Co. KG."
         },
         {
-            "value": "fas fa-burn",
+            "value": "fas|burn",
             "label": "Burn"
         },
         {
-            "value": "fas fa-bullseye",
+            "value": "fas|bullseye",
             "label": "Bullseye"
         },
         {
-            "value": "fas fa-bullhorn",
+            "value": "fas|bullhorn",
             "label": "bullhorn"
         },
         {
-            "value": "fas fa-building",
+            "value": "fas|building",
             "label": "Building"
         },
         {
-            "value": "far fa-building",
+            "value": "far|building",
             "label": "Building"
         },
         {
-            "value": "fas fa-bug",
+            "value": "fas|bug",
             "label": "Bug"
         },
         {
-            "value": "fab fa-buffer",
+            "value": "fab|buffer",
             "label": "Buffer"
         },
         {
-            "value": "fab fa-btc",
+            "value": "fab|btc",
             "label": "BTC"
         },
         {
-            "value": "fas fa-brush",
+            "value": "fas|brush",
             "label": "Brush"
         },
         {
-            "value": "fas fa-broom",
+            "value": "fas|broom",
             "label": "Broom"
         },
         {
-            "value": "fas fa-broadcast-tower",
+            "value": "fas|broadcast-tower",
             "label": "Broadcast Tower"
         },
         {
-            "value": "fas fa-briefcase-medical",
+            "value": "fas|briefcase-medical",
             "label": "Medical Briefcase"
         },
         {
-            "value": "fas fa-briefcase",
+            "value": "fas|briefcase",
             "label": "Briefcase"
         },
         {
-            "value": "fas fa-bread-slice",
+            "value": "fas|bread-slice",
             "label": "Bread Slice"
         },
         {
-            "value": "fas fa-brain",
+            "value": "fas|brain",
             "label": "Brain"
         },
         {
-            "value": "fas fa-braille",
+            "value": "fas|braille",
             "label": "Braille"
         },
         {
-            "value": "fas fa-boxes",
+            "value": "fas|boxes",
             "label": "Boxes"
         },
         {
-            "value": "fas fa-box-open",
+            "value": "fas|box-open",
             "label": "Box Open"
         },
         {
-            "value": "fas fa-box",
+            "value": "fas|box",
             "label": "Box"
         },
         {
-            "value": "fas fa-bowling-ball",
+            "value": "fas|bowling-ball",
             "label": "Bowling Ball"
         },
         {
-            "value": "fas fa-border-style",
+            "value": "fas|border-style",
             "label": "Border Style"
         },
         {
-            "value": "fas fa-border-none",
+            "value": "fas|border-none",
             "label": "Border None"
         },
         {
-            "value": "fas fa-border-all",
+            "value": "fas|border-all",
             "label": "Border All"
         },
         {
-            "value": "fab fa-bootstrap",
+            "value": "fab|bootstrap",
             "label": "Bootstrap"
         },
         {
-            "value": "fas fa-bookmark",
+            "value": "fas|bookmark",
             "label": "bookmark"
         },
         {
-            "value": "far fa-bookmark",
+            "value": "far|bookmark",
             "label": "bookmark"
         },
         {
-            "value": "fas fa-book-reader",
+            "value": "fas|book-reader",
             "label": "Book Reader"
         },
         {
-            "value": "fas fa-book-open",
+            "value": "fas|book-open",
             "label": "Book Open"
         },
         {
-            "value": "fas fa-book-medical",
+            "value": "fas|book-medical",
             "label": "Medical Book"
         },
         {
-            "value": "fas fa-book-dead",
+            "value": "fas|book-dead",
             "label": "Book of the Dead"
         },
         {
-            "value": "fas fa-book",
+            "value": "fas|book",
             "label": "book"
         },
         {
-            "value": "fas fa-bong",
+            "value": "fas|bong",
             "label": "Bong"
         },
         {
-            "value": "fas fa-bone",
+            "value": "fas|bone",
             "label": "Bone"
         },
         {
-            "value": "fas fa-bomb",
+            "value": "fas|bomb",
             "label": "Bomb"
         },
         {
-            "value": "fas fa-bolt",
+            "value": "fas|bolt",
             "label": "Lightning Bolt"
         },
         {
-            "value": "fas fa-bold",
+            "value": "fas|bold",
             "label": "bold"
         },
         {
-            "value": "fab fa-bluetooth-b",
+            "value": "fab|bluetooth-b",
             "label": "Bluetooth"
         },
         {
-            "value": "fab fa-bluetooth",
+            "value": "fab|bluetooth",
             "label": "Bluetooth"
         },
         {
-            "value": "fab fa-blogger-b",
+            "value": "fab|blogger-b",
             "label": "Blogger B"
         },
         {
-            "value": "fab fa-blogger",
+            "value": "fab|blogger",
             "label": "Blogger"
         },
         {
-            "value": "fas fa-blog",
+            "value": "fas|blog",
             "label": "Blog"
         },
         {
-            "value": "fas fa-blind",
+            "value": "fas|blind",
             "label": "Blind"
         },
         {
-            "value": "fas fa-blender-phone",
+            "value": "fas|blender-phone",
             "label": "Blender Phone"
         },
         {
-            "value": "fas fa-blender",
+            "value": "fas|blender",
             "label": "Blender"
         },
         {
-            "value": "fab fa-blackberry",
+            "value": "fab|blackberry",
             "label": "BlackBerry"
         },
         {
-            "value": "fab fa-black-tie",
+            "value": "fab|black-tie",
             "label": "Font Awesome Black Tie"
         },
         {
-            "value": "fab fa-bity",
+            "value": "fab|bity",
             "label": "Bity"
         },
         {
-            "value": "fab fa-bitcoin",
+            "value": "fab|bitcoin",
             "label": "Bitcoin"
         },
         {
-            "value": "fab fa-bitbucket",
+            "value": "fab|bitbucket",
             "label": "Bitbucket"
         },
         {
-            "value": "fas fa-birthday-cake",
+            "value": "fas|birthday-cake",
             "label": "Birthday Cake"
         },
         {
-            "value": "fas fa-biohazard",
+            "value": "fas|biohazard",
             "label": "Biohazard"
         },
         {
-            "value": "fas fa-binoculars",
+            "value": "fas|binoculars",
             "label": "Binoculars"
         },
         {
-            "value": "fab fa-bimobject",
+            "value": "fab|bimobject",
             "label": "BIMobject"
         },
         {
-            "value": "fas fa-biking",
+            "value": "fas|biking",
             "label": "Biking"
         },
         {
-            "value": "fas fa-bicycle",
+            "value": "fas|bicycle",
             "label": "Bicycle"
         },
         {
-            "value": "fas fa-bible",
+            "value": "fas|bible",
             "label": "Bible"
         },
         {
-            "value": "fas fa-bezier-curve",
+            "value": "fas|bezier-curve",
             "label": "Bezier Curve"
         },
         {
-            "value": "fas fa-bell-slash",
+            "value": "fas|bell-slash",
             "label": "Bell Slash"
         },
         {
-            "value": "far fa-bell-slash",
+            "value": "far|bell-slash",
             "label": "Bell Slash"
         },
         {
-            "value": "fas fa-bell",
+            "value": "fas|bell",
             "label": "bell"
         },
         {
-            "value": "far fa-bell",
+            "value": "far|bell",
             "label": "bell"
         },
         {
-            "value": "fab fa-behance-square",
+            "value": "fab|behance-square",
             "label": "Behance Square"
         },
         {
-            "value": "fab fa-behance",
+            "value": "fab|behance",
             "label": "Behance"
         },
         {
-            "value": "fas fa-beer",
+            "value": "fas|beer",
             "label": "beer"
         },
         {
-            "value": "fas fa-bed",
+            "value": "fas|bed",
             "label": "Bed"
         },
         {
-            "value": "fab fa-battle-net",
+            "value": "fab|battle-net",
             "label": "Battle.net"
         },
         {
-            "value": "fas fa-battery-three-quarters",
+            "value": "fas|battery-three-quarters",
             "label": "Battery 3/4 Full"
         },
         {
-            "value": "fas fa-battery-quarter",
+            "value": "fas|battery-quarter",
             "label": "Battery 1/4 Full"
         },
         {
-            "value": "fas fa-battery-half",
+            "value": "fas|battery-half",
             "label": "Battery 1/2 Full"
         },
         {
-            "value": "fas fa-battery-full",
+            "value": "fas|battery-full",
             "label": "Battery Full"
         },
         {
-            "value": "fas fa-battery-empty",
+            "value": "fas|battery-empty",
             "label": "Battery Empty"
         },
         {
-            "value": "fas fa-bath",
+            "value": "fas|bath",
             "label": "Bath"
         },
         {
-            "value": "fas fa-basketball-ball",
+            "value": "fas|basketball-ball",
             "label": "Basketball Ball"
         },
         {
-            "value": "fas fa-baseball-ball",
+            "value": "fas|baseball-ball",
             "label": "Baseball Ball"
         },
         {
-            "value": "fas fa-bars",
+            "value": "fas|bars",
             "label": "Bars"
         },
         {
-            "value": "fas fa-barcode",
+            "value": "fas|barcode",
             "label": "barcode"
         },
         {
-            "value": "fab fa-bandcamp",
+            "value": "fab|bandcamp",
             "label": "Bandcamp"
         },
         {
-            "value": "fas fa-band-aid",
+            "value": "fas|band-aid",
             "label": "Band-Aid"
         },
         {
-            "value": "fas fa-ban",
+            "value": "fas|ban",
             "label": "ban"
         },
         {
-            "value": "fas fa-balance-scale-right",
+            "value": "fas|balance-scale-right",
             "label": "Balance Scale (Right-Weighted)"
         },
         {
-            "value": "fas fa-balance-scale-left",
+            "value": "fas|balance-scale-left",
             "label": "Balance Scale (Left-Weighted)"
         },
         {
-            "value": "fas fa-balance-scale",
+            "value": "fas|balance-scale",
             "label": "Balance Scale"
         },
         {
-            "value": "fas fa-bahai",
+            "value": "fas|bahai",
             "label": "Bahá'í"
         },
         {
-            "value": "fas fa-bacon",
+            "value": "fas|bacon",
             "label": "Bacon"
         },
         {
-            "value": "fas fa-backward",
+            "value": "fas|backward",
             "label": "backward"
         },
         {
-            "value": "fas fa-backspace",
+            "value": "fas|backspace",
             "label": "Backspace"
         },
         {
-            "value": "fas fa-baby-carriage",
+            "value": "fas|baby-carriage",
             "label": "Baby Carriage"
         },
         {
-            "value": "fas fa-baby",
+            "value": "fas|baby",
             "label": "Baby"
         },
         {
-            "value": "fab fa-aws",
+            "value": "fab|aws",
             "label": "Amazon Web Services (AWS)"
         },
         {
-            "value": "fas fa-award",
+            "value": "fas|award",
             "label": "Award"
         },
         {
-            "value": "fab fa-aviato",
+            "value": "fab|aviato",
             "label": "Aviato"
         },
         {
-            "value": "fab fa-avianex",
+            "value": "fab|avianex",
             "label": "avianex"
         },
         {
-            "value": "fab fa-autoprefixer",
+            "value": "fab|autoprefixer",
             "label": "Autoprefixer"
         },
         {
-            "value": "fas fa-audio-description",
+            "value": "fas|audio-description",
             "label": "Audio Description"
         },
         {
-            "value": "fab fa-audible",
+            "value": "fab|audible",
             "label": "Audible"
         },
         {
-            "value": "fas fa-atom",
+            "value": "fas|atom",
             "label": "Atom"
         },
         {
-            "value": "fab fa-atlassian",
+            "value": "fab|atlassian",
             "label": "Atlassian"
         },
         {
-            "value": "fas fa-atlas",
+            "value": "fas|atlas",
             "label": "Atlas"
         },
         {
-            "value": "fas fa-at",
+            "value": "fas|at",
             "label": "At"
         },
         {
-            "value": "fab fa-asymmetrik",
+            "value": "fab|asymmetrik",
             "label": "Asymmetrik, Ltd."
         },
         {
-            "value": "fas fa-asterisk",
+            "value": "fas|asterisk",
             "label": "asterisk"
         },
         {
-            "value": "fas fa-assistive-listening-systems",
+            "value": "fas|assistive-listening-systems",
             "label": "Assistive Listening Systems"
         },
         {
-            "value": "fab fa-artstation",
+            "value": "fab|artstation",
             "label": "Artstation"
         },
         {
-            "value": "fas fa-arrows-alt-v",
+            "value": "fas|arrows-alt-v",
             "label": "Alternate Arrows Vertical"
         },
         {
-            "value": "fas fa-arrows-alt-h",
+            "value": "fas|arrows-alt-h",
             "label": "Alternate Arrows Horizontal"
         },
         {
-            "value": "fas fa-arrows-alt",
+            "value": "fas|arrows-alt",
             "label": "Alternate Arrows"
         },
         {
-            "value": "fas fa-arrow-up",
+            "value": "fas|arrow-up",
             "label": "arrow-up"
         },
         {
-            "value": "fas fa-arrow-right",
+            "value": "fas|arrow-right",
             "label": "arrow-right"
         },
         {
-            "value": "fas fa-arrow-left",
+            "value": "fas|arrow-left",
             "label": "arrow-left"
         },
         {
-            "value": "fas fa-arrow-down",
+            "value": "fas|arrow-down",
             "label": "arrow-down"
         },
         {
-            "value": "fas fa-arrow-circle-up",
+            "value": "fas|arrow-circle-up",
             "label": "Arrow Circle Up"
         },
         {
-            "value": "fas fa-arrow-circle-right",
+            "value": "fas|arrow-circle-right",
             "label": "Arrow Circle Right"
         },
         {
-            "value": "fas fa-arrow-circle-left",
+            "value": "fas|arrow-circle-left",
             "label": "Arrow Circle Left"
         },
         {
-            "value": "fas fa-arrow-circle-down",
+            "value": "fas|arrow-circle-down",
             "label": "Arrow Circle Down"
         },
         {
-            "value": "fas fa-arrow-alt-circle-up",
+            "value": "fas|arrow-alt-circle-up",
             "label": "Alternate Arrow Circle Up"
         },
         {
-            "value": "far fa-arrow-alt-circle-up",
+            "value": "far|arrow-alt-circle-up",
             "label": "Alternate Arrow Circle Up"
         },
         {
-            "value": "fas fa-arrow-alt-circle-right",
+            "value": "fas|arrow-alt-circle-right",
             "label": "Alternate Arrow Circle Right"
         },
         {
-            "value": "far fa-arrow-alt-circle-right",
+            "value": "far|arrow-alt-circle-right",
             "label": "Alternate Arrow Circle Right"
         },
         {
-            "value": "fas fa-arrow-alt-circle-left",
+            "value": "fas|arrow-alt-circle-left",
             "label": "Alternate Arrow Circle Left"
         },
         {
-            "value": "far fa-arrow-alt-circle-left",
+            "value": "far|arrow-alt-circle-left",
             "label": "Alternate Arrow Circle Left"
         },
         {
-            "value": "fas fa-arrow-alt-circle-down",
+            "value": "fas|arrow-alt-circle-down",
             "label": "Alternate Arrow Circle Down"
         },
         {
-            "value": "far fa-arrow-alt-circle-down",
+            "value": "far|arrow-alt-circle-down",
             "label": "Alternate Arrow Circle Down"
         },
         {
-            "value": "fas fa-archway",
+            "value": "fas|archway",
             "label": "Archway"
         },
         {
-            "value": "fas fa-archive",
+            "value": "fas|archive",
             "label": "Archive"
         },
         {
-            "value": "fab fa-apple-pay",
+            "value": "fab|apple-pay",
             "label": "Apple Pay"
         },
         {
-            "value": "fas fa-apple-alt",
+            "value": "fas|apple-alt",
             "label": "Fruit Apple"
         },
         {
-            "value": "fab fa-apple",
+            "value": "fab|apple",
             "label": "Apple"
         },
         {
-            "value": "fab fa-apper",
+            "value": "fab|apper",
             "label": "Apper Systems AB"
         },
         {
-            "value": "fab fa-app-store-ios",
+            "value": "fab|app-store-ios",
             "label": "iOS App Store"
         },
         {
-            "value": "fab fa-app-store",
+            "value": "fab|app-store",
             "label": "App Store"
         },
         {
-            "value": "fas fa-ankh",
+            "value": "fas|ankh",
             "label": "Ankh"
         },
         {
-            "value": "fab fa-angular",
+            "value": "fab|angular",
             "label": "Angular"
         },
         {
-            "value": "fab fa-angrycreative",
+            "value": "fab|angrycreative",
             "label": "Angry Creative"
         },
         {
-            "value": "fas fa-angry",
+            "value": "fas|angry",
             "label": "Angry Face"
         },
         {
-            "value": "far fa-angry",
+            "value": "far|angry",
             "label": "Angry Face"
         },
         {
-            "value": "fas fa-angle-up",
+            "value": "fas|angle-up",
             "label": "angle-up"
         },
         {
-            "value": "fas fa-angle-right",
+            "value": "fas|angle-right",
             "label": "angle-right"
         },
         {
-            "value": "fas fa-angle-left",
+            "value": "fas|angle-left",
             "label": "angle-left"
         },
         {
-            "value": "fas fa-angle-down",
+            "value": "fas|angle-down",
             "label": "angle-down"
         },
         {
-            "value": "fas fa-angle-double-up",
+            "value": "fas|angle-double-up",
             "label": "Angle Double Up"
         },
         {
-            "value": "fas fa-angle-double-right",
+            "value": "fas|angle-double-right",
             "label": "Angle Double Right"
         },
         {
-            "value": "fas fa-angle-double-left",
+            "value": "fas|angle-double-left",
             "label": "Angle Double Left"
         },
         {
-            "value": "fas fa-angle-double-down",
+            "value": "fas|angle-double-down",
             "label": "Angle Double Down"
         },
         {
-            "value": "fab fa-angellist",
+            "value": "fab|angellist",
             "label": "AngelList"
         },
         {
-            "value": "fab fa-android",
+            "value": "fab|android",
             "label": "Android"
         },
         {
-            "value": "fas fa-anchor",
+            "value": "fas|anchor",
             "label": "Anchor"
         },
         {
-            "value": "fab fa-amilia",
+            "value": "fab|amilia",
             "label": "Amilia"
         },
         {
-            "value": "fas fa-american-sign-language-interpreting",
+            "value": "fas|american-sign-language-interpreting",
             "label": "American Sign Language Interpreting"
         },
         {
-            "value": "fas fa-ambulance",
+            "value": "fas|ambulance",
             "label": "ambulance"
         },
         {
-            "value": "fab fa-amazon-pay",
+            "value": "fab|amazon-pay",
             "label": "Amazon Pay"
         },
         {
-            "value": "fab fa-amazon",
+            "value": "fab|amazon",
             "label": "Amazon"
         },
         {
-            "value": "fas fa-allergies",
+            "value": "fas|allergies",
             "label": "Allergies"
         },
         {
-            "value": "fab fa-alipay",
+            "value": "fab|alipay",
             "label": "Alipay"
         },
         {
-            "value": "fas fa-align-right",
+            "value": "fas|align-right",
             "label": "align-right"
         },
         {
-            "value": "fas fa-align-left",
+            "value": "fas|align-left",
             "label": "align-left"
         },
         {
-            "value": "fas fa-align-justify",
+            "value": "fas|align-justify",
             "label": "align-justify"
         },
         {
-            "value": "fas fa-align-center",
+            "value": "fas|align-center",
             "label": "align-center"
         },
         {
-            "value": "fab fa-algolia",
+            "value": "fab|algolia",
             "label": "Algolia"
         },
         {
-            "value": "fab fa-airbnb",
+            "value": "fab|airbnb",
             "label": "Airbnb"
         },
         {
-            "value": "fas fa-air-freshener",
+            "value": "fas|air-freshener",
             "label": "Air Freshener"
         },
         {
-            "value": "fab fa-affiliatetheme",
+            "value": "fab|affiliatetheme",
             "label": "affiliatetheme"
         },
         {
-            "value": "fab fa-adversal",
+            "value": "fab|adversal",
             "label": "Adversal"
         },
         {
-            "value": "fab fa-adobe",
+            "value": "fab|adobe",
             "label": "Adobe"
         },
         {
-            "value": "fab fa-adn",
+            "value": "fab|adn",
             "label": "App.net"
         },
         {
-            "value": "fas fa-adjust",
+            "value": "fas|adjust",
             "label": "adjust"
         },
         {
-            "value": "fas fa-address-card",
+            "value": "fas|address-card",
             "label": "Address Card"
         },
         {
-            "value": "far fa-address-card",
+            "value": "far|address-card",
             "label": "Address Card"
         },
         {
-            "value": "fas fa-address-book",
+            "value": "fas|address-book",
             "label": "Address Book"
         },
         {
-            "value": "far fa-address-book",
+            "value": "far|address-book",
             "label": "Address Book"
         },
         {
-            "value": "fas fa-ad",
+            "value": "fas|ad",
             "label": "Ad"
         },
         {
-            "value": "fab fa-acquisitions-incorporated",
+            "value": "fab|acquisitions-incorporated",
             "label": "Acquisitions Incorporated"
         },
         {
-            "value": "fab fa-accusoft",
+            "value": "fab|accusoft",
             "label": "Accusoft"
         },
         {
-            "value": "fab fa-accessible-icon",
+            "value": "fab|accessible-icon",
             "label": "Accessible Icon"
         },
         {
-            "value": "fab fa-500px",
+            "value": "fab500px",
             "label": "500px"
         }
     ];
@@ -2066,11 +2066,10 @@ const MoorlFoundation = function MoorlFoundation() {
         let fonts = [];
         FontAwesome.hits.forEach(function(item){
             if (item && item.name && item.styles) {
-                let name = "fa-" + item.name;
                 item.styles.forEach(function (style) {
                     if (item.membership.free.includes(style)) {
                         fonts.push({
-                            value: 'fa' + style.charAt(0) + ' ' + name,
+                            value: item.name + '|fa' + style.charAt(0),
                             label: item.label
                         });
                     }

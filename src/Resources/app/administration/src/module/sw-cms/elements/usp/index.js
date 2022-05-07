@@ -4,6 +4,7 @@ import './config';
 import './preview';
 
 Application.getContainer('service').cmsService.registerCmsElement({
+    hidden: true,
     name: 'appflix-usp',
     label: 'sw-cms.elements.appflix-usp.title',
     component: 'sw-cms-el-appflix-usp',

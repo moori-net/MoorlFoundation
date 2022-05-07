@@ -53,13 +53,10 @@
         min-height: 100%;
     }
 
-    .overlay {
+    .banner-layer {
         position: relative;
         height: 100%;
         display: flex;
-        visibility: visible;
-        opacity: 1;
-        background-color: transparent;
 
         .container-icon {
             img {

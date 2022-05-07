@@ -4,7 +4,7 @@ import draggable from 'vuedraggable';
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-config-appflix-accordion', {
+Component.register('sw-cms-el-config-moorl-accordion', {
     template,
 
     inject: ['repositoryFactory'],
@@ -19,7 +19,7 @@ Component.register('sw-cms-el-config-appflix-accordion', {
 
     data() {
         return {
-            snippetPrefix: 'sw-cms.elements.appflix-accordion.',
+            snippetPrefix: 'sw-cms.elements.moorl-accordion.',
             sortable: null,
             drag: false
         };
@@ -37,7 +37,7 @@ Component.register('sw-cms-el-config-appflix-accordion', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('appflix-accordion');
+            this.initElementConfig('moorl-accordion');
         },
 
         addEntry() {
