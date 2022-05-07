@@ -23,6 +23,7 @@
             <template v-if="element.config.iconActive.value">
                 <sw-field v-model="element.config.iconClass.value"
                           type="text"
+                          placeholder="fab|shopware"
                           :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
                           :label="$tc(snippetPrefix + 'config.iconClass')">
                 </sw-field>

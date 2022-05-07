@@ -3,7 +3,8 @@
     <div class="usp-container {{ config.alignment.value }}">
         {% if config.iconActive.value %}
             <div class="icon-container" style="color:{{ config.iconColor.value }}">
-                <i class="fa-fw {{ config.iconClass.value }}"></i>
+                {% set parts = config.iconClass.value|split('|') %}
+                {% sw_icon 'icon' style {pack: parts[0], fileName: parts[1]} %}
             </div>
         {% endif %}
         <div class="text-container">

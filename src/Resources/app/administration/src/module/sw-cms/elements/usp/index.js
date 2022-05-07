@@ -17,7 +17,7 @@ Application.getContainer('service').cmsService.registerCmsElement({
         },
         iconClass: {
             source: 'static',
-            value: 'fa fa-check',
+            value: 'fab|shopware',
         },
         title: {
             source: 'static',

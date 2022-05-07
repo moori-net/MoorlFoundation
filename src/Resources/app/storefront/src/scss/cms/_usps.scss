@@ -12,12 +12,14 @@
         margin:10px 0;
 
         .icon-container{
-            font-size: 2.1em;
+            .icon {
+                width: 32px;
+                height: 32px;
+            }
             margin-right: 20px;
         }
 
         .text-container{
-
             .headline{
                 font-size: 1.3em;
                 font-weight: 500;
