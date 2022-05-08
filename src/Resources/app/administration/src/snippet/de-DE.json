@@ -68,6 +68,7 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "visible": "Sichtbar",
             "formElement": "Formular Feld",
             "stateMachineState": "Status",
             "start": "Start",
