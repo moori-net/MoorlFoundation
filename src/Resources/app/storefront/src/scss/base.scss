@@ -45,13 +45,18 @@
   background-attachment: fixed;
 }
 
-/* The moorl-grid section need "overflow: visible" for sticky columns */
+/*
 .cms-section {
   overflow: visible;
 
   &.cms-section-default {
-    /*overflow: hidden;*/
+    overflow: hidden;
   }
+}
+*/
+
+.cms-section-moorl-grid {
+  overflow: visible;
 }
 
 .moorl-foundation-hide,
