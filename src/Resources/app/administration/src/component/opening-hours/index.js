@@ -15,7 +15,7 @@ Component.register('moorl-opening-hours', {
     },
 
     created() {
-        if (!this.value) {
+        if (!this.value || this.value === true) {
             this.value = [
                 {day: 'monday', info: null, times: [{from: '08:00', until: '12:00'}, {from: '14:00', until: '18:00'}]},
                 {day: 'tuesday', info: null, times: [{from: '08:00', until: '12:00'}, {from: '14:00', until: '18:00'}]},
