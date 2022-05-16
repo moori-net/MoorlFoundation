@@ -6,7 +6,7 @@
             "monday": "Montag",
             "tuesday": "Dienstag",
             "wednesday": "Mittwoch",
-            "thursday": "Donnerstang",
+            "thursday": "Donnerstag",
             "friday": "Freitag",
             "saturday": "Samstag",
             "sunday": "Sonntag"
@@ -24,13 +24,29 @@
             "completedMessage": "Export Abgeschlossen"
         },
         "import": {
+            "validateIdsLabel": "Fremdschlüssel validieren (langsamer Import)",
             "title": "Import Assistent",
             "loadedText": "Es wurden {count} Datensätze in Ihrem Upload gefunden. Bitte konfigurieren Sie die Zuweisungen (mapping) im nächsten Schritt",
-            "processText": "Verarbeitung: {remaining} von {count} Datensätze verbleibend."
+            "processText": "Verarbeitung: {remaining} von {count} Datensätze verbleibend.",
+            "mapping": "Mapping",
+            "label": "Bezeichnung",
+            "value": "Wert",
+            "property": "Eigenschaft",
+            "fromImport": "Aus Import",
+            "bool": "Boolean",
+            "salesChannel": "Verkaufskanal",
+            "country": "Land",
+            "customerGroup": "Kundengruppe",
+            "choseDefault": "Standard wählen",
+            "overwriteLabel": "Überschreibe Eigenschaften ({properties})",
+            "pauseLabel": "Bei Fehler Pausieren",
+            "mediaFolder": "Sofern Medien vorhanden - In diesem Ordner speichern",
+            "isUnique": "Dieses Feld ist einmalig",
+            "completedMessage": "Import abgeschlossen - Überschrieben: {skipped} - Neu: {new} - Insgesamt: {total} -  Fehler: {errors}"
         },
         "notification": {
             "errorTitle": "Ein Fehler ist aufgetreten",
-            "errorRequiredText": "Felder die mit * gekennzeichned sind sind erforderlich.",
+            "errorRequiredText": "Felder die mit * gekennzeichnet sind sind erforderlich.",
             "errorDuplicateEntryText": "Der Eintrag kann nicht gespeichert werden weil es bereits einen Eintrag für die selbe Assoziation gibt.",
             "errorFileText": "Die Datei konnte nicht gelesen werden - haben Sie das richtige Format gewählt?",
             "startImportTitle": "Starte Import",
