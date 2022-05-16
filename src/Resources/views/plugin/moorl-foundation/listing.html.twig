@@ -140,7 +140,7 @@
                 </ul>
 
                 {% if config.navigationDots.value == "thumbnails" %}
-                    <div class="moorl-listing-slider-thumbnails">
+                    <div class="moorl-listing-slider-thumbnails" style="margin-top: {{ config.gapSize.value }}">
                         {% block moorl_foundation_listing_slider_thumbnails %}
                             <ul id="thumbnails{{ element.id }}">
                                 {% for item in searchResult %}
