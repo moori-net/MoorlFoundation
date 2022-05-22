@@ -10,7 +10,8 @@ const productCriteria = new Criteria();
 productCriteria.addAssociation('cover.media');
 
 Application.getContainer('service').cmsService.registerCmsElement({
-    plugin: 'MoorlCmsCtaBanner',
+    hidden: true,
+    plugin: 'MoorlFoundation',
     icon: 'default-object-marketing',
     name: 'moorl-cta-banner',
     label: 'sw-cms.elements.moorl-cta-banner.title',
