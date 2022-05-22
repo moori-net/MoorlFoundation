@@ -143,5 +143,9 @@
 
             <tag name="shopware.cms.data_resolver"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\CtaBannerCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
     </services>
 </container>

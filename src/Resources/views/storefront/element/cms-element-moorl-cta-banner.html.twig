@@ -1,0 +1,155 @@
+{% block element_moorl_cta_banner %}
+    {% set config = element.fieldConfig.elements %}
+    {% set titleTag = config.titleTag.value ?: 'h3' %}
+
+    {% set elementCss = [
+        "min-height:#{config.height.value}",
+        "background:#{config.elementBackground.value}",
+    ] %}
+    {% set backgroundCss = [
+        "background-position:#{config.backgroundVerticalAlign.value} #{config.backgroundHorizontalAlign.value}"
+    ] %}
+    {% if config.mediaActive.value and element.data.media %}
+        {% set backgroundCss = backgroundCss|merge([
+            "background-image:url('#{element.data.media.url}')"
+        ]) %}
+    {% elseif config.elementType.value == 'category' %}
+        {% set backgroundCss = backgroundCss|merge([
+            "background-image:url('#{element.data.category.media.url}')"
+        ]) %}
+    {% elseif config.elementType.value == 'product' %}
+        {% set backgroundCss = backgroundCss|merge([
+            "background-image:url('#{element.data.product.cover.media.url}')"
+        ]) %}
+    {% endif %}
+    {% if config.backgroundDisplayMode.value == 'custom' %}
+        {% set backgroundCss = backgroundCss|merge([
+            "background-size:#{config.backgroundSizeX.value} #{config.backgroundSizeY.value}"
+        ]) %}
+    {% elseif config.elementType.value == 'category' %}
+        {% set backgroundCss = backgroundCss|merge([
+            "background-size:#{config.backgroundDisplayMode.value}"
+        ]) %}
+    {% endif %}
+    {% set overlayCss = [
+        "min-height:#{config.height.value}",
+        "background:#{config.overlayBackground.value ?: 'transparent'}",
+        "align-items:#{config.boxVerticalAlign.value}",
+        "justify-content:#{config.boxHorizontalAlign.value}",
+    ] %}
+    {% set boxCss = [
+        "display:#{config.iconPosition.value == 'top' ? 'block' : 'flex'}",
+        "margin:#{config.boxMargin.value ?: '0'}",
+        "padding:#{config.boxPadding.value}",
+        "background:#{config.boxBackground.value ?: 'transparent'}",
+        "color:#{config.boxColor.value ?: 'inherit'}",
+        "width:#{config.boxWidth.value}",
+        "height:#{config.boxHeight.value}",
+        "border-radius:#{config.boxBorderRadius.value}",
+        "text-align:#{config.boxTextAlign.value}",
+    ] %}
+
+    {% set bannerContent %}
+        {% if config.mediaActive.value and config.videoActive.value %}
+            <video
+                    class="video" playsinline preload="none" muted
+                    {% if element.config.videoAutoplay.value %}autoplay{% endif %}
+                    {% if element.config.videoLoop.value %}loop{% endif %}
+            >
+                <source src="{{ element.data.media.url }}" type="{{ element.data.media.mimeType }}">
+            </video>
+        {% elseif config.mediaActive.value or config.elementType.value == 'category' or config.elementType.value == 'product' %}
+            <div class="background {{ config.mediaHover.value }} {% if element.config.backgroundFixed.value %} bg-fixed{% endif %}"
+                 style="{{ backgroundCss|join(";") }}"></div>
+        {% endif %}
+
+        <div class="banner-layer{% if config.boxMaxWidth.value %} container{% endif %}" style="{{ overlayCss|join(";") }}">
+            <div class="container-box" style="{{ boxCss|join(";") }}">
+                {% if config.iconType.value != 'none' %}
+                    {% set iconCss = [
+                        "margin-right:#{config.iconMarginRight.value}",
+                        "margin-bottom:#{config.iconMarginBottom.value}",
+                        "--icon-size:#{config.iconFontSize.value}",
+                    ] %}
+
+                    <div class="container-icon" style="{{ iconCss|join(";") }}">
+                        {% if config.iconType.value == 'fa' %}
+                            {% set parts = config.iconClass.value|split('|') %}
+                            {% sw_icon 'icon' style {pack: parts[0], fileName: parts[1], size: parts[2]} %}
+                        {% elseif config.iconType.value == 'svg' %}
+                            <span>{{ config.iconSvg.value|raw }}</span>
+                        {% elseif config.iconType.value == 'media' %}
+                            <img src="{{ element.data.iconMedia.url }}">
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if config.elementType.value == 'cta' %}
+                    <div class="container-content">
+                        {% if element.config.title.value %}
+                            <{{ titleTag }}>{{ config.title.value }}</{{ titleTag }}>
+                        {% endif %}
+                        {% if element.config.quote.value %}
+                            <p>{{ config.quote.value }}</p>
+                        {% endif %}
+                        {% if config.btnActive.value %}
+                            <a
+                                    class="btn {{ config.btnClass.value }}"
+                                    href="{{ config.btnUrl.value }}"
+                                    {% if config.btnNewTab.value %}target="_blank"{% endif %}
+                            >
+                                {{ config.btnText.value|raw }}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% elseif config.elementType.value == 'custom' %}
+                    <div class="container-content">
+                        {{ config.content.value|raw }}
+                    </div>
+                {% elseif config.elementType.value == 'category' %}
+                    <div class="container-content">
+                        {% if element.data.category.name %}
+                            <{{ titleTag }}>{{ element.data.category.name }}</{{ titleTag }}>
+                        {% endif %}
+                        {% if element.data.category.description %}
+                            <p>{{ element.data.category.description|length > config.contentLength.value ? element.data.category.description|slice(0, config.contentLength.value) ~ '...' : element.data.category.description  }}</p>
+                        {% endif %}
+                        {% if config.btnActive.value and element.data.category.id %}
+                            <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) }}">{{ config.btnText.value }}</a>
+                        {% endif %}
+                    </div>
+                {% elseif config.elementType.value == 'product' %}
+                    <div class="container-content">
+                        {% if element.data.product.name %}
+                            <{{ titleTag }}>{{ element.data.product.name }}</{{ titleTag }}>
+                        {% endif %}
+                        {% if element.data.product.description %}
+                            <p>{{ element.data.product.description|length > config.contentLength.value ? element.data.product.description|slice(0, config.contentLength.value) ~ '...' : element.data.product.description  }}</p>
+                        {% endif %}
+                        {% if config.btnActive.value and element.data.product.id %}
+                            <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.detail.page', { productId: element.data.product.id }) }}">{{ config.btnText.value }}</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <style>{{ element.data.scss|raw }}</style>
+    {% endset %}
+
+    {% if config.elementClickable.value %}
+        <a
+                class="d-block cms-element-{{ element.type }}"
+                id="{{ element.type }}-{{ element.id }}"
+                style="{{ elementCss|join(";") }}"
+                href="{% if config.elementType.value == 'category' %}{{ seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) }}{% else %}{{ config.elementUrl.value }}{% endif %}"
+                {% if config.elementNewTab.value %}target="_blank"{% endif %}
+        >{{ bannerContent }}</a>
+    {% else %}
+        <div
+                class="cms-element-{{ element.type }}"
+                id="{{ element.type }}-{{ element.id }}"
+                style="{{ elementCss|join(";") }}"
+        >{{ bannerContent }}</div>
+    {% endif %}
+{% endblock %}

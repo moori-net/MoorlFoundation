@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "leaflet": "^1.7.1",
-    "papaparse": "^5.3.1",
+    "leaflet": "^1.8.0",
+    "papaparse": "^5.3.2",
     "vuedraggable": "^2.24.3"
   }
 }
