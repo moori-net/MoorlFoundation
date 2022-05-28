@@ -1,5 +1,10 @@
 {
     "moorl-foundation": {
+        "customerUpload": {
+            "useAsCover": "Use as cover",
+            "checkToDelete": "Check to delete",
+            "dictDefaultMessage": "Drag files here to upload"
+        },
         "search": {
             "moreButton": "More",
             "noListingSlotFound": "This page do not have a listing element. Check your listing settings and chose \"Automatic items\"",
@@ -44,6 +49,10 @@
             "toc": "Table of contents"
         },
         "properties": {
+            "radius": "Radius",
+            "distance": "Distance",
+            "km": "KM",
+            "search": "Search",
             "customerNumber": "Customer number",
             "closed": "Closed",
             "from": "From",

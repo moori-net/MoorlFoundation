@@ -1,9 +1,9 @@
 {% set customerUploadId = "customerUpload#{random()}" %}
 
 {% set customerUploadOptions = {
-    url: path('appflix.customer-upload.send'),
+    url: path('moorl.customer-upload.send'),
     params: {
-        _csrf_token: sw_csrf('appflix.customer-upload.send', {mode: 'raw'}),
+        _csrf_token: sw_csrf('moorl.customer-upload.send', {mode: 'raw'}),
         entityId: entityId,
         initiator: initiator,
         redirectParameters: redirectParameters,
@@ -18,17 +18,17 @@
     </label>
 {% endif %}
 
-<div class="appflix-customer-upload"
-     data-appflix-customer-upload="true"
-     data-appflix-customer-upload-options='{{ customerUploadOptions|json_encode }}'>
+<div class="moorl-customer-upload"
+     data-moorl-customer-upload="true"
+     data-moorl-customer-upload-options='{{ customerUploadOptions|json_encode }}'>
     <div class="dropzone" id="{{ customerUploadId }}">
-        <div class="appflix-dropzone-uploaded-files-container">
+        <div class="moorl-dropzone-uploaded-files-container">
             {% if media or mediaId %}
-                <div class="appflix-customer-upload-image row">
+                <div class="moorl-customer-upload-image row">
                     {% sw_include '@Storefront/plugin/moorl-foundation/component/form/customer-upload-image.html.twig' %}
                 </div>
             {% else %}
-                <div class="appflix-customer-upload-files row form-row">
+                <div class="moorl-customer-upload-files row form-row">
                     {% sw_include '@Storefront/plugin/moorl-foundation/component/form/customer-upload-files.html.twig' %}
                 </div>
             {% endif %}

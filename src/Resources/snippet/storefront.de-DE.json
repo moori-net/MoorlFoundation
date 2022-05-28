@@ -1,5 +1,10 @@
 {
   "moorl-foundation": {
+    "customerUpload": {
+      "useAsCover": "Als Cover nutzen",
+      "checkToDelete": "Check zum Löschen",
+      "dictDefaultMessage": "Drag & Drop zum Upload"
+    },
     "search": {
       "moreButton": "Mehr",
       "noListingSlotFound": "This page do not have a listing element. Check your listing settings and chose \"Automatic items\"",
@@ -42,6 +47,10 @@
       "toc": "Inhaltsverzeichnis"
     },
     "properties": {
+      "radius": "Umkreis",
+      "distance": "Entfernung",
+      "km": "KM",
+      "search": "Suche",
       "closed": "Geschlossen",
       "from": "Ab",
       "until": "Bis",

@@ -23,5 +23,17 @@
                 <argument type="service" id="twig"/>
             </call>
         </service>
+
+        <service id="MoorlFoundation\Storefront\Controller\CustomerUploadController" public="true">
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="Shopware\Core\Content\Media\MediaService"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="media_folder.repository"/>
+            <argument type="service" id="media_default_folder.repository"/>
+
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
     </services>
 </container>

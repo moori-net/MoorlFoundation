@@ -31,6 +31,9 @@ import MoorlProductBuyListPlugin from './product-buy-list/product-buy-list.plugi
 import MoorlTocPlugin from './toc/toc.plugin';
 import MoorlGridPlugin from './grid/grid.plugin';
 import MoorlPaintPlugin from './paint/paint.plugin';
+import MoorlFoundationFilterRadiusPlugin from './listing/filter-radius.plugin';
+import MoorlFoundationFilterSearchPlugin from './listing/filter-search.plugin';
+import MoorlCustomerUploadPlugin from './customer-upload/customer-upload.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -44,6 +47,9 @@ PluginManager.register('MoorlProductBuyList', MoorlProductBuyListPlugin, '[data-
 PluginManager.register('MoorlToc', MoorlTocPlugin, '[data-moorl-toc]');
 PluginManager.register('MoorlGrid', MoorlGridPlugin, '[data-moorl-grid]');
 PluginManager.register('MoorlPaint', MoorlPaintPlugin, '.moorl-paint');
+PluginManager.register('MoorlFoundationFilterRadius', MoorlFoundationFilterRadiusPlugin, '[data-moorl-foundation-filter-radius]');
+PluginManager.register('MoorlFoundationFilterSearch', MoorlFoundationFilterSearchPlugin, '[data-moorl-foundation-filter-search]');
+PluginManager.register('MoorlCustomerUpload', MoorlCustomerUploadPlugin, '[data-moorl-customer-upload]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {

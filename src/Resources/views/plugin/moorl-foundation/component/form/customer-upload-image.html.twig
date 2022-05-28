@@ -4,7 +4,7 @@
 {% endif %}
 
 <div class="{% if entityCoverId and entityMedia %}col-6 col-md-3{% else %}col{% endif %}{% if entityMedia.id == entityCoverId %} order-1{% else %} order-2{% endif %}">
-    <div class="appflix-customer-upload-image-container" id="media{{ media.id }}">
+    <div class="moorl-customer-upload-image-container" id="media{{ media.id }}">
         {% sw_thumbnails 'customer-upload-thumbnail' with {
             media: media,
             attributes: {
@@ -12,7 +12,7 @@
             }
         } %}
 
-        <div class="appflix-customer-upload-image-actions">
+        <div class="moorl-customer-upload-image-actions">
             {% if entityCoverId and entityMedia %}
                 <div class="custom-control custom-radio cover">
                     <input type="radio"
