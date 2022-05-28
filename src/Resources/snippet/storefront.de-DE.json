@@ -47,6 +47,7 @@
       "toc": "Inhaltsverzeichnis"
     },
     "properties": {
+      "inRadiusOf": "im Umkreis von",
       "radius": "Umkreis",
       "distance": "Entfernung",
       "km": "KM",

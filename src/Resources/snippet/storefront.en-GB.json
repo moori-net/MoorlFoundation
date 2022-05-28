@@ -49,6 +49,7 @@
             "toc": "Table of contents"
         },
         "properties": {
+            "inRadiusOf": "in radius of",
             "radius": "Radius",
             "distance": "Distance",
             "km": "KM",
