@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\System;
 
-use MoorlMagazine\Core\Content\MagazineArticle\SalesChannel\Listing\MagazineArticleListingResult;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
@@ -15,8 +14,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
 use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityListingExtension implements EntityListingInterface
 {
@@ -136,6 +135,16 @@ class EntityListingExtension implements EntityListingInterface
         $this->systemConfigService = $systemConfigService;
     }
 
+    public function getEntityName(): string
+    {
+        return "";
+    }
+
+    public function getTitle(): string
+    {
+        return "";
+    }
+
     public function processSearchResult(ProductListingResult $searchResult): void
     {
     }
@@ -220,15 +229,5 @@ class EntityListingExtension implements EntityListingInterface
         $this->processSearchResult($result);
 
         return new ProductListingRouteResponse($result);
-    }
-
-    public function getEntityName(): string
-    {
-        throw new \Exception(sprintf("Mising method %s() for %s", "getEntityName", self::class));
-    }
-
-    public function getTitle(): string
-    {
-        throw new \Exception(sprintf("Mising method %s() for %s", "getTitle", self::class));
     }
 }
