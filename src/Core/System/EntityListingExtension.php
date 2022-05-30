@@ -18,7 +18,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class EntityListingExtension
+class EntityListingExtension implements EntityListingInterface
 {
     protected EntityDefinition $entityDefinition;
     protected SystemConfigService $systemConfigService;
@@ -220,5 +220,15 @@ class EntityListingExtension
         $this->processSearchResult($result);
 
         return new ProductListingRouteResponse($result);
+    }
+
+    public function getEntityName(): string
+    {
+        throw new \Exception(sprintf("Mising method %s() for %s", "getEntityName", self::class));
+    }
+
+    public function getTitle(): string
+    {
+        throw new \Exception(sprintf("Mising method %s() for %s", "getTitle", self::class));
     }
 }

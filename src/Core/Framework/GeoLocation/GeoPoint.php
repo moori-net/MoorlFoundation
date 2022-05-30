@@ -158,7 +158,7 @@ class GeoPoint
      * @param $address
      * @param $apiKey
      * @return mixed
-     * @throws CurlErrorException
+     * @throws \Exception
      * @throws UnexpectedResponseException if Google sends us something that we don't expect. we only like nice presents not 500 errors and the like
      * @throws NoApiKeyException if you forget to pass a google API key. create one at https://console.cloud.google.com for Geocoding API
      */
@@ -172,7 +172,7 @@ class GeoPoint
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         if (curl_error($ch)) {
-            throw new CurlErrorException(curl_error($ch));
+            throw new \Exception(curl_error($ch));
         }
         $response = json_decode(curl_exec($ch));
         curl_close($ch);
