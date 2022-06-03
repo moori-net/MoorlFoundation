@@ -54,6 +54,13 @@
             <defaultValue>true</defaultValue>
         </input-field>
 
+        <input-field type="bool">
+            <name>advancedSearchNoTab</name>
+            <label>Do not use tab</label>
+            <label lang="de-DE">Keinen Reiter verwenden</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
         <input-field type="text">
             <name>advancedSearchWidth</name>
             <label>Width of the search suggest element</label>

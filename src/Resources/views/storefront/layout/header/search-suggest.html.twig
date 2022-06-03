@@ -43,54 +43,83 @@
             {% endfor %}
         {% endif %}
 
-        <div class="search-suggest-container{% if config('MoorlFoundation.config.advancedSearchWidth') %} moorl-search-suggest-container{% endif %}">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link{% if activeTab == "product" %} active{% endif %}" data-toggle="tab" href="#product">
-                        {{ "moorl-foundation.search.product"|trans }}
-                        <span class="badge badge-primary">{{ page.searchResult.total }}</span>
-                    </a>
-                </li>
-
-                {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
-                    <li class="nav-item">
-                        <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
-                            {{ moorlSearchResult.snippet|trans }}
-                            <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-
-            <div class="tab-content">
-                <div class="tab-pane {% if activeTab == "product" %} active{% endif %}" id="{{ page.searchResult.entity }}">
+        {% if config('MoorlFoundation.config.advancedSearchNoTab') %}
+            <div class="search-suggest-container{% if config('MoorlFoundation.config.advancedSearchWidth') %} moorl-search-suggest-container{% endif %}">
+                {% set productSearchResult %}
                     <ul class="moorl-search-suggest-list">
                         {{ block('layout_search_suggest_results') }}
                     </ul>
                     {{ block('layout_search_suggest_result_total') }}
-                </div>
+                {% endset %}
 
                 {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
-                    <div class="tab-pane{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" id="{{ moorlSearchResult.criteria.title }}">
-                        {% set page = {
-                            searchResult: moorlSearchResult,
-                            searchTerm: page.searchTerm,
-                            activeTab: moorlSearchResult.criteria.title
-                        } %}
+                    {% set page = {
+                        searchResult: moorlSearchResult,
+                        searchTerm: page.searchTerm,
+                        activeTab: moorlSearchResult.criteria.title
+                    } %}
 
-                        {% if moorlSearchResult.entity == 'product' %}
-                            <ul class="moorl-search-suggest-list">
-                                {{ block('layout_search_suggest_results') }}
-                            </ul>
-                        {% else %}
-                            {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
-                        {% endif %}
+                    {% if moorlSearchResult.entity == 'product' %}
+                        <ul class="moorl-search-suggest-list">
+                            {{ block('layout_search_suggest_results') }}
+                        </ul>
+                    {% else %}
+                        {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+                    {% endif %}
+                {% endfor %}
 
+                {{ productSearchResult }}
+            </div>
+        {% else %}
+            <div class="search-suggest-container{% if config('MoorlFoundation.config.advancedSearchWidth') %} moorl-search-suggest-container{% endif %}">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link{% if activeTab == "product" %} active{% endif %}" data-toggle="tab" href="#product">
+                            {{ "moorl-foundation.search.product"|trans }}
+                            <span class="badge badge-primary">{{ page.searchResult.total }}</span>
+                        </a>
+                    </li>
+
+                    {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
+                        <li class="nav-item">
+                            <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
+                                {{ moorlSearchResult.snippet|trans }}
+                                <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane {% if activeTab == "product" %} active{% endif %}" id="{{ page.searchResult.entity }}">
+                        <ul class="moorl-search-suggest-list">
+                            {{ block('layout_search_suggest_results') }}
+                        </ul>
                         {{ block('layout_search_suggest_result_total') }}
                     </div>
-                {% endfor %}
+
+                    {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
+                        <div class="tab-pane{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" id="{{ moorlSearchResult.criteria.title }}">
+                            {% set page = {
+                                searchResult: moorlSearchResult,
+                                searchTerm: page.searchTerm,
+                                activeTab: moorlSearchResult.criteria.title
+                            } %}
+
+                            {% if moorlSearchResult.entity == 'product' %}
+                                <ul class="moorl-search-suggest-list">
+                                    {{ block('layout_search_suggest_results') }}
+                                </ul>
+                            {% else %}
+                                {% sw_include "@Storefront/storefront/layout/header/search-suggest-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+                            {% endif %}
+
+                            {{ block('layout_search_suggest_result_total') }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% else %}
         {{ parent() }}
     {% endif %}
