@@ -109,6 +109,11 @@ Component.register('moorl-entity-grid', {
             type: Object,
             required: false
         },
+        priceProperties: {
+            type: Array,
+            required: false,
+            default: ['price']
+        },
     },
 
     data() {
@@ -182,6 +187,18 @@ Component.register('moorl-entity-grid', {
             this.initGridColumns();
             this.initEditColumns();
             this.getItems();
+        },
+
+        getItemPrice(item) {
+            if (item.customPrice) {
+                return item.price ? item.price : [];
+            } else if (item.accessory) {
+                return item.accessory ? item.accessory.price : [];
+            } else if (item.product) {
+                return item.product ? item.product.price : [];
+            } else {
+                return item.price ? item.price : [];
+            }
         },
 
         initGridColumns() {
@@ -269,8 +286,9 @@ Component.register('moorl-entity-grid', {
 
                 switch (column.type) {
                     case 'uuid':
-                    case 'json_object':
                         continue;
+                    case 'json_object':
+                        break;
                     case 'association':
                         columns = [...columns, ...this.getGridColumns(column.entity, propertyName, depth)];
                         continue;
@@ -280,10 +298,15 @@ Component.register('moorl-entity-grid', {
                     case "int":
                         column.inlineEdit = 'int';
                         column.fieldType = 'number';
+                        column.align = 'right';
                         break;
                     case "boolean":
-                        column.inlineEdit = 'bool';
-                        column.fieldType = 'switch';
+                        /* sw do not support nested properties boolean */
+                        if (depth === 0) {
+                            column.inlineEdit = 'boolean';
+                            column.fieldType = 'switch';
+                        }
+                        column.align = 'center';
                         break;
                 }
 
@@ -301,10 +324,15 @@ Component.register('moorl-entity-grid', {
                     label: this.getPropertyLabel(propertyName),
                     inlineEdit: column.inlineEdit,
                     sortable: true,
-                    fieldType: column.fieldType
+                    fieldType: column.fieldType,
+                    align: column.align ? column.align : 'left'
                 });
 
                 primary = false;
+            }
+
+            if (depth === 0) {
+                //console.log(columns);
             }
 
             return columns;

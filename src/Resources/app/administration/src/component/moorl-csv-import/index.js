@@ -520,6 +520,13 @@ Component.register('moorl-csv-import', {
                             break;
                         case 'date':
                             break;
+                        case 'json_object':
+                            try {
+                                newItem[newProperty] = JSON.parse(currentValue);
+                            } catch (e) {
+                                newItem[newProperty] = null;
+                            }
+                            break;
                         default:
                             newItem[newProperty] = currentValue;
                     }

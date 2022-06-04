@@ -166,6 +166,8 @@ Component.register('moorl-csv-export', {
                             exportItem[column.property] = item[column.property].url;
                         }
                     }
+                } else if (column.type === 'json_object') {
+                    exportItem[column.property] = JSON.stringify(item[column.property]);
                 } else {
                     exportItem[column.property] = item[column.property];
                 }

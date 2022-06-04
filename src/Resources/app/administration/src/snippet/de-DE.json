@@ -84,6 +84,7 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "price": "Preis",
             "visible": "Sichtbar",
             "formElement": "Formular Feld",
             "stateMachineState": "Status",

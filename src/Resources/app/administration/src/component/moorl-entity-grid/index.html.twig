@@ -44,6 +44,15 @@
                   @column-sort="onSortColumn"
                   @select-all-items="onSelectionChanged"
                   @selection-change="onSelectionChanged">
+        <template v-for="priceProperty in priceProperties" v-slot:[`column-${priceProperty}`]="{item}">
+            <sw-price-preview
+                    :price="getItemPrice(item)"
+                    :default-price="{}"
+                    :tax-rate="tax"
+                    :currency="defaultCurrency"
+            />
+        </template>
+
         <template #actions="{ item }">
             <sw-context-menu-item v-if="path" :routerLink="{ name: path, params: {id: item.id} }">
                 {{ $tc('global.default.edit') }}
@@ -70,13 +79,14 @@
         </template>
 
         <template slot="pagination">
-            <sw-pagination :total="totalCount"
-                           :limit="limit"
-                           :page="page"
-                           :total-visible="gridPagesVisible"
-                           :steps="gridSteps"
-                           @page-change="onPageChange">
-            </sw-pagination>
+            <sw-pagination
+                    :total="totalCount"
+                    :limit="limit"
+                    :page="page"
+                    :total-visible="gridPagesVisible"
+                    :steps="gridSteps"
+                    @page-change="onPageChange"
+            />
         </template>
     </sw-data-grid>
 
@@ -109,12 +119,14 @@
             :entity="entity"
             :onCloseModal="onCloseModal"
             :onFinishImport="getItems"
-            :defaultItem="defaultItem"></moorl-csv-import>
+            :defaultItem="defaultItem"
+    />
 
     <moorl-csv-export
             v-if="showExportModal"
             :entity="entity"
             :onCloseModal="onCloseModal"
             :selectedItems="selectedItems"
-            :defaultItem="defaultItem"></moorl-csv-export>
+            :defaultItem="defaultItem"
+    />
 </div>

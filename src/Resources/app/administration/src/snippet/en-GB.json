@@ -90,6 +90,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "price": "Price",
             "visible": "Visible",
             "formElement": "Form field",
             "stateMachineState": "Status",
