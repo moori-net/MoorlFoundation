@@ -1,16 +1,17 @@
 <div v-if="items" class="moorl-entity-grid">
     <sw-container columns="4fr 1fr 1fr 1fr" gap="0 10px" class="moorl-entity-grid__top-bar">
-        <sw-field :placeholder="$tc('moorl-foundation.label.search')"
-                  type="text"
-                  v-model="searchTerm"
-                  @input="onSearch">
-        </sw-field>
+        <sw-field
+                :placeholder="$tc('moorl-foundation.label.search')"
+                type="text"
+                v-model="searchTerm"
+                @input="onSearch"
+        />
 
         <sw-button variant="primary"
                    :block="true"
                    size="small"
                    @click="onEditItem(null)">
-            <sw-icon name="default-basic-plus-block" size="16"></sw-icon>
+            <sw-icon name="default-basic-plus-block" size="16"/>
             {{ $tc('moorl-foundation.buttons.newButtonText') }}
         </sw-button>
 
@@ -18,7 +19,7 @@
                    :block="true"
                    size="small"
                    @click="onImportModal">
-            <sw-icon name="default-action-cloud-upload" size="16"></sw-icon>
+            <sw-icon name="default-action-cloud-upload" size="16"/>
             {{ $tc('moorl-foundation.buttons.importButtonText') }}
         </sw-button>
 
@@ -27,7 +28,7 @@
                    :disabled="items.length === 0"
                    size="small"
                    @click="onExportModal">
-            <sw-icon name="default-action-cloud-download" size="16"></sw-icon>
+            <sw-icon name="default-action-cloud-download" size="16"/>
             {{ $tc('moorl-foundation.buttons.exportButtonText') }}
         </sw-button>
     </sw-container>
@@ -62,8 +63,7 @@
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
 
-            <sw-context-menu-item variant="danger"
-                                  @click="onDeleteItem(item)">
+            <sw-context-menu-item variant="danger" @click="onDeleteItem(item)">
                 {{ $tc('global.default.delete') }}
             </sw-context-menu-item>
         </template>
