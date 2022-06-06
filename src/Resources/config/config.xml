@@ -95,8 +95,8 @@
 
         <input-field type="text">
             <name>fileExtensions</name>
-            <label>Additional file types</label>
-            <label lang="de-DE">Zusätzliche Dateitypen</label>
+            <label>Additional upload extensions</label>
+            <label lang="de-DE">Zusätzliche Upload Erweiterungen</label>
             <placeholder>zip,rar,psd,docx etc...</placeholder>
             <defaultValue>zip,rar,psd,docx</defaultValue>
         </input-field>
