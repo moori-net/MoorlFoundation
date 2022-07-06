@@ -162,9 +162,10 @@ Component.register('moorl-csv-import', {
             return entity;
         },
 
-        async getMediaIdByFileName(filename) {
+        async getMediaIdByFileName(filename, fileExtension) {
             const criteria = new Criteria();
             criteria.addFilter(Criteria.equals('fileName', filename));
+            criteria.addFilter(Criteria.equals('fileExtension', fileExtension));
             let media = null;
             await this.mediaRepository.search(criteria, Shopware.Context.api).then((result) => {
                 media = result.first();
@@ -406,13 +407,23 @@ Component.register('moorl-csv-import', {
             this.pause = true;
         },
 
+        isValidHttpUrl(string) {
+            let url;
+            try {
+                url = new URL(string);
+            } catch (_) {
+                return false;
+            }
+            return url.protocol === "http:" || url.protocol === "https:";
+        },
+
         async sanitizeItem(item) {
             console.log("sanitizeItem() ", item);
 
             const that = this;
 
             const newItem = {};
-            const isBool = /^\s*(true|1|on|yes|ja|an|si|x|check)\s*$/i; // boolean check
+            const isBool = /^\s*(true|1|on|yes|y|j|ja|an|si|x|check)\s*$/i; // boolean check
             const isUuid = /^[a-f0-9]{32}$/i; // uuid check
 
             for (const [newProperty, property] of Object.entries(this.mapping)) {
@@ -435,8 +446,14 @@ Component.register('moorl-csv-import', {
                             if (column.relation === 'one_to_one' || column.relation === 'many_to_one') {
                                 if (column.entity === 'media' && !currentUuid) {
                                     const newMediaItem = this.mediaRepository.create(Shopware.Context.api);
-                                    const mediaUrl = new URL(currentValue);
-                                    const file = mediaUrl.pathname.split('/').pop().split('.');
+                                    let file, mediaUrl;
+
+                                    if (that.isValidHttpUrl(currentValue)) {
+                                        mediaUrl = new URL(currentValue);
+                                        file = mediaUrl.pathname.split('/').pop().split('.');
+                                    } else {
+                                        file = currentValue.split('.');
+                                    }
 
                                     if (file.length === 1) {
                                         newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
@@ -444,12 +461,14 @@ Component.register('moorl-csv-import', {
                                         newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
                                         newMediaItem.fileExtension = file.pop();
                                     }
+
                                     newMediaItem.mediaFolderId = this.options.mediaFolderId;
-                                    let mediaId = await this.getMediaIdByFileName(newMediaItem.fileName);
+
+                                    let mediaId = await this.getMediaIdByFileName(newMediaItem.fileName, newMediaItem.fileExtension);
 
                                     if (mediaId) {
                                         newItem[column.localField] = mediaId;
-                                    } else {
+                                    } else if (that.isValidHttpUrl(currentValue)) {
                                         newItem[column.localField] = newMediaItem.id;
                                         this.mediaRepository.save(newMediaItem, Shopware.Context.api).then(() => {
                                             this.mediaService.uploadMediaFromUrl(
