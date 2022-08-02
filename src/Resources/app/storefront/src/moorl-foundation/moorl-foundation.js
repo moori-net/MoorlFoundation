@@ -13,7 +13,7 @@ export default class MoorlFoundation extends Plugin {
         const that = this;
 
         const buttons = document.querySelectorAll('[data-moorl-foundation-modal]');
-        const modals = document.getElementsByClassName('modal');
+        const modals = document.querySelectorAll('.modal');
 
         buttons.forEach((button) => {
             button.addEventListener('click', () => {
