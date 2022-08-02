@@ -1,24 +1,28 @@
-/* jQuery extensions */
-$.fn.isInViewport = function () {
-    if ($(this).length == 0) {
-        return;
-    }
-    let elementTop = $(this).offset().top;
-    let elementBottom = elementTop + $(this).outerHeight();
-    let viewportTop = $(window).scrollTop();
-    let viewportBottom = viewportTop + $(window).height();
-    return elementBottom < viewportBottom;
-};
+import Feature from 'src/helper/feature.helper';
 
-$.fn.isOverBottom = function () {
-    if ($(this).length == 0) {
-        return;
-    }
-    let elementTop = $(this).offset().top;
-    let viewportTop = $(window).scrollTop();
-    let viewportBottom = viewportTop + $(window).height();
-    return elementTop < viewportBottom;
-};
+/* jQuery extensions */
+if (!Feature.isActive('V6_5_0_0')) {
+    $.fn.isInViewport = function () {
+        if ($(this).length == 0) {
+            return;
+        }
+        let elementTop = $(this).offset().top;
+        let elementBottom = elementTop + $(this).outerHeight();
+        let viewportTop = $(window).scrollTop();
+        let viewportBottom = viewportTop + $(window).height();
+        return elementBottom < viewportBottom;
+    };
+
+    $.fn.isOverBottom = function () {
+        if ($(this).length == 0) {
+            return;
+        }
+        let elementTop = $(this).offset().top;
+        let viewportTop = $(window).scrollTop();
+        let viewportBottom = viewportTop + $(window).height();
+        return elementTop < viewportBottom;
+    };
+}
 
 /* Old plugins */
 import MoorlFoundation from './moorl-foundation/moorl-foundation';

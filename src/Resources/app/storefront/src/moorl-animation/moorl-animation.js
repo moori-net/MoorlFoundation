@@ -60,6 +60,10 @@ export default class MoorlAnimation extends Plugin {
             return true;
         }
 
+        if (Feature.isActive('v6.5.0.0')) {
+            return;
+        }
+
         if (rule === 'isOverBottom') {
             return $(el).isOverBottom();
         }

@@ -1,5 +1,6 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import HttpClient from 'src/service/http-client.service';
+import Feature from 'src/helper/feature.helper';
 
 export default class MoorlFoundation extends Plugin {
     init() {
@@ -11,28 +12,48 @@ export default class MoorlFoundation extends Plugin {
     _registerModalEvents() {
         const that = this;
 
-        jQuery('body').on('click', '[data-moorl-foundation-modal]', function () {
-            let url = this.dataset.moorlFoundationModal;
+        const buttons = document.querySelectorAll('[data-moorl-foundation-modal]');
+        const modals = document.getElementsByClassName('modal');
 
-            that._client.get(url, (response) => {
-                that._openModal(response, null);
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                let url = this.dataset.moorlFoundationModal;
+
+                that._client.get(url, (response) => {
+                    that._openModal(response, null);
+                });
             });
         });
+
+        if (Feature.isActive('v6.5.0.0')) {
+            modals.forEach((modal) => {
+                modal.addEventListener('hidden.bs.modal', () => {
+                    const modalBody = modal.querySelectorAll('.moorl-foundation-modal-body');
+                    modalBody[0].innerHTML = "";
+                });
+            });
+        } else {
+            jQuery('body').on('hidden.bs.modal', function () {
+                jQuery('.moorl-foundation-modal-body video').trigger('pause');
+                jQuery('.moorl-foundation-modal-body iframe').attr('src', null);
+            });
+        }
 
         window.moorlFoundationModal = function (url, callback) {
             that._client.get(url, (response) => {
                 that._openModal(response, callback);
             });
         }
-
-        jQuery('body').on('hidden.bs.modal', function () {
-            jQuery('.moorl-foundation-modal-body video').trigger('pause');
-            jQuery('.moorl-foundation-modal-body iframe').attr('src', null);
-        });
     }
 
     _openModal(response, callback) {
-        jQuery('#moorlFoundationModal').html(response).modal('show');
+        if (Feature.isActive('v6.5.0.0')) {
+            const modal = document.getElementById('moorlFoundationModal');
+            modal.innerHTML = response;
+            modal.show();
+        } else {
+            jQuery('#moorlFoundationModal').html(response).modal('show');
+        }
 
         if (typeof callback == 'function') {
             callback();
