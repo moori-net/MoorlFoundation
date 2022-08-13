@@ -9,6 +9,11 @@ Component.register('moorl-support-link', {
         path: {
             type: String,
             required: true
+        },
+        snippet: {
+            type: String,
+            required: false,
+            default: "moorl-support-link.label"
         }
     },
 

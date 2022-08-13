@@ -2,11 +2,11 @@
   "sw-cms": {
     "blocks": {
       "moorl-slider": {
-        "interactive": "moori Interactive Slider",
-        "2": "Slider with Two Slides",
-        "3": "Slider with Three Slides",
-        "4": "Slider with Four Slides",
-        "5": "Slider with Five Slides"
+        "interactive": "Interactive slider",
+        "2": "Slider with two slides",
+        "3": "Slider with three slides",
+        "4": "Slider with four slides",
+        "5": "Slider with five slides"
       }
     }
   }

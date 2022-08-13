@@ -1,0 +1,13 @@
+{
+  "sw-cms": {
+    "blocks": {
+      "moorl-slider": {
+        "interactive": "Interaktiver Slider",
+        "2": "Slider mit zwei Slides",
+        "3": "Slider mit drei Slides",
+        "4": "Slider mit vier Slides",
+        "5": "Slider mit fünf Slides"
+      }
+    }
+  }
+}
