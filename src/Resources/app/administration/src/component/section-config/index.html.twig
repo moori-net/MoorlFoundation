@@ -3,6 +3,7 @@
         <sw-icon
                 name="default-os-layers"
                 size="20"
+                :color="iconColor"
         />
     </div>
 
@@ -28,9 +29,29 @@
                               :activeTab="active">
                     {{ $tc(snippetPrefix + 'tab.transition') }}
                 </sw-tabs-item>
+                <sw-tabs-item name="visibility"
+                              :activeTab="active">
+                    {{ $tc(snippetPrefix + 'tab.visibility') }}
+                </sw-tabs-item>
             </template>
 
             <template slot="content" slot-scope="{ active }">
+                <sw-container v-if="active === 'visibility'">
+                    <sw-entity-multi-id-select
+                            :label="$tc(snippetPrefix + 'label.salesChannel')"
+                            :helpText="$tc(snippetPrefix + 'helpText.salesChannel')"
+                            v-model="section.customFields.moorl_section_config.salesChannel"
+                            :repository="salesChannelRepository"
+                    />
+
+                    <sw-entity-multi-id-select
+                            :label="$tc(snippetPrefix + 'label.customerGroup')"
+                            :helpText="$tc(snippetPrefix + 'helpText.customerGroup')"
+                            v-model="section.customFields.moorl_section_config.customerGroup"
+                            :repository="customerGroupRepository"
+                    />
+                </sw-container>
+
                 <sw-container v-if="active === 'content'">
                     <sw-single-select
                             :label="$tc(snippetPrefix + 'label.color')"
@@ -50,12 +71,13 @@
                             show-clearable-button
                     />
 
-                    <sw-field type="switch"
-                              :label="$tc(snippetPrefix + 'label.fixedBackground')"
-                              :helpText="$tc(snippetPrefix + 'helpText.fixedBackground')"
-                              bordered
-                              v-model="section.customFields.moorl_section_config.fixedBackground">
-                    </sw-field>
+                    <sw-field
+                            type="switch"
+                            :label="$tc(snippetPrefix + 'label.fixedBackground')"
+                            :helpText="$tc(snippetPrefix + 'helpText.fixedBackground')"
+                            bordered
+                            v-model="section.customFields.moorl_section_config.fixedBackground"
+                    />
 
                     <sw-single-select
                             :label="$tc(snippetPrefix + 'label.backgroundPaint')"

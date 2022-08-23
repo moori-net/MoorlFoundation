@@ -13,6 +13,10 @@ Component.register('moorl-section-config', {
         },
     },
 
+    inject: [
+        'repositoryFactory'
+    ],
+
     data() {
         return {
             snippetPrefix: 'moorl-section-config.',
@@ -21,6 +25,24 @@ Component.register('moorl-section-config', {
     },
 
     computed: {
+        iconColor() {
+            if (this.section?.customFields?.moorl_section_config?.salesChannel?.length !== 0) {
+                return "#FF0000";
+            }
+            if (this.section?.customFields?.moorl_section_config?.customerGroup?.length !== 0) {
+                return "#00FF00";
+            }
+            return null;
+        },
+
+        salesChannelRepository() {
+            return this.repositoryFactory.create('sales_channel');
+        },
+
+        customerGroupRepository() {
+            return this.repositoryFactory.create('customer_group');
+        },
+
         separatorOptions() {
             return [
                 {value: 'scratch', label: 'scratch'},

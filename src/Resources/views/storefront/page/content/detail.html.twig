@@ -2,15 +2,20 @@
 
 {% block page_content_section %}
     {% set mfs = section.customFields.moorl_section_config %}
-    {% if mfs.color %}{% set sectionClasses = ["text-#{mfs.color}"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.backgroundColor %}{% set sectionClasses = ["bg-#{mfs.backgroundColor}"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.top %}{% set sectionClasses = ["moorl-separator-#{mfs.top}-top"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.bottom %}{% set sectionClasses = ["moorl-separator-#{mfs.bottom}-bottom"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.offsetTop %}{% set sectionClasses = ["moorl-offset-#{mfs.offsetTop}-top"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.offsetBottom %}{% set sectionClasses = ["moorl-offset-#{mfs.offsetBottom}-bottom"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.separatorBackground %}{% set sectionClasses = ["bg-moorl-separator-#{mfs.separatorBackground}"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.fixedBackground %}{% set sectionClasses = ["bg-fixed"]|merge(sectionClasses) %}{% endif %}
-    {% if mfs.backgroundPaint %}{% set sectionClasses = ["moorl-paint","moorl-paint-#{mfs.backgroundPaint}"]|merge(sectionClasses) %}{% endif %}
-    
-    {{ parent() }}
+    {% set cond1 = not mfs.salesChannel or context.salesChannel.id in mfs.salesChannel %}
+    {% set cond2 = not mfs.customerGroup or context.currentCustomerGroup.id in mfs.customerGroup %}
+
+    {% if cond1 and cond2 %}
+        {% if mfs.color %}{% set sectionClasses = ["text-#{mfs.color}"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.backgroundColor %}{% set sectionClasses = ["bg-#{mfs.backgroundColor}"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.top %}{% set sectionClasses = ["moorl-separator-#{mfs.top}-top"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.bottom %}{% set sectionClasses = ["moorl-separator-#{mfs.bottom}-bottom"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.offsetTop %}{% set sectionClasses = ["moorl-offset-#{mfs.offsetTop}-top"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.offsetBottom %}{% set sectionClasses = ["moorl-offset-#{mfs.offsetBottom}-bottom"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.separatorBackground %}{% set sectionClasses = ["bg-moorl-separator-#{mfs.separatorBackground}"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.fixedBackground %}{% set sectionClasses = ["bg-fixed"]|merge(sectionClasses) %}{% endif %}
+        {% if mfs.backgroundPaint %}{% set sectionClasses = ["moorl-paint","moorl-paint-#{mfs.backgroundPaint}"]|merge(sectionClasses) %}{% endif %}
+
+        {{ parent() }}
+    {% endif %}
 {% endblock %}

@@ -1,6 +1,7 @@
 {
     "moorl-section-config": {
         "tab": {
+            "visibility": "Visibility",
             "content": "Content",
             "background": "Background",
             "transition": "Transitions",
@@ -8,6 +9,8 @@
         },
         "title": "Advanced Settings",
         "label": {
+            "customerGroup": "Customer group",
+            "salesChannel": "Sales channel",
             "none": "None",
             "scratch": "Scratch",
             "waves": "Waves",
@@ -49,6 +52,8 @@
             "separatorBackground": "Separator Background"
         },
         "helpText": {
+            "customerGroup": "Show this section only for a specific customer group.",
+            "salesChannel": "Show this section only in specific sales channel.",
             "color": "Overwrite the font color of the entire content of the section with this setting.",
             "backgroundColor": "Set a background color based on given tamplate variables. Gradients are also possible.",
             "fixedBackground": "If you have assigned a background image to the section, this effect works great!",

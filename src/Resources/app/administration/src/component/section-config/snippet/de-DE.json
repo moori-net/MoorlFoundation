@@ -1,6 +1,7 @@
 {
     "moorl-section-config": {
         "tab": {
+            "visibility": "Sichtbarkeit",
             "content": "Inhalt",
             "background": "Hintergrund",
             "transition": "Übergänge",
@@ -8,6 +9,8 @@
         },
         "title": "Erweiterte Einstellungen",
         "label": {
+            "customerGroup": "Kundengruppe",
+            "salesChannel": "Verkaufskanal",
             "none": "Keine",
             "scratch": "Scratch",
             "waves": "Waves",
@@ -45,6 +48,8 @@
             "separatorBackground": "Übergang Hintergrundfarbe"
         },
         "helpText": {
+            "customerGroup": "Zeige diese Sektion nur für eine bestimmte Kundengruppe.",
+            "salesChannel": "Zeige diese Sektion nur in einem bestimmten Verkaufskanal.",
             "color": "Überschreibe die Schriftfarbe des gesamten Inhalts der Sektion mit dieser Einstellung.",
             "backgroundColor": "Setze eine Hintergrundfarbe anhand vorgegebener Tamplate-Variablen. Auch Verläufe sind möglich.",
             "fixedBackground": "Wenn du der Sektion ein Hintergrundbild zugewiesen hast, wirkt dieser Effekt super!",
