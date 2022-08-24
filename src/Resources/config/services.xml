@@ -11,6 +11,11 @@
 
     <services>
         <!-- Services -->
+        <service id="MoorlFoundation\Core\Service\TranslationService" public="true">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Service\SortingService" public="true">
             <argument type="service" id="moorl_sorting.repository"/>
         </service>

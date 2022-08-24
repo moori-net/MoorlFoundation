@@ -2,25 +2,31 @@
 
 namespace MoorlFoundation\Core\Subscriber;
 
+use MoorlFoundation\Core\Service\TranslationService;
 use Shopware\Core\Content\Media\Event\MediaFileExtensionWhitelistEvent;
+use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MoorlFoundationSubscriber implements EventSubscriberInterface
 {
     private SystemConfigService $systemConfigService;
+    private TranslationService $translationService;
 
     public function __construct(
-        SystemConfigService $systemConfigService
+        SystemConfigService $systemConfigService,
+        TranslationService $translationService
     )
     {
         $this->systemConfigService = $systemConfigService;
+        $this->translationService = $translationService;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            MediaFileExtensionWhitelistEvent::class => 'onMediaFileExtensionWhitelist'
+            MediaFileExtensionWhitelistEvent::class => 'onMediaFileExtensionWhitelist',
+            'product.written' => 'onEntityWrittenEvent'
         ];
     }
 
@@ -36,5 +42,10 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
             }
         }
         $event->setWhitelist($whitelist);
+    }
+
+    public function onEntityWrittenEvent(EntityWrittenEvent $event): void
+    {
+
     }
 }

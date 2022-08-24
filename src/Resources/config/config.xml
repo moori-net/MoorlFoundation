@@ -37,7 +37,7 @@
     </card>
 
     <card>
-        <title>moori Advanced search</title>
+        <title>Advanced search</title>
         <title lang="de-DE">Erweiterte Suche</title>
 
         <input-field type="bool">
@@ -76,8 +76,8 @@
     </card>
 
     <card>
-        <title>moori Animation</title>
-        <title lang="de-DE">moori Animation</title>
+        <title>Animation</title>
+        <title lang="de-DE">Animation</title>
 
         <component name="moorl-animation">
             <name>moorlAnimation</name>
@@ -90,8 +90,90 @@
     </card>
 
     <card>
-        <title>moori plugin settings</title>
-        <title lang="de-DE">moori Plugin Einstellungen</title>
+        <title>Auto translate [Premium]</title>
+        <title lang="de-DE">Automatische Übersetzungen [Premium]</title>
+
+        <component name="sw-entity-single-select">
+            <name>translateSource</name>
+            <entity>language</entity>
+            <label>Source language</label>
+            <label lang="de-DE">Quellsprache</label>
+        </component>
+
+        <component name="sw-entity-multi-id-select">
+            <name>translateDestination</name>
+            <entity>language</entity>
+            <label>Destination language(s)</label>
+            <label lang="de-DE">Zielsprache(n)</label>
+        </component>
+
+        <input-field type="multi-select">
+            <name>translateProductProperties</name>
+            <label>Product properties</label>
+            <label lang="de-DE">Produkt Eigenschaften</label>
+
+            <options>
+                <option>
+                    <id>name</id>
+                    <name>name</name>
+                </option>
+                <option>
+                    <id>description</id>
+                    <name>description</name>
+                </option>
+                <option>
+                    <id>metaTitle</id>
+                    <name>metaTitle</name>
+                </option>
+                <option>
+                    <id>metaDescription</id>
+                    <name>metaDescription</name>
+                </option>
+                <option>
+                    <id>keywords</id>
+                    <name>keywords</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="multi-select">
+            <name>translateCategoryProperties</name>
+            <label>Category properties</label>
+            <label lang="de-DE">Kategorie Eigenschaften</label>
+
+            <options>
+                <option>
+                    <id>name</id>
+                    <name>name</name>
+                </option>
+                <option>
+                    <id>description</id>
+                    <name>description</name>
+                </option>
+                <option>
+                    <id>metaTitle</id>
+                    <name>metaTitle</name>
+                </option>
+                <option>
+                    <id>metaDescription</id>
+                    <name>metaDescription</name>
+                </option>
+                <option>
+                    <id>keywords</id>
+                    <name>keywords</name>
+                </option>
+            </options>
+        </input-field>
+
+        <component name="moorl-support-link">
+            <name>null</name>
+            <path>/MoorlFoundation/features-premium/</path>
+        </component>
+    </card>
+
+    <card>
+        <title>Plugin settings</title>
+        <title lang="de-DE">Plugin Einstellungen</title>
 
         <input-field type="text">
             <name>fileExtensions</name>

@@ -21,6 +21,7 @@
 
         <service id="MoorlFoundation\Core\Subscriber\MoorlFoundationSubscriber" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\TranslationService"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>
