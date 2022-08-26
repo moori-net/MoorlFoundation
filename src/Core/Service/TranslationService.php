@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Service;
 
 use DeepL\TranslateTextOptions;
 use DeepL\Translator;
+use Shopware\Core\Content\Category\CategoryCollection;
 use Shopware\Core\Content\Category\CategoryDefinition;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\ProductDefinition;
@@ -11,6 +12,7 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Api\Context\SystemSource;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\Language\LanguageCollection;
@@ -67,23 +69,49 @@ class TranslationService
     private function translateProduct(array $ids): void
     {
         $properties = $this->systemConfigService->get('MoorlFoundation.config.translateProductProperties');
-        $translateDestination = $this->systemConfigService->get('MoorlFoundation.config.translateDestination');
-        if (!$properties || !$translateDestination) {
+        if (!$properties) {
             return;
         }
 
         $criteria = new Criteria($ids);
         $repository = $this->definitionInstanceRegistry->getRepository(ProductDefinition::ENTITY_NAME);
-        /** @var ProductCollection $products */
-        $products = $repository->search($criteria, $this->context)->getEntities();
+        /** @var ProductCollection $items */
+        $items = $repository->search($criteria, $this->context)->getEntities();
+
+        $payload = $this->translateItems($items, $properties);
+        if ($payload) {
+            $repository->upsert($payload, $this->context);
+        }
+    }
+
+    private function translateCategory(array $ids): void
+    {
+        $properties = $this->systemConfigService->get('MoorlFoundation.config.translateCategoryProperties');
+        if (!$properties) {
+            return;
+        }
+
+        $criteria = new Criteria($ids);
+        $repository = $this->definitionInstanceRegistry->getRepository(CategoryDefinition::ENTITY_NAME);
+        /** @var CategoryCollection $items */
+        $items = $repository->search($criteria, $this->context)->getEntities();
+
+        $payload = $this->translateItems($items, $properties);
+        if ($payload) {
+            $repository->upsert($payload, $this->context);
+        }
+    }
+
+    private function translateItems(EntityCollection $items, array $properties): array
+    {
+        $translateDestination = $this->systemConfigService->get('MoorlFoundation.config.translateDestination');
 
         $payload = [];
-        foreach ($products as $product) {
-            $sources = $product->getTranslated();
+        foreach ($items as $item) {
+            $sources = $item->getTranslated();
             $sources = array_filter($sources, fn($k) => in_array($k, $properties), ARRAY_FILTER_USE_KEY);
-
             $sourcesHash = md5(json_encode($sources));
-            $customFields = $product->getCustomFields() ?: [];
+            $customFields = $item->getCustomFields() ?: [];
             if (empty($customFields[self::HASH_KEY]) || $customFields[self::HASH_KEY] !== $sourcesHash) {
                 $translations = [];
                 foreach ($translateDestination as $languageId) {
@@ -93,7 +121,7 @@ class TranslationService
                     }
                 }
                 $payload[] = [
-                    'id' => $product->getId(),
+                    'id' => $item->getId(),
                     'translations' => $translations,
                     'customFields' => [
                         self::HASH_KEY => $sourcesHash
@@ -102,14 +130,7 @@ class TranslationService
             }
         }
 
-        if ($payload) {
-            $repository->upsert($payload, $this->context);
-        }
-    }
-
-    private function translateCategory(array $ids): void
-    {
-
+        return $payload;
     }
 
     private function translateField(string $text, string $destinationLocale): string
@@ -134,6 +155,10 @@ class TranslationService
         }
 
         if (!$this->systemConfigService->get('MoorlFoundation.config.deeplApiKey')) {
+            return false;
+        }
+
+        if (!$this->systemConfigService->get('MoorlFoundation.config.translateDestination')) {
             return false;
         }
 
@@ -162,15 +187,5 @@ class TranslationService
         $this->sourceLocale = $this->languages[$this->context->getLanguageId()];
 
         return true;
-    }
-
-    private function getDestinationContext(string $languageId): Context
-    {
-       return new Context(
-           new SystemSource(),
-           [],
-           Defaults::CURRENCY,
-           [$languageId]
-       );
     }
 }
