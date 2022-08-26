@@ -46,6 +46,6 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
 
     public function onEntityWrittenEvent(EntityWrittenEvent $event): void
     {
-
+        $this->translationService->translate($event->getEntityName(), $event->getWriteResults(), $event->getContext());
     }
 }
