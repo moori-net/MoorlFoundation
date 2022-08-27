@@ -43,10 +43,9 @@ class TranslationService
 
     public function translate(string $entityName, array $writeResults, Context $context): void
     {
-        $ids = array_map(fn(EntityWriteResult $writeResult): string =>
-            $writeResult->getPrimaryKey()
+        $ids = array_map(fn(EntityWriteResult $writeResult): ?string =>
+            \is_array($writeResult->getPrimaryKey()) ? null : $writeResult->getPrimaryKey()
         , $writeResults);
-
         if (empty($ids)) {
             return;
         }
