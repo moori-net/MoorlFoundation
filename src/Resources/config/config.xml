@@ -26,14 +26,6 @@
             <helpText>This API key is used by moori plugins</helpText>
             <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
         </input-field>
-
-        <input-field>
-            <name>deeplApiKey</name>
-            <label>DeepL API key</label>
-            <label lang="de-DE">DeepL API Schlüssel</label>
-            <helpText>This API key is used by moori plugins</helpText>
-            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
-        </input-field>
     </card>
 
     <card>
@@ -93,6 +85,14 @@
         <title>Auto translate [Premium]</title>
         <title lang="de-DE">Automatische Übersetzungen [Premium]</title>
 
+        <input-field>
+            <name>deeplApiKey</name>
+            <label>DeepL API key</label>
+            <label lang="de-DE">DeepL API Schlüssel</label>
+            <helpText>This API key is used by moori plugins</helpText>
+            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
+        </input-field>
+
         <component name="sw-entity-single-select">
             <name>translateSource</name>
             <entity>language</entity>
@@ -107,11 +107,31 @@
             <label lang="de-DE">Zielsprache(n)</label>
         </component>
 
+        <input-field type="single-select">
+            <name>translateFormality</name>
+            <label>Formality</label>
+            <label lang="de-DE">Formalität</label>
+            <options>
+                <option>
+                    <id>default</id>
+                    <name>Default</name>
+                </option>
+                <option>
+                    <id>more</id>
+                    <name>More</name>
+                </option>
+                <option>
+                    <id>less</id>
+                    <name>Less</name>
+                </option>
+            </options>
+            <defaultValue>less</defaultValue>
+        </input-field>
+
         <input-field type="multi-select">
             <name>translateProductProperties</name>
-            <label>Product properties</label>
-            <label lang="de-DE">Produkt Eigenschaften</label>
-
+            <label>Product fields</label>
+            <label lang="de-DE">Produkt Felder</label>
             <options>
                 <option>
                     <id>name</id>
@@ -138,9 +158,8 @@
 
         <input-field type="multi-select">
             <name>translateCategoryProperties</name>
-            <label>Category properties</label>
-            <label lang="de-DE">Kategorie Eigenschaften</label>
-
+            <label>Category fields</label>
+            <label lang="de-DE">Kategorie Felder</label>
             <options>
                 <option>
                     <id>name</id>
@@ -161,6 +180,34 @@
                 <option>
                     <id>keywords</id>
                     <name>keywords</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="multi-select">
+            <name>translatePropertyGroupProperties</name>
+            <label>Property fields</label>
+            <label lang="de-DE">Eigenschaften Felder</label>
+            <options>
+                <option>
+                    <id>name</id>
+                    <name>name</name>
+                </option>
+                <option>
+                    <id>description</id>
+                    <name>description</name>
+                </option>
+            </options>
+        </input-field>
+
+        <input-field type="multi-select">
+            <name>translatePropertyGroupOptionProperties</name>
+            <label>Property option fields</label>
+            <label lang="de-DE">Eigenschaften Optionen Felder</label>
+            <options>
+                <option>
+                    <id>name</id>
+                    <name>name</name>
                 </option>
             </options>
         </input-field>

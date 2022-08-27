@@ -8,6 +8,9 @@ use Shopware\Core\Content\Category\CategoryCollection;
 use Shopware\Core\Content\Category\CategoryDefinition;
 use Shopware\Core\Content\Product\ProductCollection;
 use Shopware\Core\Content\Product\ProductDefinition;
+use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
+use Shopware\Core\Content\Property\PropertyGroupCollection;
+use Shopware\Core\Content\Property\PropertyGroupDefinition;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Api\Context\SystemSource;
 use Shopware\Core\Framework\Context;
@@ -63,6 +66,48 @@ class TranslationService
             case ProductDefinition::ENTITY_NAME:
                 $this->translateProduct($ids);
                 break;
+            case PropertyGroupDefinition::ENTITY_NAME:
+                $this->translatePropertyGroup($ids);
+                break;
+            case PropertyGroupOptionDefinition::ENTITY_NAME:
+                $this->translatePropertyGroupOption($ids);
+                break;
+        }
+    }
+
+    private function translatePropertyGroupOption(array $ids): void
+    {
+        $properties = $this->systemConfigService->get('MoorlFoundation.config.translatePropertyGroupOptionProperties');
+        if (!$properties) {
+            return;
+        }
+
+        $criteria = new Criteria($ids);
+        $repository = $this->definitionInstanceRegistry->getRepository(PropertyGroupOptionDefinition::ENTITY_NAME);
+        /** @var PropertyGroupCollection $items */
+        $items = $repository->search($criteria, $this->context)->getEntities();
+
+        $payload = $this->translateItems($items, $properties);
+        if ($payload) {
+            $repository->upsert($payload, $this->context);
+        }
+    }
+
+    private function translatePropertyGroup(array $ids): void
+    {
+        $properties = $this->systemConfigService->get('MoorlFoundation.config.translatePropertyGroupProperties');
+        if (!$properties) {
+            return;
+        }
+
+        $criteria = new Criteria($ids);
+        $repository = $this->definitionInstanceRegistry->getRepository(PropertyGroupDefinition::ENTITY_NAME);
+        /** @var PropertyGroupCollection $items */
+        $items = $repository->search($criteria, $this->context)->getEntities();
+
+        $payload = $this->translateItems($items, $properties);
+        if ($payload) {
+            $repository->upsert($payload, $this->context);
         }
     }
 
@@ -102,7 +147,7 @@ class TranslationService
         }
     }
 
-    private function translateItems(EntityCollection $items, array $properties): array
+    public function translateItems(EntityCollection $items, array $properties): array
     {
         $translateDestination = $this->systemConfigService->get('MoorlFoundation.config.translateDestination');
 
@@ -140,8 +185,9 @@ class TranslationService
             substr($this->sourceLocale, 0, 2),
             substr($destinationLocale, 0, 2),
             [
-                TranslateTextOptions::TAG_HANDLING => 'xml',
-                TranslateTextOptions::IGNORE_TAGS => 'creator,author,name,brand,manufacturer'
+                TranslateTextOptions::TAG_HANDLING => 'html',
+                TranslateTextOptions::IGNORE_TAGS => 'creator,author,name,brand,manufacturer',
+                TranslateTextOptions::FORMALITY => $this->systemConfigService->get('MoorlFoundation.config.translateFormality') ?: 'default'
             ]
         );
 
