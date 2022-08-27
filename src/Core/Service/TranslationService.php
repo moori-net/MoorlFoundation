@@ -62,10 +62,6 @@ class TranslationService
             return;
         }
 
-        if (!$this->init()) {
-            return;
-        }
-
         foreach ($this->entityTranslations as $entityTranslation) {
             if ($entityName === $entityTranslation->getEntityName()) {
                 $this->translateAny($ids, $entityTranslation->getConfigKey(), $entityTranslation->getEntityName());
@@ -75,6 +71,10 @@ class TranslationService
 
     public function translateAny(array $ids, string $configKey, string $entityName): void
     {
+        if (!$this->init()) {
+            return;
+        }
+
         $properties = $this->systemConfigService->get($configKey);
         if (!$properties) {
             return;
@@ -86,78 +86,6 @@ class TranslationService
 
         $payload = $this->translateItems($items, $properties);
 
-        if ($payload) {
-            $repository->upsert($payload, $this->context);
-        }
-    }
-
-    private function translatePropertyGroupOption(array $ids): void
-    {
-        $properties = $this->systemConfigService->get('MoorlFoundation.config.translatePropertyGroupOptionProperties');
-        if (!$properties) {
-            return;
-        }
-
-        $criteria = new Criteria($ids);
-        $repository = $this->definitionInstanceRegistry->getRepository(PropertyGroupOptionDefinition::ENTITY_NAME);
-        /** @var PropertyGroupCollection $items */
-        $items = $repository->search($criteria, $this->context)->getEntities();
-
-        $payload = $this->translateItems($items, $properties);
-        if ($payload) {
-            $repository->upsert($payload, $this->context);
-        }
-    }
-
-    private function translatePropertyGroup(array $ids): void
-    {
-        $properties = $this->systemConfigService->get('MoorlFoundation.config.translatePropertyGroupProperties');
-        if (!$properties) {
-            return;
-        }
-
-        $criteria = new Criteria($ids);
-        $repository = $this->definitionInstanceRegistry->getRepository(PropertyGroupDefinition::ENTITY_NAME);
-        /** @var PropertyGroupCollection $items */
-        $items = $repository->search($criteria, $this->context)->getEntities();
-
-        $payload = $this->translateItems($items, $properties);
-        if ($payload) {
-            $repository->upsert($payload, $this->context);
-        }
-    }
-
-    private function translateProduct(array $ids): void
-    {
-        $properties = $this->systemConfigService->get('MoorlFoundation.config.translateProductProperties');
-        if (!$properties) {
-            return;
-        }
-
-        $criteria = new Criteria($ids);
-        $repository = $this->definitionInstanceRegistry->getRepository(ProductDefinition::ENTITY_NAME);
-        /** @var ProductCollection $items */
-        $items = $repository->search($criteria, $this->context)->getEntities();
-
-        $payload = $this->translateItems($items, $properties);
-        if ($payload) {
-            $repository->upsert($payload, $this->context);
-        }
-    }
-
-    private function translateCategory(array $ids): void
-    {
-        $properties = $this->systemConfigService->get('MoorlFoundation.config.translateCategoryProperties');
-        if (!$properties) {
-            return;
-        }
-
-        $criteria = new Criteria($ids);
-        $repository = $this->definitionInstanceRegistry->getRepository(CategoryDefinition::ENTITY_NAME);
-        /** @var CategoryCollection $items */
-        $items = $repository->search($criteria, $this->context)->getEntities();
-
-        $payload = $this->translateItems($items, $properties);
         if ($payload) {
             $repository->upsert($payload, $this->context);
         }

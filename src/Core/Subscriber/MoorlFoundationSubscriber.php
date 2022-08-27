@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Subscriber;
 
 use MoorlFoundation\Core\Service\TranslationService;
 use Shopware\Core\Content\Media\Event\MediaFileExtensionWhitelistEvent;
+use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,10 +27,7 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
     {
         return [
             MediaFileExtensionWhitelistEvent::class => 'onMediaFileExtensionWhitelist',
-            'product.written' => 'onEntityWrittenEvent',
-            'category.written' => 'onEntityWrittenEvent',
-            'property_group.written' => 'onEntityWrittenEvent',
-            'property_group_option.written' => 'onEntityWrittenEvent',
+            EntityWrittenContainerEvent::class => 'onEntityWrittenContainerEvent'
         ];
     }
 
@@ -47,8 +45,12 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
         $event->setWhitelist($whitelist);
     }
 
-    public function onEntityWrittenEvent(EntityWrittenEvent $event): void
+    public function onEntityWrittenContainerEvent(EntityWrittenContainerEvent $event): void
     {
-        $this->translationService->translate($event->getEntityName(), $event->getWriteResults(), $event->getContext());
+        foreach ($event->getEvents() as $entityWrittenEvent) {
+            if ($entityWrittenEvent instanceof EntityWrittenEvent) {
+                $this->translationService->translate($entityWrittenEvent->getEntityName(), $entityWrittenEvent->getWriteResults(), $entityWrittenEvent->getContext());
+            }
+        }
     }
 }
