@@ -56,17 +56,18 @@ class TranslationService
 
         foreach ($this->entityTranslations as $entityTranslation) {
             if ($entityName === $entityTranslation->getEntityName()) {
+                if (!$this->init()) {
+                    return;
+                }
+
                 $this->translateAny($ids, $entityTranslation->getConfigKey(), $entityTranslation->getEntityName());
+                return;
             }
         }
     }
 
     public function translateAny(array $ids, string $configKey, string $entityName): void
     {
-        if (!$this->init()) {
-            return;
-        }
-
         $properties = $this->systemConfigService->get($configKey);
         if (!$properties) {
             return;
