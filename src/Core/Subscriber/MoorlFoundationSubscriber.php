@@ -26,7 +26,10 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
     {
         return [
             MediaFileExtensionWhitelistEvent::class => 'onMediaFileExtensionWhitelist',
-            'product.written' => 'onEntityWrittenEvent'
+            'product.written' => 'onEntityWrittenEvent',
+            'category.written' => 'onEntityWrittenEvent',
+            'property_group.written' => 'onEntityWrittenEvent',
+            'property_group_option.written' => 'onEntityWrittenEvent',
         ];
     }
 

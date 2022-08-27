@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Service;
 
 use DeepL\TranslateTextOptions;
 use DeepL\Translator;
+use MoorlFoundation\Core\System\EntityTranslationInterface;
 use Shopware\Core\Content\Category\CategoryCollection;
 use Shopware\Core\Content\Category\CategoryDefinition;
 use Shopware\Core\Content\Product\ProductCollection;
@@ -31,14 +32,20 @@ class TranslationService
     private array $languages = [];
     private const HASH_KEY = 'moorl_trans_hash';
     private string $sourceLocale = 'de-DE';
+    /**
+     * @var iterable<EntityTranslationInterface>
+     */
+    private iterable $entityTranslations;
 
     public function __construct(
         SystemConfigService $systemConfigService,
-        DefinitionInstanceRegistry $definitionInstanceRegistry
+        DefinitionInstanceRegistry $definitionInstanceRegistry,
+        iterable $entityTranslations
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->definitionInstanceRegistry = $definitionInstanceRegistry;
+        $this->entityTranslations = $entityTranslations;
     }
 
     public function translate(string $entityName, array $writeResults, Context $context): void
@@ -59,19 +66,28 @@ class TranslationService
             return;
         }
 
-        switch ($entityName) {
-            case CategoryDefinition::ENTITY_NAME:
-                $this->translateCategory($ids);
-                break;
-            case ProductDefinition::ENTITY_NAME:
-                $this->translateProduct($ids);
-                break;
-            case PropertyGroupDefinition::ENTITY_NAME:
-                $this->translatePropertyGroup($ids);
-                break;
-            case PropertyGroupOptionDefinition::ENTITY_NAME:
-                $this->translatePropertyGroupOption($ids);
-                break;
+        foreach ($this->entityTranslations as $entityTranslation) {
+            if ($entityName === $entityTranslation->getEntityName()) {
+                $this->translateAny($ids, $entityTranslation->getConfigKey(), $entityTranslation->getEntityName());
+            }
+        }
+    }
+
+    public function translateAny(array $ids, string $configKey, string $entityName): void
+    {
+        $properties = $this->systemConfigService->get($configKey);
+        if (!$properties) {
+            return;
+        }
+
+        $criteria = new Criteria($ids);
+        $repository = $this->definitionInstanceRegistry->getRepository($entityName);
+        $items = $repository->search($criteria, $this->context)->getEntities();
+
+        $payload = $this->translateItems($items, $properties);
+
+        if ($payload) {
+            $repository->upsert($payload, $this->context);
         }
     }
 

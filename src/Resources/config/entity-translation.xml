@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="MoorlFoundation\EntityTranslation\ProductTranslation">
+            <tag name="moorl.foundation.entity_translation" priority="0" />
+        </service>
+
+        <service id="MoorlFoundation\EntityTranslation\CategoryTranslation">
+            <tag name="moorl.foundation.entity_translation" priority="0" />
+        </service>
+
+        <service id="MoorlFoundation\EntityTranslation\PropertyGroupTranslation">
+            <tag name="moorl.foundation.entity_translation" priority="0" />
+        </service>
+
+        <service id="MoorlFoundation\EntityTranslation\PropertyGroupOptionTranslation">
+            <tag name="moorl.foundation.entity_translation" priority="0" />
+        </service>
+    </services>
+</container>

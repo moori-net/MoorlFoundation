@@ -7,6 +7,7 @@
         <import resource="controllers.xml"/>
         <import resource="subscribers.xml"/>
         <import resource="data.xml"/>
+        <import resource="entity-translation.xml"/>
     </imports>
 
     <services>
@@ -14,6 +15,8 @@
         <service id="MoorlFoundation\Core\Service\TranslationService" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+
+            <argument type="tagged" tag="moorl.foundation.entity_translation"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\SortingService" public="true">
