@@ -41,16 +41,14 @@ Component.register('moorl-feature-unlocker', {
                 return;
             }
 
-            if (localStorage.getItem('moorl-foundation-unlocked')) {
-                Shopware.State.commit('moorlFoundationState/setUnlocked', true)
-            }
+            Shopware.State.commit('moorlFoundationState/setUnlocked', false);
 
             if (!localStorage.getItem('moorl-foundation-welcome-seen')) {
                 this.createNotificationInfo({
                     message: this.$tc('moorl-feature-unlocker.notifications.welcome'),
                 });
 
-                localStorage.setItem('moorl-foundation-welcome-seen', '1')
+                localStorage.setItem('moorl-foundation-welcome-seen', '1');
             }
 
             document.addEventListener('keydown', (event) => {
@@ -65,9 +63,7 @@ Component.register('moorl-feature-unlocker', {
                 return;
             }
 
-            if (this.toggleUnlocked()) {
-                this.open = true;
-            }
+            this.open = true;
         },
 
         toggleUnlocked() {

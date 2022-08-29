@@ -1,14 +1,13 @@
 {
   "moorl-feature-unlocker": {
     "notifications": {
-      "welcome": "Hit ALT+M (Win/Linux) or CONTROL+M (Mac) to unlock moori Foundation features",
-      "unlocked": "moori Foundation features has been unlocked",
-      "locked": "moori Foundation features has been locked"
+      "welcome": "Hit ALT+M (Win/Linux) or CONTROL+M (Mac) to unlock Premium features",
+      "unlocked": "Premium features has been unlocked",
+      "locked": "Premium features has been locked"
     },
     "modal": {
-      "title": "moori Foundation features",
-      "message1": "The moori Foundation Plugin is usually used to optimise the basic plugins of moori and to avoid redundancy. However, many functions have been added over time that serve no technical purpose and are 'nice-to-have' for shop owners. Unfortunately, there were some requests to remove these functions and also technical problems with other plug-ins. Therefore I decided to deactivate the premium functions, with ALT+M you can activate them optionally.",
-      "message2": "From Shopware 6.5 onwards, the functions will be removed and can be made available again with an 'Unlocker Plugin'. The 'Unlocker Plugin' will be available at the start for a price of 10€ in the Shopware Community Store. The table explains the features and which of them remain free.",
+      "title": "Foundation premium features",
+      "message1": "The premium features are now no longer available. Follow the link to get the add-on.",
       "actions": {
         "cancel": "Cancel",
         "close": "Close"
