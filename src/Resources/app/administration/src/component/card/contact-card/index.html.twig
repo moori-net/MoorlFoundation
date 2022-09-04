@@ -1,0 +1,14 @@
+{% block moorl_contact_card %}
+    <sw-card class="moorl-contact-card" :title="$tc('moorl-foundation.card.contact')">
+        <sw-container columns="1fr 1fr" gap="0 20px">
+            {% block moorl_contact_card_inner %}
+                <sw-field :label="$tc('moorl-foundation.properties.email')" v-model="item.email"/>
+                <sw-field :label="$tc('moorl-foundation.properties.phoneNumber')" v-model="item.phoneNumber"/>
+                <sw-url-field :label="$tc('moorl-foundation.properties.shopUrl')" v-model="item.shopUrl"/>
+                <sw-url-field :label="$tc('moorl-foundation.properties.merchantUrl')" v-model="item.merchantUrl"/>
+            {% endblock %}
+        </sw-container>
+
+        <slot name="append"/>
+    </sw-card>
+{% endblock %}

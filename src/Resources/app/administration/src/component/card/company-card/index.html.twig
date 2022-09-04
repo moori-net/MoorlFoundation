@@ -1,0 +1,19 @@
+{% block moorl_company_card %}
+    <sw-card class="moorl-company-card" :title="$tc('moorl-foundation.card.company')">
+        <sw-container columns="1fr 1fr" gap="0 20px">
+            {% block moorl_company_card_inner %}
+                <sw-field :label="$tc('moorl-foundation.properties.executiveDirector')" v-model="item.executiveDirector"/>
+                <sw-field :label="$tc('moorl-foundation.properties.placeOfFulfillment')" v-model="item.placeOfFulfillment"/>
+                <sw-field :label="$tc('moorl-foundation.properties.placeOfJurisdiction')" v-model="item.placeOfJurisdiction"/>
+                <sw-field :label="$tc('moorl-foundation.properties.bankBic')" v-model="item.bankBic"/>
+                <sw-field :label="$tc('moorl-foundation.properties.bankIban')" v-model="item.bankIban"/>
+                <sw-field :label="$tc('moorl-foundation.properties.bankName')" v-model="item.bankName"/>
+                <sw-field :label="$tc('moorl-foundation.properties.taxOffice')" v-model="item.taxOffice"/>
+                <sw-field :label="$tc('moorl-foundation.properties.taxNumber')" v-model="item.taxNumber"/>
+                <sw-field :label="$tc('moorl-foundation.properties.vatId')" v-model="item.vatId"/>
+            {% endblock %}
+        </sw-container>
+
+        <slot name="append"/>
+    </sw-card>
+{% endblock %}
