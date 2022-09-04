@@ -2,12 +2,48 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
+use MoorlFoundation\Core\Content\Marker\MarkerEntity;
+
 trait EntityLocationTrait
 {
     protected float $locationLat = 0.00;
     protected float $locationLon = 0.00;
     protected array $locationData = [[0.00,0.00]];
     protected bool $autoLocation = false;
+    protected ?string $markerId = null;
+    protected ?MarkerEntity $marker = null;
+
+    /**
+     * @return string|null
+     */
+    public function getMarkerId(): ?string
+    {
+        return $this->markerId;
+    }
+
+    /**
+     * @param string|null $markerId
+     */
+    public function setMarkerId(?string $markerId): void
+    {
+        $this->markerId = $markerId;
+    }
+
+    /**
+     * @return MarkerEntity|null
+     */
+    public function getMarker(): ?MarkerEntity
+    {
+        return $this->marker;
+    }
+
+    /**
+     * @param MarkerEntity|null $marker
+     */
+    public function setMarker(?MarkerEntity $marker): void
+    {
+        $this->marker = $marker;
+    }
 
     /**
      * @return bool

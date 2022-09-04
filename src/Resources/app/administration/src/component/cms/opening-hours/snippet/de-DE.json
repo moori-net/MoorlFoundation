@@ -1,0 +1,12 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-opening-hours": {
+                "name": "Share",
+                "label": {
+                    "provider": "Platform"
+                }
+            }
+        }
+    }
+}

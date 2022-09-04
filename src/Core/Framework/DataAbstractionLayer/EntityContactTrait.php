@@ -6,6 +6,40 @@ trait EntityContactTrait
 {
     protected ?string $email = null;
     protected ?string $phoneNumber = null;
+    protected ?string $shopUrl = null;
+    protected ?string $merchantUrl = null;
+
+    /**
+     * @return string|null
+     */
+    public function getShopUrl(): ?string
+    {
+        return $this->shopUrl;
+    }
+
+    /**
+     * @param string|null $shopUrl
+     */
+    public function setShopUrl(?string $shopUrl): void
+    {
+        $this->shopUrl = $shopUrl;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMerchantUrl(): ?string
+    {
+        return $this->merchantUrl;
+    }
+
+    /**
+     * @param string|null $merchantUrl
+     */
+    public function setMerchantUrl(?string $merchantUrl): void
+    {
+        $this->merchantUrl = $merchantUrl;
+    }
 
     /**
      * @return string|null

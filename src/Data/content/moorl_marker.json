@@ -1,0 +1,230 @@
+[
+  {
+    "id": "{ID:WILD_100}",
+    "name": "Leaf Orange",
+    "markerId": "{MEDIA_FILE:marker/leaf-orange.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/leaf-shadow.png}",
+    "markerRetinaId": null,
+    "markerSettings": {
+      "iconSizeX": 38,
+      "iconSizeY": 95,
+      "iconAnchorX": 22, 
+      "iconAnchorY": 94,
+      "shadowSizeX": 50,
+      "shadowSizeY": 64, 
+      "popupAnchorX": -3, 
+      "popupAnchorY": -76, 
+      "shadowAnchorX": 4,
+      "shadowAnchorY": 62
+    }
+  },
+  {
+    "id": "{ID:WILD_101}",
+    "name": "Leaf Red",
+    "markerId": "{MEDIA_FILE:marker/leaf-red.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/leaf-shadow.png}",
+    "markerRetinaId": null,
+    "markerSettings": {
+      "iconSizeX": 38,
+      "iconSizeY": 95,
+      "iconAnchorX": 22,
+      "iconAnchorY": 94,
+      "shadowSizeX": 50,
+      "shadowSizeY": 64,
+      "popupAnchorX": -3,
+      "popupAnchorY": -76,
+      "shadowAnchorX": 4,
+      "shadowAnchorY": 62
+    }
+  },
+  {
+    "id": "{ID:WILD_102}",
+    "name": "Leaf Green",
+    "markerId": "{MEDIA_FILE:marker/leaf-green.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/leaf-shadow.png}",
+    "markerRetinaId": null,
+    "markerSettings": {
+      "iconSizeX": 38,
+      "iconSizeY": 95,
+      "iconAnchorX": 22,
+      "iconAnchorY": 94,
+      "shadowSizeX": 50,
+      "shadowSizeY": 64,
+      "popupAnchorX": -3,
+      "popupAnchorY": -76,
+      "shadowAnchorX": 4,
+      "shadowAnchorY": 62
+    }
+  },
+  {
+    "id": "{ID:WILD_103}",
+    "name": "Black",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-black.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-black.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_104}",
+    "name": "Blue",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-blue.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-blue.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_105}",
+    "name": "Gold",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-gold.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-gold.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_106}",
+    "name": "Green",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-green.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-green.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_107}",
+    "name": "Grey",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-grey.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-grey.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_108}",
+    "name": "Orange",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-orange.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-orange.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_109}",
+    "name": "Red",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-red.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-red.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_110}",
+    "name": "Violet",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-violet.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-violet.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  },
+  {
+    "id": "{ID:WILD_111}",
+    "name": "Yellow",
+    "markerId": "{MEDIA_FILE:marker/marker-icon-yellow.png}",
+    "markerShadowId": "{MEDIA_FILE:marker/marker-shadow.png}",
+    "markerRetinaId": "{MEDIA_FILE:marker/marker-icon-2x-yellow.png}",
+    "markerSettings": {
+      "iconSizeX": 25,
+      "iconSizeY": 41,
+      "iconAnchorX": 12,
+      "iconAnchorY": 41,
+      "shadowSizeX": 41,
+      "shadowSizeY": 41,
+      "popupAnchorX": 1,
+      "popupAnchorY": -34,
+      "shadowAnchorX": 12,
+      "shadowAnchorY": 41
+    }
+  }
+]

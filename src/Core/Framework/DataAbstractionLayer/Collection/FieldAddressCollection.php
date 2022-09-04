@@ -17,13 +17,6 @@ class FieldAddressCollection extends FieldCollection
 {
     use FieldCollectionMergeTrait;
 
-    public static function merge(FieldCollection $collection): void
-    {
-        foreach (new self() as $field) {
-            $collection->add($field);
-        }
-    }
-
     public function __construct()
     {
         return new parent([

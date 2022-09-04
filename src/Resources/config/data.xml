@@ -5,6 +5,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
+        <service id="MoorlFoundation\Data\Data">
+            <tag name="moorl.foundation.data" priority="2000" />
+        </service>
+
         <service id="MoorlFoundation\Demo\CmsTools\DemoCmsTools">
             <tag name="moorl.foundation.data" priority="0" />
         </service>

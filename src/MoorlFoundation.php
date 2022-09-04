@@ -3,19 +3,32 @@
 namespace MoorlFoundation;
 
 use Doctrine\DBAL\Connection;
+use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Plugin;
+use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
 class MoorlFoundation extends Plugin
 {
     public const NAME = 'MoorlFoundation';
     public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
+    public const SHOPWARE_TABLES = [];
     public const PLUGIN_TABLES = [
         'moorl_cms_element_config',
         'moorl_location',
         'moorl_sorting',
         'moorl_sorting_translation',
+        'moorl_marker',
     ];
+
+    public function activate(ActivateContext $activateContext): void
+    {
+        parent::activate($activateContext);
+
+        /* @var $dataService DataService */
+        $dataService = $this->container->get(DataService::class);
+        $dataService->install(self::NAME);
+    }
 
     public function uninstall(UninstallContext $context): void
     {

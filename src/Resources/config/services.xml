@@ -108,6 +108,10 @@
             <tag name="shopware.entity.definition" entity="moorl_sorting_translation" />
         </service>
 
+        <service id="MoorlFoundation\Core\Content\Marker\MarkerDefinition">
+            <tag name="shopware.entity.definition" entity="moorl_marker" />
+        </service>
+
         <!-- Listing Route Decorator -->
         <service id="MoorlFoundation\Core\Content\Product\SalesChannel\Listing\FoundationProductListingRoute"
                  decorates="Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRoute"
