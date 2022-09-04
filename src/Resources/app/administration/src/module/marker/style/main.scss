@@ -1,0 +1,68 @@
+@import "leaflet";
+
+.moorl-marker-timetable {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 320px 320px 320px 320px 320px 320px 320px;
+  overflow-x: scroll;
+
+  > li {
+
+  }
+
+  .times {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 5px;
+    }
+  }
+}
+
+.moorl-marker-import-assistant {
+  .sw-field--switch,
+  .info {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+}
+
+.moorl-marker-mapping-table {
+  width: 100%;
+  table-layout: fixed;
+
+  select {
+    width: 100%;
+    border: 0;
+    background: none;
+  }
+
+  tbody {
+    tr {
+      td {
+        > div {
+          padding: 3px;
+        }
+
+        border-right: 1px solid #d1d9e0;
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+
+      &:nth-child(2n) {
+        td {
+          background-color: #f0f2f5;
+        }
+      }
+    }
+  }
+}
