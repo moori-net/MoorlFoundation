@@ -1,0 +1,20 @@
+<?php declare(strict_types=1);
+
+namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
+
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\VueComponent;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+
+class FieldOpeningHoursCollection extends FieldCollection
+{
+    use FieldCollectionMergeTrait;
+
+    public function __construct()
+    {
+        return new parent([
+            (new JsonField('opening_hours','openingHours'))->addFlags(new VueComponent('moorl-opening-hours')),
+        ]);
+    }
+}
