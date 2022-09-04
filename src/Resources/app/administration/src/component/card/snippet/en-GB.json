@@ -5,9 +5,13 @@
       "company": "Company",
       "contact": "Contact",
       "layout": "Layout",
-      "thing": "General"
+      "thing": "General",
+      "location": "Location",
+      "openingHours": "Opening hours",
+      "custom": "Static custom fields"
     },
     "properties": {
+      "autoLocation": "Get location from address",
       "countryState": "Country state",
       "executiveDirector": "Executive Director",
       "placeOfFulfillment": "Place of Fulfillment",

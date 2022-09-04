@@ -1,0 +1,42 @@
+{% block moorl_location_card %}
+    <sw-card class="moorl-location-card" :title="$tc('moorl-foundation.card.location')">
+        <sw-container columns="1fr 1fr" gap="0 20px">
+            {% block moorl_location_card_inner %}
+                <sw-entity-single-select
+                        :label="$tc('moorl-foundation.properties.markerId')"
+                        entity="moorl_marker"
+                        v-model="item.markerId"
+                />
+
+                <sw-field
+                        type="switch"
+                        bordered
+                        :label="$tc('moorl-foundation.properties.autoLocation')"
+                        v-model="item.autoLocation"
+                />
+
+                <sw-number-field
+                        :disabled="item.autoLocation"
+                        :label="$tc('moorl-foundation.properties.locationLat')"
+                        numberType="float"
+                        step="0.00001"
+                        digits="5"
+                        v-model="item.locationLat"
+                />
+
+                <sw-number-field
+                        :disabled="item.autoLocation"
+                        :label="$tc('moorl-foundation.properties.locationLon')"
+                        numberType="float"
+                        step="0.00001"
+                        digits="5"
+                        v-model="item.locationLon"
+                />
+            {% endblock %}
+        </sw-container>
+
+        <moorl-map :item="item"/>
+
+        <slot name="append"/>
+    </sw-card>
+{% endblock %}

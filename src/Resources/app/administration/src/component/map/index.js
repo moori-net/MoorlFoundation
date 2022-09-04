@@ -200,6 +200,59 @@ Component.register('moorl-map', {
             }
 
             return L.divIcon(iconOptions);
+        },
+
+        markerPreview() {
+            let iconOptions = {
+                shadowUrl: this.item.markerShadow ? this.item.markerShadow.url : null,
+                iconRetinaUrl: this.item.markerRetina ? this.item.markerRetina.url : null,
+                iconUrl: this.item.marker ? this.item.marker.url : null,
+                iconSize: [
+                    this.item.markerSettings.iconSizeX,
+                    this.item.markerSettings.iconSizeY
+                ],
+                shadowSize: [
+                    this.item.markerSettings.shadowSizeX,
+                    this.item.markerSettings.shadowSizeY
+                ],
+                iconAnchor: [
+                    this.item.markerSettings.iconAnchorX,
+                    this.item.markerSettings.iconAnchorY
+                ],
+                shadowAnchor: [
+                    this.item.markerSettings.shadowAnchorX,
+                    this.item.markerSettings.shadowAnchorY
+                ],
+                popupAnchor: [
+                    this.item.markerSettings.popupAnchorX,
+                    this.item.markerSettings.popupAnchorY
+                ]
+            };
+
+            console.log(iconOptions);
+
+            const featureMarker = [];
+
+            featureMarker.push(
+                L.marker(this.coord, { icon: L.icon(iconOptions) })
+                    .bindPopup('<p><b>Lorem Ipsum GmbH</b><br>Musterstraße 1<br>12345 Musterstadt</p>', {
+                        autoPan: false,
+                        autoClose: true
+                    })
+                    .on('click', function () {
+                        this.markerItems.eachLayer(function (layer) {
+                            if (!layer.getPopup().isOpen()) {
+                                layer.openPopup();
+                            }
+                        });
+                    })
+            );
+
+            if (this.markerItems) {
+                this.markerItems.clearLayers();
+            }
+
+            this.markerItems = L.layerGroup(featureMarker).addTo(this.mapItem);
         }
     }
 });
