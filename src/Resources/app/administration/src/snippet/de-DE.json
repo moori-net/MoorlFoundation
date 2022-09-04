@@ -250,6 +250,7 @@
             "cmsPage": "CMS Seite"
         },
         "label": {
+            "settingsMarker": "moori Map Marker",
             "settingsTitle": "moori Werkzeuge",
             "standardDemo": "Standard Demo",
             "settingsDemoData": "moori Demo Assistent",
@@ -264,7 +265,7 @@
             "accountCard": "Account",
             "generalCard": "Allgemein",
             "locationCard": "Standort",
-            "addressCard": "Addresse",
+            "addressCard": "Adresse",
             "markerCard": "Marker",
             "relationsCard": "Verknüpfungen",
             "visibilityCard": "Sichtbarkeit",

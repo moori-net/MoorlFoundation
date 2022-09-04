@@ -17,14 +17,17 @@
     <template slot="content">
         <sw-card-view>
             <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.label.generalCard')">
-                <sw-field :label="$t('moorl-foundation.properties.name')"
-                          v-model="item.name"
-                          required
-                          validation="required"></sw-field>
+                <sw-field
+                        :label="$t('moorl-foundation.properties.name')"
+                        v-model="item.name"
+                        required
+                        validation="required"
+                />
 
-                <sw-field :label="$t('moorl-foundation.properties.type')"
-                          :helpText="$t('moorl-merchant-finder.tooltips.type')"
-                          v-model="item.type"></sw-field>
+                <sw-field
+                        :label="$t('moorl-foundation.properties.type')"
+                        v-model="item.type"
+                />
             </sw-card>
 
             <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.label.markerCard')">
@@ -38,8 +41,9 @@
                     <sw-upload-listener
                             :uploadTag="uploadTagMarker"
                             autoUpload
-                            @media-upload-finish="setMarkerItem">
-                    </sw-upload-listener>
+                            @media-upload-finish="setMarkerItem"
+                    />
+
                     <sw-media-upload-v2
                             :uploadTag="uploadTagMarker"
                             :source="item.markerId"
@@ -48,16 +52,16 @@
                             variant="regular"
                             @sw-media-upload-media-upload-success="setMarkerItem"
                             @media-drop="onDropMarker"
-                            @media-upload-remove-image="onUnlinkMarker">
-                    </sw-media-upload-v2>
+                            @media-upload-remove-image="onUnlinkMarker"
+                    />
                 </div>
 
                 <div class="sw-field">
                     <sw-upload-listener
                             :uploadTag="uploadTagMarkerRetina"
                             autoUpload
-                            @media-upload-finish="setMarkerRetinaItem">
-                    </sw-upload-listener>
+                            @media-upload-finish="setMarkerRetinaItem"
+                    />
                     <sw-media-upload-v2
                             :uploadTag="uploadTagMarkerRetina"
                             :source="item.markerRetinaId"
@@ -66,16 +70,17 @@
                             variant="regular"
                             @sw-media-upload-media-upload-success="setMarkerRetinaItem"
                             @media-drop="onDropMarkerRetina"
-                            @media-upload-remove-image="onUnlinkMarkerRetina">
-                    </sw-media-upload-v2>
+                            @media-upload-remove-image="onUnlinkMarkerRetina"
+                    />
                 </div>
 
                 <div class="sw-field">
                     <sw-upload-listener
                             :uploadTag="uploadTagMarkerShadow"
                             autoUpload
-                            @media-upload-finish="setMarkerShadowItem">
-                    </sw-upload-listener>
+                            @media-upload-finish="setMarkerShadowItem"
+                    />
+
                     <sw-media-upload-v2
                             :uploadTag="uploadTagMarkerShadow"
                             :source="item.markerShadowId"
@@ -84,8 +89,8 @@
                             variant="regular"
                             @sw-media-upload-media-upload-success="setMarkerShadowItem"
                             @media-drop="onDropMarkerShadow"
-                            @media-upload-remove-image="onUnlinkMarkerShadow">
-                    </sw-media-upload-v2>
+                            @media-upload-remove-image="onUnlinkMarkerShadow"
+                    />
                 </div>
             </sw-card>
 
@@ -98,16 +103,16 @@
                 </div>
 
                 <sw-container columns="1fr 1fr" gap="0 20px">
-                    <sw-field type="number" label="iconSizeX" v-model="item.markerSettings.iconSizeX"></sw-field>
-                    <sw-field type="number" label="iconSizeY" v-model="item.markerSettings.iconSizeY"></sw-field>
-                    <sw-field type="number" label="shadowSizeX" v-model="item.markerSettings.shadowSizeX"></sw-field>
-                    <sw-field type="number" label="shadowSizeY" v-model="item.markerSettings.shadowSizeY"></sw-field>
-                    <sw-field type="number" label="iconAnchorX" v-model="item.markerSettings.iconAnchorX"></sw-field>
-                    <sw-field type="number" label="iconAnchorY" v-model="item.markerSettings.iconAnchorY"></sw-field>
-                    <sw-field type="number" label="shadowAnchorX" v-model="item.markerSettings.shadowAnchorX"></sw-field>
-                    <sw-field type="number" label="shadowAnchorY" v-model="item.markerSettings.shadowAnchorY"></sw-field>
-                    <sw-field type="number" label="popupAnchorX" v-model="item.markerSettings.popupAnchorX"></sw-field>
-                    <sw-field type="number" label="popupAnchorY" v-model="item.markerSettings.popupAnchorY"></sw-field>
+                    <sw-field type="number" label="iconSizeX" v-model="item.markerSettings.iconSizeX"/>
+                    <sw-field type="number" label="iconSizeY" v-model="item.markerSettings.iconSizeY"/>
+                    <sw-field type="number" label="shadowSizeX" v-model="item.markerSettings.shadowSizeX"/>
+                    <sw-field type="number" label="shadowSizeY" v-model="item.markerSettings.shadowSizeY"/>
+                    <sw-field type="number" label="iconAnchorX" v-model="item.markerSettings.iconAnchorX"/>
+                    <sw-field type="number" label="iconAnchorY" v-model="item.markerSettings.iconAnchorY"/>
+                    <sw-field type="number" label="shadowAnchorX" v-model="item.markerSettings.shadowAnchorX"/>
+                    <sw-field type="number" label="shadowAnchorY" v-model="item.markerSettings.shadowAnchorY"/>
+                    <sw-field type="number" label="popupAnchorX" v-model="item.markerSettings.popupAnchorX"/>
+                    <sw-field type="number" label="popupAnchorY" v-model="item.markerSettings.popupAnchorY"/>
                 </sw-container>
             </sw-card>
 
@@ -129,9 +134,9 @@
         <sw-sidebar :propagateWidth="true">
             <sw-sidebar-media-item ref="mediaSidebarItem">
                 <template slot="context-menu-items" slot-scope="media">
-                    <sw-context-menu-item @click="setMediaFromSidebar(media.mediaItem)">
-                        Logo
-                    </sw-context-menu-item>
+                    <sw-context-menu-item
+                            @click="setMediaFromSidebar(media.mediaItem)"
+                    />
                 </template>
             </sw-sidebar-media-item>
         </sw-sidebar>

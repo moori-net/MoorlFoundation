@@ -7,7 +7,7 @@ import './style/main.scss';
 Module.register('moorl-marker', {
     type: 'plugin',
     name: 'MerchantFinder',
-    title: 'moorl-merchant-finder.general.markerMenuItemGeneral',
+    title: 'moorl-foundation.label.settingsMarker',
     color: '#ff3d58',
     icon: 'default-object-globe',
     routes: {
@@ -35,8 +35,8 @@ Module.register('moorl-marker', {
             name: 'moorl-marker-list',
             to: 'moorl.marker.list',
             group: 'plugins',
-            icon: 'default-object-lab-flask',
-            label: 'moorl-merchant-finder.general.markerMenuItemGeneral'
+            icon: 'default-object-globe',
+            label: 'moorl-foundation.label.settingsMarker'
         }
     ]
 });

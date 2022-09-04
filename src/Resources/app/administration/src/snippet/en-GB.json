@@ -275,6 +275,7 @@
             "highlight": "Highlight"
         },
         "label": {
+            "settingsMarker": "moori Map Marker",
             "settingsTitle": "moori Tools",
             "standardDemo": "Standard Demo",
             "settingsDemoData": "moori Demo Assistant",
