@@ -2,7 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
-use Appflix\DewaShop\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\VueComponent;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
