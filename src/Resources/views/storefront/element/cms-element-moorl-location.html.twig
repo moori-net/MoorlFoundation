@@ -1,4 +1,7 @@
-<div class="cms-element-{{ element.type }}">
+<div class="cms-element-{{ element.type }}" itemprop="geo" itemscope itemtype="https://schema.org/GeoCoordinates">
+    <meta itemprop="latitude" content="{{ element.data.locationLon }}" />
+    <meta itemprop="longitude" content="{{ element.data.locationLat }}" />
+
     {% set locationOptions = {
         locations: [
             element.data.leafletLocation

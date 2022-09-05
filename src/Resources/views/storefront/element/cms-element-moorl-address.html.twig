@@ -11,23 +11,24 @@
                     </div>
 
                     {% block element_moorl_address_card_body %}
-                        <p>
+                        <p itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
                             {% if element.data.additionalAddressLine1 %}
                                 {{ element.data.additionalAddressLine1 }}<br>
                             {% endif %}
                             {% if element.data.additionalAddressLine2 %}
                                 {{ element.data.additionalAddressLine2 }}<br>
                             {% endif %}
-                            {{ element.data.street }}
-                            {{ element.data.streetNumber }}<br>
-                            {{ element.data.zipcode }}
-                            {{ element.data.city }}<br>
-                            {% if element.data.countryState %}
-                                {{ element.data.countryState.translated.name }}
-                            {% endif %}
-                            {% if element.data.country %}
-                                {{ element.data.country.translated.name }}
-                            {% endif %}
+                            <span itemprop="streetAddress">{{ element.data.street }} {{ element.data.streetNumber }}</span><br>
+                            <span itemprop="postalCode">{{ element.data.zipcode }}</span>
+                            <span itemprop="addressLocality">
+                                {{ element.data.city }}<br>
+                                {% if element.data.countryState %}
+                                    {{ element.data.countryState.translated.name }}
+                                {% endif %}
+                                {% if element.data.country %}
+                                    {{ element.data.country.translated.name }}
+                                {% endif %}
+                            </span>
                         </p>
 
                         {% if element.data.locationPlaceId %}

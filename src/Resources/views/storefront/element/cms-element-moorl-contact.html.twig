@@ -29,7 +29,7 @@
 
                         {% if element.data.phoneNumber %}
                             <p>
-                                <a href="tel:{{ element.data.phoneNumber }}">
+                                <a href="tel:{{ element.data.phoneNumber }}" itemprop="telephone" content="{{ element.data.phoneNumber }}">
                                     {{ "moorl-foundation.properties.phoneNumber"|trans }}
                                 </a>
                             </p>
@@ -37,7 +37,7 @@
 
                         {% if element.data.email %}
                             <p>
-                                <a href="mailto:{{ element.data.email }}">
+                                <a href="mailto:{{ element.data.email }}" itemprop="email" content="{{ element.data.email }}">
                                     {{ "moorl-foundation.properties.email"|trans }}
                                 </a>
                             </p>
