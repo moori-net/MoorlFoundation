@@ -6,4 +6,5 @@ import './location-card';
 import './layout-card';
 import './opening-hours-card';
 import './custom-card';
+import './person-card';
 import './layout-card-v2';

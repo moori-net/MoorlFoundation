@@ -8,9 +8,11 @@
       "thing": "General",
       "location": "Location",
       "openingHours": "Opening hours",
-      "custom": "Static custom fields"
+      "custom": "Static custom fields",
+      "person": "Contact person"
     },
     "properties": {
+      "salutation": "Salutation",
       "autoLocation": "Get location from address",
       "countryState": "Country state",
       "executiveDirector": "Executive Director",

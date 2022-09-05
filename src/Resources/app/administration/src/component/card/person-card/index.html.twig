@@ -1,0 +1,15 @@
+{% block moorl_person_card %}
+    <sw-card class="moorl-person-card" :title="$tc('moorl-foundation.card.person')">
+        <sw-container columns="1fr 1fr" gap="0 20px">
+            {% block moorl_person_card_inner %}
+                <sw-entity-single-select :label="$tc('moorl-foundation.properties.salutation')" v-model="item.salutationId" labelProperty="displayName" entity="salutation"/>
+                <sw-field :label="$tc('moorl-foundation.properties.title')" v-model="item.title"/>
+                <sw-field :label="$tc('moorl-foundation.properties.firstName')" v-model="item.firstName"/>
+                <sw-field :label="$tc('moorl-foundation.properties.lastName')" v-model="item.lastName"/>
+                <sw-field :label="$tc('moorl-foundation.properties.company')" v-model="item.company"/>
+            {% endblock %}
+        </sw-container>
+
+        <slot name="append"/>
+    </sw-card>
+{% endblock %}
