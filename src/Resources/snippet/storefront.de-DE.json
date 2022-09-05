@@ -1,5 +1,12 @@
 {
   "moorl-foundation": {
+    "card": {
+      "address": "Adresse",
+      "person": "Kontaktperson",
+      "company": "Firma",
+      "openingHours": "Öffnungszeiten",
+      "contact": "Kontakt"
+    },
     "customerUpload": {
       "useAsCover": "Als Cover nutzen",
       "checkToDelete": "Check zum Löschen",
@@ -14,16 +21,20 @@
       "missingConfiguration": "Fehlende Konfiguration für dieses Element!"
     },
     "days": {
+      "closed": "Geschlossen",
       "today": "Heute",
       "monday": "Montag",
       "tuesday": "Dienstag",
       "wednesday": "Mittwoch",
-      "thursday": "Donnerstang",
+      "thursday": "Donnerstag",
       "friday": "Freitag",
       "saturday": "Samstag",
       "sunday": "Sonntag"
     },
     "buttons": {
+      "placeIdLink": "Route planen",
+      "administrationButtonText": "Administration",
+      "openNewWindowButtonText": "Open in new window",
       "saveButtonText": "Save",
       "newButtonText": "New",
       "refreshButtonText": "Reload",

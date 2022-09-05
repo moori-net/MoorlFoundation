@@ -58,7 +58,6 @@
             "toc": "Table of contents"
         },
         "properties": {
-            "address": "Address",
             "inRadiusOf": "in radius of",
             "radius": "Radius",
             "distance": "Distance",
