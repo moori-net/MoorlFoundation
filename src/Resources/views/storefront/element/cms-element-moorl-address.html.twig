@@ -1,41 +1,45 @@
-<div class="cms-element-{{ element.type }}">
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                {% sw_icon 'map' style {size:'xs', pack:'fas'} %}
-                {{ "moorl-foundation.card.address"|trans }}
+{% block element_moorl_address %}
+    <div class="cms-element-{{ element.type }}">
+        <div class="card">
+            <div class="card-body">
+                {% block element_moorl_address_card %}
+                    <div class="card-title">
+                        {% block element_moorl_address_card_title %}
+                            {% sw_icon 'map' style {size:'xs', pack:'fas'} %}
+                            {{ "moorl-foundation.card.address"|trans }}
+                        {% endblock %}
+                    </div>
+
+                    {% block element_moorl_address_card_body %}
+                        <p>
+                            {% if element.data.additionalAddressLine1 %}
+                                {{ element.data.additionalAddressLine1 }}<br>
+                            {% endif %}
+                            {% if element.data.additionalAddressLine2 %}
+                                {{ element.data.additionalAddressLine2 }}<br>
+                            {% endif %}
+                            {{ element.data.street }}
+                            {{ element.data.streetNumber }}<br>
+                            {{ element.data.zipcode }}
+                            {{ element.data.city }}<br>
+                            {% if element.data.countryState %}
+                                {{ element.data.countryState.translated.name }}
+                            {% endif %}
+                            {% if element.data.country %}
+                                {{ element.data.country.translated.name }}
+                            {% endif %}
+                        </p>
+
+                        {% if element.data.locationPlaceId %}
+                            <p>
+                                <a href="https://goo.gl/maps/{{ element.data.locationPlaceId }}" target="_blank" rel="noopener">
+                                    {{ "moorl-foundation.buttons.placeIdLink"|trans }}
+                                </a>
+                            </p>
+                        {% endif %}
+                    {% endblock %}
+                {% endblock %}
             </div>
-
-            <p>
-                {% if element.data.additionalAddressLine1 %}
-                    {{ element.data.additionalAddressLine1 }}<br>
-                {% endif %}
-                {% if element.data.additionalAddressLine2 %}
-                    {{ element.data.additionalAddressLine2 }}<br>
-                {% endif %}
-                {{ element.data.street }}
-                {{ element.data.streetNumber }}<br>
-                {{ element.data.zipcode }}
-                {{ element.data.city }}<br>
-                {% if element.data.countryState %}
-                    {{ element.data.countryState.translated.name }}
-                {% endif %}
-                {% if element.data.country %}
-                    {{ element.data.country.translated.name }}
-                {% endif %}
-            </p>
-
-            {% if element.data.locationPlaceId %}
-                <p>
-                    <a
-                            href="https://goo.gl/maps/{{ element.data.locationPlaceId }}"
-                            target="_blank"
-                            rel="noopener"
-                    >
-                        {{ "moorl-foundation.buttons.placeIdLink"|trans }}
-                    </a>
-                </p>
-            {% endif %}
         </div>
     </div>
-</div>
+{% endblock %}

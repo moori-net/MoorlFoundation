@@ -219,6 +219,27 @@
     </card>
 
     <card>
+        <title>Open Street Map</title>
+        <title lang="de-DE">Open Street Map</title>
+
+        <input-field>
+            <name>osmTileLayer</name>
+            <label>URL for tile layer</label>
+            <label lang="de-DE">URL Für Kachel-Ebene</label>
+            <defaultValue><![CDATA[https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png]]></defaultValue>
+            <placeholder><![CDATA[https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png]]></placeholder>
+        </input-field>
+
+        <input-field type="textarea">
+            <name>osmAttribution</name>
+            <label>Copyright</label>
+            <label lang="de-DE">Copyright</label>
+            <defaultValue><![CDATA[Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>]]></defaultValue>
+            <placeholder><![CDATA[Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>]]></placeholder>
+        </input-field>
+    </card>
+
+    <card>
         <title>Plugin settings</title>
         <title lang="de-DE">Plugin Einstellungen</title>
 

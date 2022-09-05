@@ -166,7 +166,6 @@
             "productEsdDays": "Product ESD subscription time (days)",
             "esd": "ESD",
             "validUntil": "Valid until",
-            "descriptionHtml": "Description HTML",
             "host": "Host",
             "port": "Port",
             "user": "Username",

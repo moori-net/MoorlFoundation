@@ -1,14 +1,22 @@
-<div class="cms-element-{{ element.type }}">
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                {% sw_icon 'clock' style {size:'xs', pack:'fas'} %}
-                {{ "moorl-foundation.card.openingHours"|trans }}
-            </div>
+{% block element_moorl_opening_hours %}
+    <div class="cms-element-{{ element.type }}">
+        <div class="card">
+            <div class="card-body">
+                {% block element_moorl_opening_hours_card %}
+                    <div class="card-title">
+                        {% block element_moorl_opening_hours_card_title %}
+                            {% sw_icon 'clock' style {size:'xs', pack:'fas'} %}
+                            {{ "moorl-foundation.card.openingHours"|trans }}
+                        {% endblock %}
+                    </div>
 
-            {% sw_include '@Storefront/plugin/moorl-foundation/opening-hours.html.twig' with {
-                'openingHours': element.data.openingHours
-            } %}
+                    {% block element_moorl_opening_hours_card_body %}
+                        {% sw_include '@Storefront/plugin/moorl-foundation/opening-hours.html.twig' with {
+                            'openingHours': element.data.openingHours
+                        } %}
+                    {% endblock %}
+                {% endblock %}
+            </div>
         </div>
     </div>
-</div>
+{% endblock %}

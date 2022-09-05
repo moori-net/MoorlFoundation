@@ -145,7 +145,6 @@
             "productEsdDays": "Produkt ESD Lizenzdauer in Tagen",
             "esd": "ESD",
             "validUntil": "Gültig bis",
-            "descriptionHtml": "Beschreibung HTML",
             "host": "Host",
             "port": "Port",
             "user": "Benutzer",

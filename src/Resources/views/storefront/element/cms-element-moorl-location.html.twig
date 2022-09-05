@@ -2,7 +2,9 @@
     {% set locationOptions = {
         locations: [
             element.data.leafletLocation
-        ]
+        ],
+        tileLayer: config('MoorlFoundation.config.osmTileLayer'),
+        attribution: config('MoorlFoundation.config.osmAttribution')
     } %}
 
     <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
