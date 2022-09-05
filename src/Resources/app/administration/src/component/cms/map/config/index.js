@@ -17,19 +17,6 @@ Component.register('sw-cms-el-config-moorl-map', {
         Mixin.getByName('cms-element')
     ],
 
-    computed: {
-        elementOptions() {
-            return {
-                provider: [
-                    {value: 'facebook', label: 'Facebook'},
-                    {value: 'twitter', label: 'Twitter'},
-                    {value: 'pinterest', label: 'Pinterest'},
-                    {value: 'email', label: 'E-Mail'}
-                ]
-            };
-        }
-    },
-
     created() {
         this.createdComponent();
     },

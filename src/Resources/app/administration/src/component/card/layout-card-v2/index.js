@@ -102,6 +102,8 @@ Component.register('moorl-layout-card-v2', {
 
     created() {
         Shopware.State.dispatch('cmsPageState/resetCmsPageState');
+
+        this.getAssignedCmsPage();
     },
 
     methods: {

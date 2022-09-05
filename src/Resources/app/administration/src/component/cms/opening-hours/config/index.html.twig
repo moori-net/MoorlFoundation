@@ -1,7 +1,16 @@
 <div class="sw-cms-el-config-moorl-opening-hours">
-    <sw-multi-select
-            :label="$tc('sw-cms.elements.moorl-opening-hours.label.provider')"
-            :options="elementOptions.provider"
-            v-model="element.config.provider.value"
-    />
+    <sw-cms-mapping-field
+            v-model="element.config.openingHours"
+            value-types="string">
+        <moorl-opening-hours v-model="element.config.openingHours.value"/>
+    </sw-cms-mapping-field>
+
+    <sw-cms-mapping-field
+            v-model="element.config.timeZone"
+            value-types="string">
+        <sw-text-field
+                :label="$tc('sw-cms.elements.moorl-opening-hours.label.timeZone')"
+                v-model="element.config.timeZone.value"
+        />
+    </sw-cms-mapping-field>
 </div>

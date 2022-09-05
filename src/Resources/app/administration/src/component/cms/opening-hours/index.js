@@ -9,9 +9,14 @@ Shopware.Service('cmsService').registerCmsElement({
     previewComponent: true,
     configComponent: 'sw-cms-el-config-moorl-opening-hours',
     defaultConfig: {
-        provider: {
+        openingHours: {
             source: 'static',
-            value: ['facebook','twitter'],
+            value: null,
+            required: true
+        },
+        timeZone: {
+            source: 'static',
+            value: 'Europe/Berlin',
             required: true
         }
     }

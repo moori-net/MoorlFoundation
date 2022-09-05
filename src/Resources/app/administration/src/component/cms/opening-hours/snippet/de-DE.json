@@ -2,9 +2,10 @@
     "sw-cms": {
         "elements": {
             "moorl-opening-hours": {
-                "name": "Share",
+                "name": "Öffnungszeiten",
                 "label": {
-                    "provider": "Platform"
+                    "timeZone": "Zeitzone",
+                    "openingHours": "Öffnungszeiten"
                 }
             }
         }

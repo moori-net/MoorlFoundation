@@ -2,10 +2,7 @@
     "sw-cms": {
         "elements": {
             "moorl-map": {
-                "name": "Share",
-                "label": {
-                    "provider": "Platform"
-                }
+                "name": "Karte"
             }
         }
     }
