@@ -21,6 +21,37 @@ class MarkerEntity extends Entity
     protected ?string $name = null;
 
     /**
+     * @return array
+     */
+    public function getLeafletMarker(): array
+    {
+        $ms = $this->markerSettings ?: [
+            "iconSizeX" => 38,
+            "iconSizeY" => 95,
+            "iconAnchorX" => 22,
+            "iconAnchorY" => 94,
+            "shadowSizeX" => 50,
+            "shadowSizeY" => 64,
+            "popupAnchorX" => -3,
+            "popupAnchorY" => -76,
+            "shadowAnchorX" => 4,
+            "shadowAnchorY" => 62
+        ];
+
+        return [
+            'icon' => [
+                'iconUrl' => $this->marker ? $this->marker->getUrl() : null,
+                'iconRetinaUrl' => $this->markerRetina ? $this->markerRetina->getUrl() : null,
+                'shadowUrl' => $this->markerShadow ? $this->markerShadow->getUrl() : null,
+                'iconSize' => [$ms['iconSizeX'], $ms['iconSizeY']],
+                'iconAnchor' => [$ms['iconAnchorX'], $ms['iconAnchorY']],
+                'popupAnchor' => [$ms['popupAnchorX'], $ms['popupAnchorY']],
+                'shadowSize' => [$ms['shadowSizeX'], $ms['shadowSizeY']]
+            ]
+        ];
+    }
+
+    /**
      * @return string|null
      */
     public function getMarkerId(): ?string

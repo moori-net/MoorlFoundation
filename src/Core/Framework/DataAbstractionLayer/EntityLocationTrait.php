@@ -14,6 +14,23 @@ trait EntityLocationTrait
     protected ?MarkerEntity $marker = null;
 
     /**
+     * @return array
+     */
+    public function getLeafletLocation(): array
+    {
+        return [
+            'latlng' => [
+                $this->locationLat,
+                $this->locationLon,
+            ],
+            'options' => [
+                $this->marker->getLeafletMarker()
+            ],
+            'popup' => "Lorem Ipsum"
+        ];
+    }
+
+    /**
      * @return string|null
      */
     public function getMarkerId(): ?string

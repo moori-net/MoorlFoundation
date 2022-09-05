@@ -1,3 +1,11 @@
 <div class="cms-element-{{ element.type }}">
-    {{ dump(element) }}
+    {% set locationOptions = {
+        locations: [
+            element.data.leafletLocation
+        ]
+    } %}
+
+    <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
+        <div style="height:{{ element.config.height.value }}" class="moorl-location-map"></div>
+    </div>
 </div>

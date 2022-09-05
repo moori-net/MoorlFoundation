@@ -38,6 +38,7 @@ import MoorlPaintPlugin from './paint/paint.plugin';
 import MoorlFoundationFilterRadiusPlugin from './listing/filter-radius.plugin';
 import MoorlFoundationFilterSearchPlugin from './listing/filter-search.plugin';
 import MoorlCustomerUploadPlugin from './customer-upload/customer-upload.plugin';
+import MoorlLocationPlugin from './location/location.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -45,6 +46,7 @@ PluginManager.register('MoorlFoundation', MoorlFoundation);
 PluginManager.register('MoorlFoundationForm', MoorlFoundationForm, '[data-moorl-foundation-form]');
 PluginManager.register('MoorlAnimation', MoorlAnimation, '[data-moorl-animation]');
 /* New plugins */
+PluginManager.register('MoorlLocation', MoorlLocationPlugin, '[data-moorl-location]');
 PluginManager.register('MoorlRelativeTime', MoorlRelativeTimePlugin, '[data-moorl-relative-time]');
 PluginManager.register('MoorlCountdown', MoorlCountdownPlugin, '[data-moorl-countdown]');
 PluginManager.register('MoorlProductBuyList', MoorlProductBuyListPlugin, '[data-moorl-product-buy-list]');
