@@ -23,10 +23,7 @@ trait EntityLocationTrait
                 $this->locationLat,
                 $this->locationLon,
             ],
-            'options' => [
-                $this->marker->getLeafletMarker()
-            ],
-            'popup' => "Lorem Ipsum"
+            'icon' => $this->marker->getLeafletMarker()
         ];
     }
 

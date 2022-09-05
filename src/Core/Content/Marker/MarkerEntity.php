@@ -39,15 +39,13 @@ class MarkerEntity extends Entity
         ];
 
         return [
-            'icon' => [
-                'iconUrl' => $this->marker ? $this->marker->getUrl() : null,
-                'iconRetinaUrl' => $this->markerRetina ? $this->markerRetina->getUrl() : null,
-                'shadowUrl' => $this->markerShadow ? $this->markerShadow->getUrl() : null,
-                'iconSize' => [$ms['iconSizeX'], $ms['iconSizeY']],
-                'iconAnchor' => [$ms['iconAnchorX'], $ms['iconAnchorY']],
-                'popupAnchor' => [$ms['popupAnchorX'], $ms['popupAnchorY']],
-                'shadowSize' => [$ms['shadowSizeX'], $ms['shadowSizeY']]
-            ]
+            'iconUrl' => $this->marker ? $this->marker->getUrl() : null,
+            'iconRetinaUrl' => $this->markerRetina ? $this->markerRetina->getUrl() : null,
+            'shadowUrl' => $this->markerShadow ? $this->markerShadow->getUrl() : null,
+            'iconSize' => [$ms['iconSizeX'], $ms['iconSizeY']],
+            'iconAnchor' => [$ms['iconAnchorX'], $ms['iconAnchorY']],
+            'popupAnchor' => [$ms['popupAnchorX'], $ms['popupAnchorY']],
+            'shadowSize' => [$ms['shadowSizeX'], $ms['shadowSizeY']]
         ];
     }
 

@@ -28,6 +28,10 @@ class FoundationCmsElementResolver extends AbstractCmsElementResolver
         $data = $this->getStruct();
         $slot->setData($data);
 
+        if (method_exists($data, 'setId') && $resolverContext instanceof EntityResolverContext) {
+            $data->setId($resolverContext->getEntity()->getId());
+        }
+
         foreach ($slot->getFieldConfig() as $key => $config) {
             if (!$config->getValue()) {
                 continue;

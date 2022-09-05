@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Content\Cms\SalesChannel\Struct;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntityAddressTrait;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntityLocationTrait;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use Shopware\Core\Framework\Struct\Struct;
 
 class LocationStruct extends Struct
