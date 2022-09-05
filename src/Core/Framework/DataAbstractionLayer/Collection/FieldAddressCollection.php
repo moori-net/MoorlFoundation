@@ -26,6 +26,7 @@ class FieldAddressCollection extends FieldCollection
             (new StringField('city', 'city'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new StringField('additional_address_line1', 'additionalAddressLine1'))->addFlags(new EditField('text')),
             (new StringField('additional_address_line2', 'additionalAddressLine2'))->addFlags(new EditField('text')),
+            (new StringField('country_code', 'countryCode'))->addFlags(new EditField('text')),
             new FkField('country_id', 'countryId', CountryDefinition::class),
             new FkField('country_state_id', 'countryStateId', CountryStateDefinition::class),
             (new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),

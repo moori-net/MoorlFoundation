@@ -7,6 +7,7 @@ use Shopware\Core\Content\Media\MediaEntity;
 
 trait EntityThingTrait
 {
+    protected bool $visible = false;
     protected bool $active = false;
     protected string $name;
     protected ?string $teaser = null;
@@ -18,6 +19,22 @@ trait EntityThingTrait
     protected ?string $mediaId = null;
     protected ?MediaEntity $media = null;
     protected ?array $slotConfig = null;
+
+    /**
+     * @return bool
+     */
+    public function getVisible(): bool
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param bool $visible
+     */
+    public function setVisible(bool $visible): void
+    {
+        $this->visible = $visible;
+    }
 
     /**
      * @return string|null

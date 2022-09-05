@@ -13,10 +13,27 @@ trait EntityAddressTrait
     protected ?string $streetNumber = null;
     protected ?string $additionalAddressLine1 = null;
     protected ?string $additionalAddressLine2 = null;
+    protected ?string $countryCode = null;
     protected ?string $countryId = null;
     protected ?string $countryStateId = null;
     protected ?CountryEntity $country = null;
     protected ?CountryStateEntity $countryState = null;
+
+    /**
+     * @return string|null
+     */
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * @param string|null $countryCode
+     */
+    public function setCountryCode(?string $countryCode): void
+    {
+        $this->countryCode = $countryCode;
+    }
 
     /**
      * @return string|null
