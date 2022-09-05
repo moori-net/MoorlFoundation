@@ -23,7 +23,7 @@ trait EntityLocationTrait
                 $this->locationLat,
                 $this->locationLon,
             ],
-            'icon' => $this->marker->getLeafletMarker()
+            'icon' => $this->marker ? $this->marker->getLeafletMarker() : false
         ];
     }
 

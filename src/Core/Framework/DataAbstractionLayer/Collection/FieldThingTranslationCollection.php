@@ -20,6 +20,7 @@ class FieldThingTranslationCollection extends FieldCollection
             (new StringField('name', 'name'))->addFlags(new Required()),
             (new LongTextField('description', 'description'))->addFlags(new AllowHtml()),
             new LongTextField('teaser', 'teaser'),
+            new LongTextField('keywords', 'keywords'),
             new LongTextField('meta_title', 'metaTitle'),
             new LongTextField('meta_description', 'metaDescription'),
             new JsonField('slot_config', 'slotConfig'),

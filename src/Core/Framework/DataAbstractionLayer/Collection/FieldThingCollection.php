@@ -25,6 +25,7 @@ class FieldThingCollection extends FieldCollection
             (new BoolField('active', 'active'))->addFlags(new EditField('switch')),
             (new TranslatedField('name'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new TranslatedField('teaser'))->addFlags(new EditField('textarea')),
+            (new TranslatedField('keywords'))->addFlags(new EditField('textarea')),
             (new TranslatedField('description'))->addFlags(new EditField('textarea')),
             (new TranslatedField('metaTitle'))->addFlags(new EditField('text')),
             (new TranslatedField('metaDescription'))->addFlags(new EditField('textarea')),

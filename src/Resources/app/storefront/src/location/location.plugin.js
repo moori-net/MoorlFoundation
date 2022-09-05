@@ -38,9 +38,13 @@ export default class MoorlLocationPlugin extends Plugin {
         const featureMarker = [];
 
         for (let location of locations) {
-            const marker = L.marker(location.latlng, {
-                icon: L.icon(location.icon)
-            });
+            const markerOptions = {};
+
+            if (location.icon) {
+                markerOptions.icon = L.icon(location.icon);
+            }
+
+            const marker = L.marker(location.latlng, markerOptions);
 
             if (location.popup) {
                 marker.bindPopup(location.popup, {autoPan: false, autoClose: true});

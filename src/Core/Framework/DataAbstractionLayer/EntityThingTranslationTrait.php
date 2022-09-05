@@ -6,10 +6,27 @@ trait EntityThingTranslationTrait
 {
     protected string $name;
     protected ?string $teaser = null;
+    protected ?string $keywords = null;
     protected ?string $description = null;
     protected ?string $metaTitle = null;
     protected ?string $metaDescription = null;
     protected ?array $slotConfig = null;
+
+    /**
+     * @return string|null
+     */
+    public function getKeywords(): ?string
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * @param string|null $keywords
+     */
+    public function setKeywords(?string $keywords): void
+    {
+        $this->keywords = $keywords;
+    }
 
     /**
      * @return string
