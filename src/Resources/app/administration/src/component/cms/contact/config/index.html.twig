@@ -1,0 +1,17 @@
+<div class="sw-cms-el-config-moorl-contact">
+    <sw-cms-mapping-field v-model="element.config.email" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.email')" v-model="element.config.email.value"/>
+    </sw-cms-mapping-field>
+
+    <sw-cms-mapping-field v-model="element.config.phoneNumber" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.phoneNumber')" v-model="element.config.phoneNumber.value"/>
+    </sw-cms-mapping-field>
+
+    <sw-cms-mapping-field v-model="element.config.shopUrl" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.shopUrl')" v-model="element.config.shopUrl.value"/>
+    </sw-cms-mapping-field>
+
+    <sw-cms-mapping-field v-model="element.config.merchantUrl" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.merchantUrl')" v-model="element.config.merchantUrl.value"/>
+    </sw-cms-mapping-field>
+</div>

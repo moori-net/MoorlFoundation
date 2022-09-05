@@ -31,6 +31,7 @@ class FieldAddressCollection extends FieldCollection
             new FkField('country_state_id', 'countryStateId', CountryStateDefinition::class),
             (new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
             (new ManyToOneAssociationField('countryState', 'country_state_id', CountryStateDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
+            (new StringField('location_place_id', 'locationPlaceId'))->addFlags(new EditField('text')),
         ]);
     }
 }

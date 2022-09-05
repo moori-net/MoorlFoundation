@@ -132,6 +132,30 @@
         </service>
 
         <!-- CMS Resolver -->
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\AddressCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\CompanyCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\ContactCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\LocationCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\OpeningHoursCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\PersonCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Content\Product\Cms\ProductBuyListCmsElementResolver">
             <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>

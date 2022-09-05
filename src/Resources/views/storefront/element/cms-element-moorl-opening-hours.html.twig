@@ -1,0 +1,14 @@
+<div class="cms-element-{{ element.type }}">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                {% sw_icon 'clock' style {size:'xs', pack:'fas'} %}
+                {{ "moorl-foundation.card.openingHours"|trans }}
+            </div>
+
+            {% sw_include '@Storefront/plugin/moorl-foundation/opening-hours.html.twig' with {
+                'openingHours': element.data.openingHours
+            } %}
+        </div>
+    </div>
+</div>

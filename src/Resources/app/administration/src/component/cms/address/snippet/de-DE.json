@@ -1,0 +1,9 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-address": {
+                "name": "Adresse"
+            }
+        }
+    }
+}

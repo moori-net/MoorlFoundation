@@ -1,8 +1,10 @@
 .moorl-opening-hours {
   margin: 10px 0;
-  font-size: 0.8em;
 
   .form-row {
+    margin-left: 0;
+    margin-right: 0;
+
     &:nth-child(odd) {
       background-color: darken($sw-background-color, 8%);
     }

@@ -18,6 +18,23 @@ trait EntityAddressTrait
     protected ?string $countryStateId = null;
     protected ?CountryEntity $country = null;
     protected ?CountryStateEntity $countryState = null;
+    protected ?string $locationPlaceId = null;
+
+    /**
+     * @return string|null
+     */
+    public function getLocationPlaceId(): ?string
+    {
+        return $this->locationPlaceId;
+    }
+
+    /**
+     * @param string|null $locationPlaceId
+     */
+    public function setLocationPlaceId(?string $locationPlaceId): void
+    {
+        $this->locationPlaceId = $locationPlaceId;
+    }
 
     /**
      * @return string|null

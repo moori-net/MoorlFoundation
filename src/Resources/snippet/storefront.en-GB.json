@@ -1,5 +1,12 @@
 {
     "moorl-foundation": {
+        "card": {
+            "address": "Address",
+            "person": "Contact person",
+            "company": "Company",
+            "openingHours": "Opening hours",
+            "contact": "Contact"
+        },
         "customerUpload": {
             "useAsCover": "Use as cover",
             "checkToDelete": "Check to delete",
@@ -14,6 +21,7 @@
             "missingConfiguration": "Missing configuration for this listing!"
         },
         "days": {
+            "closed": "Closed",
             "today": "Today",
             "monday": "Monday",
             "tuesday": "Tuesday",
@@ -24,6 +32,7 @@
             "sunday": "Sunday"
         },
         "buttons": {
+            "placeIdLink": "Plan route",
             "administrationButtonText": "Administration",
             "openNewWindowButtonText": "Open in new window",
             "saveButtonText": "Save",
@@ -49,6 +58,7 @@
             "toc": "Table of contents"
         },
         "properties": {
+            "address": "Address",
             "inRadiusOf": "in radius of",
             "radius": "Radius",
             "distance": "Distance",

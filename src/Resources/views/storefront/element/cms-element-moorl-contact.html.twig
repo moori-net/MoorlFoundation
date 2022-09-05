@@ -1,0 +1,50 @@
+<div class="cms-element-{{ element.type }}">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                {% sw_icon 'phone' style {size:'xs', pack:'fas'} %}
+                {{ "moorl-foundation.card.contact"|trans }}
+            </div>
+
+            {% if element.data.merchantUrl %}
+                <p>
+                    <a
+                            href="{{ element.data.merchantUrl }}"
+                            target="_blank"
+                            rel="noopener"
+                    >
+                        {{ "moorl-foundation.properties.merchantUrl"|trans }}
+                    </a>
+                </p>
+            {% endif %}
+
+            {% if element.data.shopUrl %}
+                <p>
+                    <a
+                            href="{{ element.data.shopUrl }}"
+                            target="_blank"
+                            rel="noopener"
+                    >
+                        {{ "moorl-foundation.properties.shopUrl"|trans }}
+                    </a>
+                </p>
+            {% endif %}
+
+            {% if element.data.phoneNumber %}
+                <p>
+                    <a href="tel:{{ element.data.phoneNumber }}">
+                        {{ "moorl-foundation.properties.phoneNumber"|trans }}
+                    </a>
+                </p>
+            {% endif %}
+
+            {% if element.data.email %}
+                <p>
+                    <a href="mailto:{{ element.data.email }}">
+                        {{ "moorl-foundation.properties.email"|trans }}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+</div>

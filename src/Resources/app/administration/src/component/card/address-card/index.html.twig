@@ -11,6 +11,7 @@
                 <sw-entity-single-select :label="$tc('moorl-foundation.properties.country')" v-model="item.countryId" labelProperty="name" entity="country"/>
                 <sw-entity-single-select :label="$tc('moorl-foundation.properties.countryState')" v-model="item.countryStateId" labelProperty="name" entity="country_state"/>
                 <sw-field :label="$tc('moorl-foundation.properties.countryCode')" v-model="item.countryCode"/>
+                <sw-field :label="$tc('moorl-foundation.properties.locationPlaceId')" v-model="item.locationPlaceId"/>
             {% endblock %}
         </sw-container>
 
