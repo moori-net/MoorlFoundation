@@ -38,6 +38,7 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
     public function load(string $categoryId, Request $request, SalesChannelContext $context, Criteria $criteria): ProductListingRouteResponse
     {
         $entityListing = $this->searchService->getEntityListing($request, $context->getContext());
+
         if ($entityListing) {
             $entityListing->setEventDispatcher($this->dispatcher);
             $entityListing->setRequest($request);

@@ -79,8 +79,8 @@ class EntitySearchService
                     return $searchEntity;
                 }
             }
-
         }
+
         return null;
     }
 
