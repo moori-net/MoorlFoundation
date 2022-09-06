@@ -299,6 +299,11 @@ TWIG;
             $globalReplacers['"{TOS_HTML}"'] = $data;
         } catch (\Exception $exception) {}
 
+        try {
+            $data = json_encode(file_get_contents(__DIR__ . '/privacy-html.html'));
+            $globalReplacers['"{PRIVACY_HTML}"'] = $data;
+        } catch (\Exception $exception) {}
+
         $sql = sprintf(
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
             $dataObject->getPluginName()
