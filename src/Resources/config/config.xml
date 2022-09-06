@@ -249,7 +249,11 @@
                 </option>
                 <option>
                     <id>dragging</id>
-                    <name>Drag map</name>
+                    <name>Drag map (mobile and desktop)</name>
+                </option>
+                <option>
+                    <id>draggingDesktop</id>
+                    <name>Drag map (only desktop)</name>
                 </option>
                 <option>
                     <id>tap</id>
