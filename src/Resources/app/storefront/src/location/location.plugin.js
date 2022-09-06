@@ -9,6 +9,7 @@ export default class MoorlLocationPlugin extends Plugin {
         mapSelector: '.moorl-location-map',
         tileLayer: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+        options: []
     };
 
     init() {
@@ -23,11 +24,16 @@ export default class MoorlLocationPlugin extends Plugin {
             return;
         }
 
+        const mapOptions = {};
+        if (this.options.options) {
+            mapOptions.scrollWheelZoom = this.options.options.includes('scrollWheelZoom');
+            mapOptions.dragging = this.options.options.includes('dragging');
+            mapOptions.tap = this.options.options.includes('tap');
+        }
+
         this._mapInstance = {};
         this._mapInstance.layerGroup = L.layerGroup([]);
-        this._mapInstance.map = L.map(this._mapElement, {
-            scrollWheelZoom: false
-        });
+        this._mapInstance.map = L.map(this._mapElement, mapOptions);
 
         L.tileLayer(this.options.tileLayer, {
             attribution: this.options.attribution

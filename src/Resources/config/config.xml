@@ -237,6 +237,26 @@
             <defaultValue><![CDATA[Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>]]></defaultValue>
             <placeholder><![CDATA[Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>]]></placeholder>
         </input-field>
+
+        <input-field type="multi-select">
+            <name>osmOptions</name>
+            <label>More options</label>
+            <label lang="de-DE">Mehr Optionen</label>
+            <options>
+                <option>
+                    <id>scrollWheelZoom</id>
+                    <name>Zoom with scrollwheel</name>
+                </option>
+                <option>
+                    <id>dragging</id>
+                    <name>Drag map</name>
+                </option>
+                <option>
+                    <id>tap</id>
+                    <name>Tap map</name>
+                </option>
+            </options>
+        </input-field>
     </card>
 
     <card>

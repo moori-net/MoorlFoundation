@@ -7,7 +7,8 @@
             element.data.leafletLocation
         ],
         tileLayer: config('MoorlFoundation.config.osmTileLayer'),
-        attribution: config('MoorlFoundation.config.osmAttribution')
+        attribution: config('MoorlFoundation.config.osmAttribution'),
+        options: config('MoorlFoundation.config.osmOptions'),
     } %}
 
     <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
