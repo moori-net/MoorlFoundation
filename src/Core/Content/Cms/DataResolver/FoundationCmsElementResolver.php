@@ -41,19 +41,9 @@ class FoundationCmsElementResolver extends AbstractCmsElementResolver
             if ($config->isMapped() && $resolverContext instanceof EntityResolverContext) {
                 $content = $this->resolveEntityValue($resolverContext->getEntity(), $config->getValue());
             } else if ($config->isStatic()) {
-                if ($resolverContext instanceof EntityResolverContext) {
-                    $content = $config->getValue();
-                    //$content = (string) $this->resolveEntityValues($resolverContext, $config->getValue());
-                } else {
-                    $content = $config->getValue();
-                }
+                $content = $config->getValue();
             }
             $data->__set($key, $content);
         }
-    }
-
-    public function getStruct(): Struct
-    {
-        throw new TypePatternException(self::class);
     }
 }
