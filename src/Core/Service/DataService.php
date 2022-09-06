@@ -289,6 +289,16 @@ TWIG;
             $globalReplacers['"{DEMO_HTML}"'] = $data;
         } catch (\Exception $exception) {}
 
+        try {
+            $data = json_encode(file_get_contents(__DIR__ . '/imprint-html.html'));
+            $globalReplacers['"{IMPRINT_HTML}"'] = $data;
+        } catch (\Exception $exception) {}
+
+        try {
+            $data = json_encode(file_get_contents(__DIR__ . '/tos-html.html'));
+            $globalReplacers['"{TOS_HTML}"'] = $data;
+        } catch (\Exception $exception) {}
+
         $sql = sprintf(
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
             $dataObject->getPluginName()
