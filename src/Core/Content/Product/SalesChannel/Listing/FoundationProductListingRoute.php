@@ -60,7 +60,7 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
         $entities = $result->getEntities();
         $filters = $result->getCurrentFilters();
 
-        if (isset($filters['radius'])) {
+        if (isset($filters['radius']) && !empty($filters['radius']['location'])) {
             if ($entities && method_exists($entities, 'sortByLocationDistance')) {
                 $entities->sortByLocationDistance(
                     (float) $filters['radius']['locationLat'],
