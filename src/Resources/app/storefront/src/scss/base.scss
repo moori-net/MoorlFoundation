@@ -18,6 +18,7 @@
 @import "cms/table-registration";
 @import "cms/usps";
 @import "cms/cta-banner";
+@import "cms/location";
 
 @import "component/opening-hours";
 //@import "component/listing";
@@ -37,9 +38,9 @@
 .icon-fas,
 .icon-fab {
   color: inherit;
-  > svg {
+  /*> svg {
     top: 0;
-  }
+  }*/
 }
 
 .bg-fixed {

@@ -6,7 +6,7 @@
     margin-right: 0;
 
     &:nth-child(odd) {
-      background-color: darken($sw-background-color, 8%);
+      background-color: rgba(0,0,0,0.1);
     }
 
     .moorl-opening-hours-range {
