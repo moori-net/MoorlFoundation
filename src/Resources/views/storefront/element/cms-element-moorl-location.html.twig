@@ -1,17 +1,30 @@
-<div class="cms-element-{{ element.type }}" itemprop="geo" itemscope itemtype="https://schema.org/GeoCoordinates">
-    <meta itemprop="latitude" content="{{ element.data.locationLon }}" />
-    <meta itemprop="longitude" content="{{ element.data.locationLat }}" />
+{% block element_moorl_location %}
+    <div class="cms-element-{{ element.type }}">
+        {% set locationOptions = {
+            locations: [
+                element.data.leafletLocation
+            ],
+            tileLayer: config('MoorlFoundation.config.osmTileLayer'),
+            attribution: config('MoorlFoundation.config.osmAttribution'),
+            options: config('MoorlFoundation.config.osmOptions'),
+        } %}
 
-    {% set locationOptions = {
-        locations: [
-            element.data.leafletLocation
-        ],
-        tileLayer: config('MoorlFoundation.config.osmTileLayer'),
-        attribution: config('MoorlFoundation.config.osmAttribution'),
-        options: config('MoorlFoundation.config.osmOptions'),
-    } %}
+        {% block element_moorl_location_map %}
+            {# TODO: Can't be extended because plugin loading order. Will be hardcoded in Foundation #}
+            {% if cmsPage.firstElementOfType('merchant-listing') %}
+                {{ dump(cmsPage.firstElementOfType('merchant-listing').data.listing.entities.getLeafletLocations()) }}
 
-    <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
-        <div style="height:{{ element.config.height.value }}" class="moorl-location-map"></div>
+                {% set locationOptions = {
+                    locations: cmsPage.firstElementOfType('merchant-listing').data.listing.entities.getLeafletLocations(),
+                    tileLayer: config('MoorlFoundation.config.osmTileLayer'),
+                    attribution: config('MoorlFoundation.config.osmAttribution'),
+                    options: config('MoorlFoundation.config.osmOptions'),
+                } %}
+            {% endif %}
+
+            <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
+                <div style="height:{{ element.config.height.value }}" class="moorl-location-map"></div>
+            </div>
+        {% endblock %}
     </div>
-</div>
+{% endblock %}

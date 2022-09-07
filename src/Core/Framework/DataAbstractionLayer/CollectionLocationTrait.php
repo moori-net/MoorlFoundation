@@ -1,0 +1,41 @@
+<?php declare(strict_types=1);
+
+namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
+
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+
+trait CollectionLocationTrait
+{
+    public function getLeafletLocations(): array
+    {
+        return array_values($this->fmap(function ($entity) {
+            /** @var EntityLocationTrait $entity */
+            return $entity->getLeafletLocation();
+        }));
+    }
+
+    public function sortByLocationDistance(
+        float $locationLat,
+        float $locationLon,
+        string $direction = FieldSorting::ASCENDING,
+        string $unit = "K"
+    ): self
+    {
+        /** @var EntityLocationTrait $entity */
+        foreach ($this as $entity) {
+            $entity->setLocationDistance($locationLat, $locationLon, $unit);
+        }
+
+        if ($direction === FieldSorting::ASCENDING) {
+            $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
+                return $a->getLocationDistance() > $b->getLocationDistance();
+            });
+        } else {
+            $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
+                return $a->getLocationDistance() < $b->getLocationDistance();
+            });
+        }
+
+        return $this;
+    }
+}
