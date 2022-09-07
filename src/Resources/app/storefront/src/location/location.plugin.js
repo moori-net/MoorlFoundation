@@ -1,4 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
+import DomAccess from 'src/helper/dom-access.helper';
 import L from 'leaflet';
 
 export default class MoorlLocationPlugin extends Plugin {
@@ -15,6 +16,20 @@ export default class MoorlLocationPlugin extends Plugin {
 
         this._initMap();
         this._initLocations(this.options.locations);
+
+        this._registerEvents();
+    }
+
+    _registerEvents() {
+        const listingEl = DomAccess.querySelector(document, '.cms-element-product-listing-wrapper', false);
+
+        if (listingEl) {
+            const listingPlugin = window.PluginManager.getPluginInstanceFromElement(listingEl, 'Listing');
+
+            listingPlugin.$emitter.subscribe('Listing/afterRenderResponse', () => {
+                this._initLocationsFromListing();
+            });
+        }
     }
 
     _initMap() {
@@ -36,6 +51,21 @@ export default class MoorlLocationPlugin extends Plugin {
         L.tileLayer(this.options.tileLayer, {
             attribution: this.options.attribution
         }).addTo(this._mapInstance.map);
+    }
+
+    _initLocationsFromListing() {
+        const listingElements = document.querySelectorAll('ul.js-listing-wrapper > li');
+        const locations = [];
+
+        if (listingElements) {
+            listingElements.forEach((listingElement) => {
+                locations.push(JSON.parse(listingElement.dataset.entityLocation))
+            });
+        }
+
+        console.log(locations);
+
+        this._initLocations(locations);
     }
 
     _initLocations(locations) {
