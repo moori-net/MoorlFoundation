@@ -33,7 +33,7 @@ trait EntityLocationTrait
      * @param float $locationLon
      * @param string $unit
      */
-    public function setLocationDistance(float $locationLat, float $locationLon, string $unit = "K"): void
+    public function setLocationDistance(float $locationLat, float $locationLon, string $unit = "km"): void
     {
         if (!$this->locationLat || !$this->locationLon) {
             return;
@@ -46,9 +46,9 @@ trait EntityLocationTrait
         $miles = $dist * 60 * 1.1515;
         $unit = strtoupper($unit);
 
-        if ($unit === "K") {
+        if ($unit === "km") {
             $this->locationDistance = ($miles * 1.609344);
-        } else if ($unit === "N") {
+        } else if ($unit === "nm") {
             $this->locationDistance = ($miles * 0.8684);
         } else {
             $this->locationDistance = $miles;

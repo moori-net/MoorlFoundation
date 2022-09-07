@@ -17,8 +17,8 @@ trait CollectionLocationTrait
     public function sortByLocationDistance(
         float $locationLat,
         float $locationLon,
-        string $direction = FieldSorting::ASCENDING,
-        string $unit = "K"
+        string $unit = "km",
+        ?string $direction = null
     ): self
     {
         /** @var EntityLocationTrait $entity */
@@ -30,7 +30,7 @@ trait CollectionLocationTrait
             $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
                 return $a->getLocationDistance() > $b->getLocationDistance();
             });
-        } else {
+        } else if ($direction === FieldSorting::DESCENDING) {
             $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
                 return $a->getLocationDistance() < $b->getLocationDistance();
             });

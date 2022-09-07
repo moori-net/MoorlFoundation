@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Content\Product\SalesChannel\Listing;
 
 use MoorlFoundation\Core\Service\EntitySearchService;
 use Shopware\Core\Content\Product\SalesChannel\Listing\AbstractProductListingRoute;
+use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
@@ -44,9 +45,29 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
             $entityListing->setRequest($request);
             $entityListing->setSalesChannelContext($context);
 
-            return $entityListing->listingRoute($criteria, $categoryId);
+            $response = $entityListing->listingRoute($criteria, $categoryId);
+
+            $this->enrichResult($response->getResult());
+
+            return $response;
         }
 
         return $this->decorated->load($categoryId, $request, $context, $criteria);
+    }
+
+    private function enrichResult(ProductListingResult $result): void
+    {
+        $entities = $result->getEntities();
+        $filters = $result->getCurrentFilters();
+
+        if (isset($filters['radius'])) {
+            if ($entities && method_exists($entities, 'sortByLocationDistance')) {
+                $entities->sortByLocationDistance(
+                    (float) $filters['radius']['locationLat'],
+                    (float) $filters['radius']['locationLon'],
+                    (string) $filters['radius']['unit']
+                );
+            }
+        }
     }
 }

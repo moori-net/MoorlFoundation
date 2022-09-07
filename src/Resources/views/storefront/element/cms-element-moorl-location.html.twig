@@ -12,8 +12,6 @@
         {% block element_moorl_location_map %}
             {# TODO: Can't be extended because plugin loading order. Will be hardcoded in Foundation #}
             {% if cmsPage.firstElementOfType('merchant-listing') %}
-                {{ dump(cmsPage.firstElementOfType('merchant-listing').data.listing.entities.getLeafletLocations()) }}
-
                 {% set locationOptions = {
                     locations: cmsPage.firstElementOfType('merchant-listing').data.listing.entities.getLeafletLocations(),
                     tileLayer: config('MoorlFoundation.config.osmTileLayer'),
