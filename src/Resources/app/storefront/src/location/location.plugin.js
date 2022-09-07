@@ -29,6 +29,8 @@ export default class MoorlLocationPlugin extends Plugin {
             listingPlugin.$emitter.subscribe('Listing/afterRenderResponse', () => {
                 this._initLocationsFromListing();
             });
+
+            this._initLocationsFromListing();
         }
     }
 
@@ -59,11 +61,12 @@ export default class MoorlLocationPlugin extends Plugin {
 
         if (listingElements) {
             listingElements.forEach((listingElement) => {
-                locations.push(JSON.parse(listingElement.dataset.entityLocation))
+                locations.push(JSON.parse(listingElement.dataset.entityLocation));
+                listingElement.addEventListener('click', () => {
+                    this._focusItem(listingElement.dataset.entityId);
+                });
             });
         }
-
-        console.log(locations);
 
         this._initLocations(locations);
     }
@@ -88,7 +91,7 @@ export default class MoorlLocationPlugin extends Plugin {
                 marker
                     .bindPopup(location.popup, {autoPan: false, autoClose: true})
                     .on('click', () => {
-                        this._focusItem(location.entityId)
+                        this._focusItem(location.entityId);
                     })
                     .on('popupclose', () => {
                         this._fitBounds();
@@ -133,6 +136,7 @@ export default class MoorlLocationPlugin extends Plugin {
         if (listingElements) {
             listingElements.forEach((listingElement) => {
                 listingElement.classList.remove('is-active');
+
                 if (listingElement.dataset.entityId === entityId) {
                     listingElement.classList.add('is-active');
 
