@@ -45,7 +45,8 @@ class MarkerEntity extends Entity
             'iconSize' => [$ms['iconSizeX'], $ms['iconSizeY']],
             'iconAnchor' => [$ms['iconAnchorX'], $ms['iconAnchorY']],
             'popupAnchor' => [$ms['popupAnchorX'], $ms['popupAnchorY']],
-            'shadowSize' => [$ms['shadowSizeX'], $ms['shadowSizeY']]
+            'shadowSize' => [$ms['shadowSizeX'], $ms['shadowSizeY']],
+            'shadowAnchor' => [$ms['shadowAnchorX'], $ms['shadowAnchorY']],
         ];
     }
 
