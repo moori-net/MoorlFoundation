@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Data;
+namespace MoorlFoundation\Demo\Marker;
 
 use MoorlFoundation\Core\System\DataExtension;
 use MoorlFoundation\Core\System\DataInterface;
 use MoorlFoundation\MoorlFoundation;
 
-class Data extends DataExtension implements DataInterface
+class DemoMarker extends DataExtension implements DataInterface
 {
     public function getTables(): ?array
     {
@@ -38,12 +38,12 @@ class Data extends DataExtension implements DataInterface
 
     public function getName(): string
     {
-        return 'data';
+        return 'marker';
     }
 
     public function getType(): string
     {
-        return 'data';
+        return 'demo';
     }
 
     public function getPath(): string
