@@ -7,6 +7,16 @@
       "openingHours": "Öffnungszeiten",
       "contact": "Kontakt"
     },
+    "listing": {
+      "filter": {
+        "radius": "Postleitzahl Suche",
+        "search": "Textsuche",
+        "inRadiusOf": "in radius of",
+        "km": "KM",
+        "zipcodeCity": "PLZ / Ort",
+        "distance": "Entfernung"
+      }
+    },
     "customerUpload": {
       "useAsCover": "Als Cover nutzen",
       "checkToDelete": "Check zum Löschen",

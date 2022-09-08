@@ -7,6 +7,16 @@
             "openingHours": "Opening hours",
             "contact": "Contact"
         },
+        "listing": {
+            "filter": {
+                "radius": "Search postcode",
+                "search": "Search text",
+                "inRadiusOf": "in radius of",
+                "km": "KM",
+                "zipcodeCity": "Postcode / City",
+                "distance": "Distance"
+            }
+        },
         "customerUpload": {
             "useAsCover": "Use as cover",
             "checkToDelete": "Check to delete",

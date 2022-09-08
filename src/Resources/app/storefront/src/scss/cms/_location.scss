@@ -4,4 +4,9 @@
     background: $body-bg;
     color: $body-color;
   }
+
+  .leaflet-top,
+  .leaflet-bottom {
+    z-index: 500;
+  }
 }
