@@ -261,6 +261,13 @@
                 </option>
             </options>
         </input-field>
+
+        <component name="sw-entity-multi-id-select">
+            <name>osmCountryIds</name>
+            <entity>country</entity>
+            <label>Reduce search to selected countries for better search results</label>
+            <label lang="de-DE">Suche auf ausgewählte Länder reduzieren für bessere Suchergebnisse</label>
+        </component>
     </card>
 
     <card>

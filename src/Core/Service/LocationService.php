@@ -14,6 +14,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Shopware\Core\System\Country\CountryCollection;
+use Shopware\Core\System\Country\CountryDefinition;
 use Shopware\Core\System\Country\CountryEntity;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -85,7 +87,7 @@ class LocationService
         ]);
     }
 
-    public function getLocationByTerm(?string $term = null): ?GeoPoint
+    public function getLocationByTerm(?string $term = null, array $countryIds = []): ?GeoPoint
     {
         if (!$term) {
             return null;
@@ -103,21 +105,25 @@ class LocationService
             preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[1])) {
                 $iso = $matches[1];
+                continue;
             }
 
             preg_match('/([\d]{5})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[1])) {
                 $zipcode = $matches[1];
+                continue;
             }
 
             preg_match('/(\w[\s\w]+?)\s*(\d+\s*[a-z]?)/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[0])) {
                 $street = $matches[0];
+                continue;
             }
 
             preg_match('/^(^\D+)$/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[1])) {
                 $city = $matches[1];
+                continue;
             }
         }
 
@@ -126,17 +132,23 @@ class LocationService
             'zipcode' => $zipcode,
             'city' => $city,
             'iso' => $iso
-        ]);
+        ], 0, null, $countryIds);
     }
 
-    public function getLocationByAddress(array $payload, $tries = 0, ?string $locationId = null): ?GeoPoint
+    public function getLocationByAddress(
+        array $payload,
+        $tries = 0,
+        ?string $locationId = null,
+        array $countryIds = []
+    ): ?GeoPoint
     {
         $payload = array_merge([
             'street' => null,
             'streetNumber' => null,
             'zipcode' => null,
             'city' => null,
-            'iso' => null
+            'iso' => null,
+            'countryIds' => $countryIds
         ], $payload);
 
         if (!$locationId) {
@@ -172,30 +184,47 @@ class LocationService
                 return GeoPoint::fromAddress($address, $apiKey);
             }
 
+            $countryIso = $this->getCountryIso($countryIds);
+
             $params = [
                 "format" => "json",
-                "zipcode" => $payload['zipcode'],
+                "postalcode" => $payload['zipcode'],
                 "city" => $payload['city'],
                 "street" => trim(sprintf(
                     '%s %s',
                     $payload['street'],
                     $payload['streetNumber']
                 )),
-                "country" => $payload['iso']
+                "countrycodes" => implode(",", $countryIso),
+                "addressdetails" => 1
             ];
 
             $response = $this->apiRequest('GET', self::SEARCH_ENGINE, null, $params);
 
             if ($response && isset($response[0])) {
+                $locationLat = $response[0]['lat'];
+                $locationLon = $response[0]['lon'];
+
+                /* Find best result by country filter */
+                if (count($response) > 1) {
+                    foreach ($response as $item) {
+                        if (in_array(strtoupper($item['address']['country_code']), $countryIso)) {
+                            $locationLat = $item['lat'];
+                            $locationLon = $item['lon'];
+                            break;
+                        }
+                    }
+                }
+
                 $repo->upsert([[
                     'id' => $locationId,
                     'payload' => $payload,
-                    'locationLat' => $response[0]['lat'],
-                    'locationLon' => $response[0]['lon'],
+                    'locationLat' => $locationLat,
+                    'locationLon' => $locationLon,
                     'updatedAt' => $this->now->format(DATE_ATOM)
                 ]], $this->context);
 
-                return new GeoPoint($response[0]['lat'], $response[0]['lon']);
+                return new GeoPoint($locationLat, $locationLon);
             } else {
                 $tries++;
 
@@ -220,6 +249,28 @@ class LocationService
         } catch (\Exception $exception) {}
 
         return null;
+    }
+
+    private function getCountryIso(array $countryIds): array
+    {
+        if (count($countryIds) === 0) {
+            if ($this->systemConfigService->get('MoorlFoundation.config.osmCountryIds')) {
+                $countryIds = $this->systemConfigService->get('MoorlFoundation.config.osmCountryIds');
+            } else {
+                return ['DE','AT','CH'];
+            }
+        }
+
+        $criteria = new Criteria($countryIds);
+        $criteria->setLimit(count($countryIds));
+        $countryRepository = $this->definitionInstanceRegistry->getRepository(CountryDefinition::ENTITY_NAME);
+
+        /** @var CountryCollection $countries */
+        $countries = $countryRepository->search($criteria, $this->context)->getEntities();
+
+        return array_values($countries->fmap(function (CountryEntity $entity) {
+            return $entity->getIso();
+        }));
     }
 
     /**
