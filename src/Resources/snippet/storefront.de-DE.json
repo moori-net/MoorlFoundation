@@ -9,9 +9,9 @@
     },
     "listing": {
       "filter": {
-        "radius": "Postleitzahl Suche",
+        "radius": "PLZ Suche",
         "search": "Textsuche",
-        "inRadiusOf": "in radius of",
+        "inRadiusOf": "im Umkreis von",
         "km": "KM",
         "zipcodeCity": "PLZ / Ort",
         "distance": "Entfernung"
