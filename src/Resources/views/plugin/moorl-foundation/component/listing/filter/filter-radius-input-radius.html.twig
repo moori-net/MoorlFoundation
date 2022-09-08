@@ -4,7 +4,7 @@
     </div>
 
     <select id="distance" name="distance" class="custom-select form-control distance">
-        {% for distance in '0,5,10,20,30' | split(',') %}
+        {% for distance in '0,5,10,25,50,100,200' | split(',') %}
             <option value="{{ distance }}">{{ distance }}</option>
         {% endfor %}
     </select>
