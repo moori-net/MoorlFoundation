@@ -227,12 +227,12 @@ class EntityListingFeaturesSubscriberExtension
                         (float) $values['locationLon'],
                         (string) $values['unit']
                     );
-                }
 
-                $me = new LocationStruct();
-                $me->setLocationLat((float) $values['locationLat']);
-                $me->setLocationLon((float) $values['locationLon']);
-                $result->addExtension('me', $me);
+                    $me = new LocationStruct();
+                    $me->setLocationLat((float) $values['locationLat']);
+                    $me->setLocationLon((float) $values['locationLon']);
+                    $result->addExtension('me', $me);
+                }
             }
 
             $result->addCurrentFilter($filter->getName(), $filter->getValues());
