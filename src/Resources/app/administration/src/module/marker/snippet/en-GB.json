@@ -1,0 +1,24 @@
+{
+    "moorl-marker": {
+        "title": "moori Map marker",
+        "card": {
+            "general": "General",
+            "marker": "Media",
+            "markerSettings": "Marker settings",
+            "preview": "Preview"
+        },
+        "properties": {
+            "name": "Name",
+            "type": "Type",
+            "cssClass": "CSS Class",
+            "svg": "Inline SVG/HTML",
+            "marker": "Marker",
+            "markerRetina": "Retina",
+            "markerShadow": "Shadow"
+        },
+        "helpText": {
+            "svg": "If you embed an SVG, you can style the marker yourself via CSS",
+            "markerSettings": "You can use the following example to create your marker"
+        }
+    }
+}

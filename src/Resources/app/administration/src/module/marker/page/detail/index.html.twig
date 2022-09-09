@@ -1,7 +1,7 @@
 <sw-page class="moorl-marker-detail">
     <template slot="smart-bar-actions">
         <sw-button :routerLink="{ name: 'moorl.marker.list' }">
-            {{ $t('moorl-foundation.buttons.cancelButtonText') }}
+            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
         </sw-button>
 
         <sw-button-process
@@ -10,38 +10,39 @@
                 variant="primary"
                 @process-finish="saveFinish"
                 @click="onClickSave">
-            {{ $t('moorl-foundation.buttons.saveButtonText') }}
+            {{ $tc('moorl-foundation.buttons.saveButtonText') }}
         </sw-button-process>
     </template>
 
     <template slot="content">
         <sw-card-view>
-            <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.label.generalCard')">
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-marker.card.general')">
                 <sw-field
-                        :label="$t('moorl-foundation.properties.name')"
+                        :label="$tc('moorl-marker.properties.name')"
                         v-model="item.name"
                         required
                         validation="required"
                 />
 
                 <sw-field
-                        :label="$t('moorl-foundation.properties.type')"
+                        :label="$tc('moorl-marker.properties.type')"
                         v-model="item.type"
                 />
 
                 <sw-field
-                        :label="$t('moorl-foundation.properties.cssClass')"
+                        :label="$tc('moorl-marker.properties.cssClass')"
                         v-model="item.className"
                 />
 
                 <sw-field
                         type="textarea"
-                        :label="$t('moorl-foundation.properties.svg')"
+                        :label="$tc('moorl-marker.properties.svg')"
+                        :helpText="$tc('moorl-marker.helpText.svg')"
                         v-model="item.svg"
                 />
             </sw-card>
 
-            <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.label.markerCard')">
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-foundation.label.markerCard')">
                 <div class="sw-field">
                     <sw-upload-listener
                             :uploadTag="uploadTagMarker"
@@ -53,7 +54,7 @@
                             :uploadTag="uploadTagMarker"
                             :source="item.markerId"
                             :allowMultiSelect="false"
-                            :label="$t('moorl-foundation.properties.markerId')"
+                            :label="$tc('moorl-marker.properties.marker')"
                             variant="regular"
                             @sw-media-upload-media-upload-success="setMarkerItem"
                             @media-drop="onDropMarker"
@@ -72,7 +73,7 @@
                             :uploadTag="uploadTagMarkerRetina"
                             :source="item.markerRetinaId"
                             :allowMultiSelect="false"
-                            :label="$t('moorl-foundation.properties.markerRetinaId')"
+                            :label="$tc('moorl-marker.properties.markerRetina')"
                             variant="regular"
                             @sw-media-upload-media-upload-success="setMarkerRetinaItem"
                             @media-drop="onDropMarkerRetina"
@@ -91,7 +92,7 @@
                             :uploadTag="uploadTagMarkerShadow"
                             :source="item.markerShadowId"
                             :allowMultiSelect="false"
-                            :label="$t('moorl-foundation.properties.markerShadowId')"
+                            :label="$tc('moorl-marker.properties.markerShadow')"
                             variant="regular"
                             @sw-media-upload-media-upload-success="setMarkerShadowItem"
                             @media-drop="onDropMarkerShadow"
@@ -100,12 +101,12 @@
                 </div>
             </sw-card>
 
-            <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.properties.markerSettings')">
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-foundation.properties.markerSettings')">
                 <div class="sw-field">
                     <label>
-                        {{ $t('moorl-foundation.properties.markerSettingsExample') }}<br>
+                        {{ $tc('moorl-marker.helpText.markerSettings') }}<br>
                         <a href="https://leafletjs.com/examples/custom-icons/" target="_blank" rel="noopener">
-                            {{ $t('moorl-foundation.properties.markerSettingsLink') }}
+                            https://leafletjs.com/examples/custom-icons/
                         </a>
                     </label>
                 </div>
@@ -124,7 +125,7 @@
                 </sw-container>
             </sw-card>
 
-            <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.properties.preview')">
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-marker.card.preview')">
                 <moorl-location :locations="locations" :options="['dragging']"/>
             </sw-card>
         </sw-card-view>

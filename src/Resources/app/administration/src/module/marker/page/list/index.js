@@ -48,14 +48,14 @@ Component.register('moorl-marker-list', {
                     property: 'name',
                     dataIndex: 'name',
                     routerLink: 'moorl.marker.detail',
-                    label: this.$t('moorl-foundation.properties.name'),
+                    label: this.$tc('moorl-marker.properties.name'),
                     allowResize: true
                 },
                 {
                     property: 'type',
                     dataIndex: 'type',
                     routerLink: 'moorl.marker.detail',
-                    label: this.$t('moorl-foundation.properties.type'),
+                    label: this.$tc('moorl-marker.properties.type'),
                     allowResize: true
                 }
             ]

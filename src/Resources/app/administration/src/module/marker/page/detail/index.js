@@ -81,6 +81,10 @@ Component.register('moorl-marker-detail', {
                 .get(this.$route.params.id, Context.api, this.defaultCriteria)
                 .then((entity) => {
                     this.item = entity;
+
+                    if (!this.item.markerSettings) {
+                        this.item.markerSettings = {};
+                    }
                 });
         },
 
@@ -96,7 +100,7 @@ Component.register('moorl-marker-detail', {
                 .catch((exception) => {
                     this.isLoading = false;
                     this.createNotificationError({
-                        title: this.$t('moorl-foundation.notification.errorTitle'),
+                        title: this.$tc('moorl-foundation.notification.errorTitle'),
                         message: exception
                     });
                 });
