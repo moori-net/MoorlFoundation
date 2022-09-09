@@ -268,6 +268,27 @@
             <label>Reduce search to selected countries for better search results</label>
             <label lang="de-DE">Suche auf ausgewählte Länder reduzieren für bessere Suchergebnisse</label>
         </component>
+
+        <input-field type="single-select">
+            <name>osmUnitOfMeasurement</name>
+            <label>Unit of measurement</label>
+            <label lang="de-DE">Maßeinheit</label>
+            <options>
+                <option>
+                    <id>km</id>
+                    <name>Kilometre</name>
+                </option>
+                <option>
+                    <id>mi</id>
+                    <name>Mile</name>
+                </option>
+                <option>
+                    <id>nm</id>
+                    <name>Nautical mile (not supported yet)</name>
+                </option>
+            </options>
+            <defaultValue>km</defaultValue>
+        </input-field>
     </card>
 
     <card>

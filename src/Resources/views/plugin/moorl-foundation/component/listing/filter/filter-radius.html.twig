@@ -1,12 +1,14 @@
 {% set filterItemId = 'filter-' ~ name ~ '-' ~ random() %}
 
 {% block component_filter_radius %}
+    {% set unit = "moorl-foundation.listing.filter.#{config('MoorlFoundation.config.osmUnitOfMeasurement')}" %}
+
     {% set filterRadiusOptions = {
         name: name,
         displayName: displayName,
         snippets: {
             filterRadiusActiveLocationLabel: 'moorl-foundation.properties.inRadiusOf'|trans|sw_sanitize,
-            filterRadiusActiveDistanceLabel: 'moorl-foundation.properties.km'|trans|sw_sanitize
+            filterRadiusActiveDistanceLabel: unit|trans|sw_sanitize
         }
     } %}
 

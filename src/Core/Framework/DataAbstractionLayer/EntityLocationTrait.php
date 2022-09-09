@@ -44,7 +44,6 @@ trait EntityLocationTrait
         $dist = acos($dist);
         $dist = rad2deg($dist);
         $miles = $dist * 60 * 1.1515;
-        $unit = strtoupper($unit);
 
         if ($unit === "km") {
             $this->locationDistance = ($miles * 1.609344);

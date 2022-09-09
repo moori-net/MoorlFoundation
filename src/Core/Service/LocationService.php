@@ -49,6 +49,11 @@ class LocationService
         $this->context = Context::createDefaultContext();
     }
 
+    public function getUnitOfMeasurement(): string
+    {
+        return $this->systemConfigService->get('MoorlFoundation.config.osmUnitOfMeasurement') ?: 'mi';
+    }
+
     public function getCountryByIso(?string $iso): ?CountryEntity
     {
         if (!$iso) {

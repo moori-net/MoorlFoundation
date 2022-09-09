@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\System;
 
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\CollectionLocationTrait;
 use MoorlFoundation\Core\Service\LocationService;
 use MoorlFoundation\Core\Service\SortingService;
 use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
@@ -209,7 +210,19 @@ class EntityListingFeaturesSubscriberExtension
         if (!$filters instanceof FilterCollection) {
             return;
         }
+
         foreach ($filters as $filter) {
+            if ($filter->getName() === 'radius' && method_exists($result->getEntities(), 'sortByLocationDistance')) {
+                /** @var CollectionLocationTrait $entities */
+                $values = $filter->getValues();
+                $entities = $result->getEntities();
+                $entities->sortByLocationDistance(
+                    (float) $values['locationLat'],
+                    (float) $values['locationLon'],
+                    (string) $values['unit']
+                );
+            }
+
             $result->addCurrentFilter($filter->getName(), $filter->getValues());
         }
     }
@@ -285,7 +298,7 @@ class EntityListingFeaturesSubscriberExtension
          */
         $location = $request->get('location', '');
         $distance = $request->get('distance', 0);
-        $unit = $request->get('unit', 'km');
+        $unit = $this->locationService->getUnitOfMeasurement();
 
         $filter = new EqualsFilter($this->entityName . '.active', true);
 

@@ -1,11 +1,11 @@
 <div class="input-group">
     <div class="input-group-prepend">
-        <span class="input-group-text">{{ "moorl-foundation.properties.km"|trans }}</span>
+        <span class="input-group-text">{{ unit|trans }}</span>
     </div>
 
     <select id="distance" name="distance" class="custom-select form-control distance">
         {% for distance in '0,5,10,25,50,100,200' | split(',') %}
-            <option value="{{ distance }}">{{ distance }}</option>
+            <option value="{{ distance }}">{{ distance }} {{ unit|trans }}</option>
         {% endfor %}
     </select>
 </div>
