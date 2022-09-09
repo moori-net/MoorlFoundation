@@ -24,6 +24,7 @@ Component.register('moorl-location-card', {
                         this.item.locationLon
                     ],
                     icon: ms ? {
+                        svg: this.item.marker.svg,
                         iconUrl: this.item.marker.marker?.url,
                         iconRetinaUrl: this.item.marker.markerRetina?.url,
                         shadowUrl: this.item.marker.markerShadow?.url,

@@ -84,7 +84,7 @@ export default class MoorlLocationPlugin extends Plugin {
                 markerOptions.entityId = location.entityId;
             }
             if (location.icon) {
-                markerOptions.icon = L.icon(location.icon);
+                markerOptions.icon = this._getIcon(location.icon);
             }
 
             const marker = L.marker(location.latlng, markerOptions);
@@ -105,7 +105,9 @@ export default class MoorlLocationPlugin extends Plugin {
                         this._focusItem(location.entityId);
                     })
                     .on('popupclose', () => {
-                        this._fitBounds();
+                        if (this.options.options.includes('fitBounds')) {
+                            this._fitBounds();
+                        }
                     });
             }
 
@@ -135,7 +137,9 @@ export default class MoorlLocationPlugin extends Plugin {
                     layer.openPopup();
                 }
 
-                this._mapInstance.map.flyTo(layer.getLatLng(), 16, {animate: true, duration: 1});
+                if (this.options.options.includes('flyTo')) {
+                    this._mapInstance.map.flyTo(layer.getLatLng(), null, {animate: true, duration: 1});
+                }
             }
         });
 
@@ -151,12 +155,30 @@ export default class MoorlLocationPlugin extends Plugin {
                 if (listingElement.dataset.entityId === entityId) {
                     listingElement.classList.add('is-active');
 
-                    window.scrollTo({
-                        top: listingElement.offsetTop,
-                        behavior: 'smooth',
-                    });
+                    if (this.options.options.includes('scrollTo')) {
+                        window.scrollTo({
+                            top: listingElement.offsetTop,
+                            behavior: 'smooth',
+                        });
+                    }
                 }
             });
+        }
+    }
+
+    _getIcon(icon) {
+        if (icon.svg) {
+            const size = 40;
+            const iconOptions = {
+                iconSize: [size, size + size / 2],
+                iconAnchor: [size/2, size + size / 2],
+                popupAnchor: [0, -size],
+                className: icon.className,
+                html: `<div class="marker-pin"></div>${icon.svg}`
+            }
+            return L.divIcon(iconOptions);
+        } else {
+            return L.icon(icon);
         }
     }
 }

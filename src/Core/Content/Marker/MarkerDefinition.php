@@ -7,13 +7,16 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelPropert
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\TextField;
 
 class MarkerDefinition extends EntityDefinition
 {
@@ -44,6 +47,8 @@ class MarkerDefinition extends EntityDefinition
             new JsonField('marker_settings', 'markerSettings'),
             (new StringField('type', 'type'))->addFlags(new EditField('text')),
             (new StringField('name', 'name'))->addFlags(new EditField('text'), new Required()),
+            (new StringField('class_name', 'className'))->addFlags(new EditField('text')),
+            (new LongTextField('svg', 'svg'))->addFlags(new EditField('text'), new AllowHtml()),
             (new ManyToOneAssociationField('marker', 'marker_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             (new ManyToOneAssociationField('markerShadow', 'marker_shadow_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             (new ManyToOneAssociationField('markerRetina', 'marker_retina_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),

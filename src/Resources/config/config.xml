@@ -246,26 +246,42 @@
                 <option>
                     <id>scrollWheelZoom</id>
                     <name>Zoom with scrollwheel</name>
+                    <name lang="de-DE">Mit Mausrad zoomen</name>
                 </option>
                 <option>
                     <id>dragging</id>
-                    <name>Drag map (mobile and desktop)</name>
-                </option>
-                <option>
-                    <id>draggingDesktop</id>
-                    <name>Drag map (only desktop)</name>
+                    <name>Drag map</name>
+                    <name lang="de-DE">Karte verschieben</name>
                 </option>
                 <option>
                     <id>tap</id>
                     <name>Tap map</name>
+                    <name lang="de-DE">Karte antippen</name>
                 </option>
                 <option>
                     <id>autoPan</id>
                     <name>Auto pan popup</name>
+                    <name lang="de-DE">Karte antippen</name>
                 </option>
                 <option>
                     <id>autoClose</id>
                     <name>Auto close popup</name>
+                    <name lang="de-DE">Karte antippen</name>
+                </option>
+                <option>
+                    <id>scrollTo</id>
+                    <name>Scroll to active box</name>
+                    <name lang="de-DE">Zum aktiven Feld blättern</name>
+                </option>
+                <option>
+                    <id>flyTo</id>
+                    <name>Fly to to active marker</name>
+                    <name lang="de-DE">Fliege zur aktiven Markierung</name>
+                </option>
+                <option>
+                    <id>fitBounds</id>
+                    <name>Fit bounds on close popup</name>
+                    <name lang="de-DE">Grenzen beim Schließen des Popups anpassen</name>
                 </option>
             </options>
         </input-field>

@@ -28,6 +28,17 @@
                         :label="$t('moorl-foundation.properties.type')"
                         v-model="item.type"
                 />
+
+                <sw-field
+                        :label="$t('moorl-foundation.properties.cssClass')"
+                        v-model="item.className"
+                />
+
+                <sw-field
+                        type="textarea"
+                        :label="$t('moorl-foundation.properties.svg')"
+                        v-model="item.svg"
+                />
             </sw-card>
 
             <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.label.markerCard')">

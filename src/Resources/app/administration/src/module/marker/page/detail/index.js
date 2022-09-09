@@ -43,6 +43,7 @@ Component.register('moorl-marker-detail', {
                     entityId: this.item.id,
                     latlng: [52.5173, 13.4020],
                     icon: {
+                        svg: this.item.svg,
                         iconUrl: this.item.marker?.url,
                         iconRetinaUrl: this.item.markerRetina?.url,
                         shadowUrl: this.item.markerShadow?.url,

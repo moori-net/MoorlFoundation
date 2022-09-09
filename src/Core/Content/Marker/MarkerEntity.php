@@ -19,6 +19,8 @@ class MarkerEntity extends Entity
     protected ?array $markerSettings = null;
     protected ?string $type = null;
     protected ?string $name = null;
+    protected ?string $className = null;
+    protected ?string $svg = null;
 
     /**
      * @return array
@@ -39,6 +41,8 @@ class MarkerEntity extends Entity
         ];
 
         return [
+            'svg' => $this->svg,
+            'className' => $this->className,
             'iconUrl' => $this->marker ? $this->marker->getUrl() : null,
             'iconRetinaUrl' => $this->markerRetina ? $this->markerRetina->getUrl() : null,
             'shadowUrl' => $this->markerShadow ? $this->markerShadow->getUrl() : null,
@@ -48,6 +52,38 @@ class MarkerEntity extends Entity
             'shadowSize' => [$ms['shadowSizeX'], $ms['shadowSizeY']],
             'shadowAnchor' => [$ms['shadowAnchorX'], $ms['shadowAnchorY']],
         ];
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getClassName(): ?string
+    {
+        return $this->className;
+    }
+
+    /**
+     * @param string|null $className
+     */
+    public function setClassName(?string $className): void
+    {
+        $this->className = $className;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSvg(): ?string
+    {
+        return $this->svg;
+    }
+
+    /**
+     * @param string|null $svg
+     */
+    public function setSvg(?string $svg): void
+    {
+        $this->svg = $svg;
     }
 
     /**

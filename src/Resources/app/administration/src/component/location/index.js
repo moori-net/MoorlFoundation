@@ -107,7 +107,7 @@ Component.register('moorl-location', {
                     markerOptions.entityId = location.entityId;
                 }
                 if (location.icon) {
-                    markerOptions.icon = L.icon(location.icon);
+                    markerOptions.icon = this.getIcon(location.icon);
                 }
 
                 const marker = L.marker(location.latlng, markerOptions);
@@ -159,6 +159,22 @@ Component.register('moorl-location', {
                     this._mapInstance.map.flyTo(layer.getLatLng(), 16, {animate: true, duration: 1});
                 }
             });
+        },
+
+        getIcon(icon) {
+            if (icon.svg) {
+                const size = 40;
+                const iconOptions = {
+                    iconSize: [size, size + size / 2],
+                    iconAnchor: [size/2, size + size / 2],
+                    popupAnchor: [0, -size],
+                    className: icon.className,
+                    html: `<div class="marker-pin"></div>${icon.svg}`
+                }
+                return L.divIcon(iconOptions);
+            } else {
+                return L.icon(icon);
+            }
         }
     }
 });
