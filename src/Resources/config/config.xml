@@ -259,6 +259,14 @@
                     <id>tap</id>
                     <name>Tap map</name>
                 </option>
+                <option>
+                    <id>autoPan</id>
+                    <name>Auto pan popup</name>
+                </option>
+                <option>
+                    <id>autoClose</id>
+                    <name>Auto close popup</name>
+                </option>
             </options>
         </input-field>
 

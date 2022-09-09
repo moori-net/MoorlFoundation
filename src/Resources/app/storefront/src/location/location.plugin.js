@@ -39,7 +39,11 @@ export default class MoorlLocationPlugin extends Plugin {
             return;
         }
 
-        const mapOptions = {};
+        const mapOptions = {
+            scrollWheelZoom: true,
+            dragging: true,
+            tap: true
+        };
         if (this.options.options) {
             mapOptions.scrollWheelZoom = this.options.options.includes('scrollWheelZoom');
             mapOptions.dragging = this.options.options.includes('dragging');
@@ -88,8 +92,17 @@ export default class MoorlLocationPlugin extends Plugin {
             const marker = L.marker(location.latlng, markerOptions);
 
             if (location.popup) {
+                const popupOptions = {
+                    autoPan: false,
+                    autoClose: true
+                };
+                if (this.options.options) {
+                    popupOptions.autoPan = this.options.options.includes('autoPan');
+                    popupOptions.autoClose = this.options.options.includes('autoClose');
+                }
+
                 marker
-                    .bindPopup(location.popup, {autoPan: false, autoClose: true})
+                    .bindPopup(location.popup, popupOptions)
                     .on('click', () => {
                         this._focusItem(location.entityId);
                     })
