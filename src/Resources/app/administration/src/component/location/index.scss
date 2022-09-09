@@ -1,6 +1,6 @@
 @import "~scss/variables";
 
-.moorl-map {
+.moorl-location {
   height: 100%;
   width: 100%;
   min-height: 400px;
@@ -65,7 +65,7 @@
     }
   }
 
-  .moorl-map-content {
+  .moorl-location-content {
     z-index: 10;
     position: absolute;
     top: 0;
@@ -74,7 +74,7 @@
     height: 100%;
   }
 
-  .moorl-map-legend {
+  .moorl-location-legend {
     z-index: 20;
     position: absolute;
     top: 0;
