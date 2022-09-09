@@ -1,10 +1,7 @@
-const { Application, Component, Mixin, Context } = Shopware;
-const { Criteria } = Shopware.Data;
+const {Component, Mixin, Context} = Shopware;
+const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
-
-const initContainer = Application.getContainer('init');
-const httpClient = initContainer.httpClient;
 
 Component.register('moorl-marker-list', {
     template,
@@ -91,7 +88,8 @@ Component.register('moorl-marker-list', {
             this.getList();
         },
 
-        updateSelection() {},
+        updateSelection() {
+        },
 
         updateTotal({total}) {
             this.total = total;

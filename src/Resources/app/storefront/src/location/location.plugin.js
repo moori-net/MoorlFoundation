@@ -80,11 +80,9 @@ export default class MoorlLocationPlugin extends Plugin {
 
         for (let location of locations) {
             const markerOptions = {};
-
             if (location.entityId) {
                 markerOptions.entityId = location.entityId;
             }
-
             if (location.icon) {
                 markerOptions.icon = L.icon(location.icon);
             }

@@ -39,9 +39,8 @@ Component.register('moorl-location', {
     },
 
     watch: {
-        value: function () {
-            this.$emit('input', this.value);
-            this._focusItem();
+        locations: function () {
+            this.initLocations(this.locations);
         }
     },
 
@@ -62,11 +61,9 @@ Component.register('moorl-location', {
     },
 
     mounted() {
-        const that = this;
-
-        setTimeout(function () {
-            that.drawMap();
-        }, 1500);
+        setTimeout(() => {
+            this.initMap();
+        }, 1000);
     },
 
     created() {
@@ -75,6 +72,10 @@ Component.register('moorl-location', {
 
     methods: {
         initMap() {
+            if (this._mapInstance) {
+                return;
+            }
+
             if (!this.$refs['moorlLocation']) {
                 return;
             }
@@ -86,12 +87,15 @@ Component.register('moorl-location', {
                 mapOptions.tap = this.options.includes('tap');
             }
 
+            this._mapInstance = {};
             this._mapInstance.layerGroup = L.layerGroup([]);
             this._mapInstance.map = L.map(this.$refs['moorlLocation'], mapOptions);
 
-            L.tileLayer(this.options.tileLayer, {
-                attribution: this.options.attribution
+            L.tileLayer(this.tileLayer, {
+                attribution: this.attribution
             }).addTo(this._mapInstance.map);
+
+            this.initLocations(this.locations);
         },
 
         initLocations(locations) {
@@ -99,11 +103,9 @@ Component.register('moorl-location', {
 
             for (let location of locations) {
                 const markerOptions = {};
-
                 if (location.entityId) {
                     markerOptions.entityId = location.entityId;
                 }
-
                 if (location.icon) {
                     markerOptions.icon = L.icon(location.icon);
                 }
@@ -111,8 +113,17 @@ Component.register('moorl-location', {
                 const marker = L.marker(location.latlng, markerOptions);
 
                 if (location.popup) {
+                    const popupOptions = {
+                        autoPan: false,
+                        autoClose: true
+                    };
+                    if (this.options) {
+                        popupOptions.autoPan = this.options.includes('autoPan');
+                        popupOptions.autoClose = this.options.includes('autoClose');
+                    }
+
                     marker
-                        .bindPopup(location.popup, {autoPan: false, autoClose: true})
+                        .bindPopup(location.popup, popupOptions)
                         .on('click', () => {
                             this.focusItem(location.entityId);
                         })

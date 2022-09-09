@@ -114,15 +114,7 @@
             </sw-card>
 
             <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.properties.preview')">
-                <div class="sw-field">
-                    <sw-button @click="markerPreview">
-                        {{ $t('moorl-foundation.buttons.refreshPreview') }}
-                    </sw-button>
-                </div>
-
-                <div class="sw-field">
-                    <moorl-location :locations="locations"/>
-                </div>
+                <moorl-location :locations="locations" :options="['dragging']"/>
             </sw-card>
         </sw-card-view>
     </template>
