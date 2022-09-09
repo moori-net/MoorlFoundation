@@ -1,9 +1,7 @@
 import template from './index.html.twig';
-import L from "leaflet";
 
-const { Component, Mixin, StateDeprecated, Context } = Shopware;
-const { Criteria, EntityCollection } = Shopware.Data;
-const { mapApiErrors } = Shopware.Component.getComponentHelper();
+const {Component, Mixin, Context} = Shopware;
+const {Criteria} = Shopware.Data;
 const utils = Shopware.Utils;
 
 Component.register('moorl-marker-detail', {
@@ -28,10 +26,6 @@ Component.register('moorl-marker-detail', {
     data() {
         return {
             item: null,
-            mapItem: null,
-            markerItem: null,
-            markerItems: null,
-            coord: [52.5173, 13.4020],
             isLoading: false,
             processSuccess: false,
             uploadTagMarker: utils.createId(),
@@ -41,6 +35,28 @@ Component.register('moorl-marker-detail', {
     },
 
     computed: {
+        locations() {
+            const ms = this.item.markerSettings
+
+            return [
+                {
+                    entityId: this.item.id,
+                    latlng: [52.5173, 13.4020],
+                    icon: {
+                        iconUrl: this.item.marker?.url,
+                        iconRetinaUrl: this.item.markerRetina?.url,
+                        shadowUrl: this.item.markerShadow?.url,
+                        iconSize: [ms.iconSizeX, ms.iconSizeY],
+                        iconAnchor: [ms.iconAnchorX, ms.iconAnchorY],
+                        popupAnchor: [ms.popupAnchorX, ms.popupAnchorY],
+                        shadowSize: [ms.shadowSizeX, ms.shadowSizeY],
+                        shadowAnchor: [ms.shadowAnchorX, ms.shadowAnchorY],
+                    },
+                    popup: '<p><b>Lorem Ipsum GmbH</b><br>Musterstraße 1<br>12345 Musterstadt</p>'
+                }
+            ];
+        },
+
         repository() {
             return this.repositoryFactory.create('moorl_marker');
         },
@@ -50,35 +66,7 @@ Component.register('moorl-marker-detail', {
         },
 
         defaultCriteria() {
-            const criteria = new Criteria();
-            return criteria;
-        },
-
-        searchCriteria() {
-            const criteria = new Criteria();
-            return criteria;
-        },
-
-        searchContext() {
-            return {
-                ...Context.api,
-                inheritance: true
-            };
-        },
-
-        markerSettings() {
-            return {
-                iconSizeX: 25,
-                iconSizeY: 41,
-                shadowSizeX: 41,
-                shadowSizeY: 41,
-                iconAnchorX: 12,
-                iconAnchorY: 41,
-                shadowAnchorX: 11,
-                shadowAnchorY: 41,
-                popupAnchorX: 1,
-                popupAnchorY: -34
-            };
+            return new Criteria();
         }
     },
 
@@ -86,17 +74,10 @@ Component.register('moorl-marker-detail', {
         this.getItem();
     },
 
-    mounted() {
-        const that = this;
-        setTimeout(function () {
-            that.drawMap();
-        }, 3000);
-    },
-
     methods: {
         getItem() {
             this.repository
-                .get(this.$route.params.id, this.searchContext, this.defaultCriteria)
+                .get(this.$route.params.id, Context.api, this.defaultCriteria)
                 .then((entity) => {
                     this.item = entity;
                 });
@@ -110,13 +91,14 @@ Component.register('moorl-marker-detail', {
                     this.getItem();
                     this.isLoading = false;
                     this.processSuccess = true;
-                }).catch((exception) => {
-                this.isLoading = false;
-                this.createNotificationError({
-                    title: this.$t('moorl-foundation.notification.errorTitle'),
-                    message: exception
+                })
+                .catch((exception) => {
+                    this.isLoading = false;
+                    this.createNotificationError({
+                        title: this.$t('moorl-foundation.notification.errorTitle'),
+                        message: exception
+                    });
                 });
-            });
         },
 
         saveFinish() {
@@ -176,70 +158,6 @@ Component.register('moorl-marker-detail', {
         },
         onUnlinkMarkerShadow() {
             this.item.markerShadowId = null;
-        },
-
-        drawMap() {
-            this.mapItem = L.map(this.$refs['embedMap'], {
-                center: this.coord,
-                zoom: 16
-            });
-
-            L.tileLayer('//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-            }).addTo(this.mapItem);
-        },
-
-        markerPreview() {
-            let iconOptions = {
-                shadowUrl: this.item.markerShadow ? this.item.markerShadow.url : null,
-                iconRetinaUrl: this.item.markerRetina ? this.item.markerRetina.url : null,
-                iconUrl: this.item.marker ? this.item.marker.url : null,
-                iconSize: [
-                    this.item.markerSettings.iconSizeX,
-                    this.item.markerSettings.iconSizeY
-                ],
-                shadowSize: [
-                    this.item.markerSettings.shadowSizeX,
-                    this.item.markerSettings.shadowSizeY
-                ],
-                iconAnchor: [
-                    this.item.markerSettings.iconAnchorX,
-                    this.item.markerSettings.iconAnchorY
-                ],
-                shadowAnchor: [
-                    this.item.markerSettings.shadowAnchorX,
-                    this.item.markerSettings.shadowAnchorY
-                ],
-                popupAnchor: [
-                    this.item.markerSettings.popupAnchorX,
-                    this.item.markerSettings.popupAnchorY
-                ]
-            };
-
-            console.log(iconOptions);
-
-            const featureMarker = [];
-
-            featureMarker.push(
-                L.marker(this.coord, { icon: L.icon(iconOptions) })
-                    .bindPopup('<p><b>Lorem Ipsum GmbH</b><br>Musterstraße 1<br>12345 Musterstadt</p>', {
-                        autoPan: false,
-                        autoClose: true
-                    })
-                    .on('click', function () {
-                        this.markerItems.eachLayer(function (layer) {
-                            if (!layer.getPopup().isOpen()) {
-                                layer.openPopup();
-                            }
-                        });
-                    })
-            );
-
-            if (this.markerItems) {
-                this.markerItems.clearLayers();
-            }
-
-            this.markerItems = L.layerGroup(featureMarker).addTo(this.mapItem);
         }
     }
 });

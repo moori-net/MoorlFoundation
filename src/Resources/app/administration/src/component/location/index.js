@@ -20,7 +20,7 @@ Component.register('moorl-location', {
             default: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         },
         attribution: {
-            type: Boolean,
+            type: String,
             required: false,
             default: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
         },
@@ -80,7 +80,7 @@ Component.register('moorl-location', {
             }
 
             const mapOptions = {};
-            if (this.options.options) {
+            if (this.options) {
                 mapOptions.scrollWheelZoom = this.options.includes('scrollWheelZoom');
                 mapOptions.dragging = this.options.includes('dragging');
                 mapOptions.tap = this.options.includes('tap');

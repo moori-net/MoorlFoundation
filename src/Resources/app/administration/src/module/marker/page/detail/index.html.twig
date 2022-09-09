@@ -32,12 +32,6 @@
 
             <sw-card v-if="item" :isLoading="isLoading" :title="$t('moorl-foundation.label.markerCard')">
                 <div class="sw-field">
-                    <label>
-                        {{ $t('moorl-foundation.properties.markerIconsInfo') }}
-                    </label>
-                </div>
-
-                <div class="sw-field">
                     <sw-upload-listener
                             :uploadTag="uploadTagMarker"
                             autoUpload
@@ -62,6 +56,7 @@
                             autoUpload
                             @media-upload-finish="setMarkerRetinaItem"
                     />
+
                     <sw-media-upload-v2
                             :uploadTag="uploadTagMarkerRetina"
                             :source="item.markerRetinaId"
@@ -98,7 +93,9 @@
                 <div class="sw-field">
                     <label>
                         {{ $t('moorl-foundation.properties.markerSettingsExample') }}<br>
-                        <a href="https://leafletjs.com/examples/custom-icons/" target="_blank" rel="noopener">{{ $t('moorl-foundation.properties.markerSettingsLink') }}</a>
+                        <a href="https://leafletjs.com/examples/custom-icons/" target="_blank" rel="noopener">
+                            {{ $t('moorl-foundation.properties.markerSettingsLink') }}
+                        </a>
                     </label>
                 </div>
 
@@ -124,7 +121,7 @@
                 </div>
 
                 <div class="sw-field">
-                    <div id="embedMap" ref="embedMap" style="height:400px;"></div>
+                    <moorl-location :locations="locations"/>
                 </div>
             </sw-card>
         </sw-card-view>

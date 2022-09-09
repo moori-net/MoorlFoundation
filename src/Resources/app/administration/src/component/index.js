@@ -10,6 +10,7 @@ import './moorl-block-behaviour';
 import './moorl-collapse';
 import './moorl-listing-config';
 
+import './location';
 import './opening-hours';
 import './card';
 import './map';
