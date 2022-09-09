@@ -56,7 +56,7 @@ export default class MoorlLocationPlugin extends Plugin {
     }
 
     _initLocationsFromListing() {
-        const listingElements = document.querySelectorAll('ul.js-listing-wrapper > li');
+        const listingElements = document.querySelectorAll('[data-entity-location]');
         const locations = [];
 
         if (listingElements) {
@@ -132,7 +132,7 @@ export default class MoorlLocationPlugin extends Plugin {
     }
 
     _updateListingElements(entityId) {
-        const listingElements = document.querySelectorAll('ul.js-listing-wrapper > li');
+        const listingElements = document.querySelectorAll('[data-entity-location]');
         if (listingElements) {
             listingElements.forEach((listingElement) => {
                 listingElement.classList.remove('is-active');
