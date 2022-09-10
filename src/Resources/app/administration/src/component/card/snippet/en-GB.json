@@ -23,7 +23,8 @@
       "bankName": "Bank Name",
       "taxOffice": "Tax Office",
       "taxNumber": "Tax Number",
-      "timeZone": "Timezone"
+      "timeZone": "Timezone",
+      "locationPlaceId": "Google Place ID"
     }
   }
 }
