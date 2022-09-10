@@ -4,45 +4,45 @@
     background: $body-bg;
     color: $body-color;
   }
+}
 
-  .leaflet-marker-icon {
-    .marker-pin {
-      background: $primary;
-      width: 40px;
-      height: 40px;
-      border-radius: 50% 50% 50% 0;
+.leaflet-marker-icon {
+  .marker-pin {
+    background: $primary;
+    width: 40px;
+    height: 40px;
+    border-radius: 50% 50% 50% 0;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -20px 0 0 -20px;
+
+    &::after {
+      content: '';
+      width: 34px;
+      height: 34px;
+      margin: 3px 0 0 3px;
+      background: #fff;
       position: absolute;
-      transform: rotate(-45deg);
-      left: 50%;
-      top: 50%;
-      margin: -20px 0 0 -20px;
-
-      &::after {
-        content: '';
-        width: 34px;
-        height: 34px;
-        margin: 3px 0 0 3px;
-        background: #fff;
-        position: absolute;
-        border-radius: 50%;
-      }
-    }
-
-    svg {
-      position: absolute;
-      width: 32px;
-      left: 0;
-      right: 0;
-      margin: 12px auto;
-
-      path {
-        fill: #222222;
-      }
+      border-radius: 50%;
     }
   }
 
-  .leaflet-top,
-  .leaflet-bottom {
-    z-index: 500;
+  svg {
+    position: absolute;
+    width: 32px;
+    left: 0;
+    right: 0;
+    margin: 12px auto;
+
+    path {
+      fill: #222222;
+    }
   }
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 500;
 }
