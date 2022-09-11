@@ -6,6 +6,13 @@
   }
 }
 
+.leaflet-control-container {
+  .leaflet-top,
+  .leaflet-bottom {
+    z-index: 400;
+  }
+}
+
 .leaflet-marker-icon {
   .marker-pin {
     background: $primary;
@@ -40,9 +47,4 @@
       fill: #222222;
     }
   }
-}
-
-.leaflet-top,
-.leaflet-bottom {
-  z-index: 500;
 }
