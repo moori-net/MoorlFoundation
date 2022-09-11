@@ -51,20 +51,24 @@
              data-listing-options='{{ listingPagination|json_encode }}'>
             <div class="cms-element-product-listing cms-element-moorl-foundation-listing">
                 {% if searchResult.total > 0 %}
-                    <div class="cms-element-product-listing-actions row justify-content-between">
-                        <div class="col-md-auto">
-                            {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
-                                entities: searchResult,
-                                criteria: searchResult.criteria
-                            } %}
+                    {# Avoid not necessary pagination or sorting elements #}
+                    {% set totalPages = (searchResult.total / searchResult.criteria.limit)|round(0, 'ceil') %}
+                    {% if totalPages > 1 and searchResult.availableSortings.count() < 2 %}
+                        <div class="cms-element-product-listing-actions row justify-content-between">
+                            <div class="col-md-auto">
+                                {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                                    entities: searchResult,
+                                    criteria: searchResult.criteria
+                                } %}
+                            </div>
+                            <div class="col-md-auto">
+                                {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
+                                    current: searchResult.sorting,
+                                    sortings: searchResult.availableSortings
+                                } %}
+                            </div>
                         </div>
-                        <div class="col-md-auto">
-                            {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
-                                current: searchResult.sorting,
-                                sortings: searchResult.availableSortings
-                            } %}
-                        </div>
-                    </div>
+                    {% endif %}
                 {% endif %}
 
                 {% if searchResult.total > 0 %}
