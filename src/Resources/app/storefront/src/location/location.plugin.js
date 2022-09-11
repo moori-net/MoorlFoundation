@@ -138,7 +138,7 @@ export default class MoorlLocationPlugin extends Plugin {
                 }
 
                 if (this.options.options.includes('flyTo')) {
-                    this._mapInstance.map.flyTo(layer.getLatLng(), null, {animate: true, duration: 1});
+                    this._mapInstance.map.flyTo(layer.getLatLng(), 14, {animate: true, duration: 1});
                 }
             }
         });
