@@ -2,11 +2,17 @@
     <sw-card class="moorl-location-card" :title="$tc('moorl-foundation.card.location')">
         <sw-container columns="1fr 1fr" gap="0 20px">
             {% block moorl_location_card_inner %}
-                <sw-entity-single-select
-                        :label="$tc('moorl-foundation.properties.markerId')"
-                        entity="moorl_marker"
-                        v-model="item.markerId"
-                />
+                <div class="moorl-link-field">
+                    <sw-entity-single-select
+                            :label="$tc('moorl-foundation.properties.markerId')"
+                            entity="moorl_marker"
+                            v-model="item.markerId"
+                    />
+
+                    <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.marker.list' }">
+                        {{ $tc('moorl-marker.title') }}
+                    </router-link>
+                </div>
 
                 <sw-field
                         type="switch"
