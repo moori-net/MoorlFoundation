@@ -463,6 +463,9 @@ SQL;
                     $table2 = $splitMatches[1];
                 }
                 $data = $this->getMediaId($filePath, $table2, $dataObject);
+                if (!$data) {
+                    continue;
+                }
                 $content = str_replace($matches[0][$i], $data, $content);
             }
         }
