@@ -5,7 +5,9 @@
             ref="moorlLocation"
     />
 
-    <router-link :to="{ name: 'sw.extension.config', params: { namespace: 'MoorlFoundation' } }">
+    <router-link target="_blank"
+                 rel="noopener"
+                 :to="{ name: 'sw.extension.config', params: { namespace: 'MoorlFoundation' } }">
         {{ $tc('moorl-location.link') }}
     </router-link>
 </div>
