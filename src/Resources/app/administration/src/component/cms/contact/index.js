@@ -2,7 +2,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-object-globe',
+    icon: 'default-object-paperplane',
     name: 'moorl-contact',
     label: 'sw-cms.elements.moorl-contact.name',
     component: true,

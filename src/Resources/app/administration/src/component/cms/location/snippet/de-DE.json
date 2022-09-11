@@ -2,7 +2,13 @@
     "sw-cms": {
         "elements": {
             "moorl-location": {
-                "name": "Karte"
+                "name": "Karte",
+                "label": {
+                    "locationLat": "Breitengrad",
+                    "locationLon": "Längengrad",
+                    "marker": "Karte Marker",
+                    "height": "Karte Höhe"
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 <div class="sw-cms-el-config-moorl-location">
     <sw-cms-mapping-field v-model="element.config.locationLat" value-types="number">
         <sw-number-field
-                :label="$tc('moorl-foundation.properties.locationLat')"
+                :label="$tc('sw-cms.elements.moorl-location.label.locationLat')"
                 numberType="float"
                 step="0.00001"
                 digits="5"
@@ -11,7 +11,7 @@
 
     <sw-cms-mapping-field v-model="element.config.locationLon" value-types="number">
         <sw-number-field
-                :label="$tc('moorl-foundation.properties.locationLon')"
+                :label="$tc('sw-cms.elements.moorl-location.label.locationLat')"
                 numberType="float"
                 step="0.00001"
                 digits="5"
@@ -21,14 +21,14 @@
 
     <sw-cms-mapping-field v-model="element.config.marker" entity="moorl_marker" value-types="entity">
         <sw-entity-single-select
-                :label="$tc('moorl-foundation.properties.markerId')"
+                :label="$tc('sw-cms.elements.moorl-location.label.marker')"
                 entity="moorl_marker"
                 v-model="element.config.markerId.value"
         />
     </sw-cms-mapping-field>
 
     <sw-text-field
-            :label="$tc('moorl-foundation.properties.height')"
+            :label="$tc('sw-cms.elements.moorl-location.label.height')"
             v-model="element.config.height.value"
     />
 </div>

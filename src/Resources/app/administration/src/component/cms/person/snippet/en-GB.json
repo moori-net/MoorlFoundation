@@ -2,7 +2,7 @@
     "sw-cms": {
         "elements": {
             "moorl-person": {
-                "name": "person"
+                "name": "Person"
             }
         }
     }

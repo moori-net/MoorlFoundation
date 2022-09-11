@@ -106,6 +106,12 @@ $sw-headline-color: #4a545b !default;
         }
     }
 
+    .moorl-listing-item-standard {
+        .moorl-listing-item-image {
+            display: none;
+        }
+    }
+
     .moorl-listing-item-image-or-title,
     .moorl-listing-item-overlay {
         .moorl-listing-item-image {

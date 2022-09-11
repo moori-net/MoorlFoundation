@@ -145,6 +145,9 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
         defaultCriteria() {
             this.criteria.setLimit(this.element.config.limit.value);
+            if (this.element.config.limit.value > 23) {
+                this.criteria.setLimit(24);
+            }
             this.criteria.setIds([]);
             if (this.element.config.listingSource.value === 'select') {
                 this.criteria.setIds(this.element.config.listingItemIds.value);
