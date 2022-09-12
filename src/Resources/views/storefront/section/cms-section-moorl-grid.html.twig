@@ -1,5 +1,5 @@
 {% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
-{% set sectionSpacing = section.customFields.moorl_section_spacing ?: 30 %}
+{% set sectionSpacing = section.customFields.moorl_section_spacing is defined ? section.customFields.moorl_section_spacing : 30 %}
 
 <div class="cms-section-moorl-grid {{ layout }}"
      style="--section-spacing: {{ sectionSpacing / 2 }}px;">

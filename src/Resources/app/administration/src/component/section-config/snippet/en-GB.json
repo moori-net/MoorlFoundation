@@ -58,7 +58,7 @@
             "customerGroup": "Show this section only for a specific customer group.",
             "salesChannel": "Show this section only in specific sales channel.",
             "color": "Overwrite the font color of the entire content of the section with this setting.",
-            "backgroundColor": "Set a background color based on given tamplate variables. Gradients are also possible.",
+            "backgroundColor": "Set a background color based on given template variables. Gradients are also possible.",
             "fixedBackground": "If you have assigned a background image to the section, this effect works great!",
             "offsetTop": "With this setting you set a negative offset. The section shifts by the number of pixels above the <b>overlying</b> section.",
             "offsetBottom": "With this setting you set a negative offset. The section shifts by the number of pixels above the <b>underneath</b> section.",
