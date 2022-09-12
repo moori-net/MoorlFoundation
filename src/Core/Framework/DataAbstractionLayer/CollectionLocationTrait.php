@@ -26,11 +26,6 @@ trait CollectionLocationTrait
             $entity->setLocationDistance($locationLat, $locationLon, $unit);
         }
 
-        /*$me = new LocationStruct();
-        $me->setLocationLat($locationLat);
-        $me->setLocationLon($locationLon);
-        $this->addExtension('me', $me);*/
-
         if ($direction === FieldSorting::ASCENDING) {
             $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
                 return $a->getLocationDistance() > $b->getLocationDistance();
