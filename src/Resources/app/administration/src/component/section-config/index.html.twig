@@ -13,6 +13,11 @@
               @modal-close="show = false">
         <sw-tabs class="moorl-section-config__tabs" defaultItem="content">
             <template slot-scope="{ active }" >
+                <sw-tabs-item v-if="section.type === 'moorl-grid'"
+                              name="grid"
+                              :activeTab="active">
+                    {{ $tc(snippetPrefix + 'tab.grid') }}
+                </sw-tabs-item>
                 <sw-tabs-item name="content"
                               :activeTab="active">
                     {{ $tc(snippetPrefix + 'tab.content') }}
@@ -36,6 +41,8 @@
             </template>
 
             <template slot="content" slot-scope="{ active }">
+                <moorl-section-grid-config v-if="active === 'grid'" v-bind="{ section }"/>
+
                 <sw-container v-if="active === 'visibility'">
                     <sw-entity-multi-id-select
                             :label="$tc(snippetPrefix + 'label.salesChannel')"

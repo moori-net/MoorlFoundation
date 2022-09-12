@@ -17,6 +17,12 @@
         <option value="12">12</option>
     </sw-select-field>
 
+    <sw-number-field
+            v-model="section.customFields.moorl_section_spacing"
+            :label="$tc('moorl-section-grid-config.label.sectionSpacing')"
+            @change="initCustomFields"
+    />
+
     <div v-for="(configItem, configIndex) in section.customFields.moorl_section_grid_config"
          :key="configIndex">
         <div class="sw-cms-sidebar__navigator-section-spacer"></div>
@@ -24,7 +30,6 @@
         <moorl-bs-config
                 :label="$tc('moorl-section-grid-config.label.colNumber') + (configIndex + 1)"
                 v-model="configItem.value"
-                :showOrder="false"
         />
 
         <sw-field type="switch"

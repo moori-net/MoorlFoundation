@@ -4,7 +4,10 @@ module.exports = function (params) {
         resolve: {
             modules: [
                 `${params.basePath}Resources/node_modules/`
-            ]
+            ],
+            alias: {
+                MoorlFoundation: `${params.basePath}Resources/app/storefront/src/`,
+            }
         }
     };
 };

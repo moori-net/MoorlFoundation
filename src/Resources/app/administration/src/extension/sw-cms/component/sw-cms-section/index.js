@@ -1,7 +1,7 @@
 import template from './sw-cms-section.html.twig';
 import moorlGridDefault from './moorl-grid.default.json';
 import './sw-cms-section.scss';
-import './sw-cms-section-config';
+/*import './sw-cms-section-config';*/
 import './sw-cms-section-actions';
 
 const {Component} = Shopware;
@@ -37,6 +37,14 @@ Component.override('sw-cms-section', {
 
         sectionColumnCount() {
             return parseInt(this.section.customFields.moorl_section_column_count, 10);
+        },
+
+        sectionSpacing() {
+            return parseInt(this.section.customFields.moorl_section_spacing, 10);
+        },
+
+        sectionSpacingStyle() {
+            return "--section-spacing: " + (this.sectionSpacing / 2) + "px;";
         }
     },
 

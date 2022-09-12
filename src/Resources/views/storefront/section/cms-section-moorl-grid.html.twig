@@ -1,6 +1,8 @@
 {% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
 
-<div class="cms-section-moorl-grid {{ layout }}">
+
+<div class="cms-section-moorl-grid {{ layout }}"
+     style="--section-spacing: {{ section.customFields.moorl_section_spacing / 2 }}px;">
     <div class="row">
         {% for configIndex, configItem in section.customFields.moorl_section_grid_config %}
             {% set sectionPosition = "moorl_grid_#{configIndex}" %}

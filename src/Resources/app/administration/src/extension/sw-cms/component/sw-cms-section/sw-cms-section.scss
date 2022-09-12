@@ -1,12 +1,12 @@
 .moorl-grid-row {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-right: calc(-1 * var(--section-spacing));
+    margin-left: calc(-1 * var(--section-spacing));
 
     .moorl-grid-column {
-        padding-right: 15px;
-        padding-left: 15px;
+        padding-right: var(--section-spacing);
+        padding-left: var(--section-spacing);
         min-height: 300px;
         display: flex;
         flex-direction: column;

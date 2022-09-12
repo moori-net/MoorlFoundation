@@ -2,6 +2,7 @@
 
 @import "appflix/base";
 
+@import "sections/moorl-grid";
 @import "sections/separator";
 @import "sections/boxed";
 @import "sections/offset";
@@ -56,10 +57,6 @@
   }
 }
 */
-
-.cms-section-moorl-grid {
-  overflow: visible;
-}
 
 .moorl-foundation-hide,
 .moorl-animation-hidden {

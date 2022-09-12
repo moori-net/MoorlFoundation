@@ -1,0 +1,16 @@
+.cms-section-moorl-grid {
+  overflow: visible;
+
+  > div.row {
+    margin-right: calc(-1 * var(--section-spacing));
+    margin-left: calc(-1 * var(--section-spacing));
+    > div {
+      padding-right: var(--section-spacing);
+      padding-left: var(--section-spacing);
+    }
+  }
+
+  &.full-width {
+    overflow: hidden;
+  }
+}

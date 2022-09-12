@@ -1,15 +1,16 @@
 {% block sw_cms_section_content %}
     <template v-if="isSectionGrid">
-        <div v-if="isSectionGridInitialized" class="moorl-grid-row">
+        <div v-if="isSectionGridInitialized"
+             class="moorl-grid-row"
+             :style="sectionSpacingStyle">
             <div class="sw-cms-section__content moorl-grid-column"
                  v-for="(n, gridCol) in sectionGridConfig"
                  :key="gridCol"
                  :style="getSectionGridStyle(gridCol)">
                 <template v-if="isGridContentEmpty(gridCol)">
-                    <div
-                            v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(blockCount, gridCol) }"
-                            class="sw-cms-section__empty-stage"
-                            @click="openBlockBar">
+                    <div v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(blockCount, gridCol) }"
+                         class="sw-cms-section__empty-stage"
+                         @click="openBlockBar">
                         <sw-icon
                                 name="default-basic-plus-circle"
                                 size="24"

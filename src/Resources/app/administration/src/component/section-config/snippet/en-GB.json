@@ -1,6 +1,7 @@
 {
     "moorl-section-config": {
         "tab": {
+            "grid": "Bootstrap Grid",
             "visibility": "Visibility",
             "content": "Content",
             "background": "Background",
