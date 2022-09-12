@@ -9,6 +9,7 @@ trait EntityLocationTrait
     protected float $locationLat = 0.00;
     protected float $locationLon = 0.00;
     protected float $locationDistance = 0.00;
+    protected string $locationDistanceUnit = "km";
     protected array $locationData = [[0.00,0.00]];
     protected bool $autoLocation = false;
     protected ?string $markerId = null;
@@ -24,7 +25,22 @@ trait EntityLocationTrait
                 $this->locationLat,
                 $this->locationLon,
             ],
-            'icon' => $this->marker ? $this->marker->getLeafletMarker() : false
+            'icon' => $this->marker ? $this->marker->getLeafletMarker() : false,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getLeafletCircle(): array
+    {
+        return [
+            'latlng' => [
+                $this->locationLat,
+                $this->locationLon,
+            ],
+            'radius' => $this->locationDistance * 1000,
+            'unit' => $this->locationDistanceUnit,
         ];
     }
 
@@ -39,6 +55,8 @@ trait EntityLocationTrait
             return;
         }
 
+        $this->locationDistanceUnit = $unit;
+
         $theta = $this->locationLon - $locationLon;
         $dist = sin(deg2rad($this->locationLat)) * sin(deg2rad($locationLat)) + cos(deg2rad($this->locationLat)) * cos(deg2rad($locationLat)) * cos(deg2rad($theta));
         $dist = acos($dist);
@@ -52,6 +70,22 @@ trait EntityLocationTrait
         } else {
             $this->locationDistance = $miles;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocationDistanceUnit(): string
+    {
+        return $this->locationDistanceUnit;
+    }
+
+    /**
+     * @param string $locationDistanceUnit
+     */
+    public function setLocationDistanceUnit(string $locationDistanceUnit): void
+    {
+        $this->locationDistanceUnit = $locationDistanceUnit;
     }
 
     /**

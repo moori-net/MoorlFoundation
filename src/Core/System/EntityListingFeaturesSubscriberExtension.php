@@ -213,21 +213,26 @@ class EntityListingFeaturesSubscriberExtension
         }
 
         foreach ($filters as $filter) {
-            if ($filter->getName() === 'radius' && method_exists($result->getEntities(), 'sortByLocationDistance')) {
+            if ($filter->getName() === 'radius') {
                 /** @var CollectionLocationTrait $entities */
                 $values = $filter->getValues();
                 $entities = $result->getEntities();
 
                 if (!empty($values['locationLat'])) {
-                    $entities->sortByLocationDistance(
-                        (float) $values['locationLat'],
-                        (float) $values['locationLon'],
-                        (string) $values['unit']
-                    );
+                    if (method_exists($result->getEntities(), 'sortByLocationDistance')) {
+                        $entities->sortByLocationDistance(
+                            (float) $values['locationLat'],
+                            (float) $values['locationLon'],
+                            (string) $values['unit']
+                        );
+                    }
 
                     $me = new LocationStruct();
                     $me->setLocationLat((float) $values['locationLat']);
                     $me->setLocationLon((float) $values['locationLon']);
+                    $me->setLocationDistanceUnit((string) $values['unit']);
+                    $me->__set('locationDistance', (float) $values['distance']);
+
                     $result->addExtension('me', $me);
                 }
             }

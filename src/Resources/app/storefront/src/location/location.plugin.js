@@ -79,6 +79,13 @@ export default class MoorlLocationPlugin extends Plugin {
         const featureMarker = [];
 
         for (let location of locations) {
+            if (location.radius) {
+                const circle = L.circle(location.latlng, location.radius);
+
+                featureMarker.push(circle);
+                continue;
+            }
+
             const markerOptions = {};
             if (location.entityId) {
                 markerOptions.entityId = location.entityId;
