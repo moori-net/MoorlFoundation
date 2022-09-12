@@ -63,6 +63,9 @@ Component.register('moorl-section-grid-config', {
             if (!this.section.customFields.moorl_section_column_count) {
                 this.$set(this.section.customFields, 'moorl_section_column_count', 3);
             }
+            if (!Number.isInteger(this.section.customFields.moorl_section_spacing)) {
+                this.$set(this.section.customFields, 'moorl_section_spacing', 30);
+            }
             if (!this.section.customFields.moorl_section_grid_config) {
                 this.$set(this.section.customFields, 'moorl_section_grid_config', []);
             }

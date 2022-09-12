@@ -5,8 +5,9 @@
         }
     }
 
-    &[class*='moorl-separator-']{
-        .cms-section-default {
+    &[class*='moorl-separator-'] {
+        .cms-section-default,
+        .cms-section-moorl-grid {
             position: relative;
             z-index: 15;
         }

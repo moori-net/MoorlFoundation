@@ -19,17 +19,16 @@ Component.register('moorl-section-config', {
 
     data() {
         return {
-            snippetPrefix: 'moorl-section-config.',
             show: false,
         };
     },
 
     computed: {
         iconColor() {
-            if (this.section?.customFields?.moorl_section_config?.salesChannel?.length !== 0) {
+            if (this.section?.customFields?.moorl_section_config?.salesChannel?.length) {
                 return "#FF0000";
             }
-            if (this.section?.customFields?.moorl_section_config?.customerGroup?.length !== 0) {
+            if (this.section?.customFields?.moorl_section_config?.customerGroup?.length) {
                 return "#00FF00";
             }
             return null;
@@ -113,7 +112,14 @@ Component.register('moorl-section-config', {
                 this.$set(this.section, 'customFields', {});
             }
             if (!this.section.customFields.moorl_section_config) {
-                this.$set(this.section.customFields, 'moorl_section_config', {});
+                this.$set(this.section.customFields, 'moorl_section_config', {
+                    color: null
+                });
+            }
+            if (Array.isArray(this.section.customFields.moorl_section_config)) {
+                this.$set(this.section.customFields, 'moorl_section_config', {
+                    color: null
+                });
             }
         }
     }
