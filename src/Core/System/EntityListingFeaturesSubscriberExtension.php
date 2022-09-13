@@ -108,8 +108,6 @@ class EntityListingFeaturesSubscriberExtension
         $result->setAvailableSortings($sortings);
         $result->setPage($this->getPage($event->getRequest()));
         $result->setLimit($this->getLimit($event->getRequest()));
-
-        //dump($result);exit;
     }
 
     private function handleFilters(Request $request, Criteria $criteria, SalesChannelContext $context): void
@@ -132,6 +130,7 @@ class EntityListingFeaturesSubscriberExtension
             }
         }
 
+        /* Handle "locationCache" if radius filter active */
         if ($criteria->hasAssociation('locationCache') && $context->hasExtension(LocationDefinition::ENTITY_NAME)) {
             /** @var LocationEntity $location */
             $location = $context->getExtension(LocationDefinition::ENTITY_NAME);
@@ -231,20 +230,11 @@ class EntityListingFeaturesSubscriberExtension
         }
 
         foreach ($filters as $filter) {
+            /* Handle "my location" if radius filter active */
             if ($filter->getName() === 'radius') {
-                /** @var CollectionLocationTrait $entities */
                 $values = $filter->getValues();
-                $entities = $result->getEntities();
 
                 if (!empty($values['locationLat'])) {
-                    /*if (method_exists($result->getEntities(), 'sortByLocationDistance')) {
-                        $entities->sortByLocationDistance(
-                            (float) $values['locationLat'],
-                            (float) $values['locationLon'],
-                            (string) $values['unit']
-                        );
-                    }*/
-
                     $me = new LocationStruct();
                     $me->setLocationLat((float) $values['locationLat']);
                     $me->setLocationLon((float) $values['locationLon']);
@@ -335,6 +325,7 @@ class EntityListingFeaturesSubscriberExtension
         $filter = new EqualsFilter($this->entityName . '.active', true);
 
         $location = $this->locationServiceV2->getLocationByTerm($location, $this->getCountryIds($request));
+        /* If a location was found, write locationCache, add filter and add location to salesChannelContext */
         if ($location) {
             $this->locationServiceV2->writeLocationCache($location, $this->entityName, (float) $distance, $unit);
 
