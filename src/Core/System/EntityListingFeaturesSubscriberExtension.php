@@ -23,7 +23,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
-use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -238,13 +237,13 @@ class EntityListingFeaturesSubscriberExtension
                 $entities = $result->getEntities();
 
                 if (!empty($values['locationLat'])) {
-                    if (method_exists($result->getEntities(), 'sortByLocationDistance')) {
+                    /*if (method_exists($result->getEntities(), 'sortByLocationDistance')) {
                         $entities->sortByLocationDistance(
                             (float) $values['locationLat'],
                             (float) $values['locationLon'],
                             (string) $values['unit']
                         );
-                    }
+                    }*/
 
                     $me = new LocationStruct();
                     $me->setLocationLat((float) $values['locationLat']);

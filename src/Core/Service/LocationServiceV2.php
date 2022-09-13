@@ -55,22 +55,26 @@ class LocationServiceV2
     public function writeLocationCache(
         LocationEntity $location,
         string $entityName,
-        float $distance,
+        float $distance = 0.00,
         string $unit = "km"
     ): void
     {
+        if ($this->now->modify("-1 hour") < $location->getUpdatedAt()) {
+            //return;
+        }
+
         $sql = <<<SQL
-INSERT IGNORE INTO `moorl_location_cache` (
-    `location_id`, 
-    `entity_id`, 
-    `distance`,
-    `created_at`, 
-    `updated_at`
-) 
+INSERT IGNORE INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`,`created_at`, `updated_at`) 
 SELECT
     UNHEX('%s'),
-    id, 
-    (3959*acos(cos(radians(`location_lat`))*cos(radians(%f))*cos(radians(%f)-radians(`location_lon`))+sin(radians(`location_lat`))*sin(radians(%f)))) AS distance,
+    `id`, 
+    (6371 * acos(
+        cos(radians(`location_lat`)) *
+        cos(radians(%f)) *
+        cos(radians(%f) - radians(`location_lon`)) +
+        sin(radians(`location_lat`)) *
+        sin(radians(%f))
+    )) AS distance,
     `created_at`, 
     `updated_at`
 FROM `%s`;
