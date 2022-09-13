@@ -3,9 +3,12 @@
 namespace MoorlFoundation\Core\System;
 
 use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\LocationStruct;
+use MoorlFoundation\Core\Content\Location\LocationDefinition;
+use MoorlFoundation\Core\Content\Location\LocationEntity;
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\CollectionLocationTrait;
 use MoorlFoundation\Core\Service\LocationService;
+use MoorlFoundation\Core\Service\LocationServiceV2;
 use MoorlFoundation\Core\Service\SortingService;
 use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
@@ -20,6 +23,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,15 +33,16 @@ class EntityListingFeaturesSubscriberExtension
 
     protected SortingService $sortingService;
     protected ?LocationService $locationService = null;
+    protected ?LocationServiceV2 $locationServiceV2 = null;
     protected string $entityName = "";
 
     public function __construct(
         SortingService $sortingService,
-        ?LocationService $locationService = null
+        ?LocationServiceV2 $locationServiceV2 = null
     )
     {
         $this->sortingService = $sortingService;
-        $this->locationService = $locationService;
+        $this->locationServiceV2 = $locationServiceV2;
     }
 
     public function handleFlags(ProductListingCriteriaEvent $event): void
@@ -104,6 +109,8 @@ class EntityListingFeaturesSubscriberExtension
         $result->setAvailableSortings($sortings);
         $result->setPage($this->getPage($event->getRequest()));
         $result->setLimit($this->getLimit($event->getRequest()));
+
+        //dump($result);exit;
     }
 
     private function handleFilters(Request $request, Criteria $criteria, SalesChannelContext $context): void
@@ -124,6 +131,18 @@ class EntityListingFeaturesSubscriberExtension
             if ($filter->isFiltered()) {
                 $criteria->addPostFilter($filter->getFilter());
             }
+        }
+
+        if ($criteria->hasAssociation('locationCache') && $context->hasExtension(LocationDefinition::ENTITY_NAME)) {
+            /** @var LocationEntity $location */
+            $location = $context->getExtension(LocationDefinition::ENTITY_NAME);
+            $locationCacheCriteria = $criteria->getAssociation('locationCache');
+            $locationCacheCriteria->addFilter(new EqualsFilter('locationId', $location->getId()));
+            $context->removeExtension(LocationDefinition::ENTITY_NAME);
+            $request->attributes->set('order', 'distance');
+        } else if ($criteria->hasAssociation('locationCache')) {
+            $criteria->removeAssociation('locationCache');
+            $request->attributes->set('order', 'standard');
         }
 
         $criteria->addExtension('filters', $filters);
@@ -303,7 +322,7 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getRadiusFilter(Request $request): Filter
+    protected function getRadiusFilter(Request $request, ?SalesChannelContext $context = null): Filter
     {
         /**
          * km = Kilometer
@@ -312,37 +331,33 @@ class EntityListingFeaturesSubscriberExtension
          */
         $location = $request->get('location', '');
         $distance = $request->get('distance', 0);
-        $unit = $this->locationService->getUnitOfMeasurement();
+        $unit = $this->locationServiceV2->getUnitOfMeasurement();
 
         $filter = new EqualsFilter($this->entityName . '.active', true);
 
-        $geoPoint = $this->locationService->getLocationByTerm($location, $this->getCountryIds($request));
-        if ($geoPoint) {
-            $boundingBox = $geoPoint->boundingBox($distance, $unit);
+        $location = $this->locationServiceV2->getLocationByTerm($location, $this->getCountryIds($request));
+        if ($location) {
+            $this->locationServiceV2->writeLocationCache($location, $this->entityName, (float) $distance, $unit);
 
             $filter = new MultiFilter(MultiFilter::CONNECTION_AND, [
-                new RangeFilter($this->entityName . '.locationLat', [
-                    'gte' => $boundingBox->getMinLatitude(),
-                    'lte' => $boundingBox->getMaxLatitude()
-                ]),
-                new RangeFilter($this->entityName . '.locationLon', [
-                    'lte' => $boundingBox->getMaxLongitude(),
-                    'gte' => $boundingBox->getMinLongitude()
-                ])
+                new RangeFilter($this->entityName . '.locationCache.distance', [RangeFilter::LTE => $distance]),
+                new EqualsFilter($this->entityName . '.locationCache.locationId', $location->getId())
             ]);
+
+            $context->addExtension(LocationDefinition::ENTITY_NAME, $location);
         }
 
         return new Filter(
             'radius',
-            !empty($geoPoint),
+            !empty($location),
             [new CountAggregation('radius', $this->entityName . '.active')],
             $filter,
             [
-                'location' => $location,
+                'locationId' => !empty($location) ? $location->getId() : null,
                 'distance' => (int) $distance,
                 'unit' => $unit,
-                'locationLat' => !empty($geoPoint) ? $geoPoint->getDegLat() : null,
-                'locationLon' => !empty($geoPoint) ? $geoPoint->getDegLon() : null
+                'locationLat' => !empty($location) ? $location->getLocationLat() : null,
+                'locationLon' => !empty($location) ? $location->getLocationLon() : null
             ]
         );
     }

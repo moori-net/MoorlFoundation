@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\Location;
 
+use MoorlFoundation\Core\Framework\GeoLocation\GeoPoint;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
@@ -12,6 +13,11 @@ class LocationEntity extends Entity
     protected array $payload;
     protected float $locationLat;
     protected float $locationLon;
+
+    public function getGeoPoint(): GeoPoint
+    {
+        return new GeoPoint($this->locationLat, $this->locationLon);
+    }
 
     /**
      * @return array

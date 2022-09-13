@@ -44,7 +44,7 @@
 
 {% block moorl_foundation_listing %}
     {% if isListing %}
-        <div class="cms-element-product-listing-wrapper cms-element-moorl-foundation-listing-wrapper"
+        <div class="cms-element-product-listing-wrapper cms-element-moorl-foundation-listing-wrapper cms-element-{{ element.type }}"
              data-listing-pagination="true"
              data-listing-pagination-options='{{ paginationConfig|json_encode }}'
              data-listing="true"
@@ -53,15 +53,15 @@
                 {% if searchResult.total > 0 %}
                     {# Avoid not necessary pagination or sorting elements #}
                     {% set totalPages = (searchResult.total / searchResult.criteria.limit)|round(0, 'ceil') %}
-                    {% if totalPages > 1 and searchResult.availableSortings.count() < 2 %}
-                        <div class="cms-element-product-listing-actions row justify-content-between">
-                            <div class="col-md-auto">
+                    {% if totalPages > 1 or searchResult.availableSortings.count() > 1 %}
+                        <div class="cms-element-product-listing-actions row form-row justify-content-between">
+                            <div class="col">
                                 {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
                                     entities: searchResult,
                                     criteria: searchResult.criteria
                                 } %}
                             </div>
-                            <div class="col-md-auto">
+                            <div class="col">
                                 {% sw_include '@Storefront/storefront/component/sorting.html.twig' with {
                                     current: searchResult.sorting,
                                     sortings: searchResult.availableSortings

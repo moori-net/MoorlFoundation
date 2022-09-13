@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
+use MoorlFoundation\Core\Content\Location\LocationCacheCollection;
 use MoorlFoundation\Core\Content\Marker\MarkerEntity;
 
 trait EntityLocationTrait
@@ -14,6 +15,7 @@ trait EntityLocationTrait
     protected bool $autoLocation = false;
     protected ?string $markerId = null;
     protected ?MarkerEntity $marker = null;
+    protected ?LocationCacheCollection $locationCache = null;
 
     /**
      * @return array
@@ -70,6 +72,22 @@ trait EntityLocationTrait
         } else {
             $this->locationDistance = $miles;
         }
+    }
+
+    /**
+     * @return LocationCacheCollection|null
+     */
+    public function getLocationCache(): ?LocationCacheCollection
+    {
+        return $this->locationCache;
+    }
+
+    /**
+     * @param LocationCacheCollection|null $locationCache
+     */
+    public function setLocationCache(?LocationCacheCollection $locationCache): void
+    {
+        $this->locationCache = $locationCache;
     }
 
     /**

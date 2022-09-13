@@ -16,6 +16,7 @@ class MoorlFoundation extends Plugin
     public const PLUGIN_TABLES = [
         'moorl_cms_element_config',
         'moorl_location',
+        'moorl_location_cache',
         'moorl_sorting',
         'moorl_sorting_translation',
         'moorl_marker',

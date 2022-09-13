@@ -8,6 +8,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class LocationDefinition extends EntityDefinition
@@ -41,6 +42,7 @@ class LocationDefinition extends EntityDefinition
             (new JsonField('payload', 'payload'))->addFlags(new Required()),
             (new FloatField('location_lat','locationLat')),
             (new FloatField('location_lon','locationLon')),
+            new OneToManyAssociationField('locationCache', LocationCacheDefinition::class, 'location_id')
         ]);
     }
 }
