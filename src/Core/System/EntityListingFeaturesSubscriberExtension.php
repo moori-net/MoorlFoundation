@@ -6,7 +6,6 @@ use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\LocationStruct;
 use MoorlFoundation\Core\Content\Location\LocationDefinition;
 use MoorlFoundation\Core\Content\Location\LocationEntity;
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\CollectionLocationTrait;
 use MoorlFoundation\Core\Service\LocationService;
 use MoorlFoundation\Core\Service\LocationServiceV2;
 use MoorlFoundation\Core\Service\SortingService;
