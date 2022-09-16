@@ -485,7 +485,8 @@ Component.register('moorl-csv-import', {
                                     return this.onError(newProperty + " - import " + column.entity + " validation error: unknown ID (" + currentUuid + ")");
                                 }
                             } else if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
-                                let parts = currentValue.toLowerCase().split("|");
+                                //let parts = currentValue.toLowerCase().split("|");
+                                let parts = currentValue.split("|");
 
                                 if (parts.length !== 0) {
                                     newItem[newProperty] = [];
