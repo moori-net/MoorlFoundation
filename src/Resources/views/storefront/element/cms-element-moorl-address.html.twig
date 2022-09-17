@@ -33,7 +33,7 @@
 
                         {% if element.data.locationPlaceId %}
                             <p>
-                                <a href="https://goo.gl/maps/{{ element.data.locationPlaceId }}" target="_blank" rel="noopener">
+                                <a href="https://www.google.com/maps/place/?q=place_id:{{ element.data.locationPlaceId }}" target="_blank" rel="noopener">
                                     {{ "moorl-foundation.buttons.placeIdLink"|trans }}
                                 </a>
                             </p>
