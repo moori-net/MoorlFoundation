@@ -8,7 +8,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         inputLocationSelector: '.location',
         inputDistanceSelector: '.distance',
         inputInvalidCLass: 'is-invalid',
-        inputTimeout: 500,
+        inputTimeout: 1000,
         locationKey: 'location',
         distanceKey: 'distance',
         errorContainerClass: 'filter-radius-error',
@@ -49,8 +49,8 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
                 this._setError();
             } else {
                 this._removeError();
+                this.listing.changeListing();
             }
-            this.listing.changeListing();
         }, this.options.inputTimeout);
     }
 
@@ -72,7 +72,10 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
      * @private
      */
     _isInputInvalid() {
-        return false;
+        let cond1 = this._inputLocation.value.length < 4;
+        let cond2 = this._inputDistance.value.length === 0;
+
+        return cond1 || cond2;
     }
 
     /**

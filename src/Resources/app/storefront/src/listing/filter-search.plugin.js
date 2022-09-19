@@ -7,7 +7,7 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
     static options = deepmerge(FilterBasePlugin.options, {
         inputSearchSelector: '.search',
         inputInvalidCLass: 'is-invalid',
-        inputTimeout: 500,
+        inputTimeout: 1000,
         searchKey: 'search',
         containerSelector: '.filter-search-container'
     });
@@ -61,7 +61,7 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
      * @private
      */
     _isInputInvalid() {
-        return false;
+        return this._inputSearch.value.length < 4;
     }
 
     /**
