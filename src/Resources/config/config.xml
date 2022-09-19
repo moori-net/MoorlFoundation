@@ -316,6 +316,52 @@
     </card>
 
     <card>
+        <title>Listing options</title>
+        <title lang="de-DE">Listing Optionen</title>
+
+        <input-field type="bool">
+            <name>filterSearchCollapsed</name>
+            <label>Search filter collapsed (Sidebar)</label>
+            <label lang="de-DE">Suchfilter ausgeklappt (Sidebar)</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>filterRadiusCollapsed</name>
+            <label>Filter radius collapsed (Sidebar)</label>
+            <label lang="de-DE">Radius Filter ausgeklappt (Sidebar)</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>filterRadiusType</name>
+            <label>Filter radius type</label>
+            <label lang="de-DE">Radius Filter Typ</label>
+            <options>
+                <option>
+                    <id>select</id>
+                    <name>Select</name>
+                    <name lang="de-DE">Feste Auswahl</name>
+                </option>
+                <option>
+                    <id>number</id>
+                    <name>Number</name>
+                    <name lang="de-DE">Zahl</name>
+                </option>
+            </options>
+            <defaultValue>number</defaultValue>
+        </input-field>
+
+        <input-field type="text">
+            <name>filterRadiusSteps</name>
+            <label>Filter radius steps</label>
+            <label lang="de-DE">Radius Filter Schritte</label>
+            <defaultValue>1,2.5,5,10,15,25,50</defaultValue>
+            <placeholder>1,2.5,5,10,15,25,50</placeholder>
+        </input-field>
+    </card>
+
+    <card>
         <title>Plugin settings</title>
         <title lang="de-DE">Plugin Einstellungen</title>
 

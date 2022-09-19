@@ -1,5 +1,6 @@
 {% set filterItemId = 'filter-' ~ name ~ '-' ~ random() %}
 
+
 {% block component_filter_search %}
     {% set filterBooleanOptions = {
         name: name,
@@ -13,18 +14,19 @@
         <div class="filter-panel-item"
              data-moorl-foundation-filter-search="true">
             {% block component_filter_search_toggle %}
-                <button class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
+                <button
+                        class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
                         aria-expanded="true"
                         {% if sidebar %}
-                    data-toggle="collapse"
-                    data-target="#{{ filterItemId }}"
-                {% else %}
-                    data-toggle="dropdown"
-                    data-boundary="viewport"
-                    data-offset="0,8"
-                    aria-haspopup="true"
-                        {% endif %}>
-
+                            data-toggle="collapse"
+                            data-target="#{{ filterItemId }}"
+                        {% else %}
+                            data-toggle="dropdown"
+                            data-boundary="viewport"
+                            data-offset="0,8"
+                            aria-haspopup="true"
+                        {% endif %}
+                >
                     {% block component_filter_search_display_name %}
                         {{ displayName }}
                     {% endblock %}

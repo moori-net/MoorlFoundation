@@ -1,5 +1,6 @@
 {% set filterItemId = 'filter-' ~ name ~ '-' ~ random() %}
 
+
 {% block component_filter_radius %}
     {% set unit = "moorl-foundation.listing.filter.#{config('MoorlFoundation.config.osmUnitOfMeasurement')}" %}
 
@@ -17,18 +18,19 @@
              data-moorl-foundation-filter-radius="true"
              data-moorl-foundation-filter-radius-options='{{ filterRadiusOptions|json_encode }}'>
             {% block component_filter_radius_toggle %}
-                <button class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
+                <button
+                        class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
                         aria-expanded="true"
                         {% if sidebar %}
-                    data-toggle="collapse"
-                    data-target="#{{ filterItemId }}"
-                {% else %}
-                    data-toggle="dropdown"
-                    data-boundary="viewport"
-                    data-offset="0,8"
-                    aria-haspopup="true"
-                        {% endif %}>
-
+                            data-toggle="collapse"
+                            data-target="#{{ filterItemId }}"
+                        {% else %}
+                            data-toggle="dropdown"
+                            data-boundary="viewport"
+                            data-offset="0,8"
+                            aria-haspopup="true"
+                        {% endif %}
+                >
                     {% block component_filter_radius_display_name %}
                         {{ displayName }}
                     {% endblock %}
