@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class SettingsController
  * @Route(defaults={"_routeScope"={"api"}})
  */
 class SettingsController
