@@ -318,7 +318,7 @@ class EntityListingFeaturesSubscriberExtension
         return new Filter(
             'type',
             !empty($ids),
-            [new EntityAggregation('type', $this->entityName . '.typeId', $this->entityName)],
+            [new EntityAggregation('type', $this->entityName . '.typeId', $this->entityName . '_type')],
             new EqualsAnyFilter($this->entityName . '.typeId', $ids),
             $ids
         );
