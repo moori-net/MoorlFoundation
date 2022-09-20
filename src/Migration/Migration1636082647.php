@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `moorl_sorting` (
     CONSTRAINT `json.moorl_sorting.fields` CHECK (JSON_VALID(`fields`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
-        $connection->executeUpdate($sql);
+        $connection->executeStatement($sql);
 
         $sql = <<<SQL
 CREATE TABLE IF NOT EXISTS `moorl_sorting_translation` (
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `moorl_sorting_translation` (
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
-        $connection->executeUpdate($sql);
+        $connection->executeStatement($sql);
     }
 
     public function updateDestructive(Connection $connection): void

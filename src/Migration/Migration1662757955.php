@@ -22,7 +22,7 @@ ALTER TABLE `moorl_marker`
 ADD `class_name` varchar(255) COLLATE 'utf8mb4_unicode_ci' NULL,
 ADD `svg` tinytext COLLATE 'utf8mb4_unicode_ci' NULL;
 SQL;
-        $connection->executeUpdate($sql);
+        $connection->executeStatement($sql);
     }
 
     public function updateDestructive(Connection $connection): void
