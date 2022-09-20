@@ -3,14 +3,13 @@
 namespace MoorlFoundation\Administration\Controller;
 
 use MoorlFoundation\Core\Service\DataService;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class SettingsController
- * @RouteScope(scopes={"api"})
+ * @Route(defaults={"_routeScope"={"api"}})
  */
 class SettingsController
 {
