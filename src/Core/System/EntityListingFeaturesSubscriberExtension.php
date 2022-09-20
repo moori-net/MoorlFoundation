@@ -17,6 +17,7 @@ use Shopware\Core\Content\Product\SalesChannel\Sorting\ProductSortingEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\FilterAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\EntityAggregation;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\StatsAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -273,7 +274,7 @@ class EntityListingFeaturesSubscriberExtension
 
     protected function getTagFilter(Request $request): Filter
     {
-        $ids = $this->getTagIds($request);
+        $ids = $this->getPropIds($request, "tag");
 
         return new Filter(
             'tag',
@@ -286,7 +287,7 @@ class EntityListingFeaturesSubscriberExtension
 
     protected function getManufacturerFilter(Request $request): Filter
     {
-        $ids = $this->getManufacturerIds($request);
+        $ids = $this->getPropIds($request, "manufacturer");
 
         return new Filter(
             'manufacturer',
@@ -299,7 +300,7 @@ class EntityListingFeaturesSubscriberExtension
 
     protected function getCountryFilter(Request $request): Filter
     {
-        $ids = $this->getCountryIds($request);
+        $ids = $this->getPropIds($request, "country");
 
         return new Filter(
             'country',
@@ -307,6 +308,57 @@ class EntityListingFeaturesSubscriberExtension
             [new EntityAggregation('country', $this->entityName . '.countryId', 'country')],
             new EqualsAnyFilter($this->entityName . '.countryId', $ids),
             $ids
+        );
+    }
+
+    protected function getTypeFilter(Request $request): Filter
+    {
+        $ids = $this->getPropIds($request, "type");
+
+        return new Filter(
+            'type',
+            !empty($ids),
+            [new EntityAggregation('type', $this->entityName . '.typeId', $this->entityName)],
+            new EqualsAnyFilter($this->entityName . '.typeId', $ids),
+            $ids
+        );
+    }
+
+    protected function getCustomerFilter(Request $request): Filter
+    {
+        $ids = $this->getPropIds($request, "customer");
+
+        return new Filter(
+            'appflix-ad-customer',
+            !empty($ids),
+            [],
+            new EqualsAnyFilter($this->entityName . '.customerId', $ids),
+            $ids
+        );
+    }
+
+    protected function getPriceFilter(Request $request): Filter
+    {
+        $min = $request->get('min-price', 0);
+        $max = $request->get('max-price', 0);
+
+        $range = [];
+        if ($min > 0) {
+            $range[RangeFilter::GTE] = $min;
+        }
+        if ($max > 0) {
+            $range[RangeFilter::LTE] = $max;
+        }
+
+        return new Filter(
+            'price',
+            !empty($range),
+            [new StatsAggregation('price', $this->entityName . '.price', true, true, false, false)],
+            new RangeFilter($this->entityName .'.price', $range),
+            [
+                'min' => (float) $request->get('min-price'),
+                'max' => (float) $request->get('max-price'),
+            ]
         );
     }
 
@@ -323,7 +375,7 @@ class EntityListingFeaturesSubscriberExtension
 
         $filter = new EqualsFilter($this->entityName . '.active', true);
 
-        $location = $this->locationServiceV2->getLocationByTerm($location, $this->getCountryIds($request));
+        $location = $this->locationServiceV2->getLocationByTerm($location, $this->getPropIds($request, "country"));
         /* If a location was found, write locationCache, add filter and add location to salesChannelContext */
         if ($location) {
             $this->locationServiceV2->writeLocationCache($location, $this->entityName, (float) $distance, $unit);
@@ -349,21 +401,6 @@ class EntityListingFeaturesSubscriberExtension
                 'locationLon' => !empty($location) ? $location->getLocationLon() : null
             ]
         );
-    }
-
-    protected function getManufacturerIds(Request $request): array
-    {
-        return $this->getPropIds($request, "manufacturer");
-    }
-
-    protected function getCountryIds(Request $request): array
-    {
-        return $this->getPropIds($request, "country");
-    }
-
-    protected function getTagIds(Request $request): array
-    {
-        return $this->getPropIds($request, "tag");
     }
 
     protected function getPropIds(Request $request, string $prop = "tag"): array

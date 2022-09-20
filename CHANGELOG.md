@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1010
+
+* Added new listing filters
+* Added compatibility for Appflix classifieds plugin
+
 ## 1.4.1003
 
 * Removed @RouteScope
