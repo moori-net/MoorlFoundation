@@ -1,13 +1,14 @@
 <div class="moorl-entity-form-element">
     <template v-if="column.type == 'association'">
         <template v-if="column.relation === 'many_to_many' || column.relation === 'one_to_many'">
-            <sw-entity-multi-select :label="column.label"
-                                    :helpText="column.helpText"
-                                    v-model="value[column.property]"
-                                    :labelProperty="column.flags.moorl_label_property"
-                                    :entity="column.entity"
-                                    :localMode="true">
-            </sw-entity-multi-select>
+            <sw-entity-multi-select
+                    :label="column.label"
+                    :helpText="column.helpText"
+                    v-model="value[column.property]"
+                    :labelProperty="column.flags.moorl_label_property"
+                    :entity="column.entity"
+                    :localMode="true"
+            />
         </template>
 
         <template v-else>
@@ -33,14 +34,33 @@
                 </sw-entity-single-select>
             </template>
 
+            <template v-else-if="column.localField === 'sortingId'">
+                <div class="moorl-link-field">
+                    <sw-entity-single-select
+                            :label="column.label"
+                            :helpText="column.helpText"
+                            v-model="value[column.localField]"
+                            :labelProperty="column.flags.moorl_label_property"
+                            :entity="column.entity"
+                            :criteria="sortingSearchCriteria"
+                            :required="column.required"
+                    />
+
+                    <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.sorting.list', params: { entity: column.entity } }">
+                        {{ $tc('sw-cms.elements.moorl-foundation-listing.label.manageSorting') }}
+                    </router-link>
+                </div>
+            </template>
+
             <template v-else>
-                <sw-entity-single-select :label="column.label"
-                                         :helpText="column.helpText"
-                                         v-model="value[column.localField]"
-                                         :labelProperty="column.flags.moorl_label_property"
-                                         :entity="column.entity"
-                                         :required="column.required">
-                </sw-entity-single-select>
+                <sw-entity-single-select
+                        :label="column.label"
+                        :helpText="column.helpText"
+                        v-model="value[column.localField]"
+                        :labelProperty="column.flags.moorl_label_property"
+                        :entity="column.entity"
+                        :required="column.required"
+                />
             </template>
         </template>
     </template>
@@ -50,8 +70,8 @@
                 :label="column.label"
                 :helpText="column.helpText"
                 :softWraps="false"
-                v-model="value[column.property]">
-        </sw-code-editor>
+                v-model="value[column.property]"
+        />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'select'">
@@ -75,20 +95,22 @@
 
     <template v-else>
         <template v-if="column.required">
-            <sw-field :type="column.flags.moorl_edit_field"
-                      :label="column.label"
-                      :helpText="column.helpText"
-                      v-model="value[column.property]"
-                      required
-                      validation="required">
-            </sw-field>
+            <sw-field
+                    :type="column.flags.moorl_edit_field"
+                    :label="column.label"
+                    :helpText="column.helpText"
+                    v-model="value[column.property]"
+                    required
+                    validation="required"
+            />
         </template>
         <template v-else>
-            <sw-field :type="column.flags.moorl_edit_field"
-                      :label="column.label"
-                      :helpText="column.helpText"
-                      v-model="value[column.property]">
-            </sw-field>
+            <sw-field
+                    :type="column.flags.moorl_edit_field"
+                    :label="column.label"
+                    :helpText="column.helpText"
+                    v-model="value[column.property]"
+            />
         </template>
     </template>
 </div>

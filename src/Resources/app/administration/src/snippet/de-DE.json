@@ -84,6 +84,8 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "label": "Bezeichnung",
+            "sorting": "Sortieren nach",
             "price": "Preis",
             "visible": "Sichtbar",
             "formElement": "Formular Feld",

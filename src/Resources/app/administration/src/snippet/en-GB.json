@@ -90,6 +90,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "label": "Label",
+            "sorting": "Sort by",
             "price": "Price",
             "visible": "Visible",
             "formElement": "Form field",

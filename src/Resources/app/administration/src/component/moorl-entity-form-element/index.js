@@ -57,6 +57,13 @@ Component.register('moorl-entity-form-element', {
             }
         },
 
+        sortingSearchCriteria() {
+            const criteria = new Criteria(1, 25);
+            criteria.addFilter(Criteria.equals('entity', this.column?.flags?.moorl_edit_field_options?.entity));
+
+            return criteria;
+        },
+
         productSearchCriteria() {
             const criteria = new Criteria(1, 25);
             criteria.addAssociation('options.group');
