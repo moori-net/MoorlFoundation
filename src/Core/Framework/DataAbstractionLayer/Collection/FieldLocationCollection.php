@@ -20,13 +20,18 @@ class FieldLocationCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new FloatField('location_lat','locationLat'))->addFlags(new EditField('number')),
             (new FloatField('location_lon','locationLon'))->addFlags(new EditField('number')),
             (new BoolField('auto_location', 'autoLocation'))->addFlags(new EditField('switch')),
             new FkField('moorl_marker_id', 'markerId', MarkerDefinition::class),
             (new ManyToOneAssociationField('marker', 'moorl_marker_id', MarkerDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('name')),
             new OneToManyAssociationField('locationCache', LocationCacheDefinition::class, 'entity_id')
-        ]);
+        ];
     }
 }

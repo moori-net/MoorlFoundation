@@ -21,7 +21,12 @@ class FieldThingCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new BoolField('active', 'active'))->addFlags(new EditField('switch')),
             (new TranslatedField('name'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new TranslatedField('teaser'))->addFlags(new EditField('textarea')),
@@ -34,6 +39,6 @@ class FieldThingCollection extends FieldCollection
             (new ManyToOneAssociationField('media', 'media_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class),
             (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class))->addFlags(),
-        ]);
+        ];
     }
 }

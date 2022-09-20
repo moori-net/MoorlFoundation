@@ -13,11 +13,16 @@ class FieldContactCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new StringField('email', 'email'))->addFlags(new EditField('text')),
             (new StringField('phone_number', 'phoneNumber'))->addFlags(new EditField('text')),
             (new StringField('shop_url', 'shopUrl'))->addFlags(new EditField('text')),
             (new StringField('merchant_url', 'merchantUrl'))->addFlags(new EditField('text')),
-        ]);
+        ];
     }
 }

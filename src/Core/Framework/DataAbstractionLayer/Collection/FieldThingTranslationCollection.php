@@ -16,7 +16,12 @@ class FieldThingTranslationCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new StringField('name', 'name'))->addFlags(new Required()),
             (new LongTextField('description', 'description'))->addFlags(new AllowHtml()),
             new LongTextField('teaser', 'teaser'),
@@ -24,6 +29,6 @@ class FieldThingTranslationCollection extends FieldCollection
             new LongTextField('meta_title', 'metaTitle'),
             new LongTextField('meta_description', 'metaDescription'),
             new JsonField('slot_config', 'slotConfig'),
-        ]);
+        ];
     }
 }

@@ -19,7 +19,12 @@ class FieldAddressCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new StringField('street', 'street'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new StringField('street_number', 'streetNumber'))->addFlags(new EditField('text')),
             (new StringField('zipcode', 'zipcode'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
@@ -32,6 +37,6 @@ class FieldAddressCollection extends FieldCollection
             (new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
             (new ManyToOneAssociationField('countryState', 'country_state_id', CountryStateDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
             (new StringField('location_place_id', 'locationPlaceId'))->addFlags(new EditField('text')),
-        ]);
+        ];
     }
 }

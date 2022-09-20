@@ -13,7 +13,12 @@ class FieldCompanyCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new StringField('executive_director', 'executiveDirector'))->addFlags(new EditField('text')),
             (new StringField('place_of_fulfillment', 'placeOfFulfillment'))->addFlags(new EditField('text')),
             (new StringField('place_of_jurisdiction', 'placeOfJurisdiction'))->addFlags(new EditField('text')),
@@ -23,6 +28,6 @@ class FieldCompanyCollection extends FieldCollection
             (new StringField('tax_office', 'taxOffice'))->addFlags(new EditField('text')),
             (new StringField('tax_number', 'taxNumber'))->addFlags(new EditField('text')),
             (new StringField('vat_id', 'vatId'))->addFlags(new EditField('text')),
-        ]);
+        ];
     }
 }

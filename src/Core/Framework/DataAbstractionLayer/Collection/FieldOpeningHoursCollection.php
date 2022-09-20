@@ -15,9 +15,14 @@ class FieldOpeningHoursCollection extends FieldCollection
 
     public function __construct()
     {
-        return new parent([
+        return new parent(self::getFieldItems());
+    }
+
+    public static function getFieldItems(): array
+    {
+        return [
             (new StringField('time_zone', 'timeZone'))->addFlags(new EditField('text')),
             (new JsonField('opening_hours','openingHours'))->addFlags(new VueComponent('moorl-opening-hours')),
-        ]);
+        ];
     }
 }
