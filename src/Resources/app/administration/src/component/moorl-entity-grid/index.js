@@ -103,11 +103,13 @@ Component.register('moorl-entity-grid', {
         /* Handling for prices */
         tax: {
             type: Object,
-            required: false
+            required: false,
+            default: null
         },
         defaultCurrency: {
             type: Object,
-            required: false
+            required: false,
+            default: null
         },
         priceProperties: {
             type: Array,
@@ -177,6 +179,12 @@ Component.register('moorl-entity-grid', {
         },
         repository() {
             return this.repositoryFactory.create(this.entity);
+        },
+        taxRepository() {
+            return this.repositoryFactory.create('tax');
+        },
+        currencyRepository() {
+            return this.repositoryFactory.create('currency');
         }
     },
     created() {
@@ -184,9 +192,29 @@ Component.register('moorl-entity-grid', {
     },
     methods: {
         createdComponent() {
+            this.loadTax();
+            this.loadDefaultCurrency();
             this.initGridColumns();
             this.initEditColumns();
             this.getItems();
+        },
+
+        loadTax() {
+            if (this.tax) {
+                return;
+            }
+            return this.taxRepository.search(new Criteria(1, 500)).then((taxes) => {
+                this.tax = taxes[0];
+            });
+        },
+
+        loadDefaultCurrency() {
+            if (this.defaultCurrency) {
+                return;
+            }
+            this.currencyRepository.search(new Criteria(1, 500)).then((currencies) => {
+                this.defaultCurrency = currencies.find(currency => currency.isSystemDefault);
+            });
         },
 
         getItemPrice(item) {
@@ -198,6 +226,14 @@ Component.register('moorl-entity-grid', {
                 return item.product ? item.product.price : [];
             } else {
                 return item.price ? item.price : [];
+            }
+        },
+
+        getItemTax(item) {
+            if (item.tax) {
+                return item.tax;
+            } else {
+                return this.tax;
             }
         },
 

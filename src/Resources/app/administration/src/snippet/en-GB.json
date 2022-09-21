@@ -90,6 +90,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "tax": "Tax",
+            "productStream": "Product stream",
             "label": "Label",
             "sorting": "Sort by",
             "price": "Price",

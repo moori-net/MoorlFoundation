@@ -84,6 +84,8 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "tax": "MwSt.",
+            "productStream": "Produktgruppe",
             "label": "Bezeichnung",
             "sorting": "Sortieren nach",
             "price": "Preis",

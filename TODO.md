@@ -5,3 +5,4 @@
 * Timestamps for CSV export
 * Implement Appflix plugins
 * Placeholder for CMS content
+* Remove FA font in all moori plugins

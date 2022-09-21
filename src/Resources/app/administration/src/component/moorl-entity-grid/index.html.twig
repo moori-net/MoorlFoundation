@@ -49,7 +49,7 @@
             <sw-price-preview
                     :price="getItemPrice(item)"
                     :default-price="{}"
-                    :tax-rate="tax"
+                    :tax-rate="getItemTax(item)"
                     :currency="defaultCurrency"
             />
         </template>
