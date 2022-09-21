@@ -44,6 +44,7 @@
                             :entity="column.entity"
                             :criteria="sortingSearchCriteria"
                             :required="column.required"
+                            show-clearable-button
                     />
 
                     <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.sorting.list', params: { entity: column.entity } }">
@@ -60,6 +61,7 @@
                         :labelProperty="column.flags.moorl_label_property"
                         :entity="column.entity"
                         :required="column.required"
+                        show-clearable-button
                 />
             </template>
         </template>
