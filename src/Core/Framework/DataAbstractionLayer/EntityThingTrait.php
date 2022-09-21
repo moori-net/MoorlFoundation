@@ -9,7 +9,7 @@ trait EntityThingTrait
 {
     protected bool $visible = false;
     protected bool $active = false;
-    protected string $name;
+    protected string $name = "";
     protected ?string $teaser = null;
     protected ?string $keywords = null;
     protected ?string $description = null;

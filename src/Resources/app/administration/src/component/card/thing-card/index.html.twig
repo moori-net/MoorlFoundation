@@ -1,6 +1,6 @@
 {% block moorl_thing_card %}
     <sw-card class="moorl-thing-card" :title="$tc('moorl-foundation.card.thing')">
-        <div class="sw-field">
+        <div v-if="isVisible('mediaId')" class="sw-field">
             <sw-upload-listener
                     :uploadTag="item.id"
                     autoUpload
@@ -31,6 +31,7 @@
         <slot name="append"/>
 
         <sw-media-modal-v2
+                v-if="isVisible('mediaId')"
                 variant="regular"
                 v-if="mediaModalIsOpen"
                 :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"

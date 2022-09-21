@@ -14,6 +14,11 @@ Component.register('moorl-thing-card', {
         item: {
             type: Object,
             required: true,
+        },
+        hidden: {
+            type: Array,
+            required: false,
+            default: []
         }
     },
 
@@ -33,6 +38,9 @@ Component.register('moorl-thing-card', {
     },
 
     methods: {
+        isVisible(property) {
+            return !this.hidden.includes(property);
+        },
         setMediaItem({targetId}) {
             this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
                 this.item.mediaId = targetId;
