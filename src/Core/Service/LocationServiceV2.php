@@ -226,8 +226,8 @@ SQL;
             $repo->upsert([[
                 'id' => $locationId,
                 'payload' => $payload,
-                'locationLat' => $coords[0],
-                'locationLon' => $coords[0],
+                'locationLat' => (float) $coords[0],
+                'locationLon' => (float) $coords[1],
                 'updatedAt' => $this->now->format(DATE_ATOM)
             ]], $this->context);
 
