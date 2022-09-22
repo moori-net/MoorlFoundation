@@ -2,7 +2,7 @@
 
 ## 1.4.1020
 
-* Added browser location request support. Please enable in base configuration.
+* Added browser location detection. Please enable in base configuration.
 
 ## 1.4.1011
 
