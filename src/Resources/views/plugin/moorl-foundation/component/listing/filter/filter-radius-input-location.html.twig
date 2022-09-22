@@ -13,7 +13,7 @@
             placeholder="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}"
     >
 
-    {% if config('MoorlFoundation.config.filterRadiusMyLocation') %}
+    {% if showMyLocation and config('MoorlFoundation.config.filterRadiusMyLocation') %}
         <div class="input-group-append">
             <button
                     class="btn btn-primary my-location"

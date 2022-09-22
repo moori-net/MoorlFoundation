@@ -1,6 +1,5 @@
 {% set filterItemId = 'filter-' ~ name ~ '-' ~ random() %}
 
-
 {% block component_filter_radius %}
     {% set unit = "moorl-foundation.listing.filter.#{config('MoorlFoundation.config.osmUnitOfMeasurement')}" %}
 
@@ -49,7 +48,7 @@
                             {% block component_filter_location_container %}
                                 <div class="filter-multi-select-list-item">
                                     <label for="location">{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}</label>
-
+                                    {% set showMyLocation = true %}
                                     {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-radius-input-location.html.twig' %}
                                 </div>
                             {% endblock %}
@@ -57,7 +56,6 @@
                             {% block component_filter_distance_container %}
                                 <div class="filter-multi-select-list-item">
                                     <label for="distance">{{ "moorl-foundation.listing.filter.distance"|trans }}</label>
-
                                     {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-radius-input-radius.html.twig' %}
                                 </div>
                             {% endblock %}
