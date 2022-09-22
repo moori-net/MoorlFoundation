@@ -5,9 +5,27 @@
         </span>
     </div>
 
-    <input id="location"
-           name="location"
-           class="form-control location"
-           aria-label="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}"
-           placeholder="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}">
+    <input
+            id="location"
+            name="location"
+            class="form-control location"
+            aria-label="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}"
+            placeholder="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}"
+    >
+
+    {% if config('MoorlFoundation.config.filterRadiusMyLocation') %}
+        <div class="input-group-append">
+            <button
+                    class="btn btn-primary my-location"
+                    type="button"
+                    name="location"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="{{ "moorl-foundation.listing.filter.myLocation"|trans }}"
+                    aria-label="{{ "moorl-foundation.listing.filter.myLocation"|trans }}"
+            >
+                {% sw_icon 'crosshairs' style {size:'sm', pack:'fas'} %}
+            </button>
+        </div>
+    {% endif %}
 </div>

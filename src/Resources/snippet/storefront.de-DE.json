@@ -15,7 +15,8 @@
         "km": "KM",
         "mi": "MI",
         "zipcodeCity": "PLZ / Ort",
-        "distance": "Entfernung"
+        "distance": "Entfernung",
+        "myLocation": "Meinen Standort abfragen"
       }
     },
     "customerUpload": {

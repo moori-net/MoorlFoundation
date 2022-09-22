@@ -15,7 +15,8 @@
                 "km": "KM",
                 "mi": "MI",
                 "zipcodeCity": "Postcode / City",
-                "distance": "Distance"
+                "distance": "Distance",
+                "myLocation": "Use my location"
             }
         },
         "customerUpload": {

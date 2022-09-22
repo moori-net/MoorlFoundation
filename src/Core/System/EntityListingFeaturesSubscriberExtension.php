@@ -234,7 +234,7 @@ class EntityListingFeaturesSubscriberExtension
             if ($filter->getName() === 'radius') {
                 $values = $filter->getValues();
 
-                if (!empty($values['locationLat'])) {
+                if (isset($values['locationLat'])) {
                     $me = new LocationStruct();
                     $me->setLocationLat((float) $values['locationLat']);
                     $me->setLocationLon((float) $values['locationLon']);

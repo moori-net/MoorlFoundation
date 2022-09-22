@@ -6,6 +6,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
 
     static options = deepmerge(FilterBasePlugin.options, {
         inputLocationSelector: '.location',
+        buttonMyLocationSelector: '.my-location',
         inputDistanceSelector: '.distance',
         inputInvalidCLass: 'is-invalid',
         inputTimeout: 1000,
@@ -24,6 +25,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         this._container = DomAccess.querySelector(this.el, this.options.containerSelector);
         this._inputLocation = DomAccess.querySelector(this.el, this.options.inputLocationSelector);
         this._inputDistance = DomAccess.querySelector(this.el, this.options.inputDistanceSelector);
+        this._buttonMyLocation = DomAccess.querySelector(this.el, this.options.buttonMyLocationSelector);
         this._timeout = null;
         this._hasError = false;
 
@@ -36,6 +38,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
     _registerEvents() {
         this._inputLocation.addEventListener('input', this._onChangeInput.bind(this));
         this._inputDistance.addEventListener('input', this._onChangeInput.bind(this));
+        this._buttonMyLocation.addEventListener('click', this._onClickButton.bind(this));
     }
 
     /**
@@ -52,6 +55,23 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
                 this.listing.changeListing();
             }
         }, this.options.inputTimeout);
+    }
+
+    /**
+     * @private
+     */
+    _onClickButton() {
+        console.log("Request geolocation");
+        this._inputLocation.value = `0|0`;
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition( (position) => {
+                this._inputLocation.value = `${position.coords.latitude}|${position.coords.longitude}`;
+                this._onChangeInput();
+            });
+        } else {
+            console.log("Geolocation is not supported by this browser");
+        }
     }
 
     /**
@@ -72,7 +92,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
      * @private
      */
     _isInputInvalid() {
-        let cond1 = this._inputLocation.value.length < 4;
+        let cond1 = this._inputLocation.value.length < 3;
         let cond2 = this._inputDistance.value.length === 0;
 
         return cond1 || cond2;

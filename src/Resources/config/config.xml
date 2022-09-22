@@ -333,6 +333,13 @@
             <defaultValue>true</defaultValue>
         </input-field>
 
+        <input-field type="bool">
+            <name>filterRadiusMyLocation</name>
+            <label>Allow location request by browser</label>
+            <label lang="de-DE">Standortabfrage des Browsers erlauben</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
         <input-field type="single-select">
             <name>filterRadiusType</name>
             <label>Filter radius type</label>

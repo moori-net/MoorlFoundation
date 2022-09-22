@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1020
+
+* Added browser location request support. Please enable in base configuration.
+
 ## 1.4.1011
 
 * Fallback tax and currency for data grid with prices

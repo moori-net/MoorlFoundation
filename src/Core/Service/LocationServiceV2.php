@@ -147,6 +147,13 @@ SQL;
         foreach ($terms as $term) {
             $term = trim($term);
 
+            preg_match('/^(-?\d+(\.\d+)?)\|(-?\d+(\.\d+)?)$/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            if (!empty($matches[0])) {
+                return $this->getLocationByAddress([
+                    'coords' => $matches[0]
+                ]);
+            }
+
             preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[1])) {
                 $iso = $matches[1];
@@ -176,7 +183,7 @@ SQL;
             'street' => $street,
             'zipcode' => $zipcode,
             'city' => $city,
-            'iso' => $iso
+            'iso' => $iso,
         ], 0, null, $countryIds);
     }
 
@@ -211,6 +218,20 @@ SQL;
         $location = $repo->search($criteria, $this->context)->first();
         if ($location) {
             return $location;
+        }
+
+        if (!empty($payload['coords'])) {
+            $coords = explode("|", $payload['coords']);
+
+            $repo->upsert([[
+                'id' => $locationId,
+                'payload' => $payload,
+                'locationLat' => $coords[0],
+                'locationLon' => $coords[0],
+                'updatedAt' => $this->now->format(DATE_ATOM)
+            ]], $this->context);
+
+            return $repo->search(new Criteria([$locationId]), $this->context)->get($locationId);
         }
 
         try {
