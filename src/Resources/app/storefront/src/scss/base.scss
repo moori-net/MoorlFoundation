@@ -39,9 +39,9 @@
 .icon-fas,
 .icon-fab {
   color: inherit;
-  /*> svg {
-    top: 0;
-  }*/
+  > svg {
+    top: auto;
+  }
 }
 
 .bg-fixed {
