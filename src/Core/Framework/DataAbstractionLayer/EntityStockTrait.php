@@ -10,8 +10,6 @@ trait EntityStockTrait
     protected int $stock = 0;
     protected int $availableStock = 0;
     protected int $sales = 0;
-    protected ?string $deliveryTimeId = null;
-    protected ?DeliveryTimeEntity $deliveryTime = null;
     protected string $productId;
     protected string $productVersionId;
     protected ?ProductDefinition $product = null;
@@ -62,38 +60,6 @@ trait EntityStockTrait
     public function setSales(int $sales): void
     {
         $this->sales = $sales;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDeliveryTimeId(): ?string
-    {
-        return $this->deliveryTimeId;
-    }
-
-    /**
-     * @param string|null $deliveryTimeId
-     */
-    public function setDeliveryTimeId(?string $deliveryTimeId): void
-    {
-        $this->deliveryTimeId = $deliveryTimeId;
-    }
-
-    /**
-     * @return DeliveryTimeEntity|null
-     */
-    public function getDeliveryTime(): ?DeliveryTimeEntity
-    {
-        return $this->deliveryTime;
-    }
-
-    /**
-     * @param DeliveryTimeEntity|null $deliveryTime
-     */
-    public function setDeliveryTime(?DeliveryTimeEntity $deliveryTime): void
-    {
-        $this->deliveryTime = $deliveryTime;
     }
 
     /**

@@ -28,9 +28,7 @@ class FieldStockCollection extends FieldCollection
         return [
             (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new Required()),
             (new ReferenceVersionField(ProductDefinition::class))->addFlags(new Required()),
-            (new FkField('delivery_time_id', 'deliveryTimeId', DeliveryTimeDefinition::class)),
             (new ManyToOneAssociationField('product', 'product_id', ProductDefinition::class))->addFlags(new EditField(), new LabelProperty('productNumber')),
-            (new ManyToOneAssociationField('deliveryTime', 'delivery_time_id', DeliveryTimeDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
             (new IntField('sales', 'sales'))->addFlags(new Required(), new EditField('number')),
             (new IntField('stock', 'stock'))->addFlags(new Required(), new EditField('number')),
             (new IntField('available_stock', 'availableStock'))->addFlags(new Required(), new EditField('number'))
