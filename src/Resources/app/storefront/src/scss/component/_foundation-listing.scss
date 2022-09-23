@@ -22,11 +22,11 @@
   > li {
     width: 100%;
     /*height: 100%;*/
+    transition: all .3s ease-in-out;
 
     &.is-active {
       z-index: 20;
-      border-left: 3px solid $primary;
-      margin-left: -3px;
+      /*box-shadow: inset 0 0 0 3px $primary;*/
     }
   }
 }

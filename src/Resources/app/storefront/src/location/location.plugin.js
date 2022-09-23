@@ -159,11 +159,11 @@ export default class MoorlLocationPlugin extends Plugin {
         if (listingElements) {
             listingElements.forEach((listingElement) => {
                 listingElement.classList.remove('is-active');
-                listingElement.classList.remove('shadow-sm');
+                listingElement.classList.remove('shadow');
 
                 if (listingElement.dataset.entityId === entityId) {
                     listingElement.classList.add('is-active');
-                    listingElement.classList.add('shadow-sm');
+                    listingElement.classList.add('shadow');
 
                     if (this.options.options.includes('scrollTo')) {
                         let topPos = listingElement.getBoundingClientRect().top + window.scrollY - this.options.offsetTop;
