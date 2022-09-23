@@ -64,7 +64,7 @@ class LocationServiceV2
         }
 
         $sql = <<<SQL
-INSERT IGNORE INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`,`created_at`, `updated_at`) 
+INSERT IGNORE INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`, `updated_at`) 
 SELECT
     UNHEX('%s'),
     `id`, 

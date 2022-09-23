@@ -8,7 +8,8 @@ export default class MoorlLocationPlugin extends Plugin {
         mapSelector: '.moorl-location-map',
         tileLayer: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-        options: []
+        options: [],
+        offsetTop: 120
     };
 
     init() {
@@ -158,13 +159,17 @@ export default class MoorlLocationPlugin extends Plugin {
         if (listingElements) {
             listingElements.forEach((listingElement) => {
                 listingElement.classList.remove('is-active');
+                listingElement.classList.remove('shadow-sm');
 
                 if (listingElement.dataset.entityId === entityId) {
                     listingElement.classList.add('is-active');
+                    listingElement.classList.add('shadow-sm');
 
                     if (this.options.options.includes('scrollTo')) {
+                        let topPos = listingElement.getBoundingClientRect().top + window.scrollY - this.options.offsetTop;
+
                         window.scrollTo({
-                            top: listingElement.offsetTop,
+                            top: topPos,
                             behavior: 'smooth',
                         });
                     }
