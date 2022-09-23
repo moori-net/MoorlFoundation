@@ -10,7 +10,7 @@ use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
@@ -31,16 +31,16 @@ class CustomerUploadController extends StorefrontController
 {
     private EventDispatcherInterface $eventDispatcher;
     private MediaService $mediaService;
-    private EntityRepositoryInterface $mediaRepository;
-    private EntityRepositoryInterface $mediaFolderRepository;
-    private EntityRepositoryInterface $mediaDefaultFolderRepository;
+    private EntityRepository $mediaRepository;
+    private EntityRepository $mediaFolderRepository;
+    private EntityRepository $mediaDefaultFolderRepository;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         MediaService $mediaService,
-        EntityRepositoryInterface $mediaRepository,
-        EntityRepositoryInterface $mediaFolderRepository,
-        EntityRepositoryInterface $mediaDefaultFolderRepository
+        EntityRepository $mediaRepository,
+        EntityRepository $mediaFolderRepository,
+        EntityRepository $mediaDefaultFolderRepository
     )
     {
         $this->eventDispatcher = $eventDispatcher;

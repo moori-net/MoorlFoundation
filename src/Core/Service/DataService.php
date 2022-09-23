@@ -15,7 +15,7 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
@@ -260,7 +260,7 @@ TWIG;
 
     public function initTaxes(): void
     {
-        /** @var EntityRepositoryInterface $repo */
+        /** @var EntityRepository $repo */
         $repo = $this->definitionInstanceRegistry->getRepository('tax');
         $criteria = new Criteria();
         $criteria->addSorting(New FieldSorting('taxRate', FieldSorting::DESCENDING));
@@ -399,7 +399,7 @@ SQL;
                 continue;
             }
 
-            /** @var EntityRepositoryInterface $repository */
+            /** @var EntityRepository $repository */
             $repository = $this->definitionInstanceRegistry->getRepository($table);
             $repository->upsert($data, $this->context);
         }

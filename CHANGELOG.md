@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1030
+
+* Replaced EntityRepositoryInterface typehint
+
 ## 1.4.1020
 
 * Added browser location detection. Please enable in base configuration.

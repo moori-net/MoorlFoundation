@@ -4,7 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStoc
 
 use Moorl\MultiStock\Core\Content\Product\Subscriber\MultiStockStockUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
@@ -13,14 +13,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class EntityStockIndexer extends EntityIndexer
 {
     private IteratorFactory $iteratorFactory;
-    private EntityRepositoryInterface $repository;
+    private EntityRepository $repository;
     private EventDispatcherInterface $eventDispatcher;
     private MultiStockStockUpdater $stockUpdater;
     private string $entityName;
 
     public function __construct(
         IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository,
+        EntityRepository $repository,
         EventDispatcherInterface $eventDispatcher,
         MultiStockStockUpdater $stockUpdater
     ) {
