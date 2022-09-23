@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
 use Shopware\Core\Content\Product\ProductDefinition;
-use Shopware\Core\System\DeliveryTime\DeliveryTimeEntity;
 
 trait EntityStockTrait
 {
