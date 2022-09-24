@@ -7,6 +7,7 @@ use Shopware\Core\Content\Category\Exception\CategoryNotFoundException;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Api\Context\SystemSource;
 use Shopware\Core\Framework\Context;
+use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
@@ -86,35 +87,44 @@ class EntityBreadcrumbUpdater
         $entityRepository = $this->registry->getRepository($entityName);
         $entities = $entityRepository->search(new Criteria($all), $context)->getEntities();
 
+        $sql = "INSERT INTO `#entity#_translation` (`#entity#_id`, ";
         if ($definition->isVersionAware()) {
-            $sql = <<<SQL
-INSERT INTO `%s_translation` (`%s_id`, `%s_version_id`, `language_id`, `breadcrumb`, `created_at`)
-VALUES (:entityId, :versionId, :languageId, :breadcrumb, DATE(NOW()))
-ON DUPLICATE KEY UPDATE `breadcrumb` = :breadcrumb;
-SQL;
-        } else {
-            $sql = <<<SQL
-INSERT INTO `%s_translation` (`%s_id`, `language_id`, `breadcrumb`, `created_at`)
-VALUES (:entityId, :languageId, :breadcrumb, DATE(NOW()))
-ON DUPLICATE KEY UPDATE `breadcrumb` = :breadcrumb;
-SQL;
+            $sql .= "`#entity#_version_id`, ";
         }
+        if ($definition->getField('breadcrumbPlain')) {
+            $sql .= "`breadcrumb_plain`, ";
+        }
+        $sql .= "`language_id`, `breadcrumb`, `created_at`) VALUES (:entityId, ";
+        if ($definition->isVersionAware()) {
+            $sql .= ":versionId, ";
+        }
+        if ($definition->getField('breadcrumbPlain')) {
+            $sql .= ":breadcrumbPlain, ";
+        }
+        $sql .= ":languageId, :breadcrumb, DATE(NOW())) ON DUPLICATE KEY UPDATE `breadcrumb` = :breadcrumb";
+        if ($definition->getField('breadcrumbPlain')) {
+            $sql .= ", `breadcrumb_plain` = :breadcrumbPlain";
+        }
+        $sql .= ";";
 
-        $update = $this->connection->prepare(sprintf($sql, $entityName, $entityName, $entityName));
+        $sql = str_replace(
+            ['#entity#'],
+            [$entityName],
+            $sql
+        );
+
+        $update = $this->connection->prepare($sql);
         $update = new RetryableQuery($this->connection, $update);
 
         foreach ($ids as $id) {
-            try {
-                $path = $this->buildBreadcrumb($id, $entities);
-            } catch (CategoryNotFoundException $e) {
-                continue;
-            }
+            $path = $this->buildBreadcrumb($id, $entities);
 
             $update->execute([
                 'entityId' => Uuid::fromHexToBytes($id),
                 'versionId' => $versionId,
                 'languageId' => $languageId,
                 'breadcrumb' => json_encode($path),
+                'breadcrumbPlain' => implode('|', $path)
             ]);
         }
     }
