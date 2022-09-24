@@ -9,8 +9,9 @@ class EntityStockIndexerEvent extends NestedEvent
 {
     private Context $context;
     private array $ids;
+    private string $entityName;
 
-    public function __construct(array $ids, Context $context)
+    public function __construct(string $entityName, array $ids, Context $context)
     {
         $this->context = $context;
         $this->ids = $ids;
@@ -24,5 +25,10 @@ class EntityStockIndexerEvent extends NestedEvent
     public function getIds(): array
     {
         return $this->ids;
+    }
+
+    public function getEntityName(): string
+    {
+        return $this->entityName;
     }
 }

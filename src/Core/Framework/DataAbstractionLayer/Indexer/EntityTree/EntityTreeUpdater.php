@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Updater\EntityTree;
+namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityTree;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;

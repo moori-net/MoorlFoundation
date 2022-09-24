@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStock;
 
-use Moorl\MultiStock\Core\Content\Product\Subscriber\MultiStockStockUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
@@ -13,23 +12,23 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class EntityStockIndexer extends EntityIndexer
 {
     private IteratorFactory $iteratorFactory;
-    private EntityRepository $repository;
+    private EntityRepository $entityRepository;
     private EventDispatcherInterface $eventDispatcher;
-    private MultiStockStockUpdater $stockUpdater;
+    private EntityStockUpdater $entityStockUpdater;
     private string $entityName;
 
     public function __construct(
         IteratorFactory $iteratorFactory,
-        EntityRepository $repository,
+        EntityRepository $entityRepository,
         EventDispatcherInterface $eventDispatcher,
-        MultiStockStockUpdater $stockUpdater
+        EntityStockUpdater $entityStockUpdater
     ) {
         $this->iteratorFactory = $iteratorFactory;
-        $this->repository = $repository;
+        $this->entityRepository = $entityRepository;
         $this->eventDispatcher = $eventDispatcher;
-        $this->stockUpdater = $stockUpdater;
+        $this->entityStockUpdater = $entityStockUpdater;
 
-        $this->entityName = $this->repository->getDefinition()->getEntityName();
+        $this->entityName = $this->entityRepository->getDefinition()->getEntityName();
     }
 
     public function getName(): string
@@ -39,10 +38,9 @@ class EntityStockIndexer extends EntityIndexer
 
     public function iterate(/*?array */$offset): ?EntityIndexingMessage
     {
-        $iterator = $this->iteratorFactory->createIterator($this->repository->getDefinition(), $offset);
+        $iterator = $this->iteratorFactory->createIterator($this->entityRepository->getDefinition(), $offset);
 
         $ids = $iterator->fetch();
-
         if (empty($ids)) {
             return null;
         }
@@ -53,12 +51,11 @@ class EntityStockIndexer extends EntityIndexer
     public function update(EntityWrittenContainerEvent $event): ?EntityIndexingMessage
     {
         $ids = $event->getPrimaryKeys($this->entityName);
-
         if (empty($ids)) {
             return null;
         }
 
-        $this->stockUpdater->update($ids, $event->getContext());
+        $this->entityStockUpdater->update($ids, $event->getContext());
 
         return new EntityStockIndexingMessage(array_values($ids), null, $event->getContext(), \count($ids) > 20);
     }
@@ -67,14 +64,13 @@ class EntityStockIndexer extends EntityIndexer
     {
         $ids = $message->getData();
         $ids = array_unique(array_filter($ids));
-
         if (empty($ids)) {
             return;
         }
 
         $context = $message->getContext();
-        $this->stockUpdater->update($ids, $context);
+        $this->entityStockUpdater->update($ids, $context);
 
-        $this->eventDispatcher->dispatch(new EntityStockIndexerEvent($ids, $context));
+        $this->eventDispatcher->dispatch(new EntityStockIndexerEvent($this->entityName, $ids, $context));
     }
 }

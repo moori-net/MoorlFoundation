@@ -1,19 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Updater\EntityStock;
+namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStock;
 
 use Doctrine\DBAL\Connection;
-use Moorl\MultiStock\Core\Service\MultiStockService;
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\OrderEvents;
 use Shopware\Core\Checkout\Order\OrderStates;
+use Shopware\Core\Content\Product\ProductDefinition;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
+use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\ChangeSetAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\DeleteCommand;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\InsertCommand;
@@ -21,30 +27,77 @@ use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\UpdateCommand;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEvent;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\StateMachine\Event\StateMachineTransitionEvent;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EntityStockUpdater implements EventSubscriberInterface
 {
     private Connection $connection;
-    private MultiStockService $service;
+    private DefinitionInstanceRegistry $definitionInstanceRegistry;
+    private SystemConfigService $systemConfigService;
+    private string $entityName;
+    private string $propertyName;
+    private string $propertyNamePlural;
 
     public function __construct(
         Connection $connection,
-        MultiStockService $service
+        DefinitionInstanceRegistry $definitionInstanceRegistry,
+        SystemConfigService $systemConfigService,
+        string $entityName,
+        string $propertyName,
+        ?string $propertyNamePlural = null
     ) {
         $this->connection = $connection;
-        $this->service = $service;
+        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
+        $this->systemConfigService = $systemConfigService;
+        $this->entityName = $entityName;
+        $this->propertyName = $propertyName;
+        if ($propertyNamePlural) {
+            $this->propertyNamePlural = $propertyNamePlural;
+        } else {
+            $this->propertyNamePlural = $propertyName . "s";
+        }
     }
 
     public static function getSubscribedEvents()
     {
         return [
+            OrderEvents::ORDER_LINE_ITEM_WRITTEN_EVENT => 'lineItemWritten',
+            OrderEvents::ORDER_LINE_ITEM_DELETED_EVENT => 'lineItemWritten',
             CheckoutOrderPlacedEvent::class => 'orderPlaced',
             StateMachineTransitionEvent::class => 'stateChanged',
             PreWriteValidationEvent::class => 'triggerChangeSet',
-            OrderEvents::ORDER_LINE_ITEM_WRITTEN_EVENT => 'lineItemWritten',
-            OrderEvents::ORDER_LINE_ITEM_DELETED_EVENT => 'lineItemWritten',
         ];
+    }
+
+    protected function enrichSalesChannelProductCriteria(Criteria $criteria, string $salesChannelId): void
+    {
+
+    }
+
+    public function lineItemWritten(EntityWrittenEvent $event): void
+    {
+        $entityStockIds = [];
+
+        foreach ($event->getWriteResults() as $result) {
+            if ($result->getOperation() === EntityWriteResult::OPERATION_INSERT) {
+                $entityStockId = $this->assignEntityStockToLineItem($result, $event->getContext());
+                if (!$entityStockId) {
+                    continue;
+                }
+
+                $entityStockIds[] = $entityStockId;
+            }
+        }
+
+        if (empty($entityStockIds)) {
+            return;
+        }
+        $entityStockIds = array_filter(array_unique($entityStockIds));
+        if (empty($entityStockIds)) {
+            return;
+        }
+        $this->update($entityStockIds, $event->getContext());
     }
 
     private function assignEntityStockToLineItem(EntityWriteResult $result, Context $context): ?string
@@ -54,23 +107,23 @@ class EntityStockUpdater implements EventSubscriberInterface
         }
 
         $lineItemId = $result->getPrimaryKey();
-        $entityStockId = $this->service->getEntityStockIdByLineItemId($lineItemId, $context);
+        $entityStockId = $this->getEntityStockIdByLineItemId($lineItemId, $context);
         if (!$entityStockId) {
             return null;
         }
 
-        $sql = <<<SQL
-UPDATE 
-    order_line_item 
-SET 
-    entityStock = :ms_stock_id
-WHERE 
-    id = :id;
-SQL;
-        $this->connection->executeStatement ($sql, [
-            'id' => Uuid::fromHexToBytes($lineItemId),
-            'ms_stock_id' => Uuid::fromHexToBytes($entityStockId),
-        ]);
+        $sql = sprintf(
+            "UPDATE `order_line_item` SET `%s` = :entity_stock_id WHERE `id` = :id;",
+            $this->propertyName,
+        );
+
+        $this->connection->executeStatement(
+            $sql,
+            [
+                'id' => Uuid::fromHexToBytes($lineItemId),
+                'entity_stock_id' => Uuid::fromHexToBytes($entityStockId)
+            ]
+        );
 
         return $entityStockId;
     }
@@ -102,31 +155,6 @@ SQL;
         }
     }
 
-    public function lineItemWritten(EntityWrittenEvent $event): void
-    {
-        $entityStockIds = [];
-
-        foreach ($event->getWriteResults() as $result) {
-            if ($result->getOperation() === EntityWriteResult::OPERATION_INSERT) {
-                $entityStockId = $this->assignEntityStockToLineItem($result, $event->getContext());
-                if (!$entityStockId) {
-                    continue;
-                }
-
-                $entityStockIds[] = $entityStockId;
-            }
-        }
-
-        if (empty($entityStockIds)) {
-            return;
-        }
-        $entityStockIds = array_filter(array_unique($entityStockIds));
-        if (empty($entityStockIds)) {
-            return;
-        }
-        $this->update($entityStockIds, $event->getContext());
-    }
-
     public function stateChanged(StateMachineTransitionEvent $event): void
     {
         if ($event->getContext()->getVersionId() !== Defaults::LIVE_VERSION) {
@@ -149,7 +177,7 @@ SQL;
 
         if ($event->getToPlace()->getTechnicalName() === OrderStates::STATE_CANCELLED || $event->getFromPlace()->getTechnicalName() === OrderStates::STATE_CANCELLED) {
             $lineItems = $this->getLineItemsOfOrder($event->getEntityId());
-            $entityStockIds = array_column($lineItems, 'ms_stock_id');
+            $entityStockIds = array_column($lineItems, 'entity_stock_id');
             $this->updateAvailableStockAndSales($entityStockIds, $event->getContext());
             return;
         }
@@ -166,14 +194,15 @@ SQL;
     public function orderPlaced(CheckoutOrderPlacedEvent $event): void
     {
         $lineItems = $this->getLineItemsOfOrder($event->getOrderId());
-        $entityStockIds = array_column($lineItems, 'ms_stock_id');
+        $entityStockIds = array_column($lineItems, 'entity_stock_id');
+
         $this->update($entityStockIds, $event->getContext());
     }
 
     private function increaseStock(StateMachineTransitionEvent $event): void
     {
         $lineItems = $this->getLineItemsOfOrder($event->getEntityId());
-        $entityStockIds = array_column($lineItems, 'ms_stock_id');
+        $entityStockIds = array_column($lineItems, 'entity_stock_id');
         $this->updateStock($lineItems, +1);
         $this->updateAvailableStockAndSales($entityStockIds, $event->getContext());
     }
@@ -181,15 +210,13 @@ SQL;
     private function decreaseStock(StateMachineTransitionEvent $event): void
     {
         $lineItems = $this->getLineItemsOfOrder($event->getEntityId());
-        $entityStockIds = array_column($lineItems, 'ms_stock_id');
+        $entityStockIds = array_column($lineItems, 'entity_stock_id');
         $this->updateStock($lineItems, -1);
         $this->updateAvailableStockAndSales($entityStockIds, $event->getContext());
     }
 
     private function updateAvailableStockAndSales(array $entityStockIds, Context $context): void
     {
-        //dump($entityStockIds);exit;
-
         $entityStockIds = array_filter(array_keys(array_flip($entityStockIds)));
         if (empty($entityStockIds)) {
             return;
@@ -197,7 +224,7 @@ SQL;
 
         $sql = <<<SQL
 SELECT 
-    LOWER(HEX(order_line_item.entityStock)) as ms_stock_id,
+    LOWER(HEX(order_line_item.%s)) as entity_stock_id,
     IFNULL(SUM(IF(state_machine_state.technical_name = :completed_state, 0, order_line_item.quantity)),0) as open_quantity,
     IFNULL(SUM(IF(state_machine_state.technical_name = :completed_state, order_line_item.quantity, 0)),0) as sales_quantity
 
@@ -210,13 +237,15 @@ INNER JOIN state_machine_state
     ON state_machine_state.id = `order`.state_id
     AND state_machine_state.technical_name <> :cancelled_state
 
-WHERE order_line_item.entityStock IN (:ids)
+WHERE order_line_item.%s IN (:ids)
     AND order_line_item.type = :type
     AND order_line_item.version_id = :version
     AND order_line_item.product_id IS NOT NULL
-    AND order_line_item.entityStock IS NOT NULL
-GROUP BY ms_stock_id;
+    AND order_line_item.%s IS NOT NULL
+GROUP BY entity_stock_id;
 SQL;
+        $sql = sprintf($sql, $this->propertyName, $this->propertyName, $this->propertyName);
+
         $rows = $this->connection->fetchAllAssociative(
             $sql,
             [
@@ -233,24 +262,26 @@ SQL;
 
         $sql = <<<SQL
 UPDATE 
-    moorl_ms_stock
+    `%s`
 SET 
     available_stock = stock - :open_quantity, 
     sales = :sales_quantity, 
     updated_at = :now 
 WHERE 
-    id = :ms_stock_id
+    id = :entity_stock_id
 SQL;
+        $sql = sprintf($sql, $this->entityName);
+
         $update = new RetryableQuery(
             $this->connection,
             $this->connection->prepare($sql)
         );
 
-        $fallback = array_column($rows, 'ms_stock_id');
+        $fallback = array_column($rows, 'entity_stock_id');
         $fallback = array_diff($entityStockIds, $fallback);
         foreach ($fallback as $id) {
             $update->execute([
-                'ms_stock_id' => Uuid::fromHexToBytes((string) $id),
+                'entity_stock_id' => Uuid::fromHexToBytes((string) $id),
                 'open_quantity' => 0,
                 'sales_quantity' => 0,
                 'now' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -259,7 +290,7 @@ SQL;
 
         foreach ($rows as $row) {
             $update->execute([
-                'ms_stock_id' => Uuid::fromHexToBytes($row['ms_stock_id']),
+                'entity_stock_id' => Uuid::fromHexToBytes($row['entity_stock_id']),
                 'open_quantity' => $row['open_quantity'],
                 'sales_quantity' => $row['sales_quantity'],
                 'now' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -271,7 +302,7 @@ SQL;
     {
         $sql = <<<SQL
 UPDATE
-    moorl_ms_stock 
+    `%s` 
 SET
     stock = stock + :quantity
 WHERE
@@ -279,6 +310,8 @@ WHERE
     AND product_version_id = :product_version_id
     AND id = :id;
 SQL;
+        $sql = sprintf($sql, $this->entityName);
+
         $query = new RetryableQuery($this->connection, $this->connection->prepare($sql));
 
         foreach ($lineItems as $lineItem) {
@@ -286,7 +319,7 @@ SQL;
                 'quantity' => (int) $lineItem['quantity'] * $multiplier,
                 'product_id' => Uuid::fromHexToBytes($lineItem['referenced_id']),
                 'product_version_id' => Uuid::fromHexToBytes(Defaults::LIVE_VERSION),
-                'id' => Uuid::fromHexToBytes($lineItem['ms_stock_id']),
+                'id' => Uuid::fromHexToBytes($lineItem['entity_stock_id']),
             ]);
         }
     }
@@ -297,17 +330,62 @@ SQL;
         $query->select([
             'referenced_id',
             'quantity',
-            'LOWER(HEX(entityStock)) AS ms_stock_id'
+            sprintf('LOWER(HEX(%s)) AS entity_stock_id', $this->propertyName)
         ]);
         $query->from('order_line_item');
         $query->andWhere('type = :type');
         $query->andWhere('order_id = :id');
         $query->andWhere('version_id = :version');
-        $query->andWhere('entityStock IS NOT NULL');
+        $query->andWhere( sprintf('%s IS NOT NULL', $this->propertyName));
         $query->setParameter('id', Uuid::fromHexToBytes($orderId));
         $query->setParameter('version', Uuid::fromHexToBytes(Defaults::LIVE_VERSION));
         $query->setParameter('type', LineItem::PRODUCT_LINE_ITEM_TYPE);
 
         return $query->execute()->fetchAllAssociative();
+    }
+
+    private function getEntityStockIdByLineItemId(string $lineItemId, Context $context): ?string
+    {
+        $criteria = new Criteria([$lineItemId]);
+        $criteria->setLimit(1);
+        $criteria->addAssociation('order');
+        $lineItemRepository = $this->definitionInstanceRegistry->getRepository(OrderLineItemDefinition::ENTITY_NAME);
+        /** @var OrderLineItemEntity $lineItem */
+        $lineItem = $lineItemRepository->search($criteria, $context)->get($lineItemId);
+
+        $productId = $lineItem->getReferencedId();
+        $salesChannelId = $lineItem->getOrder()->getSalesChannelId();
+
+        $criteria = new Criteria([$productId]);
+        $criteria->setLimit(1);
+        $criteria->addAssociation($this->propertyNamePlural);
+        $criteria->getAssociation($this->propertyNamePlural)->addSorting(
+            new FieldSorting('availableStock', FieldSorting::DESCENDING)
+        );
+
+        $this->enrichSalesChannelProductCriteria($criteria, $salesChannelId);
+
+        $productRepository = $this->definitionInstanceRegistry->getRepository(ProductDefinition::ENTITY_NAME);
+        /** @var ProductEntity $product */
+        $product = $productRepository->search($criteria, $context)->get($productId);
+        if (!$product) {
+            return null;
+        }
+
+        /** @var EntityCollection $entityStocks */
+        $entityStocks = $product->getExtension($this->propertyNamePlural);
+        if (!$entityStocks) {
+            return null;
+        }
+
+        if (method_exists($entityStocks, 'sortByAvailableStock')) {
+            $entityStocks->sortByAvailableStock();
+        }
+
+        $entityStock = $entityStocks->first();
+        if (!$entityStock) {
+            return null;
+        }
+        return $entityStock->getId();
     }
 }
