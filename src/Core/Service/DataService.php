@@ -276,6 +276,10 @@ TWIG;
         $globalReplacers = [
             '{DATA_CREATED_AT}' => $dataObject->getCreatedAt(),
             '{NOW}' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            '{P7DAYS}' => (new \DateTime())->modify('+7 days')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            '{M7DAYS}' => (new \DateTime())->modify('-7 days')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            '{P30DAYS}' => (new \DateTime())->modify('+30 days')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
+            '{M30DAYS}' => (new \DateTime())->modify('-30 days')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             '{365}' => (new \DateTime())->modify('+1 year')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             '{LANGUAGE_ID}' => Defaults::LANGUAGE_SYSTEM,
             '{CURRENCY_ID}' => Defaults::CURRENCY,

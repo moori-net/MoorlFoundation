@@ -4,23 +4,23 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
 trait EntityTimeframeTrait
 {
-    protected ?\DateTimeImmutable $showForm = null;
+    protected ?\DateTimeImmutable $showFrom = null;
     protected ?\DateTimeImmutable $showUntil = null;
 
     /**
      * @return \DateTimeImmutable|null
      */
-    public function getShowForm(): ?\DateTimeImmutable
+    public function getShowFrom(): ?\DateTimeImmutable
     {
-        return $this->showForm;
+        return $this->showFrom;
     }
 
     /**
-     * @param \DateTimeImmutable|null $showForm
+     * @param \DateTimeImmutable|null $showFrom
      */
-    public function setShowForm(?\DateTimeImmutable $showForm): void
+    public function setShowFrom(?\DateTimeImmutable $showFrom): void
     {
-        $this->showForm = $showForm;
+        $this->showFrom = $showFrom;
     }
 
     /**

@@ -32,12 +32,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EntityStockUpdater implements EventSubscriberInterface
 {
-    private Connection $connection;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
-    private string $entityName;
-    private string $propertyName;
-    private string $propertyNamePlural;
+    protected Connection $connection;
+    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
+    protected SystemConfigService $systemConfigService;
+    protected string $entityName;
+    protected string $propertyName;
+    protected string $propertyNamePlural;
 
     public function __construct(
         Connection $connection,
@@ -70,9 +70,21 @@ class EntityStockUpdater implements EventSubscriberInterface
         ];
     }
 
-    protected function enrichSalesChannelProductCriteria(Criteria $criteria, string $salesChannelId): void
+    protected function enrichSalesChannelProductCriteria(Criteria $criteria, OrderLineItemEntity $lineItem): void
     {
+        return;
 
+        /*
+        $salesChannelId = $lineItem->getOrder()->getSalesChannelId();
+
+        try {
+            $customerGroupId = $lineItem->getOrder()->getOrderCustomer()->getCustomer()->getGroupId();
+            $customerId = $lineItem->getOrder()->getOrderCustomer()->getCustomer()->getId();
+        } catch (\Exception $exception) {
+            $customerGroupId = null;
+            $customerId = null;
+        }
+        */
     }
 
     public function lineItemWritten(EntityWrittenEvent $event): void
@@ -107,6 +119,7 @@ class EntityStockUpdater implements EventSubscriberInterface
         }
 
         $lineItemId = $result->getPrimaryKey();
+
         $entityStockId = $this->getEntityStockIdByLineItemId($lineItemId, $context);
         if (!$entityStockId) {
             return null;
@@ -348,28 +361,40 @@ SQL;
     {
         $criteria = new Criteria([$lineItemId]);
         $criteria->setLimit(1);
-        $criteria->addAssociation('order');
+        $criteria->addAssociation('order.orderCustomer.customer');
         $lineItemRepository = $this->definitionInstanceRegistry->getRepository(OrderLineItemDefinition::ENTITY_NAME);
         /** @var OrderLineItemEntity $lineItem */
         $lineItem = $lineItemRepository->search($criteria, $context)->get($lineItemId);
 
         $productId = $lineItem->getReferencedId();
-        $salesChannelId = $lineItem->getOrder()->getSalesChannelId();
 
         $criteria = new Criteria([$productId]);
         $criteria->setLimit(1);
         $criteria->addAssociation($this->propertyNamePlural);
+
+        // https://github.com/shopware/platform/issues/2702
+        /*
         $criteria->getAssociation($this->propertyNamePlural)->addSorting(
             new FieldSorting('availableStock', FieldSorting::DESCENDING)
         );
+        */
 
-        $this->enrichSalesChannelProductCriteria($criteria, $salesChannelId);
+        $this->enrichSalesChannelProductCriteria($criteria, $lineItem);
 
         $productRepository = $this->definitionInstanceRegistry->getRepository(ProductDefinition::ENTITY_NAME);
         /** @var ProductEntity $product */
+
         $product = $productRepository->search($criteria, $context)->get($productId);
         if (!$product) {
-            return null;
+            if ($product->getParentId()) {
+                $criteria->setIds([$product->getParentId()]);
+                $product = $productRepository->search($criteria, $context)->get($product->getParentId());
+                if (!$product) {
+                    return null;
+                }
+            } else {
+                return null;
+            }
         }
 
         /** @var EntityCollection $entityStocks */
