@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1040
+
+* Rework of unified DAL classes
+
 ## 1.4.1030
 
 * Replaced EntityRepositoryInterface typehint
