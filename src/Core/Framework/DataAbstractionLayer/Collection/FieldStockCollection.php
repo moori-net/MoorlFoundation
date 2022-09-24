@@ -7,6 +7,7 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelPropert
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
@@ -25,8 +26,8 @@ class FieldStockCollection extends FieldCollection
     public static function getFieldItems(): array
     {
         return [
-            (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new Required()),
-            (new ReferenceVersionField(ProductDefinition::class))->addFlags(new Required()),
+            (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
+            (new ReferenceVersionField(ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ManyToOneAssociationField('product', 'product_id', ProductDefinition::class))->addFlags(new EditField(), new LabelProperty('productNumber')),
             (new IntField('sales', 'sales'))->addFlags(new Required(), new EditField('number')),
             (new IntField('stock', 'stock'))->addFlags(new Required(), new EditField('number')),

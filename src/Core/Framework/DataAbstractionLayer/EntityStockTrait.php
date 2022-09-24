@@ -2,7 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
-use Shopware\Core\Content\Product\ProductDefinition;
+use Shopware\Core\Content\Product\ProductEntity;
 
 trait EntityStockTrait
 {
@@ -11,7 +11,7 @@ trait EntityStockTrait
     protected int $sales = 0;
     protected string $productId;
     protected string $productVersionId;
-    protected ?ProductDefinition $product = null;
+    protected ?ProductEntity $product = null;
 
     /**
      * @return int
@@ -94,17 +94,17 @@ trait EntityStockTrait
     }
 
     /**
-     * @return ProductDefinition|null
+     * @return ProductEntity|null
      */
-    public function getProduct(): ?ProductDefinition
+    public function getProduct(): ?ProductEntity
     {
         return $this->product;
     }
 
     /**
-     * @param ProductDefinition|null $product
+     * @param ProductEntity|null $product
      */
-    public function setProduct(?ProductDefinition $product): void
+    public function setProduct(?ProductEntity $product): void
     {
         $this->product = $product;
     }
