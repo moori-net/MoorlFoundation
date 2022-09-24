@@ -10,11 +10,13 @@ class EntityLocationIndexerEvent extends NestedEvent
     private Context $context;
     private array $ids;
     private array $skip;
+    private string $entityName;
 
-    public function __construct(array $ids, Context $context, array $skip = [])
+    public function __construct(array $ids, string $entityName, Context $context, array $skip = [])
     {
         $this->context = $context;
         $this->ids = $ids;
+        $this->entityName = $entityName;
         $this->skip = $skip;
     }
 
@@ -31,5 +33,21 @@ class EntityLocationIndexerEvent extends NestedEvent
     public function getSkip(): array
     {
         return $this->skip;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityName(): string
+    {
+        return $this->entityName;
+    }
+
+    /**
+     * @param string $entityName
+     */
+    public function setEntityName(string $entityName): void
+    {
+        $this->entityName = $entityName;
     }
 }

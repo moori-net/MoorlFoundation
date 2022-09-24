@@ -2,12 +2,11 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityLocation;
 
-use MoorlFoundation\Core\Service\LocationService;
 use Doctrine\DBAL\Connection;
+use MoorlFoundation\Core\Service\LocationServiceV2;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
@@ -21,7 +20,7 @@ class EntityLocationIndexer extends EntityIndexer
     protected Connection $connection;
     protected EntityRepository $repository;
     protected EventDispatcherInterface $eventDispatcher;
-    protected LocationService $locationService;
+    protected LocationServiceV2 $locationService;
 
     protected string $entityName;
 
@@ -30,7 +29,7 @@ class EntityLocationIndexer extends EntityIndexer
         IteratorFactory $iteratorFactory,
         EntityRepository $repository,
         EventDispatcherInterface $eventDispatcher,
-        LocationService $locationService
+        LocationServiceV2 $locationService
     ) {
         $this->iteratorFactory = $iteratorFactory;
         $this->repository = $repository;
@@ -93,7 +92,7 @@ WHERE #entity#.id IN (:ids);';
 
         $sql = str_replace(
             ['#entity#'],
-            [EntityDefinitionQueryHelper::escape($this->entityName)],
+            [$this->entityName],
             $sql
         );
 
@@ -111,7 +110,7 @@ WHERE #entity#.id IN (:ids);';
                         $sql = 'UPDATE #entity# SET country_id = :country_id WHERE id = :id;';
                         $sql = str_replace(
                             ['#entity#'],
-                            [EntityDefinitionQueryHelper::escape($this->entityName)],
+                            [$this->entityName],
                             $sql
                         );
                         $this->connection->executeUpdate(
@@ -126,12 +125,7 @@ WHERE #entity#.id IN (:ids);';
             }
 
             if ($item['autoLocation'] === "1") {
-                if (!empty($item['lat']) && empty($item['lon'])) {
-                    continue;
-                }
-
                 $geoPoint = $this->locationService->getLocationByAddress($item);
-
                 if (!$geoPoint) {
                     continue;
                 }
@@ -139,7 +133,7 @@ WHERE #entity#.id IN (:ids);';
                 $sql = 'UPDATE #entity# SET location_lat = :lat, location_lon = :lon WHERE id = :id;';
                 $sql = str_replace(
                     ['#entity#'],
-                    [EntityDefinitionQueryHelper::escape($this->entityName)],
+                    [$this->entityName],
                     $sql
                 );
                 $this->connection->executeUpdate(
@@ -155,7 +149,7 @@ WHERE #entity#.id IN (:ids);';
 
         $context = Context::createDefaultContext();
 
-        $this->eventDispatcher->dispatch(new EntityLocationIndexerEvent($ids, $context));
+        $this->eventDispatcher->dispatch(new EntityLocationIndexerEvent($ids, $this->entityName, $context));
     }
 
     private function getIterator(?array $offset): IterableQuery

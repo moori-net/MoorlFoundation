@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
@@ -17,10 +18,6 @@ use Shopware\Core\System\Country\CountryCollection;
 use Shopware\Core\System\Country\CountryDefinition;
 use Shopware\Core\System\Country\CountryEntity;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Doctrine\DBAL\Connection;
 
 class LocationServiceV2
 {
@@ -64,7 +61,7 @@ class LocationServiceV2
         }
 
         $sql = <<<SQL
-INSERT IGNORE INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`, `updated_at`) 
+INSERT INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`, `updated_at`) 
 SELECT
     UNHEX('%s'),
     `id`, 
@@ -77,7 +74,8 @@ SELECT
     )) AS distance,
     `created_at`, 
     `updated_at`
-FROM `%s`;
+FROM `%s`
+ON DUPLICATE KEY UPDATE `moorl_location_cache`.`distance` = `distance`;
 SQL;
         $this->connection->executeStatement(sprintf(
             $sql,
@@ -130,61 +128,6 @@ SQL;
             'city' => $address->getCity(),
             'iso' => $address->getCountry()->getIso()
         ]);
-    }
-
-    public function getLocationByTerm(?string $term = null, array $countryIds = []): ?LocationEntity
-    {
-        if (!$term) {
-            return null;
-        }
-
-        $terms = explode(',', $term);
-        $iso = null;
-        $zipcode = null;
-        $street = null;
-        $city = null;
-
-        foreach ($terms as $term) {
-            $term = trim($term);
-
-            preg_match('/^(-?\d+(\.\d+)?)\|(-?\d+(\.\d+)?)$/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[0])) {
-                return $this->getLocationByAddress([
-                    'coords' => $matches[0]
-                ]);
-            }
-
-            preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[1])) {
-                $iso = $matches[1];
-                continue;
-            }
-
-            preg_match('/([\d]{5})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[1])) {
-                $zipcode = $matches[1];
-                continue;
-            }
-
-            preg_match('/(\w[\s\w]+?)\s*(\d+\s*[a-z]?)/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[0])) {
-                $street = $matches[0];
-                continue;
-            }
-
-            preg_match('/^(^\D+)$/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[1])) {
-                $city = $matches[1];
-                continue;
-            }
-        }
-
-        return $this->getLocationByAddress([
-            'street' => $street,
-            'zipcode' => $zipcode,
-            'city' => $city,
-            'iso' => $iso,
-        ], 0, null, $countryIds);
     }
 
     public function getLocationByAddress(
@@ -324,22 +267,6 @@ SQL;
         }));
     }
 
-    /**
-     * @return Context|null
-     */
-    public function getContext(): ?Context
-    {
-        return $this->context;
-    }
-
-    /**
-     * @param Context|null $context
-     */
-    public function setContext(?Context $context): void
-    {
-        $this->context = $context;
-    }
-
     protected function apiRequest(string $method, ?string $endpoint = null, ?array $data = null, array $query = [])
     {
         $headers = [
@@ -379,5 +306,76 @@ SQL;
                 $statusCode
             );
         }
+    }
+
+    public function getLocationByTerm(?string $term = null, array $countryIds = []): ?LocationEntity
+    {
+        if (!$term) {
+            return null;
+        }
+
+        $terms = explode(',', $term);
+        $iso = null;
+        $zipcode = null;
+        $street = null;
+        $city = null;
+
+        foreach ($terms as $term) {
+            $term = trim($term);
+
+            preg_match('/^(-?\d+(\.\d+)?)\|(-?\d+(\.\d+)?)$/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            if (!empty($matches[0])) {
+                return $this->getLocationByAddress([
+                    'coords' => $matches[0]
+                ]);
+            }
+
+            preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            if (!empty($matches[1])) {
+                $iso = $matches[1];
+                continue;
+            }
+
+            preg_match('/([\d]{5})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            if (!empty($matches[1])) {
+                $zipcode = $matches[1];
+                continue;
+            }
+
+            preg_match('/(\w[\s\w]+?)\s*(\d+\s*[a-z]?)/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            if (!empty($matches[0])) {
+                $street = $matches[0];
+                continue;
+            }
+
+            preg_match('/^(^\D+)$/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            if (!empty($matches[1])) {
+                $city = $matches[1];
+                continue;
+            }
+        }
+
+        return $this->getLocationByAddress([
+            'street' => $street,
+            'zipcode' => $zipcode,
+            'city' => $city,
+            'iso' => $iso,
+        ], 0, null, $countryIds);
+    }
+
+    /**
+     * @return Context|null
+     */
+    public function getContext(): ?Context
+    {
+        return $this->context;
+    }
+
+    /**
+     * @param Context|null $context
+     */
+    public function setContext(?Context $context): void
+    {
+        $this->context = $context;
     }
 }
