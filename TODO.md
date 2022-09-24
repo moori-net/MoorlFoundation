@@ -8,3 +8,5 @@
 * Check issue: https://github.com/shopware/platform/issues/2702
 * PR with tree updater changes: https://github.com/shopware/platform/commit/8975e4e3cf75ac2beb33f9518eb244a4c2f5de21
 * Remove deprecated service: MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater
+* Add unified SEO URL generator
+* Add unified Sitemap generator
