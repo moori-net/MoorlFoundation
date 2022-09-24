@@ -17,14 +17,14 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class EntityTreeIndexer extends EntityIndexer
 {
-    private IteratorFactory $iteratorFactory;
-    private Connection $connection;
-    private EntityRepository $repository;
-    private ?ChildCountUpdater $childCountUpdater;
-    private ?TreeUpdater $treeUpdater;
-    private ?EntityBreadcrumbUpdater $breadcrumbUpdater;
+    protected IteratorFactory $iteratorFactory;
+    protected Connection $connection;
+    protected EntityRepository $repository;
+    protected ?ChildCountUpdater $childCountUpdater;
+    protected ?TreeUpdater $treeUpdater;
+    protected ?EntityBreadcrumbUpdater $breadcrumbUpdater;
 
-    private string $entityName;
+    protected string $entityName;
 
     public function __construct(
         Connection $connection,
