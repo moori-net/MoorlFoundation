@@ -61,7 +61,6 @@ class EntityBreadcrumbUpdater
         $all = array_filter(array_values(array_keys(array_flip($all))));
 
         $languageRepository = $this->registry->getRepository(LanguageDefinition::ENTITY_NAME);
-
         $languages = $languageRepository->search(new Criteria(), $context);
 
         /** @var LanguageEntity $language */
@@ -85,7 +84,6 @@ class EntityBreadcrumbUpdater
         $languageId = Uuid::fromHexToBytes($context->getLanguageId());
 
         $entityRepository = $this->registry->getRepository($entityName);
-
         $entities = $entityRepository->search(new Criteria($all), $context)->getEntities();
 
         if ($definition->isVersionAware()) {
