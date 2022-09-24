@@ -20,7 +20,7 @@ class EntityLocationIndexer extends EntityIndexer
     protected Connection $connection;
     protected EntityRepository $repository;
     protected EventDispatcherInterface $eventDispatcher;
-    protected LocationServiceV2 $locationService;
+    protected LocationServiceV2 $locationServiceV2;
 
     protected string $entityName;
 
@@ -29,13 +29,13 @@ class EntityLocationIndexer extends EntityIndexer
         IteratorFactory $iteratorFactory,
         EntityRepository $repository,
         EventDispatcherInterface $eventDispatcher,
-        LocationServiceV2 $locationService
+        LocationServiceV2 $locationServiceV2
     ) {
         $this->iteratorFactory = $iteratorFactory;
         $this->repository = $repository;
         $this->connection = $connection;
         $this->eventDispatcher = $eventDispatcher;
-        $this->locationService = $locationService;
+        $this->locationServiceV2 = $locationServiceV2;
 
         $this->entityName = $repository->getDefinition()->getEntityName();
     }
@@ -105,7 +105,7 @@ WHERE #entity#.id IN (:ids);';
         foreach ($data as $item) {
             if (!$item['countryId'] && $item['iso']) {
                 try {
-                    $country = $this->locationService->getCountryByIso($item['iso']);
+                    $country = $this->locationServiceV2->getCountryByIso($item['iso']);
                     if ($country) {
                         $sql = 'UPDATE #entity# SET country_id = :country_id WHERE id = :id;';
                         $sql = str_replace(
@@ -125,8 +125,8 @@ WHERE #entity#.id IN (:ids);';
             }
 
             if ($item['autoLocation'] === "1") {
-                $geoPoint = $this->locationService->getLocationByAddress($item);
-                if (!$geoPoint) {
+                $location = $this->locationServiceV2->getLocationByAddress($item);
+                if (!$location) {
                     continue;
                 }
 
@@ -140,8 +140,8 @@ WHERE #entity#.id IN (:ids);';
                     $sql,
                     [
                         'id' => Uuid::fromHexToBytes($item['id']),
-                        'lat' => $geoPoint->getLatitude(),
-                        'lon' => $geoPoint->getLongitude()
+                        'lat' => $location->getLocationLat(),
+                        'lon' => $location->getLocationLon()
                     ]
                 );
             }
