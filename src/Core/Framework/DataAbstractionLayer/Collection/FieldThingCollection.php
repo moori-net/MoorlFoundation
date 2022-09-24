@@ -4,26 +4,22 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Content\Cms\CmsPageDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
-    {
-        return new parent(self::getFieldItems());
-    }
-
     public static function getFieldItems(): array
     {
         return [
@@ -39,6 +35,19 @@ class FieldThingCollection extends FieldCollection
             (new ManyToOneAssociationField('media', 'media_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class),
             (new ManyToOneAssociationField('cmsPage', 'cms_page_id', CmsPageDefinition::class))->addFlags(),
+        ];
+    }
+
+    public static function getTranslatedFieldItems(): array
+    {
+        return [
+            (new StringField('name', 'name'))->addFlags(new Required()),
+            (new LongTextField('description', 'description'))->addFlags(new AllowHtml()),
+            new LongTextField('teaser', 'teaser'),
+            new LongTextField('keywords', 'keywords'),
+            new LongTextField('meta_title', 'metaTitle'),
+            new LongTextField('meta_description', 'metaDescription'),
+            new JsonField('slot_config', 'slotConfig'),
         ];
     }
 }
