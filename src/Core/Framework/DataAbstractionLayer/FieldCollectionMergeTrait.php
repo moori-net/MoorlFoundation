@@ -4,6 +4,9 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
+/**
+ * @deprecated: Will be removed
+ */
 trait FieldCollectionMergeTrait
 {
     public static function merge(FieldCollection $collection): void

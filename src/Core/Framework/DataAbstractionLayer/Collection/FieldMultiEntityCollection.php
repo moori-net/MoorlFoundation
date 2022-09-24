@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
@@ -10,6 +11,13 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 
 class FieldMultiEntityCollection extends FieldCollection
 {
+    use FieldCollectionMergeTrait;
+
+    public function __construct()
+    {
+        return new parent(self::getFieldItems());
+    }
+
     public static function getFieldItems(array $referenceClasses): array
     {
         $fieldItems = [];

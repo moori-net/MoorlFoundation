@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Content\Cms\CmsPageDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -20,6 +21,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingCollection extends FieldCollection
 {
+    use FieldCollectionMergeTrait;
+
+    public function __construct()
+    {
+        return new parent(self::getFieldItems());
+    }
+
     public static function getFieldItems(): array
     {
         return [
