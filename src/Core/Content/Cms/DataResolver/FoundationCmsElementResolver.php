@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Content\Cms\DataResolver;
 
-use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\ContactStruct;
 use MoorlFoundation\Core\Framework\Plugin\Exception\TypePatternException;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
