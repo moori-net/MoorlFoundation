@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityLoca
 use MoorlFoundation\Core\Service\LocationService;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Context;
+use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -47,7 +48,7 @@ class EntityLocationIndexer extends EntityIndexer
 
     public function iterate(/*?array */$offset): ?EntityLocationIndexingMessage
     {
-        $iterator = $this->iteratorFactory->createIterator($this->repository->getDefinition(), $offset, 20);
+        $iterator = $this->getIterator($offset);
 
         $ids = $iterator->fetch();
         if (empty($ids)) {
@@ -155,5 +156,15 @@ WHERE #entity#.id IN (:ids);';
         $context = Context::createDefaultContext();
 
         $this->eventDispatcher->dispatch(new EntityLocationIndexerEvent($ids, $context));
+    }
+
+    private function getIterator(?array $offset): IterableQuery
+    {
+        return $this->iteratorFactory->createIterator($this->repository->getDefinition(), $offset);
+    }
+
+    public function getTotal(): int
+    {
+        return $this->getIterator(null)->fetchCount();
     }
 }

@@ -49,11 +49,6 @@ class EntityTreeIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function getTotal(): int
-    {
-        return $this->getIterator(null)->fetchCount();
-    }
-
     public function iterate(/*?array */$offset): ?EntityIndexingMessage
     {
         $iterator = $this->getIterator($offset);
@@ -169,5 +164,10 @@ class EntityTreeIndexer extends EntityIndexer
     private function getIterator(?array $offset): IterableQuery
     {
         return $this->iteratorFactory->createIterator($this->repository->getDefinition(), $offset);
+    }
+
+    public function getTotal(): int
+    {
+        return $this->getIterator(null)->fetchCount();
     }
 }

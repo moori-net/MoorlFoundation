@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStock;
 
+use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
@@ -38,7 +39,7 @@ class EntityStockIndexer extends EntityIndexer
 
     public function iterate(/*?array */$offset): ?EntityIndexingMessage
     {
-        $iterator = $this->iteratorFactory->createIterator($this->entityRepository->getDefinition(), $offset);
+        $iterator = $this->getIterator($offset);
 
         $ids = $iterator->fetch();
         if (empty($ids)) {
@@ -72,5 +73,15 @@ class EntityStockIndexer extends EntityIndexer
         $this->entityStockUpdater->update($ids, $context);
 
         $this->eventDispatcher->dispatch(new EntityStockIndexerEvent($this->entityName, $ids, $context));
+    }
+
+    private function getIterator(?array $offset): IterableQuery
+    {
+        return $this->iteratorFactory->createIterator($this->entityRepository->getDefinition(), $offset);
+    }
+
+    public function getTotal(): int
+    {
+        return $this->getIterator(null)->fetchCount();
     }
 }
