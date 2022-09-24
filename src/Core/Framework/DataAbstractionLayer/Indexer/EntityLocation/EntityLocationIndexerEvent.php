@@ -35,17 +35,11 @@ class EntityLocationIndexerEvent extends NestedEvent
         return $this->skip;
     }
 
-    /**
-     * @return string
-     */
     public function getEntityName(): string
     {
         return $this->entityName;
     }
 
-    /**
-     * @param string $entityName
-     */
     public function setEntityName(string $entityName): void
     {
         $this->entityName = $entityName;

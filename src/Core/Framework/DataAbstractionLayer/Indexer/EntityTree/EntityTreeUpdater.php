@@ -18,6 +18,9 @@ use Shopware\Core\Framework\Uuid\Exception\InvalidUuidException;
 use Shopware\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 use Shopware\Core\Framework\Uuid\Uuid;
 
+/**
+ * @deprecated: Should be fixed in core now
+ */
 class EntityTreeUpdater
 {
     private DefinitionInstanceRegistry $registry;
