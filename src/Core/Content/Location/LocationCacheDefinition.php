@@ -45,15 +45,4 @@ class LocationCacheDefinition extends EntityDefinition
             new ManyToOneAssociationField('location', 'location_id', LocationDefinition::class),
         ]);
     }
-
-    protected function _defineFields(): FieldCollection
-    {
-        return new FieldCollection([
-            (new FkField('location_id', 'locationId', LocationDefinition::class))->addFlags(new PrimaryKey(), new Required()),
-            (new FkField('entity_id', 'entityId', MerchantDefinition::class))->addFlags(new PrimaryKey(), new Required()),
-            (new FloatField('distance', 'distance'))->addFlags(new Required()),
-            new ManyToOneAssociationField('location', 'location_id', LocationDefinition::class),
-            new ManyToOneAssociationField('entity', 'entity_id', MerchantDefinition::class),
-        ]);
-    }
 }
