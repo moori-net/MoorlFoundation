@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityTree;
 
 use Doctrine\DBAL\Connection;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb\EntityBreadcrumbUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableTransaction;
@@ -19,24 +20,28 @@ class EntityTreeIndexer extends EntityIndexer
     private IteratorFactory $iteratorFactory;
     private Connection $connection;
     private EntityRepository $repository;
-    private ChildCountUpdater $childCountUpdater;
-    private TreeUpdater $treeUpdater;
-    protected string $entityName;
+    private ?ChildCountUpdater $childCountUpdater;
+    private ?TreeUpdater $treeUpdater;
+    private ?EntityBreadcrumbUpdater $breadcrumbUpdater;
+
+    private string $entityName;
 
     public function __construct(
         Connection $connection,
         IteratorFactory $iteratorFactory,
         EntityRepository $repository,
-        ChildCountUpdater $childCountUpdater,
-        TreeUpdater $treeUpdater,
-        string $entityName
+        ?ChildCountUpdater $childCountUpdater = null,
+        ?TreeUpdater $treeUpdater = null,
+        ?EntityBreadcrumbUpdater $breadcrumbUpdater = null
     ) {
+        $this->connection = $connection;
         $this->iteratorFactory = $iteratorFactory;
         $this->repository = $repository;
         $this->childCountUpdater = $childCountUpdater;
         $this->treeUpdater = $treeUpdater;
-        $this->connection = $connection;
-        $this->entityName = $entityName;
+        $this->breadcrumbUpdater = $breadcrumbUpdater;
+
+        $this->entityName = $repository->getDefinition()->getEntityName();
     }
 
     public function getName(): string
@@ -120,12 +125,16 @@ class EntityTreeIndexer extends EntityIndexer
         $context = $message->getContext();
 
         RetryableTransaction::retryable($this->connection, function () use ($message, $ids, $context): void {
-            if ($message->allow($this->entityName . '.child-count')) {
+            if ($this->childCountUpdater && $message->allow($this->entityName . '.child-count')) {
                 $this->childCountUpdater->update($this->entityName, $ids, $context);
             }
 
-            if ($message->allow($this->entityName . '.tree')) {
+            if ($this->treeUpdater && $message->allow($this->entityName . '.tree')) {
                 $this->treeUpdater->batchUpdate($ids, $this->entityName, $context);
+            }
+
+            if ($this->breadcrumbUpdater && $message->allow($this->entityName . '.breadcrumb')) {
+                $this->breadcrumbUpdater->update($ids, $this->entityName, $context);
             }
         });
     }
@@ -134,7 +143,8 @@ class EntityTreeIndexer extends EntityIndexer
     {
         return [
             $this->entityName . '.child-count',
-            $this->entityName . '.tree'
+            $this->entityName . '.tree',
+            $this->entityName . '.breadcrumb',
         ];
     }
 

@@ -24,7 +24,10 @@ class EntityTreeUpdater
     private Connection $connection;
     private ?Statement $updateEntityStatement = null;
 
-    public function __construct(DefinitionInstanceRegistry $registry, Connection $connection)
+    public function __construct(
+        DefinitionInstanceRegistry $registry,
+        Connection $connection
+    )
     {
         $this->registry = $registry;
         $this->connection = $connection;
