@@ -18,6 +18,9 @@ use Shopware\Core\Framework\Uuid\Exception\InvalidUuidException;
 use Shopware\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 use Shopware\Core\Framework\Uuid\Uuid;
 
+/**
+ * @deprecated: Issue solved https://github.com/shopware/platform/issues/1815
+ */
 class TreeUpdater
 {
     /**

@@ -3,6 +3,7 @@
 ## 1.4.1030
 
 * Replaced EntityRepositoryInterface typehint
+* Added unified entity indexer for tree, breadcrumb, and stock
 
 ## 1.4.1020
 
