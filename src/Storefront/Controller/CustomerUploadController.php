@@ -6,6 +6,8 @@ use MoorlFoundation\Storefront\Event\CustomerUploadDoneEvent;
 use MoorlFoundation\Storefront\Event\CustomerUploadEvent;
 use MoorlFoundation\Storefront\Event\CustomerUploadFilenameEvent;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
+use Shopware\Core\Content\Media\DataAbstractionLayer\MediaFolderRepositoryDecorator;
+use Shopware\Core\Content\Media\DataAbstractionLayer\MediaRepositoryDecorator;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaService;
@@ -31,15 +33,15 @@ class CustomerUploadController extends StorefrontController
 {
     private EventDispatcherInterface $eventDispatcher;
     private MediaService $mediaService;
-    private EntityRepository $mediaRepository;
-    private EntityRepository $mediaFolderRepository;
+    private MediaRepositoryDecorator $mediaRepository;
+    private MediaFolderRepositoryDecorator $mediaFolderRepository;
     private EntityRepository $mediaDefaultFolderRepository;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         MediaService $mediaService,
-        EntityRepository $mediaRepository,
-        EntityRepository $mediaFolderRepository,
+        MediaRepositoryDecorator $mediaRepository,
+        MediaFolderRepositoryDecorator $mediaFolderRepository,
         EntityRepository $mediaDefaultFolderRepository
     )
     {
