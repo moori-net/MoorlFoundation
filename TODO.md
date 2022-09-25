@@ -10,3 +10,5 @@
 * Remove deprecated service: MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater
 * Add unified SEO URL generator
 * Add unified Sitemap generator
+* Add CMS Page Entity trait
+* Add unified counter for visits
