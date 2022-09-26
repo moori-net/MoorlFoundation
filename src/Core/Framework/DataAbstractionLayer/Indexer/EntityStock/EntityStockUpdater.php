@@ -235,6 +235,8 @@ class EntityStockUpdater implements EventSubscriberInterface
             return;
         }
 
+        $definition = $this->definitionInstanceRegistry->getByEntityName($this->entityName);
+
         $sql = <<<SQL
 SELECT 
     LOWER(HEX(order_line_item.%s)) as entity_stock_id,
@@ -273,16 +275,20 @@ SQL;
             ]
         );
 
-        $sql = <<<SQL
-UPDATE 
-    `%s`
-SET 
-    available_stock = stock - :open_quantity, 
-    sales = :sales_quantity, 
-    updated_at = :now 
-WHERE 
-    id = :entity_stock_id
+        if ($definition->getField('pseudoSales')) {
+            $sql = <<<SQL
+UPDATE `%s`
+SET available_stock = stock - pseudo_sales - :open_quantity, sales = :sales_quantity, updated_at = :now
+WHERE id = :entity_stock_id
 SQL;
+        } else {
+            $sql = <<<SQL
+UPDATE `%s`
+SET available_stock = stock - :open_quantity, sales = :sales_quantity, updated_at = :now 
+WHERE id = :entity_stock_id;
+SQL;
+        }
+
         $sql = sprintf($sql, $this->entityName);
 
         $update = new RetryableQuery(
