@@ -9,7 +9,7 @@
             <name>fontawesome</name>
             <label>Enable Font Awesome 5 Free</label>
             <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
-            <defaultValue>true</defaultValue>
+            <defaultValue>false</defaultValue>
         </input-field>
 
         <input-field type="bool">
