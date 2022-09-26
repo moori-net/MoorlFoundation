@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1042
+
+* Fixed stock updater for stocks with pseudo sales (live shopping plugin)
+
 ## 1.4.1041
 
 * Restored EntityRepositoryInterface typehint
