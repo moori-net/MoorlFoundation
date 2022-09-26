@@ -84,7 +84,7 @@ LOWER(HEX(#entity#.country_id)) AS countryId,
 #entity#.street_number AS streetNumber,
 #entity#.zipcode AS zipcode,
 #entity#.city AS city,
-#entity#.country_code AS iso,
+#entity#.country_code AS countryCode,
 #entity#.location_lat AS lat,
 #entity#.location_lon AS lon
 FROM #entity#
@@ -103,9 +103,9 @@ WHERE #entity#.id IN (:ids);';
         );
 
         foreach ($data as $item) {
-            if (!$item['countryId'] && $item['iso']) {
+            if (!$item['countryId'] && $item['countryCode']) {
                 try {
-                    $country = $this->locationServiceV2->getCountryByIso($item['iso']);
+                    $country = $this->locationServiceV2->getCountryByIso($item['countryCode']);
                     if ($country) {
                         $sql = 'UPDATE #entity# SET country_id = :country_id WHERE id = :id;';
                         $sql = str_replace(
