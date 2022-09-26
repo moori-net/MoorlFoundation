@@ -9,7 +9,7 @@ use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
@@ -19,10 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SortingService
 {
-    protected EntityRepository $sortingRepository;
+    protected EntityRepositoryInterface $sortingRepository;
 
     public function __construct(
-        EntityRepository $sortingRepository
+        EntityRepositoryInterface $sortingRepository
     )
     {
         $this->sortingRepository = $sortingRepository;

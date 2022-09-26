@@ -2,7 +2,7 @@
 
 namespace MoorlFoundation\Storefront\Subscriber;
 
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\Routing\Event\SalesChannelContextResolvedEvent;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -10,11 +10,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class SalesChannelContextResolvedSubscriber implements EventSubscriberInterface
 {
     private SystemConfigService $systemConfigService;
-    private EntityRepository $cmsPageRepository;
+    private EntityRepositoryInterface $cmsPageRepository;
 
     public function __construct(
         SystemConfigService $systemConfigService,
-        EntityRepository $cmsPageRepository
+        EntityRepositoryInterface $cmsPageRepository
     )
     {
         $this->systemConfigService = $systemConfigService;

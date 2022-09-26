@@ -4,7 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStoc
 
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
@@ -13,14 +13,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class EntityStockIndexer extends EntityIndexer
 {
     private IteratorFactory $iteratorFactory;
-    private EntityRepository $entityRepository;
+    private EntityRepositoryInterface $entityRepository;
     private EventDispatcherInterface $eventDispatcher;
     private EntityStockUpdater $entityStockUpdater;
     private string $entityName;
 
     public function __construct(
         IteratorFactory $iteratorFactory,
-        EntityRepository $entityRepository,
+        EntityRepositoryInterface $entityRepository,
         EventDispatcherInterface $eventDispatcher,
         EntityStockUpdater $entityStockUpdater
     ) {
