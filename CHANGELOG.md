@@ -2,7 +2,7 @@
 
 ## 1.4.1043
 
-* Added clearIntervall() when countdown timer stops
+* Added clearInterval() when countdown timer stops
 
 ## 1.4.1042
 
