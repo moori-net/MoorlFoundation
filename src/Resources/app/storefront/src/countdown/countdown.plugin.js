@@ -36,6 +36,8 @@ export default class MoorlCountdownPlugin extends Plugin {
                 client.get(actionUrl, (response) => {
                     response = JSON.parse(response);
 
+                    clearInterval(x);
+
                     if (response.url) {
                         window.location.href = response.url;
                     } else {
