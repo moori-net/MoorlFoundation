@@ -113,8 +113,10 @@ export default class MoorlLocationPlugin extends Plugin {
                         this._focusItem(location.entityId);
                     })
                     .on('popupclose', () => {
-                        if (this.options.options.includes('fitBounds')) {
-                            this._fitBounds();
+                        if (this.options.options) {
+                            if (this.options.options.includes('fitBounds')) {
+                                this._fitBounds();
+                            }
                         }
                     });
             }
@@ -144,9 +146,10 @@ export default class MoorlLocationPlugin extends Plugin {
                 if (!layer.getPopup().isOpen()) {
                     layer.openPopup();
                 }
-
-                if (this.options.options.includes('flyTo')) {
-                    this._mapInstance.map.flyTo(layer.getLatLng(), 14, {animate: true, duration: 1});
+                if (this.options.options) {
+                    if (this.options.options.includes('flyTo')) {
+                        this._mapInstance.map.flyTo(layer.getLatLng(), 14, {animate: true, duration: 1});
+                    }
                 }
             }
         });
@@ -165,13 +168,15 @@ export default class MoorlLocationPlugin extends Plugin {
                     listingElement.classList.add('is-active');
                     listingElement.classList.add('shadow');
 
-                    if (this.options.options.includes('scrollTo')) {
-                        let topPos = listingElement.getBoundingClientRect().top + window.scrollY - this.options.offsetTop;
+                    if (this.options.options) {
+                        if (this.options.options.includes('scrollTo')) {
+                            let topPos = listingElement.getBoundingClientRect().top + window.scrollY - this.options.offsetTop;
 
-                        window.scrollTo({
-                            top: topPos,
-                            behavior: 'smooth',
-                        });
+                            window.scrollTo({
+                                top: topPos,
+                                behavior: 'smooth',
+                            });
+                        }
                     }
                 }
             });
