@@ -1,6 +1,9 @@
 # Changelog
 
+## 1.4.1044
+
 * Moved npm packages
+* Hotfix storefront OSM map
 
 ## 1.4.1043
 
