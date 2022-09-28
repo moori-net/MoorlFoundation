@@ -266,7 +266,7 @@
                 <option>
                     <id>autoClose</id>
                     <name>Auto close popup</name>
-                    <name lang="de-DE">Karte antippen</name>
+                    <name lang="de-DE">Popups automatisch schließen</name>
                 </option>
                 <option>
                     <id>scrollTo</id>
