@@ -1,5 +1,7 @@
 # Changelog
 
+* Moved npm packages
+
 ## 1.4.1043
 
 * Added clearInterval() when countdown timer stops
