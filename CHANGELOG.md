@@ -4,6 +4,7 @@
 
 * Moved npm packages
 * Hotfix storefront OSM map
+* New option to cancel an order on failed payment
 
 ## 1.4.1043
 

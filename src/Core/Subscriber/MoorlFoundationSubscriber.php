@@ -3,9 +3,19 @@
 namespace MoorlFoundation\Core\Subscriber;
 
 use MoorlFoundation\Core\Service\TranslationService;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
+use Shopware\Core\Checkout\Order\Event\OrderStateMachineStateChangeEvent;
+use Shopware\Core\Checkout\Order\OrderDefinition;
+use Shopware\Core\Checkout\Order\OrderStates;
 use Shopware\Core\Content\Media\Event\MediaFileExtensionWhitelistEvent;
+use Shopware\Core\Defaults;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
+use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
+use Shopware\Core\System\StateMachine\Event\StateMachineTransitionEvent;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
+use Shopware\Core\System\StateMachine\Transition;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -13,21 +23,26 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
 {
     private SystemConfigService $systemConfigService;
     private TranslationService $translationService;
+    private StateMachineRegistry $stateMachineRegistry;
 
     public function __construct(
         SystemConfigService $systemConfigService,
-        TranslationService $translationService
+        TranslationService $translationService,
+        StateMachineRegistry $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->translationService = $translationService;
+        $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
             MediaFileExtensionWhitelistEvent::class => 'onMediaFileExtensionWhitelist',
-            EntityWrittenContainerEvent::class => 'onEntityWrittenContainerEvent'
+            EntityWrittenContainerEvent::class => 'onEntityWrittenContainerEvent',
+            'state_enter.order_transaction.state.cancelled' => 'stateChanged',
+            'state_enter.order_transaction.state.failed' => 'stateChanged',
         ];
     }
 
@@ -52,5 +67,21 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
                 $this->translationService->translate($entityWrittenEvent->getEntityName(), $entityWrittenEvent->getWriteResults(), $entityWrittenEvent->getContext());
             }
         }
+    }
+
+    public function stateChanged(OrderStateMachineStateChangeEvent $event): void
+    {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.orderAutoCancel')) {
+            return;
+        }
+
+        $order = $event->getOrder();
+
+        $this->stateMachineRegistry->transition(new Transition(
+            OrderDefinition::ENTITY_NAME,
+            $order->getId(),
+            StateMachineTransitionActions::ACTION_CANCEL,
+            'stateId'
+        ), $event->getContext());
     }
 }

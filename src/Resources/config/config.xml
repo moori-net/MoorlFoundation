@@ -369,6 +369,20 @@
     </card>
 
     <card>
+        <title>Order options</title>
+        <title lang="de-DE">Bestellung Optionen</title>
+
+        <input-field type="bool">
+            <name>orderAutoCancel</name>
+            <label>Cancel order if payment failed</label>
+            <label lang="de-DE">Bestellung abbrechen, wenn Zahlung fehlschlägt</label>
+            <helpText>This option ensures that the stock remains up to date</helpText>
+            <helpText lang="de-DE">Diese option stellt sicher, dass der Lagerbestand aktuell bleibt</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
         <title>Plugin settings</title>
         <title lang="de-DE">Plugin Einstellungen</title>
 
