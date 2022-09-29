@@ -1,6 +1,7 @@
 /composer.lock
 
 /vendor/
+/libs/vendor/
 /.idea/
 /.psh.yaml.override
 /.php_cs.cache

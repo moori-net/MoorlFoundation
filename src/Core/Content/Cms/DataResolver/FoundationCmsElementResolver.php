@@ -9,6 +9,7 @@ use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
+use Shopware\Core\Framework\Struct\ArrayStruct;
 use Shopware\Core\Framework\Struct\Struct;
 
 class FoundationCmsElementResolver extends AbstractCmsElementResolver
@@ -49,6 +50,6 @@ class FoundationCmsElementResolver extends AbstractCmsElementResolver
 
     public function getStruct(): Struct
     {
-        throw new \Exception("getStruct() not allowed here");
+        return new ArrayStruct();
     }
 }

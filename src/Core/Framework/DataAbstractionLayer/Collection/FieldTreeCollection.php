@@ -4,7 +4,6 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
@@ -16,13 +15,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldTreeCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
-    {
-        return new parent(self::getFieldItems());
-    }
-
     public static function getFieldItems(string $referenceClass): array
     {
         return [

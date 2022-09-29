@@ -2,7 +2,6 @@ const { Module } = Shopware;
 import './page/list';
 import './page/detail';
 import './page/create';
-import './style/main.scss';
 
 Module.register('moorl-marker', {
     type: 'plugin',

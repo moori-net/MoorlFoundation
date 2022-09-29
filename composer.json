@@ -15,7 +15,7 @@
     "autoload": {
         "psr-4": {
             "MoorlFoundation\\": "src/",
-            "DeepL\\": "vendor/deeplcom/deepl-php/src/"
+            "DeepL\\": "libs/vendor/deeplcom/deepl-php/src/"
         }
     },
     "extra": {
