@@ -90,6 +90,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "entityName": "Entity",
             "sales": "Sales",
             "availableStock": "Available stock",
             "tax": "Tax",

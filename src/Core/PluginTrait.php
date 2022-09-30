@@ -16,7 +16,7 @@ trait PluginTrait
 
         foreach ($tables as $table) {
             $sql = sprintf('SET FOREIGN_KEY_CHECKS=0; DROP TABLE IF EXISTS `%s`;', $table);
-            $connection->executeUpdate($sql);
+            $connection->executeStatement($sql);
         }
     }
 }

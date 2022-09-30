@@ -84,6 +84,7 @@
             "mediaFolder": "Bilder in diesem Ordner speichern"
         },
         "properties": {
+            "entityName": "Entität",
             "sales": "Verkäufe",
             "availableStock": "Verfügbarer Bestand",
             "tax": "MwSt.",
