@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1045
+
+* Changes for Form Builder 2
+
 ## 1.4.1044
 
 * Moved npm packages
