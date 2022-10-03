@@ -342,7 +342,8 @@ SQL;
                 continue;
             }
 
-            preg_match('/(\w[\s\w]+?)\s*(\d+\s*[a-z]?)/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            //preg_match('/(\w[\s\w]+?)\s*(\d+\s*[a-z]?)/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            preg_match('/(\w[\D\w]+?)\s*(\d+\s*[a-z]?)/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[0])) {
                 $street = $matches[0];
                 continue;
