@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1046
+
+* Changed Webpack Config for build storefront
+
 ## 1.4.1045
 
 * Changes for Form Builder 2
