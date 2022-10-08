@@ -22,12 +22,12 @@ class VersionCompareExtension extends AbstractExtension
         ];
     }
 
-    public function swVersionCompare(string $version2, ?string $operator = null): int
+    public function swVersionCompare(string $version2, string $operator = '>='): bool
     {
         return version_compare($this->shopwareVersion, $version2, $operator);
     }
 
-    public function phpVersionCompare(string $version2, ?string $operator = null): int
+    public function phpVersionCompare(string $version2, string $operator = '>='): bool
     {
         return version_compare(phpversion(), $version2, $operator);
     }
