@@ -2,23 +2,26 @@
 
 {% block utilities_icon %}
     {% if fileName %}{% set name = fileName %}{% endif %}
-
     {% set styles = [ size, color, rotation, flip, class ] %}
     {% set iconPacks = {fab: 'fa/brands/',far: 'fa/regular/',fas: 'fa/solid/'} %}
-
     {% set inherit = true %}
-
     {% for key, path in iconPacks %}
         {% if pack == key %}
             {% set inherit = false %}
-
             <span class="icon icon-{{ pack }} icon-{{ pack }}-{{ name }}{% for entry in styles %}{% if entry != "" %} icon-{{ entry }}{% endif %}{% endfor %}">
-                {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
-                {{ icon|sw_icon_cache|raw }}
+                {% if moorl_sw_version_compare('6.4.15.2') >= 0 %}
+                    {% set icon = source('@MoorlFoundation/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
+                {% else %}
+                    {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
+                {% endif %}
+                {% if moorl_sw_version_compare('6.4.11') >= 0 %}
+                    {{ icon|sw_icon_cache|raw }}
+                {% else %}
+                    {{ icon|raw }}
+                {% endif %}
             </span>
         {% endif %}
     {% endfor %}
-
     {% if inherit %}
         {{ parent() }}
     {% endif %}
