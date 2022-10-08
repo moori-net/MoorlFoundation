@@ -3,7 +3,14 @@
 {% block utilities_icon %}
     {% if fileName %}{% set name = fileName %}{% endif %}
     {% set styles = [ size, color, rotation, flip, class ] %}
-    {% set iconPacks = {fab: 'fa/brands/',far: 'fa/regular/',fas: 'fa/solid/'} %}
+    {% set iconPacks = {
+        fab: 'fa/brands/',
+        far: 'fa/regular/',
+        fas: 'fa/solid/',
+        fa6b: 'fa6/brands/',
+        fa6r: 'fa6/regular/',
+        fa6s: 'fa6/solid/'
+    } %}
     {% set inherit = true %}
     {% for key, path in iconPacks %}
         {% if pack == key %}
