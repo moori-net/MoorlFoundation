@@ -12,7 +12,7 @@
                     "scss": "SCSS"
                 },
                 "helpText": {
-                    "iconClass": "Use <pack name>|<icon name>|<xs|sm|lg [optional]> Pack name can be: default|regular|fas|far|fab|fa6s|fa6r|fa6b. See Shopware or FontAwesome docs for icon names!"
+                    "iconClass": "See placeholder as example"
                 },
                 "label": {
                     "titleTag": "Title HTML tag",
