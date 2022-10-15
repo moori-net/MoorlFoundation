@@ -4,6 +4,9 @@ namespace MoorlFoundation\Core;
 
 use Doctrine\DBAL\Connection;
 
+/**
+ * @deprecated This Class will no longer be developed
+ */
 trait PluginTrait
 {
     private function dropTables(?array $tables = null): void
