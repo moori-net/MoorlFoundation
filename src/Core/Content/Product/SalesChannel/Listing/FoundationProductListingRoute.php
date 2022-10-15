@@ -9,6 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(defaults={"_routeScope"={"store-api"}})
@@ -43,7 +44,7 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
             $entityListing->setRequest($request);
             $entityListing->setSalesChannelContext($context);
 
-            return $entityListing->listingRoute($criteria, $categoryId);;
+            return $entityListing->listingRoute($criteria, $categoryId);
         }
 
         return $this->decorated->load($categoryId, $request, $context, $criteria);

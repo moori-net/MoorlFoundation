@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Content\Location;
 
-use Moorl\MerchantFinder\Core\Content\Merchant\MerchantDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
