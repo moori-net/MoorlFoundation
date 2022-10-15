@@ -82,16 +82,16 @@ class PluginFoundation
         foreach ($ids as $id) {
             $id = Uuid::fromHexToBytes(md5($id));
 
-            $this->executeUpdate('UPDATE `category` SET `cms_page_id` = NULL WHERE `cms_page_id` = :id;', ['id' => $id]);
-            $this->executeUpdate('DELETE FROM `cms_page_translation` WHERE `cms_page_id` = :id;', ['id' => $id]);
-            $this->executeUpdate('DELETE FROM `cms_page` WHERE `id` = :id;', ['id' => $id]);
+            $this->executeStatement('UPDATE `category` SET `cms_page_id` = NULL WHERE `cms_page_id` = :id;', ['id' => $id]);
+            $this->executeStatement('DELETE FROM `cms_page_translation` WHERE `cms_page_id` = :id;', ['id' => $id]);
+            $this->executeStatement('DELETE FROM `cms_page` WHERE `id` = :id;', ['id' => $id]);
         }
     }
 
-    public function executeUpdate(string $sql, array $params = [])
+    public function executeStatement(string $sql, array $params = [])
     {
         try {
-            $this->connection->executeUpdate($sql, $params);
+            $this->connection->executeStatement($sql, $params);
         } catch (\Exception $exception) {
         }
     }
@@ -226,12 +226,12 @@ class PluginFoundation
         foreach ($ids as $id) {
             $id = Uuid::fromHexToBytes(md5($id));
 
-            $this->connection->executeUpdate('DELETE FROM `order_delivery` WHERE `shipping_method_id` = :id;', ['id' => $id]);
-            $this->connection->executeUpdate('DELETE FROM `shipping_method_price` WHERE `shipping_method_id` = :id;', ['id' => $id]);
-            $this->connection->executeUpdate('DELETE FROM `shipping_method_tag` WHERE `shipping_method_id` = :id;', ['id' => $id]);
-            $this->connection->executeUpdate('DELETE FROM `shipping_method_translation` WHERE `shipping_method_id` = :id;', ['id' => $id]);
-            $this->connection->executeUpdate('DELETE FROM `sales_channel_shipping_method` WHERE `shipping_method_id` = :id;', ['id' => $id]);
-            $this->connection->executeUpdate('DELETE FROM `shipping_method` WHERE `id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `order_delivery` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `shipping_method_price` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `shipping_method_tag` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `shipping_method_translation` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `sales_channel_shipping_method` WHERE `shipping_method_id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `shipping_method` WHERE `id` = :id;', ['id' => $id]);
         }
     }
 
@@ -313,7 +313,7 @@ class PluginFoundation
     public function executeQuery(string $sql, array $params = [])
     {
         try {
-            $this->connection->executeUpdate($sql, $params);
+            $this->connection->executeStatement($sql, $params);
         } catch (\Exception $exception) {
         }
     }
@@ -326,7 +326,7 @@ class PluginFoundation
 
     public function removeSeoUrlTemplate($entityname)
     {
-        $this->connection->executeUpdate('DELETE FROM `seo_url_template` WHERE `entity_name` = :name;', [
+        $this->connection->executeStatement('DELETE FROM `seo_url_template` WHERE `entity_name` = :name;', [
             'name' => $entityname
         ]);
     }
@@ -345,10 +345,10 @@ class PluginFoundation
         $mediaDefaultFolderId = Uuid::fromHexToBytes($mediaFolderEntity->getDefaultFolderId());
         $mediaFolderConfigurationId = Uuid::fromHexToBytes($mediaFolderEntity->getConfigurationId());
 
-        $this->connection->executeUpdate('DELETE FROM `media_folder_configuration_media_thumbnail_size` WHERE `media_folder_configuration_id` = :id;', ['id' => $mediaFolderConfigurationId]);
-        $this->connection->executeUpdate('DELETE FROM `media_folder_configuration` WHERE `id` = :id;', ['id' => $mediaFolderConfigurationId]);
-        $this->connection->executeUpdate('DELETE FROM `media_default_folder` WHERE `id` = :id;', ['id' => $mediaDefaultFolderId]);
-        $this->connection->executeUpdate('DELETE FROM `media_folder` WHERE `id` = :id;', ['id' => $mediaFolderId]);
+        $this->connection->executeStatement('DELETE FROM `media_folder_configuration_media_thumbnail_size` WHERE `media_folder_configuration_id` = :id;', ['id' => $mediaFolderConfigurationId]);
+        $this->connection->executeStatement('DELETE FROM `media_folder_configuration` WHERE `id` = :id;', ['id' => $mediaFolderConfigurationId]);
+        $this->connection->executeStatement('DELETE FROM `media_default_folder` WHERE `id` = :id;', ['id' => $mediaDefaultFolderId]);
+        $this->connection->executeStatement('DELETE FROM `media_folder` WHERE `id` = :id;', ['id' => $mediaFolderId]);
     }
 
     public function addMediaFolder($data)
@@ -454,7 +454,7 @@ class PluginFoundation
         if (!$theme || $theme->getSalesChannels()) {
             return;
         }
-        $this->connection->executeUpdate(
+        $this->connection->executeStatement(
             'DELETE FROM `theme_sales_channel` WHERE `theme_id` = :id;',
             ['id' => Uuid::fromHexToBytes($theme->getId())]
         );
@@ -473,7 +473,7 @@ class PluginFoundation
     public function dropTables(array $tables): void
     {
         foreach ($tables as $table) {
-            $this->connection->executeUpdate('DROP TABLE IF EXISTS `' . $table . '`;');
+            $this->connection->executeStatement('DROP TABLE IF EXISTS `' . $table . '`;');
         }
         return;
     }
@@ -555,7 +555,7 @@ class PluginFoundation
     public function removeEventActions(array $eventNames): void
     {
         foreach ($eventNames as $eventName) {
-            $this->connection->executeUpdate('DELETE FROM `event_action` WHERE `event_name` = :eventName;', ['eventName' => $eventName]);
+            $this->connection->executeStatement('DELETE FROM `event_action` WHERE `event_name` = :eventName;', ['eventName' => $eventName]);
         }
     }
 
@@ -567,11 +567,11 @@ class PluginFoundation
 
         foreach ($names as $name) {
             $id = Uuid::fromHexToBytes(md5($name));
-            $this->connection->executeUpdate('DELETE FROM `mail_template` WHERE `id` = :id;', ['id' => $id]);
+            $this->connection->executeStatement('DELETE FROM `mail_template` WHERE `id` = :id;', ['id' => $id]);
             if ($deleteAll) {
-                $this->connection->executeUpdate('DELETE FROM `mail_template_type` WHERE `id` = :id;', ['id' => $id]);
-                //$this->connection->executeUpdate('DELETE FROM `mail_template_type_translation` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
-                $this->connection->executeUpdate('DELETE FROM `mail_template` WHERE `mail_template_type_id` IS NULL;');
+                $this->connection->executeStatement('DELETE FROM `mail_template_type` WHERE `id` = :id;', ['id' => $id]);
+                //$this->connection->executeStatement('DELETE FROM `mail_template_type_translation` WHERE `mail_template_type_id` = :id;', ['id' => $id]);
+                $this->connection->executeStatement('DELETE FROM `mail_template` WHERE `mail_template_type_id` IS NULL;');
             }
         }
     }

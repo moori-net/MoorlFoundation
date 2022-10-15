@@ -113,7 +113,7 @@ WHERE #entity#.id IN (:ids);';
                             [$this->entityName],
                             $sql
                         );
-                        $this->connection->executeUpdate(
+                        $this->connection->executeStatement(
                             $sql,
                             [
                                 'id' => Uuid::fromHexToBytes($item['id']),
@@ -136,7 +136,7 @@ WHERE #entity#.id IN (:ids);';
                     [$this->entityName],
                     $sql
                 );
-                $this->connection->executeUpdate(
+                $this->connection->executeStatement(
                     $sql,
                     [
                         'id' => Uuid::fromHexToBytes($item['id']),

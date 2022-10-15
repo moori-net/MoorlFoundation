@@ -172,7 +172,7 @@ class DataService
             $this->initGlobalReplacers($dataObject);
 
             foreach ($dataObject->getPreInstallQueries() as $sql) {
-                $this->connection->executeUpdate($this->processReplace($sql, $dataObject));
+                $this->connection->executeStatement($this->processReplace($sql, $dataObject));
             }
 
             $this->insertContent($dataObject);
@@ -180,7 +180,7 @@ class DataService
             $this->addStylesheets($dataObject);
 
             foreach ($dataObject->getInstallQueries() as $sql) {
-                $this->connection->executeUpdate($this->processReplace($sql, $dataObject));
+                $this->connection->executeStatement($this->processReplace($sql, $dataObject));
             }
 
             foreach ($dataObject->getInstallConfig() as $k => $v) {
@@ -864,7 +864,7 @@ SQL;
 
             foreach ($dataObject->getRemoveQueries() as $sql) {
                 $sql = $this->processReplace($sql, $dataObject);
-                $this->connection->executeUpdate($sql);
+                $this->connection->executeStatement($sql);
             }
         }
     }
@@ -886,7 +886,7 @@ SQL;
                 $dataObject->getCreatedAt()
             );
             try {
-                $this->connection->executeUpdate($sql);
+                $this->connection->executeStatement($sql);
             } catch (\Exception $exception) {
                 continue;
             }
@@ -910,7 +910,7 @@ SQL;
                 $dataObject->getCreatedAt()
             );
             try {
-                $this->connection->executeUpdate($sql);
+                $this->connection->executeStatement($sql);
             } catch (\Exception $exception) {
                 continue;
             }
@@ -930,7 +930,7 @@ SQL;
 
         foreach ($dataObject->getPluginTables() as $table) {
             $sql = sprintf('SET FOREIGN_KEY_CHECKS=0; DROP TABLE IF EXISTS `%s`;', $table);
-            $this->connection->executeUpdate($sql);
+            $this->connection->executeStatement($sql);
         }
     }
 }
