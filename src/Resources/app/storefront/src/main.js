@@ -39,6 +39,7 @@ import MoorlFoundationFilterRadiusPlugin from './listing/filter-radius.plugin';
 import MoorlFoundationFilterSearchPlugin from './listing/filter-search.plugin';
 import MoorlCustomerUploadPlugin from './customer-upload/customer-upload.plugin';
 import MoorlLocationPlugin from './location/location.plugin';
+import MoorlHoverCardPlugin from './hover-card/hover-card.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -56,6 +57,7 @@ PluginManager.register('MoorlPaint', MoorlPaintPlugin, '.moorl-paint');
 PluginManager.register('MoorlFoundationFilterRadius', MoorlFoundationFilterRadiusPlugin, '[data-moorl-foundation-filter-radius]');
 PluginManager.register('MoorlFoundationFilterSearch', MoorlFoundationFilterSearchPlugin, '[data-moorl-foundation-filter-search]');
 PluginManager.register('MoorlCustomerUpload', MoorlCustomerUploadPlugin, '[data-moorl-customer-upload]');
+PluginManager.register('MoorlHoverCardPlugin', MoorlHoverCardPlugin, '[data-moorl-hover-card]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
