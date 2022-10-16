@@ -83,6 +83,7 @@ Component.register('moorl-layout-card-v2', {
                 creator_detail: this.$tc('moorl-creator.general.creator'),
                 magazine_article_detail: this.$tc('moorl-magazine.general.article'),
                 merchant_detail: this.$tc('moorl-merchant-finder.general.mainMenuItemGeneral'),
+                lexicon_detail: this.$tc('sw-seo-url-template-card.routeNames.moorl-lexicon-lexicon-page'),
             };
         },
     },
