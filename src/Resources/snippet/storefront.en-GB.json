@@ -9,6 +9,9 @@
         },
         "listing": {
             "filter": {
+                "firstChar": "Index",
+                "tags": "Tags",
+                "country": "Country",
                 "radius": "Search postcode",
                 "search": "Search text",
                 "inRadiusOf": "in radius of",

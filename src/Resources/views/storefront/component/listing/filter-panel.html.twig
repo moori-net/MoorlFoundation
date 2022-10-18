@@ -10,7 +10,7 @@
                 elements: countriesSorted,
                 sidebar: sidebar,
                 name: 'country',
-                displayName: 'moorl-merchant-finder.country'|trans
+                displayName: 'moorl-foundation.listing.filter.country'|trans
             } %}
         {% endif %}
 
@@ -22,7 +22,28 @@
                 elements: tagsSorted,
                 sidebar: sidebar,
                 name: 'tag',
-                displayName: 'moorl-merchant-finder.tags'|trans
+                displayName: 'moorl-foundation.listing.filter.tags'|trans
+            } %}
+        {% endif %}
+
+        {% set firstChar = listing.aggregations.get('first-char') %}
+        {% if firstChar and not firstChar.entities is empty %}
+            {% set firstChars = [] %}
+            {% for singleChar in 'A'..'Z' %}
+                {% set firstChars = firstChars|merge([{
+                    name: singleChar,
+                    id: singleChar,
+                    translated: {
+                        name: singleChar
+                    }
+                }]) %}
+            {% endfor %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-property-select.html.twig' with {
+                elements: firstChars,
+                sidebar: sidebar,
+                name: 'first-char',
+                displayName: 'moorl-foundation.listing.filter.firstChar'|trans
             } %}
         {% endif %}
     {% endif %}

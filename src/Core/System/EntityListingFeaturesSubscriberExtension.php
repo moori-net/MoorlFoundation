@@ -19,9 +19,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\Count
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\EntityAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\StatsAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\PrefixFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
@@ -334,6 +336,28 @@ class EntityListingFeaturesSubscriberExtension
             [],
             new EqualsAnyFilter($this->entityName . '.customerId', $ids),
             $ids
+        );
+    }
+
+    protected function getFirstCharFilter(Request $request): Filter
+    {
+        $firstChars = $this->getPropIds($request, "first-char");
+
+        $filter = [];
+        if ($firstChars) {
+            foreach ($firstChars as $firstChar) {
+                $filter[] = new PrefixFilter('name', $firstChar);
+            }
+        }
+
+        return new Filter(
+            'first-char',
+            !empty($firstChar),
+            [new EntityAggregation('first-char', $this->entityName . '.id', $this->entityName)],
+            new MultiFilter(MultiFilter::CONNECTION_OR, $filter),
+            [
+                'firstChars' => $firstChars
+            ]
         );
     }
 

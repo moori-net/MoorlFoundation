@@ -9,6 +9,9 @@
     },
     "listing": {
       "filter": {
+        "firstChar": "Index",
+        "tags": "Tags",
+        "country": "Land",
         "radius": "PLZ Suche",
         "search": "Textsuche",
         "inRadiusOf": "im Umkreis von",
