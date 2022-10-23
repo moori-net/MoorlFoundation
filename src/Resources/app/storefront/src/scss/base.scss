@@ -39,8 +39,19 @@
 .icon-fas,
 .icon-fab {
   color: inherit;
-  > svg {
+  /*> svg {
     top: auto;
+  }*/
+}
+
+.btn {
+  .icon-far,
+  .icon-fas,
+  .icon-fab {
+    color: inherit;
+    > svg {
+      top: .25em;
+    }
   }
 }
 
