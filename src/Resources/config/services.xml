@@ -79,9 +79,9 @@
         </service>
 
         <!-- Core\Framework\DAL -->
-        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
+        <!--service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
             <tag name="shopware.dal.exception_handler"/>
-        </service>
+        </service-->
 
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb\EntityBreadcrumbUpdater">
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
