@@ -112,7 +112,7 @@
                             <{{ titleTag }}>{{ element.data.category.name }}</{{ titleTag }}>
                         {% endif %}
                         {% if element.data.category.description %}
-                            <p>{{ element.data.category.description|length > config.contentLength.value ? element.data.category.description|slice(0, config.contentLength.value) ~ '...'|striptags : element.data.category.description|striptags  }}</p>
+                            <p>{{ element.data.category.description|length > config.contentLength.value ? element.data.category.description|striptags|slice(0, config.contentLength.value) ~ '...' : element.data.category.description|striptags }}</p>
                         {% endif %}
                         {% if config.btnActive.value and element.data.category.id %}
                             <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) }}">{{ config.btnText.value }}</a>
@@ -124,7 +124,7 @@
                             <{{ titleTag }}>{{ element.data.product.name }}</{{ titleTag }}>
                         {% endif %}
                         {% if element.data.product.description %}
-                            <p>{{ element.data.product.description|length > config.contentLength.value ? element.data.product.description|slice(0, config.contentLength.value) ~ '...'|striptags : element.data.product.description|striptags  }}</p>
+                            <p>{{ element.data.product.description|length > config.contentLength.value ? element.data.product.description|striptags|slice(0, config.contentLength.value) ~ '...' : element.data.product.description|striptags }}</p>
                         {% endif %}
                         {% if config.btnActive.value and element.data.product.id %}
                             <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.detail.page', { productId: element.data.product.id }) }}">{{ config.btnText.value }}</a>
