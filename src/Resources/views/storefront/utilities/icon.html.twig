@@ -1,7 +1,9 @@
 {% sw_extends '@Storefront/storefront/utilities/icon.html.twig' %}
 
 {% block utilities_icon %}
-    {% if fileName %}{% set name = fileName %}{% endif %}
+    {% if name == 'icon' and fileName %}
+        {% set name = fileName %}
+    {% endif %}
     {% set styles = [ size, color, rotation, flip, class ] %}
     {% set iconPacks = {
         fab: 'fa/brands/',

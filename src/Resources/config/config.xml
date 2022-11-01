@@ -422,4 +422,15 @@
             <defaultValue>true</defaultValue>
         </input-field>
     </card>
+
+    <card>
+        <title>Compatibility</title>
+        <title lang="de-DE">Kompatibilität</title>
+
+        <input-field type="bool">
+            <name>cmpFilterPanel</name>
+            <label>Disable filter panel polyfill</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
 </config>
