@@ -3,6 +3,8 @@ import './index.scss';
 
 const {Component} = Shopware;
 const {Criteria, ChangesetGenerator} = Shopware.Data;
+const type = Shopware.Utils.types;
+const {cloneDeep, merge} = Shopware.Utils.object;
 
 Component.register('moorl-layout-card-v2', {
     template,
@@ -90,24 +92,31 @@ Component.register('moorl-layout-card-v2', {
 
     watch: {
         cmsPageId() {
-            if (this.isLoading) {
-                return;
-            }
-
-            if (this.item) {
-                this.item.slotConfig = null;
-                Shopware.State.dispatch('cmsPageState/resetCmsPageState').then(this.getAssignedCmsPage);
-            }
+            Shopware.State.dispatch('cmsPageState/resetCmsPageState');
+            this.getAssignedCmsPage();
         }
     },
 
     created() {
         Shopware.State.dispatch('cmsPageState/resetCmsPageState');
 
+        if (this.pageTypes.length === 0) {
+            this.pageTypes.push(this.pageType)
+        }
+
         this.getAssignedCmsPage();
     },
 
     methods: {
+        saveCmsConfig() {
+            const pageOverrides = this.getCmsPageOverrides();
+
+            if (type.isPlainObject(pageOverrides)) {
+                this.item.slotConfig = cloneDeep(pageOverrides);
+            }
+
+            this.$emit('save-cms-config');
+        },
         onLayoutSelect(selectedLayout) {
             this.item.cmsPageId = selectedLayout;
         },

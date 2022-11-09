@@ -47,6 +47,15 @@
                         <sw-icon name="default-action-trash" small/>
                     </sw-button>
                 </div>
+
+                <sw-button
+                        class="moorl-detail-layout__save-cms-config"
+                        size="small"
+                        variant="primary"
+                        @click="saveCmsConfig"
+                >
+                    {{ $tc('moorl-layout-card.saveCmsConfig') }}
+                </sw-button>
             </div>
         </div>
     </sw-card>
