@@ -1,5 +1,7 @@
 # Open todos
 
+* Check "hreflang" for CMS pages
+* Host FontAwesome on myself
 * Remove all jQuery from storefront
 * Timestamps for CSV export
 * Implement Appflix plugins
