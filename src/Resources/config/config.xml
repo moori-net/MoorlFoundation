@@ -7,8 +7,8 @@
 
         <input-field type="bool">
             <name>fontawesome</name>
-            <label>[Deprecated - Do not use anymore] Enable Font Awesome 5 Free</label>
-            <label lang="de-DE">[Veraltet - Bitte nicht mehr nutzen] Aktiviere Font Awesome 5 Free</label>
+            <label>Enable Font Awesome 5 Free</label>
+            <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
             <defaultValue>false</defaultValue>
         </input-field>
 

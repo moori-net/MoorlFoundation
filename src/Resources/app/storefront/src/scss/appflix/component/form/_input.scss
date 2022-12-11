@@ -1,12 +1,12 @@
 .input-group-text{
   background-color: $light;
-  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $body-color;
 
   .icon {
+    padding: 0 12px;
     width: 17px;
     height: 17px;
 

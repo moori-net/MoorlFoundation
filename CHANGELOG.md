@@ -2,6 +2,10 @@
 
 ## 1.4.1081
 
+* Use own server for FontAwesome
+
+## 1.4.1081
+
 * Bugfix for CMS Configuration
 
 ## 1.4.1060
