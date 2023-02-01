@@ -394,6 +394,14 @@
             <defaultValue>zip,rar,psd,docx</defaultValue>
         </input-field>
 
+        <input-field type="text">
+            <name>demoCustomerMail</name>
+            <label>Customer mail address for related demo content</label>
+            <label lang="de-DE">Kunden E-Mail Adresse für entsprechende Demo-Inhalte</label>
+            <placeholder>test@example.com</placeholder>
+            <defaultValue>test@example.com</defaultValue>
+        </input-field>
+
         <input-field type="bool">
             <name>cmsElements</name>
             <label>Remove CMS elements when uninstalling</label>
