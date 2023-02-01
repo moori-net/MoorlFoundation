@@ -6,3 +6,4 @@ import './accordion';
 import './search-hero';
 import './usp';
 import './newsletter';
+import './sidebar-filter';
