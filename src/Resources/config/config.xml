@@ -436,8 +436,18 @@
         <title lang="de-DE">Kompatibilität</title>
 
         <input-field type="bool">
+            <name>cmpElasticSearchMappings</name>
+            <label>Disable ElasticSearch mapping for moori Extensions</label>
+            <label lang="de-DE">ElasticSearch-Zuordnung für moori Erweiterungen abschalten</label>
+            <helpText>If the Shopware "Advanced Search" extension is used, unwanted search results may occur. Disable this setting to disable all ElasticSearch mappings from the moori extensions.</helpText>
+            <helpText lang="de-DE">Wenn die Erweiterung "Advanced Search" von Shopware genutzt wird, kann es zu unerwünschten Suchergebnissen kommen. Deaktiviere diese Einstellung um alle ElasticSearch Zuordnungen von den moori Erweiterungen abzuschalten.</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
             <name>cmpFilterPanel</name>
             <label>Disable filter panel polyfill</label>
+            <label>Filterfeld-Polyfill abschalten</label>
             <defaultValue>false</defaultValue>
         </input-field>
     </card>
