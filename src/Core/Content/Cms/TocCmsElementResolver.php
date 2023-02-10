@@ -86,7 +86,7 @@ class TocCmsElementResolver extends TextCmsElementResolver
                 $currentOL = $previousOLs[$headingDepth];
             }
 
-            $currentOL->setAttribute('class', 'toc-lvl-' . $headingDepth - 1);
+            $currentOL->setAttribute('class', 'toc-lvl-' . ($headingDepth - 1));
 
             $currentLI = $doc->createElement('li');
             $currentAnchorLink = $doc->createElement('a');
