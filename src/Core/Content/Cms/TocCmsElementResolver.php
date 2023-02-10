@@ -71,7 +71,7 @@ class TocCmsElementResolver extends TextCmsElementResolver
             if ($previousHeading) {
                 $previousHeadingDepth = $this->getHeadingDepth($previousHeading);
             } else {
-                $previousHeadingDepth = 2;
+                $previousHeadingDepth = $headingDepth;
             }
 
             if ($headingDepth > $previousHeadingDepth) {
@@ -86,7 +86,7 @@ class TocCmsElementResolver extends TextCmsElementResolver
                 $currentOL = $previousOLs[$headingDepth];
             }
 
-            $currentOL->setAttribute('class', 'toc-lvl-' . ($previousHeadingDepth - 1));
+            $currentOL->setAttribute('class', 'toc-lvl-' . $headingDepth - 1);
 
             $currentLI = $doc->createElement('li');
             $currentAnchorLink = $doc->createElement('a');
@@ -103,7 +103,7 @@ class TocCmsElementResolver extends TextCmsElementResolver
         }
 
         if ($iHeading === 0) {
-            $text->setContent("");
+            $text->setContent("<!-- No H2, H3, H4 tags with id attribute found -->");
             return;
         }
 

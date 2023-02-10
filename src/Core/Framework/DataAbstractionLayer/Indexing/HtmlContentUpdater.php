@@ -139,31 +139,35 @@ SQL;
             return null;
         }
 
-        $slugs = [];
+        try {
+            $slugs = [];
 
-        $doc = new \DOMDocument('1.0', 'UTF-8');
-        \libxml_use_internal_errors(TRUE);
+            $doc = new \DOMDocument('1.0', 'UTF-8');
+            \libxml_use_internal_errors(TRUE);
 
-        $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-        $xPath = new \DOMXPath($doc);
+            $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $xPath = new \DOMXPath($doc);
 
-        $tags = $xPath->query('//h2|//h3|//h4|//h5|//h6');
-        foreach ($tags as $tag) {
-            /* Skip if already written */
-            if ($tag->getAttribute('id')) {
-                continue;
+            $tags = $xPath->query('//h2|//h3|//h4|//h5|//h6');
+            foreach ($tags as $tag) {
+                /* Skip if already written */
+                if ($tag->getAttribute('id')) {
+                    continue;
+                }
+
+                $slug = $this->slugify($tag->textContent);
+                if (in_array($slug, $slugs)) {
+                    $slug = Uuid::randomHex();
+                }
+                $slugs[] = $slug;
+
+                $tag->setAttribute('id', $slug);
             }
 
-            $slug = $this->slugify($tag->textContent);
-            if (in_array($slug, $slugs)) {
-                $slug = Uuid::randomHex();
-            }
-            $slugs[] = $slug;
-
-            $tag->setAttribute('id', $slug);
+            return $doc->saveHTML();
+        } catch (\Exception $exception) {
+            return $content;
         }
-
-        return $doc->saveHTML();
     }
 
     private function slugify(string $content): string
