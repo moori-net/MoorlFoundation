@@ -3,3 +3,4 @@ import './sw-cms-slot';
 import './sw-cms-block-config';
 import './sw-cms-stage-section-selection';
 import './sw-cms-section';
+import './sw-cms-page-form';
