@@ -1,0 +1,15 @@
+{
+    "moorl-client": {
+        "title": "moori Clients",
+        "card": {
+            "general": "General",
+            "config": "Configuration"
+        },
+        "properties": {
+            "name": "Name",
+            "type": "Type",
+            "active": "Active"
+        },
+        "helpText": {}
+    }
+}

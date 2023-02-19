@@ -8,6 +8,7 @@
         <!-- Administration -->
         <service id="MoorlFoundation\Administration\Controller\SettingsController" public="true">
             <argument type="service" id="MoorlFoundation\Core\Service\DataService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
         </service>
 
         <!-- Storefront -->

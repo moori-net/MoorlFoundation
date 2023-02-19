@@ -1,0 +1,17 @@
+{
+    "moorl-client": {
+        "title": "moori Clients",
+        "card": {
+            "general": "Allgemein",
+            "config": "Konfiguration"
+        },
+        "properties": {
+            "name": "Name",
+            "type": "Typ",
+            "active": "Aktiv"
+        },
+        "helpText": {
+
+        }
+    }
+}

@@ -1,0 +1,49 @@
+<sw-page class="moorl-client-detail">
+    <template slot="smart-bar-actions">
+        <sw-button :routerLink="{ name: 'moorl.client.list' }">
+            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
+        </sw-button>
+
+        <sw-button-process
+                :isLoading="isLoading"
+                :processSuccess="processSuccess"
+                variant="primary"
+                @process-finish="saveFinish"
+                @click="onClickSave">
+            {{ $tc('moorl-foundation.buttons.saveButtonText') }}
+        </sw-button-process>
+    </template>
+
+    <template slot="content">
+        <sw-card-view>
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.general')">
+                <sw-field
+                        type="switch"
+                        :label="$tc('moorl-client.properties.active')"
+                        v-model="item.active"
+                />
+
+                <sw-field
+                        :label="$tc('moorl-client.properties.name')"
+                        v-model="item.name"
+                        required
+                        validation="required"
+                />
+
+                <template v-if="options.length">
+                    <sw-select-field
+                            :label="$tc('moorl-client.properties.type')"
+                            v-model="item.type"
+                    >
+                        <option v-for="(option, index) in options" :key="option.name" :value="option.name">
+                            {{ option.name }}
+                        </option>
+                    </sw-select-field>
+                </template>
+            </sw-card>
+
+            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.config')">
+            </sw-card>
+        </sw-card-view>
+    </template>
+</sw-page>

@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Administration\Controller;
 
+use MoorlFoundation\Core\Service\ClientService;
 use MoorlFoundation\Core\Service\DataService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +14,25 @@ use Symfony\Component\HttpFoundation\Request;
 class SettingsController
 {
     private DataService $dataService;
+    private ?ClientService $clientService;
 
-    public function __construct(DataService $dataService)
+    public function __construct(
+        DataService $dataService,
+        ?ClientService $clientService = null
+    )
     {
         $this->dataService = $dataService;
+        $this->clientService = $clientService;
+    }
+
+    /**
+     * @Route("/api/moorl-foundation/settings/client/options", name="api.moorl-foundation.settings.client.options", methods={"GET"})
+     */
+    public function clientOptions(): JsonResponse
+    {
+        return new JsonResponse(
+            $this->clientService->getOptions()
+        );
     }
 
     /**

@@ -7,6 +7,7 @@
         <import resource="controllers.xml"/>
         <import resource="subscribers.xml"/>
         <import resource="data.xml"/>
+        <import resource="client.xml"/>
         <import resource="entity-translation.xml"/>
     </imports>
 
@@ -28,6 +29,11 @@
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Price\ProductPriceCalculator"/>
             <argument type="service" id="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Service\ClientService" public="true">
+            <argument type="service" id="moorl_client.repository"/>
+            <argument type="tagged" tag="moorl.foundation.client" />
         </service>
 
         <service id="MoorlFoundation\Core\Service\DataService" public="true">
@@ -136,6 +142,10 @@
 
         <service id="MoorlFoundation\Core\Content\Marker\MarkerDefinition">
             <tag name="shopware.entity.definition" entity="moorl_marker" />
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientDefinition">
+            <tag name="shopware.entity.definition" entity="moorl_client" />
         </service>
 
         <!-- Listing Route Decorator -->

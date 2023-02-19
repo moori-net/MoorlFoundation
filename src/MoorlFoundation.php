@@ -20,6 +20,7 @@ class MoorlFoundation extends Plugin
         'moorl_sorting',
         'moorl_sorting_translation',
         'moorl_marker',
+        'moorl_client',
     ];
 
     public function activate(ActivateContext $activateContext): void
