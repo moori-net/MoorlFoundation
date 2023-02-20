@@ -37,8 +37,8 @@ class FileExplorerController
      */
     public function createDir(Request $request, Context $context): JsonResponse
     {
-        return new JsonResponse(
-            $this->clientService->createDir($request->get('clientId'), $request->get('dirname'), $context)
-        );
+        $this->clientService->createDir($request->get('clientId'), $request->get('dirname'), $context);
+
+        return new JsonResponse([]);
     }
 }
