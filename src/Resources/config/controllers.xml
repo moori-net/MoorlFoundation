@@ -11,6 +11,10 @@
             <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
         </service>
 
+        <service id="MoorlFoundation\Administration\Controller\FileExplorerController" public="true">
+            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
+        </service>
+
         <!-- Storefront -->
         <service id="MoorlFoundation\Storefront\Controller\ProductBuyListController" public="true">
             <argument type="service" id="sales_channel.product.repository"/>

@@ -26,12 +26,24 @@ class ClientService
         $this->clients = $clients;
     }
 
+    public function listContents(string $clientId, ?string $directory, Context $context): array
+    {
+        $client = $this->getClient($clientId, $context);
+        $filesystem = New Filesystem($client->getClientAdapter());
+        return $filesystem->listContents($directory);
+    }
+
+    public function createDir(string $clientId, ?string $dirname, Context $context): void
+    {
+        $client = $this->getClient($clientId, $context);
+        $filesystem = New Filesystem($client->getClientAdapter());
+        $filesystem->createDir($dirname);
+    }
+
     public function test(string $clientId, Context $context): array
     {
         $client = $this->getClient($clientId, $context);
-
         $filesystem = New Filesystem($client->getClientAdapter());
-
         return $filesystem->listContents();
     }
     public function getOptions(): array
