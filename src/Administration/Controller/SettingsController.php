@@ -4,6 +4,7 @@ namespace MoorlFoundation\Administration\Controller;
 
 use MoorlFoundation\Core\Service\ClientService;
 use MoorlFoundation\Core\Service\DataService;
+use Shopware\Core\Framework\Context;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,16 @@ class SettingsController
     {
         $this->dataService = $dataService;
         $this->clientService = $clientService;
+    }
+
+    /**
+     * @Route("/api/moorl-foundation/settings/client/test/{clientId}", name="api.moorl-foundation.settings.client.test", methods={"GET"})
+     */
+    public function clientTest(string $clientId, Context $context): JsonResponse
+    {
+        return new JsonResponse(
+            $this->clientService->test($clientId, $context)
+        );
     }
 
     /**

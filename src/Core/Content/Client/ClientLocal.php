@@ -2,31 +2,22 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use League\Flysystem\Adapter\Ftp;
+use League\Flysystem\Adapter\Local;
 use League\Flysystem\AdapterInterface;
 
-class ClientLocal implements ClientInterface
+class ClientLocal extends ClientExtension implements ClientInterface
 {
-    public function getClientType(): string
-    {
-        return "";
-    }
-    public function getClientName(): string
-    {
-        return "local";
-    }
+    protected string $clientName = "local";
+
     public function getClientConfigTemplate(): ?array
     {
-        return null;
+        return [
+            ['name' => 'root', 'type' => 'text', 'required' => true, 'default' => '/home'],
+        ];
     }
 
-    public function getClientAdapter(ClientEntity $client): ?AdapterInterface
+    public function getClientAdapter(): ?AdapterInterface
     {
-        return new Ftp($client->getConfig());
-    }
-
-    public function getClient(ClientEntity $client): ?\GuzzleHttp\ClientInterface
-    {
-        return null;
+        return new Local($this->clientEntity->getConfig()['root']);
     }
 }

@@ -2,19 +2,10 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use League\Flysystem\Adapter\Ftp;
-use League\Flysystem\AdapterInterface;
-
-class ClientNextcloud implements ClientInterface
+class ClientNextcloud extends ClientExtension implements ClientInterface
 {
-    public function getClientType(): string
-    {
-        return "";
-    }
-    public function getClientName(): string
-    {
-        return "nextcloud";
-    }
+    protected string $clientName = "nextcloud";
+
     public function getClientConfigTemplate(): ?array
     {
         return [
@@ -48,15 +39,5 @@ class ClientNextcloud implements ClientInterface
                 'default' => false,
             ]
         ];
-    }
-
-    public function getClientAdapter(ClientEntity $client): ?AdapterInterface
-    {
-        return new Ftp($client->getConfig());
-    }
-
-    public function getClient(ClientEntity $client): ?\GuzzleHttp\ClientInterface
-    {
-        return null;
     }
 }

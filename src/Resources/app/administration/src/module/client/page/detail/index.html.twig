@@ -9,9 +9,14 @@
                 :processSuccess="processSuccess"
                 variant="primary"
                 @process-finish="saveFinish"
-                @click="onClickSave">
+                @click="onClickSave"
+        >
             {{ $tc('moorl-foundation.buttons.saveButtonText') }}
         </sw-button-process>
+
+        <sw-button @click="onClickTest">
+            {{ $tc('moorl-foundation.buttons.testConnection') }}
+        </sw-button>
     </template>
 
     <template slot="content">
@@ -34,6 +39,7 @@
                     <sw-select-field
                             :label="$tc('moorl-client.properties.type')"
                             v-model="item.type"
+                            @change="resetConfig"
                     >
                         <option v-for="(option, index) in options" :key="option.name" :value="option.name">
                             {{ option.name }}
@@ -43,6 +49,17 @@
             </sw-card>
 
             <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.config')">
+                <template v-for="option in options">
+                    <template v-if="item.type == option.name">
+                        <template v-for="config in option.configTemplate">
+                            <sw-form-field-renderer
+                                    v-model="item.config[config.name]"
+                                    :label="$tc('moorl-client.properties.' + config.name)"
+                                    :config="config"
+                            />
+                        </template>
+                    </template>
+                </template>
             </sw-card>
         </sw-card-view>
     </template>

@@ -1,4 +1,4 @@
-const { Module } = Shopware;
+const {Module} = Shopware;
 import './page/list';
 import './page/detail';
 import './page/create';
@@ -8,7 +8,7 @@ Module.register('moorl-client', {
     name: 'MerchantFinder',
     title: 'moorl-client.title',
     color: '#ff3d58',
-    icon: 'default-object-globe',
+    icon: 'default-action-log-in',
     routes: {
         list: {
             component: 'moorl-client-list',
@@ -34,7 +34,7 @@ Module.register('moorl-client', {
             name: 'moorl-client-list',
             to: 'moorl.client.list',
             group: 'plugins',
-            icon: 'default-object-globe',
+            icon: 'default-action-log-in',
             label: 'moorl-client.title'
         }
     ]

@@ -2,8 +2,12 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use League\Flysystem\Filesystem;
+use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class ClientService
 {
@@ -22,6 +26,14 @@ class ClientService
         $this->clients = $clients;
     }
 
+    public function test(string $clientId, Context $context): array
+    {
+        $client = $this->getClient($clientId, $context);
+
+        $filesystem = New Filesystem($client->getClientAdapter());
+
+        return $filesystem->listContents();
+    }
     public function getOptions(): array
     {
         $options = [];
@@ -35,5 +47,27 @@ class ClientService
         }
 
         return $options;
+    }
+
+    private function getClient(string $clientId, Context $context): ClientInterface
+    {
+        $criteria = new Criteria([$clientId]);
+
+        /** @var ClientEntity $clientEntity */
+        $clientEntity = $this->clientRepository->search($criteria, $context)->first();
+
+        if (!$clientEntity) {
+            throw new \Exception('Client entity not found');
+        }
+
+        foreach ($this->clients as $client) {
+            if ($clientEntity->getType() === $client->getClientName()) {
+                $client->setClientEntity($clientEntity);
+
+                return $client;
+            }
+        }
+
+        throw new \Exception('Client not found');
     }
 }

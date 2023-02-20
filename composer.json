@@ -15,7 +15,8 @@
     "autoload": {
         "psr-4": {
             "MoorlFoundation\\": "src/",
-            "DeepL\\": "libs/vendor/deeplcom/deepl-php/src/"
+            "DeepL\\": "libs/vendor/deeplcom/deepl-php/src/",
+            "Pdsinterop\\Flysystem\\Adapter": "libs/vendor/pdsinterop/flysystem-nextcloud/src"
         }
     },
     "extra": {

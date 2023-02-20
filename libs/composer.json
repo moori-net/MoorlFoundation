@@ -1,5 +1,6 @@
 {
     "require": {
-        "deeplcom/deepl-php": "^1.0"
+        "deeplcom/deepl-php": "^1.0",
+        "pdsinterop/flysystem-nextcloud": "^0.2.0"
     }
 }

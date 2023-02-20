@@ -9,6 +9,7 @@ interface ClientInterface
     public function getClientType(): string;
     public function getClientName(): string;
     public function getClientConfigTemplate(): ?array;
-    public function getClientAdapter(ClientEntity $client): ?AdapterInterface;
-    public function getClient(ClientEntity $client): ?\GuzzleHttp\ClientInterface;
+    public function getClientAdapter(): ?AdapterInterface;
+    public function getClient(): ?\GuzzleHttp\ClientInterface;
+    public function setClientEntity(ClientEntity $clientEntity): void;
 }

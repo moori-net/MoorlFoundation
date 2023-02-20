@@ -5,58 +5,26 @@ namespace MoorlFoundation\Core\Content\Client;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\AdapterInterface;
 
-class ClientFtp implements ClientInterface
+class ClientFtp extends ClientExtension implements ClientInterface
 {
-    public function getClientType(): string
-    {
-        return "";
-    }
-    public function getClientName(): string
-    {
-        return "ftp";
-    }
+    protected string $clientName = "ftp";
+
     public function getClientConfigTemplate(): ?array
     {
         return [
-            [
-                'name' => 'host',
-                'type' => 'text',
-                'required' => true,
-                'default' => 'localhost',
-            ],
-            [
-                'name' => 'port',
-                'type' => 'number',
-                'required' => true,
-                'default' => '21',
-            ],
-            [
-                'name' => 'username',
-                'type' => 'text',
-                'required' => true,
-                'default' => '',
-            ],
-            [
-                'name' => 'password',
-                'type' => 'password',
-                'required' => true,
-                'default' => '',
-            ],
-            [
-                'name' => 'ssl',
-                'type' => 'bool',
-                'default' => false,
-            ]
+            ['name' => 'host', 'type' => 'text', 'required' => true, 'default' => 'localhost'],
+            ['name' => 'port', 'type' => 'number', 'required' => true, 'default' => 21],
+            ['name' => 'username', 'type' => 'text', 'required' => true, 'default' => ''],
+            ['name' => 'password', 'type' => 'password', 'required' => true, 'default' => ''],
+            ['name' => 'ssl', 'type' => 'switch', 'default' => false],
+            ['name' => 'timeout', 'type' => 'number', 'default' => 90],
+            ['name' => 'utf8', 'type' => 'switch', 'default' => false],
+            ['name' => 'passive', 'type' => 'switch', 'default' => true],
         ];
     }
 
-    public function getClientAdapter(ClientEntity $client): ?AdapterInterface
+    public function getClientAdapter(): ?AdapterInterface
     {
-        return new Ftp($client->getConfig());
-    }
-
-    public function getClient(ClientEntity $client): ?\GuzzleHttp\ClientInterface
-    {
-        return null;
+        return new Ftp($this->clientEntity->getConfig());
     }
 }
