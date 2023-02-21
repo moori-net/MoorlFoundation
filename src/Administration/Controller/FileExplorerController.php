@@ -4,7 +4,6 @@ namespace MoorlFoundation\Administration\Controller;
 
 use MoorlFoundation\Core\Service\ClientService;
 use Shopware\Core\Framework\Context;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
