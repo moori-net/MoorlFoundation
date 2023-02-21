@@ -29,6 +29,50 @@ class FoundationApiService extends ApiService {
             return ApiService.handleResponse(response);
         });
     }
+
+    download(path, data) {
+        const apiRoute = this.getApiBasePath() + path;
+
+        if (typeof data !== 'undefined') {
+            return this.httpClient.post(
+                apiRoute,
+                data,
+                {
+                    headers: this.getBasicHeaders({responseType: 'blob'}),
+                    responseType: 'blob'
+                }
+            ).then((response) => {
+                const filename = response.headers['content-disposition'].split('filename=')[1];
+                const link = document.createElement('a');
+
+                link.href = URL.createObjectURL(response.data);
+                link.download = filename;
+                link.dispatchEvent(new MouseEvent('click'));
+                link.remove();
+            }).catch((error) => {
+                console.log(error);
+            });
+        } else {
+            this.httpClient({
+                method: 'get',
+                url: apiRoute,
+                headers: this.getBasicHeaders({responseType: 'blob'}),
+                responseType: 'blob'
+            }).then((response) => {
+                if (response.data) {
+                    const filename = response.headers['content-disposition'].split('filename=')[1];
+                    const link = document.createElement('a');
+
+                    link.href = URL.createObjectURL(response.data);
+                    link.download = filename;
+                    link.dispatchEvent(new MouseEvent('click'));
+                    link.remove();
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+    }
 }
 
 export default FoundationApiService;

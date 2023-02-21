@@ -74,20 +74,9 @@ Component.register('moorl-file-explorer', {
         },
 
         read(path) {
-            this.isLoading = true;
-
-            this.foundationApiService.post(`/moorl-foundation/file-explorer/read`, {
+            this.foundationApiService.download(`/moorl-foundation/file-explorer/read-stream`, {
                 clientId: this.clientId,
                 path: path
-            }).then((response) => {
-                this.isLoading = false;
-            }).catch((exception) => {
-                const errorDetail = Shopware.Utils.get(exception, 'response.data.errors[0].detail');
-                this.createNotificationError({
-                    title: this.$tc('global.default.error'),
-                    message: errorDetail,
-                });
-                this.isLoading = false;
             });
         },
 

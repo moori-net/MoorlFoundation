@@ -16,6 +16,7 @@ class ClientService
      * @var ClientInterface[]
      */
     private iterable $clients;
+    private array $_clients = [];
 
     public function __construct(
         EntityRepositoryInterface $clientRepository,
@@ -24,6 +25,34 @@ class ClientService
     {
         $this->clientRepository = $clientRepository;
         $this->clients = $clients;
+    }
+
+    public function getSize(string $clientId, string $path, Context $context): int
+    {
+        $client = $this->getClient($clientId, $context);
+        $filesystem = New Filesystem($client->getClientAdapter());
+        return $filesystem->getSize($path);
+    }
+
+    public function readStream(string $clientId, string $path, Context $context)
+    {
+        $client = $this->getClient($clientId, $context);
+        $filesystem = New Filesystem($client->getClientAdapter());
+        return $filesystem->readStream($path);
+    }
+
+    public function getMimetype(string $clientId, string $path, Context $context)
+    {
+        $client = $this->getClient($clientId, $context);
+        $filesystem = New Filesystem($client->getClientAdapter());
+        return $filesystem->getMimetype($path);
+    }
+
+    public function read(string $clientId, string $path, Context $context)
+    {
+        $client = $this->getClient($clientId, $context);
+        $filesystem = New Filesystem($client->getClientAdapter());
+        return $filesystem->read($path);
     }
 
     public function listContents(string $clientId, ?string $directory, Context $context): array
@@ -63,6 +92,10 @@ class ClientService
 
     private function getClient(string $clientId, Context $context): ClientInterface
     {
+        if (isset($this->_clients[$clientId])) {
+            return $this->_clients[$clientId];
+        }
+
         $criteria = new Criteria([$clientId]);
 
         /** @var ClientEntity $clientEntity */
@@ -75,6 +108,8 @@ class ClientService
         foreach ($this->clients as $client) {
             if ($clientEntity->getType() === $client->getClientName()) {
                 $client->setClientEntity($clientEntity);
+
+                $this->_clients[$clientId] = $client;
 
                 return $client;
             }
