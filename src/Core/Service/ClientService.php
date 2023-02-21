@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Service;
 
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemInterface;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
 use Shopware\Core\Framework\Context;
@@ -27,53 +28,57 @@ class ClientService
         $this->clients = $clients;
     }
 
+    public function publicUrl(string $clientId, string $path, Context $context): ?string
+    {
+        $filesystem = $this->getFilesystem($clientId, $context);
+        if (method_exists($filesystem, 'publicUrl')) {
+            return $filesystem->publicUrl($path);
+        }
+        return null;
+    }
+
+    public function temporaryUrl(string $clientId, string $path, $dateTimeOfExpiry, Context $context): ?string
+    {
+        $filesystem = $this->getFilesystem($clientId, $context);
+        if (method_exists($filesystem, 'temporaryUrl')) {
+            return $filesystem->temporaryUrl($path, $dateTimeOfExpiry);
+        }
+        return null;
+    }
+
     public function getSize(string $clientId, string $path, Context $context): int
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        return $filesystem->getSize($path);
+        return $this->getFilesystem($clientId, $context)->getSize($path);
     }
 
     public function readStream(string $clientId, string $path, Context $context)
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        return $filesystem->readStream($path);
+        return $this->getFilesystem($clientId, $context)->readStream($path);
     }
 
     public function getMimetype(string $clientId, string $path, Context $context)
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        return $filesystem->getMimetype($path);
+        return $this->getFilesystem($clientId, $context)->getMimetype($path);
     }
 
     public function read(string $clientId, string $path, Context $context)
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        return $filesystem->read($path);
+        return $this->getFilesystem($clientId, $context)->read($path);
     }
 
     public function listContents(string $clientId, ?string $directory, Context $context): array
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        return $filesystem->listContents($directory);
+        return $this->getFilesystem($clientId, $context)->listContents($directory);
     }
 
     public function createDir(string $clientId, ?string $dirname, Context $context): void
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        $filesystem->createDir($dirname);
+        $this->getFilesystem($clientId, $context)->createDir($dirname);
     }
 
     public function test(string $clientId, Context $context): array
     {
-        $client = $this->getClient($clientId, $context);
-        $filesystem = New Filesystem($client->getClientAdapter());
-        return $filesystem->listContents();
+        return $this->getFilesystem($clientId, $context)->listContents();
     }
     public function getOptions(): array
     {
@@ -88,6 +93,12 @@ class ClientService
         }
 
         return $options;
+    }
+
+    private function getFilesystem(string $clientId, Context $context): FilesystemInterface
+    {
+        $client = $this->getClient($clientId, $context);
+        return new Filesystem($client->getClientAdapter());
     }
 
     private function getClient(string $clientId, Context $context): ClientInterface
