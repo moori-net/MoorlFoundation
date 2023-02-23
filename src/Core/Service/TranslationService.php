@@ -103,6 +103,9 @@ class TranslationService
                 foreach ($translateDestination as $languageId) {
                     $translations[$languageId] = [];
                     foreach ($sources as $k => $v) {
+                        if (!$v) {
+                            continue;
+                        }
                         $translations[$languageId][$k] = $this->translateField($v, $this->languages[$languageId]);
                     }
                 }
