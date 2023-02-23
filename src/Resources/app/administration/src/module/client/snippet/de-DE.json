@@ -6,12 +6,19 @@
             "config": "Konfiguration"
         },
         "properties": {
+            "root": "Root directory",
+            "host": "Host",
+            "port": "Port",
+            "username": "Benutzername",
+            "password": "Passwort",
+            "ssl": "SSL",
+            "timeout": "Timeout",
+            "utf8": "UTF8",
+            "passive": "Passiv",
             "name": "Name",
             "type": "Typ",
             "active": "Aktiv"
         },
-        "helpText": {
-
-        }
+        "helpText": {}
     }
 }
