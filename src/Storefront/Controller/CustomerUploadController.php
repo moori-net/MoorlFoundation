@@ -6,8 +6,6 @@ use MoorlFoundation\Storefront\Event\CustomerUploadDoneEvent;
 use MoorlFoundation\Storefront\Event\CustomerUploadEvent;
 use MoorlFoundation\Storefront\Event\CustomerUploadFilenameEvent;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderEntity;
-use Shopware\Core\Content\Media\DataAbstractionLayer\MediaFolderRepositoryDecorator;
-use Shopware\Core\Content\Media\DataAbstractionLayer\MediaRepositoryDecorator;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaService;
@@ -18,13 +16,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route(defaults={"_routeScope"={"storefront"}})
@@ -33,15 +28,15 @@ class CustomerUploadController extends StorefrontController
 {
     private EventDispatcherInterface $eventDispatcher;
     private MediaService $mediaService;
-    private MediaRepositoryDecorator $mediaRepository;
-    private MediaFolderRepositoryDecorator $mediaFolderRepository;
+    private EntityRepositoryInterface $mediaRepository;
+    private EntityRepositoryInterface $mediaFolderRepository;
     private EntityRepositoryInterface $mediaDefaultFolderRepository;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         MediaService $mediaService,
-        MediaRepositoryDecorator $mediaRepository,
-        MediaFolderRepositoryDecorator $mediaFolderRepository,
+        EntityRepositoryInterface $mediaRepository,
+        EntityRepositoryInterface $mediaFolderRepository,
         EntityRepositoryInterface $mediaDefaultFolderRepository
     )
     {
