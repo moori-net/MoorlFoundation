@@ -20,7 +20,8 @@ Component.register('moorl-file-explorer', {
     props: [
         'value',
         'clientId',
-        'showActions'
+        'showActions',
+        'placeholder',
     ],
 
     data() {
