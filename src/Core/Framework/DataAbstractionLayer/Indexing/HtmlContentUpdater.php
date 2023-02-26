@@ -154,6 +154,9 @@ SQL;
                 if ($tag->getAttribute('id')) {
                     continue;
                 }
+                if ($tag->hasAttribute('data-no-id')) {
+                    continue;
+                }
 
                 $slug = $this->slugify($tag->textContent);
                 if (in_array($slug, $slugs)) {
