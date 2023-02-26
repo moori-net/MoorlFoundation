@@ -7,7 +7,7 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableTransaction;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
@@ -19,7 +19,7 @@ class EntityTreeIndexer extends EntityIndexer
 {
     protected IteratorFactory $iteratorFactory;
     protected Connection $connection;
-    protected EntityRepositoryInterface $repository;
+    protected EntityRepository $repository;
     protected ?ChildCountUpdater $childCountUpdater;
     protected ?TreeUpdater $treeUpdater;
     protected ?EntityBreadcrumbUpdater $breadcrumbUpdater;
@@ -29,7 +29,7 @@ class EntityTreeIndexer extends EntityIndexer
     public function __construct(
         Connection $connection,
         IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository,
+        EntityRepository $repository,
         ?ChildCountUpdater $childCountUpdater = null,
         ?TreeUpdater $treeUpdater = null,
         ?EntityBreadcrumbUpdater $breadcrumbUpdater = null

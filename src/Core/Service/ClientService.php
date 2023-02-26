@@ -7,12 +7,11 @@ use League\Flysystem\FilesystemInterface;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class ClientService
 {
-    private EntityRepositoryInterface $clientRepository;
     /**
      * @var ClientInterface[]
      */
@@ -20,11 +19,10 @@ class ClientService
     private array $_clients = [];
 
     public function __construct(
-        EntityRepositoryInterface $clientRepository,
+        private readonly EntityRepository $clientRepository,
         iterable $clients
     )
     {
-        $this->clientRepository = $clientRepository;
         $this->clients = $clients;
     }
 

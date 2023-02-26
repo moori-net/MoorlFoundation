@@ -16,13 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class FileExplorerController
 {
-    private ClientService $clientService;
-
     public function __construct(
-        ClientService $clientService
+        private readonly ClientService $clientService
     )
     {
-        $this->clientService = $clientService;
     }
 
     /**
@@ -59,7 +56,7 @@ class FileExplorerController
         $disposition = HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, basename($path));
         $response->headers->set('Content-Disposition', $disposition);
         $response->headers->set('Content-Type', $this->clientService->getMimetype($clientId, $path, $context));
-        $response->headers->set('Content-Length', $this->clientService->getSize($clientId, $path, $context));
+        $response->headers->set('Content-Length', (string) $this->clientService->getSize($clientId, $path, $context));
         $response->headers->set('Content-Transfer-Encoding', 'binary');
 
         return $response;
@@ -87,7 +84,7 @@ class FileExplorerController
         $disposition = HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, basename($path));
         $response->headers->set('Content-Disposition', $disposition);
         $response->headers->set('Content-Type', 'application/octet-stream');
-        $response->headers->set('Content-Length', $this->clientService->getSize($clientId, $path, $context));
+        $response->headers->set('Content-Length', (string) $this->clientService->getSize($clientId, $path, $context));
         $response->headers->set('Content-Transfer-Encoding', 'binary');
 
         return $response;

@@ -7,7 +7,7 @@ use MoorlFoundation\Core\Service\LocationServiceV2;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
@@ -18,7 +18,7 @@ class EntityLocationIndexer extends EntityIndexer
 {
     protected IteratorFactory $iteratorFactory;
     protected Connection $connection;
-    protected EntityRepositoryInterface $repository;
+    protected EntityRepository $repository;
     protected EventDispatcherInterface $eventDispatcher;
     protected LocationServiceV2 $locationServiceV2;
 
@@ -27,7 +27,7 @@ class EntityLocationIndexer extends EntityIndexer
     public function __construct(
         Connection $connection,
         IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository,
+        EntityRepository $repository,
         EventDispatcherInterface $eventDispatcher,
         LocationServiceV2 $locationServiceV2
     ) {

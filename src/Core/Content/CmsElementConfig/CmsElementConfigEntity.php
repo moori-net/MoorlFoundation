@@ -11,26 +11,10 @@ class CmsElementConfigEntity extends Entity
     use EntityIdTrait;
     use EntityCustomFieldsTrait;
 
-    /**
-     * @var string
-     */
-    protected $id;
-    /**
-     * @var string|null
-     */
-    protected $name;
-    /**
-     * @var string|null
-     */
-    protected $type;
-    /**
-     * @var array|null
-     */
-    protected $config;
-    /**
-     * @var array|null
-     */
-    protected $data;
+    protected ?string $name;
+    protected ?string $type;
+    protected ?array $config;
+    protected ?array $data;
 
     /**
      * @return array|null

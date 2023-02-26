@@ -37,7 +37,7 @@
 
 ## 1.4.1041
 
-* Restored EntityRepositoryInterface typehint
+* Restored EntityRepository typehint
 
 ## 1.4.1040
 
@@ -45,7 +45,7 @@
 
 ## 1.4.1030
 
-* Replaced EntityRepositoryInterface typehint
+* Replaced EntityRepository typehint
 * Added unified entity indexer for tree, breadcrumb, and stock
 
 ## 1.4.1020

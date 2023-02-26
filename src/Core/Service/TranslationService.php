@@ -18,8 +18,6 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class TranslationService
 {
-    private SystemConfigService $systemConfigService;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
     private ?Translator $translator = null;
     private Context $context;
     private array $languages = [];
@@ -31,13 +29,11 @@ class TranslationService
     private iterable $entityTranslations;
 
     public function __construct(
-        SystemConfigService $systemConfigService,
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
         iterable $entityTranslations
     )
     {
-        $this->systemConfigService = $systemConfigService;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
         $this->entityTranslations = $entityTranslations;
     }
 

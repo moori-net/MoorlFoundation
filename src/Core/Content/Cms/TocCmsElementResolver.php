@@ -11,11 +11,10 @@ use Shopware\Core\Framework\Util\HtmlSanitizer;
 
 class TocCmsElementResolver extends TextCmsElementResolver
 {
-    private HtmlSanitizer $sanitizer;
-
-    public function __construct(HtmlSanitizer $sanitizer)
+    public function __construct(
+        private readonly HtmlSanitizer $sanitizer
+    )
     {
-        $this->sanitizer = $sanitizer;
     }
 
     public function getType(): string

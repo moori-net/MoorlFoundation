@@ -4,14 +4,13 @@ namespace MoorlFoundation\Storefront\Controller;
 
 use Shopware\Core\Content\Product\Exception\ProductNotFoundException;
 use Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader;
+use Shopware\Core\Content\Product\SalesChannel\FindVariant\AbstractFindProductVariantRoute;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
 use Shopware\Storefront\Framework\Cache\Annotation\HttpCache;
-use Shopware\Storefront\Page\Product\Configurator\ProductCombinationFinder;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,18 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductBuyListController extends StorefrontController
 {
-    private SalesChannelRepositoryInterface $productRepository;
-    private ProductConfiguratorLoader $configuratorLoader;
-    private ProductCombinationFinder $combinationFinder;
-
     public function __construct(
-        SalesChannelRepositoryInterface $productRepository,
-        ProductConfiguratorLoader $configuratorLoader,
-        ProductCombinationFinder $combinationFinder
+        private readonly SalesChannelRepository $productRepository,
+        private readonly ProductConfiguratorLoader $configuratorLoader,
+        private readonly AbstractFindProductVariantRoute $findProductVariantRoute
     ) {
-        $this->productRepository = $productRepository;
-        $this->configuratorLoader = $configuratorLoader;
-        $this->combinationFinder = $combinationFinder;
     }
 
     /**
@@ -41,23 +33,11 @@ class ProductBuyListController extends StorefrontController
      */
     public function switch(string $productId, SalesChannelContext $salesChannelContext, Request $request): Response
     {
-        $switchedOption = $request->query->has('switched') ? (string) $request->query->get('switched') : null;
-
-        $options = (string) $request->query->get('options');
-
         try {
-            $newOptions = json_decode($options, true, 512, \JSON_THROW_ON_ERROR);
-        } catch (\JsonException $jsonException) {
-            $newOptions = [];
-        }
+            $redirect = $this->findProductVariantRoute->load($productId, $request, $salesChannelContext);
 
-        try {
-            $redirect = $this->combinationFinder->find($productId, $switchedOption, $newOptions, $salesChannelContext);
-
-            $productId = $redirect->getVariantId();
-        } catch (ProductNotFoundException $productNotFoundException) {
-            //nth
-        }
+            $productId = $redirect->getFoundCombination()->getVariantId();
+        } catch (ProductNotFoundException $productNotFoundException) {}
 
         $criteria = new Criteria([$productId]);
 

@@ -14,16 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SettingsController
 {
-    private DataService $dataService;
-    private ?ClientService $clientService;
-
     public function __construct(
-        DataService $dataService,
-        ?ClientService $clientService = null
+        private readonly DataService $dataService,
+        private readonly ?ClientService $clientService = null
     )
     {
-        $this->dataService = $dataService;
-        $this->clientService = $clientService;
     }
 
     /**
