@@ -4,7 +4,7 @@
     {% if name == 'icon' and fileName %}
         {% set name = fileName %}
     {% endif %}
-    {% set styles = [ size, color, rotation, flip, class ] %}
+    {% set styles = [ size, color, rotation, flip, class, inline ] %}
     {% set iconPacks = {
         fab: 'fa/brands/',
         far: 'fa/regular/',
