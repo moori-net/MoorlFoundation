@@ -2,7 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemAdapter;
 
 class ClientExtension
 {
@@ -24,7 +24,7 @@ class ClientExtension
         ];
     }
 
-    public function getClientAdapter(): ?AdapterInterface
+    public function getClientAdapter(): ?FilesystemAdapter
     {
         return null;
     }

@@ -35,13 +35,16 @@
 @import "helpers/cms-helpers";
 @import "helpers/foundation-demo-html";
 
+.icon-inline {
+  > svg {
+    top: auto !important;
+  }
+}
+
 .icon-far,
 .icon-fas,
 .icon-fab {
   color: inherit;
-  /*> svg {
-    top: auto;
-  }*/
 }
 
 .btn {

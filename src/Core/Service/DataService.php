@@ -2,11 +2,11 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use League\Flysystem\Filesystem;
 use MoorlFoundation\Core\System\DataInterface;
 use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use League\Flysystem\FilesystemInterface;
 use Shopware\Core\Content\MailTemplate\MailTemplateActions;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
@@ -28,48 +28,32 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DataService
 {
-    private Connection $connection;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
-    private MediaService $mediaService;
-    private FileSaver $fileSaver;
     private Context $context;
     private ClientInterface $client;
     private ?string $salesChannelId = null;
     private ?string $themeId = null;
     private string $demoCustomerMail;
     private ?string $customerId = null;
-    private string $projectDir;
     private array $mediaCache = [];
     private EntityCollection $taxes;
-    private FilesystemInterface $filesystem;
-    private ThemeService $themeService;
     /**
      * @var DataInterface[]
      */
     private iterable $dataObjects;
 
     public function __construct(
-        Connection $connection,
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        MediaService $mediaService,
-        FileSaver $fileSaver,
-        FilesystemInterface $filesystem,
-        ThemeService $themeService,
-        string $projectDir,
+        private readonly Connection $connection,
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly MediaService $mediaService,
+        private readonly FileSaver $fileSaver,
+        private readonly Filesystem $filesystem,
+        private readonly ThemeService $themeService,
+        private readonly string $projectDir,
         iterable $dataObjects
     )
     {
-        $this->connection = $connection;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->mediaService = $mediaService;
-        $this->fileSaver = $fileSaver;
         $this->dataObjects = $dataObjects;
-        $this->filesystem = $filesystem;
-        $this->themeService = $themeService;
-        $this->projectDir = $projectDir;
 
         $this->context = Context::createDefaultContext();
         $this->client = new Client([
@@ -312,7 +296,7 @@ TWIG;
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
             $dataObject->getPluginName()
         );
-        $this->themeId = $this->connection->executeQuery($sql)->fetchColumn() ?: null;
+        $this->themeId = $this->connection->executeQuery($sql)->fetchOne() ?: null;
         $globalReplacers['{THEME_ID}'] = $this->themeId;
 
         if (!$this->customerId) {
@@ -320,19 +304,19 @@ TWIG;
                 "SELECT LOWER(HEX(`id`)) AS `id` FROM `customer` WHERE `email` = '%s';",
                 $this->demoCustomerMail
             );
-            $this->customerId = $this->connection->executeQuery($sql)->fetchColumn() ?: null;
+            $this->customerId = $this->connection->executeQuery($sql)->fetchOne() ?: null;
         }
 
         $sql = "SELECT LOWER(HEX(`rule_id`)) AS `id` FROM `rule_condition` WHERE `type` = 'alwaysValid';";
-        $globalReplacers['{RULE_ID}'] = $this->connection->executeQuery($sql)->fetchColumn();
+        $globalReplacers['{RULE_ID}'] = $this->connection->executeQuery($sql)->fetchOne();
 
         $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `delivery_time` LIMIT 1;";
-        $globalReplacers['{DELIVERY_TIME_ID}'] = $this->connection->executeQuery($sql)->fetchColumn();
+        $globalReplacers['{DELIVERY_TIME_ID}'] = $this->connection->executeQuery($sql)->fetchOne();
 
         $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` ORDER BY `tax_rate` DESC LIMIT 2;";
         $query = $this->connection->executeQuery($sql);
-        $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchColumn();
-        $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchColumn();
+        $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchOne();
+        $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchOne();
 
         $sql = "SELECT LOWER(HEX(`language`.`id`)) AS `id`, `locale`.`code` AS `code` FROM `language` LEFT JOIN `locale` ON `locale`.`id` = `language`.`locale_id`";
         $query = $this->connection->executeQuery($sql);

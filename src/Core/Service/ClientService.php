@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Service;
 
 use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemInterface;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
 use Shopware\Core\Framework\Context;
@@ -66,7 +65,7 @@ class ClientService
 
     public function listContents(string $clientId, ?string $directory, Context $context): array
     {
-        return $this->getFilesystem($clientId, $context)->listContents($directory);
+        return $this->getFilesystem($clientId, $context)->listContents($directory)->toArray();
     }
 
     public function createDir(string $clientId, ?string $dirname, Context $context): void
@@ -76,7 +75,7 @@ class ClientService
 
     public function test(string $clientId, Context $context): array
     {
-        return $this->getFilesystem($clientId, $context)->listContents();
+        return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
     }
     public function getOptions(): array
     {
@@ -93,7 +92,7 @@ class ClientService
         return $options;
     }
 
-    private function getFilesystem(string $clientId, Context $context): FilesystemInterface
+    private function getFilesystem(string $clientId, Context $context): Filesystem
     {
         $client = $this->getClient($clientId, $context);
         return new Filesystem($client->getClientAdapter());

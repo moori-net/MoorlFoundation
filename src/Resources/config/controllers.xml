@@ -19,7 +19,7 @@
         <service id="MoorlFoundation\Storefront\Controller\ProductBuyListController" public="true">
             <argument type="service" id="sales_channel.product.repository"/>
             <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader"/>
-            <argument type="service" id="Shopware\Storefront\Page\Product\Configurator\ProductCombinationFinder"/>
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\FindVariant\FindProductVariantRoute"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container"/>

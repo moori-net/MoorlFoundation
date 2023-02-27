@@ -2,8 +2,8 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 
 class ClientLocal extends ClientExtension implements ClientInterface
 {
@@ -16,8 +16,8 @@ class ClientLocal extends ClientExtension implements ClientInterface
         ];
     }
 
-    public function getClientAdapter(): ?AdapterInterface
+    public function getClientAdapter(): ?FilesystemAdapter
     {
-        return new Local($this->clientEntity->getConfig()['root']);
+        return new LocalFilesystemAdapter($this->clientEntity->getConfig()['root']);
     }
 }

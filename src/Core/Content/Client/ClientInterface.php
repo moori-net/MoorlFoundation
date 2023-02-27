@@ -2,14 +2,14 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemAdapter;
 
 interface ClientInterface
 {
     public function getClientType(): string;
     public function getClientName(): string;
     public function getClientConfigTemplate(): ?array;
-    public function getClientAdapter(): ?AdapterInterface;
+    public function getClientAdapter(): ?FilesystemAdapter;
     public function getClient(): ?\GuzzleHttp\ClientInterface;
     public function setClientEntity(ClientEntity $clientEntity): void;
 }

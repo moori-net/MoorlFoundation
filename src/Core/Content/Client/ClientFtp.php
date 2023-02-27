@@ -2,8 +2,8 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use League\Flysystem\Adapter\Ftp;
-use League\Flysystem\AdapterInterface;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\Ftp\FtpAdapter;
 
 class ClientFtp extends ClientExtension implements ClientInterface
 {
@@ -23,8 +23,8 @@ class ClientFtp extends ClientExtension implements ClientInterface
         ];
     }
 
-    public function getClientAdapter(): ?AdapterInterface
+    public function getClientAdapter(): ?FilesystemAdapter
     {
-        return new Ftp($this->clientEntity->getConfig());
+        return new FtpAdapter($this->clientEntity->getConfig());
     }
 }

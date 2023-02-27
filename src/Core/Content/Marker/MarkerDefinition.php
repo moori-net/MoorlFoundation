@@ -48,7 +48,7 @@ class MarkerDefinition extends EntityDefinition
             (new StringField('type', 'type'))->addFlags(new EditField('text')),
             (new StringField('name', 'name'))->addFlags(new EditField('text'), new Required()),
             (new StringField('class_name', 'className'))->addFlags(new EditField('text')),
-            (new LongTextField('svg', 'svg'))->addFlags(new EditField('text'), new AllowHtml()),
+            (new LongTextField('svg', 'svg'))->addFlags(new EditField('text'), new AllowHtml(false)),
             (new ManyToOneAssociationField('marker', 'marker_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             (new ManyToOneAssociationField('markerShadow', 'marker_shadow_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             (new ManyToOneAssociationField('markerRetina', 'marker_retina_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
