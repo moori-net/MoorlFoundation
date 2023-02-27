@@ -2,7 +2,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-object-address',
+    icon: 'regular-address',
     name: 'moorl-address',
     label: 'sw-cms.elements.moorl-address.name',
     component: true,

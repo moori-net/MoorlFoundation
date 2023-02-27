@@ -3,7 +3,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-action-cloud-download',
+    icon: 'regular-cloud-download',
     name: 'moorl-download-list',
     label: 'sw-cms.elements.moorl-download-list.name',
     component: 'sw-cms-el-moorl-download-list',

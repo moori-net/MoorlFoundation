@@ -1,6 +1,6 @@
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-action-filter',
+    icon: 'regular-filter',
     name: 'moorl-sidebar-filter',
     label: 'sw-cms.elements.moorl-sidebar-filter.title',
     component: 'sw-cms-el-sidebar-filter',

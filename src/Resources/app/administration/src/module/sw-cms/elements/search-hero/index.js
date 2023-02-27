@@ -4,7 +4,7 @@ import './config';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-action-search',
+    icon: 'regular-search',
     name: 'moorl-search-hero',
     label: 'sw-cms.elements.moorl-search-hero.title',
     component: 'sw-cms-el-moorl-search-hero',

@@ -44,12 +44,16 @@ class EntityTreeIndexer extends EntityIndexer
         $this->entityName = $repository->getDefinition()->getEntityName();
     }
 
+    public function getDecorated(): EntityIndexer
+    {
+    }
+
     public function getName(): string
     {
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */$offset): ?EntityIndexingMessage
+    public function iterate(?array $offset): ?EntityIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 

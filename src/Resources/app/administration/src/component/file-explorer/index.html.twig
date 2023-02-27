@@ -7,7 +7,7 @@
 
     <div v-if="showActions" class="moorl-file-explorer-actions">
         <sw-button @click="showCreateDirModal = true">
-            <sw-icon name="default-action-save" small/>
+            <sw-icon name="regular-save" small/>
             {{ $tc('moorl-file-explorer.actions.createDir') }}
         </sw-button>
     </div>
@@ -46,7 +46,7 @@
                             square
                             @click="deleteDir(item.path)"
                     >
-                        <sw-icon name="default-action-trash" small/>
+                        <sw-icon name="regular-trash" small/>
                     </sw-button>
                 </div>
             </li>
@@ -69,7 +69,7 @@
                             square
                             @click="delete(item.path)"
                     >
-                        <sw-icon name="default-action-trash" small/>
+                        <sw-icon name="regular-trash" small/>
                     </sw-button>
                 </div>
             </li>

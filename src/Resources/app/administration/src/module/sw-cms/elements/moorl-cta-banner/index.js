@@ -12,7 +12,7 @@ productCriteria.addAssociation('cover.media');
 Application.getContainer('service').cmsService.registerCmsElement({
     hidden: true,
     plugin: 'MoorlFoundation',
-    icon: 'default-object-marketing',
+    icon: 'regular-marketing',
     name: 'moorl-cta-banner-base',
     label: 'sw-cms.elements.moorl-cta-banner.title',
     component: 'sw-cms-el-moorl-cta-banner',

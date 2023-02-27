@@ -8,7 +8,7 @@ Module.register('moorl-marker', {
     name: 'MerchantFinder',
     title: 'moorl-marker.title',
     color: '#ff3d58',
-    icon: 'default-object-globe',
+    icon: 'regular-globe',
     routes: {
         list: {
             component: 'moorl-marker-list',
@@ -34,7 +34,7 @@ Module.register('moorl-marker', {
             name: 'moorl-marker-list',
             to: 'moorl.marker.list',
             group: 'plugins',
-            icon: 'default-object-globe',
+            icon: 'regular-globe',
             label: 'moorl-marker.title'
         }
     ]

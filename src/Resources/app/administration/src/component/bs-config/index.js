@@ -24,24 +24,28 @@ Component.register('moorl-bs-config', {
         defaultBehaviour() {
             return [
                 {
-                    'icon': 'default-device-mobile',
+                    'icon': 'regular-mobile',
                     'breakpoint': 'xs'
                 },
                 {
-                    'icon': 'default-device-mobile',
+                    'icon': 'regular-mobile',
                     'breakpoint': 'sm'
                 },
                 {
-                    'icon': 'default-device-tablet',
+                    'icon': 'regular-tablet',
                     'breakpoint': 'md'
                 },
                 {
-                    'icon': 'default-device-tablet',
+                    'icon': 'regular-tablet',
                     'breakpoint': 'lg'
                 },
                 {
-                    'icon': 'default-device-desktop',
+                    'icon': 'regular-desktop',
                     'breakpoint': 'xl'
+                },
+                {
+                    'icon': 'regular-desktop',
+                    'breakpoint': 'xxl'
                 },
             ];
         },
