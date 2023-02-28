@@ -136,7 +136,6 @@
                   method="post"
                   data-add-to-cart="true"
                   class="product-buy-form">
-                {{ sw_csrf('frontend.checkout.line-item.add') }}
                 <input type="hidden" name="lineItems[{{ product.id }}][id]" value="{{ product.id }}">
                 <input type="hidden" name="lineItems[{{ product.id }}][type]" value="product">
                 <input type="hidden" name="lineItems[{{ product.id }}][referencedId]" value="{{ product.id }}">

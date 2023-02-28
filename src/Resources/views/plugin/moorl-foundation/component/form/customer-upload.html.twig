@@ -3,7 +3,6 @@
 {% set customerUploadOptions = {
     url: path('moorl.customer-upload.send'),
     params: {
-        _csrf_token: sw_csrf('moorl.customer-upload.send', {mode: 'raw'}),
         entityId: entityId,
         initiator: initiator,
         redirectParameters: redirectParameters,

@@ -46,7 +46,6 @@
                 <form action="{{ path('frontend.checkout.line-item.add') }}"
                       method="post"
                       data-add-to-cart="true">
-                    {{ sw_csrf('frontend.checkout.line-item.add') }}
                     <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
                     <div class="form-values"><!-- Will be set by JavaScript --></div>
                     <button data-moorl-product-buy-list-button

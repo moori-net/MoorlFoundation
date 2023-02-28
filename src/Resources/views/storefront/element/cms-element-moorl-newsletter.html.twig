@@ -29,7 +29,6 @@
         {% endif %}
 
         <div class="form-hidden-fields">
-            {{ sw_csrf('frontend.form.newsletter.register.handle') }}
             <input type="hidden" name="option" value="{{ constant('Shopware\\Storefront\\Controller\\FormController::SUBSCRIBE') }}">
             <input type="submit" class="submit--hidden d-none" />
         </div>
