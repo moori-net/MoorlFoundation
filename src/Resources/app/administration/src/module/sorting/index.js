@@ -38,6 +38,6 @@ Module.register('moorl-sorting', {
         privilege: 'system.system_config',
         to: 'moorl.sorting.list',
         group: 'plugins',
-        icon: 'default-package-gift'
+        icon: 'regular-sort'
     }
 });

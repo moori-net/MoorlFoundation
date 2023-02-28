@@ -6,7 +6,7 @@ use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -19,7 +19,7 @@ interface EntityListingInterface
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void;
     public function setSalesChannelContext(SalesChannelContext $salesChannelContext): void;
     public function setEvent(ProductListingResultEvent $event): void;
-    public function getSalesChannelRepository(): ?SalesChannelRepositoryInterface;
+    public function getSalesChannelRepository(): ?SalesChannelRepository;
     public function getLimit(): int;
     public function getEntityName(): string;
     public function getTitle(): string;

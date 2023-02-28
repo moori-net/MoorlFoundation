@@ -155,6 +155,18 @@
         </service>
 
         <!-- CMS Resolver -->
+
+        <!-- https://github.com/shopware/platform/issues/2999 Legacy TextCmsElementResolver -->
+        <service id="MoorlFoundation\Core\Content\Cms\TextCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\TocCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Framework\Util\HtmlSanitizer"/>
+
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\AddressCmsElementResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>

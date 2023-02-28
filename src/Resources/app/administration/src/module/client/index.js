@@ -8,7 +8,7 @@ Module.register('moorl-client', {
     name: 'MerchantFinder',
     title: 'moorl-client.title',
     color: '#ff3d58',
-    icon: 'regular-log-in',
+    icon: 'regular-sign-in',
     routes: {
         list: {
             component: 'moorl-client-list',
@@ -34,7 +34,7 @@ Module.register('moorl-client', {
             name: 'moorl-client-list',
             to: 'moorl.client.list',
             group: 'plugins',
-            icon: 'regular-log-in',
+            icon: 'regular-sign-in',
             label: 'moorl-client.title'
         }
     ]

@@ -5,13 +5,12 @@ namespace MoorlFoundation\Core\System;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
-use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,12 +24,12 @@ class EntityListingExtension implements EntityListingInterface
     protected ?ProductListingResultEvent $event = null;
     protected EventDispatcherInterface $eventDispatcher;
     protected Request $request;
-    protected ?SalesChannelRepositoryInterface $salesChannelRepository = null;
+    protected ?SalesChannelRepository $salesChannelRepository = null;
     protected ?Filter $filter = null;
     protected ?string $route;
 
     public function __construct(
-        ?SalesChannelRepositoryInterface $salesChannelRepository = null
+        ?SalesChannelRepository $salesChannelRepository = null
     )
     {
         $this->salesChannelRepository = $salesChannelRepository;
@@ -120,9 +119,9 @@ class EntityListingExtension implements EntityListingInterface
     }
 
     /**
-     * @return SalesChannelRepositoryInterface|null
+     * @return SalesChannelRepository|null
      */
-    public function getSalesChannelRepository(): ?SalesChannelRepositoryInterface
+    public function getSalesChannelRepository(): ?SalesChannelRepository
     {
         return $this->salesChannelRepository;
     }
@@ -187,7 +186,7 @@ class EntityListingExtension implements EntityListingInterface
     {
         $criteria = clone $origin;
 
-        $this->salesChannelContext->getContext()->addState(Context::STATE_ELASTICSEARCH_AWARE);
+        $this->salesChannelContext->getContext()->addState(Criteria::STATE_ELASTICSEARCH_AWARE);
         $ids = $this->salesChannelRepository->searchIds($criteria, $this->salesChannelContext);
 
         $aggregations = $this->salesChannelRepository->aggregate($criteria, $this->salesChannelContext);

@@ -34,7 +34,7 @@ Module.register('moorl-marker', {
             name: 'moorl-marker-list',
             to: 'moorl.marker.list',
             group: 'plugins',
-            icon: 'regular-globe',
+            icon: 'regular-map',
             label: 'moorl-marker.title'
         }
     ]

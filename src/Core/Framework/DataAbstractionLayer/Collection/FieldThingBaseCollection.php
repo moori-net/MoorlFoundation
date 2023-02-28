@@ -34,7 +34,7 @@ class FieldThingBaseCollection extends FieldCollection
     {
         return [
             (new StringField('name', 'name'))->addFlags(new Required()),
-            (new LongTextField('description', 'description'))->addFlags(new AllowHtml()),
+            (new LongTextField('description', 'description'))->addFlags(new AllowHtml(false)),
             new LongTextField('keywords', 'keywords')
         ];
     }

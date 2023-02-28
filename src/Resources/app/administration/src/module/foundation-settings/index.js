@@ -31,7 +31,7 @@ Module.register('moorl-foundation-settings', {
             name: 'moorl-foundation-settings-demo-data',
             to: 'moorl.foundation.settings.demodata',
             group: 'plugins',
-            icon: 'default-package-gift',
+            icon: 'regular-database',
             label: 'moorl-foundation.label.settingsDemoData'
         },
         {
@@ -39,7 +39,7 @@ Module.register('moorl-foundation-settings', {
             name: 'moorl-cms-element-config',
             to: 'moorl.foundation.settings.cmselementconfig',
             group: 'plugins',
-            icon: 'default-package-gift',
+            icon: 'regular-layout',
             label: 'moorl-foundation.label.settingsCmsElementConfig'
         }
     ]

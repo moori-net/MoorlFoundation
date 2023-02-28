@@ -97,7 +97,7 @@ SQL;
             $foreignKey
         );
 
-        $data = $this->connection->fetchAll(
+        $data = $this->connection->fetchAllAssociative(
             $sql,
             ['ids' => Uuid::fromHexToBytesList($ids), 'languageId' => $languageId],
             ['ids' => Connection::PARAM_STR_ARRAY]

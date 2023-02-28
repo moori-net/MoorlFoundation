@@ -96,7 +96,7 @@
                     {% else %}
                         <a itemprop="url"
                            href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
-                           data-toggle="modal"
+                           data-bs-toggle="modal"
                            data-modal-class="quickview-modal"
                            data-url="{{ path('widgets.quickview.minimal', { 'productId': product.id }) }}">
                         <span itemprop="name">
