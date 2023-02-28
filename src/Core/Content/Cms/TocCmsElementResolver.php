@@ -4,10 +4,11 @@ namespace MoorlFoundation\Core\Content\Cms;
 
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
+use Shopware\Core\Content\Cms\DataResolver\Element\TextCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Content\Cms\SalesChannel\Struct\TextStruct;
 
-class TocCmsElementResolver extends TextCmsElementResolver
+class TocCmsElementResolver extends LegacyTextCmsElementResolver
 {
     public function getType(): string
     {

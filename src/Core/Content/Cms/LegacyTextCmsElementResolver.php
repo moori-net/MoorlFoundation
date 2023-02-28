@@ -9,21 +9,15 @@ use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Content\Cms\SalesChannel\Struct\TextStruct;
+use Shopware\Core\Framework\Util\HtmlSanitizer;
 
 /**
  * Legacy TextCmsElementResolver
  * @deprecated Replace/remove if fixed
  * @link https://github.com/shopware/platform/issues/2999
  */
-class TextCmsElementResolver extends AbstractCmsElementResolver
+class LegacyTextCmsElementResolver extends AbstractCmsElementResolver
 {
-    /**
-     * @internal
-     */
-    public function __construct()
-    {
-    }
-
     public function getType(): string
     {
         return 'text';

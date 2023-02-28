@@ -156,9 +156,9 @@
 
         <!-- CMS Resolver -->
 
-        <!-- https://github.com/shopware/platform/issues/2999 Legacy TextCmsElementResolver -->
-        <service id="MoorlFoundation\Core\Content\Cms\TextCmsElementResolver">
-            <tag name="shopware.cms.data_resolver"/>
+        <!-- https://github.com/shopware/platform/issues/2999 -->
+        <service id="MoorlFoundation\Core\Content\Cms\LegacyTextCmsElementResolver">
+            <tag name="shopware.cms.data_resolver" priority="-9999"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Cms\TocCmsElementResolver">
