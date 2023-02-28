@@ -30,13 +30,13 @@
         {% if enableAddToCartAll %}
             <div class="moorl-product-buy-list-form">
                 <div class="mb-2">
-                    <div class="text-left">
+                    <div class="text-start">
                         {{ "moorl-foundation.general.selectedItems"|trans|sw_sanitize }}:
                         <span class="selected-items">0</span>
                     </div>
 
                     {% if enablePrices %}
-                        <div class="text-right">
+                        <div class="text-end">
                             {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
                             <span class="total-price">{{ 0|currency }}</span>
                         </div>
@@ -48,12 +48,15 @@
                       data-add-to-cart="true">
                     <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
                     <div class="form-values"><!-- Will be set by JavaScript --></div>
-                    <button data-moorl-product-buy-list-button
-                            class="btn btn-primary btn-block btn-buy"
-                            title="{{ "detail.addProduct"|trans|striptags }}"
-                            aria-label="{{ "detail.addProduct"|trans|striptags }}">
-                        {{ "detail.addProduct"|trans|striptags }}
-                    </button>
+
+                    <div class="d-grid">
+                        <button data-moorl-product-buy-list-button
+                                class="btn btn-primary btn-buy"
+                                title="{{ "detail.addProduct"|trans|striptags }}"
+                                aria-label="{{ "detail.addProduct"|trans|striptags }}">
+                            {{ "detail.addProduct"|trans|striptags }}
+                        </button>
+                    </div>
                 </form>
             </div>
         {% endif %}
