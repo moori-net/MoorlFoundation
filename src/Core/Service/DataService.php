@@ -653,11 +653,7 @@ SQL;
             return $this->mediaCache[$name];
         }
 
-        if (version_compare(phpversion(), '8', '>')) {
-            $headers = get_headers($name, true);
-        } else {
-            $headers = get_headers($name, 1);
-        }
+        $headers = get_headers($name, true);
 
         if (!isset($headers['Content-Type'])) {
             if (is_array($headers['Content-Type'])) {
