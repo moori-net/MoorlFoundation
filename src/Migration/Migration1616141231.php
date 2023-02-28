@@ -12,7 +12,7 @@ class Migration1616141231 extends MigrationStep
 
     public function getCreationTimestamp(): int
     {
-        return 1616141231;
+        return 1_616_141_231;
     }
 
     public function update(Connection $connection): void

@@ -4,8 +4,8 @@ namespace MoorlFoundation\Core\Framework\GeoLocation;
 
 class Earth {
 
-  const RADIUS_KM = 6371.01;
-  const RADIUS_MI = 3958.762079;
+  final const RADIUS_KM = 6371.01;
+  final const RADIUS_MI = 3958.762079;
   public static $MIN_LAT;  // -PI/2
   public static $MAX_LAT;  //  PI/2
   public static $MIN_LON;  // -PI

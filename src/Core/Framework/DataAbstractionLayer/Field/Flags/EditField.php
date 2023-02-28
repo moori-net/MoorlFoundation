@@ -6,14 +6,8 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
 class EditField extends Flag
 {
-    private ?string $type;
-
-    private ?array $options;
-
-    public function __construct(?string $type = null, ?array $options = null)
+    public function __construct(private readonly ?string $type = null, private readonly ?array $options = null)
     {
-        $this->type = $type;
-        $this->options = $options;
     }
 
     public function parse(): \Generator

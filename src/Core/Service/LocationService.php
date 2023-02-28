@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use function guzzlehttp\psr7\build_query;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
@@ -24,22 +25,17 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class LocationService
 {
-    public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
+    final public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
 
     private ?Context $context;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
     protected ClientInterface $client;
     protected \DateTimeImmutable $now;
 
     public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService
     )
     {
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-
         $this->client = new Client([
             'timeout' => 200,
             'allow_redirects' => false,
@@ -213,7 +209,7 @@ class LocationService
                 /* Find best result by country filter */
                 if (count($response) > 1) {
                     foreach ($response as $item) {
-                        if (in_array(strtoupper($item['address']['country_code']), $countryIso)) {
+                        if (in_array(strtoupper((string) $item['address']['country_code']), $countryIso)) {
                             $locationLat = $item['lat'];
                             $locationLon = $item['lon'];
                             break;
@@ -251,7 +247,7 @@ class LocationService
 
                 return null;
             }
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         return null;
     }
@@ -273,22 +269,14 @@ class LocationService
         /** @var CountryCollection $countries */
         $countries = $countryRepository->search($criteria, $this->context)->getEntities();
 
-        return array_values($countries->fmap(function (CountryEntity $entity) {
-            return $entity->getIso();
-        }));
+        return array_values($countries->fmap(fn(CountryEntity $entity) => $entity->getIso()));
     }
 
-    /**
-     * @return Context|null
-     */
     public function getContext(): ?Context
     {
         return $this->context;
     }
 
-    /**
-     * @param Context|null $context
-     */
     public function setContext(?Context $context): void
     {
         $this->context = $context;
@@ -303,7 +291,7 @@ class LocationService
 
         $httpBody = json_encode($data);
 
-        $query = \guzzlehttp\psr7\build_query($query);
+        $query = build_query($query);
 
         $request = new Request(
             $method,
@@ -327,7 +315,7 @@ class LocationService
 
         try {
             return json_decode($contents, true);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             throw new \Exception(
                 sprintf('[%d] Error decoding JSON: %s', $statusCode, $contents),
                 $statusCode

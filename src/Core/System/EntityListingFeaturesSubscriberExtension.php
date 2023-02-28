@@ -30,20 +30,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EntityListingFeaturesSubscriberExtension
 {
-    public const DEFAULT_SEARCH_SORT = 'standard';
-
-    protected SortingService $sortingService;
+    final public const DEFAULT_SEARCH_SORT = 'standard';
     protected ?LocationService $locationService = null;
-    protected ?LocationServiceV2 $locationServiceV2 = null;
     protected string $entityName = "";
 
-    public function __construct(
-        SortingService $sortingService,
-        ?LocationServiceV2 $locationServiceV2 = null
-    )
+    public function __construct(protected SortingService $sortingService, protected ?LocationServiceV2 $locationServiceV2 = null)
     {
-        $this->sortingService = $sortingService;
-        $this->locationServiceV2 = $locationServiceV2;
     }
 
     public function handleFlags(ProductListingCriteriaEvent $event): void

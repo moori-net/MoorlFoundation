@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
+use GuzzleHttp\ClientInterface;
 use League\Flysystem\FilesystemAdapter;
 
 class ClientExtension
@@ -29,7 +30,7 @@ class ClientExtension
         return null;
     }
 
-    public function getClient(): ?\GuzzleHttp\ClientInterface
+    public function getClient(): ?ClientInterface
     {
         return null;
     }

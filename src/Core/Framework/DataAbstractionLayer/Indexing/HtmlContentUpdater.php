@@ -18,16 +18,8 @@ use Shopware\Core\System\Language\LanguageEntity;
 
 class HtmlContentUpdater
 {
-    private DefinitionInstanceRegistry $registry;
-    private Connection $connection;
-
-    public function __construct(
-        DefinitionInstanceRegistry $registry,
-        Connection                 $connection
-    )
+    public function __construct(private readonly DefinitionInstanceRegistry $registry, private readonly Connection                 $connection)
     {
-        $this->registry = $registry;
-        $this->connection = $connection;
     }
 
     public function update(
@@ -127,9 +119,9 @@ SQL;
                 $foreignKey
             );
 
-            $this->connection->executeStatement($sql, array_merge($item, [
+            $this->connection->executeStatement($sql, [...$item, ...[
                 'languageId' => $languageId
-            ]));
+            ]]);
         }
     }
 
@@ -168,7 +160,7 @@ SQL;
             }
 
             return $doc->saveHTML();
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             return $content;
         }
     }

@@ -34,26 +34,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EntityStockUpdater implements EventSubscriberInterface
 {
-    protected Connection $connection;
-    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
-    protected SystemConfigService $systemConfigService;
-    protected string $entityName;
-    protected string $propertyName;
     protected string $propertyNamePlural;
 
     public function __construct(
-        Connection $connection,
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        string $entityName,
-        string $propertyName,
+        protected Connection $connection,
+        protected DefinitionInstanceRegistry $definitionInstanceRegistry,
+        protected SystemConfigService $systemConfigService,
+        protected string $entityName,
+        protected string $propertyName,
         ?string $propertyNamePlural = null
     ) {
-        $this->connection = $connection;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->entityName = $entityName;
-        $this->propertyName = $propertyName;
         if ($propertyNamePlural) {
             $this->propertyNamePlural = $propertyNamePlural;
         } else {
@@ -61,7 +51,7 @@ class EntityStockUpdater implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             OrderEvents::ORDER_LINE_ITEM_WRITTEN_EVENT => 'lineItemWritten',

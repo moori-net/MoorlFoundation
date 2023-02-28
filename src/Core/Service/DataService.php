@@ -28,19 +28,18 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DataService
 {
-    private Context $context;
-    private ClientInterface $client;
+    private readonly Context $context;
+    private readonly ClientInterface $client;
     private ?string $salesChannelId = null;
     private ?string $themeId = null;
-    private string $demoCustomerMail;
+    private readonly string $demoCustomerMail;
     private ?string $customerId = null;
     private array $mediaCache = [];
     private EntityCollection $taxes;
-    /**
-     * @var DataInterface[]
-     */
-    private iterable $dataObjects;
 
+    /**
+     * @param DataInterface[] $dataObjects
+     */
     public function __construct(
         private readonly Connection $connection,
         private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
@@ -50,11 +49,9 @@ class DataService
         private readonly Filesystem $filesystem,
         private readonly ThemeService $themeService,
         private readonly string $projectDir,
-        iterable $dataObjects
+        private readonly iterable $dataObjects
     )
     {
-        $this->dataObjects = $dataObjects;
-
         $this->context = Context::createDefaultContext();
         $this->client = new Client([
             'timeout' => 200,
@@ -66,33 +63,21 @@ class DataService
         $this->demoCustomerMail = $systemConfigService->get('MoorlFoundation.config.demoCustomerMail') ?: 'test@example.com';
     }
 
-    /**
-     * @return string|null
-     */
     public function getSalesChannelId(): ?string
     {
         return $this->salesChannelId;
     }
 
-    /**
-     * @param string|null $salesChannelId
-     */
     public function setSalesChannelId(?string $salesChannelId): void
     {
         $this->salesChannelId = $salesChannelId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCustomerId(): ?string
     {
         return $this->customerId;
     }
 
-    /**
-     * @param string|null $customerId
-     */
     public function setCustomerId(?string $customerId): void
     {
         $this->customerId = $customerId;
@@ -203,7 +188,7 @@ class DataService
         $targetDir = $this->getTargetDir($dataObject);
 
         foreach ($dataObject->getStylesheets() as $stylesheet) {
-            if($fontFaces && strpos($fontFaces, $stylesheet) !== false) {
+            if($fontFaces && str_contains((string) $fontFaces, (string) $stylesheet)) {
                 continue;
             }
 
@@ -225,7 +210,7 @@ TWIG;
             return;
         }
 
-        $this->filesystem->createDir($targetDir);
+        $this->filesystem->createDirectory($targetDir);
 
         $files = Finder::create()
             ->ignoreDotFiles(false)
@@ -235,7 +220,7 @@ TWIG;
 
         foreach ($files as $file) {
             $fs = fopen($file->getPathname(), 'rb');
-            $this->filesystem->putStream($targetDir . $file->getRelativePathname(), $fs);
+            $this->filesystem->writeStream($targetDir . $file->getRelativePathname(), $fs);
             if (is_resource($fs)) {
                 fclose($fs);
             }
@@ -275,22 +260,22 @@ TWIG;
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/demo-html.html'));
             $globalReplacers['"{DEMO_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/imprint-html.html'));
             $globalReplacers['"{IMPRINT_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/tos-html.html'));
             $globalReplacers['"{TOS_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/privacy-html.html'));
             $globalReplacers['"{PRIVACY_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         $sql = sprintf(
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
@@ -339,8 +324,8 @@ WHERE `media_folder`.`use_parent_configuration` = '0'
 SQL;
         $query = $this->connection->executeQuery($sql);
         while (($row = $query->fetchAssociative()) !== false) {
-            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_CFG_ID}", strtoupper($row['entity']))] = $row['cfg_id'];
-            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_ID}", strtoupper($row['entity']))] = $row['id'];
+            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_CFG_ID}", strtoupper((string) $row['entity']))] = $row['cfg_id'];
+            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_ID}", strtoupper((string) $row['entity']))] = $row['id'];
             $globalReplacers["{MEDIA_FOLDER_CFG_ID}"] = $row['cfg_id'];
             $globalReplacers["{MEDIA_FOLDER_ID}"] = $row['id'];
         }
@@ -360,7 +345,7 @@ SQL;
             $query = $this->connection->executeQuery($sql)->fetchAssociative();
             $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
             $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
         }
 
         /**
@@ -408,7 +393,7 @@ SQL;
         preg_match_all('/{MD5:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
-                $content = str_replace($matches[0][$i], md5($matches[1][$i]), $content);
+                $content = str_replace($matches[0][$i], md5((string) $matches[1][$i]), $content);
             }
         }
         preg_match_all('/{PRICE:([^}]+)}/', $content, $matches);
@@ -444,7 +429,7 @@ SQL;
         preg_match_all('/{MEDIA_FILE:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
-                $splitMatches = explode("|", $matches[1][$i]);
+                $splitMatches = explode("|", (string) $matches[1][$i]);
                 $filePath = $splitMatches[0];
                 $table2 = $table;
                 if (!empty($splitMatches[1])) {
@@ -483,12 +468,10 @@ SQL;
 
     /**
      * @param $data
-     * @param DataInterface $dataObject
-     * @return string
      */
     public function valueFromFile($data, DataInterface $dataObject): string
     {
-        preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+        preg_match('/{READ_FILE:(.*)}/', (string) $data, $matches, PREG_UNMATCHED_AS_NULL);
         if (!empty($matches[1])) {
             $filePath = sprintf('%s/%s', $dataObject->getPath(), $matches[1]);
 
@@ -503,8 +486,6 @@ SQL;
     /**
      * @param $data
      * @param string $table
-     * @param DataInterface $dataObject
-     * @return string|null
      *
      * Usage:
      * {MEDIA_FILE:path/to/file.jpg|product} Save The File to Product Directory
@@ -514,7 +495,7 @@ SQL;
      */
     public function mediaFromFile($data, string $table, DataInterface $dataObject): ?string
     {
-        preg_match('/{MEDIA_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+        preg_match('/{MEDIA_FILE:(.*)}/', (string) $data, $matches, PREG_UNMATCHED_AS_NULL);
         if (!empty($matches[1])) {
             $splitMatches = explode("|", $matches[1]);
             $filePath = $splitMatches[0];
@@ -627,7 +608,7 @@ SQL;
              */
             if (isset($item['cover']) && isset($item['cover']['mediaId'])) {
                 $item['cover']['mediaId'] = $this->getMediaId($item['cover']['mediaId'], 'product', $dataObject);
-                $item['cover']['id'] = md5($item['id']);
+                $item['cover']['id'] = md5((string) $item['id']);
             }
             /**
              * @deprecated tag:v6.5 Use {PRICE:999} in your JSON File instead
@@ -680,9 +661,9 @@ SQL;
 
         if (!isset($headers['Content-Type'])) {
             if (is_array($headers['Content-Type'])) {
-                $type = explode("/", $headers['Content-Type'][0]);
+                $type = explode("/", (string) $headers['Content-Type'][0]);
             } else {
-                $type = explode("/", $headers['Content-Type']);
+                $type = explode("/", (string) $headers['Content-Type']);
             }
 
             $type = $type[0];
@@ -721,7 +702,7 @@ SQL;
                     $mediaId,
                     $this->context
                 );
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 $mediaId = null;
             }
         }
@@ -746,7 +727,7 @@ SQL;
             return $this->mediaCache[$name];
         }
 
-        if (strpos($name, 'http') === 0) {
+        if (str_starts_with($name, 'http')) {
             return $this->getMediaIdFromUrl($name, $table, $dataObject);
         }
 
@@ -871,7 +852,7 @@ SQL;
             );
             try {
                 $this->connection->executeStatement($sql);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 continue;
             }
         }
@@ -895,7 +876,7 @@ SQL;
             );
             try {
                 $this->connection->executeStatement($sql);
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 continue;
             }
         }

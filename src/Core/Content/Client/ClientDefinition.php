@@ -13,7 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class ClientDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'moorl_client';
+    final public const ENTITY_NAME = 'moorl_client';
 
     public function getEntityName(): string
     {

@@ -19,13 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SortingService
 {
-    protected EntityRepository $sortingRepository;
-
-    public function __construct(
-        EntityRepository $sortingRepository
-    )
+    public function __construct(protected EntityRepository $sortingRepository)
     {
-        $this->sortingRepository = $sortingRepository;
     }
 
     public function getFallbackSorting(string $entityName): SortingEntity

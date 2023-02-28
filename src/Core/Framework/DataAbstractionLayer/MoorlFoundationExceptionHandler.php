@@ -12,7 +12,7 @@ class MoorlFoundationExceptionHandler implements ExceptionHandlerInterface
         return ExceptionHandlerInterface::PRIORITY_DEFAULT;
     }
 
-    public function matchException(\Exception $e, WriteCommand $command): ?\Exception
+    public function matchException(\Exception $e, WriteCommand $command = null): ?\Exception
     {
         if (preg_match('/SQLSTATE\[23000\]:.*1062 Duplicate.*uniq.moorl.*/', $e->getMessage())) {
             $payload = $command->getPayload() ?: null;

@@ -11,18 +11,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class ClientService
 {
-    /**
-     * @var ClientInterface[]
-     */
-    private iterable $clients;
     private array $_clients = [];
 
-    public function __construct(
-        private readonly EntityRepository $clientRepository,
-        iterable $clients
-    )
+    /**
+     * @param \MoorlFoundation\Core\Content\Client\ClientInterface[] $clients
+     */
+    public function __construct(private readonly EntityRepository $clientRepository, private readonly iterable $clients)
     {
-        $this->clients = $clients;
     }
 
     public function publicUrl(string $clientId, string $path, Context $context): ?string
@@ -45,7 +40,7 @@ class ClientService
 
     public function getSize(string $clientId, string $path, Context $context): int
     {
-        return $this->getFilesystem($clientId, $context)->getSize($path);
+        return $this->getFilesystem($clientId, $context)->fileSize($path);
     }
 
     public function readStream(string $clientId, string $path, Context $context)
@@ -55,7 +50,7 @@ class ClientService
 
     public function getMimetype(string $clientId, string $path, Context $context)
     {
-        return $this->getFilesystem($clientId, $context)->getMimetype($path);
+        return $this->getFilesystem($clientId, $context)->mimeType($path);
     }
 
     public function read(string $clientId, string $path, Context $context)
@@ -70,7 +65,7 @@ class ClientService
 
     public function createDir(string $clientId, ?string $dirname, Context $context): void
     {
-        $this->getFilesystem($clientId, $context)->createDir($dirname);
+        $this->getFilesystem($clientId, $context)->createDirectory($dirname);
     }
 
     public function test(string $clientId, Context $context): array

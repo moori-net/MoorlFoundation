@@ -9,16 +9,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SalesChannelContextResolvedSubscriber implements EventSubscriberInterface
 {
-    private SystemConfigService $systemConfigService;
-    private EntityRepository $cmsPageRepository;
-
-    public function __construct(
-        SystemConfigService $systemConfigService,
-        EntityRepository $cmsPageRepository
-    )
+    public function __construct(private readonly SystemConfigService $systemConfigService, private readonly EntityRepository $cmsPageRepository)
     {
-        $this->systemConfigService = $systemConfigService;
-        $this->cmsPageRepository = $cmsPageRepository;
     }
 
     public static function getSubscribedEvents(): array

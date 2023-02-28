@@ -17,18 +17,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class FoundationProductSearchRoute extends AbstractProductSearchRoute
 {
-    private AbstractProductSearchRoute $decorated;
-    private EventDispatcherInterface $dispatcher;
-    private EntitySearchService $searchService;
-
-    public function __construct(
-        AbstractProductSearchRoute $decorated,
-        EntitySearchService $searchService,
-        EventDispatcherInterface $dispatcher
-    ) {
-        $this->decorated = $decorated;
-        $this->dispatcher = $dispatcher;
-        $this->searchService = $searchService;
+    public function __construct(private readonly AbstractProductSearchRoute $decorated, private readonly EntitySearchService $searchService, private readonly EventDispatcherInterface $dispatcher)
+    {
     }
 
     public function getDecorated(): AbstractProductSearchRoute

@@ -17,7 +17,7 @@ namespace MoorlFoundation\Core\Framework\GeoLocation;
  * @author Anthony Martin
  * @version November 21 2012
  */
-class GeoLocation {
+class GeoLocation implements \Stringable {
 
 	protected $radLat;  // latitude in radians
 	protected $radLon;  // longitude in radians
@@ -27,8 +27,8 @@ class GeoLocation {
 	
 	protected $angular; // angular radius
 
-	const EARTHS_RADIUS_KM = 6371.01;
-	const EARTHS_RADIUS_MI = 3958.762079;
+	final const EARTHS_RADIUS_KM = 6371.01;
+	final const EARTHS_RADIUS_MI = 3958.762079;
 
 	protected static $MIN_LAT;  // -PI/2
 	protected static $MAX_LAT;  //  PI/2
@@ -79,17 +79,16 @@ class GeoLocation {
 	}
 
   /**
-   * Computes the great circle distance between this GeoLocation instance
-   * and the location argument.
-   * @param GeoLocation $location
-   * @param string $unit_of_measurement
-   * @internal param float $radius the radius of the sphere, e.g. the average radius for a
-   * spherical approximation of the figure of the Earth is approximately
-   * 6371.01 kilometers.
-   * @return double the distance, measured in the same unit as the radius
-   * argument.
-   */
-	public function distanceTo(GeoLocation $location, $unit_of_measurement) {
+  * Computes the great circle distance between this GeoLocation instance
+  * and the location argument.
+  * @param string $unit_of_measurement
+  * @internal param float $radius the radius of the sphere, e.g. the average radius for a
+  * spherical approximation of the figure of the Earth is approximately
+  * 6371.01 kilometers.
+  * @return double the distance, measured in the same unit as the radius
+  * argument.
+  */
+ public function distanceTo(GeoLocation $location, $unit_of_measurement) {
 		$radius = $this->getEarthsRadius($unit_of_measurement);
 
 		return acos(sin($this->radLat) * sin($location->radLat) +
@@ -132,7 +131,7 @@ class GeoLocation {
 		return $this->angular;
 	}
 
-	public function __toString() {
+	public function __toString(): string {
 		return "(" . $this->degLat . ", " . $this->degLon . ") = (" .
 				$this->radLat . " rad, " . $this->radLon . " rad";
 	}

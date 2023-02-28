@@ -10,15 +10,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProductListingResultSubscriber implements EventSubscriberInterface
 {
-    private EntitySuggestService $suggestService;
-    private EntitySearchService $searchService;
+    private readonly EntitySuggestService $suggestService;
 
     public function __construct(
-        EntitySearchService $searchService,
+        private readonly EntitySearchService $searchService,
         EntitySuggestService $suggestService
     )
     {
-        $this->searchService = $searchService;
         $this->suggestService = $suggestService;
     }
 

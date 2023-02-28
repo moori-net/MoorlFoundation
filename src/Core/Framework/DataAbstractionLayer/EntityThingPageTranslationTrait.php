@@ -8,17 +8,11 @@ trait EntityThingPageTranslationTrait
 {
     protected ?array $slotConfig = null;
 
-    /**
-     * @return array|null
-     */
     public function getSlotConfig(): ?array
     {
         return $this->slotConfig;
     }
 
-    /**
-     * @param array|null $slotConfig
-     */
     public function setSlotConfig(?array $slotConfig): void
     {
         $this->slotConfig = $slotConfig;

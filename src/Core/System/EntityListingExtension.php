@@ -24,15 +24,11 @@ class EntityListingExtension implements EntityListingInterface
     protected ?ProductListingResultEvent $event = null;
     protected EventDispatcherInterface $eventDispatcher;
     protected Request $request;
-    protected ?SalesChannelRepository $salesChannelRepository = null;
     protected ?Filter $filter = null;
-    protected ?string $route;
+    protected ?string $route = null;
 
-    public function __construct(
-        ?SalesChannelRepository $salesChannelRepository = null
-    )
+    public function __construct(protected ?SalesChannelRepository $salesChannelRepository = null)
     {
-        $this->salesChannelRepository = $salesChannelRepository;
     }
 
     public function isWidget(): bool
@@ -83,26 +79,17 @@ class EntityListingExtension implements EntityListingInterface
         ];
     }
 
-    /**
-     * @param SalesChannelContext $salesChannelContext
-     */
     public function setSalesChannelContext(SalesChannelContext $salesChannelContext): void
     {
         $this->salesChannelContext = $salesChannelContext;
     }
 
-    /**
-     * @param Request $request
-     */
     public function setRequest(Request $request): void
     {
         $this->request = $request;
         $this->route = $request->get('_route');
     }
 
-    /**
-     * @param ProductListingResultEvent $event
-     */
     public function setEvent(ProductListingResultEvent $event): void
     {
         $this->event = $event;
@@ -110,25 +97,16 @@ class EntityListingExtension implements EntityListingInterface
         $this->setRequest($event->getRequest());
     }
 
-    /**
-     * @param EventDispatcherInterface $eventDispatcher
-     */
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @return SalesChannelRepository|null
-     */
     public function getSalesChannelRepository(): ?SalesChannelRepository
     {
         return $this->salesChannelRepository;
     }
 
-    /**
-     * @param SystemConfigService $systemConfigService
-     */
     public function setSystemConfigService(SystemConfigService $systemConfigService): void
     {
         $this->systemConfigService = $systemConfigService;

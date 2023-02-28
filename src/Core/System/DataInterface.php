@@ -15,11 +15,6 @@ interface DataInterface
     public function getShopwareTables(): ?array;
     public function getPluginTables(): ?array;
     public function getGlobalReplacers(): ?array;
-    /**
-     * @param string $key
-     * @param string|null $fallback
-     * @return string|null
-     */
     public function getReplacer(string $key, ?string $fallback = null): ?string;
     public function getLocalReplacers(): ?array;
     public function setGlobalReplacers(?array $globalReplacers): void;
@@ -31,8 +26,6 @@ interface DataInterface
     public function getMediaProperties(): array;
 
     /**
-     * @return array
-     *
      * In some Cases we have Demo Data mixed with Shopware Data.
      * There we need to put an underscore before the json content file,
      * so this file will be ignored on cleaning up the Shopware Tables.

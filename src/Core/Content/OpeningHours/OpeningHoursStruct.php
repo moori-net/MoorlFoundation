@@ -6,48 +6,30 @@ use Shopware\Core\Framework\Struct\Struct;
 
 class OpeningHoursStruct extends Struct
 {
-    protected ?array $openingHours;
     protected int $secondsLeft = 0;
     protected ?string $nextTime = null;
     protected \DateTimeImmutable $now;
-    protected string $timezone;
 
-    public function __construct(?array $openingHours, string $timezone)
+    public function __construct(protected ?array $openingHours, protected string $timezone)
     {
-        $this->openingHours = $openingHours;
-
-        $this->timezone = $timezone;
-
         $this->now = new \DateTimeImmutable('now', new \DateTimeZone($timezone));
     }
 
-    /**
-     * @return string|null
-     */
     public function getNextTime(): ?string
     {
         return $this->nextTime;
     }
 
-    /**
-     * @return array|null
-     */
     public function getOpeningHours(): ?array
     {
         return $this->openingHours;
     }
 
-    /**
-     * @param array|null $openingHours
-     */
     public function setOpeningHours(?array $openingHours): void
     {
         $this->openingHours = $openingHours;
     }
 
-    /**
-     * @return bool
-     */
     public function isOpen(?string $datetime = null): bool
     {
         if (!$this->openingHours) {
@@ -88,13 +70,13 @@ class OpeningHoursStruct extends Struct
             }
 
             $from = $this->now->setTime(
-                (int) substr($time['from'], 0, 2),
-                (int) substr($time['from'], 3, 2)
+                (int) substr((string) $time['from'], 0, 2),
+                (int) substr((string) $time['from'], 3, 2)
             );
 
             $until = $this->now->setTime(
-                (int) substr($time['until'], 0, 2),
-                (int) substr($time['until'], 3, 2)
+                (int) substr((string) $time['until'], 0, 2),
+                (int) substr((string) $time['until'], 3, 2)
             );
 
             if (($from < $this->now) && ($this->now < $until)) {
@@ -112,7 +94,6 @@ class OpeningHoursStruct extends Struct
     }
 
     /**
-     * @return int
      * Returns difference until open or close
      */
     public function getSecondsLeft(): int

@@ -23,18 +23,12 @@ class TranslationService
     private array $languages = [];
     private const HASH_KEY = 'moorl_trans_hash';
     private string $sourceLocale = 'de-DE';
-    /**
-     * @var iterable<EntityTranslationInterface>
-     */
-    private iterable $entityTranslations;
 
-    public function __construct(
-        private readonly SystemConfigService $systemConfigService,
-        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
-        iterable $entityTranslations
-    )
+    /**
+     * @param \MoorlFoundation\Core\System\EntityTranslationInterface[] $entityTranslations
+     */
+    public function __construct(private readonly SystemConfigService $systemConfigService, private readonly DefinitionInstanceRegistry $definitionInstanceRegistry, private readonly iterable $entityTranslations)
     {
-        $this->entityTranslations = $entityTranslations;
     }
 
     public function translate(string $entityName, array $writeResults, Context $context): void

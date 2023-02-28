@@ -22,8 +22,6 @@ class MarkerCollection extends EntityCollection
 
     public function getByType(string $type): ?MarkerEntity
     {
-        return $this->filter(function (MarkerEntity $markerEntity) use ($type) {
-            return $markerEntity->getType() == $type;
-        })->first();
+        return $this->filter(fn(MarkerEntity $markerEntity) => $markerEntity->getType() == $type)->first();
     }
 }

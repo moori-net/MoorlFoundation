@@ -79,34 +79,22 @@ class GeoPoint
         return (!$inRadians) ? $this->degLon : $this->radLon;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getRadLat()
+    public function getRadLat(): float|int
     {
         return $this->radLat;
     }
 
-    /**
-     * @param float|int $radLat
-     */
-    public function setRadLat($radLat)
+    public function setRadLat(float|int $radLat)
     {
         $this->radLat = $radLat;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getRadLon()
+    public function getRadLon(): float|int
     {
         return $this->radLon;
     }
 
-    /**
-     * @param float|int $radLon
-     */
-    public function setRadLon($radLon)
+    public function setRadLon(float|int $radLon)
     {
         $this->radLon = $radLon;
     }
@@ -119,10 +107,7 @@ class GeoPoint
         return $this->degLat;
     }
 
-    /**
-     * @param mixed $degLat
-     */
-    public function setDegLat($degLat)
+    public function setDegLat(mixed $degLat)
     {
         $this->degLat = $degLat;
     }
@@ -135,10 +120,7 @@ class GeoPoint
         return $this->degLon;
     }
 
-    /**
-     * @param mixed $degLon
-     */
-    public function setDegLon($degLon)
+    public function setDegLon(mixed $degLon)
     {
         $this->degLon = $degLon;
     }
@@ -167,7 +149,7 @@ class GeoPoint
         if (!$apiKey) {
             throw new NoApiKeyException();
         }
-        $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode($address) . '&sensor=false&key=' . $apiKey;
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . urlencode((string) $address) . '&sensor=false&key=' . $apiKey;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

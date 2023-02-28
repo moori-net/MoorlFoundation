@@ -9,9 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}})
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class SettingsController
 {
     public function __construct(
@@ -21,9 +19,7 @@ class SettingsController
     {
     }
 
-    /**
-     * @Route("/api/moorl-foundation/settings/client/test/{clientId}", name="api.moorl-foundation.settings.client.test", methods={"GET"})
-     */
+    #[Route(path: '/api/moorl-foundation/settings/client/test/{clientId}', name: 'api.moorl-foundation.settings.client.test', methods: ['GET'])]
     public function clientTest(string $clientId, Context $context): JsonResponse
     {
         return new JsonResponse(
@@ -31,9 +27,7 @@ class SettingsController
         );
     }
 
-    /**
-     * @Route("/api/moorl-foundation/settings/client/options", name="api.moorl-foundation.settings.client.options", methods={"GET"})
-     */
+    #[Route(path: '/api/moorl-foundation/settings/client/options', name: 'api.moorl-foundation.settings.client.options', methods: ['GET'])]
     public function clientOptions(): JsonResponse
     {
         return new JsonResponse(
@@ -41,9 +35,7 @@ class SettingsController
         );
     }
 
-    /**
-     * @Route("/api/moorl-foundation/settings/demo-data/options", name="api.moorl-foundation.settings.demo-data.options", methods={"GET"})
-     */
+    #[Route(path: '/api/moorl-foundation/settings/demo-data/options', name: 'api.moorl-foundation.settings.demo-data.options', methods: ['GET'])]
     public function demoDataOptions(): JsonResponse
     {
         return new JsonResponse(
@@ -51,9 +43,7 @@ class SettingsController
         );
     }
 
-    /**
-     * @Route("/api/moorl-foundation/settings/demo-data/install", name="api.moorl-foundation.settings.demo-data.install", methods={"POST"})
-     */
+    #[Route(path: '/api/moorl-foundation/settings/demo-data/install', name: 'api.moorl-foundation.settings.demo-data.install', methods: ['POST'])]
     public function demoDataInstall(Request $request): JsonResponse
     {
         if ($request->get('salesChannelId') && !in_array($request->get('salesChannelId'), ['undefined','null'])) {
@@ -66,9 +56,7 @@ class SettingsController
         return new JsonResponse([]);
     }
 
-    /**
-     * @Route("/api/moorl-foundation/settings/demo-data/remove", name="api.moorl-foundation.settings.demo-data.remove", methods={"POST"})
-     */
+    #[Route(path: '/api/moorl-foundation/settings/demo-data/remove', name: 'api.moorl-foundation.settings.demo-data.remove', methods: ['POST'])]
     public function demoDataRemove(Request $request): JsonResponse
     {
         if ($request->get('salesChannelId') && !in_array($request->get('salesChannelId'), ['undefined','null'])) {

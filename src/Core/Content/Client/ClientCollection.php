@@ -22,8 +22,6 @@ class ClientCollection extends EntityCollection
 
     public function getByType(string $type): ?ClientEntity
     {
-        return $this->filter(function (ClientEntity $markerEntity) use ($type) {
-            return $markerEntity->getType() == $type;
-        })->first();
+        return $this->filter(fn(ClientEntity $markerEntity) => $markerEntity->getType() == $type)->first();
     }
 }

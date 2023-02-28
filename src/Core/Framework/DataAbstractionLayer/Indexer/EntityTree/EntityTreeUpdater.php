@@ -23,17 +23,10 @@ use Shopware\Core\Framework\Uuid\Uuid;
  */
 class EntityTreeUpdater
 {
-    private DefinitionInstanceRegistry $registry;
-    private Connection $connection;
     private ?Statement $updateEntityStatement = null;
 
-    public function __construct(
-        DefinitionInstanceRegistry $registry,
-        Connection $connection
-    )
+    public function __construct(private readonly DefinitionInstanceRegistry $registry, private readonly Connection $connection)
     {
-        $this->registry = $registry;
-        $this->connection = $connection;
     }
 
     public function batchUpdate(array $updateIds, string $entity, Context $context): void
@@ -157,7 +150,7 @@ class EntityTreeUpdater
 
         try {
             $path[] = Uuid::fromBytesToHex($parent[$field->getPathField()]);
-        } catch (InvalidUuidException | InvalidUuidLengthException $e) {
+        } catch (InvalidUuidException | InvalidUuidLengthException) {
             $path[] = $parent[$field->getPathField()];
         }
 
@@ -386,7 +379,7 @@ class EntityTreeUpdater
         $entity['path'] = '';
         if ($parent !== null) {
             $path = $parent['path'] ?? '';
-            $path = array_filter(explode('|', $path));
+            $path = array_filter(explode('|', (string) $path));
             $path[] = Uuid::fromBytesToHex($parent['id']);
             $entity['path'] = '|' . implode('|', $path) . '|';
         }

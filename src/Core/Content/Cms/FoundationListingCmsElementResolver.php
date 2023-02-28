@@ -44,10 +44,6 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         return;
     }
 
-    /**
-     * @param ResolverContext $resolverContext
-     * @return string
-     */
     protected function getNavigationId(ResolverContext $resolverContext): string
     {
         $request = $resolverContext->getRequest();
@@ -67,9 +63,6 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
     }
 
     /**
-     * @param CmsSlotEntity $slot
-     * @param Criteria $criteria
-     * @param ResolverContext $resolverContext
      * @throws UnexpectedFieldConfigValueType
      */
     protected function enrichCmsElementResolverCriteriaV2(

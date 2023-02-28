@@ -6,14 +6,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
 class LabelProperty extends Flag
 {
-    /*
-     * @var string|null
-     */
-    private $labelProperty;
-
-    public function __construct(?string $labelProperty)
+    public function __construct(
+        /*
+         * @var string|null
+         */
+        private readonly ?string $labelProperty
+    )
     {
-        $this->labelProperty = $labelProperty;
     }
 
     public function parse(): \Generator

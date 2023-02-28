@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use function guzzlehttp\psr7\build_query;
 use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -21,25 +22,18 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class LocationServiceV2
 {
-    public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
+    final public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
 
     protected ?Context $context;
-    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
-    protected SystemConfigService $systemConfigService;
-    protected Connection $connection;
     protected ClientInterface $client;
     protected \DateTimeImmutable $now;
 
     public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        Connection $connection
+        protected DefinitionInstanceRegistry $definitionInstanceRegistry,
+        protected SystemConfigService $systemConfigService,
+        protected Connection $connection
     )
     {
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->connection = $connection;
-
         $this->client = new Client([
             'timeout' => 200,
             'allow_redirects' => false,
@@ -164,7 +158,7 @@ SQL;
         }
 
         if (!empty($payload['coords'])) {
-            $coords = explode("|", $payload['coords']);
+            $coords = explode("|", (string) $payload['coords']);
 
             $repo->upsert([[
                 'id' => $locationId,
@@ -202,7 +196,7 @@ SQL;
                 /* Find best result by country filter */
                 if (count($response) > 1) {
                     foreach ($response as $item) {
-                        if (in_array(strtoupper($item['address']['country_code']), $countryIso)) {
+                        if (in_array(strtoupper((string) $item['address']['country_code']), $countryIso)) {
                             $locationLat = $item['lat'];
                             $locationLon = $item['lon'];
                             break;
@@ -240,7 +234,7 @@ SQL;
 
                 return null;
             }
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         return null;
     }
@@ -262,9 +256,7 @@ SQL;
         /** @var CountryCollection $countries */
         $countries = $countryRepository->search($criteria, $this->context)->getEntities();
 
-        return array_values($countries->fmap(function (CountryEntity $entity) {
-            return $entity->getIso();
-        }));
+        return array_values($countries->fmap(fn(CountryEntity $entity) => $entity->getIso()));
     }
 
     protected function apiRequest(string $method, ?string $endpoint = null, ?array $data = null, array $query = [])
@@ -276,7 +268,7 @@ SQL;
 
         $httpBody = json_encode($data);
 
-        $query = \guzzlehttp\psr7\build_query($query);
+        $query = build_query($query);
 
         $request = new Request(
             $method,
@@ -300,7 +292,7 @@ SQL;
 
         try {
             return json_decode($contents, true);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             throw new \Exception(
                 sprintf('[%d] Error decoding JSON: %s', $statusCode, $contents),
                 $statusCode
@@ -364,17 +356,11 @@ SQL;
         ], 0, null, $countryIds);
     }
 
-    /**
-     * @return Context|null
-     */
     public function getContext(): ?Context
     {
         return $this->context;
     }
 
-    /**
-     * @param Context|null $context
-     */
     public function setContext(?Context $context): void
     {
         $this->context = $context;

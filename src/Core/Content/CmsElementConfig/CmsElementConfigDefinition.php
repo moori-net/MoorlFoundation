@@ -13,7 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class CmsElementConfigDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'moorl_cms_element_config';
+    final public const ENTITY_NAME = 'moorl_cms_element_config';
 
     public function getEntityName(): string
     {

@@ -15,30 +15,13 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class EntityEnricherService
 {
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
-    private AbstractProductPriceCalculator $productPriceCalculator;
-    private UrlGeneratorInterface $urlGenerator;
-
     private ?Context $context = null;
     private ?SalesChannelContext $salesChannelContext = null;
 
-    public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        AbstractProductPriceCalculator $productPriceCalculator,
-        UrlGeneratorInterface $urlGenerator
-    )
+    public function __construct(private readonly DefinitionInstanceRegistry $definitionInstanceRegistry, private readonly SystemConfigService $systemConfigService, private readonly AbstractProductPriceCalculator $productPriceCalculator, private readonly UrlGeneratorInterface $urlGenerator)
     {
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->productPriceCalculator = $productPriceCalculator;
-        $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * @param Context|null $context
-     */
     public function setContext(?Context $context): void
     {
         $this->context = $context;
@@ -103,9 +86,6 @@ class EntityEnricherService
         );
     }
 
-    /**
-     * @param SalesChannelContext|null $salesChannelContext
-     */
     public function setSalesChannelContext(?SalesChannelContext $salesChannelContext): void
     {
         $this->salesChannelContext = $salesChannelContext;

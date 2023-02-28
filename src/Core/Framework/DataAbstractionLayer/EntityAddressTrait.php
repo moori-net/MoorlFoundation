@@ -20,193 +20,121 @@ trait EntityAddressTrait
     protected ?CountryStateEntity $countryState = null;
     protected ?string $locationPlaceId = null;
 
-    /**
-     * @return string|null
-     */
     public function getLocationPlaceId(): ?string
     {
         return $this->locationPlaceId;
     }
 
-    /**
-     * @param string|null $locationPlaceId
-     */
     public function setLocationPlaceId(?string $locationPlaceId): void
     {
         $this->locationPlaceId = $locationPlaceId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryCode(): ?string
     {
         return $this->countryCode;
     }
 
-    /**
-     * @param string|null $countryCode
-     */
     public function setCountryCode(?string $countryCode): void
     {
         $this->countryCode = $countryCode;
     }
 
-    /**
-     * @return string|null
-     */
     public function getZipcode(): ?string
     {
         return $this->zipcode;
     }
 
-    /**
-     * @param string|null $zipcode
-     */
     public function setZipcode(?string $zipcode): void
     {
         $this->zipcode = $zipcode;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCity(): ?string
     {
         return $this->city;
     }
 
-    /**
-     * @param string|null $city
-     */
     public function setCity(?string $city): void
     {
         $this->city = $city;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    /**
-     * @param string|null $street
-     */
     public function setStreet(?string $street): void
     {
         $this->street = $street;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStreetNumber(): ?string
     {
         return $this->streetNumber;
     }
 
-    /**
-     * @param string|null $streetNumber
-     */
     public function setStreetNumber(?string $streetNumber): void
     {
         $this->streetNumber = $streetNumber;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAdditionalAddressLine1(): ?string
     {
         return $this->additionalAddressLine1;
     }
 
-    /**
-     * @param string|null $additionalAddressLine1
-     */
     public function setAdditionalAddressLine1(?string $additionalAddressLine1): void
     {
         $this->additionalAddressLine1 = $additionalAddressLine1;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAdditionalAddressLine2(): ?string
     {
         return $this->additionalAddressLine2;
     }
 
-    /**
-     * @param string|null $additionalAddressLine2
-     */
     public function setAdditionalAddressLine2(?string $additionalAddressLine2): void
     {
         $this->additionalAddressLine2 = $additionalAddressLine2;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryId(): ?string
     {
         return $this->countryId;
     }
 
-    /**
-     * @param string|null $countryId
-     */
     public function setCountryId(?string $countryId): void
     {
         $this->countryId = $countryId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCountryStateId(): ?string
     {
         return $this->countryStateId;
     }
 
-    /**
-     * @param string|null $countryStateId
-     */
     public function setCountryStateId(?string $countryStateId): void
     {
         $this->countryStateId = $countryStateId;
     }
 
-    /**
-     * @return CountryEntity|null
-     */
     public function getCountry(): ?CountryEntity
     {
         return $this->country;
     }
 
-    /**
-     * @param CountryEntity|null $country
-     */
     public function setCountry(?CountryEntity $country): void
     {
         $this->country = $country;
     }
 
-    /**
-     * @return CountryStateEntity|null
-     */
     public function getCountryState(): ?CountryStateEntity
     {
         return $this->countryState;
     }
 
-    /**
-     * @param CountryStateEntity|null $countryState
-     */
     public function setCountryState(?CountryStateEntity $countryState): void
     {
         $this->countryState = $countryState;

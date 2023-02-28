@@ -20,7 +20,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\TextField;
 
 class MarkerDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'moorl_marker';
+    final public const ENTITY_NAME = 'moorl_marker';
 
     public function getEntityName(): string
     {

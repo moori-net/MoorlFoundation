@@ -11,17 +11,11 @@ class LocationCacheEntity extends Entity
 
     protected float $distance;
 
-    /**
-     * @return float
-     */
     public function getDistance(): float
     {
         return $this->distance;
     }
 
-    /**
-     * @param float $distance
-     */
     public function setDistance(float $distance): void
     {
         $this->distance = $distance;

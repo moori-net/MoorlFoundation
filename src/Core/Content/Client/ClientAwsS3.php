@@ -2,8 +2,8 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
+use League\Flysystem\FilesystemAdapter;
 use Aws\S3\S3Client;
-use League\Flysystem\AdapterInterface;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
 class ClientAwsS3 extends ClientExtension implements ClientInterface
@@ -20,7 +20,7 @@ class ClientAwsS3 extends ClientExtension implements ClientInterface
         ];
     }
 
-    public function getClientAdapter(): ?AdapterInterface
+    public function getClientAdapter(): ?FilesystemAdapter
     {
         $config = $this->clientEntity->getConfig();
 

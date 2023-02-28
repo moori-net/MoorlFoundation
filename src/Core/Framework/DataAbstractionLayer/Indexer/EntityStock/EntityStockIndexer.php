@@ -12,23 +12,14 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityStockIndexer extends EntityIndexer
 {
-    private IteratorFactory $iteratorFactory;
-    private EntityRepository $entityRepository;
-    private EventDispatcherInterface $eventDispatcher;
-    private EntityStockUpdater $entityStockUpdater;
-    private string $entityName;
+    private readonly string $entityName;
 
     public function __construct(
-        IteratorFactory $iteratorFactory,
-        EntityRepository $entityRepository,
-        EventDispatcherInterface $eventDispatcher,
-        EntityStockUpdater $entityStockUpdater
+        private readonly IteratorFactory $iteratorFactory,
+        private readonly EntityRepository $entityRepository,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly EntityStockUpdater $entityStockUpdater
     ) {
-        $this->iteratorFactory = $iteratorFactory;
-        $this->entityRepository = $entityRepository;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->entityStockUpdater = $entityStockUpdater;
-
         $this->entityName = $this->entityRepository->getDefinition()->getEntityName();
     }
 
@@ -37,7 +28,7 @@ class EntityStockIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */$offset): ?EntityIndexingMessage
+    public function iterate(/*?array */array $offset): ?EntityIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 

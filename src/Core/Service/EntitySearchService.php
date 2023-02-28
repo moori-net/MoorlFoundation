@@ -16,25 +16,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EntitySearchService
 {
-    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
-    protected SystemConfigService $systemConfigService;
-    protected EventDispatcherInterface $eventDispatcher;
     /**
-     * @var EntityListingInterface[]
+     * @param \MoorlFoundation\Core\System\EntityListingInterface[] $searchEntities
      */
-    protected iterable $searchEntities;
-
-    public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        EventDispatcherInterface $eventDispatcher,
-        iterable $searchEntities
-    )
+    public function __construct(protected DefinitionInstanceRegistry $definitionInstanceRegistry, protected SystemConfigService $systemConfigService, protected EventDispatcherInterface $eventDispatcher, protected iterable $searchEntities)
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->searchEntities = $searchEntities;
     }
 
     public function getEntityListing(Request $request, Context $context): ?EntityListingInterface

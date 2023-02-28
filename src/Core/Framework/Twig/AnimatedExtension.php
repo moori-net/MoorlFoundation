@@ -11,11 +11,11 @@ class AnimatedExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('moorl_animated', [$this, 'animated']),
-            new TwigFunction('moorl_random_bg', [$this, 'randomBg']),
-            new TwigFunction('moorl_element_animation', [$this, 'elementAnimation']),
-            new TwigFunction('moorl_animation', [$this, 'animation']),
-            new TwigFunction('moorl_block_behaviour', [$this, 'blockBehaviour']),
+            new TwigFunction('moorl_animated', $this->animated(...)),
+            new TwigFunction('moorl_random_bg', $this->randomBg(...)),
+            new TwigFunction('moorl_element_animation', $this->elementAnimation(...)),
+            new TwigFunction('moorl_animation', $this->animation(...)),
+            new TwigFunction('moorl_block_behaviour', $this->blockBehaviour(...)),
         ];
     }
 
@@ -62,9 +62,6 @@ class AnimatedExtension extends AbstractExtension
         return trim($string);
     }
 
-    /**
-     * @return string
-     */
     public function animated(array $config): string
     {
         $ar = [
@@ -83,9 +80,6 @@ class AnimatedExtension extends AbstractExtension
         return implode(" ", $html);
     }
 
-    /**
-     * @return string
-     */
     public function randomBg(): string
     {
         return sprintf('#%06X', mt_rand(0, 0xFFFFFF));

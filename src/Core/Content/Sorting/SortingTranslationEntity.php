@@ -9,33 +9,21 @@ class SortingTranslationEntity extends ProductSortingTranslationEntity
     protected string $moorlSortingId;
     protected SortingEntity $moorlSorting;
 
-    /**
-     * @return string
-     */
     public function getMoorlSortingId(): string
     {
         return $this->moorlSortingId;
     }
 
-    /**
-     * @param string $moorlSortingId
-     */
     public function setMoorlSortingId(string $moorlSortingId): void
     {
         $this->moorlSortingId = $moorlSortingId;
     }
 
-    /**
-     * @return SortingEntity
-     */
     public function getMoorlSorting(): SortingEntity
     {
         return $this->moorlSorting;
     }
 
-    /**
-     * @param SortingEntity $moorlSorting
-     */
     public function setMoorlSorting(SortingEntity $moorlSorting): void
     {
         $this->moorlSorting = $moorlSorting;

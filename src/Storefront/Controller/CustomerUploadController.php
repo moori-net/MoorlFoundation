@@ -21,9 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"storefront"}})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CustomerUploadController extends StorefrontController
 {
     public function __construct(
@@ -36,9 +34,7 @@ class CustomerUploadController extends StorefrontController
     {
     }
 
-    /**
-     * @Route("/moorl/customer-upload", name="moorl.customer-upload.send", methods={"POST"}, defaults={"XmlHttpRequest"=true})
-     */
+    #[Route(path: '/moorl/customer-upload', name: 'moorl.customer-upload.send', methods: ['POST'], defaults: ['XmlHttpRequest' => true])]
     public function upload(Request $request, SalesChannelContext $salesChannelContext): Response
     {
         $files = $request->files->get('file', null);
@@ -80,7 +76,7 @@ class CustomerUploadController extends StorefrontController
             );
 
             $filenameEvent = new CustomerUploadFilenameEvent(
-                pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+                pathinfo((string) $file->getClientOriginalName(), PATHINFO_FILENAME),
                 $initiator,
                 (string) $key,
                 $uploadEvent->getEntity(),

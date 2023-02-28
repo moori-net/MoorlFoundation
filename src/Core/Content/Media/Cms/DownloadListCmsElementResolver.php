@@ -72,8 +72,6 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
             return;
         }
 
-        $downloads->sort(function (MediaEntity $a, MediaEntity $b) {
-            return strnatcasecmp($a->getFileName(), $b->getFileName());
-        });
+        $downloads->sort(fn(MediaEntity $a, MediaEntity $b) => strnatcasecmp($a->getFileName(), $b->getFileName()));
     }
 }

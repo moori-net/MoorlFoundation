@@ -12,7 +12,7 @@ class ListingExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('moorl_replace_from_entity', [$this, 'replaceFromEntity'])
+            new TwigFunction('moorl_replace_from_entity', $this->replaceFromEntity(...))
         ];
     }
 
@@ -37,7 +37,7 @@ class ListingExtension extends AbstractExtension
     public function getFilters()
     {
         return array(
-            new TwigFilter('moorl_format_bytes', [$this, 'formatBytes']),
+            new TwigFilter('moorl_format_bytes', $this->formatBytes(...)),
         );
     }
 

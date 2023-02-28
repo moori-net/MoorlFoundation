@@ -5,7 +5,7 @@ namespace MoorlFoundation\Core;
 class PluginHelpers
 {
     public static function assignArrayByPath(&$arr, $path, $value, $separator='.') {
-        $keys = explode($separator, $path);
+        $keys = explode($separator, (string) $path);
         foreach ($keys as $key) {
             $arr = &$arr[$key];
         }

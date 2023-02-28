@@ -11,23 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"store-api"}})
- */
+#[Route(defaults: ['_routeScope' => ['store-api']])]
 class FoundationProductListingRoute extends AbstractProductListingRoute
 {
-    private AbstractProductListingRoute $decorated;
-    private EventDispatcherInterface $dispatcher;
-    private EntitySearchService $searchService;
-
-    public function __construct(
-        AbstractProductListingRoute $decorated,
-        EntitySearchService $searchService,
-        EventDispatcherInterface $dispatcher
-    ) {
-        $this->decorated = $decorated;
-        $this->dispatcher = $dispatcher;
-        $this->searchService = $searchService;
+    public function __construct(private readonly AbstractProductListingRoute $decorated, private readonly EntitySearchService $searchService, private readonly EventDispatcherInterface $dispatcher)
+    {
     }
 
     public function getDecorated(): AbstractProductListingRoute

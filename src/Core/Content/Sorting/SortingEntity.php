@@ -8,17 +8,11 @@ class SortingEntity extends ProductSortingEntity
 {
     protected string $entity;
 
-    /**
-     * @return string
-     */
     public function getEntity(): string
     {
         return $this->entity;
     }
 
-    /**
-     * @param string $entity
-     */
     public function setEntity(string $entity): void
     {
         $this->entity = $entity;

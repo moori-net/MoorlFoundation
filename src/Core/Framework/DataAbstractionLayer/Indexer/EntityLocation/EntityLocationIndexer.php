@@ -16,27 +16,15 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityLocationIndexer extends EntityIndexer
 {
-    protected IteratorFactory $iteratorFactory;
-    protected Connection $connection;
-    protected EntityRepository $repository;
-    protected EventDispatcherInterface $eventDispatcher;
-    protected LocationServiceV2 $locationServiceV2;
-
     protected string $entityName;
 
     public function __construct(
-        Connection $connection,
-        IteratorFactory $iteratorFactory,
-        EntityRepository $repository,
-        EventDispatcherInterface $eventDispatcher,
-        LocationServiceV2 $locationServiceV2
+        protected Connection $connection,
+        protected IteratorFactory $iteratorFactory,
+        protected EntityRepository $repository,
+        protected EventDispatcherInterface $eventDispatcher,
+        protected LocationServiceV2 $locationServiceV2
     ) {
-        $this->iteratorFactory = $iteratorFactory;
-        $this->repository = $repository;
-        $this->connection = $connection;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->locationServiceV2 = $locationServiceV2;
-
         $this->entityName = $repository->getDefinition()->getEntityName();
     }
 
@@ -45,7 +33,7 @@ class EntityLocationIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */$offset): ?EntityLocationIndexingMessage
+    public function iterate(/*?array */array $offset): ?EntityLocationIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 
@@ -121,7 +109,7 @@ WHERE #entity#.id IN (:ids);';
                             ]
                         );
                     }
-                } catch (\Exception $exception) {}
+                } catch (\Exception) {}
             }
 
             if ($item['autoLocation'] === "1") {

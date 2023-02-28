@@ -15,9 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"storefront"}})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class ProductBuyListController extends StorefrontController
 {
     public function __construct(
@@ -29,15 +27,15 @@ class ProductBuyListController extends StorefrontController
 
     /**
      * @HttpCache()
-     * @Route("/moorl-product-buy-list/{productId}/switch", name="moorl.product.buy.list.switch", methods={"GET"}, defaults={"XmlHttpRequest"=true})
      */
+    #[Route(path: '/moorl-product-buy-list/{productId}/switch', name: 'moorl.product.buy.list.switch', methods: ['GET'], defaults: ['XmlHttpRequest' => true])]
     public function switch(string $productId, SalesChannelContext $salesChannelContext, Request $request): Response
     {
         try {
             $redirect = $this->findProductVariantRoute->load($productId, $request, $salesChannelContext);
 
             $productId = $redirect->getFoundCombination()->getVariantId();
-        } catch (ProductNotFoundException $productNotFoundException) {}
+        } catch (ProductNotFoundException) {}
 
         $criteria = new Criteria([$productId]);
 

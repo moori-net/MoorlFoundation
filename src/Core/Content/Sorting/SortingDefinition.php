@@ -18,7 +18,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class SortingDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'moorl_sorting';
+    final public const ENTITY_NAME = 'moorl_sorting';
 
     public function getEntityName(): string
     {

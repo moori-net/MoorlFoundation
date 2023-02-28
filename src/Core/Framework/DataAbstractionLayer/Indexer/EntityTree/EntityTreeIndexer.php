@@ -17,30 +17,16 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class EntityTreeIndexer extends EntityIndexer
 {
-    protected IteratorFactory $iteratorFactory;
-    protected Connection $connection;
-    protected EntityRepository $repository;
-    protected ?ChildCountUpdater $childCountUpdater;
-    protected ?TreeUpdater $treeUpdater;
-    protected ?EntityBreadcrumbUpdater $breadcrumbUpdater;
-
     protected string $entityName;
 
     public function __construct(
-        Connection $connection,
-        IteratorFactory $iteratorFactory,
-        EntityRepository $repository,
-        ?ChildCountUpdater $childCountUpdater = null,
-        ?TreeUpdater $treeUpdater = null,
-        ?EntityBreadcrumbUpdater $breadcrumbUpdater = null
+        protected Connection $connection,
+        protected IteratorFactory $iteratorFactory,
+        protected EntityRepository $repository,
+        protected ?ChildCountUpdater $childCountUpdater = null,
+        protected ?TreeUpdater $treeUpdater = null,
+        protected ?EntityBreadcrumbUpdater $breadcrumbUpdater = null
     ) {
-        $this->connection = $connection;
-        $this->iteratorFactory = $iteratorFactory;
-        $this->repository = $repository;
-        $this->childCountUpdater = $childCountUpdater;
-        $this->treeUpdater = $treeUpdater;
-        $this->breadcrumbUpdater = $breadcrumbUpdater;
-
         $this->entityName = $repository->getDefinition()->getEntityName();
     }
 
