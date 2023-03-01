@@ -12,7 +12,7 @@
     .moorl-opening-hours-range {
       &.closed {
         background-color: $sw-color-danger;
-        color: color-yiq($sw-color-danger);
+        color:color-contrast($sw-color-danger);
         font-weight: 700;
         padding: 0 10px;
         border-radius: $border-radius;
