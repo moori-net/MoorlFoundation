@@ -23,11 +23,11 @@
             <div>
                 <sw-icon v-if="expanded"
                          small
-                         name="small-arrow-small-down">
+                         name="regular-chevron-down-s">
                 </sw-icon>
                 <sw-icon v-else
                          small
-                         name="small-arrow-small-right">
+                         name="regular-chevron-right-s">
                 </sw-icon>
             </div>
         </template>
@@ -70,7 +70,7 @@
 
     <sw-button :block="true" @click="addEntry" variant="ghost">
         <span>
-            <sw-icon name="small-default-plus-line-large" :small="true"></sw-icon>
+            <sw-icon name="regular-plus-s" :small="true"/>
             {{ $tc(snippetPrefix + 'label.add') }}
         </span>
     </sw-button>

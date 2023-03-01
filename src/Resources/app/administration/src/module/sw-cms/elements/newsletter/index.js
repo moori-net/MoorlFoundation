@@ -4,7 +4,7 @@ import './config';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'regular-paperplane',
+    icon: 'regular-paper-plane',
     name: 'moorl-newsletter',
     label: 'sw-cms.elements.moorl-newsletter.title',
     component: 'sw-cms-el-moorl-newsletter',

@@ -2,7 +2,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-basic-stack-block',
+    icon: 'regular-bars-square',
     name: 'moorl-toc',
     label: 'sw-cms.elements.moorl-toc.name',
     component: true,

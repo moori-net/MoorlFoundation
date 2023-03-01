@@ -4,7 +4,7 @@ import './config';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-basic-checkmark-wide',
+    icon: 'regular-checkmark',
     name: 'moorl-usp',
     label: 'sw-cms.elements.moorl-usp.title',
     component: 'sw-cms-el-moorl-usp',

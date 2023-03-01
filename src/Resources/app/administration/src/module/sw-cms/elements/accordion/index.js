@@ -4,7 +4,7 @@ import './config';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-basic-stack-circle',
+    icon: 'regular-bars-square',
     name: 'moorl-accordion',
     label: 'sw-cms.elements.moorl-accordion.title',
     component: 'sw-cms-el-moorl-accordion',

@@ -17,7 +17,7 @@
                 v-if="value"
                 class="moorl-file-explorer-item"
         >
-            <sw-icon name="default-arrow-simple-left"/>
+            <sw-icon name="regular-long-arrow-left"/>
             <div
                     class="link"
                     @click="changeDirectory('..')"
@@ -32,7 +32,7 @@
                     v-if="item.type == 'dir'"
                     class="moorl-file-explorer-item"
             >
-                <sw-icon name="default-documentation-map-closed"/>
+                <sw-icon name="regular-folder"/>
                 <div
                         class="link"
                         @click="changeDirectory(item.path)"
@@ -55,7 +55,7 @@
                     v-else
                     class="moorl-file-explorer-item"
             >
-                <sw-icon name="default-documentation-file"/>
+                <sw-icon name="regular-file"/>
                 <div
                         class="link"
                         @click="read(item.path)"

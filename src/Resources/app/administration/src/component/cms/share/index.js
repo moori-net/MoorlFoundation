@@ -2,7 +2,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-web-link',
+    icon: 'regular-share',
     name: 'moorl-share',
     label: 'sw-cms.elements.moorl-share.name',
     component: true,

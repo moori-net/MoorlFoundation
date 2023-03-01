@@ -4,7 +4,7 @@ import './config';
 
 Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-text-code',
+    icon: 'regular-code',
     name: 'moorl-html-tag',
     label: 'sw-cms.elements.moorl-html-tag.title',
     component: 'sw-cms-el-moorl-html-tag',

@@ -2,7 +2,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-avatar-single',
+    icon: 'regular-user',
     name: 'moorl-person',
     label: 'sw-cms.elements.moorl-person.name',
     component: true,

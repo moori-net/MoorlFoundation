@@ -16,7 +16,7 @@
         <div class="container" :class="boxClass" :style="boxCss">
             <div v-if="element.config.iconType.value !== 'none'" class="container-icon" :style="iconCss">
                 <template v-if="element.config.iconType.value === 'fa'">
-                    <sw-icon name="default-basic-checkmark-wide"/>
+                    <sw-icon name="regular-checkmark"/>
                 </template>
 
                 <template v-if="element.config.iconType.value === 'svg'">
