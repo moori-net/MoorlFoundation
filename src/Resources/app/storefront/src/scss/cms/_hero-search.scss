@@ -38,7 +38,7 @@
                 button{
                     background-color: $sw-color-brand-primary;
                     border-color: $sw-color-brand-primary;
-                    color:color-yiq($sw-color-brand-primary);
+                    color:color-contrast($sw-color-brand-primary);
                     padding: 0 15px;
 
                     &:hover{

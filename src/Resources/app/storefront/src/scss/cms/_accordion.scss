@@ -36,14 +36,14 @@
 
                 &:hover, &[aria-expanded=true]{
                     background-color: $sw-color-brand-primary;
-                    color:color-yiq($sw-color-brand-primary);
+                    color:color-contrast($sw-color-brand-primary);
                     text-decoration: none;
                     border:1px solid $sw-color-brand-primary;
 
                     .moorl-accordion-icon{
 
                         svg{
-                            color:color-yiq($sw-color-brand-primary);
+                            color:color-contrast($sw-color-brand-primary);
                         }
                     }
                 }
