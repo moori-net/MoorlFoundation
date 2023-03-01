@@ -148,7 +148,7 @@ class EntityTreeIndexer extends EntityIndexer
 
         $query->andWhere('(' . implode(' OR ', $wheres) . ')');
         
-        return $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        return $query->executeQuery()->fetchNumeric();
     }
 
     private function getIterator(?array $offset): IterableQuery

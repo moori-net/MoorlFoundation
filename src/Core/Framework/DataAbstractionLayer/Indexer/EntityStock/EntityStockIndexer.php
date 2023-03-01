@@ -28,7 +28,7 @@ class EntityStockIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */array $offset): ?EntityIndexingMessage
+    public function iterate(?array $offset): ?EntityIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 
@@ -74,5 +74,10 @@ class EntityStockIndexer extends EntityIndexer
     public function getTotal(): int
     {
         return $this->getIterator(null)->fetchCount();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        // TODO: Implement getDecorated() method.
     }
 }

@@ -33,7 +33,7 @@ class EntityLocationIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */array $offset): ?EntityLocationIndexingMessage
+    public function iterate(?array $offset): ?EntityLocationIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 
@@ -84,7 +84,7 @@ WHERE #entity#.id IN (:ids);';
             $sql
         );
 
-        $data = $this->connection->fetchAll(
+        $data = $this->connection->fetchAllAssociative(
             $sql,
             ['ids' => Uuid::fromHexToBytesList($ids)],
             ['ids' => Connection::PARAM_STR_ARRAY]
@@ -148,5 +148,10 @@ WHERE #entity#.id IN (:ids);';
     public function getTotal(): int
     {
         return $this->getIterator(null)->fetchCount();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        // TODO: Implement getDecorated() method.
     }
 }
