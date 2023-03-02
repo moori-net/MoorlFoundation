@@ -13,7 +13,7 @@ export default class MoorlFoundation extends Plugin {
         const that = this;
 
         const buttons = document.querySelectorAll('[data-moorl-foundation-modal]');
-        const modals = document.querySelectorAll('.modal');
+        const modal = document.getElementById('moorlFoundationModal');
 
         buttons.forEach((button) => {
             button.addEventListener('click', () => {
@@ -25,19 +25,10 @@ export default class MoorlFoundation extends Plugin {
             });
         });
 
-        if (Feature.isActive('v6.5.0.0')) {
-            modals.forEach((modal) => {
-                modal.addEventListener('hidden.bs.modal', () => {
-                    const modalBody = modal.querySelectorAll('.moorl-foundation-modal-body');
-                    modalBody[0].innerHTML = "";
-                });
-            });
-        } else {
-            jQuery('body').on('hidden.bs.modal', function () {
-                jQuery('.moorl-foundation-modal-body video').trigger('pause');
-                jQuery('.moorl-foundation-modal-body iframe').attr('src', null);
-            });
-        }
+        modal.addEventListener('hidden.bs.modal', () => {
+            const modalBody = modal.querySelector('.moorl-foundation-modal-body');
+            modalBody.innerHTML = "";
+        });
 
         window.moorlFoundationModal = function (url, callback) {
             that._client.get(url, (response) => {
@@ -47,13 +38,9 @@ export default class MoorlFoundation extends Plugin {
     }
 
     _openModal(response, callback) {
-        if (Feature.isActive('v6.5.0.0')) {
-            const modal = document.getElementById('moorlFoundationModal');
-            modal.innerHTML = response;
-            modal.show();
-        } else {
-            jQuery('#moorlFoundationModal').html(response).modal('show');
-        }
+        const modal = document.getElementById('moorlFoundationModal');
+        modal.innerHTML = response;
+        modal.show();
 
         if (typeof callback == 'function') {
             callback();
