@@ -26,9 +26,12 @@ class EntityListingExtension implements EntityListingInterface
     protected Request $request;
     protected ?Filter $filter = null;
     protected ?string $route = null;
+    /* @noRector $salesChannelRepository must not be accessed before initialization */
+    protected ?SalesChannelRepository $salesChannelRepository = null;
 
-    public function __construct(protected ?SalesChannelRepository $salesChannelRepository = null)
+    public function __construct(?SalesChannelRepository $salesChannelRepository = null)
     {
+        $this->salesChannelRepository = $salesChannelRepository;
     }
 
     public function isWidget(): bool
