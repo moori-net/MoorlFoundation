@@ -10,7 +10,6 @@
 }
 
 /* listingLayout */
-.moorl-listing-standard,
 .moorl-listing-list,
 .moorl-listing-slider,
 .moorl-listing-grid {
@@ -21,12 +20,24 @@
 
   > li {
     width: 100%;
-    /*height: 100%;*/
     transition: all .3s ease-in-out;
 
     &.is-active {
       z-index: 20;
-      /*box-shadow: inset 0 0 0 3px $primary;*/
+    }
+  }
+}
+
+.moorl-listing-standard {
+  list-style: none;
+  align-items: center;
+  padding: 0;
+
+  > li {
+    transition: all .3s ease-in-out;
+
+    &.is-active {
+      z-index: 20;
     }
   }
 }

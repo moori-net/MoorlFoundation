@@ -19,6 +19,7 @@ class AnimatedExtension extends AbstractExtension
         ];
     }
 
+    /* @deprecated Is in Shopware now ?! Remove this */
     public function blockBehaviour(?array $behaviours = null, bool $isRow = false): ?string
     {
         if (!$behaviours) {
@@ -62,6 +63,7 @@ class AnimatedExtension extends AbstractExtension
         return trim($string);
     }
 
+    /* @deprecated Remove this */
     public function animated(array $config): string
     {
         $ar = [
@@ -85,6 +87,7 @@ class AnimatedExtension extends AbstractExtension
         return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
     }
 
+    /* @deprecated Remove this */
     public function elementAnimation(?CmsSlotEntity $element = null): ?string
     {
         if (!$element) {
