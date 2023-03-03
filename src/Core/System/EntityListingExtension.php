@@ -196,7 +196,6 @@ class EntityListingExtension implements EntityListingInterface
 
         $entities = $this->listingLoader($criteria);
 
-        /** @var ProductListingResult $result */
         $result = ProductListingResult::createFrom($entities);
         $result->addState(...$entities->getStates());
 
