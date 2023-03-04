@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use League\Flysystem\FileAttributes;
 use League\Flysystem\Filesystem;
 use League\Flysystem\StorageAttributes;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
@@ -62,7 +63,7 @@ class ClientService
         return $this->getFilesystem($clientId, $context)->read($path);
     }
 
-    public function listContents(string $clientId, ?string $directory, Context $context): array
+    public function listContents(string $clientId, ?string $directory, Context $context, bool $enrichMetadata = false): array
     {
         $listing = $this->getFilesystem($clientId, $context)->listContents($directory)->toArray();
 
@@ -70,7 +71,7 @@ class ClientService
             return $a->type() <=> $b->type();
         });
 
-        return $listing;
+        return $enrichMetadata ? $this->enrichMetadata($clientId, $listing, $context) : $listing;
     }
 
     public function createDir(string $clientId, ?string $dirname, Context $context): void
@@ -129,5 +130,48 @@ class ClientService
         }
 
         throw new \Exception('Client not found');
+    }
+
+    public function enrichMetadata(string $clientId, array $listing, Context $context): array
+    {
+        $metadataXml = null;
+
+        /** @var StorageAttributes $file */
+        foreach ($listing as $file) {
+            if ($metadataXml || $file->type() !== StorageAttributes::TYPE_FILE) {
+                continue;
+            }
+            $pathinfo = pathinfo($file->path());
+            if (in_array($pathinfo['basename'], ['files.xml', 'metadata.xml'])) {
+                $content = $this->read($clientId, $file->path(), $context);
+                $metadataXml = \simplexml_load_string($content);
+            }
+        }
+
+        if (!$metadataXml) {
+            return $listing;
+        }
+
+        /* TODO: Use Context for language in XML */
+        foreach ($metadataXml->children() as $item) {
+            $name = (string)$item->attributes()->{'name'};
+
+            /** @var StorageAttributes $file */
+            foreach ($listing as &$file) {
+                if ($file->type() !== StorageAttributes::TYPE_FILE) {
+                    continue;
+                }
+                $pathinfo = pathinfo($file->path());
+                if ($pathinfo['basename'] !== $name) {
+                    continue;
+                }
+                $file = FileAttributes::fromArray(array_merge(
+                    $file->jsonSerialize(),
+                    [StorageAttributes::ATTRIBUTE_EXTRA_METADATA => (array) $item->children()]
+                ));
+            }
+        }
+
+        return $listing;
     }
 }
