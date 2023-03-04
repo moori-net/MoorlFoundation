@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Content\Client;
 
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\Ftp\FtpAdapter;
+use League\Flysystem\Ftp\FtpConnectionOptions;
 
 class ClientFtp extends ClientExtension implements ClientInterface
 {
@@ -13,6 +14,7 @@ class ClientFtp extends ClientExtension implements ClientInterface
     {
         return [
             ['name' => 'host', 'type' => 'text', 'required' => true, 'default' => 'localhost'],
+            ['name' => 'root', 'type' => 'text', 'required' => true, 'default' => '/'],
             ['name' => 'port', 'type' => 'number', 'required' => true, 'default' => 21],
             ['name' => 'username', 'type' => 'text', 'required' => true, 'default' => ''],
             ['name' => 'password', 'type' => 'password', 'required' => true, 'default' => ''],
@@ -25,6 +27,6 @@ class ClientFtp extends ClientExtension implements ClientInterface
 
     public function getClientAdapter(): ?FilesystemAdapter
     {
-        return new FtpAdapter($this->clientEntity->getConfig());
+        return new FtpAdapter(FtpConnectionOptions::fromArray($this->clientEntity->getConfig()));
     }
 }

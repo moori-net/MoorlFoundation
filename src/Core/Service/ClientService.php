@@ -16,7 +16,10 @@ class ClientService
     /**
      * @param \MoorlFoundation\Core\Content\Client\ClientInterface[] $clients
      */
-    public function __construct(private readonly EntityRepository $clientRepository, private readonly iterable $clients)
+    public function __construct(
+        private readonly EntityRepository $clientRepository,
+        private readonly iterable $clients
+    )
     {
     }
 

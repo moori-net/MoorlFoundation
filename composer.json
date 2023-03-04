@@ -14,8 +14,9 @@
     "type": "shopware-platform-plugin",
     "autoload": {
         "psr-4": {
-            "MoorlFoundation\\": "src/",
-            "DeepL\\": "libs/vendor/deeplcom/deepl-php/src/"
+            "MoorlFoundation\\": "src",
+            "DeepL\\": "libs/vendor/deeplcom/deepl-php/src",
+            "League\\Flysystem\\Ftp\\": "libs/vendor/league/flysystem-ftp"
         }
     },
     "extra": {
