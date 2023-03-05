@@ -58,7 +58,7 @@ class DataService
             'allow_redirects' => false,
         ]);
         /**
-         * When you install demo data you might need to have an customer mail
+         * When you install demo data you might need to have a customer mail
          */
         $this->demoCustomerMail = $systemConfigService->get('MoorlFoundation.config.demoCustomerMail') ?: 'test@example.com';
     }
@@ -144,8 +144,8 @@ class DataService
                 $this->connection->executeStatement($this->processReplace($sql, $dataObject));
             }
 
-            $this->insertContent($dataObject);
             $this->copyAssets($dataObject);
+            $this->insertContent($dataObject);
             $this->addStylesheets($dataObject);
 
             foreach ($dataObject->getInstallQueries() as $sql) {
@@ -175,10 +175,10 @@ class DataService
     public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
     {
         if ($isBundle) {
-            return sprintf('bundles/%s/', strtolower($dataObject->getPluginName()));
+            return sprintf('bundles/%s', strtolower($dataObject->getPluginName()));
         }
 
-        return '';
+        return strtolower($dataObject->getPluginName());
     }
 
     public function addStylesheets(DataInterface $dataObject, string $type = 'fontFaces'): void
@@ -193,7 +193,7 @@ class DataService
             }
 
             $append = <<<TWIG
-<link rel="stylesheet" href="{{ asset('%s%s') }}">
+<link rel="stylesheet" href="{{ asset('%s/%s') }}">
 TWIG;
             $fontFaces = $fontFaces . sprintf($append, $targetDir, $stylesheet);
         }
@@ -203,13 +203,14 @@ TWIG;
 
     public function copyAssets(DataInterface $dataObject): void
     {
-        $targetDir = $this->getTargetDir($dataObject);
         $originDir = sprintf('%s/public', $dataObject->getPath());
-
         if (!is_dir($originDir)) {
             return;
         }
 
+        $targetDir = $this->getTargetDir($dataObject);
+
+        /* NOTE: This is asset filesystem, it starts from public directory */
         $this->filesystem->createDirectory($targetDir);
 
         $files = Finder::create()
@@ -220,7 +221,7 @@ TWIG;
 
         foreach ($files as $file) {
             $fs = fopen($file->getPathname(), 'rb');
-            $this->filesystem->writeStream($targetDir . $file->getRelativePathname(), $fs);
+            $this->filesystem->writeStream($targetDir . '/' . $file->getRelativePathname(), $fs);
             if (is_resource($fs)) {
                 fclose($fs);
             }
@@ -229,7 +230,6 @@ TWIG;
 
     public function initTaxes(): void
     {
-        /** @var EntityRepository $repo */
         $repo = $this->definitionInstanceRegistry->getRepository('tax');
         $criteria = new Criteria();
         $criteria->addSorting(New FieldSorting('taxRate', FieldSorting::DESCENDING));
@@ -243,6 +243,8 @@ TWIG;
         }
 
         $globalReplacers = [
+            '{PROJECT_DIR}' => $this->projectDir,
+            '{DATA_PLUGIN_NAME}' => strtolower($dataObject->getPluginName()),
             '{DATA_CREATED_AT}' => $dataObject->getCreatedAt(),
             '{NOW}' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             '{P7DAYS}' => (new \DateTime())->modify('+7 days')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
