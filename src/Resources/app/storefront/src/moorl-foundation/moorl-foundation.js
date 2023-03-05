@@ -40,10 +40,12 @@ export default class MoorlFoundation extends Plugin {
     _openModal(response, callback) {
         const modal = document.getElementById('moorlFoundationModal');
         modal.innerHTML = response;
-        modal.show();
+
+        const bsModal = new bootstrap.Modal(modal);
+        bsModal.show();
 
         if (typeof callback == 'function') {
-            callback();
+            callback(modal, bsModal);
         }
     }
 }
