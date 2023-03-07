@@ -137,7 +137,7 @@ SQL;
             $doc = new \DOMDocument('1.0', 'UTF-8');
             \libxml_use_internal_errors(TRUE);
 
-            $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD);
             $xPath = new \DOMXPath($doc);
 
             $tags = $xPath->query('//h2|//h3|//h4|//h5|//h6');
@@ -159,7 +159,7 @@ SQL;
                 $tag->setAttribute('id', $slug);
             }
 
-            return $doc->saveHTML();
+            return str_replace(['<body>','</body>','<html>','</html>'],'', $doc->saveHTML());
         } catch (\Exception) {
             return $content;
         }

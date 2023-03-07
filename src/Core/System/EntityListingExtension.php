@@ -90,7 +90,7 @@ class EntityListingExtension implements EntityListingInterface
     public function setRequest(Request $request): void
     {
         $this->request = $request;
-        $this->route = $request->get('_route');
+        $this->route = $request->attributes->get('_route');
     }
 
     public function setEvent(ProductListingResultEvent $event): void

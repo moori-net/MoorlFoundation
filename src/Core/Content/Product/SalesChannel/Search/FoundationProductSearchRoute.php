@@ -12,9 +12,6 @@ use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"store-api"}})
- */
 class FoundationProductSearchRoute extends AbstractProductSearchRoute
 {
     public function __construct(private readonly AbstractProductSearchRoute $decorated, private readonly EntitySearchService $searchService, private readonly EventDispatcherInterface $dispatcher)
@@ -36,7 +33,7 @@ class FoundationProductSearchRoute extends AbstractProductSearchRoute
 
             $result = $entityListing->listingRoute($criteria)->getResult();
             $result = ProductListingResult::createFrom($result);
-            $result->addCurrentFilter('search', $request->get('search'));
+            $result->addCurrentFilter('search', $request->query->get('search'));
 
             return new ProductSearchRouteResponse($result);
         }

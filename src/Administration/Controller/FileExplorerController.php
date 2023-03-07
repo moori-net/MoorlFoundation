@@ -24,14 +24,14 @@ class FileExplorerController
     public function listContents(Request $request, Context $context): JsonResponse
     {
         return new JsonResponse(
-            $this->clientService->listContents($request->get('clientId'), $request->get('directory'), $context)
+            $this->clientService->listContents($request->request->get('clientId'), $request->request->get('directory'), $context)
         );
     }
 
     #[Route(path: '/api/moorl-foundation/file-explorer/create-dir', name: 'api.moorl-foundation.file-explorer.create-dir', methods: ['POST'])]
     public function createDir(Request $request, Context $context): JsonResponse
     {
-        $this->clientService->createDir($request->get('clientId'), $request->get('dirname'), $context);
+        $this->clientService->createDir($request->request->get('clientId'), $request->request->get('dirname'), $context);
 
         return new JsonResponse([]);
     }
@@ -39,8 +39,8 @@ class FileExplorerController
     #[Route(path: '/api/moorl-foundation/file-explorer/read', name: 'api.moorl-foundation.file-explorer.read', methods: ['POST'])]
     public function read(Request $request, Context $context): Response
     {
-        $clientId = $request->get('clientId');
-        $path = $request->get('path');
+        $clientId = $request->request->get('clientId');
+        $path = $request->request->get('path');
 
         $contents = $this->clientService->read($clientId, $path, $context);
 
@@ -57,8 +57,8 @@ class FileExplorerController
     #[Route(path: '/api/moorl-foundation/file-explorer/read-stream', name: 'api.moorl-foundation.file-explorer.read-stream', methods: ['POST'])]
     public function readStream(Request $request, Context $context): Response
     {
-        $clientId = $request->get('clientId');
-        $path = $request->get('path');
+        $clientId = $request->request->get('clientId');
+        $path = $request->request->get('path');
 
         $stream = $this->clientService->readStream($clientId, $path, $context);
 

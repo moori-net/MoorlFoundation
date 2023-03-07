@@ -30,7 +30,7 @@ class EntitySearchService
 
     public function getEntityListing(Request $request, Context $context): ?EntityListingInterface
     {
-        if ($request->get('_route') === "frontend.search.page") {
+        if ($request->attributes->get('_route') === "frontend.search.page") {
             $request->query->set('order', 'score');
 
             return null;
@@ -85,7 +85,7 @@ class EntitySearchService
         $advancedSearchHideEmptyResults = $this->systemConfigService->get('MoorlFoundation.config.advancedSearchHideEmptyResults', $salesChannelContext->getSalesChannelId());
 
         $request = $event->getRequest();
-        $search = $request->get('search');
+        $search = $request->query->get('search');
         $result = $event->getResult();
         $context = $salesChannelContext->getContext();
         $moorlSearchResults = [];

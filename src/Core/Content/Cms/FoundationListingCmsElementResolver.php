@@ -49,7 +49,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $request = $resolverContext->getRequest();
         $salesChannelContext = $resolverContext->getSalesChannelContext();
 
-        if ($navigationId = $request->get('navigationId')) {
+        if ($navigationId = $request->request->get('navigationId')) {
             return $navigationId;
         }
 
@@ -109,7 +109,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
 
             if ($listingSourceConfig && $listingSourceConfig->getValue() === 'auto') {
                 $criteria->resetSorting();
-                if ($request && !$request->get('order') && $sorting) {
+                if ($request && !$request->query->get('order') && $sorting) {
                     $request->query->set('order', $sorting->getKey());
                 }
             }
