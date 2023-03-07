@@ -19,7 +19,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\Count
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\EntityAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\StatsAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
@@ -51,11 +50,11 @@ class EntityListingFeaturesSubscriberExtension
         $request = $event->getRequest();
         $criteria = $event->getCriteria();
 
-        if ($request->get('no-aggregations')) {
+        if ($request->query->get('no-aggregations')) {
             $criteria->resetAggregations();
         }
 
-        if ($request->get('only-aggregations')) {
+        if ($request->query->get('only-aggregations')) {
             $criteria->setLimit(0);
             $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_NONE);
             $criteria->resetSorting();
@@ -69,7 +68,7 @@ class EntityListingFeaturesSubscriberExtension
         $criteria = $event->getCriteria();
         $context = $event->getSalesChannelContext();
 
-        if (!$request->get('order')) {
+        if (!$request->query->get('order')) {
             $request->request->set('order', self::DEFAULT_SEARCH_SORT);
         }
 
@@ -84,7 +83,7 @@ class EntityListingFeaturesSubscriberExtension
         $criteria = $event->getCriteria();
         $context = $event->getSalesChannelContext();
 
-        if (!$request->get('order')) {
+        if (!$request->query->get('order')) {
             $request->request->set('order', self::DEFAULT_SEARCH_SORT);
         }
 
@@ -122,8 +121,8 @@ class EntityListingFeaturesSubscriberExtension
             $criteria->addAggregation($aggregation);
         }
 
-        if ($request->get('search')) {
-            $criteria->setTerm($request->get('search'));
+        if ($request->query->get('search')) {
+            $criteria->setTerm($request->query->get('search'));
         }
 
         foreach ($filters as $filter) {
@@ -152,7 +151,7 @@ class EntityListingFeaturesSubscriberExtension
     {
         $aggregations = [];
 
-        if ($request->get('reduce-aggregations') === null) {
+        if ($request->query->get('reduce-aggregations') === null) {
             foreach ($filters as $filter) {
                 $aggregations = array_merge($aggregations, $filter->getAggregations());
             }
@@ -215,7 +214,7 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getCurrentSorting(SortingCollection $sortings, Request $request): ProductSortingEntity
     {
-        $key = $request->get('order');
+        $key = $request->query->get('order');
         $sorting = $sortings->getByKey($key);
         if ($sorting !== null) {
             return $sorting;
@@ -363,8 +362,8 @@ class EntityListingFeaturesSubscriberExtension
 
     protected function getPriceFilter(Request $request): Filter
     {
-        $min = $request->get('min-price', 0);
-        $max = $request->get('max-price', 0);
+        $min = $request->query->get('min-price', 0);
+        $max = $request->query->get('max-price', 0);
 
         $range = [];
         if ($min > 0) {
@@ -380,8 +379,8 @@ class EntityListingFeaturesSubscriberExtension
             [new StatsAggregation('price', $this->entityName . '.price', true, true, false, false)],
             new RangeFilter($this->entityName .'.price', $range),
             [
-                'min' => (float) $request->get('min-price'),
-                'max' => (float) $request->get('max-price'),
+                'min' => (float) $request->query->get('min-price'),
+                'max' => (float) $request->query->get('max-price'),
             ]
         );
     }
@@ -393,8 +392,8 @@ class EntityListingFeaturesSubscriberExtension
          * mi = Meilen
          * nm = Nautische Meilen
          */
-        $location = $request->get('location', '');
-        $distance = $request->get('distance', 0);
+        $location = $request->query->get('location', '');
+        $distance = $request->query->get('distance', 0);
         $unit = $this->locationServiceV2->getUnitOfMeasurement();
 
         $filter = new EqualsFilter($this->entityName . '.active', true);
