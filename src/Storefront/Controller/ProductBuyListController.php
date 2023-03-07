@@ -10,7 +10,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
-use Shopware\Storefront\Framework\Cache\Annotation\HttpCache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,23 +18,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductBuyListController extends StorefrontController
 {
     public function __construct(
-        private readonly SalesChannelRepository $productRepository,
-        private readonly ProductConfiguratorLoader $configuratorLoader,
+        private readonly SalesChannelRepository          $productRepository,
+        private readonly ProductConfiguratorLoader       $configuratorLoader,
         private readonly AbstractFindProductVariantRoute $findProductVariantRoute
-    ) {
+    )
+    {
     }
 
-    /**
-     * @HttpCache()
-     */
     #[Route(path: '/moorl-product-buy-list/{productId}/switch', name: 'moorl.product.buy.list.switch', methods: ['GET'], defaults: ['XmlHttpRequest' => true])]
     public function switch(string $productId, SalesChannelContext $salesChannelContext, Request $request): Response
     {
+        $switchedGroup = $request->query->has('switched') ? (string)$request->query->get('switched') : null;
+        /** @var array<mixed>|null $options */
+        $options = json_decode($request->query->get('options', ''), true);
+
         try {
-            $redirect = $this->findProductVariantRoute->load($productId, $request, $salesChannelContext);
+            $redirect = $this->findProductVariantRoute->load(
+                $productId,
+                new Request([
+                    'switchedGroup' => $switchedGroup,
+                    'options' => $options ?? [],
+                ]),
+                $salesChannelContext);
 
             $productId = $redirect->getFoundCombination()->getVariantId();
-        } catch (ProductNotFoundException) {}
+        } catch (ProductNotFoundException) {
+        }
 
         $criteria = new Criteria([$productId]);
 
