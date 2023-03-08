@@ -4,7 +4,7 @@
     {% if name == 'icon' and fileName %}
         {% set name = fileName %}
     {% endif %}
-    {% set styles = [ size, color, rotation, flip, class ] %}
+    {% set styles = [ size, color, rotation, flip, class, inline ] %}
     {% set iconPacks = {
         fab: 'fa/brands/',
         far: 'fa/regular/',
@@ -18,16 +18,8 @@
         {% if pack == key %}
             {% set inherit = false %}
             <span class="icon icon-{{ pack }} icon-{{ pack }}-{{ name }}{% for entry in styles %}{% if entry != "" %} icon-{{ entry }}{% endif %}{% endfor %}">
-                {% if moorl_sw_version_compare('6.4.15.2') %}
-                    {% set icon = source('@MoorlFoundation/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
-                {% else %}
-                    {% set icon = source('@MoorlFoundation/../app/storefront/dist/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
-                {% endif %}
-                {% if moorl_sw_version_compare('6.4.11') %}
-                    {{ icon|sw_icon_cache|raw }}
-                {% else %}
-                    {{ icon|raw }}
-                {% endif %}
+                {% set icon = source('@MoorlFoundation/assets/icon/' ~ path ~ name ~'.svg', ignore_missing = true) %}
+                {{ icon|sw_icon_cache|raw }}
             </span>
         {% endif %}
     {% endfor %}
