@@ -1,7 +1,5 @@
 <div class="input-group">
-    <div class="input-group-prepend">
-        <span class="input-group-text">{{ unit|trans }}</span>
-    </div>
+    <span class="input-group-text">{{ unit|trans }}</span>
 
     {% if config('MoorlFoundation.config.filterRadiusType') == 'select' %}
         <select id="distance" name="distance" class="form-select form-control distance">
