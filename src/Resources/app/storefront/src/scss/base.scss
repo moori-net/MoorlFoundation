@@ -35,6 +35,8 @@
 @import "helpers/cms-helpers";
 @import "helpers/foundation-demo-html";
 
+@import "lib/leaflet";
+
 .icon-inline {
   > svg {
     top: auto !important;
