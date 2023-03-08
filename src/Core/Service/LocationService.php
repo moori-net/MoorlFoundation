@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Service;
 
-use function guzzlehttp\psr7\build_query;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
@@ -291,7 +290,7 @@ class LocationService
 
         $httpBody = json_encode($data);
 
-        $query = build_query($query);
+        $query = http_build_query($query);
 
         $request = new Request(
             $method,

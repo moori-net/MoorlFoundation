@@ -54,7 +54,7 @@
                     {# Avoid not necessary pagination or sorting elements #}
                     {% set totalPages = (searchResult.total / searchResult.criteria.limit)|round(0, 'ceil') %}
                     {% if totalPages > 1 or searchResult.availableSortings.count() > 1 %}
-                        <div class="cms-element-product-listing-actions row form-row justify-content-between">
+                        <div class="cms-element-product-listing-actions row g-3 justify-content-between">
                             <div class="col">
                                 {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
                                     entities: searchResult,

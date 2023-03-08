@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Service;
 
-use function guzzlehttp\psr7\build_query;
 use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
@@ -268,7 +267,7 @@ SQL;
 
         $httpBody = json_encode($data);
 
-        $query = build_query($query);
+        $query = http_build_query($query);
 
         $request = new Request(
             $method,
