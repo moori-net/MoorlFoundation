@@ -20,9 +20,7 @@ export default class MoorlFoundation extends Plugin {
                 let url = button.dataset.moorlFoundationModal;
 
                 that._client.get(url, (response) => {
-                    that._openModal(response, () => {
-                        window.PluginManager.initializePlugins();
-                    });
+                    that._openModal(response, null);
                 });
             });
         });
@@ -45,6 +43,8 @@ export default class MoorlFoundation extends Plugin {
 
         const bsModal = new bootstrap.Modal(modal);
         bsModal.show();
+
+        window.PluginManager.initializePlugins();
 
         if (typeof callback == 'function') {
             callback(modal, bsModal);
