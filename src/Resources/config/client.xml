@@ -12,5 +12,9 @@
         <service id="MoorlFoundation\Core\Content\Client\ClientFtp">
             <tag name="moorl.foundation.client" priority="850"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientAwsS3">
+            <tag name="moorl.foundation.client" priority="800"/>
+        </service>
     </services>
 </container>

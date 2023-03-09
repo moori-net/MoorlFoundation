@@ -162,5 +162,9 @@ Component.register('moorl-file-explorer', {
                 this.isLoading = false;
             });
         },
+
+        getBasename(path) {
+            return path.split("/").pop();
+        }
     }
 });

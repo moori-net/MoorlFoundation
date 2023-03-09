@@ -37,7 +37,7 @@
                         class="link"
                         @click="changeDirectory(item.path)"
                 >
-                    {{ item.basename }}
+                    {{ getBasename(item.path) }}
                 </div>
                 <div>
                     <sw-button
@@ -60,7 +60,7 @@
                         class="link"
                         @click="read(item.path)"
                 >
-                    {{ item.basename }}
+                    {{ getBasename(item.path) }}
                 </div>
                 <div>
                     <sw-button

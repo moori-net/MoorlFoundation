@@ -2,9 +2,9 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
+use AsyncAws\S3\S3Client;
+use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\FilesystemAdapter;
-use Aws\S3\S3Client;
-use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
 class ClientAwsS3 extends ClientExtension implements ClientInterface
 {
@@ -13,8 +13,9 @@ class ClientAwsS3 extends ClientExtension implements ClientInterface
     public function getClientConfigTemplate(): ?array
     {
         return [
-            ['name' => 'username', 'type' => 'text', 'required' => true, 'default' => ''],
-            ['name' => 'password', 'type' => 'password', 'required' => true, 'default' => ''],
+            ['name' => 'region', 'type' => 'text', 'required' => true, 'default' => 'eu-central-1'],
+            ['name' => 'accessKeyId', 'type' => 'text', 'required' => true, 'default' => ''],
+            ['name' => 'accessKeySecret', 'type' => 'password', 'required' => true, 'default' => ''],
             ['name' => 'bucket', 'type' => 'text', 'required' => true, 'default' => ''],
             ['name' => 'prefix', 'type' => 'text', 'required' => true, 'default' => ''],
         ];
@@ -24,8 +25,12 @@ class ClientAwsS3 extends ClientExtension implements ClientInterface
     {
         $config = $this->clientEntity->getConfig();
 
-        $client = new S3Client($config);
+        $clientConfig = $config;
+        unset($clientConfig['bucket']);
+        unset($clientConfig['prefix']);
 
-        return new AwsS3Adapter($client, $config['bucket'], $config['prefix']);
+        $client = new S3Client($clientConfig);
+
+        return new AsyncAwsS3Adapter($client, $config['bucket'], $config['prefix']);
     }
 }

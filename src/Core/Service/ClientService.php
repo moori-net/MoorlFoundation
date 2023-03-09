@@ -65,7 +65,7 @@ class ClientService
 
     public function listContents(string $clientId, ?string $directory, Context $context, bool $enrichMetadata = false): array
     {
-        $listing = $this->getFilesystem($clientId, $context)->listContents($directory)->toArray();
+        $listing = $this->getFilesystem($clientId, $context)->listContents((string) $directory)->toArray();
 
         usort($listing, function (StorageAttributes $a, StorageAttributes $b) {
             return $a->type() <=> $b->type();
