@@ -2,9 +2,13 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\StorageAttributes;
+use League\Flysystem\UrlGeneration\PublicUrlGenerator;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
 use Shopware\Core\Framework\Context;
@@ -16,7 +20,7 @@ class ClientService
     private array $_clients = [];
 
     /**
-     * @param \MoorlFoundation\Core\Content\Client\ClientInterface[] $clients
+     * @param ClientInterface[] $clients
      */
     public function __construct(
         private readonly EntityRepository $clientRepository,
@@ -25,20 +29,20 @@ class ClientService
     {
     }
 
-    public function publicUrl(string $clientId, string $path, Context $context): ?string
+    public function publicUrl(string $clientId, ?string $path, Context $context): ?string
     {
-        $filesystem = $this->getFilesystem($clientId, $context);
-        if (method_exists($filesystem, 'publicUrl')) {
-            return $filesystem->publicUrl($path);
+        $adapter = $this->getAdapter($clientId, $context);
+        if ($adapter instanceof PublicUrlGenerator) {
+            return $adapter->publicUrl((string) $path, new Config());
         }
         return null;
     }
 
-    public function temporaryUrl(string $clientId, string $path, $dateTimeOfExpiry, Context $context): ?string
+    public function temporaryUrl(string $clientId, ?string $path, \DateTimeInterface $dateTimeOfExpiry, Context $context): ?string
     {
-        $filesystem = $this->getFilesystem($clientId, $context);
-        if (method_exists($filesystem, 'temporaryUrl')) {
-            return $filesystem->temporaryUrl($path, $dateTimeOfExpiry);
+        $adapter = $this->getAdapter($clientId, $context);
+        if ($adapter instanceof TemporaryUrlGenerator) {
+            return $adapter->temporaryUrl((string) $path, $dateTimeOfExpiry, new Config());
         }
         return null;
     }
@@ -98,10 +102,15 @@ class ClientService
         return $options;
     }
 
-    private function getFilesystem(string $clientId, Context $context): Filesystem
+    private function getAdapter(string $clientId, Context $context): FilesystemAdapter
     {
         $client = $this->getClient($clientId, $context);
-        return new Filesystem($client->getClientAdapter());
+        return $client->getClientAdapter();
+    }
+
+    private function getFilesystem(string $clientId, Context $context): Filesystem
+    {
+        return new Filesystem($this->getAdapter($clientId, $context));
     }
 
     private function getClient(string $clientId, Context $context): ClientInterface

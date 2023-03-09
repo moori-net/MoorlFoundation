@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Content\Client;
 
 use AsyncAws\S3\S3Client;
+use AsyncAws\SimpleS3\SimpleS3Client;
 use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\FilesystemAdapter;
 
@@ -29,7 +30,7 @@ class ClientAwsS3 extends ClientExtension implements ClientInterface
         unset($clientConfig['bucket']);
         unset($clientConfig['prefix']);
 
-        $client = new S3Client($clientConfig);
+        $client = new SimpleS3Client($clientConfig);
 
         return new AsyncAwsS3Adapter($client, $config['bucket'], $config['prefix']);
     }
