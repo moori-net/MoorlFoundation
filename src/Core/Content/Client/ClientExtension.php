@@ -44,4 +44,9 @@ class ClientExtension
     {
         $this->clientEntity = $clientEntity;
     }
+
+    public function getClientEntity(): ClientEntity
+    {
+        return $this->clientEntity;
+    }
 }

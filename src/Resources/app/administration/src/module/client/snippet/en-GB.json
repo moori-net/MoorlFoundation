@@ -17,7 +17,13 @@
             "passive": "Passive",
             "name": "Name",
             "type": "Type",
-            "active": "Active"
+            "active": "Active",
+            "public_url": "Public Url",
+            "region": "Region",
+            "accessKeyId": "Access key ID",
+            "accessKeySecret": "Access key secret",
+            "bucket": "Bucket",
+            "prefix": "Prefix"
         },
         "helpText": {}
     }

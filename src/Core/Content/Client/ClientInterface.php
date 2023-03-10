@@ -12,4 +12,5 @@ interface ClientInterface
     public function getClientAdapter(): ?FilesystemAdapter;
     public function getClient(): ?\GuzzleHttp\ClientInterface;
     public function setClientEntity(ClientEntity $clientEntity): void;
+    public function getClientEntity(): ClientEntity;
 }

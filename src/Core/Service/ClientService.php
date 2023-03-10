@@ -2,13 +2,10 @@
 
 namespace MoorlFoundation\Core\Service;
 
-use League\Flysystem\Config;
 use League\Flysystem\FileAttributes;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\StorageAttributes;
-use League\Flysystem\UrlGeneration\PublicUrlGenerator;
-use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
 use Shopware\Core\Framework\Context;
@@ -31,19 +28,19 @@ class ClientService
 
     public function publicUrl(string $clientId, ?string $path, Context $context): ?string
     {
-        $adapter = $this->getAdapter($clientId, $context);
-        if ($adapter instanceof PublicUrlGenerator) {
-            return $adapter->publicUrl((string) $path, new Config());
-        }
+        $filesystem = $this->getFilesystem($clientId, $context);
+        try {
+            return $filesystem->publicUrl((string) $path);
+        } catch (\Exception) {}
         return null;
     }
 
     public function temporaryUrl(string $clientId, ?string $path, \DateTimeInterface $dateTimeOfExpiry, Context $context): ?string
     {
-        $adapter = $this->getAdapter($clientId, $context);
-        if ($adapter instanceof TemporaryUrlGenerator) {
-            return $adapter->temporaryUrl((string) $path, $dateTimeOfExpiry, new Config());
-        }
+        $filesystem = $this->getFilesystem($clientId, $context);
+        try {
+            return $filesystem->temporaryUrl((string) $path, $dateTimeOfExpiry);
+        } catch (\Exception) {}
         return null;
     }
 
@@ -110,7 +107,11 @@ class ClientService
 
     private function getFilesystem(string $clientId, Context $context): Filesystem
     {
-        return new Filesystem($this->getAdapter($clientId, $context));
+        $client = $this->getClient($clientId, $context);
+        return new Filesystem(
+            $client->getClientAdapter(),
+            $client->getClientEntity()->getConfig()
+        );
     }
 
     private function getClient(string $clientId, Context $context): ClientInterface

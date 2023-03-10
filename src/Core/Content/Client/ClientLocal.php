@@ -13,6 +13,7 @@ class ClientLocal extends ClientExtension implements ClientInterface
     {
         return [
             ['name' => 'root', 'type' => 'text', 'required' => true, 'default' => '/home'],
+            ['name' => 'public_url', 'type' => 'text', 'placeholder' => 'https://example.org/assets/'],
         ];
     }
 

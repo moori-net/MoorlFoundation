@@ -22,6 +22,7 @@ class ClientFtp extends ClientExtension implements ClientInterface
             ['name' => 'timeout', 'type' => 'number', 'default' => 90],
             ['name' => 'utf8', 'type' => 'switch', 'default' => false],
             ['name' => 'passive', 'type' => 'switch', 'default' => true],
+            ['name' => 'public_url', 'type' => 'text', 'placeholder' => 'https://example.org/assets/'],
         ];
     }
 
