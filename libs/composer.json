@@ -1,6 +1,0 @@
-{
-    "require": {
-        "deeplcom/deepl-php": "^1.0",
-        "league/flysystem-ftp": "3.0"
-    }
-}

@@ -16,5 +16,13 @@
         <service id="MoorlFoundation\Core\Content\Client\ClientAwsS3">
             <tag name="moorl.foundation.client" priority="800"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientWebDAV">
+            <tag name="moorl.foundation.client" priority="750"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientNextcloud">
+            <tag name="moorl.foundation.client" priority="700"/>
+        </service>
     </services>
 </container>

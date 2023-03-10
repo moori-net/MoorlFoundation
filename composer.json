@@ -9,14 +9,14 @@
         }
     ],
     "require": {
-        "shopware/core": "^6.5.0"
+        "shopware/core": "^6.5.0",
+        "deeplcom/deepl-php": "^1.0",
+        "league/flysystem": "*"
     },
     "type": "shopware-platform-plugin",
     "autoload": {
         "psr-4": {
-            "MoorlFoundation\\": "src",
-            "DeepL\\": "libs/vendor/deeplcom/deepl-php/src",
-            "League\\Flysystem\\Ftp\\": "libs/vendor/league/flysystem-ftp"
+            "MoorlFoundation\\": "src"
         }
     },
     "extra": {

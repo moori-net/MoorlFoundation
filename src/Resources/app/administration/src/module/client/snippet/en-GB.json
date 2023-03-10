@@ -23,7 +23,9 @@
             "accessKeyId": "Access key ID",
             "accessKeySecret": "Access key secret",
             "bucket": "Bucket",
-            "prefix": "Prefix"
+            "prefix": "Prefix",
+            "userName": "Username",
+            "baseUri": "Base URI"
         },
         "helpText": {}
     }
