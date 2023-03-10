@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use AsyncAws\S3\S3Client;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\FilesystemAdapter;

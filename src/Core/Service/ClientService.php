@@ -71,6 +71,12 @@ class ClientService
     {
         $listing = $this->getFilesystem($clientId, $context)->listContents((string) $directory)->toArray();
 
+        /* AwsS3 list own path as directory */
+        $listing = array_filter($listing, function($file) use ($directory) {
+            return $file['path'] !== $directory;
+        });
+
+        /* List directories before files */
         usort($listing, function (StorageAttributes $a, StorageAttributes $b) {
             return $a->type() <=> $b->type();
         });
