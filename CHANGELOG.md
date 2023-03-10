@@ -11,7 +11,7 @@
 ## 1.4.1060
 
 * Added FontAwesome 6 Free SVG Package
-* Bugfix for Shopware 6.4.15.2
+* Bugfix.4.15.2
 
 ## 1.4.1046
 
