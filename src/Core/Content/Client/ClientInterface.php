@@ -13,4 +13,5 @@ interface ClientInterface
     public function getClient(): ?\GuzzleHttp\ClientInterface;
     public function setClientEntity(ClientEntity $clientEntity): void;
     public function getClientEntity(): ClientEntity;
+    public function executePublicUrl(): bool;
 }

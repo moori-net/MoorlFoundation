@@ -15,6 +15,7 @@ class ClientExtension
     {
         return $this->clientType;
     }
+
     public function getClientConfigTemplate(): ?array
     {
         return [
@@ -48,5 +49,10 @@ class ClientExtension
     public function getClientEntity(): ClientEntity
     {
         return $this->clientEntity;
+    }
+
+    public function executePublicUrl(): bool
+    {
+        return true;
     }
 }

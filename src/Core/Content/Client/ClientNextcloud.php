@@ -13,7 +13,7 @@ class ClientNextcloud extends ClientExtension implements ClientInterface
     public function getClientConfigTemplate(): ?array
     {
         return [
-            ['name' => 'baseUri', 'type' => 'text', 'required' => true, 'placeholder' => 'http://your-nextcloud-server.org'],
+            ['name' => 'baseUri', 'type' => 'text', 'required' => true, 'placeholder' => 'http://your-nextcloud-server.org/'],
             ['name' => 'userName', 'type' => 'text', 'required' => true, 'default' => ''],
             ['name' => 'password', 'type' => 'password', 'required' => true, 'default' => ''],
         ];
@@ -22,9 +22,12 @@ class ClientNextcloud extends ClientExtension implements ClientInterface
     public function getClientAdapter(): ?FilesystemAdapter
     {
         $config = $this->clientEntity->getConfig();
-        $prefix = sprintf('remote.php/dav/files/%s/', $config['userName']);
-
         $client = new Client($config);
-        return new WebDAVAdapter($client, $prefix);
+        return new WebDAVAdapter($client, sprintf('remote.php/dav/files/%s/', $config['userName']));
+    }
+
+    public function executePublicUrl(): bool
+    {
+        return false;
     }
 }

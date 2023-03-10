@@ -28,10 +28,13 @@ class ClientService
 
     public function publicUrl(string $clientId, ?string $path, Context $context): ?string
     {
-        $filesystem = $this->getFilesystem($clientId, $context);
-        try {
-            return $filesystem->publicUrl((string) $path);
-        } catch (\Exception) {}
+        $client = $this->getClient($clientId, $context);
+        if ($client->executePublicUrl()) {
+            $filesystem = $this->getFilesystem($clientId, $context);
+            try {
+                return $filesystem->publicUrl((string) $path);
+            } catch (\Exception) {}
+        }
         return null;
     }
 
@@ -84,6 +87,7 @@ class ClientService
     {
         return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
     }
+
     public function getOptions(): array
     {
         $options = [];

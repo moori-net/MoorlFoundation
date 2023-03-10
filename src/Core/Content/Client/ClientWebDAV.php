@@ -16,12 +16,14 @@ class ClientWebDAV extends ClientExtension implements ClientInterface
             ['name' => 'baseUri', 'type' => 'text', 'required' => true, 'placeholder' => 'http://your-webdav-server.org/'],
             ['name' => 'userName', 'type' => 'text', 'required' => true, 'default' => ''],
             ['name' => 'password', 'type' => 'password', 'required' => true, 'default' => ''],
+            ['name' => 'prefix', 'type' => 'text', 'required' => true, 'default' => ''],
         ];
     }
 
     public function getClientAdapter(): ?FilesystemAdapter
     {
-        $client = new Client($this->clientEntity->getConfig());
-        return new WebDAVAdapter($client);
+        $config = $this->clientEntity->getConfig();
+        $client = new Client($config);
+        return new WebDAVAdapter($client, $config['prefix']);
     }
 }
