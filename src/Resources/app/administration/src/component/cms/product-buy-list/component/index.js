@@ -1,5 +1,5 @@
 const {Component, Mixin} = Shopware;
-const {Criteria} = Shopware.Data;
+const {Criteria, EntityCollection} = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
@@ -26,11 +26,39 @@ Component.register('sw-cms-el-moorl-product-buy-list', {
     data() {
         return {
             items: [],
+            productCollection: null,
             criteria: new Criteria(1, 12)
         };
     },
 
     computed: {
+        productRepository() {
+            return this.repositoryFactory.create('product');
+        },
+
+        products() {
+            if (this.element.data && this.element.data.products && this.element.data.products.length > 0) {
+                return this.element.data.products;
+            }
+
+            return null;
+        },
+
+        productSearchCriteria() {
+            const criteria = new Criteria(1, 25);
+            criteria.addAssociation('options.group');
+            criteria.addAssociation('cover');
+
+            return criteria;
+        },
+
+        productSearchContext() {
+            const context = Object.assign({}, Shopware.Context.api);
+            context.inheritance = true;
+
+            return context;
+        },
+
         itemClass() {
             let className = "enable-add-to-cart";
 
@@ -84,12 +112,32 @@ Component.register('sw-cms-el-moorl-product-buy-list', {
 
     methods: {
         createdComponent() {
-            if (Object.keys(this.element.config).length) {
+            if (!Object.keys(this.element.config).length) {
+                this.initElementConfig('moorl-product-buy-list');
+                this.initElementData('moorl-product-buy-list');
+            }
+
+            this.productCollection = new EntityCollection('/product', 'product', Shopware.Context.api);
+
+            if (this.element.config.products.value.length <= 0) {
                 return;
             }
 
-            this.initElementConfig('moorl-product-buy-list');
-            this.initElementData('moorl-product-buy-list');
+            const criteria = new Criteria(1, 25);
+            criteria.addAssociation('options.group');
+            criteria.addAssociation('cover');
+            criteria.setIds(this.element.config.products.value);
+
+            this.productRepository.search(criteria, this.productSearchContext)
+                .then(result => {
+                    this.productCollection = result;
+                    this.onProductsChange();
+                });
+        },
+
+        onProductsChange() {
+            this.element.config.products.value = this.productCollection.getIds();
+            this.$set(this.element.data, 'products', this.productCollection);
         }
     },
 
