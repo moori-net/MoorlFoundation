@@ -7,7 +7,6 @@ use Shopware\Core\Content\Category\Exception\CategoryNotFoundException;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Api\Context\SystemSource;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
@@ -18,7 +17,10 @@ use Shopware\Core\System\Language\LanguageEntity;
 
 class EntityBreadcrumbUpdater
 {
-    public function __construct(private readonly DefinitionInstanceRegistry $registry, private readonly Connection $connection)
+    public function __construct(
+        private readonly DefinitionInstanceRegistry $registry,
+        private readonly Connection $connection
+    )
     {
     }
 

@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use Doctrine\DBAL\Driver\PDO\Exception;
 use League\Flysystem\Filesystem;
 use MoorlFoundation\Core\System\DataInterface;
 use Doctrine\DBAL\Connection;
@@ -374,9 +375,16 @@ SQL;
                 continue;
             }
 
-            /** @var EntityRepository $repository */
             $repository = $this->definitionInstanceRegistry->getRepository($table);
-            $repository->upsert($data, $this->context);
+
+            try {
+                $repository->upsert($data, $this->context);
+            } catch (\Exception $exception) {
+                throw new Exception(sprintf("Table: %s %s %s",
+                    $table,
+                    $exception->getMessage(),
+                    json_encode($data)));
+            }
         }
     }
 

@@ -19,8 +19,8 @@ export default class MoorlFoundation extends Plugin {
             button.addEventListener('click', () => {
                 let url = button.dataset.moorlFoundationModal;
 
-                that._client.get(url, (response) => {
-                    that._openModal(response, null);
+                this._client.get(url, (response) => {
+                    this._openModal(response, null);
                 });
             });
         });
