@@ -16,7 +16,6 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
@@ -301,7 +300,7 @@ TWIG;
         $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `delivery_time` LIMIT 1;";
         $globalReplacers['{DELIVERY_TIME_ID}'] = $this->connection->executeQuery($sql)->fetchOne();
 
-        $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` ORDER BY `tax_rate` DESC LIMIT 2;";
+        $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` GROUP BY `tax_rate` ORDER BY `tax_rate` DESC LIMIT 2;";
         $query = $this->connection->executeQuery($sql);
         $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchOne();
         $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchOne();
