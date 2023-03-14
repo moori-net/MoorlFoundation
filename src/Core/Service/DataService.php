@@ -597,7 +597,7 @@ SQL;
              * @deprecated tag:v6.5
              */
             if (!isset($item['id']) && !isset($item['salesChannelId'])) {
-                $item['id'] = md5(serialize($item));
+                $item['id'] = Uuid::randomHex();
             }
             /**
              * @deprecated tag:v6.5
