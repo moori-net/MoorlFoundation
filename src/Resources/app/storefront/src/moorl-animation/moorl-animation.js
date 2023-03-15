@@ -71,16 +71,16 @@ export default class MoorlAnimation extends Plugin {
         const rect = this.el.getBoundingClientRect();
 
         return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
         );
     }
 
-    // TODO: Complete this
     _isOverBottom() {
-        return this._isInViewport();
+        const rect = this.el.getBoundingClientRect();
+
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight)
+        );
     }
 
     animateHover() {
