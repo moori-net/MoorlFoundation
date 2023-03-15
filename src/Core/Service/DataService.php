@@ -408,11 +408,16 @@ SQL;
         preg_match_all('/{PRICE:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
+                $splitMatches = explode("|", (string) $matches[1][$i]);
+                $taxId = $globalReplacers['{TAX_ID_STANDARD}'];
+                if (!empty($splitMatches[1])) {
+                    $taxId = $splitMatches[1] === 'R' ? $globalReplacers['{TAX_ID_REDUCED}'] : $taxId;
+                }
                 $content = str_replace(
                     '"' . $matches[0][$i] . '"',
                     json_encode(
                         [
-                            $this->enrichPriceV2($matches[1][$i], $globalReplacers['{TAX_ID_STANDARD}'])
+                            $this->enrichPriceV2($splitMatches[0], $taxId)
                         ]
                     ),
                     $content
