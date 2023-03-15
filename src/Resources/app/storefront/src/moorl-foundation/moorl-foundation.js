@@ -41,7 +41,7 @@ export default class MoorlFoundation extends Plugin {
         const modal = document.getElementById('moorlFoundationModal');
         modal.innerHTML = response;
 
-        const bsModal = new bootstrap.Modal(modal);
+        const bsModal = bootstrap.Modal.getInstance(modal) ?? new bootstrap.Modal(modal);
         bsModal.show();
 
         window.PluginManager.initializePlugins();
