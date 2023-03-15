@@ -1,6 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import HttpClient from 'src/service/http-client.service';
-import Feature from 'src/helper/feature.helper';
 
 export default class MoorlFoundation extends Plugin {
     init() {
