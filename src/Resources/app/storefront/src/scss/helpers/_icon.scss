@@ -1,0 +1,12 @@
+.icon-inline {
+  color: currentColor;
+  > svg {
+    top: auto !important;
+  }
+}
+
+.icon-far,
+.icon-fas,
+.icon-fab {
+  color: inherit;
+}

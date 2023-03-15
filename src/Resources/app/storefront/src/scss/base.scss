@@ -34,31 +34,9 @@
 
 @import "helpers/cms-helpers";
 @import "helpers/foundation-demo-html";
+@import "helpers/icon";
 
 @import "lib/leaflet";
-
-.icon-inline {
-  > svg {
-    top: auto !important;
-  }
-}
-
-.icon-far,
-.icon-fas,
-.icon-fab {
-  color: inherit;
-}
-
-/*.btn {
-  .icon-far,
-  .icon-fas,
-  .icon-fab {
-    color: inherit;
-    > svg {
-      top: .25em;
-    }
-  }
-}*/
 
 .bg-fixed {
   background-attachment: fixed;
