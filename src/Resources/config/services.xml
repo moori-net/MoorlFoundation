@@ -81,12 +81,6 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <!-- @deprecated: Issue solved https://github.com/shopware/platform/issues/1815 -->
-        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater">
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing\HtmlContentUpdater">
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
