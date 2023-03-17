@@ -55,15 +55,15 @@
     {% endblock %}
 
     {% if enableAddToCartAll %}
-        <div class="custom-control custom-checkbox">
+        <div class="form-check">
             <input type="checkbox"
-                   class="custom-control-input"
+                   class="form-check-input"
                    name="productId[]"
                    value="{{ product.id }}"
                    id="product{{ product.id }}"
                    data-price="{{ price.unitPrice }}"
                    checked>
-            <label class="custom-control-label" for="product{{ product.id }}"></label>
+            <label class="form-check-label" for="product{{ product.id }}"></label>
         </div>
     {% endif %}
 
