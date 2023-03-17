@@ -16,7 +16,7 @@
     "type": "shopware-platform-plugin",
     "autoload": {
         "psr-4": {
-            "MoorlFoundation\\": "src"
+            "MoorlFoundation\\": "src/"
         }
     },
     "extra": {
