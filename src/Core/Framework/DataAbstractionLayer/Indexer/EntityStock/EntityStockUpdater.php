@@ -384,15 +384,17 @@ SQL;
 
         $product = $productRepository->search($criteria, $context)->get($productId);
         if (!$product) {
-            if ($product->getParentId()) {
-                $criteria->setIds([$product->getParentId()]);
-                $product = $productRepository->search($criteria, $context)->get($product->getParentId());
-                if (!$product) {
-                    return null;
-                }
-            } else {
+            return null;
+        }
+
+        if ($product->getParentId()) {
+            $criteria->setIds([$product->getParentId()]);
+            $product = $productRepository->search($criteria, $context)->get($product->getParentId());
+            if (!$product) {
                 return null;
             }
+        } else {
+            return null;
         }
 
         /** @var EntityCollection $entityStocks */
