@@ -486,9 +486,6 @@ SQL;
         return $data;
     }
 
-    /**
-     * @param $data
-     */
     public function valueFromFile($data, DataInterface $dataObject): string
     {
         preg_match('/{READ_FILE:(.*)}/', (string) $data, $matches, PREG_UNMATCHED_AS_NULL);
@@ -504,9 +501,6 @@ SQL;
     }
 
     /**
-     * @param $data
-     * @param string $table
-     *
      * Usage:
      * {MEDIA_FILE:path/to/file.jpg|product} Save The File to Product Directory
      * {MEDIA_FILE:path/to/file.jpg} Save The File to any Directory
