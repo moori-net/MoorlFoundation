@@ -48,11 +48,13 @@ Component.override('sw-cms-section', {
         }
     },
 
-    created() {
-        this.initSectionGrid();
-    },
-
     methods: {
+        createdComponent() {
+            /* https://github.com/shopware/platform/issues/2989 */
+            this.initSectionGrid();
+            this.$super('createdComponent');
+        },
+
         initSectionGrid() {
             if (!this.isSectionGrid) {
                 return;
@@ -91,8 +93,8 @@ Component.override('sw-cms-section', {
             let width = parseInt(rows, 10) * rowWidth;
 
             return {
-                flex: "0 0 "+width+"%",
-                maxWidth: width+"%",
+                flex: "0 0 " + width + "%",
+                maxWidth: width + "%",
                 justifyContent: this.sectionGridConfig[index].justifyContent,
                 alignItems: this.sectionGridConfig[index].alignItems,
             }
