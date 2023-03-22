@@ -65,7 +65,11 @@
                         } %}
                     {% elseif config.itemLayout.value == 'image-or-title' %}
                         <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
-                            {{ title|raw }}
+                            {% if config.sanitize.value %}
+                                {{ title|sw_sanitize }}
+                            {% else %}
+                                {{ title|raw }}
+                            {% endif %}
                         </div>
                     {% else %}
                         {% sw_icon 'placeholder' style {
@@ -81,7 +85,11 @@
                         {% block moorl_foundation_listing_item_content %}
                             <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
                                 {% block moorl_foundation_listing_item_title %}
-                                    {{ title|raw }}
+                                    {% if config.sanitize.value %}
+                                        {{ title|sw_sanitize }}
+                                    {% else %}
+                                        {{ title|raw }}
+                                    {% endif %}
                                 {% endblock %}
                             </div>
 
@@ -96,7 +104,11 @@
                             {% if description %}
                                 <div itemprop="description" class="moorl-listing-item-description">
                                     {% block moorl_foundation_listing_item_description %}
-                                        {{ description|raw }}
+                                        {% if config.sanitize.value %}
+                                            {{ description|sw_sanitize }}
+                                        {% else %}
+                                            {{ description|raw }}
+                                        {% endif %}
                                     {% endblock %}
                                 </div>
                             {% endif %}

@@ -227,6 +227,12 @@
             </sw-container>
 
             <sw-container v-if="active === 'content'" columns="1fr 1fr" gap="0px 30px">
+                <sw-field v-model="element.config.sanitize.value"
+                          type="switch"
+                          bordered
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.sanitize')">
+                </sw-field>
+
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.textAlign')"
                                  v-model="element.config.textAlign.value">
                     <option v-for="option in elementOptions.textAlign" :value="option.value">{{ $tc(option.label) }}</option>

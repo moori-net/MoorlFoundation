@@ -160,5 +160,9 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: false,
         },
+        sanitize: {
+            source: 'static',
+            value: true
+        },
     }
 });

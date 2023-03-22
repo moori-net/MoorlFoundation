@@ -16,6 +16,7 @@
                     "foreignKey": "If you use an entity page, like `product` you can set a foreign key. For example: `products.id`."
                 },
                 "label": {
+                    "sanitize": "Sanitize / Remove HTML",
                     "listingJustifyContent": "Horizontal alignment",
                     "listingHeaderTitle": "Title",
                     "foreignKey": "Foreign key",
