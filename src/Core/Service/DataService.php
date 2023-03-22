@@ -405,6 +405,12 @@ SQL;
                 $content = str_replace($matches[0][$i], md5((string) $matches[1][$i]), $content);
             }
         }
+        preg_match_all('/{BASE64:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $content = str_replace($matches[0][$i], base64_decode((string) $matches[1][$i]), $content);
+            }
+        }
         preg_match_all('/{PRICE:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
