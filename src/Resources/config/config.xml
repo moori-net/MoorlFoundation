@@ -293,6 +293,20 @@
             <label lang="de-DE">Suche auf ausgewählte Länder reduzieren für bessere Suchergebnisse</label>
         </component>
 
+        <input-field type="int">
+            <name>osmPadding</name>
+            <label>Map padding on fit bounds</label>
+            <label lang="de-DE">Außenabstand beim Grenzen setzen</label>
+            <defaultValue>5</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>osmZoom</name>
+            <label>Zoom level on active marker (1 to 14)</label>
+            <label lang="de-DE">Zoom bei aktivem Marker (1 bis 14)</label>
+            <defaultValue>14</defaultValue>
+        </input-field>
+
         <input-field type="single-select">
             <name>osmUnitOfMeasurement</name>
             <label>Unit of measurement</label>

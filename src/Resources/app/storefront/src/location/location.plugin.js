@@ -9,7 +9,9 @@ export default class MoorlLocationPlugin extends Plugin {
         tileLayer: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         options: [],
-        offsetTop: 120
+        offsetTop: 120,
+        padding: 5,
+        zoom: 14
     };
 
     init() {
@@ -134,7 +136,10 @@ export default class MoorlLocationPlugin extends Plugin {
 
     _fitBounds() {
         this._mapInstance.map.fitBounds(this._mapInstance.layerGroup.getBounds(), {
-            padding: [5, 5]
+            padding: [
+                this.options.padding,
+                this.options.padding
+            ]
         });
 
         this._updateListingElements(null);
@@ -148,7 +153,11 @@ export default class MoorlLocationPlugin extends Plugin {
                 }
                 if (this.options.options) {
                     if (this.options.options.includes('flyTo')) {
-                        this._mapInstance.map.flyTo(layer.getLatLng(), 14, {animate: true, duration: 1});
+                        this._mapInstance.map.flyTo(
+                            layer.getLatLng(),
+                            this.options.zoom,
+                            {animate: true, duration: 1}
+                        );
                     }
                 }
             }
