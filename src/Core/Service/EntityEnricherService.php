@@ -18,7 +18,12 @@ class EntityEnricherService
     private ?Context $context = null;
     private ?SalesChannelContext $salesChannelContext = null;
 
-    public function __construct(private readonly DefinitionInstanceRegistry $definitionInstanceRegistry, private readonly SystemConfigService $systemConfigService, private readonly AbstractProductPriceCalculator $productPriceCalculator, private readonly UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly AbstractProductPriceCalculator $productPriceCalculator,
+        private readonly UrlGeneratorInterface $urlGenerator
+    )
     {
     }
 

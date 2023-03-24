@@ -25,9 +25,13 @@ class TranslationService
     private string $sourceLocale = 'de-DE';
 
     /**
-     * @param \MoorlFoundation\Core\System\EntityTranslationInterface[] $entityTranslations
+     * @param EntityTranslationInterface[] $entityTranslations
      */
-    public function __construct(private readonly SystemConfigService $systemConfigService, private readonly DefinitionInstanceRegistry $definitionInstanceRegistry, private readonly iterable $entityTranslations)
+    public function __construct(
+        private readonly SystemConfigService $systemConfigService,
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly iterable $entityTranslations
+    )
     {
     }
 
