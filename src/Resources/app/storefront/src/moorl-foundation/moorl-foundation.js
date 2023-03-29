@@ -25,8 +25,7 @@ export default class MoorlFoundation extends Plugin {
         });
 
         modal.addEventListener('hidden.bs.modal', () => {
-            const modalBody = modal.querySelector('.moorl-foundation-modal-body');
-            modalBody.innerHTML = "";
+            modal.innerHTML = "";
         });
 
         window.moorlFoundationModal = function (url, callback) {
