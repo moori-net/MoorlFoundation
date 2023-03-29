@@ -42,15 +42,13 @@
                                        aria-label="{{ "header.searchPlaceholder"|trans|striptags }}"
                                        value="{{ page.searchTerm }}"
                                 >
-                                <div class="input-group-append">
-                                    <button type="submit"
-                                            class="btn header-search-btn"
-                                            aria-label="{{ "header.searchButton"|trans|striptags }}">
+                                <button type="submit"
+                                        class="btn header-search-btn"
+                                        aria-label="{{ "header.searchButton"|trans|striptags }}">
                                     <span class="header-search-icon">
                                         {% sw_icon 'search' style {pack: 'fas'} %}
                                     </span>
-                                    </button>
-                                </div>
+                                </button>
                             </div>
                         </form>
                     </div>
