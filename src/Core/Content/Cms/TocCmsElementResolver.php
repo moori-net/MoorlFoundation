@@ -78,6 +78,10 @@ class TocCmsElementResolver extends LegacyTextCmsElementResolver
                 $currentOL = $previousOLs[$headingDepth];
             }
 
+            if (!$currentOL) {
+                continue;
+            }
+
             $currentOL->setAttribute('class', 'toc-lvl-' . ($headingDepth - 1));
 
             $currentLI = $doc->createElement('li');
