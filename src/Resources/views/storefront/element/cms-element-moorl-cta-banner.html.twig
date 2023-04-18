@@ -111,14 +111,14 @@
                         {% if element.data.category.name %}
                             <{{ titleTag }}>{{ element.data.category.name }}</{{ titleTag }}>
                         {% endif %}
-                        {% if element.data.category.description %}
+                        {% if element.data.category.description and config.contentLength.value > 0 %}
                             <p>{{ element.data.category.description|length > config.contentLength.value ? element.data.category.description|striptags|slice(0, config.contentLength.value) ~ '...' : element.data.category.description|striptags }}</p>
                         {% endif %}
                         {% if config.btnActive.value and element.data.category.id %}
                             <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) }}">{{ config.btnText.value }}</a>
                         {% endif %}
                     </div>
-                {% elseif config.elementType.value == 'product' %}
+                {% elseif config.elementType.value == 'product' and config.contentLength.value > 0 %}
                     <div class="container-content">
                         {% if element.data.product.name %}
                             <{{ titleTag }}>{{ element.data.product.name }}</{{ titleTag }}>
