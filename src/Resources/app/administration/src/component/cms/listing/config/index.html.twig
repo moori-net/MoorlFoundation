@@ -233,6 +233,11 @@
                           :label="$tc('sw-cms.elements.moorl-foundation-listing.label.sanitize')">
                 </sw-field>
 
+                <sw-field v-model="element.config.contentLength.value"
+                          type="number"
+                          :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentLength')">
+                </sw-field>
+
                 <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.textAlign')"
                                  v-model="element.config.textAlign.value">
                     <option v-for="option in elementOptions.textAlign" :value="option.value">{{ $tc(option.label) }}</option>

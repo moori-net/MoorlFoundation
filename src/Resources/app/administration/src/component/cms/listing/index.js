@@ -164,5 +164,9 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: true
         },
+        contentLength: {
+            source: 'static',
+            value: 150
+        },
     }
 });

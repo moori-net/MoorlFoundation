@@ -101,11 +101,11 @@
                                 </div>
                             {% endif %}
 
-                            {% if description %}
+                            {% if description and config.contentLength.value != 0 %}
                                 <div itemprop="description" class="moorl-listing-item-description">
                                     {% block moorl_foundation_listing_item_description %}
                                         {% if config.sanitize.value %}
-                                            {{ description|sw_sanitize }}
+                                            {{ description|length > config.contentLength.value ? description|striptags|slice(0, config.contentLength.value) ~ '...' : description|striptags }}
                                         {% else %}
                                             {{ description|raw }}
                                         {% endif %}
