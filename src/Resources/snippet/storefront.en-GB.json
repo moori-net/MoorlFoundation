@@ -1,4 +1,8 @@
 {
+    "moorl-location-map": {
+        "cookieName": "Location maps",
+        "cookieDescription": "We use OpenStreetMap as tile provider to show you visually the location of our stores and merchants."
+    },
     "moorl-foundation": {
         "card": {
             "address": "Address",

@@ -222,6 +222,13 @@
         <title>Open Street Map</title>
         <title lang="de-DE">Open Street Map</title>
 
+        <input-field type="bool">
+            <name>osmCookieConsent</name>
+            <label>Enable cookie consent</label>
+            <label lang="de-DE">Cookie-Abfrage aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
         <input-field>
             <name>osmTileLayer</name>
             <label>URL for tile layer</label>

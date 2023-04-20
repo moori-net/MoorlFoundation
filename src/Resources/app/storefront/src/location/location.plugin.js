@@ -1,6 +1,8 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import DomAccess from 'src/helper/dom-access.helper';
 import L from 'leaflet';
+import {COOKIE_CONFIGURATION_UPDATE} from 'src/plugin/cookie/cookie-configuration.plugin';
+import CookieStorageHelper from 'src/helper/storage/cookie-storage.helper';
 
 export default class MoorlLocationPlugin extends Plugin {
     static options = {
@@ -11,10 +13,13 @@ export default class MoorlLocationPlugin extends Plugin {
         options: [],
         offsetTop: 120,
         padding: 5,
-        zoom: 14
+        zoom: 14,
+        cookieConsent: false
     };
 
     init() {
+        this.cookieEnabledName = 'moorl-location-map';
+
         this._mapElement = this.el.querySelector(this.options.mapSelector);
 
         this._initMap();
@@ -24,6 +29,8 @@ export default class MoorlLocationPlugin extends Plugin {
     }
 
     _registerEvents() {
+        document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, (updatedCookies) => {});
+
         const listingEl = DomAccess.querySelector(document, '.cms-element-product-listing-wrapper', false);
 
         if (listingEl) {
@@ -38,6 +45,10 @@ export default class MoorlLocationPlugin extends Plugin {
     }
 
     _initMap() {
+        if (this.options.cookieConsent && !CookieStorageHelper.getItem(this.cookieEnabledName)) {
+            return;
+        }
+
         if (!this._mapElement) {
             return;
         }
