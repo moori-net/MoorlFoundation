@@ -14,7 +14,18 @@
 
         {% block element_moorl_location_map %}
             <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
-                <div style="height:{{ element.config.height.value }}" class="moorl-location-map"></div>
+                <div style="height:{{ element.config.height.value }}" class="moorl-location-map">
+                    {% if locationOptions.cookieConsent %}
+                        <div class="moorl-cookie-box">
+                            <div class="h2">{{ "moorl-location-map.cookieName"|trans }}</div>
+                            <div class="mb-2">{{ "moorl-location-map.cookieDescription"|trans }}</div>
+                            <div class="mb-2">{{ "moorl-location-map.cookieHint"|trans }}</div>
+                            <div class="d-flex">
+                                <button class="btn btn-outline-primary">{{ "moorl-location-map.cookieAccept"|trans }}</button>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         {% endblock %}
     </div>
