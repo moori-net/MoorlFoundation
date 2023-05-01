@@ -1,15 +1,15 @@
 .moorl-cookie-box {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background: repeating-linear-gradient(
-                  -55deg,
-                  #bbb,
-                  #ccc 10px,
-                  #ddd 10px,
-                  #eee 20px
+                  45deg,
+                  lighten($primary, 55%),
+                  lighten($primary, 50%) 10px,
+                  lighten($primary, 45%) 10px,
+                  lighten($primary, 40%) 20px
   );
-  color: $sw-headline-color;
+  color: $sw-text-color;
   flex-direction: column;
   height: 100%;
 }

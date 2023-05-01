@@ -2,8 +2,7 @@
     "moorl-location-map": {
         "cookieName": "Location maps",
         "cookieDescription": "We use OpenStreetMap as tile provider to show you visually the location of our stores and merchants.",
-        "cookieHint": "Please accept the cookie to use the desired function.",
-        "cookieAccept": "Accept"
+        "cookieHint": "Please accept the cookie to use the desired function."
     },
     "moorl-foundation": {
         "card": {
@@ -53,6 +52,7 @@
             "sunday": "Sunday"
         },
         "buttons": {
+            "acceptCookie": "Accept cookie",
             "placeIdLink": "Plan route",
             "administrationButtonText": "Administration",
             "openNewWindowButtonText": "Open in new window",

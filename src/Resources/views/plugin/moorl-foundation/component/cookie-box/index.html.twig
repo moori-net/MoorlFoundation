@@ -1,0 +1,14 @@
+{% set options = {
+    cookieKey: cookieKey
+} %}
+
+<div class="moorl-cookie-box"
+     data-moorl-cookie-box
+     data-moorl-cookie-box-options='{{ options|json_encode|raw }}'>
+    <div class="h2">{{ "#{cookieKey}.cookieName"|trans }}</div>
+    <div class="mb-2">{{ "#{cookieKey}.cookieDescription"|trans }}</div>
+    <div class="mb-2">{{ "#{cookieKey}.cookieHint"|trans }}</div>
+    <div class="d-flex">
+        <button class="btn btn-outline-primary">{{ "moorl-foundation.buttons.acceptCookie"|trans }}</button>
+    </div>
+</div>
