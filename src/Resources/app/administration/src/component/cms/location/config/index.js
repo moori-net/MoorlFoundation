@@ -17,6 +17,10 @@ Component.register('sw-cms-el-config-moorl-location', {
         Mixin.getByName('cms-element')
     ],
 
+    inject: [
+        'repositoryFactory'
+    ],
+
     computed: {
         elementOptions() {
             return {
@@ -31,7 +35,11 @@ Component.register('sw-cms-el-config-moorl-location', {
                     {value: 'fitBounds', label: 'fitBounds'},
                 ]
             };
-        }
+        },
+
+        markerRepository() {
+            return this.repositoryFactory.create('moorl_marker');
+        },
     },
 
     created() {

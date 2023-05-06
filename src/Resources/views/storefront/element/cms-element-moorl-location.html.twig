@@ -1,5 +1,7 @@
 {% block element_moorl_location %}
     <div class="cms-element-{{ element.type }}">
+        {{ dump(element.data) }}
+
         {% set locationOptions = {
             locations: [
                 element.data.leafletLocation

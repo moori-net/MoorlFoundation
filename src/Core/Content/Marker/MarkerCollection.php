@@ -24,4 +24,14 @@ class MarkerCollection extends EntityCollection
     {
         return $this->filter(fn(MarkerEntity $markerEntity) => $markerEntity->getType() == $type)->first();
     }
+
+    public function sortByName(): self
+    {
+        $this->sort(fn(MarkerEntity $a, MarkerEntity $b) => strnatcasecmp(
+            (string) ($a->getName()) ?: $a->getName(),
+            (string) ($b->getName() ?: $b->getName())
+        ));
+
+        return $this;
+    }
 }

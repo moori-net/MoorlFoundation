@@ -50,4 +50,10 @@
             :label="$tc('sw-cms.elements.moorl-location.label.legend')"
             v-model="element.config.legend.value"
     />
+
+    <sw-entity-multi-id-select
+            :repository="markerRepository"
+            :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
+            v-model="element.config.legendItems.value"
+    />
 </div>
