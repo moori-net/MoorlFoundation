@@ -46,11 +46,12 @@ class LocationCmsElementResolver extends FoundationCmsElementResolver
 
         $criteria->addAssociation('marker');
 
-        /** @var MarkerCollection $legendItems */
-        $legendItems = $this->markerRepository->search($criteria, $resolverContext->getSalesChannelContext()->getContext())->getEntities();
+        /** @var MarkerCollection $markers */
+        $markers = $this->markerRepository->search($criteria, $resolverContext->getSalesChannelContext()->getContext())->getEntities();
 
+        /** @var LocationStruct $data */
         $data = $slot->getData();
 
-        $data->__set('legendItems', $legendItems->sortByName());
+        $data->setMarkers($markers->sortByName());
     }
 }

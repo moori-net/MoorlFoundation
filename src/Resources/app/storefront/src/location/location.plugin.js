@@ -8,6 +8,7 @@ export default class MoorlLocationPlugin extends Plugin {
     static options = {
         locations: [],
         mapSelector: '.moorl-location-map',
+        legendSelector: '.legend',
         tileLayer: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         options: [],
@@ -21,6 +22,7 @@ export default class MoorlLocationPlugin extends Plugin {
         this.cookieEnabledName = 'moorl-location-map';
 
         this._mapElement = this.el.querySelector(this.options.mapSelector);
+        this._legendElement = this.el.querySelector(this.options.legendSelector);
 
         this._initMap();
         this._initLocations(this.options.locations);
@@ -71,6 +73,15 @@ export default class MoorlLocationPlugin extends Plugin {
         L.tileLayer(this.options.tileLayer, {
             attribution: this.options.attribution
         }).addTo(this._mapInstance.map);
+
+        if (this._legendElement) {
+            const legend = L.control({ position: "bottomleft" });
+            legend.onAdd = (map) => {
+                return this._legendElement.cloneNode(true);
+            }
+            legend.addTo(this._mapInstance.map);
+            this._legendElement.remove();
+        }
     }
 
     _initLocationsFromListing() {

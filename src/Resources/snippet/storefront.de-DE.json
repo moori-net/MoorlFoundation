@@ -10,7 +10,8 @@
       "person": "Kontaktperson",
       "company": "Firma",
       "openingHours": "Öffnungszeiten",
-      "contact": "Kontakt"
+      "contact": "Kontakt",
+      "legend": "Legende"
     },
     "listing": {
       "filter": {
