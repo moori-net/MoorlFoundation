@@ -31,4 +31,23 @@
             :label="$tc('sw-cms.elements.moorl-location.label.height')"
             v-model="element.config.height.value"
     />
+
+    <sw-field
+            type="switch"
+            :label="$tc('sw-cms.elements.moorl-location.label.overrideOsmOptions')"
+            v-model="element.config.overrideOsmOptions.value"
+    />
+
+    <sw-multi-select
+            type="switch"
+            :label="$tc('sw-cms.elements.moorl-location.label.osmOptions')"
+            v-model="element.config.osmOptions.value"
+            :options="elementOptions.osmOptions"
+    />
+
+    <sw-field
+            type="switch"
+            :label="$tc('sw-cms.elements.moorl-location.label.legend')"
+            v-model="element.config.legend.value"
+    />
 </div>

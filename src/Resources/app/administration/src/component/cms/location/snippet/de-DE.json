@@ -4,6 +4,9 @@
             "moorl-location": {
                 "name": "Karte",
                 "label": {
+                    "legend": "Show marker legend",
+                    "osmOptions": "Mehr Optionen",
+                    "overrideOsmOptions": "\"Mehr Optionen\" überschreiben (Plugin Einstellungen von Foundation)",
                     "locationLat": "Breitengrad",
                     "locationLon": "Längengrad",
                     "marker": "Karte Marker",

@@ -17,6 +17,23 @@ Component.register('sw-cms-el-config-moorl-location', {
         Mixin.getByName('cms-element')
     ],
 
+    computed: {
+        elementOptions() {
+            return {
+                osmOptions: [
+                    {value: 'scrollWheelZoom', label: 'scrollWheelZoom'},
+                    {value: 'dragging', label: 'dragging'},
+                    {value: 'tap', label: 'tap'},
+                    {value: 'autoPan', label: 'autoPan'},
+                    {value: 'autoClose', label: 'autoClose'},
+                    {value: 'scrollTo', label: 'scrollTo'},
+                    {value: 'flyTo', label: 'flyTo'},
+                    {value: 'fitBounds', label: 'fitBounds'},
+                ]
+            };
+        }
+    },
+
     created() {
         this.createdComponent();
     },

@@ -34,5 +34,25 @@ Shopware.Service('cmsService').registerCmsElement({
             value: '300px',
             required: false
         },
+        overrideOsmOptions: {
+            source: 'static',
+            value: false,
+            required: false
+        },
+        osmOptions: {
+            source: 'static',
+            value: [],
+            required: false
+        },
+        legend: {
+            source: 'static',
+            value: false,
+            required: false
+        },
+        legendItems: {
+            source: 'static',
+            value: [],
+            required: false
+        },
     }
 });

@@ -268,7 +268,7 @@
                 <option>
                     <id>autoPan</id>
                     <name>Auto pan popup</name>
-                    <name lang="de-DE">Karte antippen</name>
+                    <name lang="de-DE">Pupups ausrichten</name>
                 </option>
                 <option>
                     <id>autoClose</id>

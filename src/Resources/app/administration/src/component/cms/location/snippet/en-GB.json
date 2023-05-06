@@ -4,6 +4,9 @@
             "moorl-location": {
                 "name": "Map",
                 "label": {
+                    "legend": "Show marker legend",
+                    "osmOptions": "More options",
+                    "overrideOsmOptions": "Override \"More options\"  (Plugin settings of Foundation)",
                     "locationLat": "Latitude",
                     "locationLon": "Longitude",
                     "marker": "Map marker",
