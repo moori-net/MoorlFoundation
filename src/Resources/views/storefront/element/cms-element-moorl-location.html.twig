@@ -14,19 +14,24 @@
 
         {% block element_moorl_location_map %}
             <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
-                {% block element_moorl_location_legend %}
+                {% block element_moorl_location_map_legend %}
                     {% if element.data.markers %}
                         <div class="d-none">
                             <div class="legend">
-                                <h4>{{ "moorl-foundation.card.legend"|trans }}</h4>
-                                {% for marker in element.data.markers %}
-                                    {% if marker.marker.url %}
-                                        <i><img class="icon" src="{{ marker.marker.url }}" alt=""></i>
-                                    {% else %}
-                                        <i>{{ marker.svg|raw }}</i>
-                                    {% endif %}
-                                    <span>{{ marker.name }}</span><br>
-                                {% endfor %}
+                                {% block element_moorl_location_map_legend_title %}
+                                    <h4>{{ "moorl-foundation.card.legend"|trans }}</h4>
+                                {% endblock %}
+
+                                {% block element_moorl_location_map_legend_items %}
+                                    {% for marker in element.data.markers %}
+                                        {% if marker.marker.url %}
+                                            <i><img class="icon" src="{{ marker.marker.url }}" alt=""></i>
+                                        {% else %}
+                                            <i>{{ marker.svg|raw }}</i>
+                                        {% endif %}
+                                        <span>{{ marker.name }}</span><br>
+                                    {% endfor %}
+                                {% endblock %}
                             </div>
                         </div>
                     {% endif %}
