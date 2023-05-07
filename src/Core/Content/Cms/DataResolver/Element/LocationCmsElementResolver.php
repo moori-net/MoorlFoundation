@@ -34,11 +34,11 @@ class LocationCmsElementResolver extends FoundationCmsElementResolver
     {
         parent::enrich($slot, $resolverContext, $result);
 
-        if (!$slot->getFieldConfig()->get('legend')->getValue()) {
+        if (!$slot->getFieldConfig()->get('legend')?->getValue()) {
             return;
         }
 
-        if (!$slot->getFieldConfig()->get('legendItems')->getValue()) {
+        if (!$slot->getFieldConfig()->get('legendItems')?->getValue()) {
             return;
         }
 
