@@ -34,7 +34,7 @@
             width: 18px;
             z-index: 10;
             background-color: $sw-color-brand-primary;
-            mask-image: url("/bundles/moorlfoundation/assets/icons/check-solid.svg");
+            -webkit-mask-image: url("/bundles/moorlfoundation/assets/icons/check-solid.svg");
         }
     }
 }

@@ -13,7 +13,7 @@
     width: 100%;
     z-index: 10;
     bottom: -1px;
-    mask-image: url("/bundles/moorlfoundation/assets/feature/waves.svg");
+    -webkit-mask-image: url("/bundles/moorlfoundation/assets/feature/waves.svg");
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: 100%;
     -webkit-mask-position: bottom;
@@ -30,7 +30,7 @@
     height: 100%;
     width: 100%;
     z-index: 10;
-    mask-image: url("/bundles/moorlfoundation/assets/feature/waves.svg");
+    -webkit-mask-image: url("/bundles/moorlfoundation/assets/feature/waves.svg");
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: 100%;
     -webkit-mask-position: bottom;
