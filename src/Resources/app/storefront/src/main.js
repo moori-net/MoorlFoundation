@@ -15,6 +15,7 @@ import MoorlCustomerUploadPlugin from './customer-upload/customer-upload.plugin'
 import MoorlLocationPlugin from './location/location.plugin';
 import MoorlHoverCardPlugin from './hover-card/hover-card.plugin';
 import MoorlCookieBoxPlugin from './cookie-box/cookie-box.plugin';
+import MoorlModalPlugin from './modal/modal.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -34,6 +35,7 @@ PluginManager.register('MoorlFoundationFilterSearch', MoorlFoundationFilterSearc
 PluginManager.register('MoorlCustomerUpload', MoorlCustomerUploadPlugin, '[data-moorl-customer-upload]');
 PluginManager.register('MoorlHoverCard', MoorlHoverCardPlugin, '[data-moorl-hover-card]');
 PluginManager.register('MoorlCookieBox', MoorlCookieBoxPlugin, '[data-moorl-cookie-box]');
+PluginManager.register('MoorlModal', MoorlModalPlugin, '[data-moorl-modal]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {

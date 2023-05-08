@@ -11,9 +11,9 @@ export default class MoorlFoundation extends Plugin {
     _registerModalEvents() {
         const that = this;
 
+        /* @deprecated: Use data-moorl-modal as future selector */
         const buttons = document.querySelectorAll('[data-moorl-foundation-modal]');
         const modal = document.getElementById('moorlFoundationModal');
-
         buttons.forEach((button) => {
             button.addEventListener('click', () => {
                 let url = button.dataset.moorlFoundationModal;
