@@ -51,7 +51,7 @@ class ProductBuyListController extends StorefrontController
         $product = $this->productRepository->search($criteria, $salesChannelContext)->get($productId);
         $product->setSortedProperties($this->configuratorLoader->load($product, $salesChannelContext));
 
-        return $this->renderStorefront('@Storefront/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig', [
+        return $this->renderStorefront('@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list/product-item.html.twig', [
             'product' => $product,
             'enablePrices' => $request->query->getBoolean('enablePrices'),
             'enableAddToCartSingle' => $request->query->getBoolean('enableAddToCartSingle'),
