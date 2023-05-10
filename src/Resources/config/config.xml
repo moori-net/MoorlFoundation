@@ -290,6 +290,11 @@
                     <name>Fit bounds on close popup</name>
                     <name lang="de-DE">Grenzen beim Schließen des Popups anpassen</name>
                 </option>
+                <option>
+                    <id>gestureHandling</id>
+                    <name>Gesture handling (Test)</name>
+                    <name lang="de-DE">Gestensteuerung (Test)</name>
+                </option>
             </options>
         </input-field>
 

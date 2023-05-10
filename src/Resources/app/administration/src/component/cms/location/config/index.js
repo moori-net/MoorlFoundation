@@ -33,6 +33,7 @@ Component.register('sw-cms-el-config-moorl-location', {
                     {value: 'scrollTo', label: 'scrollTo'},
                     {value: 'flyTo', label: 'flyTo'},
                     {value: 'fitBounds', label: 'fitBounds'},
+                    {value: 'gestureHandling', label: 'gestureHandling'},
                 ]
             };
         },
