@@ -23,11 +23,6 @@ class MoorlFoundation extends Plugin
         'moorl_client',
     ];
 
-    public function executeComposerCommands(): bool
-    {
-        return true;
-    }
-
     public function activate(ActivateContext $activateContext): void
     {
         parent::activate($activateContext);
