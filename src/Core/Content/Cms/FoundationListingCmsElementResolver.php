@@ -75,7 +75,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $salesChannelContext = $resolverContext->getSalesChannelContext();
 
         if ($request) {
-            /* Unset immediately in EntitySearchService, because its not compatible with product listing */
+            /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
             $request->query->set('slots', $slot->getId());
         }
 
@@ -87,6 +87,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         if ($limitConfig && $limitConfig->getValue()) {
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
+                /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
                 $request->query->set('limit', $limitConfig->getValue());
             }
         }
