@@ -1,8 +1,10 @@
 {% set options = {
-    cookieKey: cookieKey
+    cookieKey: cookieKey,
+    content: content
 } %}
 
-<div class="moorl-cookie-box"
+<div class="moorl-cookie-box {{ class }}"
+     style="{{ style }}"
      data-moorl-cookie-box
      data-moorl-cookie-box-options='{{ options|json_encode|raw }}'>
     <div class="h2">{{ "#{cookieKey}.cookieName"|trans }}</div>

@@ -4,7 +4,8 @@ import CookieStorageHelper from 'src/helper/storage/cookie-storage.helper';
 
 export default class MoorlCookieBoxPlugin extends Plugin {
     static options = {
-        cookieKey: null
+        cookieKey: null,
+        content: null
     };
 
     init() {
@@ -13,6 +14,10 @@ export default class MoorlCookieBoxPlugin extends Plugin {
 
         if (!CookieStorageHelper.getItem(this.options.cookieKey)) {
             this.el.style.display = "flex";
+        } else if (this.options.content) {
+            this.el.parentElement.innerHTML = this.options.content;
+
+            window.PluginManager.initializePlugins();
         }
     }
 
