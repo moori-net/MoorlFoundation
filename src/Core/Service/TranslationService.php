@@ -165,7 +165,14 @@ class TranslationService
         /** @var LanguageCollection $languages */
         $languages = $languageRepository->search($criteria, $this->context);
         foreach ($languages as $language) {
-            $this->languages[$language->getId()] = $language->getLocale()->getCode();
+            $code = $language->getLocale()->getCode();
+            if ($code === 'en') {
+                $code = 'en-GB';
+            } elseif ($code === 'pt') {
+                $code = 'pt-PT';
+            }
+
+            $this->languages[$language->getId()] = $code;
         }
 
         $this->sourceLocale = $this->languages[$this->context->getLanguageId()];
