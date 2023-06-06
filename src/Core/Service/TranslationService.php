@@ -118,9 +118,13 @@ class TranslationService
 
     private function translateField(string $text, string $destinationLocale): string
     {
+        if (substr($destinationLocale, 0, 2) !== 'en' && substr($destinationLocale, 0, 2) !== 'pt') {
+            $destinationLocale = substr($destinationLocale, 0, 2);
+        }
+
         $textResult = $this->translator->translateText(
             $text,
-            substr($this->sourceLocale, 0, 2),
+            $destinationLocale,
             substr($destinationLocale, 0, 2),
             [
                 TranslateTextOptions::TAG_HANDLING => 'html',
@@ -165,14 +169,7 @@ class TranslationService
         /** @var LanguageCollection $languages */
         $languages = $languageRepository->search($criteria, $this->context);
         foreach ($languages as $language) {
-            $code = $language->getLocale()->getCode();
-            if ($code === 'en') {
-                $code = 'en-GB';
-            } elseif ($code === 'pt') {
-                $code = 'pt-PT';
-            }
-
-            $this->languages[$language->getId()] = $code;
+            $this->languages[$language->getId()] = $language->getLocale()->getCode();
         }
 
         $this->sourceLocale = $this->languages[$this->context->getLanguageId()];
