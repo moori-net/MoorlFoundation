@@ -124,8 +124,8 @@ class TranslationService
 
         $textResult = $this->translator->translateText(
             $text,
+            substr($this->sourceLocale, 0, 2),
             $destinationLocale,
-            substr($destinationLocale, 0, 2),
             [
                 TranslateTextOptions::TAG_HANDLING => 'html',
                 TranslateTextOptions::IGNORE_TAGS => 'creator,author,name,brand,manufacturer',
