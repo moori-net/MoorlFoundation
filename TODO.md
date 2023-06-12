@@ -1,5 +1,6 @@
 # Open todos
 
+* TOC stutters on scroll with 15/27 screens
 * Check "hreflang" for CMS pages
 * Timestamps for CSV export
 * Placeholder for CMS content
