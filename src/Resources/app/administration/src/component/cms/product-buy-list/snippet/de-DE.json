@@ -4,6 +4,7 @@
             "moorl-product-buy-list": {
                 "name": "Einkaufsliste",
                 "label": {
+                    "productQuantity": "Menge",
                     "products": "Produkte",
                     "enablePrices": "Preise anzeigen",
                     "enableVariantSwitch": "Variantenwechsel anzeigen",
