@@ -11,7 +11,7 @@
             {% endfor %}
         </ul>
     </div>
-{% elseif emptyText %}
+{% elseif emptyText and config('MoorlFoundation.config.cmsEmptyAlert') %}
     {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
         type: "primary",
         content: emptyText ?: "moorl-foundation.search.notAvailable"|trans

@@ -87,9 +87,20 @@ Component.register('sw-cms-el-config-moorl-product-buy-list', {
         },
 
         onProductsChange() {
+            const _that = this;
+
             this.element.config.products.value = this.productCollection.getIds();
+
+            this.element.config.products.value.forEach(function (id) {
+                if (!_that.element.config.productQuantities.value[id]) {
+                    _that.element.config.productQuantities.value[id] = 1;
+                }
+
+                _that.element.config.productQuantities.value[id] = parseInt(_that.element.config.productQuantities.value[id]);
+            });
+
             this.$set(this.element.data, 'products', this.productCollection);
             this.$emit('products-change');
-        }
+        },
     }
 });

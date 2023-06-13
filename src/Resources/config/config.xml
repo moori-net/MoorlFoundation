@@ -82,6 +82,20 @@
     </card>
 
     <card>
+        <title>CMS</title>
+        <title lang="de-DE">CMS</title>
+
+        <input-field type="bool">
+            <name>cmsEmptyAlert</name>
+            <label>Alert on empty cms elements</label>
+            <label lang="de-DE">Warnung bei leeren CMS-Elementen</label>
+            <helpText>For example: Buy list, downloads</helpText>
+            <helpText lang="de-DE">Zum Beispiel: Kaufliste, Downloads</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
         <title>Auto translate [Premium]</title>
         <title lang="de-DE">Automatische Übersetzungen [Premium]</title>
 

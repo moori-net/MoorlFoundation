@@ -29,6 +29,10 @@ Shopware.Service('cmsService').registerCmsElement({
                 criteria: criteria
             }
         },
+        productQuantities: {
+            source: 'static',
+            value: {}
+        },
         enablePrices: {
             source: 'static',
             value: true
