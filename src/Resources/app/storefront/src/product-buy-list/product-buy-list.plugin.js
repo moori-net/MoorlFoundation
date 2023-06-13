@@ -9,6 +9,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         enablePrices: true,
         enableAddToCartSingle: true,
         enableAddToCartAll: true,
+        productQuantities: {},
     };
 
     init() {
@@ -86,9 +87,9 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             if (!item.checked) {
                 return;
             }
-            totalPrice = totalPrice + parseFloat(item.dataset.price);
+            totalPrice = totalPrice + (parseFloat(item.dataset.price) * parseInt(item.dataset.quantity));
             selectedItems++;
-            that._createFormValues(item.value);
+            that._createFormValues(item.value, item.dataset.quantity);
         });
 
 
@@ -102,13 +103,13 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         }
     }
 
-    _createFormValues(productId) {
+    _createFormValues(productId, quantity) {
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][id]`, productId));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][type]`, 'product'));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][referencedId]`, productId));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][stackable]`, 1));
         this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][removable]`, 1));
-        this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][quantity]`, 1));
+        this._formValuesElement.appendChild(this._createFormValue(`lineItems[${productId}][quantity]`, quantity));
     }
 
     _createFormValue(name, value) {

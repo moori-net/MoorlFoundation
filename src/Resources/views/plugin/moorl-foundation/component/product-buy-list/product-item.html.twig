@@ -3,6 +3,11 @@
     {% set price = product.calculatedPrices.first() %}
 {% endif %}
 
+{% set quantity = 1 %}
+{% if productQuantities[product.id] %}
+    {% set quantity = productQuantities[product.id] %}
+{% endif %}
+
 <div itemscope
      itemtype="https://schema.org/Product"
      class="moorl-product-buy-list-item enable-add-to-cart{% if enableAddToCartAll %}-all{% endif %}{% if enableAddToCartSingle %}-single{% endif %}">
@@ -62,6 +67,7 @@
                    value="{{ product.id }}"
                    id="product{{ product.id }}"
                    data-price="{{ price.unitPrice }}"
+                   data-quantity="{{ quantity }}"
                    checked>
             <label class="form-check-label" for="product{{ product.id }}"></label>
         </div>
@@ -90,6 +96,7 @@
                         <a itemprop="url"
                            href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}">
                         <span itemprop="name">
+                            {% if quantity > 1 %}{{ quantity }}x{% endif %}
                             {{ product.translated.name }}
                         </span>
                         </a>
@@ -100,6 +107,7 @@
                            data-modal-class="quickview-modal"
                            data-url="{{ path('widgets.quickview.minimal', { 'productId': product.id }) }}">
                         <span itemprop="name">
+                            {% if quantity > 1 %}{{ quantity }}x{% endif %}
                             {{ product.translated.name }}
                         </span>
                         </a>
@@ -143,7 +151,7 @@
                 <input type="hidden" name="lineItems[{{ product.id }}][removable]" value="1">
                 <input type="hidden" name="lineItems[{{ product.id }}][quantity]" value="1">
                 <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
-                <button class="btn btn-light"
+                <button class="{% block product_item_add_to_cart_class %}btn btn-light{% endblock %}"
                         title="{{ "detail.addProduct"|trans|striptags }}"
                         aria-label="{{ "detail.addProduct"|trans|striptags }}">
                     {% sw_icon 'plus' %}

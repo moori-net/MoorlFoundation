@@ -9,6 +9,7 @@
 {% endif %}
 
 {% set options = {
+    productQuantities: productQuantities,
     enablePrices: enablePrices,
     enableAddToCartAll: enableAddToCartAll,
     enableAddToCartSingle: enableAddToCartSingle,
@@ -51,7 +52,7 @@
 
                     <div class="d-grid">
                         <button data-moorl-product-buy-list-button
-                                class="btn btn-primary btn-buy"
+                                class="{% block product_buy_list_add_to_cart_class %}btn btn-primary btn-buy{% endblock %}"
                                 title="{{ "detail.addProduct"|trans|striptags }}"
                                 aria-label="{{ "detail.addProduct"|trans|striptags }}">
                             {{ "detail.addProduct"|trans|striptags }}

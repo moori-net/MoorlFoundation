@@ -27,6 +27,23 @@
     </sw-cms-mapping-field>
 
     <sw-container columns="1fr 1fr" gap="0px 30px">
+        <template
+                v-for="product in products"
+                v-if="element.config.productQuantities.value[product.id]"
+        >
+            <sw-field
+                    type="number"
+                    min="1"
+                    max="100"
+                    step="1"
+                    :label="product.translated.name"
+                    :placeholder="$tc('sw-cms.elements.moorl-product-buy-list.label.productQuantity')"
+                    v-model="element.config.productQuantities.value[product.id]"
+            />
+        </template>
+    </sw-container>
+
+    <sw-container columns="1fr 1fr" gap="0px 30px">
         <sw-field v-model="element.config.enablePrices.value"
                   type="switch"
                   bordered

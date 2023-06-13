@@ -6,6 +6,7 @@
 
     {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list/index.html.twig' with {
         products: element.data.products,
+        productQuantities: element.translated.config.productQuantities.value,
         emptyText: element.translated.config.emptyText.value
     } %}
 </div>
