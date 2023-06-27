@@ -110,7 +110,7 @@ class SortingService
         if ($limitConfig && $limitConfig->getValue()) {
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
-                $request->query->set('limit', $limitConfig->getValue());
+                $request->query->set('moorl_limit', $limitConfig->getValue());
             }
         }
 

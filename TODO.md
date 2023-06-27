@@ -10,3 +10,7 @@
 * Add unified Sitemap generator
 * Add CMS Page Entity trait
 * Add unified counter for visits
+
+# Done Todos
+
+* Pagination on top and bottom

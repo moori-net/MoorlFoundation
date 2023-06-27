@@ -73,6 +73,13 @@
 
                 {% if searchResult.total > 0 %}
                     {{ parent() }}
+
+                    {% if totalPages > 1 %}
+                        {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                            entities: searchResult,
+                            criteria: searchResult.criteria
+                        } %}
+                    {% endif %}
                 {% else %}
                     {% block moorl_foundation_listing_empty %}
                         {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {

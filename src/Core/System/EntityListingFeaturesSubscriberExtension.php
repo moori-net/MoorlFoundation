@@ -206,7 +206,7 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getCurrentSorting(SortingCollection $sortings, Request $request): ProductSortingEntity
     {
-        $key = $request->query->get('order');
+        $key = $request->query->get('order', self::DEFAULT_SEARCH_SORT);
         $sorting = $sortings->getByKey($key);
         if ($sorting !== null) {
             return $sorting;
@@ -244,9 +244,9 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getLimit(Request $request): int
     {
-        $limit = $request->query->getInt('limit', 0);
+        $limit = $request->query->getInt('moorl_limit', 0);
         if ($request->isMethod(Request::METHOD_POST)) {
-            $limit = $request->request->getInt('limit', $limit);
+            $limit = $request->request->getInt('moorl_limit', $limit);
         }
         return $limit <= 0 ? 12 : $limit;
     }

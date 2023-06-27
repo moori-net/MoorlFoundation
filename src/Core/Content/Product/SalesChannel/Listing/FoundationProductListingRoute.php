@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Content\Product\SalesChannel\Listing;
 
 use MoorlFoundation\Core\Service\EntitySearchService;
+use Shopware\Core\Content\Product\SalesChannel\Exception\ProductSortingNotFoundException;
 use Shopware\Core\Content\Product\SalesChannel\Listing\AbstractProductListingRoute;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -35,6 +36,10 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
             return $entityListing->listingRoute($criteria, $categoryId);
         }
 
-        return $this->decorated->load($categoryId, $request, $context, $criteria);
+        try {
+            return $this->decorated->load($categoryId, $request, $context, $criteria);
+        } catch (ProductSortingNotFoundException $exception) {
+            throw new \Exception('Product listing is not combinable with another listing. Please leave the product listing alone.');
+        }
     }
 }

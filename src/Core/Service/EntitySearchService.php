@@ -39,7 +39,7 @@ class EntitySearchService
         $slotIds = $request->query->get('slots');
         /* Unset immediately, because it's not compatible with product listing */
         $request->query->remove('slots');
-        $request->query->remove('limit');
+        //$request->query->remove('moorl_limit');
 
         $tab = $request->query->get('tab');
         if (!$slotIds && !$tab) {

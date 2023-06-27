@@ -88,7 +88,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
                 /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
-                $request->query->set('limit', $limitConfig->getValue());
+                $request->query->set('moorl_limit', $limitConfig->getValue());
             }
         }
 
