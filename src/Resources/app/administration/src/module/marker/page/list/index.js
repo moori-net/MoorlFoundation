@@ -96,10 +96,16 @@ Component.register('moorl-marker-list', {
         },
 
         onDuplicate(reference) {
-            this.repository.clone(reference.id, Shopware.Context.api, {
-                name: `${reference.name} ${this.$tc('sw-product.general.copy')}`,
-                locked: false
-            }).then((duplicate) => {
+            const behavior = {
+                cloneChildren: true,
+                overwrites: {
+                    name: `${reference.name} ${this.$tc('global.default.duplicate')}`,
+                    createdAt: null,
+                    locked: false
+                }
+            };
+
+            this.repository.clone(reference.id, Shopware.Context.api, behavior).then((duplicate) => {
                 this.$router.push({name: 'moorl.marker.detail', params: {id: duplicate.id}});
             });
         }

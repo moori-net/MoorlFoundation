@@ -105,10 +105,15 @@ Component.register('moorl-client-list', {
         },
 
         onDuplicate(reference) {
-            this.repository.clone(reference.id, Shopware.Context.api, {
-                name: `${reference.name} ${this.$tc('sw-product.general.copy')}`,
-                locked: false
-            }).then((duplicate) => {
+            const behavior = {
+                cloneChildren: true,
+                overwrites: {
+                    name: `${reference.name} ${this.$tc('global.default.duplicate')}`,
+                    locked: false
+                }
+            };
+
+            this.repository.clone(reference.id, Shopware.Context.api, behavior).then((duplicate) => {
                 this.$router.push({name: 'moorl.client.detail', params: {id: duplicate.id}});
             });
         }
