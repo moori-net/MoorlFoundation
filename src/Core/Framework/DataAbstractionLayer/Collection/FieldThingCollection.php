@@ -39,6 +39,7 @@ class FieldThingCollection extends FieldCollection
             (new TranslatedField('metaTitle'))->addFlags(new EditField('text')),
             (new TranslatedField('metaDescription'))->addFlags(new EditField('textarea')),
             (new TranslatedField('slotConfig'))->addFlags(),
+            /*(new TranslatedField('seoUrl'))->addFlags(),*/
             new FkField('media_id', 'mediaId', MediaDefinition::class),
             (new ManyToOneAssociationField('media', 'media_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
             new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class),
@@ -56,6 +57,7 @@ class FieldThingCollection extends FieldCollection
             new LongTextField('meta_title', 'metaTitle'),
             new LongTextField('meta_description', 'metaDescription'),
             new JsonField('slot_config', 'slotConfig'),
+            /*(new StringField('seo_url', 'seoUrl'))->addFlags(),*/
         ];
     }
 }
