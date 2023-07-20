@@ -22,7 +22,7 @@ export default class MoorlCookieBoxPlugin extends Plugin {
     }
 
     _registerEvents() {
-        document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, (updatedCookies) => {});
+        /*document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, (updatedCookies) => {});*/
 
         this._acceptButton.addEventListener('click', event => {
             CookieStorageHelper.setItem(this.options.cookieKey, "1");

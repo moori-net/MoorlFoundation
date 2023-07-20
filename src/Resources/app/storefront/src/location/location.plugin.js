@@ -32,12 +32,16 @@ export default class MoorlLocationPlugin extends Plugin {
     }
 
     _registerEvents() {
-        document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, (updatedCookies) => {});
+        /*document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, (updatedCookies) => {});*/
 
         const listingEl = DomAccess.querySelector(document, '.cms-element-product-listing-wrapper', false);
 
         if (listingEl) {
             const listingPlugin = window.PluginManager.getPluginInstanceFromElement(listingEl, 'Listing');
+
+            if (!listingPlugin) {
+                return;
+            }
 
             listingPlugin.$emitter.subscribe('Listing/afterRenderResponse', () => {
                 this._initLocationsFromListing();
