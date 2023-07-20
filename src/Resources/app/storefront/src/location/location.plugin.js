@@ -38,7 +38,6 @@ export default class MoorlLocationPlugin extends Plugin {
 
         if (listingEl) {
             const listingPlugin = window.PluginManager.getPluginInstanceFromElement(listingEl, 'Listing');
-
             if (!listingPlugin) {
                 return;
             }
@@ -156,9 +155,14 @@ export default class MoorlLocationPlugin extends Plugin {
             featureMarker.push(marker);
         }
 
+        if (!this._mapInstance) {
+            return;
+        }
+
         if (this._mapInstance.layerGroup) {
             this._mapInstance.layerGroup.clearLayers();
         }
+
         this._mapInstance.layerGroup = L.featureGroup(featureMarker).addTo(this._mapInstance.map);
 
         this._fitBounds();
