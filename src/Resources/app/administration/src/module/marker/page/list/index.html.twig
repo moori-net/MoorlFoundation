@@ -9,12 +9,17 @@
         <sw-button variant="primary" :routerLink="{ name: 'moorl.marker.create' }">
             {{ $tc('moorl-foundation.buttons.newButtonText') }}
         </sw-button>
+
+        <moorl-demo-button
+            pluginName="MoorlFoundation"
+            name="marker"
+        />
     </template>
 
     <sw-sidebar slot="sidebar">
         <sw-sidebar-item
                 icon="regular-redo"
-                :title="$t('moorl-foundation.buttons.refreshButtonText')"
+                :title="$tc('moorl-foundation.buttons.refreshButtonText')"
                 @click="getList"
         />
     </sw-sidebar>

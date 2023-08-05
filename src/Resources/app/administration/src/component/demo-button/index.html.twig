@@ -1,0 +1,36 @@
+<div class="moorl-demo-button">
+    <sw-button
+            :disabled="!acl.can('system.system_config')"
+            @click="openModal"
+    >
+        {{ $tc('moorl-demo-button.label') }}
+    </sw-button>
+
+    <sw-modal
+            v-if="open"
+            :title="$tc('moorl-demo-button.label')"
+            @modal-close="closeModal"
+    >
+        <sw-alert variant="warning">
+            {{ $tc('moorl-foundation-settings-demo-data.notification') }}
+        </sw-alert>
+
+        <router-link
+                target="_blank"
+                rel="noopener"
+                :to="{ name: 'moorl.foundation.settings.demodata' }"
+        >
+            {{ $tc('moorl-foundation.label.settingsDemoData') }}
+        </router-link>
+
+        <template slot="modal-footer">
+            <sw-button variant="primary" @click="install">
+                {{ $tc('moorl-foundation.buttons.startButtonText') }}
+            </sw-button>
+
+            <sw-button @click="closeModal">
+                {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
+            </sw-button>
+        </template>
+    </sw-modal>
+</div>

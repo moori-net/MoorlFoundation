@@ -22,3 +22,4 @@ import './support-link';
 import './animation-v2';
 import './section-config';
 import './file-explorer';
+import './demo-button';

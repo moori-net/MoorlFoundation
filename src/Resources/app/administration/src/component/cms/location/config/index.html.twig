@@ -51,9 +51,15 @@
             v-model="element.config.legend.value"
     />
 
-    <sw-entity-multi-id-select
-            :repository="markerRepository"
-            :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
-            v-model="element.config.legendItems.value"
-    />
+    <template v-if="element.config.legend.value">
+        <sw-entity-multi-id-select
+                :repository="markerRepository"
+                :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
+                v-model="element.config.legendItems.value"
+        />
+
+        <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.marker.list' }">
+            {{ $tc('moorl-marker.title') }}
+        </router-link>
+    </template>
 </div>

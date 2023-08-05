@@ -1,8 +1,8 @@
 {
     "moorl-foundation-settings-demo-data": {
         "notification": "In einigen Fällen werden neue Kategorien und Seiten zu deinem Shop hinzugefügt. Bitte beachte, dass die Demo-Daten nur zu Testzwecken dienen. Die darin enthaltenen Bilder sind möglicherweise durch ein Copyright geschützt und dürfen nicht der Öffentlichkeit zugänglich gemacht werden.",
-        "installed": "Demo data has been installed",
-        "removed": "Demo data has been removed",
+        "installed": "Demo wurde erfolgreich installiert",
+        "removed": "Demo wurde entfernt",
         "confirm": "Ich habe den Hinweis gelesen und bin damit einverstanden."
     }
 }
