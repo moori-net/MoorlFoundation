@@ -12,18 +12,16 @@
     >
 
     {% if showMyLocation and config('MoorlFoundation.config.filterRadiusMyLocation') %}
-        <div class="input-group-append">
-            <button
-                    class="btn btn-primary my-location"
-                    type="button"
-                    name="location"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="{{ "moorl-foundation.listing.filter.myLocation"|trans }}"
-                    aria-label="{{ "moorl-foundation.listing.filter.myLocation"|trans }}"
-            >
-                {% sw_icon 'crosshairs' style {size:'sm', pack:'fas'} %}
-            </button>
-        </div>
+        <button
+                class="btn btn-primary my-location"
+                type="button"
+                name="location"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="{{ "moorl-foundation.listing.filter.myLocation"|trans }}"
+                aria-label="{{ "moorl-foundation.listing.filter.myLocation"|trans }}"
+        >
+            {% sw_icon 'crosshairs' style {size:'sm', pack:'fas'} %}
+        </button>
     {% endif %}
 </div>
