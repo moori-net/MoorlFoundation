@@ -1,0 +1,15 @@
+{
+  "moorl-section-grid-config": {
+    "title": "moori Grid-Sektion",
+    "label": {
+      "sectionSpacing": "Außenabstand (px)",
+      "sectionColumnCount": "Spalten",
+      "isSidebar": "Seitenleiste",
+      "isSticky": "Angeheftet",
+      "offsetTop": "Abstand oben (px)",
+      "alignItems": "Vertikale Ausrichtung des Inhalts",
+      "justifyContent": "Horizontale Anordnung des Inhalts",
+      "colNumber": "Spalte Nr."
+    }
+  }
+}

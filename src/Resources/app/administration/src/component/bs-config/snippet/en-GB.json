@@ -1,6 +1,6 @@
 {
   "moorl-bs-config": {
-    "title": "moori block behaviour",
+    "title": "Block behaviour",
     "helpText":{
       "inherit": "Should the {elementName} inherit the properties of the next small {elementName}?",
       "show": "Show or hide the {elementName} for the viewport `{breakpoint}`?",

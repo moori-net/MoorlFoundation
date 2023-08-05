@@ -1,0 +1,16 @@
+{
+  "moorl-bs-config": {
+    "title": "Sichtbarkeit",
+    "helpText":{
+      "inherit": "Soll der {elementName} die Eigenschaften des nächstkleineren {elementName} erben?",
+      "show": "Den {elementName} für das Ansichtsfenster `{breakpoint}` ein- oder ausblenden?",
+      "width": "Welche Breite (x/12) sollte das {elementName} für das Ansichtsfenster `{breakpoint}` haben?",
+      "order": "Welche Anordnung (1-48) sollte der {elementName} für das Ansichtsfenster `{breakpoint}` haben?"
+    },
+    "label": {
+      "elementName": "Element",
+      "inherit": "Vererbt",
+      "show": "Zeigen"
+    }
+  }
+}

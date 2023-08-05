@@ -90,6 +90,8 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "deliveryPrice": "Delivery price",
+            "minOrderValue": "Min order value",
             "entityName": "Entity",
             "sales": "Sales",
             "availableStock": "Available stock",
