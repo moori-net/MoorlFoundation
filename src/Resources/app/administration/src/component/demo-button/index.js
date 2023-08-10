@@ -15,7 +15,7 @@ Component.register('moorl-demo-button', {
         name: {
             type: String,
             required: true,
-            default: "cms-tools"
+            default: "standard"
         },
     },
 
