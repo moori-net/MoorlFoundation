@@ -393,8 +393,6 @@ SQL;
             if (!$product) {
                 return null;
             }
-        } else {
-            return null;
         }
 
         /** @var EntityCollection $entityStocks */
