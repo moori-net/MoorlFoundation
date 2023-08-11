@@ -305,11 +305,19 @@ SQL;
             return null;
         }
 
+        $countryIso = $this->getCountryIso($countryIds);
+        $countryZipcodes = json_decode(file_get_contents(__DIR__ . '/zipcodes.json'), true);
         $terms = explode(',', $term);
         $iso = null;
         $zipcode = null;
         $street = null;
         $city = null;
+
+        if (!empty($countryIso)) {
+            $countryZipcodes = array_filter($countryZipcodes, function($v, $k) use ($countryIso) {
+                return in_array($v['ISO'], $countryIso) && !empty($v['Regex']);
+            }, ARRAY_FILTER_USE_BOTH);
+        }
 
         foreach ($terms as $term) {
             $term = trim($term);
@@ -321,15 +329,24 @@ SQL;
                 ]);
             }
 
-            preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[1])) {
-                $iso = $matches[1];
+            foreach ($countryZipcodes as $countryZipcode) {
+                if ($zipcode) {
+                    continue;
+                }
+
+                preg_match("/(" . $countryZipcode['Regex'] . ")/", $term, $matches, PREG_UNMATCHED_AS_NULL);
+                if (!empty($matches[1])) {
+                    $zipcode = $matches[1];
+
+                }
+            }
+            if ($zipcode) {
                 continue;
             }
 
-            preg_match('/([\d]{5})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
+            preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[1])) {
-                $zipcode = $matches[1];
+                $iso = $matches[1];
                 continue;
             }
 
