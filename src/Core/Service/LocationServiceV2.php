@@ -238,6 +238,26 @@ SQL;
         return null;
     }
 
+    private function getCountryPostalCodePatterns(array $countryIds): array
+    {
+        if (count($countryIds) === 0) {
+            if ($this->systemConfigService->get('MoorlFoundation.config.osmCountryIds')) {
+                $countryIds = $this->systemConfigService->get('MoorlFoundation.config.osmCountryIds');
+            } else {
+                return ['\d{5}','\d{4}'];
+            }
+        }
+
+        $criteria = new Criteria($countryIds);
+        $criteria->setLimit(count($countryIds));
+        $countryRepository = $this->definitionInstanceRegistry->getRepository(CountryDefinition::ENTITY_NAME);
+
+        /** @var CountryCollection $countries */
+        $countries = $countryRepository->search($criteria, $this->context)->getEntities();
+
+        return array_values($countries->fmap(fn(CountryEntity $entity) => $entity->getDefaultPostalCodePattern()));
+    }
+
     private function getCountryIso(array $countryIds): array
     {
         if (count($countryIds) === 0) {
@@ -305,19 +325,12 @@ SQL;
             return null;
         }
 
-        $countryIso = $this->getCountryIso($countryIds);
-        $countryZipcodes = json_decode(file_get_contents(__DIR__ . '/zipcodes.json'), true);
+        $countryPostalCodePatterns = $this->getCountryPostalCodePatterns($countryIds);
         $terms = explode(',', $term);
         $iso = null;
         $zipcode = null;
         $street = null;
         $city = null;
-
-        if (!empty($countryIso)) {
-            $countryZipcodes = array_filter($countryZipcodes, function($v, $k) use ($countryIso) {
-                return in_array($v['ISO'], $countryIso) && !empty($v['Regex']);
-            }, ARRAY_FILTER_USE_BOTH);
-        }
 
         foreach ($terms as $term) {
             $term = trim($term);
@@ -329,19 +342,12 @@ SQL;
                 ]);
             }
 
-            foreach ($countryZipcodes as $countryZipcode) {
-                if ($zipcode) {
-                    continue;
-                }
-
-                preg_match("/(" . $countryZipcode['Regex'] . ")/", $term, $matches, PREG_UNMATCHED_AS_NULL);
+            foreach ($countryPostalCodePatterns as $countryPostalCodePattern) {
+                preg_match("/(^" . $countryPostalCodePattern . "$)/", $term, $matches, PREG_UNMATCHED_AS_NULL);
                 if (!empty($matches[1])) {
                     $zipcode = $matches[1];
-
+                    continue 2;
                 }
-            }
-            if ($zipcode) {
-                continue;
             }
 
             preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
