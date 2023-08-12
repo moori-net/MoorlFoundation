@@ -16,7 +16,7 @@ Component.register('moorl-demo-button', {
             type: String,
             required: true,
             default: "standard"
-        },
+        }
     },
 
     inject: [
@@ -30,6 +30,7 @@ Component.register('moorl-demo-button', {
 
     data() {
         return {
+            salesChannelId: null,
             open: false,
             isLoading: true,
             processSuccess: false
@@ -65,6 +66,7 @@ Component.register('moorl-demo-button', {
             this.isLoading = true;
 
             this.foundationApiService.post(`/moorl-foundation/settings/demo-data/install`, {
+                salesChannelId: this.salesChannelId,
                 pluginName: this.pluginName,
                 name: this.name
             }).then(response => {

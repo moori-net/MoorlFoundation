@@ -15,6 +15,13 @@
             {{ $tc('moorl-foundation-settings-demo-data.notification') }}
         </sw-alert>
 
+        <sw-entity-single-select
+                :label="$tc('moorl-foundation.properties.salesChannel')"
+                v-model="salesChannelId"
+                labelProperty="name"
+                entity="sales_channel"
+        />
+
         <router-link
                 target="_blank"
                 rel="noopener"
@@ -24,7 +31,7 @@
         </router-link>
 
         <template slot="modal-footer">
-            <sw-button variant="primary" @click="install">
+            <sw-button variant="primary" @click="install" :disabled="salesChannelId === null">
                 {{ $tc('moorl-foundation.buttons.startButtonText') }}
             </sw-button>
 
