@@ -19,7 +19,7 @@ export default class MoorlRelativeTimePlugin extends Plugin {
         const from = new Date(this.options.from);
         const el = this.el;
 
-        if (!el.dataset.originalTitle) {
+        if (!el.dataset.bsOriginalTitle) {
             el.innerText = '---';
         }
 
@@ -48,8 +48,9 @@ export default class MoorlRelativeTimePlugin extends Plugin {
                 relTime = time.format(seconds, 'second')
             }
 
-            if (el.dataset.originalTitle) {
-                el.dataset.originalTitle = relTime;
+            if (el.dataset.bsOriginalTitle) {
+                el.dataset.bsOriginalTitle = relTime;
+                el.title = relTime;
             } else {
                 el.innerText = relTime;
             }
