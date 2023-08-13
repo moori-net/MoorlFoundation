@@ -13,12 +13,12 @@
     } %}
 
     {% block component_filter_radius_panel_item %}
-        <div class="filter-panel-item"
+        <div class="filter-panel-item{% if sidebar %} d-grid{% endif %}"
              data-moorl-foundation-filter-radius="true"
              data-moorl-foundation-filter-radius-options='{{ filterRadiusOptions|json_encode }}'>
             {% block component_filter_radius_toggle %}
                 <button
-                        class="filter-panel-item-toggle btn{% if sidebar %} d-block{% endif %}"
+                        class="filter-panel-item-toggle btn"
                         aria-expanded="true"
                         {% if sidebar %}
                             data-bs-toggle="collapse"
