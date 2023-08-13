@@ -391,6 +391,7 @@ class EntityListingFeaturesSubscriberExtension
         $filter = new EqualsFilter($this->entityName . '.active', true);
 
         $location = $this->locationServiceV2->getLocationByTerm($location, $this->getPropIds($request, "country"));
+
         /* If a location was found, write locationCache, add filter and add location to salesChannelContext */
         if ($location) {
             $this->locationServiceV2->writeLocationCache($location, $this->entityName, (float) $distance, $unit);
