@@ -10,6 +10,7 @@
             v-if="open"
             :title="$tc('moorl-demo-button.label')"
             @modal-close="closeModal"
+            :isLoading="isLoading"
     >
         <sw-alert variant="warning">
             {{ $tc('moorl-foundation-settings-demo-data.notification') }}
@@ -31,7 +32,7 @@
         </router-link>
 
         <template slot="modal-footer">
-            <sw-button variant="primary" @click="install" :disabled="salesChannelId === null">
+            <sw-button variant="primary" @click="install" :disabled="salesChannelId === null || isLoading">
                 {{ $tc('moorl-foundation.buttons.startButtonText') }}
             </sw-button>
 

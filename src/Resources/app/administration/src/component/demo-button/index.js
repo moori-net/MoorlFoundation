@@ -32,7 +32,7 @@ Component.register('moorl-demo-button', {
         return {
             salesChannelId: null,
             open: false,
-            isLoading: true,
+            isLoading: false,
             processSuccess: false
         };
     },
