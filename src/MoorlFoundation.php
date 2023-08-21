@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
+use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
 class MoorlFoundation extends Plugin
@@ -26,6 +27,16 @@ class MoorlFoundation extends Plugin
     public function executeComposerCommands(): bool
     {
         return true;
+    }
+
+    /* TODO: Anpassung für Bug in Shopware Testumgebung (v6.5.4.0) */
+    public function install(InstallContext $installContext): void
+    {
+        try {
+            parent::install($installContext);
+        } catch (\Exception) {
+            sleep(5);
+        }
     }
 
     public function activate(ActivateContext $activateContext): void
