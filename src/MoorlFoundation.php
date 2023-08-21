@@ -36,6 +36,7 @@ class MoorlFoundation extends Plugin
             parent::install($installContext);
         } catch (\Exception) {
             sleep(5);
+            parent::install($installContext);
         }
     }
 
