@@ -108,6 +108,8 @@ WHERE #entity#.id IN (:ids);';
                                 'country_id' => Uuid::fromHexToBytes($country->getId())
                             ]
                         );
+
+                        $item['countryId'] = $country->getId();
                     }
                 } catch (\Exception) {}
             }
