@@ -99,6 +99,10 @@ Component.register('moorl-csv-import', {
                 return null;
             }
 
+            if (!id) {
+                return null;
+            }
+
             let item = null;
 
             if (typeof entity != 'undefined' && entity !== this.entity) {

@@ -90,6 +90,10 @@
             "mediaFolder": "Bilder in diesem Verzeichnis speichern"
         },
         "properties": {
+            "showOpeningHours": "Öffnungszeiten zeigen",
+            "showCmsPage": "CMS Seite zeigen",
+            "deliveryActive": "Lieferung aktiv",
+            "collectActive": "Abholung aktiv",
             "deliveryPrice": "Lieferpreis",
             "minOrderValue": "Mindestbestellwert",
             "entityName": "Entität",

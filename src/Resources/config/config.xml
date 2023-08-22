@@ -139,7 +139,7 @@
                     <name>Less</name>
                 </option>
             </options>
-            <defaultValue>less</defaultValue>
+            <defaultValue>default</defaultValue>
         </input-field>
 
         <input-field type="multi-select">

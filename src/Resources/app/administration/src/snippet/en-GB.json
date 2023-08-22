@@ -90,6 +90,10 @@
             "mediaFolder": "Save images in this folder"
         },
         "properties": {
+            "showOpeningHours": "Öffnungszeiten zeigen",
+            "showCmsPage": "CMS Seite zeigen",
+            "deliveryActive": "Lieferung aktiv",
+            "collectActive": "Abholung aktiv",
             "deliveryPrice": "Delivery price",
             "minOrderValue": "Min order value",
             "entityName": "Entity",
