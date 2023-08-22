@@ -17,13 +17,15 @@
         />
     </template>
 
-    <sw-sidebar slot="sidebar">
-        <sw-sidebar-item
-                icon="regular-redo"
-                :title="$tc('moorl-foundation.buttons.refreshButtonText')"
-                @click="getList"
-        />
-    </sw-sidebar>
+    <template #sidebar>
+        <sw-sidebar>
+            <sw-sidebar-item
+                    icon="regular-redo"
+                    :title="$tc('moorl-foundation.buttons.refreshButtonText')"
+                    @click="getList"
+            />
+        </sw-sidebar>
+    </template>
 
     <template slot="content">
         <sw-entity-listing
