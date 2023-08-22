@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Content\Client;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\WebDAV\WebDAVAdapter;
 use Sabre\DAV\Client;
+use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
 class ClientNextcloud extends ClientExtension implements ClientInterface
 {
@@ -21,6 +22,10 @@ class ClientNextcloud extends ClientExtension implements ClientInterface
 
     public function getClientAdapter(): ?FilesystemAdapter
     {
+        if (!class_exists(WebDAVAdapter::class)) {
+            throw new MissingRequirementException('league/flysystem-webdav', '*');
+        }
+
         $config = $this->clientEntity->getConfig();
         $client = new Client($config);
         return new WebDAVAdapter($client, sprintf('remote.php/dav/files/%s/', $config['userName']));

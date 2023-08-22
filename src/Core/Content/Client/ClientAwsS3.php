@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Content\Client;
 use AsyncAws\SimpleS3\SimpleS3Client;
 use League\Flysystem\AsyncAwsS3\AsyncAwsS3Adapter;
 use League\Flysystem\FilesystemAdapter;
+use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
 class ClientAwsS3 extends ClientExtension implements ClientInterface
 {
@@ -23,6 +24,10 @@ class ClientAwsS3 extends ClientExtension implements ClientInterface
 
     public function getClientAdapter(): ?FilesystemAdapter
     {
+        if (!class_exists(AsyncAwsS3Adapter::class)) {
+            throw new MissingRequirementException('league/flysystem-async-aws-s3', '*');
+        }
+
         $config = $this->clientEntity->getConfig();
 
         $clientConfig = $config;

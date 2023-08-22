@@ -16,7 +16,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MoorlFoundationSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly SystemConfigService $systemConfigService, private readonly TranslationService $translationService, private readonly StateMachineRegistry $stateMachineRegistry)
+    public function __construct(
+        private readonly SystemConfigService $systemConfigService,
+        private readonly TranslationService $translationService,
+        private readonly StateMachineRegistry $stateMachineRegistry
+    )
     {
     }
 

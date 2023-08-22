@@ -26,7 +26,7 @@ class MoorlFoundation extends Plugin
 
     public function executeComposerCommands(): bool
     {
-        return true;
+        return false;
     }
 
     /* TODO: Anpassung für Bug in Shopware Testumgebung (v6.5.4.0) */

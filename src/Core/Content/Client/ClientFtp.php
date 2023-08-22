@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Content\Client;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\Ftp\FtpAdapter;
 use League\Flysystem\Ftp\FtpConnectionOptions;
+use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
 class ClientFtp extends ClientExtension implements ClientInterface
 {
@@ -28,6 +29,10 @@ class ClientFtp extends ClientExtension implements ClientInterface
 
     public function getClientAdapter(): ?FilesystemAdapter
     {
+        if (!class_exists(FtpAdapter::class)) {
+            throw new MissingRequirementException('league/flysystem-ftp', '*');
+        }
+
         return new FtpAdapter(FtpConnectionOptions::fromArray($this->clientEntity->getConfig()));
     }
 }
