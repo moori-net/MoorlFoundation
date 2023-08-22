@@ -18,14 +18,6 @@
             <label lang="de-DE">Aktiviere Animate.css</label>
             <defaultValue>true</defaultValue>
         </input-field>
-
-        <input-field>
-            <name>googleMapsApiKey</name>
-            <label>Google Maps API key</label>
-            <label lang="de-DE">Google Maps API Schlüssel</label>
-            <helpText>This API key is used by moori plugins</helpText>
-            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
-        </input-field>
     </card>
 
     <card>
@@ -310,6 +302,7 @@
                     <name lang="de-DE">Gestensteuerung (Test)</name>
                 </option>
             </options>
+            <defaultValue>["dragging", "tap", "autoPan", "autoClose", "scrollTo", "flyTo", "fitBounds"]</defaultValue>
         </input-field>
 
         <component name="sw-entity-multi-id-select">

@@ -77,6 +77,8 @@ Component.register('moorl-demo-button', {
                 this.isLoading = false;
 
                 this.open = false;
+
+                this.$emit('on-finish');
             }).catch((exception) => {
                 this.createNotificationError({
                     title: this.$tc('global.default.error'),
@@ -84,6 +86,7 @@ Component.register('moorl-demo-button', {
                 });
 
                 this.isLoading = false;
+                this.$emit('on-error');
             });
         },
     },
