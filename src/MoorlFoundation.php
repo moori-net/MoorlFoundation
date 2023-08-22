@@ -6,7 +6,6 @@ use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
-use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 
 class MoorlFoundation extends Plugin
@@ -14,6 +13,7 @@ class MoorlFoundation extends Plugin
     final public const NAME = 'MoorlFoundation';
     final public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
     final public const SHOPWARE_TABLES = [];
+    final public const INHERITANCES = [];
     final public const PLUGIN_TABLES = [
         'moorl_cms_element_config',
         'moorl_location',
@@ -27,17 +27,6 @@ class MoorlFoundation extends Plugin
     public function executeComposerCommands(): bool
     {
         return false;
-    }
-
-    /* TODO: Anpassung für Bug in Shopware Testumgebung (v6.5.4.0) */
-    public function install(InstallContext $installContext): void
-    {
-        try {
-            parent::install($installContext);
-        } catch (\Exception) {
-            sleep(5);
-            parent::install($installContext);
-        }
     }
 
     public function activate(ActivateContext $activateContext): void
@@ -57,16 +46,38 @@ class MoorlFoundation extends Plugin
             return;
         }
 
-        $this->dropTables();
+        $this->uninstallTrait();
     }
 
-    private function dropTables(): void
+    private function uninstallTrait(): void
     {
         $connection = $this->container->get(Connection::class);
 
-        foreach (self::PLUGIN_TABLES as $table) {
-            $sql = sprintf('SET FOREIGN_KEY_CHECKS=0; DROP TABLE IF EXISTS `%s`;', $table);
+        foreach (array_reverse(self::PLUGIN_TABLES) as $table) {
+            $sql = sprintf('DROP TABLE IF EXISTS `%s`;', $table);
             $connection->executeStatement($sql);
+        }
+
+        foreach (array_reverse(self::SHOPWARE_TABLES) as $table) {
+            $sql = sprintf("DELETE FROM `%s` WHERE `created_at` = '%s';", $table, self::DATA_CREATED_AT);
+
+            try {
+                $connection->executeStatement($sql);
+            } catch (\Exception) {
+                continue;
+            }
+        }
+
+        foreach (self::INHERITANCES as $table => $propertyNames) {
+            foreach ($propertyNames as $propertyName) {
+                $sql = sprintf("ALTER TABLE `%s` DROP `%s`;", $table, $propertyName);
+
+                try {
+                    $connection->executeStatement($sql);
+                } catch (\Exception) {
+                    continue;
+                }
+            }
         }
     }
 }
