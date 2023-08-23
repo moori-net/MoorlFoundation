@@ -26,7 +26,7 @@ class MoorlFoundation extends Plugin
 
     public function executeComposerCommands(): bool
     {
-        return false;
+        return true;
     }
 
     public function activate(ActivateContext $activateContext): void
