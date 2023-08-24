@@ -14,10 +14,12 @@ class MoorlFoundationExceptionHandler implements ExceptionHandlerInterface
 
     public function matchException(\Exception $e, WriteCommand $command = null): ?\Exception
     {
-        if (preg_match('/SQLSTATE\[23000\]:.*1062 Duplicate.*uniq.moorl.*/', $e->getMessage())) {
-            $payload = $command->getPayload() ?: null;
-
-            return new MoorlFoundationDuplicateEntryException($payload, $e);
+        if (preg_match('/SQLSTATE\[23000\]:.*1062 Duplicate/', $e->getMessage())) {
+            $number = [];
+            preg_match('/Duplicate entry \'(.*)\' for key/', $e->getMessage(), $number);
+            return new MoorlFoundationDuplicateEntryException([
+                'value' => $number[1]
+            ], $e);
         }
 
         return null;

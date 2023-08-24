@@ -221,5 +221,10 @@
             <argument type="service" id="MoorlFoundation\Core\Service\LocationCookieProvider.inner" />
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
+
+        <!-- Core\Framework\DAL -->
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
+            <tag name="shopware.dal.exception_handler"/>
+        </service>
     </services>
 </container>

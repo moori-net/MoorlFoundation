@@ -47,7 +47,7 @@
         "notification": {
             "errorTitle": "Fehler",
             "errorRequiredText": "Felder mit Sternchen (*) müssen ausgefüllt werden.",
-            "errorDuplicateEntryText": "The entry can not be saved because a entry for the same association already exists.",
+            "errorDuplicateEntryText": "The entry '{value}' can not be saved because a entry for the same association already exists.",
             "errorFileText": "Unable to read file - did you chose the right format?",
             "startImportTitle": "Start import",
             "startImportText": "The import process has started now",

@@ -501,8 +501,9 @@ Component.register('moorl-entity-grid', {
                     const errorCode = Shopware.Utils.get(exception, 'response.data.errors[0].code');
 
                     if (errorCode === 'MOORL__DUPLICATE_ENTRY') {
+                        const parameters = Shopware.Utils.get(exception, 'response.data.errors[0].meta.parameters');
                         const titleSaveError = this.$tc('moorl-foundation.notification.errorTitle');
-                        const messageSaveError = this.$tc('moorl-foundation.notification.errorDuplicateEntryText');
+                        const messageSaveError = this.$tc('moorl-foundation.notification.errorDuplicateEntryText', 0, parameters);
                         this.createNotificationError({
                             title: titleSaveError,
                             message: messageSaveError
