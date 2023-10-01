@@ -100,6 +100,11 @@ Component.register('moorl-entity-grid', {
                 return {};
             }
         },
+        topBarOptions: {
+            type: Array,
+            required: false,
+            default: ['search', 'new', 'import', 'export']
+        },
         /* Handling for prices */
         tax: {
             type: Object,
@@ -185,6 +190,20 @@ Component.register('moorl-entity-grid', {
         },
         currencyRepository() {
             return this.repositoryFactory.create('currency');
+        },
+        topBarColumns() {
+            if (this.topBarOptions.length === 4) {
+                return '4fr 1fr 1fr 1fr';
+            }
+            if (this.topBarOptions.length === 3) {
+                return '1fr 1fr 1fr';
+            }
+            if (this.topBarOptions.length === 2) {
+                return '1fr 1fr';
+            }
+            if (this.topBarOptions.length === 1) {
+                return '1fr';
+            }
         }
     },
     created() {

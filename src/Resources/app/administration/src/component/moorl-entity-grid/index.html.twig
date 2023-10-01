@@ -1,13 +1,20 @@
 <div v-if="items" class="moorl-entity-grid">
-    <sw-container columns="4fr 1fr 1fr 1fr" gap="0 10px" class="moorl-entity-grid__top-bar">
+    <sw-container
+            v-if="topBarOptions.length > 0"
+            :columns="topBarColumns"
+            gap="0 10px"
+            class="moorl-entity-grid__top-bar"
+    >
         <sw-field
+                v-if="topBarOptions.includes('search')"
                 :placeholder="$tc('moorl-foundation.label.search')"
                 type="text"
                 v-model="searchTerm"
                 @input="onSearch"
         />
 
-        <sw-button variant="primary"
+        <sw-button v-if="topBarOptions.includes('new')"
+                   variant="primary"
                    :block="true"
                    size="small"
                    @click="onEditItem(null)">
@@ -15,7 +22,8 @@
             {{ $tc('moorl-foundation.buttons.newButtonText') }}
         </sw-button>
 
-        <sw-button variant="primary"
+        <sw-button v-if="topBarOptions.includes('import')"
+                   variant="primary"
                    :block="true"
                    size="small"
                    @click="onImportModal">
@@ -23,7 +31,8 @@
             {{ $tc('moorl-foundation.buttons.importButtonText') }}
         </sw-button>
 
-        <sw-button variant="primary"
+        <sw-button v-if="topBarOptions.includes('export')"
+                   variant="primary"
                    :block="true"
                    :disabled="items.length === 0"
                    size="small"
