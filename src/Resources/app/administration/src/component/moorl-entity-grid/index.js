@@ -5,7 +5,7 @@ const { Component, Mixin } = Shopware;
 const Criteria = Shopware.Data.Criteria;
 
 /**
- * Standard vaiable names
+ * Standard variable names
  * @items = All data of table: Array
  * @item = One data row of table: Object
  * @selectedItems: Array
