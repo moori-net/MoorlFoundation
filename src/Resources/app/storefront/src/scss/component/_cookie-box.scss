@@ -2,14 +2,13 @@
   display: none;
   justify-content: center;
   align-items: center;
-  background: repeating-linear-gradient(
-                  45deg,
-                  lighten($primary, 55%),
-                  lighten($primary, 50%) 10px,
-                  lighten($primary, 45%) 10px,
-                  lighten($primary, 40%) 20px
-  );
+  background: $sw-background-color;
   color: $sw-text-color;
+  border: 1px solid $sw-border-color;
   flex-direction: column;
   height: 100%;
+
+  svg {
+    fill: $primary;
+  }
 }

@@ -248,7 +248,7 @@ SQL;
             if ($this->systemConfigService->get('MoorlFoundation.config.osmCountryIds')) {
                 $countryIds = $this->systemConfigService->get('MoorlFoundation.config.osmCountryIds');
             } else {
-                return ['\d{5}','\d{4}'];
+                return ['\d{5}','\d{4}']; // DE, AT or CH
             }
         }
 

@@ -1,5 +1,3 @@
-console.log("init MoorlFoundation");
-
 import './core/moorl-foundation.scss';
 import './main.scss';
 
