@@ -17,22 +17,27 @@ export default class MoorlCharCounterPlugin extends Plugin {
 
         this._maxLength = this._inputEl.maxLength;
         this._minLength = this._inputEl.minLength;
-        this._currentLength = this._inputEl.value.length;
         if (!this._maxLength) {
             return;
         }
 
-        this.el.innerText = `${this._currentLength}/${this._maxLength}`;
+        setTimeout(() => {
+            this._writeCurrent();
+        }, 1000);
 
         this._registerEvents();
     }
 
     _registerEvents() {
-        ['oninput', 'keyup'].forEach(evt => {
+        ['oninput', 'keyup', 'change'].forEach(evt => {
             this._inputEl.addEventListener(evt, () => {
-                this._currentLength = this._inputEl.value.length;
-                this.el.innerText = `${this._currentLength}/${this._maxLength}`;
+                this._writeCurrent();
             });
         });
+    }
+
+    _writeCurrent() {
+        this._currentLength = this._inputEl.value.length;
+        this.el.innerText = `${this._currentLength}/${this._maxLength}`;
     }
 }
