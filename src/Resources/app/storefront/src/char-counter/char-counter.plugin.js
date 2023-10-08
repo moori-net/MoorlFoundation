@@ -2,7 +2,8 @@ import Plugin from 'src/plugin-system/plugin.class';
 
 export default class MoorlCharCounterPlugin extends Plugin {
     static options = {
-        inputElId: null
+        inputElId: null,
+        type: null
     };
 
     init() {
