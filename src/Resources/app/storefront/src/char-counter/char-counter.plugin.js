@@ -21,6 +21,8 @@ export default class MoorlCharCounterPlugin extends Plugin {
             return;
         }
 
+        this._writeCurrent();
+
         setTimeout(() => {
             this._writeCurrent();
         }, 1000);
