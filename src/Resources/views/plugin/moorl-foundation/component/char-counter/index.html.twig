@@ -13,7 +13,7 @@
         </div>
     </div>
 {% else %}
-    <span class="moorl-char-counter"
+    <span class="moorl-char-counter {{ class }}"
           data-moorl-char-counter
           data-moorl-char-counter-options='{{ options|json_encode|raw }}'></span>
 {% endif %}
