@@ -16,10 +16,14 @@ export default class MoorlCharCounterPlugin extends Plugin {
             return;
         }
 
-        this._maxLength = this._inputEl.maxLength;
-        this._minLength = this._inputEl.minLength;
+        this._maxLength = parseInt(this._inputEl.maxLength);
+        this._minLength = parseInt(this._inputEl.minLength);
         if (!this._maxLength) {
             return;
+        }
+
+        if (this.options.type === 'progress-bar') {
+            this._progressBarEl = this.el.querySelector('.progress-bar');
         }
 
         this._writeCurrent();
@@ -40,7 +44,29 @@ export default class MoorlCharCounterPlugin extends Plugin {
     }
 
     _writeCurrent() {
-        this._currentLength = this._inputEl.value.length;
-        this.el.innerText = `${this._currentLength}/${this._maxLength}`;
+        this._currentLength = parseInt(this._inputEl.value.length);
+
+        if (this.options.type === 'progress-bar') {
+            this._currentPercentage = Math.ceil(this._currentLength / this._maxLength * 100);
+
+            if (this._currentPercentage >= 100) {
+                this._progressBarEl.classList.remove('bg-success');
+                this._progressBarEl.classList.remove('bg-warning');
+                this._progressBarEl.classList.add('bg-danger');
+            } else if (this._currentPercentage >= 90) {
+                this._progressBarEl.classList.remove('bg-success');
+                this._progressBarEl.classList.remove('bg-danger');
+                this._progressBarEl.classList.add('bg-warning');
+            } else {
+                this._progressBarEl.classList.remove('bg-danger');
+                this._progressBarEl.classList.remove('bg-warning');
+                this._progressBarEl.classList.add('bg-success');
+            }
+
+            this._progressBarEl.style.width = `${this._currentPercentage}%`;
+            this._progressBarEl.innerText = `${this._currentLength}/${this._maxLength}`;
+        } else {
+            this.el.innerText = `${this._currentLength}/${this._maxLength}`;
+        }
     }
 }
