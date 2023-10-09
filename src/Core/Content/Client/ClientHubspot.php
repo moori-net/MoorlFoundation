@@ -10,12 +10,17 @@ class ClientHubspot extends ClientExtension implements ClientInterface
 {
     protected string $clientName = "hubspot";
     protected string $clientType = ClientService::TYPE_API;
-    protected string $baseUrl = "https://api.hubapi.com";
 
     public function getClientConfigTemplate(): ?array
     {
         return [
-            ['name' => 'token', 'type' => 'password', 'required' => true, 'placeholder' => 'pat-eu1-********-****-****-****-************']
+            [
+                'name' => 'token',
+                'type' => 'password',
+                'required' => true,
+                'placeholder' => 'pat-eu1-********-****-****-****-************',
+                'helpText' => 'Please enable this Hubspot protocols: crm.objects.contacts, crm.schemas.contacts, forms, forms-uploaded-files'
+            ]
         ];
     }
 
