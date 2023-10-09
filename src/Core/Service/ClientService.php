@@ -14,6 +14,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class ClientService
 {
+    public const TYPE_FILESYSTEM = 'filesystem';
+    public const TYPE_API = 'api';
+
     private array $_clients = [];
 
     /**
@@ -91,7 +94,13 @@ class ClientService
 
     public function test(string $clientId, Context $context): array
     {
-        return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
+        $client = $this->getClient($clientId, $context);
+
+        if ($client->getClientType() === self::TYPE_FILESYSTEM) {
+            return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
+        } elseif ($client->getClientType() === self::TYPE_API) {
+            return $client->testConnection();
+        }
     }
 
     public function getOptions(): array

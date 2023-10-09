@@ -24,5 +24,9 @@
         <service id="MoorlFoundation\Core\Content\Client\ClientNextcloud">
             <tag name="moorl.foundation.client" priority="700"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientHubspot">
+            <tag name="moorl.foundation.client" priority="650"/>
+        </service>
     </services>
 </container>

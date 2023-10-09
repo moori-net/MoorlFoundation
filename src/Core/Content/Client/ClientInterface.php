@@ -14,4 +14,5 @@ interface ClientInterface
     public function setClientEntity(ClientEntity $clientEntity): void;
     public function getClientEntity(): ClientEntity;
     public function executePublicUrl(): bool;
+    public function testConnection(): array;
 }

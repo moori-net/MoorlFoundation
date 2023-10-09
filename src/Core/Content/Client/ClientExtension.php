@@ -4,12 +4,13 @@ namespace MoorlFoundation\Core\Content\Client;
 
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\FilesystemAdapter;
+use MoorlFoundation\Core\Service\ClientService;
 
 class ClientExtension
 {
     protected ?ClientEntity $clientEntity = null;
     protected string $clientName = "";
-    protected string $clientType = "";
+    protected string $clientType = ClientService::TYPE_FILESYSTEM;
 
     public function getClientType(): string
     {
@@ -54,5 +55,10 @@ class ClientExtension
     public function executePublicUrl(): bool
     {
         return true;
+    }
+
+    public function testConnection(): array
+    {
+        return [];
     }
 }
