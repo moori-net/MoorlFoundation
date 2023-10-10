@@ -133,7 +133,7 @@ class ClientService
         );
     }
 
-    private function getClient(string $clientId, Context $context): ClientInterface
+    public function getClient(string $clientId, Context $context): ClientInterface
     {
         if (isset($this->_clients[$clientId])) {
             return $this->_clients[$clientId];

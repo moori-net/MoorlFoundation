@@ -35,8 +35,13 @@ class ClientHubspot extends ClientExtension implements ClientInterface
 
         $response = $hubspot->apiRequest([
             'method' => 'GET',
-            'path' => "/marketing/v3/forms/"
+            'path' => "/crm/v3/objects/contacts"
         ]);
+
+        /*$response = $hubspot->apiRequest([
+            'method' => 'GET',
+            'path' => "/marketing/v3/forms/"
+        ]);*/
 
         return json_decode($response->getBody()->getContents(), true);
     }
