@@ -25,8 +25,8 @@ class ClientHubspot extends ClientExtension implements ClientInterface
                 'name' => 'portalId',
                 'type' => 'text',
                 'required' => true,
-                'placeholder' => '143440315',
-                'helpText' => 'The HubSpot account that the form belongs to'
+                'placeholder' => '*********',
+                'helpText' => 'The HubSpot account number'
             ]
         ];
     }
@@ -44,11 +44,6 @@ class ClientHubspot extends ClientExtension implements ClientInterface
             'method' => 'GET',
             'path' => "/crm/v3/objects/contacts"
         ]);
-
-        /*$response = $hubspot->apiRequest([
-            'method' => 'GET',
-            'path' => "/marketing/v3/forms/"
-        ]);*/
 
         return json_decode($response->getBody()->getContents(), true);
     }
