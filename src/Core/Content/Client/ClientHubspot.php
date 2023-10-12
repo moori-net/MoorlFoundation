@@ -20,6 +20,13 @@ class ClientHubspot extends ClientExtension implements ClientInterface
                 'required' => true,
                 'placeholder' => 'pat-eu1-********-****-****-****-************',
                 'helpText' => 'Please enable this Hubspot protocols: crm.objects.contacts, crm.schemas.contacts, forms, forms-uploaded-files'
+            ],
+            [
+                'name' => 'portalId',
+                'type' => 'text',
+                'required' => true,
+                'placeholder' => '143440315',
+                'helpText' => 'The HubSpot account that the form belongs to'
             ]
         ];
     }
