@@ -25,7 +25,9 @@
             "bucket": "Bucket",
             "prefix": "Prefix",
             "userName": "Username",
-            "baseUri": "Base URI"
+            "baseUri": "Base URI",
+            "token": "Token",
+            "portalId": "Portal ID"
         },
         "helpText": {}
     }
