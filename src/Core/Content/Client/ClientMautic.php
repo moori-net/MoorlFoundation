@@ -2,7 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
-use Mautic\MauticApi;
+use MoorlFormsMautic\Api\Contacts;
 use MoorlFoundation\Core\Service\ClientService;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 use Mautic\Auth\ApiAuth;
@@ -47,8 +47,7 @@ class ClientMautic extends ClientExtension implements ClientInterface
 
         $initAuth = new ApiAuth();
         $auth = $initAuth->newAuth($config, 'BasicAuth');
-        $api = new MauticApi();
-        $contactApi = $api->newApi('contacts', $auth, sprintf('%s/api/', $config['baseUrl']));
+        $contactApi = new Contacts($auth, sprintf('%s/api/', $config['baseUrl']));
 
         return $contactApi->getList();
     }
