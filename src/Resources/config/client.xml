@@ -28,5 +28,9 @@
         <service id="MoorlFoundation\Core\Content\Client\ClientHubspot">
             <tag name="moorl.foundation.client" priority="650"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientMautic">
+            <tag name="moorl.foundation.client" priority="600"/>
+        </service>
     </services>
 </container>

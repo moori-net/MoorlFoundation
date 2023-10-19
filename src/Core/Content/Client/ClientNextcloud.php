@@ -14,7 +14,7 @@ class ClientNextcloud extends ClientExtension implements ClientInterface
     public function getClientConfigTemplate(): ?array
     {
         return [
-            ['name' => 'baseUri', 'type' => 'text', 'required' => true, 'placeholder' => 'http://your-nextcloud-server.org/'],
+            ['name' => 'baseUri', 'type' => 'text', 'required' => true, 'placeholder' => 'https://your-nextcloud-server.org/'],
             ['name' => 'userName', 'type' => 'text', 'required' => true, 'default' => ''],
             ['name' => 'password', 'type' => 'password', 'required' => true, 'default' => ''],
         ];
