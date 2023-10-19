@@ -26,6 +26,7 @@
             "prefix": "Prefix",
             "userName": "Username",
             "baseUri": "Base URI",
+            "baseUrl": "Base URL",
             "token": "Token",
             "portalId": "Portal ID"
         },
