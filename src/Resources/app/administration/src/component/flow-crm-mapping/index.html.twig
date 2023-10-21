@@ -1,0 +1,60 @@
+<div class="moorl-flow-crm-mapping">
+    <div v-if="activeFormFields.length" class="moorl-info-table">
+        <sw-alert variant="info">
+            {{ description }}
+        </sw-alert>
+
+        <moorl-collapse :label="$tc('global.sw-condition.condition.alwaysValidRule')" expand-on-loading>
+            <template #content>
+                <pre v-pre>{{ salesChannel.name }}</pre>
+            </template>
+        </moorl-collapse>
+
+        <moorl-collapse label="Checkout/Order customer" expand-on-loading>
+            <template #content>
+<pre v-pre>{{ customerData.firstName }}
+{{ customerData.lastName }}
+{{ customerData.email }}
+{{ customerData.phone }}
+{{ customerData.subject }}
+{{ customerData.comment }}</pre>
+            </template>
+        </moorl-collapse>
+
+        <moorl-collapse label="Contact" expand-on-loading>
+            <template #content>
+<pre v-pre>{{ contactFormData.firstName }}
+{{ contactFormData.lastName }}
+{{ contactFormData.email }}
+{{ contactFormData.phone }}
+{{ contactFormData.subject }}
+{{ contactFormData.comment }}</pre>
+            </template>
+        </moorl-collapse>
+
+        <moorl-collapse label="Newsletter" expand-on-loading>
+            <template #content>
+<pre v-pre>{{ newsletterRecipient.firstName }}
+{{ newsletterRecipient.lastName }}
+{{ newsletterRecipient.email }}</pre>
+            </template>
+        </moorl-collapse>
+
+        <p>&nbsp;</p>
+
+        <table>
+            <tr>
+                <th>{{ $tc('sw-settings-custom-field.set.detail.labelTechnicalName') }}</th>
+                <th>{{ $tc('sw-settings-custom-field.customField.detail.labelLabel') }}</th>
+                <th>{{ $tc('sw-cms.detail.label.mappingPreview') }}</th>
+            </tr>
+            <tr v-for="field in activeFormFields">
+                <td>{{ field.value }}</td>
+                <td>{{ field.label }}</td>
+                <td>
+                    <sw-text-field v-model="mapping[field.value]"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

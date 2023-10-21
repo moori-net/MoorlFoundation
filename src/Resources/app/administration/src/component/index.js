@@ -23,3 +23,4 @@ import './animation-v2';
 import './section-config';
 import './file-explorer';
 import './demo-button';
+import './flow-crm-mapping';
