@@ -1,5 +1,11 @@
 {
   "moorl-flow-crm-mapping": {
-    "description": "Die folgenden Felder sind in diesem {name}-Formular verfügbar. Sie können einfachen Text oder Vorlagenvariablen verwenden. Hier sind einige Beispiele:"
+    "description": "Die folgenden Felder sind in diesem {name}-Formular verfügbar. Sie können einfachen Text oder Platzhalter verwenden. Bitte beachten Sie, dass die Platzhalter die gleichen sein müssen wie in der Mailvorlage für diesen Flow. Hier sind einige Beispiele:",
+    "salesChannel": "Flow mit Verkaufskanal (immer verfügbar)",
+    "customer": "Flow mit Kunden (CustomerAware)",
+    "order": "Flow mit Bestellung (OrderAware)",
+    "newsletterRecipient": "Flow mit Newsletter (NewsletterRecipientAware)",
+    "contactFormData": "Flow mit Kontakt (ContactFormDataAware)",
+    "mappingPlaceholder": "Text oder Platzhalter"
   }
 }

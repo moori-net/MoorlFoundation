@@ -4,24 +4,32 @@
             {{ description }}
         </sw-alert>
 
-        <moorl-collapse :label="$tc('global.sw-condition.condition.alwaysValidRule')" expand-on-loading>
+        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.salesChannel')">
             <template #content>
                 <pre v-pre>{{ salesChannel.name }}</pre>
             </template>
         </moorl-collapse>
 
-        <moorl-collapse label="Checkout/Order customer" expand-on-loading>
+        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.customer')">
             <template #content>
-<pre v-pre>{{ customerData.firstName }}
-{{ customerData.lastName }}
-{{ customerData.email }}
-{{ customerData.phone }}
-{{ customerData.subject }}
-{{ customerData.comment }}</pre>
+<pre v-pre>{{ customer.firstName }}
+{{ customer.lastName }}
+{{ customer.email }}
+{{ customer.phone }}
+{{ customer.subject }}
+{{ customer.comment }}</pre>
             </template>
         </moorl-collapse>
 
-        <moorl-collapse label="Contact" expand-on-loading>
+        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.order')">
+            <template #content>
+<pre v-pre>{{ order.orderNumber }}
+{{ order.orderCustomer.email }}
+{{ order.comment }}</pre>
+            </template>
+        </moorl-collapse>
+
+        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.contactFormData')">
             <template #content>
 <pre v-pre>{{ contactFormData.firstName }}
 {{ contactFormData.lastName }}
@@ -32,7 +40,7 @@
             </template>
         </moorl-collapse>
 
-        <moorl-collapse label="Newsletter" expand-on-loading>
+        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.newsletterRecipient')">
             <template #content>
 <pre v-pre>{{ newsletterRecipient.firstName }}
 {{ newsletterRecipient.lastName }}
@@ -52,7 +60,7 @@
                 <td>{{ field.value }}</td>
                 <td>{{ field.label }}</td>
                 <td>
-                    <sw-text-field v-model="mapping[field.value]"/>
+                    <sw-text-field v-model="mapping[field.value]" :placeholder="$tc('moorl-flow-crm-mapping.mappingPlaceholder')"/>
                 </td>
             </tr>
         </table>

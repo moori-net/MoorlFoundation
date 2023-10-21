@@ -1,5 +1,11 @@
 {
   "moorl-flow-crm-mapping": {
-    "description": "Following fields are available in this {name} form. You can use simple text or template variables. Here are some examples:"
+    "description": "Following fields are available in this {name} form. You can use simple text or placeholders. Please note that the placeholders have to be the same like in the mail template for this flow. Here are some examples:",
+    "salesChannel": "Flow with sales channel (Always valid)",
+    "customer": "Flow with customer (CustomerAware)",
+    "order": "Flow with order (OrderAware)",
+    "newsletterRecipient": "Flow with newsletter (NewsletterRecipientAware)",
+    "contactFormData": "Flow with contact (ContactFormDataAware)",
+    "mappingPlaceholder": "Text or placeholder"
   }
 }
