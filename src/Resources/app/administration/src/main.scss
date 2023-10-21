@@ -1,5 +1,30 @@
 @import "~scss/variables";
 
+.moorl-info-table {
+    p {
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+
+        td, th {
+            padding: 10px;
+            border: 3px solid #d1d9e0;
+        }
+    }
+
+    .sw-field {
+        margin-bottom: 0;
+    }
+
+    .sw-block-field input {
+        padding: 6px 8px;
+    }
+}
+
 .moorl-link-field {
     margin-bottom: 20px;
 
