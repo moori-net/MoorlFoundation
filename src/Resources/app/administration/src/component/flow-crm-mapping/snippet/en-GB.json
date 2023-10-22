@@ -6,6 +6,19 @@
     "order": "Flow with order (OrderAware)",
     "newsletterRecipient": "Flow with newsletter (NewsletterRecipientAware)",
     "contactFormData": "Flow with contact (ContactFormDataAware)",
-    "mappingPlaceholder": "Text or placeholder"
+    "mappingPlaceholder": "Text or placeholder",
+    "helpText": {
+      "clientId": "Sie brauchen einen Client vom Typ: Hubspot",
+      "formId": "Wenn kein Formular erscheint, müssen Sie ein neues Formular in Ihrem Hubspot-Konto erstellen",
+      "formField": "Bitte nur textbasierte Felder verwenden"
+    },
+    "properties": {
+      "technicalName": "Technical name",
+      "label": "Label",
+      "mapping": "Mapped to",
+      "clientId": "Hubspot Client",
+      "formId": "Hubspot Formular",
+      "formField": "Zuordnung zum Hubspot-Formularfeld"
+    }
   }
 }
