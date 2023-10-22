@@ -33,9 +33,9 @@
             :helpText="helpTextFormId"
             :options="formOptions"
             v-model="config.formId"
-            show-clearable-button
             :disabled="!config.clientId"
             @change="onChangeForm"
+            show-clearable-button
     />
 
     <div v-if="activeFormFields.length && elementFieldNames.length === 0" class="moorl-info-table">
@@ -128,6 +128,7 @@
                             v-model="config.mapping[field.value]"
                             :options="elementFieldNames"
                             @change="onChangeMapping"
+                            show-clearable-button
                     />
                 </td>
             </tr>
