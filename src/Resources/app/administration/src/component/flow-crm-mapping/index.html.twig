@@ -38,7 +38,7 @@
             @change="onChangeForm"
     />
 
-    <div v-if="activeFormFields.length" class="moorl-info-table">
+    <div v-if="activeFormFields.length && elementFieldNames.length === 0" class="moorl-info-table">
         <sw-alert variant="info">
             {{ description }}
         </sw-alert>
@@ -102,6 +102,31 @@
                     <sw-text-field
                             v-model="config.mapping[field.value]"
                             :placeholder="$tc('moorl-flow-crm-mapping.mappingPlaceholder')"
+                            @change="onChangeMapping"
+                    />
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div v-if="activeFormFields.length && elementFieldNames.length !== 0" class="moorl-info-table">
+        <sw-alert variant="info">
+            {{ description }}
+        </sw-alert>
+
+        <table>
+            <tr>
+                <th>{{ $tc('moorl-flow-crm-mapping.properties.technicalName') }}</th>
+                <th>{{ $tc('moorl-flow-crm-mapping.properties.label') }}</th>
+                <th>{{ $tc('moorl-flow-crm-mapping.properties.mapping') }}</th>
+            </tr>
+            <tr v-for="field in activeFormFields">
+                <td>{{ field.value }}</td>
+                <td>{{ field.label }}</td>
+                <td>
+                    <sw-single-select
+                            v-model="config.mapping[field.value]"
+                            :options="elementFieldNames"
                             @change="onChangeMapping"
                     />
                 </td>

@@ -28,10 +28,21 @@ Component.register('moorl-flow-crm-mapping', {
             type: Object,
             required: true
         },
+        elementFieldNames: {
+            type: Array,
+            required: false,
+            default: []
+        }
     },
 
     computed: {
         description() {
+            if (this.elementFieldNames.length) {
+                return this.$tc('moorl-flow-crm-mapping.descriptionAlt', 0, {
+                    name: this.name
+                });
+            }
+
             return this.$tc('moorl-flow-crm-mapping.description', 0, {
                 name: this.name
             });
@@ -62,7 +73,17 @@ Component.register('moorl-flow-crm-mapping', {
         },
     },
 
+    created() {
+        this.createdComponent();
+    },
+
     methods: {
+        createdComponent() {
+            this.config.mapping = this.config?.mapping || {};
+
+            this.$emit('change-client');
+        },
+
         onChangeClient() {
             this.$emit('change-client');
         },
@@ -74,8 +95,6 @@ Component.register('moorl-flow-crm-mapping', {
         },
 
         onChangeMapping() {
-            console.log(this.config);
-
             this.$emit('change-mapping');
         }
     }
