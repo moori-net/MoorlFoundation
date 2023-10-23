@@ -1,0 +1,55 @@
+<sw-data-grid
+    class="moorl-parameter-grid"
+    :data-source="records"
+    :columns="parameterColumns"
+    :show-selection="false"
+    :plain-appearance="true"
+    :show-actions="showActions"
+>
+    <template v-if="!fixed" #column-value="{ item, itemIndex }">
+        <sw-text-field
+            v-model="item.value"
+            size="small"
+            :placeholder="$tc('moorl-parameter-grid.properties.value')"
+            @change="onChangeItem(item, itemIndex)"
+        />
+    </template>
+
+    <template #column-data="{ item, itemIndex }">
+        <sw-single-select
+            v-if="!item.isCustomData && dataSelection.length"
+            v-model="item.data"
+            size="small"
+            :options="dataSelection"
+            :placeholder="$tc('moorl-parameter-grid.properties.data')"
+            @change="onChangeItem(item, itemIndex)"
+        />
+
+        <sw-text-field
+            v-if="item.isCustomData || !dataSelection.length"
+            v-model="item.data"
+            size="small"
+            :placeholder="$tc('moorl-parameter-grid.properties.data')"
+            @change="onChangeItem(item, itemIndex)"
+        />
+    </template>
+
+    <template #actions="{ item, itemIndex }">
+        <sw-context-menu-item
+                :disabled="!dataSelection.length"
+                @click="changeToCustomText(item, itemIndex)"
+        >
+                {{ item.isCustomData
+                ? $tc('moorl-parameter-grid.choosePredefinedParam')
+                : $tc('moorl-parameter-grid.useOwnParam') }}
+        </sw-context-menu-item>
+
+        <sw-context-menu-item
+                variant="danger"
+                :disabled="disableDelete(itemIndex)"
+                @click="deleteItem(itemIndex)"
+        >
+            {{ $tc('moorl-parameter-grid.deleteParameter') }}
+        </sw-context-menu-item>
+    </template>
+</sw-data-grid>
