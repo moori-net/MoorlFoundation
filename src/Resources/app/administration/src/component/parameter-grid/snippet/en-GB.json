@@ -1,12 +1,12 @@
 {
   "moorl-parameter-grid": {
-    "useOwnParam": "Use own parameter",
-    "choosePredefinedParam": "Choose predefined parameters",
-    "deleteParameter": "Delete parameter",
+    "customValue": "Custom value",
+    "placeholderValue": "Placeholder value",
+    "removeItem": "Remove item",
     "properties": {
-      "name": "Technical name",
+      "name": "Name",
       "label": "Label",
-      "data": "Mapped to"
+      "data": "Data"
     }
   }
 }

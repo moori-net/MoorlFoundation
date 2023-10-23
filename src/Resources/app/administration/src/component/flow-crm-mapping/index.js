@@ -77,6 +77,20 @@ Component.register('moorl-flow-crm-mapping', {
         this.createdComponent();
     },
 
+    watch: {
+        activeFormFields: {
+            handler(value) {
+                if (!value || !value.length) {
+                    return;
+                }
+
+                if (!this.config?.mapping?.length) {
+                    this.config.mapping = value;
+                }
+            },
+        },
+    },
+
     methods: {
         createdComponent() {
             if (!this.config?.mapping?.length) {
@@ -91,9 +105,9 @@ Component.register('moorl-flow-crm-mapping', {
         },
 
         onChangeForm() {
-            this.$emit('change-form');
+            this.config.mapping = [];
 
-            this.config.mapping = this.activeFormFields;
+            this.$emit('change-form');
         },
 
         onChangeMapping() {

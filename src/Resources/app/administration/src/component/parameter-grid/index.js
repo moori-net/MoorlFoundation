@@ -34,32 +34,39 @@ Component.register('moorl-parameter-grid', {
 
     data() {
         return {
-            records: this.parameters,
+            items: this.parameters,
         };
     },
     
     computed: {
-        parameterColumns() {
-            return [
+        gridColumns() {
+            const columns = [
                 {
                     label: this.$tc('moorl-parameter-grid.properties.name'),
                     property: 'name',
                     dataIndex: 'name',
                     primary: true
                 },
-                {
+            ];
+
+            if (this.fixed) {
+                columns.push({
                     label: this.$tc('moorl-parameter-grid.properties.label'),
                     property: 'label',
                     dataIndex: 'label',
                     primary: true
-                },
-                {
-                    label: this.$tc('moorl-parameter-grid.properties.data'),
-                    property: 'data',
-                    dataIndex: 'data',
-                    primary: true
-                },
-            ];
+                });
+            }
+
+            columns.push({
+                label: this.$tc('moorl-parameter-grid.properties.data'),
+                property: 'data',
+                dataIndex: 'data',
+                primary: true,
+                width: '240px'
+            });
+
+            return columns;
         },
     },
 
@@ -70,36 +77,36 @@ Component.register('moorl-parameter-grid', {
                     return;
                 }
 
-                this.records = value;
+                this.items = value;
             },
         },
     },
 
     methods: {
-        changeToCustomText(item, itemIndex) {
-            this.$set(this.records, itemIndex, { ...item, isCustomData: !item.isCustomData });
-            this.$emit('change', this.records);
+        toggleCustomValue(item, itemIndex) {
+            this.$set(this.items, itemIndex, { ...item, isCustom: !item.isCustom });
+            this.$emit('change', this.items);
         },
 
         onChangeItem(item, itemIndex) {
-            if (!item.name || !item.data || itemIndex !== this.records.length - 1) {
+            if (!item.name || !item.data || itemIndex !== this.items.length - 1) {
                 return;
             }
 
             if (!this.fixed) {
-                this.records = [...this.records, { name: '', data: '' }];
+                this.items = [...this.items, { name: '', data: '' }];
             }
 
-            this.$emit('change', this.records);
+            this.$emit('change', this.items);
         },
 
         deleteItem(itemIndex) {
-            this.$delete(this.records, itemIndex);
-            this.$emit('change', this.records);
+            this.$delete(this.items, itemIndex);
+            this.$emit('change', this.items);
         },
 
         disableDelete(itemIndex) {
-            return this.fixed || itemIndex === this.records.length - 1;
+            return this.fixed || itemIndex === this.items.length - 1;
         },
     },
 });

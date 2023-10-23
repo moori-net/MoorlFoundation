@@ -1,7 +1,7 @@
 <sw-data-grid
     class="moorl-parameter-grid"
-    :data-source="records"
-    :columns="parameterColumns"
+    :data-source="items"
+    :columns="gridColumns"
     :show-selection="false"
     :plain-appearance="true"
     :show-actions="showActions"
@@ -17,7 +17,7 @@
 
     <template #column-data="{ item, itemIndex }">
         <sw-single-select
-            v-if="!item.isCustomData && dataSelection.length"
+            v-if="!item.isCustom && dataSelection.length"
             v-model="item.data"
             size="small"
             :options="dataSelection"
@@ -26,7 +26,7 @@
         />
 
         <sw-text-field
-            v-if="item.isCustomData || !dataSelection.length"
+            v-if="item.isCustom || !dataSelection.length"
             v-model="item.data"
             size="small"
             :placeholder="$tc('moorl-parameter-grid.properties.data')"
@@ -37,11 +37,11 @@
     <template #actions="{ item, itemIndex }">
         <sw-context-menu-item
                 :disabled="!dataSelection.length"
-                @click="changeToCustomText(item, itemIndex)"
+                @click="toggleCustomValue(item, itemIndex)"
         >
-                {{ item.isCustomData
-                ? $tc('moorl-parameter-grid.choosePredefinedParam')
-                : $tc('moorl-parameter-grid.useOwnParam') }}
+                {{ item.isCustom
+                ? $tc('moorl-parameter-grid.placeholderValue')
+                : $tc('moorl-parameter-grid.customValue') }}
         </sw-context-menu-item>
 
         <sw-context-menu-item
@@ -49,7 +49,7 @@
                 :disabled="disableDelete(itemIndex)"
                 @click="deleteItem(itemIndex)"
         >
-            {{ $tc('moorl-parameter-grid.deleteParameter') }}
+            {{ $tc('moorl-parameter-grid.removeItem') }}
         </sw-context-menu-item>
     </template>
 </sw-data-grid>
