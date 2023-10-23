@@ -42,9 +42,9 @@ Component.register('moorl-parameter-grid', {
         parameterColumns() {
             return [
                 {
-                    label: this.$tc('moorl-parameter-grid.properties.value'),
-                    property: 'value',
-                    dataIndex: 'value',
+                    label: this.$tc('moorl-parameter-grid.properties.name'),
+                    property: 'name',
+                    dataIndex: 'name',
                     primary: true
                 },
                 {
@@ -86,7 +86,10 @@ Component.register('moorl-parameter-grid', {
                 return;
             }
 
-            this.records = [...this.records, { name: '', data: '' }];
+            if (!this.fixed) {
+                this.records = [...this.records, { name: '', data: '' }];
+            }
+
             this.$emit('change', this.records);
         },
 

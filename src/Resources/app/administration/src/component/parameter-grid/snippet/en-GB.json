@@ -4,7 +4,7 @@
     "choosePredefinedParam": "Choose predefined parameters",
     "deleteParameter": "Delete parameter",
     "properties": {
-      "value": "Technical name",
+      "name": "Technical name",
       "label": "Label",
       "data": "Mapped to"
     }

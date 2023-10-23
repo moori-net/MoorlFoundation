@@ -6,11 +6,11 @@
     :plain-appearance="true"
     :show-actions="showActions"
 >
-    <template v-if="!fixed" #column-value="{ item, itemIndex }">
+    <template v-if="!fixed" #column-name="{ item, itemIndex }">
         <sw-text-field
-            v-model="item.value"
+            v-model="item.name"
             size="small"
-            :placeholder="$tc('moorl-parameter-grid.properties.value')"
+            :placeholder="$tc('moorl-parameter-grid.properties.name')"
             @change="onChangeItem(item, itemIndex)"
         />
     </template>
