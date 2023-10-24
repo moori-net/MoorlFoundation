@@ -160,7 +160,7 @@ Component.register('moorl-flow-crm-mapping', {
             }
 
             return entities.reduce((result, entity) => {
-                const entityName = this.convertCamelCaseToSnakeCase(entity);
+                const entityName = snakeCase(entity);
                 const properties = EntityDefinition.get(entityName).filterProperties(property => {
                     return EntityDefinition.getScalarTypes().includes(property.type);
                 });
@@ -172,10 +172,6 @@ Component.register('moorl-flow-crm-mapping', {
                     };
                 }));
             }, []);
-        },
-
-        convertCamelCaseToSnakeCase(camelCaseText) {
-            return snakeCase(camelCaseText);
         },
 
         onChangeClient() {
