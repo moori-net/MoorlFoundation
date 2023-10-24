@@ -1,0 +1,9 @@
+{
+  "moorl-template-mapping-info": {
+    "salesChannel": "Flow mit Verkaufskanal (immer verfügbar)",
+    "customer": "Flow mit Kunden (CustomerAware)",
+    "order": "Flow mit Bestellung (OrderAware)",
+    "newsletterRecipient": "Flow mit Newsletter (NewsletterRecipientAware)",
+    "contactFormData": "Flow mit Kontakt (ContactFormDataAware)"
+  }
+}

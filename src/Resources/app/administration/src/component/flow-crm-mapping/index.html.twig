@@ -40,72 +40,26 @@
 
     <sw-loader v-if="config.formId && !activeFormFields.length" size="50px"/>
 
-    <div v-if="activeFormFields.length && elementFieldNames.length === 0">
+    <div v-if="activeFormFields.length && dataSelection.length === 0">
         <sw-alert variant="info">
             {{ description }}
         </sw-alert>
 
-        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.salesChannel')">
-            <template #content>
-                <pre v-pre>{{ salesChannel.name }}</pre>
-            </template>
-        </moorl-collapse>
-
-        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.customer')">
-            <template #content>
-<pre v-pre>{{ customer.firstName }}
-{{ customer.lastName }}
-{{ customer.email }}
-{{ customer.phone }}
-{{ customer.subject }}
-{{ customer.comment }}</pre>
-            </template>
-        </moorl-collapse>
-
-        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.order')">
-            <template #content>
-<pre v-pre>{{ order.orderNumber }}
-{{ order.orderCustomer.email }}
-{{ order.comment }}</pre>
-            </template>
-        </moorl-collapse>
-
-        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.contactFormData')">
-            <template #content>
-<pre v-pre>{{ contactFormData.firstName }}
-{{ contactFormData.lastName }}
-{{ contactFormData.email }}
-{{ contactFormData.phone }}
-{{ contactFormData.subject }}
-{{ contactFormData.comment }}</pre>
-            </template>
-        </moorl-collapse>
-
-        <moorl-collapse :label="$tc('moorl-flow-crm-mapping.newsletterRecipient')">
-            <template #content>
-<pre v-pre>{{ newsletterRecipient.firstName }}
-{{ newsletterRecipient.lastName }}
-{{ newsletterRecipient.email }}</pre>
-            </template>
-        </moorl-collapse>
-
-        <p>&nbsp;</p>
-
         <moorl-parameter-grid
                 v-model="config.mapping"
-                :dataSelection="elementFieldNames"
+                :dataSelection="dataSelection"
                 :showActions="false"
         />
     </div>
 
-    <div v-if="activeFormFields.length && elementFieldNames.length !== 0">
+    <div v-if="activeFormFields.length && dataSelection.length !== 0">
         <sw-alert variant="info">
             {{ description }}
         </sw-alert>
 
         <moorl-parameter-grid
             v-model="config.mapping"
-            :dataSelection="elementFieldNames"
+            :dataSelection="dataSelection"
             :showActions="true"
         />
     </div>

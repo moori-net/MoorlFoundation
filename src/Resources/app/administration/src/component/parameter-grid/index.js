@@ -10,6 +10,11 @@ Component.register('moorl-parameter-grid', {
     },
 
     props: {
+        label: {
+            type: String,
+            default: null,
+            required: false,
+        },
         parameters: {
             type: Array,
             default: [],
@@ -63,7 +68,7 @@ Component.register('moorl-parameter-grid', {
                 property: 'data',
                 dataIndex: 'data',
                 primary: true,
-                width: '240px'
+                width: '320px'
             });
 
             return columns;

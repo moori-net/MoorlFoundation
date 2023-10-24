@@ -1,55 +1,63 @@
-<sw-data-grid
-    class="moorl-parameter-grid"
-    :data-source="items"
-    :columns="gridColumns"
-    :show-selection="false"
-    :plain-appearance="true"
-    :show-actions="showActions"
->
-    <template v-if="!fixed" #column-name="{ item, itemIndex }">
-        <sw-text-field
-            v-model="item.name"
-            size="small"
-            :placeholder="$tc('moorl-parameter-grid.properties.name')"
-            @change="onChangeItem(item, itemIndex)"
-        />
-    </template>
+<div class="moorl-parameter-grid sw-field">
+    <div v-if="label" class="sw-field__label">
+        <label>
+            {{ label}}
+        </label>
+    </div>
 
-    <template #column-data="{ item, itemIndex }">
-        <sw-single-select
-            v-if="!item.isCustom && dataSelection.length"
-            v-model="item.data"
-            size="small"
-            :options="dataSelection"
-            :placeholder="$tc('moorl-parameter-grid.properties.data')"
-            @change="onChangeItem(item, itemIndex)"
-        />
+    <sw-data-grid
+            class=""
+            :data-source="items"
+            :columns="gridColumns"
+            :show-selection="false"
+            :plain-appearance="true"
+            :show-actions="showActions"
+    >
+        <template v-if="!fixed" #column-name="{ item, itemIndex }">
+            <sw-text-field
+                    v-model="item.name"
+                    size="small"
+                    :placeholder="$tc('moorl-parameter-grid.properties.name')"
+                    @change="onChangeItem(item, itemIndex)"
+            />
+        </template>
 
-        <sw-text-field
-            v-if="item.isCustom || !dataSelection.length"
-            v-model="item.data"
-            size="small"
-            :placeholder="$tc('moorl-parameter-grid.properties.data')"
-            @change="onChangeItem(item, itemIndex)"
-        />
-    </template>
+        <template #column-data="{ item, itemIndex }">
+            <sw-single-select
+                    v-if="!item.isCustom && dataSelection.length"
+                    v-model="item.data"
+                    size="small"
+                    :options="dataSelection"
+                    :placeholder="$tc('moorl-parameter-grid.properties.data')"
+                    @change="onChangeItem(item, itemIndex)"
+            />
 
-    <template #actions="{ item, itemIndex }">
-        <sw-context-menu-item
-                :disabled="!dataSelection.length"
-                @click="toggleCustomValue(item, itemIndex)"
-        >
+            <sw-text-field
+                    v-if="item.isCustom || !dataSelection.length"
+                    v-model="item.data"
+                    size="small"
+                    :placeholder="$tc('moorl-parameter-grid.properties.data')"
+                    @change="onChangeItem(item, itemIndex)"
+            />
+        </template>
+
+        <template #actions="{ item, itemIndex }">
+            <sw-context-menu-item
+                    :disabled="!dataSelection.length"
+                    @click="toggleCustomValue(item, itemIndex)"
+            >
                 {{ item.isCustom
                 ? $tc('moorl-parameter-grid.placeholderValue')
                 : $tc('moorl-parameter-grid.customValue') }}
-        </sw-context-menu-item>
+            </sw-context-menu-item>
 
-        <sw-context-menu-item
-                variant="danger"
-                :disabled="disableDelete(itemIndex)"
-                @click="deleteItem(itemIndex)"
-        >
-            {{ $tc('moorl-parameter-grid.removeItem') }}
-        </sw-context-menu-item>
-    </template>
-</sw-data-grid>
+            <sw-context-menu-item
+                    variant="danger"
+                    :disabled="disableDelete(itemIndex)"
+                    @click="deleteItem(itemIndex)"
+            >
+                {{ $tc('moorl-parameter-grid.removeItem') }}
+            </sw-context-menu-item>
+        </template>
+    </sw-data-grid>
+</div>

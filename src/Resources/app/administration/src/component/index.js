@@ -25,3 +25,4 @@ import './file-explorer';
 import './demo-button';
 import './flow-crm-mapping';
 import './parameter-grid';
+import './template-mapping-info';

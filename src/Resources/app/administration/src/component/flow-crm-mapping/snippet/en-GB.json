@@ -1,12 +1,6 @@
 {
   "moorl-flow-crm-mapping": {
-    "description": "Following fields are available in this {name} form. You can use simple text or placeholders. Please note that the placeholders have to be the same like in the mail template for this flow. Here are some examples:",
-    "descriptionAlt": "Following fields are available in this {name} form. Please select which form fields should be sent.",
-    "salesChannel": "Flow with sales channel (Always valid)",
-    "customer": "Flow with customer (CustomerAware)",
-    "order": "Flow with order (OrderAware)",
-    "newsletterRecipient": "Flow with newsletter (NewsletterRecipientAware)",
-    "contactFormData": "Flow with contact (ContactFormDataAware)",
+    "description": "Following fields are available in this {name} form. Please select which form fields should be sent.",
     "mappingPlaceholder": "Text or placeholder",
     "helpText": {
       "clientId": "Sie brauchen einen Client vom Typ: {name}",
