@@ -1,8 +1,6 @@
 import template from './index.html.twig';
 
-const {Component, Mixin, EntityDefinition, State} = Shopware;
-const {ShopwareError} = Shopware.Classes;
-const {isEmpty} = Shopware.Utils.types;
+const {Component, EntityDefinition, State} = Shopware;
 const {snakeCase} = Shopware.Utils.string;
 
 Component.register('moorl-flow-crm-mapping', {
@@ -40,7 +38,8 @@ Component.register('moorl-flow-crm-mapping', {
     data() {
         return {
             objects: {
-                contactFormData: ['email', 'firstName', 'lastName', 'phone', 'subject', 'comment']
+                contactFormData: ['email', 'firstName', 'lastName', 'phone', 'subject', 'comment'],
+                reviewFormData: ['email', 'firstName', 'lastName', 'name', 'points', 'title', 'content'],
             }
         }
     },
@@ -56,8 +55,11 @@ Component.register('moorl-flow-crm-mapping', {
             }
 
             if (!this.triggerEvent) {
-                console.log('swFlowState not found');
+                console.log('swFlowState triggerEvent not found');
                 return [];
+            } else {
+                console.log('swFlowState triggerEvent found');
+                console.log(this.triggerEvent);
             }
 
             return this.getEntityProperty(this.triggerEvent.data)
