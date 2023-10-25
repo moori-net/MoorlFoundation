@@ -50,11 +50,19 @@ Component.register('moorl-client-detail', {
         onClickTest() {
             this.isLoading = true;
 
-            this.foundationApiService.get(`/moorl-foundation/settings/client/test/${this.item.id}`).then(() => {
-                this.createNotificationSuccess({
-                    title: this.$tc('global.default.success'),
-                    message: this.$tc('global.default.success'),
-                });
+            this.foundationApiService.get(`/moorl-foundation/settings/client/test/${this.item.id}`).then((response) => {
+                if (response?.errors) {
+                    this.createNotificationError({
+                        title: this.$tc('global.default.error'),
+                        message: response.errors[0].message,
+                    });
+                } else {
+                    this.createNotificationSuccess({
+                        title: this.$tc('global.default.success'),
+                        message: this.$tc('global.default.success'),
+                    });
+                }
+
                 this.isLoading = false;
             }).catch((exception) => {
                 const errorDetail = Shopware.Utils.get(exception, 'response.data.errors[0].detail');

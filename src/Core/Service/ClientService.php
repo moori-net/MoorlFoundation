@@ -96,10 +96,21 @@ class ClientService
     {
         $client = $this->getClient($clientId, $context);
 
-        if ($client->getClientType() === self::TYPE_FILESYSTEM) {
-            return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
-        } elseif ($client->getClientType() === self::TYPE_API) {
-            return $client->testConnection();
+        try {
+            if ($client->getClientType() === self::TYPE_FILESYSTEM) {
+                return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
+            } elseif ($client->getClientType() === self::TYPE_API) {
+                return $client->testConnection();
+            }
+        } catch (\Throwable $exception) {
+            return [
+                'errors' => [
+                    [
+                        'code' => $exception->getCode(),
+                        'message' => $exception->getMessage()
+                    ]
+                ]
+            ];
         }
     }
 
