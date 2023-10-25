@@ -98,20 +98,16 @@ Component.register('moorl-parameter-grid', {
                 return;
             }
 
-            if (!this.fixed) {
-                this.items = [...this.items, { name: '', data: '' }];
-            }
-
             this.$emit('change', this.items);
+        },
+
+        addItem() {
+            this.items.push({data: '', name: ''})
         },
 
         deleteItem(itemIndex) {
             this.$delete(this.items, itemIndex);
             this.$emit('change', this.items);
-        },
-
-        disableDelete(itemIndex) {
-            return this.fixed || itemIndex === this.items.length - 1;
-        },
+        }
     },
 });

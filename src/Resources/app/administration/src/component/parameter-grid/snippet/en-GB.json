@@ -3,6 +3,7 @@
     "customValue": "Custom value",
     "placeholderValue": "Placeholder value",
     "removeItem": "Remove item",
+    "addItem": "Add item",
     "properties": {
       "name": "Name",
       "label": "Label",

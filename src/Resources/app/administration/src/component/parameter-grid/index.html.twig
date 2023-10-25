@@ -53,11 +53,18 @@
 
             <sw-context-menu-item
                     variant="danger"
-                    :disabled="disableDelete(itemIndex)"
+                    :disabled="fixed"
                     @click="deleteItem(itemIndex)"
             >
                 {{ $tc('moorl-parameter-grid.removeItem') }}
             </sw-context-menu-item>
         </template>
     </sw-data-grid>
+
+    <sw-button v-if="!fixed" :block="true" @click="addItem" variant="ghost">
+        <span>
+            <sw-icon name="regular-plus-s" :small="true"/>
+            {{ $tc('moorl-parameter-grid.addItem') }}
+        </span>
+    </sw-button>
 </div>
