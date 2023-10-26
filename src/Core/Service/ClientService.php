@@ -6,11 +6,15 @@ use League\Flysystem\FileAttributes;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\StorageAttributes;
+use MoorlFoundation\Core\Content\Client\ClientCollection;
 use MoorlFoundation\Core\Content\Client\ClientEntity;
 use MoorlFoundation\Core\Content\Client\ClientInterface;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
 class ClientService
 {
@@ -143,6 +147,19 @@ class ClientService
             $client->getClientAdapter(),
             $client->getClientEntity()->getConfig()
         );
+    }
+
+    public function getClientEntities(
+        SalesChannelContext $salesChannelContext,
+        ?array $ids = null,
+        string $type = self::TYPE_OAUTH2
+    ): ClientCollection
+    {
+        $criteria = new Criteria($ids);
+        $criteria->addFilter(new EqualsFilter('active', true));
+        $criteria->addFilter(new ContainsFilter('type', $type));
+
+        return $this->clientRepository->search($criteria, $salesChannelContext->getContext())->getEntities();
     }
 
     public function getClient(string $clientId, Context $context): ClientInterface
