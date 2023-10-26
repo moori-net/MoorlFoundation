@@ -16,6 +16,7 @@ class ClientService
 {
     public const TYPE_FILESYSTEM = 'filesystem';
     public const TYPE_API = 'api';
+    public const TYPE_OAUTH2 = 'oauth2';
 
     private array $_clients = [];
 
