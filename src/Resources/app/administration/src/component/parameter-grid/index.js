@@ -15,6 +15,11 @@ Component.register('moorl-parameter-grid', {
             default: null,
             required: false,
         },
+        helpText: {
+            type: String,
+            default: null,
+            required: false,
+        },
         parameters: {
             type: Array,
             default: [],

@@ -1,4 +1,8 @@
 <div class="moorl-parameter-grid sw-field">
+    <sw-alert v-if="helpText" variant="info">
+        {{ helpText }}
+    </sw-alert>
+
     <div v-if="label" class="sw-field__label">
         <label>
             {{ label}}
