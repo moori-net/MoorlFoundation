@@ -18,6 +18,7 @@
                     size="small"
                     :placeholder="$tc('moorl-parameter-grid.properties.name')"
                     @change="onChangeItem(item, itemIndex)"
+                    :disabled="item.fixed"
             />
         </template>
 
@@ -52,7 +53,7 @@
 
             <sw-context-menu-item
                     variant="danger"
-                    :disabled="fixed"
+                    :disabled="fixed || item.fixed"
                     @click="deleteItem(itemIndex)"
             >
                 {{ $tc('moorl-parameter-grid.removeItem') }}

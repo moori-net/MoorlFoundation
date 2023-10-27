@@ -9,7 +9,7 @@ use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementExcep
 
 class ClientNextcloud extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "nextcloud";
+    protected string $clientName = "filesystem-nextcloud";
 
     public function getClientConfigTemplate(): ?array
     {

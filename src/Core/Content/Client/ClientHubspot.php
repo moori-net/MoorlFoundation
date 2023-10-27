@@ -8,7 +8,7 @@ use HubSpot\Factory;
 
 class ClientHubspot extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "hubspot";
+    protected string $clientName = "api-hubspot";
     protected string $clientType = ClientService::TYPE_API;
 
     public function getClientConfigTemplate(): ?array

@@ -7,7 +7,7 @@ use League\Flysystem\Local\LocalFilesystemAdapter;
 
 class ClientLocal extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "local";
+    protected string $clientName = "filesystem-local";
 
     public function getClientConfigTemplate(): ?array
     {

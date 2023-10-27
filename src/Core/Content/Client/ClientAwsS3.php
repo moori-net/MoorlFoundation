@@ -9,7 +9,7 @@ use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementExcep
 
 class ClientAwsS3 extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "aws-s3";
+    protected string $clientName = "filesystem-aws-s3";
 
     public function getClientConfigTemplate(): ?array
     {

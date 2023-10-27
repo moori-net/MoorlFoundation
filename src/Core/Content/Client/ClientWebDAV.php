@@ -9,7 +9,7 @@ use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementExcep
 
 class ClientWebDAV extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "webdav";
+    protected string $clientName = "filesystem-webdav";
 
     public function getClientConfigTemplate(): ?array
     {

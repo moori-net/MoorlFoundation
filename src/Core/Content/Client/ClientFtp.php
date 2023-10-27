@@ -9,7 +9,7 @@ use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementExcep
 
 class ClientFtp extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "ftp";
+    protected string $clientName = "filesystem-ftp";
 
     public function getClientConfigTemplate(): ?array
     {

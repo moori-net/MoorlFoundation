@@ -28,7 +28,18 @@
             "baseUri": "Base URI",
             "baseUrl": "Base URL",
             "token": "Token",
-            "portalId": "Portal ID"
+            "portalId": "Portal ID",
+            "icon": "Icon",
+            "clientId": "Client ID",
+            "clientSecret": "Client secret",
+            "mapping": "Data mapping",
+            "graphApiVersion": "Graph API version",
+            "scopes": "Scopes (openid,profile,email etc.)",
+            "authServerUrl": "Auth server URL",
+            "realm": "Realm",
+            "encryptionAlgorithm": "Encryption algorithm",
+            "encryptionKey": "Encryption key",
+            "version": "Version"
         },
         "helpText": {}
     }

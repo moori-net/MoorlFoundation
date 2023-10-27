@@ -106,6 +106,8 @@ class ClientService
                 return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
             } elseif ($client->getClientType() === self::TYPE_API) {
                 return $client->testConnection();
+            }  elseif ($client->getClientType() === self::TYPE_OAUTH2) {
+                return $client->testConnection();
             }
         } catch (\Throwable $exception) {
             return [

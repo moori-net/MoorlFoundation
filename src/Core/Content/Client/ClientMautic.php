@@ -9,7 +9,7 @@ use Mautic\Auth\ApiAuth;
 
 class ClientMautic extends ClientExtension implements ClientInterface
 {
-    protected string $clientName = "mautic";
+    protected string $clientName = "api-mautic";
     protected string $clientType = ClientService::TYPE_API;
 
     public function getClientConfigTemplate(): ?array
@@ -17,7 +17,7 @@ class ClientMautic extends ClientExtension implements ClientInterface
         return [
             [
                 'name' => 'baseUrl',
-                'type' => 'text',
+                'type' => 'url',
                 'required' => true,
                 'placeholder' => 'https://your-mautic-server.org',
                 'helpText' => 'Sanitize this URL. Make sure it starts with http/https and does not end with "/"'

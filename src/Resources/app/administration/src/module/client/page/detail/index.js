@@ -61,6 +61,10 @@ Component.register('moorl-client-detail', {
                         title: this.$tc('global.default.success'),
                         message: this.$tc('global.default.success'),
                     });
+
+                    if (response.url) {
+                        window.open(response.url, "_blank");
+                    }
                 }
 
                 this.isLoading = false;
