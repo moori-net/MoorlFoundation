@@ -39,7 +39,12 @@
             "realm": "Realm",
             "encryptionAlgorithm": "Encryption algorithm",
             "encryptionKey": "Encryption key",
-            "version": "Version"
+            "version": "Version",
+            "scopeSeparator": "Scope separator",
+            "urlAuthorize": "Authorize URL",
+            "urlAccessToken": "Access-Token URL",
+            "urlResourceOwnerDetails": "Resource-Owner URL",
+            "responseResourceOwnerId": "ID claim"
         },
         "helpText": {}
     }
