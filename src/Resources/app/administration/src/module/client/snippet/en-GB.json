@@ -39,6 +39,7 @@
             "realm": "Realm",
             "encryptionAlgorithm": "Encryption algorithm",
             "encryptionKey": "Encryption key",
+            "encryptionKeyPath": "Encryption key path",
             "version": "Version",
             "scopeSeparator": "Scope separator",
             "urlAuthorize": "Authorize URL",
