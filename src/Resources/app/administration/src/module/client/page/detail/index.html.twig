@@ -14,7 +14,7 @@
             {{ $tc('moorl-foundation.buttons.saveButtonText') }}
         </sw-button-process>
 
-        <sw-button @click="onClickTest">
+        <sw-button @click="onClickTest" :disabled="isEdit">
             {{ $tc('moorl-foundation.buttons.testConnection') }}
         </sw-button>
     </template>

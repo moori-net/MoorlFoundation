@@ -27,6 +27,7 @@ Component.register('moorl-client-detail', {
             item: null,
             isLoading: false,
             processSuccess: false,
+            isEdit: false,
             options: [],
         };
     },
@@ -38,6 +39,15 @@ Component.register('moorl-client-detail', {
 
         defaultCriteria() {
             return new Criteria();
+        }
+    },
+
+    watch: {
+        options: {
+            deep: true,
+            handler() {
+                this.isEdit = true;
+            }
         }
     },
 
@@ -84,6 +94,7 @@ Component.register('moorl-client-detail', {
             this.foundationApiService.get(`/moorl-foundation/settings/client/options`).then(response => {
                 this.options = response;
                 this.isLoading = false;
+                this.isEdit = false;
             }).catch((exception) => {
                 const errorDetail = Shopware.Utils.get(exception, 'response.data.errors[0].detail');
                 this.createNotificationError({
@@ -91,6 +102,7 @@ Component.register('moorl-client-detail', {
                     message: errorDetail,
                 });
                 this.isLoading = false;
+                this.isEdit = false;
             });
         },
 
@@ -122,9 +134,11 @@ Component.register('moorl-client-detail', {
                     this.getItem();
                     this.isLoading = false;
                     this.processSuccess = true;
+                    this.isEdit = false;
                 })
                 .catch((exception) => {
                     this.isLoading = false;
+                    this.isEdit = false;
                     this.createNotificationError({
                         title: this.$tc('moorl-foundation.notification.errorTitle'),
                         message: exception

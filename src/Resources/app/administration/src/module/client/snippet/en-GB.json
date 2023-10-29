@@ -45,7 +45,10 @@
             "urlAuthorize": "Authorize URL",
             "urlAccessToken": "Access-Token URL",
             "urlResourceOwnerDetails": "Resource-Owner URL",
-            "responseResourceOwnerId": "ID claim"
+            "responseResourceOwnerId": "ID claim",
+            "teamId": "Team ID",
+            "keyFileId": "Key file ID",
+            "keyFilePath": "Key file path"
         },
         "helpText": {}
     }
