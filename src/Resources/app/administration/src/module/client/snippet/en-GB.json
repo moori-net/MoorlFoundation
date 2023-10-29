@@ -48,7 +48,10 @@
             "responseResourceOwnerId": "ID claim",
             "teamId": "Team ID",
             "keyFileId": "Key file ID",
-            "keyFilePath": "Key file path"
+            "keyFilePath": "Key file path",
+            "customDomain": "Custom domain",
+            "account": "Account",
+            "graphHost": "Graph host"
         },
         "helpText": {}
     }
