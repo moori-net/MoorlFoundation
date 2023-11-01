@@ -6,6 +6,7 @@
     {% set filterRadiusOptions = {
         name: name,
         displayName: displayName,
+        defaultValue: config('MoorlFoundation.config.filterRadiusDefault'),
         snippets: {
             filterRadiusActiveLocationLabel: 'moorl-foundation.properties.inRadiusOf'|trans|sw_sanitize,
             filterRadiusActiveDistanceLabel: unit|trans|sw_sanitize

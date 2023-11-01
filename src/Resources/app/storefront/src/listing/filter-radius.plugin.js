@@ -14,6 +14,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         distanceKey: 'distance',
         errorContainerClass: 'filter-radius-error',
         containerSelector: '.filter-radius-container',
+        defaultValue: null,
         snippets: {
             filterRadiusActiveLocationLabel: '',
             filterRadiusActiveDistanceLabel: '',
@@ -28,6 +29,10 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         this._buttonMyLocation = this.el.querySelector(this.options.buttonMyLocationSelector);
         this._timeout = null;
         this._hasError = false;
+
+        if (this.options.defaultValue) {
+            this._inputDistance.value = this.options.defaultValue;
+        }
 
         this._registerEvents();
     }
