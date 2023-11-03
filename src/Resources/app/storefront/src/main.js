@@ -17,6 +17,7 @@ import MoorlHoverCardPlugin from './hover-card/hover-card.plugin';
 import MoorlCookieBoxPlugin from './cookie-box/cookie-box.plugin';
 import MoorlModalPlugin from './modal/modal.plugin';
 import MoorlCharCounterPlugin from './char-counter/char-counter.plugin';
+import MoorlCopyPlugin from './copy/copy.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -38,6 +39,7 @@ PluginManager.register('MoorlHoverCard', MoorlHoverCardPlugin, '[data-moorl-hove
 PluginManager.register('MoorlCookieBox', MoorlCookieBoxPlugin, '[data-moorl-cookie-box]');
 PluginManager.register('MoorlModal', MoorlModalPlugin, '[data-moorl-modal]');
 PluginManager.register('MoorlCharCounter', MoorlCharCounterPlugin, '[data-moorl-char-counter]');
+PluginManager.register('MoorlCopy', MoorlCopyPlugin, '[data-moorl-copy]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
