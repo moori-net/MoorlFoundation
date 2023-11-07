@@ -18,6 +18,10 @@
         {# Case 3: From CMS (others) #}
         {% set isListing = false %}
     {% endif %}
+{% elseif collection and config %}
+    {# Case 4: Static list + plugin config #}
+    {% set isListing = false %}
+    {% set searchResult = collection %}
 {% endif %}
 
 {% if isListing %}

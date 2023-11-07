@@ -10,7 +10,7 @@
     {% endif %}
 
     {# Set listing title by a page entity #}
-    {% set listingHeaderTitle = element.translated.config.listingHeaderTitle.value %}
+    {% set listingHeaderTitle = listingHeaderTitle ?? element.translated.config.listingHeaderTitle.value %}
 
     {% set itemCss = [
         "padding:#{config.itemPadding.value}",
