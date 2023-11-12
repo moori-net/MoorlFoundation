@@ -19,6 +19,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\Count
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\EntityAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\StatsAggregation;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
@@ -33,7 +34,10 @@ class EntityListingFeaturesSubscriberExtension
     protected ?LocationService $locationService = null;
     protected string $entityName = "";
 
-    public function __construct(protected SortingService $sortingService, protected ?LocationServiceV2 $locationServiceV2 = null)
+    public function __construct(
+        protected SortingService $sortingService,
+        protected ?LocationServiceV2 $locationServiceV2 = null
+    )
     {
     }
 
@@ -287,6 +291,38 @@ class EntityListingFeaturesSubscriberExtension
             !empty($ids),
             [new EntityAggregation('manufacturer', $this->entityName . '.productManufacturers.id', 'product_manufacturer')],
             new EqualsAnyFilter($this->entityName . '.productManufacturers.id', $ids),
+            $ids
+        );
+    }
+
+    protected function getCategoryFilter(Request $request): Filter
+    {
+        $ids = $this->getPropIds($request, "category");
+
+        return new Filter(
+            'category',
+            !empty($ids),
+            [new EntityAggregation('category', $this->entityName . '.categories.id', 'category')],
+            new EqualsAnyFilter($this->entityName . 'categories.id', $ids),
+            $ids
+        );
+    }
+
+    protected function getChildCategoryFilter(Request $request, string $navigationId): Filter
+    {
+        $ids = $this->getPropIds($request, "child-category");
+
+        return new Filter(
+            'child-category',
+            !empty($ids),
+            [new FilterAggregation(
+                'child-category',
+                new EntityAggregation('child-category', $this->entityName . '.categories.id', 'category'),
+                [
+                    new ContainsFilter($this->entityName . '.categories.path', $navigationId)
+                ],
+            )],
+            new EqualsAnyFilter($this->entityName . '.categories.id', $ids),
             $ids
         );
     }

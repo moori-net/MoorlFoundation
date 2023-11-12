@@ -25,7 +25,8 @@
                 "mi": "MI",
                 "zipcodeCity": "Postcode / City",
                 "distance": "Distance",
-                "myLocation": "Use my location"
+                "myLocation": "Use my location",
+                "categories": "Categories"
             }
         },
         "customerUpload": {
