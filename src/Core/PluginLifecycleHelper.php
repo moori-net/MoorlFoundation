@@ -5,10 +5,22 @@ namespace MoorlFoundation\Core;
 use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class PluginLifecycleHelper
 {
+    public static function build(ContainerBuilder $container, string|array $paths = []): void
+    {
+        if (class_exists(AbstractElasticsearchDefinition::class)) {
+            $loader = new XmlFileLoader($container, new FileLocator($paths));
+            $loader->load('services.xml');
+        }
+    }
+
     public static function update(string $plugin, ContainerInterface $container): void
     {
         $connection = $container->get(Connection::class);
@@ -22,8 +34,8 @@ class PluginLifecycleHelper
             }
         }
 
-        if ($plugin::INHERITANCES && is_array($plugin::INHERITANCES)) {
-            self::updateInheritances($connection, $plugin::INHERITANCES);
+        if (self::c($plugin, 'INHERITANCES')) {
+            self::updateInheritances($connection, self::c($plugin, 'INHERITANCES'));
         }
     }
 
