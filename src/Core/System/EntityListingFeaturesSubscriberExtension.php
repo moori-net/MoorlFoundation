@@ -295,19 +295,6 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getCategoryFilter(Request $request): Filter
-    {
-        $ids = $this->getPropIds($request, "category");
-
-        return new Filter(
-            'category',
-            !empty($ids),
-            [new EntityAggregation('category', $this->entityName . '.categories.id', 'category')],
-            new EqualsAnyFilter($this->entityName . 'categories.id', $ids),
-            $ids
-        );
-    }
-
     protected function getChildCategoryFilter(Request $request, string $navigationId): Filter
     {
         $ids = $this->getPropIds($request, "child-category");
