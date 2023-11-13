@@ -2,6 +2,18 @@
 
 {% block component_filter_panel_item_manufacturer %}
     {% if listing.aggregations %}
+        {# Show navigation tree with results in it #}
+        {% set navigationCategories = listing.aggregations.get('navigation') %}
+        {% if navigationCategories and not navigationCategories.entities is empty %}
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-navigation.html.twig' with {
+                elements: navigationCategories.entities,
+                sidebar: sidebar,
+                name: 'navigation',
+                displayName: 'moorl-foundation.listing.filter.navigation'|trans
+            } %}
+        {% endif %}
+
+        {# Show child categories with results #}
         {% set childCategories = listing.aggregations.get('child-category') %}
         {% if childCategories and not childCategories.entities is empty %}
             {% set childCategoriesSorted = childCategories.entities|sort((a, b) => a.translated.name|lower <=> b.translated.name|lower) %}

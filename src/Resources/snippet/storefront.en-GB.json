@@ -26,7 +26,8 @@
                 "zipcodeCity": "Postcode / City",
                 "distance": "Distance",
                 "myLocation": "Use my location",
-                "categories": "Categories"
+                "categories": "Categories",
+                "navigation": "Categories"
             }
         },
         "customerUpload": {

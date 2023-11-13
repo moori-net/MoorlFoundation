@@ -26,7 +26,8 @@
         "zipcodeCity": "PLZ / Ort",
         "distance": "Entfernung",
         "myLocation": "Meinen Standort abfragen",
-        "categories": "Kategorien"
+        "categories": "Kategorien",
+        "navigation": "Kategorien"
       }
     },
     "customerUpload": {

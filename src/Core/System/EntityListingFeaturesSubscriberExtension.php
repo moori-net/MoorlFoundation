@@ -314,6 +314,19 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
+    protected function getNavigationFilter(Request $request): Filter
+    {
+        $ids = $this->getPropIds($request, "navigation");
+
+        return new Filter(
+            'navigation',
+            !empty($ids),
+            [new EntityAggregation('navigation', $this->entityName . '.categories.id', 'category')],
+            new EqualsAnyFilter($this->entityName . '.categories.id', $ids),
+            $ids
+        );
+    }
+
     protected function getCountryFilter(Request $request): Filter
     {
         $ids = $this->getPropIds($request, "country");

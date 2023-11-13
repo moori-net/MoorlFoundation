@@ -1,0 +1,70 @@
+{% block filter_navigation_categories %}
+    {% set navigationMaxDepth = context.salesChannel.navigationCategoryDepth %}
+
+    {% if not level %}
+        {% set level = 0 %}
+    {% endif %}
+
+    {% block filter_navigation_categories_list %}
+        <ul class="category-navigation level-{{ level }}">
+            {% for item in navigationTree %}
+                {# Show only navigation categories with results #}
+                {% set displayCategory = false %}
+                {% for element in elements %}
+                    {% if item.category.id == element.id or item.category.id in element.path %}
+                        {% set displayCategory = true %}
+                    {% endif %}
+                {% endfor %}
+                {% if displayCategory %}
+                    {% block filter_navigation_categories_list_entry %}
+                    <li class="category-navigation-entry">
+                        {% if (item.category.id in activeResult.id) or (item.category.id in activeResult.path) %}
+                            {% if item.category.type == 'folder' %}
+                                {% block filter_navigation_categories_folder_children %}
+                                    <span class="category-navigation-link">{{ item.category.translated.name }}</span>
+                                {% endblock %}
+                            {% else %}
+                                {% block filter_navigation_categories_link_children %}
+                                    <a class="category-navigation-link{% if item.category.id is same as(activeResult.id) %} is-active{% endif %}{% if item.category.id in activeResult.path %} in-path{% endif %}"
+                                        href="{{ category_url(item.category) }}"
+                                        {% if category_linknewtab(item.category) %}target="_blank"{% endif %}>
+                                        {% block filter_navigation_categories_link_children_name %}
+                                            {{ item.category.translated.name }}
+                                        {% endblock %}
+                                    </a>
+                                {% endblock %}
+                            {% endif %}
+                            {% block filter_navigation_categories_recoursion %}
+                                {% if level < navigationMaxDepth %}
+                                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/_filter-navigation.html.twig' with {
+                                        navigationTree: item.children,
+                                        activeResult: activeResult,
+                                        elements: elements,
+                                        level: level + 1
+                                    } only %}
+                                {% endif %}
+                            {% endblock %}
+                        {% else %}
+                            {% if item.category.type == 'folder' %}
+                                {% block filter_navigation_categories_text %}
+                                    <span class="category-navigation-link">{{ item.category.translated.name }}</span>
+                                {% endblock %}
+                            {% else %}
+                                {% block filter_navigation_categories_link %}                        
+                                    <a class="category-navigation-link{% if item.category.id is same as(activeResult.id) %} is-active{% endif %}"
+                                        href="{{ category_url(item.category) }}"
+                                        {% if category_linknewtab(item.category) %}target="_blank"{% endif %}>
+                                        {% block filter_navigation_categories_link_name %}
+                                            {{ item.category.translated.name }}
+                                        {% endblock %}
+                                    </a>
+                                {% endblock %}
+                            {% endif %}
+                        {% endif %}
+                    </li>
+                {% endblock %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endblock %}
+{% endblock %}
