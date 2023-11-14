@@ -1,0 +1,11 @@
+{
+    "sw-category": {
+        "component": {
+            "sw-category-layout-card": {
+                "adoptChildren": "Aktuelles Layout in Unterkategorien übernehmen",
+                "adoptSiblings": "Aktuelles Layout in Geschwister Kategorien übernehmen",
+                "success": "{affected_rows} Kategorien wurden geändert"
+            }
+        }
+    }
+}

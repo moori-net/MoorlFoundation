@@ -15,6 +15,11 @@
             <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
         </service>
 
+        <service id="MoorlFoundation\Administration\Controller\AdminHelperController" public="true">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+
         <!-- Storefront -->
         <service id="MoorlFoundation\Storefront\Controller\ProductBuyListController" public="true">
             <argument type="service" id="sales_channel.product.repository"/>
