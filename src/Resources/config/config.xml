@@ -432,13 +432,13 @@
             <label>Additional upload extensions</label>
             <label lang="de-DE">Zusätzliche Upload Erweiterungen</label>
             <placeholder>zip,rar,psd,docx etc...</placeholder>
-            <defaultValue>zip,rar,psd,docx</defaultValue>
+            <defaultValue>zip,rar,psd,docx,csv</defaultValue>
         </input-field>
 
         <input-field type="text">
             <name>demoCustomerMail</name>
             <label>Customer mail address for related demo content</label>
-            <label lang="de-DE">Kunden E-Mail Adresse für entsprechende Demo-Inhalte</label>
+            <label lang="de-DE">Kunden E-Mail-Adresse für entsprechende Demo-Inhalte</label>
             <placeholder>test@example.com</placeholder>
             <defaultValue>test@example.com</defaultValue>
         </input-field>
