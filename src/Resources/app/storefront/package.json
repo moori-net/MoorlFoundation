@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "choices.js": "^10.2.0",
     "dropzone": "6.0.0-beta.2",
     "leaflet": "^1.8.0",
     "leaflet-gesture-handling": "^1.2.2",

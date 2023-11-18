@@ -18,6 +18,7 @@ import MoorlCookieBoxPlugin from './cookie-box/cookie-box.plugin';
 import MoorlModalPlugin from './modal/modal.plugin';
 import MoorlCharCounterPlugin from './char-counter/char-counter.plugin';
 import MoorlCopyPlugin from './copy/copy.plugin';
+import MoorlSelectSearchPlugin from './select-search/select-search.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -40,6 +41,7 @@ PluginManager.register('MoorlCookieBox', MoorlCookieBoxPlugin, '[data-moorl-cook
 PluginManager.register('MoorlModal', MoorlModalPlugin, '[data-moorl-modal]');
 PluginManager.register('MoorlCharCounter', MoorlCharCounterPlugin, '[data-moorl-char-counter]');
 PluginManager.register('MoorlCopy', MoorlCopyPlugin, '[data-moorl-copy]');
+PluginManager.register('MoorlSelectSearch', MoorlSelectSearchPlugin, '[data-moorl-select-search]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
