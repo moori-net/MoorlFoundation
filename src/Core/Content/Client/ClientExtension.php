@@ -61,4 +61,21 @@ class ClientExtension
     {
         return [];
     }
+
+    public function prepareProviderInstance(array $options, string $redirectUri): array
+    {
+        $options['redirectUri'] = $redirectUri;
+
+        if (empty($options['scopes'])) {
+            unset($options['scopes']);
+        } elseif (is_string($options['scopes'])) {
+            $options['scopes'] = array_map('trim', explode(",", $options['scopes']));
+        }
+
+        if (empty($options['encryptionKeyPath'])) {
+            unset($options['encryptionKeyPath']);
+        }
+
+        return $options;
+    }
 }

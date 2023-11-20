@@ -7,4 +7,6 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 interface ClientOAuth2Interface
 {
     public function getProviderInstance(string $redirectUri): AbstractProvider;
+
+    public function prepareProviderInstance(array $options, string $redirectUri): array;
 }
