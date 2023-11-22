@@ -327,9 +327,9 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getCountryFilter(Request $request): Filter
+    protected function getCountryFilter(Request $request, ?array $defaultIds = null): Filter
     {
-        $ids = $this->getPropIds($request, "country");
+        $ids = $this->getPropIds($request, "country", $defaultIds);
 
         return new Filter(
             'country',
@@ -455,15 +455,19 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getPropIds(Request $request, string $prop = "tag"): array
+    protected function getPropIds(Request $request, string $prop = "tag", ?array $defaultIds = null): array
     {
-        $ids = $request->query->get($prop, '');
+        $ids = $request->query->get($prop);
         if ($request->isMethod(Request::METHOD_POST)) {
-            $ids = $request->request->get($prop, '');
+            $ids = $request->request->get($prop);
         }
 
         if (\is_string($ids)) {
             $ids = explode('|', $ids);
+        }
+
+        if (empty($ids) && !empty($defaultIds)) {
+            $ids = $defaultIds;
         }
 
         return array_filter((array) $ids);

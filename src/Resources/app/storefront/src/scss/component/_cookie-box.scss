@@ -2,8 +2,10 @@
   display: none;
   justify-content: center;
   align-items: center;
+  text-align: center;
   background: $sw-background-color;
   color: $sw-text-color;
+  padding: $spacer;
   border: 1px solid $sw-border-color;
   flex-direction: column;
   height: 100%;
