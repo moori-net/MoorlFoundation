@@ -19,6 +19,7 @@ import MoorlModalPlugin from './modal/modal.plugin';
 import MoorlCharCounterPlugin from './char-counter/char-counter.plugin';
 import MoorlCopyPlugin from './copy/copy.plugin';
 import MoorlSelectSearchPlugin from './select-search/select-search.plugin';
+import MoorlSvgLoaderPlugin from './svg-loader/svg-loader.plugin';
 
 const PluginManager = window.PluginManager;
 /* Old plugins */
@@ -42,6 +43,7 @@ PluginManager.register('MoorlModal', MoorlModalPlugin, '[data-moorl-modal]');
 PluginManager.register('MoorlCharCounter', MoorlCharCounterPlugin, '[data-moorl-char-counter]');
 PluginManager.register('MoorlCopy', MoorlCopyPlugin, '[data-moorl-copy]');
 PluginManager.register('MoorlSelectSearch', MoorlSelectSearchPlugin, '[data-moorl-select-search]');
+PluginManager.register('MoorlSvgLoader', MoorlSvgLoaderPlugin, '[data-moorl-svg-loader]');
 
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
