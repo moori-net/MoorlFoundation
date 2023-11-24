@@ -87,7 +87,11 @@ class EntitySearchService
         $advancedSearchHideEmptyResults = $this->systemConfigService->get('MoorlFoundation.config.advancedSearchHideEmptyResults', $salesChannelContext->getSalesChannelId());
 
         $request = $event->getRequest();
-        $search = $request->query->get('search', $request->request->get('search'));
+        $search = $request->query->get('search');
+        if (empty($search)) {
+            return;
+        }
+
         $result = $event->getResult();
         $context = $salesChannelContext->getContext();
         $moorlSearchResults = [];
