@@ -363,8 +363,14 @@ SQL;
         $lineItemRepository = $this->definitionInstanceRegistry->getRepository(OrderLineItemDefinition::ENTITY_NAME);
         /** @var OrderLineItemEntity $lineItem */
         $lineItem = $lineItemRepository->search($criteria, $context)->get($lineItemId);
+        if (!$lineItem) {
+            return null;
+        }
 
         $productId = $lineItem->getReferencedId();
+        if (!$productId) {
+            return null;
+        }
 
         $criteria = new Criteria([$productId]);
         $criteria->setLimit(1);
