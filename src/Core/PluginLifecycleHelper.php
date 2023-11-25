@@ -58,12 +58,20 @@ class PluginLifecycleHelper
 
     public static function updateInheritance(Connection $connection, string $table, string $propertyName): void
     {
+        if (EntityDefinitionQueryHelper::columnExists($connection, $table, $propertyName)) {
+            return;
+        }
+
         $sql = sprintf("ALTER TABLE `%s` ADD COLUMN `%s` binary(16) NULL;", $table, $propertyName);
         $connection->executeStatement($sql);
     }
 
     public static function removeInheritance(Connection $connection, string $table, string $propertyName): void
     {
+        if (!EntityDefinitionQueryHelper::columnExists($connection, $table, $propertyName)) {
+            return;
+        }
+
         $sql = sprintf("ALTER TABLE `%s` DROP `%s`;", $table, $propertyName);
         $connection->executeStatement($sql);
     }
@@ -72,9 +80,7 @@ class PluginLifecycleHelper
     {
         foreach ($inheritances as $table => $propertyNames) {
             foreach ($propertyNames as $propertyName) {
-                if (!EntityDefinitionQueryHelper::columnExists($connection, $table, $propertyName)) {
-                    self::updateInheritance($connection, $table, $propertyName);
-                }
+                self::updateInheritance($connection, $table, $propertyName);
             }
         }
     }
@@ -83,9 +89,7 @@ class PluginLifecycleHelper
     {
         foreach ($inheritances as $table => $propertyNames) {
             foreach ($propertyNames as $propertyName) {
-                if (EntityDefinitionQueryHelper::columnExists($connection, $table, $propertyName)) {
-                    self::removeInheritance($connection, $table, $propertyName);
-                }
+                self::removeInheritance($connection, $table, $propertyName);
             }
         }
     }
