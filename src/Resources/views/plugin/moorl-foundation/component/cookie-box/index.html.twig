@@ -1,6 +1,7 @@
 {% set options = {
     cookieKey: cookieKey,
-    content: content
+    content: content,
+    reload: reload ?? true
 } %}
 
 <div class="moorl-cookie-box {{ class }}"
@@ -25,7 +26,12 @@
     <div class="h2">{{ "#{cookieKey}.cookieName"|trans }}</div>
     <div class="mb-2">{{ "#{cookieKey}.cookieDescription"|trans }}</div>
     <div class="mb-3">{{ "#{cookieKey}.cookieHint"|trans }}</div>
-    <div class="d-flex">
-        <button class="btn btn-outline-primary">{{ "moorl-foundation.buttons.acceptCookie"|trans }}</button>
+    <div class="d-flex justify-content-center flex-wrap cookie-permission-actions">
+        <span class="js-moorl-cookie-box-button">
+            <button type="button" class="btn btn-outline-primary">{{ "moorl-foundation.buttons.acceptCookie"|trans }}</button>
+        </span>
+        <span class="js-cookie-configuration-button">
+            <button type="button" class="btn btn-outline-primary">{{ "cookie.configure"|trans|sw_sanitize }}</button>
+        </span>
     </div>
 </div>
