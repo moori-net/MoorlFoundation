@@ -72,8 +72,12 @@ class ClientExtension
             $options['scopes'] = array_map('trim', explode(",", $options['scopes']));
         }
 
-        if (empty($options['encryptionKeyPath'])) {
-            unset($options['encryptionKeyPath']);
+        foreach ($options as &$option) {
+            if (!is_string($option)) {
+                continue;
+            }
+
+            if (empty($option)) {unset($option);}
         }
 
         return $options;
