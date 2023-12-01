@@ -24,6 +24,14 @@
         <sw-field type="switch" bordered :label="$tc('moorl-foundation.properties.active')" v-model="item.active"/>
         <sw-field type="textarea" :label="$tc('moorl-foundation.properties.teaser')" v-model="item.teaser"/>
         <sw-text-editor :label="$tc('moorl-foundation.properties.description')" v-model="item.description"/>
+        <sw-text-field :label="$tc('moorl-foundation.properties.seoUrl')" v-model="item.seoUrl">
+            <template #hint>
+                <div>
+                    <router-link target="_blank" rel="noopener" :to="{name: 'sw.settings.seo.index'}">{{ $tc('moorl-foundation.helpText.seoUrl') }}</router-link>
+                    <span v-pre>{&percnt; if item.translated.seoUrl &percnt;}{{ item.translated.seoUrl }}{&percnt; else &percnt;}item/{{ item.translated.name }}{&percnt; endif &percnt;}</span>
+                </div>
+            </template>
+        </sw-text-field>
         <sw-field type="textarea" :label="$tc('moorl-foundation.properties.keywords')" v-model="item.keywords"/>
         <sw-field :label="$tc('moorl-foundation.properties.metaTitle')" v-model="item.metaTitle"/>
         <sw-field type="textarea" :label="$tc('moorl-foundation.properties.metaDescription')" name="teaser" v-model="item.metaDescription"/>

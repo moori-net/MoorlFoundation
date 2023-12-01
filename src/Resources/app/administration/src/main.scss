@@ -1,5 +1,12 @@
 @import "~scss/variables";
 
+
+.sw-field__hint {
+    a {
+        font-size: inherit !important;
+    }
+}
+
 .moorl-info-table {
     p {
         margin-bottom: 20px;

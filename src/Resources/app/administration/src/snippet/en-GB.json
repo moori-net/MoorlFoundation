@@ -89,7 +89,11 @@
             "overwriteText": "Overwrite existing datarows (originId need to be set).",
             "mediaFolder": "Save images in this folder"
         },
+        "helpText": {
+            "seoUrl": "Edit the SEO url:"
+        },
         "properties": {
+            "seoUrl": "Custom SEO Url",
             "showOpeningHours": "Öffnungszeiten zeigen",
             "showCmsPage": "CMS Seite zeigen",
             "deliveryActive": "Lieferung aktiv",

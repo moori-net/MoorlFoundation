@@ -89,7 +89,11 @@
             "overwriteText": "Bestehende Datensätze überschreiben",
             "mediaFolder": "Bilder in diesem Verzeichnis speichern"
         },
+        "helpText": {
+            "seoUrl": "Die SEO Url anpassen:"
+        },
         "properties": {
+            "seoUrl": "Eigene SEO Url",
             "showOpeningHours": "Öffnungszeiten zeigen",
             "showCmsPage": "CMS Seite zeigen",
             "deliveryActive": "Lieferung aktiv",
