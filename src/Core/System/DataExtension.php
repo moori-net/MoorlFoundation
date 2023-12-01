@@ -132,4 +132,27 @@ class DataExtension
     {
         return 'demo';
     }
+
+    public function getSeoUrlTemplateQuery($id = 'SEO_URL_1'): string
+    {
+        $sql = <<<SQL
+INSERT IGNORE INTO `seo_url_template` (
+    `id`,
+    `is_valid`,
+    `route_name`,
+    `entity_name`,
+    `template`,
+    `created_at`
+) VALUES (
+    UNHEX('{ID:%s}'),
+    1,
+    '{SEO_ROUTE_NAME}',
+    '{MAIN_ENTITY}',
+    '{SEO_DEFAULT_TEMPLATE}',
+    '{DATA_CREATED_AT}'
+);
+SQL;
+
+        return sprintf($sql, $id);
+    }
 }
