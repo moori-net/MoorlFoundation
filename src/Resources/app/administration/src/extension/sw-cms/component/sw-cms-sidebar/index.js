@@ -42,10 +42,6 @@ Component.override('sw-cms-sidebar', {
             return parseInt(section.customFields.moorl_section_column_count, 10);
         },
 
-        onBlockStageDrop(dragData, dropData) {
-            return this.$super('onBlockStageDrop', dragData, dropData);
-        },
-
         getSectionGridContentBlocks(sectionBlocks, gridCol) {
             const sectionPosition = 'moorl_grid_' + (gridCol - 1);
 
