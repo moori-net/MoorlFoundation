@@ -40,6 +40,10 @@ Component.register('sw-cms-el-config-moorl-cta-banner', {
                     value: 'h4',
                     label: 'H4'
                 },
+                {
+                    value: 'div',
+                    label: 'DIV'
+                },
             ];
         },
 
