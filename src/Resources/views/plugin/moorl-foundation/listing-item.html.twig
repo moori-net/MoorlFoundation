@@ -2,6 +2,43 @@
     {% set schemaOrgType = 'Thing' %}
 {% endif %}
 
+{% set imageContent %}
+    {% block moorl_listing_item_image %}
+        {% if media.url %}
+            {% set imageCss = [] %}
+            {% if config.itemLayout.value == 'avatar' %}
+                {% set imageCss = imageCss|merge([
+                    "height:#{config.itemWidth.value}",
+                    "width:#{config.itemWidth.value}",
+                ]) %}
+            {% endif %}
+
+            {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
+                media: media,
+                attributes: {
+                    'itemprop': 'image',
+                    'alt': title,
+                    'class': "is-#{config.displayMode.value}",
+                    'style': imageCss|join(';'),
+                    'title': ''
+                }
+            } %}
+        {% elseif config.itemLayout.value == 'image-or-title' %}
+            <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
+                {% if config.sanitize.value %}
+                    {{ title|sw_sanitize }}
+                {% else %}
+                    {{ title|raw }}
+                {% endif %}
+            </div>
+        {% else %}
+            {% sw_icon 'placeholder' style {
+                'size': 'fluid'
+            } %}
+        {% endif %}
+    {% endblock %}
+{% endset %}
+
 {% set itemContent %}
     {% block moorl_foundation_listing_item %}
         {% if config.listingLayout.value == 'search-suggest' %}
@@ -42,42 +79,18 @@
                 </li>
             {% endblock %}
         {% else %}
-            <div class="moorl-listing-item-image">
-                {% block moorl_listing_item_image %}
-                    {% if media.url %}
-                        {% set imageCss = [] %}
-                        {% if config.itemLayout.value == 'avatar' %}
-                            {% set imageCss = imageCss|merge([
-                                "height:#{config.itemWidth.value}",
-                                "width:#{config.itemWidth.value}",
-                            ]) %}
-                        {% endif %}
-
-                        {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
-                            media: media,
-                            attributes: {
-                                'itemprop': 'image',
-                                'alt': title,
-                                'class': "is-#{config.displayMode.value}",
-                                'style': imageCss|join(';'),
-                                'title': ''
-                            }
-                        } %}
-                    {% elseif config.itemLayout.value == 'image-or-title' %}
-                        <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
-                            {% if config.sanitize.value %}
-                                {{ title|sw_sanitize }}
-                            {% else %}
-                                {{ title|raw }}
-                            {% endif %}
-                        </div>
-                    {% else %}
-                        {% sw_icon 'placeholder' style {
-                            'size': 'fluid'
-                        } %}
-                    {% endif %}
-                {% endblock %}
-            </div>
+            {% if config.hasButton.value or not url %}
+                <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
+                   rel="noopener"{% endif %}
+                   class="moorl-listing-item-image"
+                   title="{{ title }}">
+                    {{ imageContent }}
+                </a>
+            {% else %}
+                <div class="moorl-listing-item-image">
+                    {{ imageContent }}
+                </div>
+            {% endif %}
 
             {% if config.itemLayout.value != 'image-or-title' %}
                 <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
