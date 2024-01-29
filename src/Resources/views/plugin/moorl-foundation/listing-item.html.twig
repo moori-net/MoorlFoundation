@@ -2,6 +2,8 @@
     {% set schemaOrgType = 'Thing' %}
 {% endif %}
 
+{% set config = element.translated.config %}
+
 {% set imageContent %}
     {% block moorl_listing_item_image %}
         {% if media.url %}
@@ -114,7 +116,7 @@
                                 </div>
                             {% endif %}
 
-                            {% if description and config.contentLength.value != 0 %}
+                            {% if description %}
                                 <div itemprop="description" class="moorl-listing-item-description">
                                     {% block moorl_foundation_listing_item_description %}
                                         {% if config.sanitize.value %}
