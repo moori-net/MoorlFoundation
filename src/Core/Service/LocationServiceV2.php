@@ -137,6 +137,10 @@ SQL;
         array $countryIds = []
     ): ?LocationEntity
     {
+        if (empty($countryIds) && isset($payload['countryId'])) {
+            $countryIds = [$payload['countryId']];
+        }
+
         $payload = array_merge([
             'street' => null,
             'streetNumber' => null,
