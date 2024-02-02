@@ -178,7 +178,7 @@ SQL;
         }
 
         try {
-            $countryIso = $this->getCountryIso($countryIds);
+            $countryIso = $this->getCountryIso([...$payload['countryIds'], $payload['countryId']);
 
             $params = [
                 "format" => "json",
