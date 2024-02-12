@@ -30,30 +30,30 @@
                         <option v-for="option in elementTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
                     </sw-select-field>
 
-                    <sw-field v-model:value="element.config.height.value"
-                              type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.height')">
-                    </sw-field>
+                    <sw-text-field
+                            v-model:value="element.config.height.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.height')"
+                    />
 
                     <sw-colorpicker
                             colorOutput="hex"
                             :zIndex="1000"
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementBackground')"
-                            v-model:value="element.config.elementBackground.value">
-                    </sw-colorpicker>
+                            v-model:value="element.config.elementBackground.value"
+                    />
 
                     <sw-colorpicker
                             colorOutput="hex"
                             :zIndex="1000"
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.overlayBackground')"
-                            v-model:value="element.config.overlayBackground.value">
-                    </sw-colorpicker>
+                            v-model:value="element.config.overlayBackground.value"
+                    />
 
-                    <sw-field v-model:value="element.config.elementClickable.value"
-                              bordered
-                              type="switch"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementClickable')">
-                    </sw-field>
+                    <sw-switch-field
+                            v-model:value="element.config.elementClickable.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementClickable')"
+                    />
 
                     <template v-if="element.config.elementType.value === 'category'">
                         <sw-entity-single-select
@@ -61,13 +61,13 @@
                                 v-model:value="element.config.category.value"
                                 labelProperty="name"
                                 entity="category"
-                                @change="onChangeCategory">
-                        </sw-entity-single-select>
+                                @change="onChangeCategory"
+                        />
 
-                        <sw-field v-model:value="element.config.contentLength.value"
-                                  type="number"
-                                  :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')">
-                        </sw-field>
+                        <sw-number-field
+                                v-model:value="element.config.contentLength.value"
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
+                        />
                     </template>
 
                     <template v-else-if="element.config.elementType.value === 'product'">
@@ -76,27 +76,27 @@
                                 v-model:value="element.config.product.value"
                                 labelProperty="name"
                                 entity="product"
-                                @change="onChangeProduct">
-                        </sw-entity-single-select>
+                                @change="onChangeProduct"
+                        />
 
-                        <sw-field v-model:value="element.config.contentLength.value"
-                                  type="number"
-                                  :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')">
-                        </sw-field>
+                        <sw-number-field
+                                v-model:value="element.config.contentLength.value"
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
+                        />
                     </template>
 
                     <template v-else>
                         <template v-if="element.config.elementClickable.value">
-                            <sw-field v-model:value="element.config.elementUrl.value"
-                                      type="text"
-                                      :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementUrl')">
-                            </sw-field>
+                            <sw-text-field
+                                    v-model:value="element.config.elementUrl.value"
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementUrl')"
+                            />
 
-                            <sw-field v-model:value="element.config.elementNewTab.value"
-                                      bordered
-                                      type="switch"
-                                      :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementNewTab')">
-                            </sw-field>
+                            <sw-switch-field
+                                    v-model:value="element.config.elementNewTab.value"
+                                    bordered
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementNewTab')"
+                            />
                         </template>
                     </template>
                 </sw-container>
@@ -104,22 +104,22 @@
 
             <sw-container v-if="active === 'media'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-field v-model:value="element.config.mediaActive.value"
-                              bordered
-                              type="switch"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaActive')">
-                    </sw-field>
+                    <sw-switch-field
+                            v-model:value="element.config.mediaActive.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaActive')"
+                    />
 
                     <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaHover')"
                                      v-model:value="element.config.mediaHover.value">
                         <option v-for="option in mediaHoverOptions" :value="option.value">{{ $tc(option.label) }}</option>
                     </sw-select-field>
 
-                    <sw-field v-model:value="element.config.backgroundFixed.value"
-                              bordered
-                              type="switch"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundFixed')">
-                    </sw-field>
+                    <sw-switch-field
+                            v-model:value="element.config.backgroundFixed.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundFixed')"
+                    />
 
                     <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundDisplayMode')"
                                      v-model:value="element.config.backgroundDisplayMode.value">
@@ -129,15 +129,15 @@
 
                 <sw-container v-if="element.config.backgroundDisplayMode.value == 'custom'"
                               columns="1fr 1fr" gap="0 10px">
-                    <sw-field v-model:value="element.config.backgroundSizeX.value"
-                              type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundSizeX')">
-                    </sw-field>
+                    <sw-text-field
+                            v-model:value="element.config.backgroundSizeX.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundSizeX')"
+                    />
 
-                    <sw-field v-model:value="element.config.backgroundSizeY.value"
-                              type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundSizeY')">
-                    </sw-field>
+                    <sw-text-field
+                            v-model:value="element.config.backgroundSizeY.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundSizeY')"
+                    />
                 </sw-container>
 
                 <sw-container columns="1fr 1fr" gap="0 10px">
@@ -157,39 +157,40 @@
                         <sw-upload-listener
                                 :uploadTag="uploadTag + 'media'"
                                 autoUpload
-                                @media-upload-finish="onImageUpload($event, 'media')">
-                        </sw-upload-listener>
+                                @media-upload-finish="onImageUpload($event, 'media')"
+                        />
 
-                        <sw-media-upload-v2 variant="regular"
-                                            :uploadTag="uploadTag + 'media'"
-                                            :source="previewSource('media')"
-                                            :allowMultiSelect="false"
-                                            :defaultFolder="cmsPageState.pageEntityName"
-                                            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
-                                            @media-upload-sidebar-open="onOpenMediaModal('media')"
-                                            @media-upload-remove-image="onImageRemove($event, 'media')">
-                        </sw-media-upload-v2>
+                        <sw-media-upload-v2
+                                variant="regular"
+                                :uploadTag="uploadTag + 'media'"
+                                :source="previewSource('media')"
+                                :allowMultiSelect="false"
+                                :defaultFolder="cmsPageState.pageEntityName"
+                                :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                                @media-upload-sidebar-open="onOpenMediaModal('media')"
+                                @media-upload-remove-image="onImageRemove($event, 'media')"
+                        />
                     </div>
 
                     <sw-container columns="1fr 1fr" gap="0 10px">
-                        <sw-field v-model:value="element.config.videoActive.value"
-                                  bordered
-                                  type="switch"
-                                  :label="$tc('sw-cms.elements.moorl-cta-banner.label.videoActive')">
-                        </sw-field>
+                        <sw-switch-field
+                                v-model:value="element.config.videoActive.value"
+                                bordered
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.videoActive')"
+                        />
 
                         <template v-if="element.config.videoActive.value">
-                            <sw-field v-model:value="element.config.videoAutoplay.value"
-                                      bordered
-                                      type="switch"
-                                      :label="$tc('sw-cms.elements.moorl-cta-banner.label.videoAutoplay')">
-                            </sw-field>
+                            <sw-switch-field
+                                    v-model:value="element.config.videoAutoplay.value"
+                                    bordered
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.videoAutoplay')"
+                            />
 
-                            <sw-field v-model:value="element.config.videoLoop.value"
-                                      bordered
-                                      type="switch"
-                                      :label="$tc('sw-cms.elements.moorl-cta-banner.label.videoLoop')">
-                            </sw-field>
+                            <sw-switch-field
+                                    v-model:value="element.config.videoLoop.value"
+                                    bordered
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.videoLoop')"
+                            />
                         </template>
                     </sw-container>
                 </template>
@@ -197,11 +198,12 @@
 
             <sw-container v-if="active === 'content'">
                 <template v-if="element.config.elementType.value === 'custom'">
-                    <sw-text-editor v-model:value="element.config.content.value"
-                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.content')"
-                                    @input="onInput"
-                                    @blur="onBlur">
-                    </sw-text-editor>
+                    <sw-text-editor
+                            v-model:value="element.config.content.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.content')"
+                            @input="onInput"
+                            @blur="onBlur"
+                    />
                 </template>
 
                 <template v-else>
@@ -211,28 +213,28 @@
                     </sw-select-field>
 
                     <template v-if="element.config.elementType.value === 'cta'">
-                        <sw-field v-model:value="element.config.title.value"
-                                  type="text"
-                                  :label="$tc('sw-cms.elements.moorl-cta-banner.label.title')">
-                        </sw-field>
+                        <sw-text-field
+                                v-model:value="element.config.title.value"
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.title')"
+                        />
 
-                        <sw-field v-model:value="element.config.quote.value"
-                                  type="text"
-                                  :label="$tc('sw-cms.elements.moorl-cta-banner.label.quote')">
-                        </sw-field>
+                        <sw-text-field
+                                v-model:value="element.config.quote.value"
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.quote')"
+                        />
                     </template>
 
-                    <sw-field v-model:value="element.config.btnActive.value"
-                              bordered
-                              type="switch"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnActive')">
-                    </sw-field>
+                    <sw-switch-field
+                            v-model:value="element.config.btnActive.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnActive')"
+                    />
 
                     <template v-if="element.config.btnActive.value">
-                        <sw-field v-model:value="element.config.btnText.value"
-                                  type="text"
-                                  :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnText')">
-                        </sw-field>
+                        <sw-text-field
+                                v-model:value="element.config.btnText.value"
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnText')"
+                        />
 
                         <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnClass')"
                                          v-model:value="element.config.btnClass.value">
@@ -240,16 +242,16 @@
                         </sw-select-field>
 
                         <template v-if="element.config.elementType.value != 'category'">
-                            <sw-field v-model:value="element.config.btnUrl.value"
-                                      type="text"
-                                      :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnUrl')">
-                            </sw-field>
+                            <sw-text-field
+                                    v-model:value="element.config.btnUrl.value"
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnUrl')"
+                            />
 
-                            <sw-field v-model:value="element.config.btnNewTab.value"
-                                      bordered
-                                      type="switch"
-                                      :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnNewTab')">
-                            </sw-field>
+                            <sw-switch-field
+                                    v-model:value="element.config.btnNewTab.value"
+                                    bordered
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnNewTab')"
+                            />
                         </template>
                     </template>
                 </template>
@@ -261,9 +263,8 @@
 
                 <template v-if="element.config.iconType.value !== 'none'">
                     <template v-if="element.config.iconType.value === 'fa'">
-                        <sw-field
+                        <sw-text-field
                                 v-model:value="element.config.iconClass.value"
-                                type="text"
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconClass')"
                                 :helpText="$tc('sw-cms.elements.moorl-cta-banner.helpText.iconClass')"
                                 placeholder="fab|shopware (FA5) or default|avatar (Shopware) or fa6s|check (FA6) etc..."
@@ -305,21 +306,18 @@
                             <option v-for="option in iconPositionOptions" :value="option.value">{{ $tc(option.label) }}</option>
                         </sw-select-field>
 
-                        <sw-field
+                        <sw-text-field
                                 v-model:value="element.config.iconFontSize.value"
-                                type="text"
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconFontSize')"
                         />
 
-                        <sw-field
+                        <sw-text-field
                                 v-model:value="element.config.iconMarginRight.value"
-                                type="text"
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconMarginRight')"
                         />
 
-                        <sw-field
+                        <sw-text-field
                                 v-model:value="element.config.iconMarginBottom.value"
-                                type="text"
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconMarginBottom')"
                         />
                     </sw-container>
@@ -338,25 +336,25 @@
                         <option v-for="option in horizontalAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
                     </sw-select-field>
 
-                    <sw-field type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxWidth')"
-                              v-model:value="element.config.boxWidth.value">
-                    </sw-field>
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxWidth')"
+                            v-model:value="element.config.boxWidth.value"
+                    />
 
-                    <sw-field type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHeight')"
-                              v-model:value="element.config.boxHeight.value">
-                    </sw-field>
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHeight')"
+                            v-model:value="element.config.boxHeight.value"
+                    />
 
-                    <sw-field type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxMargin')"
-                              v-model:value="element.config.boxMargin.value">
-                    </sw-field>
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxMargin')"
+                            v-model:value="element.config.boxMargin.value"
+                    />
 
-                    <sw-field type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxPadding')"
-                              v-model:value="element.config.boxPadding.value">
-                    </sw-field>
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxPadding')"
+                            v-model:value="element.config.boxPadding.value"
+                    />
 
                     <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxTextAlign')"
                                      v-model:value="element.config.boxTextAlign.value">
@@ -367,39 +365,40 @@
                             colorOutput="hex"
                             :zIndex="1000"
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxColor')"
-                            v-model:value="element.config.boxColor.value">
-                    </sw-colorpicker>
+                            v-model:value="element.config.boxColor.value"
+                    />
 
                     <sw-colorpicker
                             colorOutput="hex"
                             :zIndex="1000"
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxBackground')"
-                            v-model:value="element.config.boxBackground.value">
-                    </sw-colorpicker>
+                            v-model:value="element.config.boxBackground.value"
+                    />
 
-                    <sw-field type="text"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxBorderRadius')"
-                              v-model:value="element.config.boxBorderRadius.value">
-                    </sw-field>
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxBorderRadius')"
+                            v-model:value="element.config.boxBorderRadius.value"
+                    />
 
-                    <sw-field v-model:value="element.config.boxMaxWidth.value"
-                              bordered
-                              type="switch"
-                              :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxMaxWidth')">
-                    </sw-field>
+                    <sw-switch-field
+                            v-model:value="element.config.boxMaxWidth.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxMaxWidth')"
+                    />
                 </sw-container>
             </sw-container>
 
             <sw-container v-if="active === 'scss'">
-                <sw-field v-model:value="element.config.enableScss.value"
-                          bordered
-                          type="switch"
-                          :label="$tc('sw-cms.elements.moorl-cta-banner.label.enableScss')">
-                </sw-field>
+                <sw-switch-field
+                        v-model:value="element.config.enableScss.value"
+                        bordered
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.enableScss')"
+                />
 
-                <sw-code-editor v-model:value="element.config.scss.value"
-                                :softWraps="false">
-                </sw-code-editor>
+                <sw-code-editor
+                        v-model:value="element.config.scss.value"
+                        :softWraps="false"
+                />
             </sw-container>
         </template>
     </sw-tabs>
@@ -412,6 +411,6 @@
             :allowMultiSelect="false"
             :initialFolderId="cmsPageState.defaultMediaFolderId"
             @media-modal-selection-change="onSelectionChanges"
-            @modal-close="onCloseModal">
-    </sw-media-modal-v2>
+            @modal-close="onCloseModal"
+    />
 </div>

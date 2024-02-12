@@ -13,33 +13,33 @@
 
     <sw-container v-if="active === 'extra'"
                   class="sw-cms-el-config-image-slider__tab-extra">
-        <sw-field v-model:value="element.config.enableFeature.value"
-                  bordered
-                  type="switch"
-                  :label="$tc(snippetPrefix + 'label.enableFeature')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.enableFeature.value"
+                bordered
+                :label="$tc(snippetPrefix + 'label.enableFeature')"
+        />
 
-        <sw-field v-model:value="element.config.speed.value"
-                  type="number"
-                  :label="$tc(snippetPrefix + 'label.speed')">
-        </sw-field>
+        <sw-number-field
+                v-model:value="element.config.speed.value"
+                :label="$tc(snippetPrefix + 'label.speed')"
+        />
 
-        <sw-field v-model:value="element.config.autoplayTimeout.value"
-                  type="number"
-                  :label="$tc(snippetPrefix + 'label.autoplayTimeout')">
-        </sw-field>
+        <sw-number-field
+                v-model:value="element.config.autoplayTimeout.value"
+                :label="$tc(snippetPrefix + 'label.autoplayTimeout')"
+        />
 
-        <sw-field v-model:value="element.config.autoplay.value"
-                  bordered
-                  type="switch"
-                  :label="$tc(snippetPrefix + 'label.autoplay')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.autoplay.value"
+                bordered
+                :label="$tc(snippetPrefix + 'label.autoplay')"
+        />
 
-        <sw-field v-model:value="element.config.autoplayHoverPause.value"
-                  bordered
-                  type="switch"
-                  :label="$tc(snippetPrefix + 'label.autoplayHoverPause')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.autoplayHoverPause.value"
+                bordered
+                :label="$tc(snippetPrefix + 'label.autoplayHoverPause')"
+        />
 
         <sw-select-field :label="$tc(snippetPrefix + 'label.animateIn')"
                          :helpText="$tc(snippetPrefix + 'helpText.animate')"

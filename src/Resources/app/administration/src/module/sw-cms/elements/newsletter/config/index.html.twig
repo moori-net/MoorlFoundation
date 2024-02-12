@@ -21,11 +21,11 @@
 
         <template #content slot-scope="{ active }">
             <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-newsletter__tab-general">
-                <sw-field type="switch"
-                          bordered
-                          :label="$tc(snippetPrefix + 'config.optin')"
-                          v-model:value="element.config.optin.value">
-                </sw-field>
+                <sw-switch-field
+                        bordered
+                        :label="$tc(snippetPrefix + 'config.optin')"
+                        v-model:value="element.config.optin.value"
+                />
             </sw-container>
 
             <sw-container v-if="active === 'colors'" class="sw-cms-el-config-moorl-newsletter__tab-colors">
@@ -33,20 +33,20 @@
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.buttonBackground')"
-                    v-model:value="element.config.buttonBackground.value">
-                </sw-colorpicker>
+                    v-model:value="element.config.buttonBackground.value"
+                />
                 <sw-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.buttonTextColor')"
-                    v-model:value="element.config.buttonTextColor.value">
-                </sw-colorpicker>
+                    v-model:value="element.config.buttonTextColor.value"
+                />
                 <sw-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.privacyColor')"
-                    v-model:value="element.config.privacyColor.value">
-                </sw-colorpicker>
+                    v-model:value="element.config.privacyColor.value"
+                />
             </sw-container>
 
             <sw-container v-if="active === 'text'" class="sw-cms-el-config-moorl-newsletter__tab-text">
@@ -54,14 +54,14 @@
                     {{ $tc(snippetPrefix + 'config.hint') }}
                 </sw-alert>
 
-                <sw-field v-model:value="element.config.placeholder.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.placeholder')">
-                </sw-field>
-                <sw-field v-model:value="element.config.buttonText.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.buttonText')">
-                </sw-field>
+                <sw-text-field
+                        v-model:value="element.config.placeholder.value"
+                        :label="$tc(snippetPrefix + 'config.placeholder')"
+                />
+                <sw-text-field
+                        v-model:value="element.config.buttonText.value"
+                        :label="$tc(snippetPrefix + 'config.buttonText')"
+                />
             </sw-container>
         </template>
 

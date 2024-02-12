@@ -34,48 +34,48 @@
               :title="$tc('sw-cms.blocks.moorl-slider.interactive')"
               @modal-close="showConfigurationModal = false">
         <sw-container columns="1fr 1fr" gap="0px 30px">
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.itemWidth"
-                      type="text"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')">
-            </sw-field>
+            <sw-text-field
+                    v-model:value="block.customFields.moorl_interactive_slider.itemWidth"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')"
+            />
 
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.itemHeight"
-                      type="text"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
-            </sw-field>
+            <sw-text-field
+                    v-model:value="block.customFields.moorl_interactive_slider.itemHeight"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')"
+            />
 
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.gapSize"
-                      type="text"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
-            </sw-field>
+            <sw-text-field
+                    v-model:value="block.customFields.moorl_interactive_slider.gapSize"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')"
+            />
             
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.speed"
-                      type="number"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')">
-            </sw-field>
+            <sw-number-field
+                    v-model:value="block.customFields.moorl_interactive_slider.speed"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')"
+            />
 
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.autoplayTimeout"
-                      type="number"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayTimeout')">
-            </sw-field>
+            <sw-number-field
+                    v-model:value="block.customFields.moorl_interactive_slider.autoplayTimeout"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayTimeout')"
+            />
 
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.autoplay"
-                      type="switch"
-                      bordered
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplay')">
-            </sw-field>
+            <sw-switch-field
+                    v-model:value="block.customFields.moorl_interactive_slider.autoplay"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplay')"
+            />
 
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.autoplayHoverPause"
-                      type="switch"
-                      bordered
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')">
-            </sw-field>
+            <sw-switch-field
+                    v-model:value="block.customFields.moorl_interactive_slider.autoplayHoverPause"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')"
+            />
 
-            <sw-field v-model:value="block.customFields.moorl_interactive_slider.navigation"
-                      type="switch"
-                      bordered
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')">
-            </sw-field>
+            <sw-switch-field
+                    v-model:value="block.customFields.moorl_interactive_slider.navigation"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')"
+            />
 
             <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
                              :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"

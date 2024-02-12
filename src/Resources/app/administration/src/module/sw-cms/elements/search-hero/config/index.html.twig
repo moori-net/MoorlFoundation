@@ -21,33 +21,35 @@
 
         <template #content slot-scope="{ active }">
             <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-search-hero__tab-general">
-                <sw-field v-model:value="element.config.elementHeight.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.elementHeight')">
-                </sw-field>
+                <sw-text-field
+                        v-model:value="element.config.elementHeight.value"
+                        :label="$tc(snippetPrefix + 'config.elementHeight')"
+                />
 
-                <sw-field v-model:value="element.config.searchActive.value"
-                          bordered
-                          type="switch"
-                          :label="$tc(snippetPrefix + 'config.searchActive')">
-                </sw-field>
-                <sw-field v-model:value="element.config.captionActive.value"
-                          bordered
-                          type="switch"
-                          :label="$tc(snippetPrefix + 'config.captionActive')">
-                </sw-field>
+                <sw-switch-field
+                        v-model:value="element.config.searchActive.value"
+                        bordered
+                        :label="$tc(snippetPrefix + 'config.searchActive')"
+                />
+
+                <sw-switch-field
+                        v-model:value="element.config.captionActive.value"
+                        bordered
+                        :label="$tc(snippetPrefix + 'config.captionActive')"
+                />
             </sw-container>
 
             <sw-container v-if="active === 'media'" class="sw-cms-el-config-moorl-search-hero__tab-media">
                 <sw-cms-mapping-field valueTypes="entity" entity="media" v-model:value="element.config.media">
-                    <sw-media-upload-v2 variant="regular"
-                                        :uploadTag="uploadTag"
-                                        :source="previewSource"
-                                        :allowMultiSelect="false"
-                                        :defaultFolder="cmsPageState.pageEntityName"
-                                        @media-upload-sidebar-open="onOpenMediaModal"
-                                        @media-upload-remove-image="onImageRemove">
-                    </sw-media-upload-v2>
+                    <sw-media-upload-v2
+                            variant="regular"
+                            :uploadTag="uploadTag"
+                            :source="previewSource"
+                            :allowMultiSelect="false"
+                            :defaultFolder="cmsPageState.pageEntityName"
+                            @media-upload-sidebar-open="onOpenMediaModal"
+                            @media-upload-remove-image="onImageRemove"
+                    />
 
                     <div class="sw-cms-el-config-image__mapping-preview" #preview slot-scope="{ demoValue }">
                         <img :src="demoValue.url" v-if="demoValue.url">
@@ -60,9 +62,8 @@
                 <sw-upload-listener
                     :uploadTag="uploadTag"
                     autoUpload
-                    @media-upload-finish="onImageUpload">
-                </sw-upload-listener>
-
+                    @media-upload-finish="onImageUpload"
+                />
 
                 <sw-select-field :label="$tc(snippetPrefix +'config.backgroundAttachment')"
                                  v-model:value="element.config.backgroundAttachment.value">
@@ -94,33 +95,32 @@
                     <option value="center center">{{ $tc(snippetPrefix + 'config.centerCenter') }}</option>
                     <option value="center bottom">{{ $tc(snippetPrefix + 'config.centerBottom') }}</option>
                 </sw-select-field>
-
             </sw-container>
 
             <sw-container v-if="active === 'caption'" class="sw-cms-el-config-moorl-search-hero__tab-caption">
-                <sw-field v-model:value="element.config.headline.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.headline')">
-                </sw-field>
-                <sw-field v-model:value="element.config.subHeadline.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.subHeadline')">
-                </sw-field>
+                <sw-text-field
+                        v-model:value="element.config.headline.value"
+                        :label="$tc(snippetPrefix + 'config.headline')"
+                />
+                <sw-text-field
+                        v-model:value="element.config.subHeadline.value"
+                        :label="$tc(snippetPrefix + 'config.subHeadline')"
+                />
                 <sw-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.textColor')"
-                    v-model:value="element.config.textColor.value">
-                </sw-colorpicker>
-                <sw-field v-model:value="element.config.textShadowActive.value"
-                          bordered
-                          type="switch"
-                          :label="$tc(snippetPrefix + 'config.textShadowActive')">
-                </sw-field>
+                    v-model:value="element.config.textColor.value"
+                />
+
+                <sw-switch-field
+                        v-model:value="element.config.textShadowActive.value"
+                        bordered
+                        :label="$tc(snippetPrefix + 'config.textShadowActive')"
+                />
             </sw-container>
         </template>
     </sw-tabs>
-
 
     <sw-media-modal-v2
         variant="regular"
@@ -130,10 +130,6 @@
         :initialFolderId="cmsPageState.defaultMediaFolderId"
         @media-upload-remove-image="onImageRemove"
         @media-modal-selection-change="onSelectionChanges"
-        @modal-close="onCloseModal">
-    </sw-media-modal-v2>
+        @modal-close="onCloseModal"
+    />
 </div>
-
-
-
-

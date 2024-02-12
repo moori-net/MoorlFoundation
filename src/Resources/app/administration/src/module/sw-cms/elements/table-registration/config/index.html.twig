@@ -21,12 +21,11 @@
                     :label="$tc(snippetPrefix + 'label.content')">
                 </sw-text-editor>
 
-                <sw-field
+                <sw-switch-field
                     :label="$tc(snippetPrefix + 'label.privacyActive')"
                     v-model:value="element.config.privacyActive.value"
                     bordered
-                    type="switch">
-                </sw-field>
+                />
             </sw-container>
 
             <sw-container v-if="active === 'settings'">

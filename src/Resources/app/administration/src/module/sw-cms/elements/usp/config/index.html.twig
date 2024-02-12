@@ -14,30 +14,30 @@
 
     <template #content slot-scope="{ active }">
         <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-usp__tab-general">
-            <sw-field v-model:value="element.config.iconActive.value"
-                      bordered
-                      type="switch"
-                      :label="$tc(snippetPrefix + 'config.iconActive')">
-            </sw-field>
+            <sw-switch-field
+                    v-model:value="element.config.iconActive.value"
+                    bordered
+                    :label="$tc(snippetPrefix + 'config.iconActive')"
+            />
 
             <template v-if="element.config.iconActive.value">
-                <sw-field v-model:value="element.config.iconClass.value"
-                          type="text"
-                          placeholder="fab|shopware"
-                          :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
-                          :label="$tc(snippetPrefix + 'config.iconClass')">
-                </sw-field>
+                <sw-text-field
+                        v-model:value="element.config.iconClass.value"
+                        placeholder="fab|shopware"
+                        :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
+                        :label="$tc(snippetPrefix + 'config.iconClass')"
+                />
             </template>
 
-            <sw-field v-model:value="element.config.title.value"
-                      type="text"
-                      :label="$tc(snippetPrefix + 'config.headline')">
-            </sw-field>
+            <sw-text-field
+                    v-model:value="element.config.title.value"
+                    :label="$tc(snippetPrefix + 'config.headline')"
+            />
 
-            <sw-field v-model:value="element.config.text.value"
-                      type="text"
-                      :label="$tc(snippetPrefix + 'config.subHeadline')">
-            </sw-field>
+            <sw-text-field
+                    v-model:value="element.config.text.value"
+                    :label="$tc(snippetPrefix + 'config.subHeadline')"
+            />
 
             <sw-select-field :label="$tc(snippetPrefix + 'config.alignment')"
                              v-model:value="element.config.alignment.value">
@@ -51,21 +51,20 @@
                 colorOutput="hex"
                 :zIndex="1000"
                 :label="$tc(snippetPrefix + 'config.iconColor')"
-                v-model:value="element.config.iconColor.value">
-            </sw-colorpicker>
+                v-model:value="element.config.iconColor.value"
+            />
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
                 :label="$tc(snippetPrefix + 'config.headlineColor')"
-                v-model:value="element.config.headlineColor.value">
-            </sw-colorpicker>
-
+                v-model:value="element.config.headlineColor.value"
+            />
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
                 :label="$tc(snippetPrefix + 'config.subHeadlineColor')"
-                v-model:value="element.config.subHeadlineColor.value">
-            </sw-colorpicker>
+                v-model:value="element.config.subHeadlineColor.value"
+            />
         </sw-container>
     </template>
 </sw-tabs>

@@ -28,12 +28,11 @@
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Price\ProductPriceCalculator"/>
-            <argument type="service" id="Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\ClientService" public="true">
             <argument type="service" id="moorl_client.repository"/>
-            <argument type="tagged" tag="moorl.foundation.client" />
+            <argument type="tagged" tag="moorl.foundation.client"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\DataService" public="true">
