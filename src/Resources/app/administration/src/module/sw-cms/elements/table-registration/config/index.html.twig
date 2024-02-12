@@ -14,16 +14,16 @@
             </sw-tabs-item>
         </template>
 
-        <template slot="content" slot-scope="{ active }">
+        <template #content slot-scope="{ active }">
             <sw-container v-if="active === 'content'">
                 <sw-text-editor
-                    v-model="element.config.content.value"
+                    v-model:value="element.config.content.value"
                     :label="$tc(snippetPrefix + 'label.content')">
                 </sw-text-editor>
 
                 <sw-field
                     :label="$tc(snippetPrefix + 'label.privacyActive')"
-                    v-model="element.config.privacyActive.value"
+                    v-model:value="element.config.privacyActive.value"
                     bordered
                     type="switch">
                 </sw-field>
@@ -31,7 +31,7 @@
 
             <sw-container v-if="active === 'settings'">
                 <sw-select-field :label="$tc('sw-cms.elements.general.config.label.verticalAlign')"
-                                 v-model="element.config.verticalAlign.value"
+                                 v-model:value="element.config.verticalAlign.value"
                                  :placeholder="$tc('sw-cms.elements.general.config.label.verticalAlign')">
                     <option value="flex-start">{{ $tc('sw-cms.elements.general.config.label.verticalAlignTop') }}</option>
                     <option value="center">{{ $tc('sw-cms.elements.general.config.label.verticalAlignCenter') }}</option>

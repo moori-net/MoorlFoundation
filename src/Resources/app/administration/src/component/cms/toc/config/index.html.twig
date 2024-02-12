@@ -4,12 +4,12 @@
     </sw-alert>
 
     <sw-cms-mapping-field
-            v-model="element.config.content"
+            v-model:value="element.config.content"
             value-types="string">
         <sw-code-editor
                 :label="$tc('sw-cms.elements.moorl-toc.label.content')"
                 :softWraps="false"
-                v-model="element.config.content.value">
+                v-model:value="element.config.content.value">
         </sw-code-editor>
     </sw-cms-mapping-field>
 </div>

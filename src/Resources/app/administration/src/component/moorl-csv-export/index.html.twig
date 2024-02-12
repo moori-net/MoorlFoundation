@@ -5,7 +5,11 @@
           class="moorl-csv-export">
     <sw-container class="moorl-csv-export__top-bar" columns="1fr" gap="10px">
         <template v-if="step == 1">
-            <sw-field type="switch" bordered :label="$tc('moorl-foundation.export.localTable')" v-model="options.localTable"></sw-field>
+            <sw-switch-field
+                    bordered
+                    :label="$tc('moorl-foundation.export.localTable')"
+                    v-model:value="options.localTable"
+            />
 
             <p class="info">{{ $t('moorl-foundation.export.introText') }}</p>
         </template>

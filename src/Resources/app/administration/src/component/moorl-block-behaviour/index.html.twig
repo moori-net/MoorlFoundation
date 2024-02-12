@@ -1,7 +1,7 @@
 <div class="moorl-block-behaviour">
     <moorl-bs-config
             v-if="isInitialized"
-            v-model="block.customFields.moorl_block_behaviour"
+            v-model:value="block.customFields.moorl_block_behaviour"
             :label="$tc('moorl-block-behaviour.title')"
             :showOrder="false"
             :showWidth="false"

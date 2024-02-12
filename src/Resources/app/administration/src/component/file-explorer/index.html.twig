@@ -1,6 +1,6 @@
 <div class="moorl-file-explorer">
     <sw-text-field
-        v-model="value"
+        v-model:value="value"
         :placeholder="placeholder"
         @change="listContents"
     />
@@ -82,7 +82,7 @@
         :closable="false"
     >
         <sw-text-field
-                v-model="dirname"
+                v-model:value="dirname"
         />
 
         <template #modal-footer>

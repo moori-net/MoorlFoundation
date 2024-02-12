@@ -7,7 +7,7 @@
 
     <component v-else
             :is="elementConfig.component"
-            v-model="element"
+            v-model:value="element"
             :disabled="disabled"
     />
 {% endblock %}
@@ -49,9 +49,9 @@
     <sw-modal v-if="showCmsElementAnimationModal"
               :title="$tc('sw-cms.component.sw-cms-slot.cmsElementAnimation')"
               @modal-close="showCmsElementAnimationModal = false">
-        <moorl-element-animation v-model="element"/>
+        <moorl-element-animation v-model:value="element"/>
 
-        <template slot="modal-footer">
+        <template #modal-footer>
             <sw-button variant="primary" @click="showCmsElementAnimationModal = false">
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
             </sw-button>
@@ -62,10 +62,10 @@
               v-if="showCmsElementConfigSaver"
               :title="$tc('sw-cms.component.sw-cms-slot.cmsElementConfigSaver')"
               @modal-close="showCmsElementConfigSaver = false">
-        <sw-field v-model="cmsElementConfig.name"
-                  type="text"
-                  :label="$tc('sw-cms.component.sw-cms-slot.label.name')">
-        </sw-field>
+        <sw-text-field
+                v-model:value="cmsElementConfig.name"
+                :label="$tc('sw-cms.component.sw-cms-slot.label.name')"
+        />
 
         <div class="sw-field">
             <sw-button variant="primary" @click="onSaveCmsElementConfig">
@@ -78,7 +78,7 @@
                     :label="$tc('sw-cms.component.sw-cms-slot.label.selectConfig')"
                     :criteria="cmsElementConfigCriteria"
                     entity="moorl_cms_element_config"
-                    v-model="cmsElementConfigId">
+                    v-model:value="cmsElementConfigId">
                 <template #result-item="{ item, index }">
                     <slot name="result-item" v-bind="{ item, index }">
                         <li is="sw-select-result" v-bind="{ item, index }">
@@ -99,7 +99,7 @@
             {{ $tc('sw-cms.component.sw-cms-slot.label.load') }}
         </sw-button>
 
-        <template slot="modal-footer">
+        <template #modal-footer>
             <sw-button variant="primary" @click="showCmsElementConfigSaver = false">
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
             </sw-button>

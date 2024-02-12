@@ -18,7 +18,7 @@
     >
         <template v-if="!fixed" #column-name="{ item, itemIndex }">
             <sw-text-field
-                    v-model="item.name"
+                    v-model:value="item.name"
                     size="small"
                     :placeholder="$tc('moorl-parameter-grid.properties.name')"
                     @change="onChangeItem(item, itemIndex)"
@@ -29,7 +29,7 @@
         <template #column-data="{ item, itemIndex }">
             <sw-single-select
                     v-if="!item.isCustom && dataSelection.length"
-                    v-model="item.data"
+                    v-model:value="item.data"
                     size="small"
                     :options="dataSelection"
                     :placeholder="$tc('moorl-parameter-grid.properties.data')"
@@ -38,7 +38,7 @@
 
             <sw-text-field
                     v-if="item.isCustom || !dataSelection.length"
-                    v-model="item.data"
+                    v-model:value="item.data"
                     size="small"
                     :placeholder="$tc('moorl-parameter-grid.properties.data')"
                     @change="onChangeItem(item, itemIndex)"

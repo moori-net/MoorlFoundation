@@ -20,18 +20,30 @@
         </template>
 
         <template v-if="step == 2">
-            <sw-field type="switch" bordered :label="$t('moorl-foundation.import.overwriteLabel', { properties: getUniquePropertyLabels() })" v-model="options.overwrite"></sw-field>
+            <sw-switch-field
+                    bordered
+                    :label="$t('moorl-foundation.import.overwriteLabel', { properties: getUniquePropertyLabels() })"
+                    v-model:value="options.overwrite"
+            />
 
-            <sw-field type="switch" bordered :label="$tc('moorl-foundation.import.pauseLabel')" v-model="options.pause"></sw-field>
+            <sw-switch-field
+                    bordered
+                    :label="$tc('moorl-foundation.import.pauseLabel')"
+                    v-model:value="options.pause"
+            />
 
-            <sw-field type="switch" bordered :label="$tc('moorl-foundation.import.validateIdsLabel')" v-model="options.validateIds"></sw-field>
+            <sw-switch-field
+                    bordered
+                    :label="$tc('moorl-foundation.import.validateIdsLabel')"
+                    v-model:value="options.validateIds"
+            />
 
             <sw-entity-single-select
                     :placeholder="$tc('moorl-foundation.import.mediaFolder')"
-                    v-model="options.mediaFolderId"
+                    v-model:value="options.mediaFolderId"
                     labelProperty="name"
-                    entity="media_folder">
-            </sw-entity-single-select>
+                    entity="media_folder"
+            />
 
             <p class="info">{{ $t('moorl-foundation.import.loadedText', { count: rowCount }) }}</p>
         </template>
@@ -86,13 +98,13 @@
 
                         <td class="sw-data-grid__cell">
                             <div class="sw-data-grid__cell-content">
-                                <sw-select-field v-if="column.localField" v-model="mapping[column.localField]">
+                                <sw-select-field v-if="column.localField" v-model:value="mapping[column.localField]">
                                         <option value>{{ $t('moorl-foundation.import.choseDefault') }}</option>
                                         <option v-for="property in properties"
                                                 :value="property">{{ property }}</option>
                                 </sw-select-field>
 
-                                <sw-select-field v-else v-model="mapping[column.property]">
+                                <sw-select-field v-else v-model:value="mapping[column.property]">
                                         <option value>{{ $t('moorl-foundation.import.choseDefault') }}</option>
                                         <option v-for="property in properties"
                                                 :value="property">{{ property }}</option>

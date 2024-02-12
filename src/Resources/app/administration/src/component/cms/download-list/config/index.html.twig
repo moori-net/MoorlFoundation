@@ -1,13 +1,13 @@
 <div class="sw-cms-el-config-moorl-download-list">
     <sw-cms-mapping-field
-            v-model="element.config.downloads"
+            v-model:value="element.config.downloads"
             entity="media"
             value-types="entity"
             :label="$tc('sw-cms.elements.moorl-download-list.label.downloads')"
     >
         <sw-entity-multi-select
                 class="sw-cms-el-config-download-slider__downloads"
-                v-model="downloadCollection"
+                v-model:value="downloadCollection"
                 @change="onDownloadsChange"
                 labelProperty="fileName"
                 :context="downloadSearchContext"
@@ -16,12 +16,12 @@
     </sw-cms-mapping-field>
 
     <sw-select-field :label="$tc('sw-cms.elements.moorl-download-list.label.layout')"
-                     v-model="element.config.layout.value">
+                     v-model:value="element.config.layout.value">
         <option v-for="option in elementOptions.layout" :value="option.value">{{ $tc(option.label) }}</option>
     </sw-select-field>
 
-    <sw-field v-model="element.config.emptyText.value"
-              type="text"
-              :label="$tc('sw-cms.elements.moorl-download-list.label.emptyText')">
-    </sw-field>
+    <sw-text-field
+            v-model:value="element.config.emptyText.value"
+            :label="$tc('sw-cms.elements.moorl-download-list.label.emptyText')"
+    />
 </div>

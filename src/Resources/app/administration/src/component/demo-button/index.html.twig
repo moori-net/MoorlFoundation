@@ -18,7 +18,7 @@
 
         <sw-entity-single-select
                 :label="$tc('moorl-foundation.properties.salesChannel')"
-                v-model="salesChannelId"
+                v-model:value="salesChannelId"
                 labelProperty="name"
                 entity="sales_channel"
         />
@@ -31,7 +31,7 @@
             {{ $tc('moorl-foundation.label.settingsDemoData') }}
         </router-link>
 
-        <template slot="modal-footer">
+        <template #modal-footer>
             <sw-button variant="primary" @click="install" :disabled="salesChannelId === null || isLoading">
                 {{ $tc('moorl-foundation.buttons.startButtonText') }}
             </sw-button>

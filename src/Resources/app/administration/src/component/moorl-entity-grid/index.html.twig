@@ -5,11 +5,10 @@
             gap="0 10px"
             class="moorl-entity-grid__top-bar"
     >
-        <sw-field
+        <sw-text-field
                 v-if="topBarOptions.includes('search')"
                 :placeholder="$tc('moorl-foundation.label.search')"
-                type="text"
-                v-model="searchTerm"
+                v-model:value="searchTerm"
                 @input="onSearch"
         />
 
@@ -77,7 +76,7 @@
             </sw-context-menu-item>
         </template>
 
-        <template slot="bulk">
+        <template #bulk>
             <a class="link link-danger" @click="onEditSelectedItems">
                 {{ $tc('global.default.edit') }}
             </a>
@@ -87,7 +86,7 @@
             </a>
         </template>
 
-        <template slot="pagination">
+        <template #pagination>
             <sw-pagination
                     :total="totalCount"
                     :limit="limit"

@@ -1,5 +1,5 @@
 <sw-page class="moorl-marker-detail">
-    <template slot="smart-bar-actions">
+    <template #smart-bar-actions>
         <sw-button :routerLink="{ name: 'moorl.marker.list' }">
             {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
         </sw-button>
@@ -14,31 +14,30 @@
         </sw-button-process>
     </template>
 
-    <template slot="content">
+    <template #content>
         <sw-card-view>
             <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-marker.card.general')">
-                <sw-field
+                <sw-text-field
                         :label="$tc('moorl-marker.properties.name')"
-                        v-model="item.name"
+                        v-model:value="item.name"
                         required
                         validation="required"
                 />
 
-                <sw-field
+                <sw-text-field
                         :label="$tc('moorl-marker.properties.type')"
-                        v-model="item.type"
+                        v-model:value="item.type"
                 />
 
-                <sw-field
+                <sw-text-field
                         :label="$tc('moorl-marker.properties.cssClass')"
-                        v-model="item.className"
+                        v-model:value="item.className"
                 />
 
-                <sw-field
-                        type="textarea"
+                <sw-textarea-field
                         :label="$tc('moorl-marker.properties.svg')"
                         :helpText="$tc('moorl-marker.helpText.svg')"
-                        v-model="item.svg"
+                        v-model:value="item.svg"
                 />
             </sw-card>
 
@@ -112,16 +111,16 @@
                 </div>
 
                 <sw-container columns="1fr 1fr" gap="0 20px">
-                    <sw-field type="number" label="iconSizeX" v-model="item.markerSettings.iconSizeX"/>
-                    <sw-field type="number" label="iconSizeY" v-model="item.markerSettings.iconSizeY"/>
-                    <sw-field type="number" label="shadowSizeX" v-model="item.markerSettings.shadowSizeX"/>
-                    <sw-field type="number" label="shadowSizeY" v-model="item.markerSettings.shadowSizeY"/>
-                    <sw-field type="number" label="iconAnchorX" v-model="item.markerSettings.iconAnchorX"/>
-                    <sw-field type="number" label="iconAnchorY" v-model="item.markerSettings.iconAnchorY"/>
-                    <sw-field type="number" label="shadowAnchorX" v-model="item.markerSettings.shadowAnchorX"/>
-                    <sw-field type="number" label="shadowAnchorY" v-model="item.markerSettings.shadowAnchorY"/>
-                    <sw-field type="number" label="popupAnchorX" v-model="item.markerSettings.popupAnchorX"/>
-                    <sw-field type="number" label="popupAnchorY" v-model="item.markerSettings.popupAnchorY"/>
+                    <sw-number-field label="iconSizeX" v-model:value="item.markerSettings.iconSizeX"/>
+                    <sw-number-field label="iconSizeY" v-model:value="item.markerSettings.iconSizeY"/>
+                    <sw-number-field label="shadowSizeX" v-model:value="item.markerSettings.shadowSizeX"/>
+                    <sw-number-field label="shadowSizeY" v-model:value="item.markerSettings.shadowSizeY"/>
+                    <sw-number-field label="iconAnchorX" v-model:value="item.markerSettings.iconAnchorX"/>
+                    <sw-number-field label="iconAnchorY" v-model:value="item.markerSettings.iconAnchorY"/>
+                    <sw-number-field label="shadowAnchorX" v-model:value="item.markerSettings.shadowAnchorX"/>
+                    <sw-number-field label="shadowAnchorY" v-model:value="item.markerSettings.shadowAnchorY"/>
+                    <sw-number-field label="popupAnchorX" v-model:value="item.markerSettings.popupAnchorX"/>
+                    <sw-number-field label="popupAnchorY" v-model:value="item.markerSettings.popupAnchorY"/>
                 </sw-container>
             </sw-card>
 
@@ -131,10 +130,10 @@
         </sw-card-view>
     </template>
 
-    <template slot="sidebar">
+    <template #sidebar>
         <sw-sidebar :propagateWidth="true">
             <sw-sidebar-media-item ref="mediaSidebarItem">
-                <template slot="context-menu-items" slot-scope="media">
+                <template #context-menu-items slot-scope="media">
                     <sw-context-menu-item
                             @click="setMediaFromSidebar(media.mediaItem)"
                     />

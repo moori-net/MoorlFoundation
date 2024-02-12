@@ -1,25 +1,25 @@
 <div class="sw-cms-el-config-moorl-person">
-    <sw-cms-mapping-field v-model="element.config.salutationId" value-types="string" entity="salutation">
+    <sw-cms-mapping-field v-model:value="element.config.salutationId" value-types="string" entity="salutation">
         <sw-entity-single-select
                 :label="$tc('moorl-foundation.properties.salutation')"
                 entity="country_state"
-                v-model="element.config.salutationId.value"
+                v-model:value="element.config.salutationId.value"
         />
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.title" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.title')" v-model="element.config.title.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.title" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.title')" v-model:value="element.config.title.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.firstName" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.firstName')" v-model="element.config.firstName.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.firstName" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.firstName')" v-model:value="element.config.firstName.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.lastName" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.lastName')" v-model="element.config.lastName.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.lastName" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.lastName')" v-model:value="element.config.lastName.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.company" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.company')" v-model="element.config.company.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.company" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.company')" v-model:value="element.config.company.value"/>
     </sw-cms-mapping-field>
 </div>

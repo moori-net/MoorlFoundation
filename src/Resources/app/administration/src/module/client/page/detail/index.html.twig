@@ -1,5 +1,5 @@
 <sw-page class="moorl-client-detail">
-    <template slot="smart-bar-actions">
+    <template #smart-bar-actions>
         <sw-button :routerLink="{ name: 'moorl.client.list' }">
             {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
         </sw-button>
@@ -19,18 +19,17 @@
         </sw-button>
     </template>
 
-    <template slot="content">
+    <template #content>
         <sw-card-view>
             <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.general')">
-                <sw-field
-                        type="switch"
+                <sw-switch-field
                         :label="$tc('moorl-client.properties.active')"
-                        v-model="item.active"
+                        v-model:value="item.active"
                 />
 
-                <sw-field
+                <sw-text-field
                         :label="$tc('moorl-client.properties.name')"
-                        v-model="item.name"
+                        v-model:value="item.name"
                         required
                         validation="required"
                 />
@@ -38,7 +37,7 @@
                 <template v-if="options.length">
                     <sw-select-field
                             :label="$tc('moorl-client.properties.type')"
-                            v-model="item.type"
+                            v-model:value="item.type"
                             @change="resetConfig"
                     >
                         <option v-for="(option, index) in options" :key="option.name" :value="option.name">
@@ -53,7 +52,7 @@
                     <template v-if="item.type == option.name">
                         <template v-for="config in option.configTemplate">
                             <sw-form-field-renderer
-                                    v-model="item.config[config.name]"
+                                    v-model:value="item.config[config.name]"
                                     :label="$tc('moorl-client.properties.' + config.name)"
                                     :config="config"
                             />

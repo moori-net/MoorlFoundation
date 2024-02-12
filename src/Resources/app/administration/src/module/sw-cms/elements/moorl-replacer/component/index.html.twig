@@ -20,7 +20,7 @@
         <sw-entity-single-select
                 :criteria="cmsElementConfigCriteria"
                 entity="moorl_cms_element_config"
-                v-model="cmsElementConfigId">
+                v-model:value="cmsElementConfigId">
             <template #result-item="{ item, index }">
                 <slot name="result-item" v-bind="{ item, index }">
                     <li is="sw-select-result" v-bind="{ item, index }">

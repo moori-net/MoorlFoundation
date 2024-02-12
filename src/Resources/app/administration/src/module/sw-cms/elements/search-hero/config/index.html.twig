@@ -19,19 +19,19 @@
             </sw-tabs-item>
         </template>
 
-        <template slot="content" slot-scope="{ active }">
+        <template #content slot-scope="{ active }">
             <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-search-hero__tab-general">
-                <sw-field v-model="element.config.elementHeight.value"
+                <sw-field v-model:value="element.config.elementHeight.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.elementHeight')">
                 </sw-field>
 
-                <sw-field v-model="element.config.searchActive.value"
+                <sw-field v-model:value="element.config.searchActive.value"
                           bordered
                           type="switch"
                           :label="$tc(snippetPrefix + 'config.searchActive')">
                 </sw-field>
-                <sw-field v-model="element.config.captionActive.value"
+                <sw-field v-model:value="element.config.captionActive.value"
                           bordered
                           type="switch"
                           :label="$tc(snippetPrefix + 'config.captionActive')">
@@ -39,7 +39,7 @@
             </sw-container>
 
             <sw-container v-if="active === 'media'" class="sw-cms-el-config-moorl-search-hero__tab-media">
-                <sw-cms-mapping-field valueTypes="entity" entity="media" v-model="element.config.media">
+                <sw-cms-mapping-field valueTypes="entity" entity="media" v-model:value="element.config.media">
                     <sw-media-upload-v2 variant="regular"
                                         :uploadTag="uploadTag"
                                         :source="previewSource"
@@ -49,7 +49,7 @@
                                         @media-upload-remove-image="onImageRemove">
                     </sw-media-upload-v2>
 
-                    <div class="sw-cms-el-config-image__mapping-preview" slot="preview" slot-scope="{ demoValue }">
+                    <div class="sw-cms-el-config-image__mapping-preview" #preview slot-scope="{ demoValue }">
                         <img :src="demoValue.url" v-if="demoValue.url">
                         <sw-alert class="sw-cms-el-config-image__preview-info" variant="info" v-else>
                             {{ $tc('sw-cms.detail.label.mappingEmptyPreview') }}
@@ -65,25 +65,25 @@
 
 
                 <sw-select-field :label="$tc(snippetPrefix +'config.backgroundAttachment')"
-                                 v-model="element.config.backgroundAttachment.value">
+                                 v-model:value="element.config.backgroundAttachment.value">
                     <option value="fixed">{{ $tc(snippetPrefix + 'config.fixed') }}</option>
                     <option value="not-fixed">{{ $tc(snippetPrefix + 'config.notFixed') }}</option>
                 </sw-select-field>
 
                 <sw-select-field :label="$tc(snippetPrefix +'config.backgroundRepeat')"
-                                 v-model="element.config.backgroundRepeat.value">
+                                 v-model:value="element.config.backgroundRepeat.value">
                     <option value="repeat">{{ $tc(snippetPrefix + 'config.repeat') }}</option>
                     <option value="no-epeat">{{ $tc(snippetPrefix + 'config.noRepeat') }}</option>
                 </sw-select-field>
 
                 <sw-select-field :label="$tc(snippetPrefix + 'config.backgroundSize')"
-                                 v-model="element.config.backgroundSize.value">
+                                 v-model:value="element.config.backgroundSize.value">
                     <option value="cover">{{ $tc(snippetPrefix + 'config.cover') }}</option>
                     <option value="contain">{{ $tc(snippetPrefix + 'config.contain') }}</option>
                 </sw-select-field>
 
                 <sw-select-field :label="$tc(snippetPrefix +'config.backgroundPosition')"
-                                 v-model="element.config.backgroundPosition.value">
+                                 v-model:value="element.config.backgroundPosition.value">
                     <option value="left top">{{ $tc(snippetPrefix + 'config.leftTop') }}</option>
                     <option value="left center">{{ $tc(snippetPrefix + 'config.leftCenter') }}</option>
                     <option value="left bottom">{{ $tc(snippetPrefix + 'config.leftBottom') }}</option>
@@ -98,11 +98,11 @@
             </sw-container>
 
             <sw-container v-if="active === 'caption'" class="sw-cms-el-config-moorl-search-hero__tab-caption">
-                <sw-field v-model="element.config.headline.value"
+                <sw-field v-model:value="element.config.headline.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.headline')">
                 </sw-field>
-                <sw-field v-model="element.config.subHeadline.value"
+                <sw-field v-model:value="element.config.subHeadline.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.subHeadline')">
                 </sw-field>
@@ -110,9 +110,9 @@
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.textColor')"
-                    v-model="element.config.textColor.value">
+                    v-model:value="element.config.textColor.value">
                 </sw-colorpicker>
-                <sw-field v-model="element.config.textShadowActive.value"
+                <sw-field v-model:value="element.config.textShadowActive.value"
                           bordered
                           type="switch"
                           :label="$tc(snippetPrefix + 'config.textShadowActive')">

@@ -19,12 +19,12 @@
             </sw-tabs-item>
         </template>
 
-        <template slot="content" slot-scope="{ active }">
+        <template #content slot-scope="{ active }">
             <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-newsletter__tab-general">
                 <sw-field type="switch"
                           bordered
                           :label="$tc(snippetPrefix + 'config.optin')"
-                          v-model="element.config.optin.value">
+                          v-model:value="element.config.optin.value">
                 </sw-field>
             </sw-container>
 
@@ -33,19 +33,19 @@
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.buttonBackground')"
-                    v-model="element.config.buttonBackground.value">
+                    v-model:value="element.config.buttonBackground.value">
                 </sw-colorpicker>
                 <sw-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.buttonTextColor')"
-                    v-model="element.config.buttonTextColor.value">
+                    v-model:value="element.config.buttonTextColor.value">
                 </sw-colorpicker>
                 <sw-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
                     :label="$tc(snippetPrefix + 'config.privacyColor')"
-                    v-model="element.config.privacyColor.value">
+                    v-model:value="element.config.privacyColor.value">
                 </sw-colorpicker>
             </sw-container>
 
@@ -54,11 +54,11 @@
                     {{ $tc(snippetPrefix + 'config.hint') }}
                 </sw-alert>
 
-                <sw-field v-model="element.config.placeholder.value"
+                <sw-field v-model:value="element.config.placeholder.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.placeholder')">
                 </sw-field>
-                <sw-field v-model="element.config.buttonText.value"
+                <sw-field v-model:value="element.config.buttonText.value"
                           type="text"
                           :label="$tc(snippetPrefix + 'config.buttonText')">
                 </sw-field>

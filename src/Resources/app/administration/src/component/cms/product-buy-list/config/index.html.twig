@@ -1,6 +1,6 @@
 <div class="sw-cms-el-config-moorl-product-buy-list">
     <sw-cms-mapping-field
-            v-model="element.config.products"
+            v-model:value="element.config.products"
             entity="product"
             value-types="entity"
             :label="$tc('sw-cms.elements.moorl-product-buy-list.label.products')"
@@ -8,7 +8,7 @@
         <sw-entity-multi-select
                 class="sw-cms-el-config-product-slider__products"
                 :placeholder="$tc('sw-cms.elements.productSlider.config.placeholder.selection')"
-                v-model="productCollection"
+                v-model:value="productCollection"
                 @change="onProductsChange"
                 :context="productSearchContext"
                 :criteria="productSearchCriteria">
@@ -31,51 +31,50 @@
                 v-for="product in products"
                 v-if="element.config.productQuantities.value[product.id]"
         >
-            <sw-field
-                    type="number"
+            <sw-number-field
                     min="1"
                     max="100"
                     step="1"
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.productQuantity') + ': ' + product.translated.name"
-                    v-model="element.config.productQuantities.value[product.id]"
+                    v-model:value="element.config.productQuantities.value[product.id]"
             />
         </template>
     </sw-container>
 
     <sw-container columns="1fr 1fr" gap="0px 30px">
-        <sw-field v-model="element.config.enablePrices.value"
-                  type="switch"
-                  bordered
-                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enablePrices')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.enablePrices.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enablePrices')"
+        />
 
-        <sw-field v-model="element.config.enableVariantSwitch.value"
-                  type="switch"
-                  bordered
-                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableVariantSwitch')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.enableVariantSwitch.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableVariantSwitch')"
+        />
 
-        <sw-field v-model="element.config.enableAddToCartAll.value"
-                  type="switch"
-                  bordered
-                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.enableAddToCartAll.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
+        />
 
-        <sw-field v-model="element.config.enableAddToCartSingle.value"
-                  type="switch"
-                  bordered
-                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.enableAddToCartSingle.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
+        />
 
-        <sw-field v-model="element.config.enableDirectUrl.value"
-                  bordered
-                  type="switch"
-                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')">
-        </sw-field>
+        <sw-switch-field
+                v-model:value="element.config.enableDirectUrl.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
+        />
 
-        <sw-field v-model="element.config.emptyText.value"
-                  type="text"
-                  :label="$tc('sw-cms.elements.moorl-product-buy-list.label.emptyText')">
-        </sw-field>
+        <sw-text-field
+                v-model:value="element.config.emptyText.value"
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.emptyText')"
+        />
     </sw-container>
 </div>

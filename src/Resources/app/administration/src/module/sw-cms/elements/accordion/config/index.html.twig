@@ -13,18 +13,17 @@
             </sw-tabs-item>
         </template>
 
-        <template slot="content" slot-scope="{ active }">
+        <template #content slot-scope="{ active }">
             <sw-container v-if="active === 'content'">
-                <sw-field type="text"
-                          :label="$tc(snippetPrefix + 'label.name')"
-                          v-model="element.config.name.value">
-                </sw-field>
-
+                <sw-text-field
+                        :label="$tc(snippetPrefix + 'label.name')"
+                        v-model:value="element.config.name.value"
+                />
 
                 <div class="sw-field">
                     <draggable
                         class="config-moorl_faq_list"
-                        v-model="element.config.entries.value"
+                        v-model:value="element.config.entries.value"
                         handle=".drag-indicator"
                         @choose="dragChoose"
                         @start="dragStart"
@@ -54,16 +53,17 @@
                             </template>
                             <template #content>
                                 <div class="collapse-content">
-                                    <sw-field type="text"
-                                              :label="$tc(snippetPrefix + 'label.name')"
-                                              v-model="entry.name">
-                                    </sw-field>
+                                    <sw-text-field
+                                            :label="$tc(snippetPrefix + 'label.name')"
+                                            v-model:value="entry.name"
+                                    />
 
-                                    <sw-code-editor v-model="entry.content"
-                                                    mode="twig"
-                                                    :label="$tc(snippetPrefix + 'label.content')"
-                                                    :softWraps="true">
-                                    </sw-code-editor>
+                                    <sw-code-editor
+                                            v-model:value="entry.content"
+                                            mode="twig"
+                                            :label="$tc(snippetPrefix + 'label.content')"
+                                            :softWraps="true"
+                                    />
 
                                     <sw-button variant="danger" @click.prevent="removeEntry($event, index)">
                                         {{ $tc(snippetPrefix + 'label.remove') }}
@@ -87,7 +87,7 @@
 
             <sw-container v-if="active === 'settings'">
                 <sw-select-field :label="$tc('sw-cms.elements.general.config.label.verticalAlign')"
-                                 v-model="element.config.verticalAlign.value"
+                                 v-model:value="element.config.verticalAlign.value"
                                  :placeholder="$tc('sw-cms.elements.general.config.label.verticalAlign')">
                     <option value="flex-start">{{ $tc('sw-cms.elements.general.config.label.verticalAlignTop') }}</option>
                     <option value="center">{{ $tc('sw-cms.elements.general.config.label.verticalAlignCenter') }}</option>

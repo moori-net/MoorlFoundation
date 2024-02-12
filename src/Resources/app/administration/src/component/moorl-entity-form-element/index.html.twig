@@ -4,7 +4,7 @@
             <sw-entity-multi-select
                     :label="column.label"
                     :helpText="column.helpText"
-                    v-model="value[column.property]"
+                    v-model:value="value[column.property]"
                     :labelProperty="column.flags.moorl_label_property"
                     :entity="column.entity"
                     :localMode="true"
@@ -19,7 +19,7 @@
                         :context="productSearchContext"
                         :label="column.label"
                         :required="column.required"
-                        v-model="value[column.localField]">
+                        v-model:value="value[column.localField]">
                     <template #result-item="{ item, index }">
                         <slot name="result-item" v-bind="{ item, index }">
                             <li is="sw-select-result" v-bind="{ item, index }">
@@ -39,7 +39,7 @@
                     <sw-entity-single-select
                             :label="column.label"
                             :helpText="column.helpText"
-                            v-model="value[column.localField]"
+                            v-model:value="value[column.localField]"
                             :labelProperty="column.flags.moorl_label_property"
                             :entity="column.entity"
                             :criteria="sortingSearchCriteria"
@@ -57,7 +57,7 @@
                 <sw-entity-single-select
                         :label="column.label"
                         :helpText="column.helpText"
-                        v-model="value[column.localField]"
+                        v-model:value="value[column.localField]"
                         :labelProperty="column.flags.moorl_label_property"
                         :entity="column.entity"
                         :required="column.required"
@@ -72,14 +72,14 @@
                 :label="column.label"
                 :helpText="column.helpText"
                 :softWraps="false"
-                v-model="value[column.property]"
+                v-model:value="value[column.property]"
         />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'select'">
         <sw-select-field
                 :label="column.label"
-                v-model="value[column.property]">
+                v-model:value="value[column.property]">
             <option v-for="option in column.flags.moorl_edit_field_options.options"
                     :value="option">
                 {{ $tc(snippetSrc + '.' + column.property + '.' + option) }}
@@ -97,21 +97,21 @@
 
     <template v-else>
         <template v-if="column.required">
-            <sw-field
+            <sw-text-field
                     :type="column.flags.moorl_edit_field"
                     :label="column.label"
                     :helpText="column.helpText"
-                    v-model="value[column.property]"
+                    v-model:value="value[column.property]"
                     required
                     validation="required"
             />
         </template>
         <template v-else>
-            <sw-field
+            <sw-text-field
                     :type="column.flags.moorl_edit_field"
                     :label="column.label"
                     :helpText="column.helpText"
-                    v-model="value[column.property]"
+                    v-model:value="value[column.property]"
             />
         </template>
     </template>

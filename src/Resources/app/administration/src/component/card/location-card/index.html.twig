@@ -6,7 +6,7 @@
                     <sw-entity-single-select
                             :label="$tc('moorl-foundation.properties.markerId')"
                             entity="moorl_marker"
-                            v-model="item.markerId"
+                            v-model:value="item.markerId"
                     />
 
                     <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.marker.list' }">
@@ -14,11 +14,10 @@
                     </router-link>
                 </div>
 
-                <sw-field
-                        type="switch"
+                <sw-switch-field
                         bordered
                         :label="$tc('moorl-foundation.properties.autoLocation')"
-                        v-model="item.autoLocation"
+                        v-model:value="item.autoLocation"
                 />
 
                 <sw-number-field
@@ -27,7 +26,7 @@
                         numberType="float"
                         step="0.00001"
                         digits="5"
-                        v-model="item.locationLat"
+                        v-model:value="item.locationLat"
                 />
 
                 <sw-number-field
@@ -36,7 +35,7 @@
                         numberType="float"
                         step="0.00001"
                         digits="5"
-                        v-model="item.locationLon"
+                        v-model:value="item.locationLon"
                 />
             {% endblock %}
         </sw-container>

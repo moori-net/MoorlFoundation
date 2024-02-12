@@ -40,7 +40,7 @@
                             <component :is="`sw-cms-block-${block.type}`">
                                 <sw-cms-slot
                                         v-for="el in block.slots"
-                                        :slot="el.slot"
+                                        :#el.slot
                                         :key="el.id"
                                         :element="el"
                                         :disabled="disabled"

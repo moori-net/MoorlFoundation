@@ -40,7 +40,7 @@
                 </sw-tabs-item>
             </template>
 
-            <template slot="content" slot-scope="{ active }">
+            <template #content slot-scope="{ active }">
                 <moorl-section-grid-config v-if="active === 'grid'" v-bind="{ section }"/>
 
                 <sw-container v-if="active === 'content'">
@@ -48,7 +48,7 @@
                             :label="$tc('moorl-section-config.label.color')"
                             :helpText="$tc('moorl-section-config.helpText.color')"
                             :options="colorOptions"
-                            v-model="section.customFields.moorl_section_config.color"
+                            v-model:value="section.customFields.moorl_section_config.color"
                             show-clearable-button
                             @change="initCustomFields"
                     />
@@ -59,23 +59,22 @@
                             :label="$tc('moorl-section-config.label.backgroundColor')"
                             :helpText="$tc('moorl-section-config.helpText.backgroundColor')"
                             :options="colorOptions"
-                            v-model="section.customFields.moorl_section_config.backgroundColor"
+                            v-model:value="section.customFields.moorl_section_config.backgroundColor"
                             show-clearable-button
                     />
 
-                    <sw-field
-                            type="switch"
+                    <sw-switch-field
                             :label="$tc('moorl-section-config.label.fixedBackground')"
                             :helpText="$tc('moorl-section-config.helpText.fixedBackground')"
                             bordered
-                            v-model="section.customFields.moorl_section_config.fixedBackground"
+                            v-model:value="section.customFields.moorl_section_config.fixedBackground"
                     />
 
                     <sw-single-select
                             :label="$tc('moorl-section-config.label.backgroundPaint')"
                             :helpText="$tc('moorl-section-config.helpText.backgroundPaint')"
                             :options="paintOptions"
-                            v-model="section.customFields.moorl_section_config.backgroundPaint"
+                            v-model:value="section.customFields.moorl_section_config.backgroundPaint"
                             show-clearable-button
                     />
                 </sw-container>
@@ -85,7 +84,7 @@
                             :label="$tc('moorl-section-config.label.offsetTop')"
                             :helpText="$tc('moorl-section-config.helpText.offsetTop')"
                             :options="offsetOptions"
-                            v-model="section.customFields.moorl_section_config.offsetTop"
+                            v-model:value="section.customFields.moorl_section_config.offsetTop"
                             show-clearable-button
                     />
 
@@ -93,7 +92,7 @@
                             :label="$tc('moorl-section-config.label.offsetBottom')"
                             :helpText="$tc('moorl-section-config.helpText.offsetBottom')"
                             :options="offsetOptions"
-                            v-model="section.customFields.moorl_section_config.offsetBottom"
+                            v-model:value="section.customFields.moorl_section_config.offsetBottom"
                             show-clearable-button
                     />
                 </sw-container>
@@ -103,7 +102,7 @@
                             :label="$tc('moorl-section-config.label.top')"
                             :helpText="$tc('moorl-section-config.helpText.top')"
                             :options="separatorOptions"
-                            v-model="section.customFields.moorl_section_config.top"
+                            v-model:value="section.customFields.moorl_section_config.top"
                             show-clearable-button
                     />
 
@@ -111,7 +110,7 @@
                             :label="$tc('moorl-section-config.label.bottom')"
                             :helpText="$tc('moorl-section-config.helpText.bottom')"
                             :options="separatorOptions"
-                            v-model="section.customFields.moorl_section_config.bottom"
+                            v-model:value="section.customFields.moorl_section_config.bottom"
                             show-clearable-button
                     />
 
@@ -119,7 +118,7 @@
                             :label="$tc('moorl-section-config.label.separatorBackground')"
                             :helpText="$tc('moorl-section-config.helpText.separatorBackground')"
                             :options="colorOptions"
-                            v-model="section.customFields.moorl_section_config.separatorBackground"
+                            v-model:value="section.customFields.moorl_section_config.separatorBackground"
                             show-clearable-button
                     />
                 </sw-container>
@@ -128,21 +127,21 @@
                     <sw-entity-multi-id-select
                             :label="$tc('moorl-section-config.label.salesChannel')"
                             :helpText="$tc('moorl-section-config.helpText.salesChannel')"
-                            v-model="section.customFields.moorl_section_config.salesChannel"
+                            v-model:value="section.customFields.moorl_section_config.salesChannel"
                             :repository="salesChannelRepository"
                     />
 
                     <sw-entity-multi-id-select
                             :label="$tc('moorl-section-config.label.customerGroup')"
                             :helpText="$tc('moorl-section-config.helpText.customerGroup')"
-                            v-model="section.customFields.moorl_section_config.customerGroup"
+                            v-model:value="section.customFields.moorl_section_config.customerGroup"
                             :repository="customerGroupRepository"
                     />
                 </sw-container>
             </template>
         </sw-tabs>
 
-        <template slot="modal-footer">
+        <template #modal-footer>
             <sw-button variant="primary" @click="show = false">
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
             </sw-button>

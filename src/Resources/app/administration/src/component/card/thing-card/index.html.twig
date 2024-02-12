@@ -20,11 +20,11 @@
             </sw-media-upload-v2>
         </div>
         
-        <sw-field :label="$tc('moorl-foundation.properties.name')" v-model="item.name" required validation="required" :error="itemNameError"/>
-        <sw-field type="switch" bordered :label="$tc('moorl-foundation.properties.active')" v-model="item.active"/>
-        <sw-field type="textarea" :label="$tc('moorl-foundation.properties.teaser')" v-model="item.teaser"/>
-        <sw-text-editor :label="$tc('moorl-foundation.properties.description')" v-model="item.description"/>
-        <sw-text-field :label="$tc('moorl-foundation.properties.seoUrl')" v-model="item.seoUrl">
+        <sw-text-field :label="$tc('moorl-foundation.properties.name')" v-model:value="item.name" required validation="required" :error="itemNameError"/>
+        <sw-switch-field bordered :label="$tc('moorl-foundation.properties.active')" v-model:value="item.active"/>
+        <sw-textarea-field :label="$tc('moorl-foundation.properties.teaser')" v-model:value="item.teaser"/>
+        <sw-text-editor :label="$tc('moorl-foundation.properties.description')" v-model:value="item.description"/>
+        <sw-text-field :label="$tc('moorl-foundation.properties.seoUrl')" v-model:value="item.seoUrl">
             <template #hint>
                 <div>
                     <router-link target="_blank" rel="noopener" :to="{name: 'sw.settings.seo.index'}">{{ $tc('moorl-foundation.helpText.seoUrl') }}</router-link>
@@ -32,9 +32,9 @@
                 </div>
             </template>
         </sw-text-field>
-        <sw-field type="textarea" :label="$tc('moorl-foundation.properties.keywords')" v-model="item.keywords"/>
-        <sw-field :label="$tc('moorl-foundation.properties.metaTitle')" v-model="item.metaTitle"/>
-        <sw-field type="textarea" :label="$tc('moorl-foundation.properties.metaDescription')" name="teaser" v-model="item.metaDescription"/>
+        <sw-textarea-field :label="$tc('moorl-foundation.properties.keywords')" v-model:value="item.keywords"/>
+        <sw-text-field :label="$tc('moorl-foundation.properties.metaTitle')" v-model:value="item.metaTitle"/>
+        <sw-textarea-field :label="$tc('moorl-foundation.properties.metaDescription')" name="teaser" v-model:value="item.metaDescription"/>
         
         <slot name="append"/>
 

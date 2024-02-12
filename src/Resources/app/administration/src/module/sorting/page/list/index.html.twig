@@ -1,11 +1,11 @@
 <sw-page class="moorl-sorting-list">
-    <template slot="smart-bar-header">
+    <template #smart-bar-header>
         <h2>
             {{ $tc('moorl-sorting.general.mainMenuItemGeneral') }}
         </h2>
     </template>
 
-    <template slot="smart-bar-actions">
+    <template #smart-bar-actions>
         <sw-button variant="primary" :routerLink="{ name: 'moorl.sorting.create' }">
             {{ $tc('moorl-foundation.buttons.newButtonText') }}
         </sw-button>
@@ -15,7 +15,7 @@
         <sw-language-switch @on-change="changeLanguage"></sw-language-switch>
     </template>
 
-    <template slot="content">
+    <template #content>
         <sw-entity-listing
                 v-if="items"
                 :items="items"

@@ -7,10 +7,10 @@
                 {{ $tc(snippetPrefix + 'label.cssSelector') }}
             </h4>
 
-            <sw-field v-model="currentConfig.cssSelector"
-                      type="text"
-                      :placeholder="$tc(snippetPrefix + 'placeholder.cssSelector')">
-            </sw-field>
+            <sw-text-field
+                    v-model:value="currentConfig.cssSelector"
+                    :placeholder="$tc(snippetPrefix + 'placeholder.cssSelector')"
+            />
 
             <div>
                 <sw-icon
@@ -34,36 +34,36 @@
 
         <template #content>
             <template v-for="type in ['in','out','hover']">
-                <sw-field type="switch"
-                          :label="$tc(snippetPrefix + 'label.active')"
-                          bordered
-                          v-model="currentConfig[type].active">
-                </sw-field>
+                <sw-switch-field
+                        :label="$tc(snippetPrefix + 'label.active')"
+                        bordered
+                        v-model:value="currentConfig[type].active"
+                />
 
                 <sw-select-field :label="$tc(snippetPrefix + 'label.name.' + type)"
                                  :helpText="$tc(snippetPrefix + 'helpText.name')"
-                                 v-model="currentConfig[type].name">
+                                 v-model:value="currentConfig[type].name">
                     <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
                         <option v-for="value in item.options" :value="value">{{ value }}</option>
                     </optgroup>
                 </sw-select-field>
 
                 <sw-select-field :label="$tc(snippetPrefix + 'label.condition')"
-                                 v-model="currentConfig[type].condition">
+                                 v-model:value="currentConfig[type].condition">
                     <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
                         {{ $tc(snippetPrefix + 'label.' + value) }}
                     </option>
                 </sw-select-field>
 
-                <sw-field v-model="currentConfig[type].duration"
-                          type="number"
-                          :label="$tc(snippetPrefix + 'label.duration')">
-                </sw-field>
+                <sw-number-field
+                        v-model:value="currentConfig[type].duration"
+                        :label="$tc(snippetPrefix + 'label.duration')"
+                />
 
-                <sw-field v-model="currentConfig[type].delay"
-                          type="number"
-                          :label="$tc(snippetPrefix + 'label.delay')">
-                </sw-field>
+                <sw-number-field
+                        v-model:value="currentConfig[type].delay"
+                        :label="$tc(snippetPrefix + 'label.delay')"
+                />
             </template>
         </template>
     </sw-collapse>

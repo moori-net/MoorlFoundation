@@ -1,49 +1,49 @@
 <div class="sw-cms-el-config-moorl-address">
-    <sw-cms-mapping-field v-model="element.config.street" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.street')" v-model="element.config.street.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.street" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.street')" v-model:value="element.config.street.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.streetNumber" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.streetNumber')" v-model="element.config.streetNumber.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.streetNumber" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.streetNumber')" v-model:value="element.config.streetNumber.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.zipcode" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.zipcode')" v-model="element.config.zipcode.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.zipcode" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.zipcode')" v-model:value="element.config.zipcode.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.city" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.city')" v-model="element.config.city.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.city" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.city')" v-model:value="element.config.city.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.additionalAddressLine1" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.additionalAddressLine1')" v-model="element.config.additionalAddressLine1.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.additionalAddressLine1" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.additionalAddressLine1')" v-model:value="element.config.additionalAddressLine1.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.additionalAddressLine2" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.additionalAddressLine2')" v-model="element.config.additionalAddressLine2.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.additionalAddressLine2" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.additionalAddressLine2')" v-model:value="element.config.additionalAddressLine2.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.countryCode" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.countryCode')" v-model="element.config.countryCode.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.countryCode" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.countryCode')" v-model:value="element.config.countryCode.value"/>
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.country" value-types="entity" entity="country">
+    <sw-cms-mapping-field v-model:value="element.config.country" value-types="entity" entity="country">
         <sw-entity-single-select
                 :label="$tc('moorl-foundation.properties.countryId')"
                 entity="country"
-                v-model="element.config.countryId.value"
+                v-model:value="element.config.countryId.value"
         />
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.countryState" value-types="entity" entity="country_state">
+    <sw-cms-mapping-field v-model:value="element.config.countryState" value-types="entity" entity="country_state">
         <sw-entity-single-select
                 :label="$tc('moorl-foundation.properties.countryStateId')"
                 entity="country_state"
-                v-model="element.config.countryStateId.value"
+                v-model:value="element.config.countryStateId.value"
         />
     </sw-cms-mapping-field>
 
-    <sw-cms-mapping-field v-model="element.config.locationPlaceId" value-types="string">
-        <sw-text-field :label="$tc('moorl-foundation.properties.locationPlaceId')" v-model="element.config.locationPlaceId.value"/>
+    <sw-cms-mapping-field v-model:value="element.config.locationPlaceId" value-types="string">
+        <sw-text-field :label="$tc('moorl-foundation.properties.locationPlaceId')" v-model:value="element.config.locationPlaceId.value"/>
     </sw-cms-mapping-field>
 </div>

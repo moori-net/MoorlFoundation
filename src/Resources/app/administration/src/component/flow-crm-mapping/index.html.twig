@@ -5,7 +5,7 @@
                 :helpText="helpTextClientId"
                 entity="moorl_client"
                 :criteria="clientCriteria"
-                v-model="config.clientId"
+                v-model:value="config.clientId"
                 @change="onChangeClient"
         />
 
@@ -32,7 +32,7 @@
             :label="propertiesFormId"
             :helpText="helpTextFormId"
             :options="formOptions"
-            v-model="config.formId"
+            v-model:value="config.formId"
             :disabled="!config.clientId"
             @change="onChangeForm"
             show-clearable-button
@@ -46,7 +46,7 @@
         </sw-alert>
 
         <moorl-parameter-grid
-            v-model="config.mapping"
+            v-model:value="config.mapping"
             :dataSelection="dataSelection"
             :showActions="true"
         />

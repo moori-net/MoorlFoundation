@@ -1,14 +1,14 @@
 {% block moorl_opening_hours_card %}
     <sw-card class="moorl-opening-hours-card" :title="$tc('moorl-foundation.card.openingHours')">
         <sw-single-select
-                v-model="item.timeZone"
+                v-model:value="item.timeZone"
                 :options="timezoneOptions"
                 required
                 :label="$tc('sw-users-permissions.users.user-detail.labelTimezone')"
                 :is-loading="timezoneOptions.length <= 0"
         />
 
-        <moorl-opening-hours v-model="item.openingHours"/>
+        <moorl-opening-hours v-model:value="item.openingHours"/>
 
         <slot name="append"/>
     </sw-card>
