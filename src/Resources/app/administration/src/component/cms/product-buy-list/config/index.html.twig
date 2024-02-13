@@ -8,8 +8,8 @@
         <sw-entity-multi-select
                 class="sw-cms-el-config-product-slider__products"
                 :placeholder="$tc('sw-cms.elements.productSlider.config.placeholder.selection')"
-                v-model:value="productCollection"
-                @update:value="onProductsChange"
+                v-model:entityCollection="productCollection"
+                @update:entity-collection="onProductsChange"
                 :context="productSearchContext"
                 :criteria="productSearchCriteria">
             <template #result-item="{ item, index }">

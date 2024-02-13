@@ -75,8 +75,8 @@
                 <sw-entity-multi-select
                         v-if="element.config.listingSource.value === 'select'"
                         :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingItemIds')"
-                        v-model:value="entityCollection"
-                        @update:value="onSelectionChange">
+                        v-model:entityCollection="entityCollection"
+                        @update:entity-collection="onSelectionChange">
                     <template #selection-label-property="{ item }">
                         {{ item.translated.name || item.name || item.translated.title || item.title }}
                     </template>

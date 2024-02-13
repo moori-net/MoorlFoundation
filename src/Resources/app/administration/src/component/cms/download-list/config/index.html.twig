@@ -7,12 +7,12 @@
     >
         <sw-entity-multi-select
                 class="sw-cms-el-config-download-slider__downloads"
-                v-model:value="downloadCollection"
-                @update:value="onDownloadsChange"
+                v-model:entityCollection="downloadCollection"
+                @update:entity-collection="onDownloadsChange"
                 labelProperty="fileName"
                 :context="downloadSearchContext"
-                :criteria="downloadSearchCriteria">
-        </sw-entity-multi-select>
+                :criteria="downloadSearchCriteria"
+        />
     </sw-cms-mapping-field>
 
     <sw-select-field :label="$tc('sw-cms.elements.moorl-download-list.label.layout')"
