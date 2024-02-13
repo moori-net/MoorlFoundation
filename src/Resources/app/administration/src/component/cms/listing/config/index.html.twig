@@ -1,6 +1,6 @@
 <div class="sw-cms-el-config-moorl-foundation-listing">
     <sw-tabs defaultItem="listing">
-        <template slot-scope="{ active }">
+        <template #default="{ active }">
             <sw-tabs-item name="listing"
                           :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.listing') }}
@@ -28,12 +28,12 @@
             </sw-tabs-item>
         </template>
 
-        <template #content slot-scope="{ active }">
+        <template #content="{ active }">
             <sw-container v-if="active === 'listing'" key="listing">
                 <sw-container columns="1fr 1fr" gap="0px 30px">
                     <div class="link-field">
                         <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
-                                         @change="onSelectionChange"
+                                         @update:value="onSelectionChange"
                                          v-model:value="element.config.listingSource.value">
                             <option v-for="option in elementOptions.listingSource" :value="option.value">{{ $tc(option.label) }}</option>
                         </sw-select-field>
@@ -61,12 +61,12 @@
 
                     <sw-number-field
                             v-model:value="element.config.limit.value"
-                            @change="onSelectionChange"
+                            @update:value="onSelectionChange"
                             :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')"
                     />
 
                     <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
-                                     @change="onSelectionChange"
+                                     @update:value="onSelectionChange"
                                      v-model:value="element.config.foreignKey.value">
                         <option v-for="option in elementOptions.foreignKey" :value="option.value">{{ option.label }}</option>
                     </sw-select-field>
@@ -76,7 +76,7 @@
                         v-if="element.config.listingSource.value === 'select'"
                         :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingItemIds')"
                         v-model:value="entityCollection"
-                        @change="onSelectionChange">
+                        @update:value="onSelectionChange">
                     <template #selection-label-property="{ item }">
                         {{ item.translated.name || item.name || item.translated.title || item.title }}
                     </template>

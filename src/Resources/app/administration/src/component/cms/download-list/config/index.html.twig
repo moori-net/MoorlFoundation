@@ -8,7 +8,7 @@
         <sw-entity-multi-select
                 class="sw-cms-el-config-download-slider__downloads"
                 v-model:value="downloadCollection"
-                @change="onDownloadsChange"
+                @update:value="onDownloadsChange"
                 labelProperty="fileName"
                 :context="downloadSearchContext"
                 :criteria="downloadSearchCriteria">

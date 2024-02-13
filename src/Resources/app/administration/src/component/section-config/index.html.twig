@@ -12,7 +12,7 @@
               :title="$tc('moorl-section-config.title')"
               @modal-close="show = false">
         <sw-tabs class="moorl-section-config__tabs" defaultItem="content">
-            <template slot-scope="{ active }" >
+            <template #default="{ active }" >
                 <sw-tabs-item v-if="section.type === 'moorl-grid'"
                               name="grid"
                               :activeTab="active">
@@ -40,7 +40,7 @@
                 </sw-tabs-item>
             </template>
 
-            <template #content slot-scope="{ active }">
+            <template #content="{ active }">
                 <moorl-section-grid-config v-if="active === 'grid'" v-bind="{ section }"/>
 
                 <sw-container v-if="active === 'content'">
@@ -50,7 +50,7 @@
                             :options="colorOptions"
                             v-model:value="section.customFields.moorl_section_config.color"
                             show-clearable-button
-                            @change="initCustomFields"
+                            @update:value="initCustomFields"
                     />
                 </sw-container>
 

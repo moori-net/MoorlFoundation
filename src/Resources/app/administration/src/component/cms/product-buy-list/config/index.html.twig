@@ -9,7 +9,7 @@
                 class="sw-cms-el-config-product-slider__products"
                 :placeholder="$tc('sw-cms.elements.productSlider.config.placeholder.selection')"
                 v-model:value="productCollection"
-                @change="onProductsChange"
+                @update:value="onProductsChange"
                 :context="productSearchContext"
                 :criteria="productSearchCriteria">
             <template #result-item="{ item, index }">

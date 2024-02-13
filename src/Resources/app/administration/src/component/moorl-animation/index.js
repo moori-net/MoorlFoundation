@@ -63,10 +63,14 @@ Component.register('moorl-animation', {
                     delay: 0,
                 }
             });
+
+            this.$forceUpdate();
         },
 
         deleteEntry(index) {
             this.value.splice(index, 1);
+
+            this.$forceUpdate();
         }
     }
 });

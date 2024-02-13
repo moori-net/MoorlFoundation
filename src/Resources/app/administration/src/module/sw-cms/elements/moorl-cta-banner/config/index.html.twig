@@ -1,6 +1,6 @@
 <div class="sw-cms-el-config-moorl-cta-banner">
     <sw-tabs defaultItem="general">
-        <template slot-scope="{ active }" >
+        <template #default="{ active }" >
             <sw-tabs-item name="general" :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-cta-banner.tab.general') }}
             </sw-tabs-item>
@@ -22,7 +22,7 @@
             </sw-tabs-item>
         </template>
 
-        <template #content slot-scope="{ active }">
+        <template #content="{ active }">
             <sw-container v-if="active === 'general'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
                     <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
@@ -61,7 +61,7 @@
                                 v-model:value="element.config.category.value"
                                 labelProperty="name"
                                 entity="category"
-                                @change="onChangeCategory"
+                                @update:value="onChangeCategory"
                         />
 
                         <sw-number-field
@@ -76,7 +76,7 @@
                                 v-model:value="element.config.product.value"
                                 labelProperty="name"
                                 entity="product"
-                                @change="onChangeProduct"
+                                @update:value="onChangeProduct"
                         />
 
                         <sw-number-field

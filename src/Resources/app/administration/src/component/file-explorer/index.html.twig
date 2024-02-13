@@ -2,7 +2,7 @@
     <sw-text-field
         v-model:value="value"
         :placeholder="placeholder"
-        @change="listContents"
+        @update:value="listContents"
     />
 
     <div v-if="showActions" class="moorl-file-explorer-actions">

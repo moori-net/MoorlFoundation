@@ -1,6 +1,6 @@
 <div class="sw-cms-el-config-moorl-search-hero">
     <sw-tabs class="sw-cms-el-config-moorl-search-hero__tabs" defaultItem="general">
-        <template slot-scope="{ active }" >
+        <template #default="{ active }" >
             <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
                           name="general"
                           :activeTab="active">
@@ -19,7 +19,7 @@
             </sw-tabs-item>
         </template>
 
-        <template #content slot-scope="{ active }">
+        <template #content="{ active }">
             <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-search-hero__tab-general">
                 <sw-text-field
                         v-model:value="element.config.elementHeight.value"

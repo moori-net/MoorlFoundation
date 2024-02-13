@@ -2,7 +2,7 @@
     <sw-select-field
             v-model:value="section.customFields.moorl_section_column_count"
             :label="$tc('moorl-section-grid-config.label.sectionColumnCount')"
-            @change="initCustomFields">
+            @update:value="initCustomFields">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -20,7 +20,7 @@
     <sw-number-field
             v-model:value="section.customFields.moorl_section_spacing"
             :label="$tc('moorl-section-grid-config.label.sectionSpacing')"
-            @change="initCustomFields"
+            @update:value="initCustomFields"
     />
 
     <div v-for="(configItem, configIndex) in section.customFields.moorl_section_grid_config"

@@ -6,7 +6,7 @@
                 entity="moorl_client"
                 :criteria="clientCriteria"
                 v-model:value="config.clientId"
-                @change="onChangeClient"
+                @update:value="onChangeClient"
         />
 
         <router-link
@@ -34,7 +34,7 @@
             :options="formOptions"
             v-model:value="config.formId"
             :disabled="!config.clientId"
-            @change="onChangeForm"
+            @update:value="onChangeForm"
             show-clearable-button
     />
 

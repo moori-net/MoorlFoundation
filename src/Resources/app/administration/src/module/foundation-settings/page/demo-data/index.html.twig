@@ -6,7 +6,7 @@
                     <sw-select-field
                             :label="$tc('moorl-foundation.properties.type')"
                             v-model:value="optionIndex"
-                            @change="selectOption()">
+                            @update:value="selectOption()">
                         <option v-for="(option, index) in options" :key="`option-${index}`" :value="index">
                             {{ $tc('moorl-foundation.label.standardDemo') }} ({{ option.name }} | {{ option.pluginName }})
                         </option>

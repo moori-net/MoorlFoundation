@@ -21,7 +21,7 @@
                     v-model:value="item.name"
                     size="small"
                     :placeholder="$tc('moorl-parameter-grid.properties.name')"
-                    @change="onChangeItem(item, itemIndex)"
+                    @update:value="onChangeItem(item, itemIndex)"
                     :disabled="item.fixed"
             />
         </template>
@@ -33,7 +33,7 @@
                     size="small"
                     :options="dataSelection"
                     :placeholder="$tc('moorl-parameter-grid.properties.data')"
-                    @change="onChangeItem(item, itemIndex)"
+                    @update:value="onChangeItem(item, itemIndex)"
             />
 
             <sw-text-field
@@ -41,7 +41,7 @@
                     v-model:value="item.data"
                     size="small"
                     :placeholder="$tc('moorl-parameter-grid.properties.data')"
-                    @change="onChangeItem(item, itemIndex)"
+                    @update:value="onChangeItem(item, itemIndex)"
             />
         </template>
 

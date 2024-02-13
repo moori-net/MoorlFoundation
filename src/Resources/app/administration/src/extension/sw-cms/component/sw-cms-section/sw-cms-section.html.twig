@@ -38,14 +38,17 @@
                                 :active="selectedBlock !== null && selectedBlock.id === block.id"
                                 @block-overlay-click="onBlockSelection(block)">
                             <component :is="`sw-cms-block-${block.type}`">
-                                <sw-cms-slot
+                                <template
                                         v-for="el in block.slots"
-                                        :#el.slot
                                         :key="el.id"
-                                        :element="el"
-                                        :disabled="disabled"
-                                        :active="selectedBlock !== null && selectedBlock.id === block.id"
-                                />
+                                        #[el.slot]
+                                >
+                                    <sw-cms-slot
+                                            :element="el"
+                                            :disabled="disabled"
+                                            :active="selectedBlock !== null && selectedBlock.id === block.id"
+                                    />
+                                </template>
                             </component>
                         </sw-cms-block>
 

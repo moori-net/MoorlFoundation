@@ -38,7 +38,7 @@
                     <sw-select-field
                             :label="$tc('moorl-client.properties.type')"
                             v-model:value="item.type"
-                            @change="resetConfig"
+                            @update:value="resetConfig"
                     >
                         <option v-for="(option, index) in options" :key="option.name" :value="option.name">
                             {{ option.name }}
@@ -47,7 +47,7 @@
                 </template>
             </sw-card>
 
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.config')">
+            <sw-card v-if="item && item.config" :isLoading="isLoading" :title="$tc('moorl-client.card.config')">
                 <template v-for="option in options">
                     <template v-if="item.type == option.name">
                         <template v-for="config in option.configTemplate">
