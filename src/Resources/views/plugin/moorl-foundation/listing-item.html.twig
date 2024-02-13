@@ -2,7 +2,9 @@
     {% set schemaOrgType = 'Thing' %}
 {% endif %}
 
-{% set config = element.translated.config %}
+{% if element.translated.config %}
+    {% set config = element.translated.config %}
+{% endif %}
 
 {% set imageContent %}
     {% block moorl_listing_item_image %}
