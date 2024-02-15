@@ -51,7 +51,7 @@
                             @media-upload-remove-image="onImageRemove"
                     />
 
-                    <div class="sw-cms-el-config-image__mapping-preview" #preview slot-scope="{ demoValue }">
+                    <div class="sw-cms-el-config-image__mapping-preview" #preview="{ demoValue }">
                         <img :src="demoValue.url" v-if="demoValue.url">
                         <sw-alert class="sw-cms-el-config-image__preview-info" variant="info" v-else>
                             {{ $tc('sw-cms.detail.label.mappingEmptyPreview') }}

@@ -133,7 +133,7 @@
     <template #sidebar>
         <sw-sidebar :propagateWidth="true">
             <sw-sidebar-media-item ref="mediaSidebarItem">
-                <template #context-menu-items slot-scope="media">
+                <template #context-menu-items="media">
                     <sw-context-menu-item
                             @click="setMediaFromSidebar(media.mediaItem)"
                     />
