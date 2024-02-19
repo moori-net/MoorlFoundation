@@ -98,7 +98,7 @@
         </template>
     </sw-data-grid>
 
-    <slot name="edit-modal" v-bind="{ showEditModal, selectedItem }">
+    <slot name="edit-modal" v-bind="{ showEditModal, selectedItem, onCloseModal }">
         <sw-modal v-if="showEditModal"
                   :title="$tc('global.default.edit')"
                   @modal-close="onCloseModal">
