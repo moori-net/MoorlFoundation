@@ -1,7 +1,7 @@
 <div class="moorl-layout-card-v2">
     <sw-card :title="$tc('moorl-layout-card.title')" :is-loading="isLoading">
         <div class="moorl-layout-card__base-layout">
-            <div class="moorl-layout-card__preview" @click="openLayoutModal">
+            <div v-if="cmsPage" class="moorl-layout-card__preview" @click="openLayoutModal">
                 <sw-cms-list-item
                         :page="cmsPage"
                         active

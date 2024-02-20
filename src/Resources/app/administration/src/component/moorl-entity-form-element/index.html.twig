@@ -4,7 +4,7 @@
             <sw-entity-multi-select
                     :label="column.label"
                     :helpText="column.helpText"
-                    v-model:value="value[column.property]"
+                    v-model:entityCollection="value[column.property]"
                     :labelProperty="column.flags.moorl_label_property"
                     :entity="column.entity"
                     :localMode="true"
@@ -77,11 +77,8 @@
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'select'">
-        <sw-select-field
-                :label="column.label"
-                v-model:value="value[column.property]">
-            <option v-for="option in column.flags.moorl_edit_field_options.options"
-                    :value="option">
+        <sw-select-field :label="column.label" v-model:value="value[column.property]">
+            <option v-for="option in column.flags.moorl_edit_field_options.options" :value="option">
                 {{ $tc(snippetSrc + '.' + column.property + '.' + option) }}
             </option>
         </sw-select-field>
@@ -96,23 +93,15 @@
     </template>
 
     <template v-else>
-        <template v-if="column.required">
-            <sw-text-field
-                    :type="column.flags.moorl_edit_field"
-                    :label="column.label"
-                    :helpText="column.helpText"
-                    v-model:value="value[column.property]"
-                    required
-                    validation="required"
-            />
-        </template>
-        <template v-else>
-            <sw-text-field
-                    :type="column.flags.moorl_edit_field"
-                    :label="column.label"
-                    :helpText="column.helpText"
-                    v-model:value="value[column.property]"
-            />
-        </template>
+        <sw-form-field-renderer
+                v-model:value="value[column.property]"
+                :config="{
+                    label: column.label,
+                    helpText: column.helpText,
+                    componentName: `sw-${column.flags.moorl_edit_field}-field`,
+                    type: column.flags.moorl_edit_field,
+                    required: column.required
+                }"
+        />
     </template>
 </div>

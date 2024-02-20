@@ -27,11 +27,6 @@ Component.register('moorl-layout-card-v2', {
             type: String,
             required: true
         },
-        cmsPage: {
-            type: Object,
-            required: false,
-            default: null,
-        },
         isLoading: {
             type: Boolean,
             required: false,
@@ -172,6 +167,7 @@ Component.register('moorl-layout-card-v2', {
                 }
                 this.updateCmsPageDataMapping();
                 Shopware.State.commit('cmsPageState/setCurrentPage', cmsPage);
+
                 return this.cmsPage;
             });
         },
