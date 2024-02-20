@@ -11,7 +11,7 @@
               v-if="show"
               :title="$tc('moorl-section-config.title')"
               @modal-close="show = false">
-        <sw-tabs class="moorl-section-config__tabs" defaultItem="content">
+        <sw-tabs class="moorl-section-config__tabs" default-item="content">
             <template #default="{ active }" >
                 <sw-tabs-item v-if="section.type === 'moorl-grid'"
                               name="grid"

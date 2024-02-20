@@ -2,13 +2,13 @@
     <sw-card class="moorl-thing-card" :title="$tc('moorl-foundation.card.thing')">
         <div v-if="isVisible('mediaId')" class="sw-field">
             <sw-upload-listener
-                    :uploadTag="item.id"
-                    autoUpload
+                    :upload-tag="item.id"
+                    auto-upload
                     @media-upload-finish="setMediaItem">
             </sw-upload-listener>
             <sw-media-upload-v2
-                    :uploadTag="item.id"
-                    defaultFolder="product_manufacturer"
+                    :upload-tag="item.id"
+                    default-folder="product_manufacturer"
                     :source="item.mediaId"
                     :allowMultiSelect="false"
                     :label="$tc('moorl-foundation.properties.logo')"
@@ -19,7 +19,7 @@
                     @media-upload-remove-image="onUnlinkMedia">
             </sw-media-upload-v2>
         </div>
-        
+
         <sw-text-field :label="$tc('moorl-foundation.properties.name')" v-model:value="item.name" required validation="required" :error="itemNameError"/>
         <sw-switch-field bordered :label="$tc('moorl-foundation.properties.active')" v-model:value="item.active"/>
         <sw-textarea-field :label="$tc('moorl-foundation.properties.teaser')" v-model:value="item.teaser"/>
@@ -35,13 +35,12 @@
         <sw-textarea-field :label="$tc('moorl-foundation.properties.keywords')" v-model:value="item.keywords"/>
         <sw-text-field :label="$tc('moorl-foundation.properties.metaTitle')" v-model:value="item.metaTitle"/>
         <sw-textarea-field :label="$tc('moorl-foundation.properties.metaDescription')" name="teaser" v-model:value="item.metaDescription"/>
-        
+
         <slot name="append"/>
 
         <sw-media-modal-v2
-                v-if="isVisible('mediaId')"
                 variant="regular"
-                v-if="mediaModalIsOpen"
+                v-if="isVisible('mediaId') && mediaModalIsOpen"
                 :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
                 :allowMultiSelect="false"
                 @media-upload-remove-image="onUnlinkMedia"
