@@ -4,8 +4,8 @@
             <sw-upload-listener
                     :upload-tag="item.id"
                     auto-upload
-                    @media-upload-finish="setMediaItem">
-            </sw-upload-listener>
+                    @media-upload-finish="setMediaItem"
+            />
             <sw-media-upload-v2
                     :upload-tag="item.id"
                     default-folder="product_manufacturer"
@@ -16,8 +16,8 @@
                     @sw-media-upload-media-upload-success="setMediaItem"
                     @media-drop="onDropMedia"
                     @media-upload-sidebar-open="onOpenMediaModal"
-                    @media-upload-remove-image="onUnlinkMedia">
-            </sw-media-upload-v2>
+                    @media-upload-remove-image="onUnlinkMedia"
+            />
         </div>
 
         <sw-text-field :label="$tc('moorl-foundation.properties.name')" v-model:value="item.name" required validation="required" :error="itemNameError"/>

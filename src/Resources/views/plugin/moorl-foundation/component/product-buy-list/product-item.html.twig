@@ -129,8 +129,8 @@
                          class="products-buy-form-list-item-info-price">
                         <meta itemprop="priceCurrency"
                               content="{{ context.currency.translated.shortName }}"/>
-                        <meta itemprop="price" content="{{ price.unitPrice }}" />
-                        <link itemprop="availability" href="https://schema.org/InStock" />
+                        <meta itemprop="price" content="{{ price.unitPrice }}"/>
+                        <link itemprop="availability" href="https://schema.org/InStock"/>
                         {{ price.unitPrice|currency }}{{ "general.star"|trans|sw_sanitize }}
                     </div>
                 {% endif %}

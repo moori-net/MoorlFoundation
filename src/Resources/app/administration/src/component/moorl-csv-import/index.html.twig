@@ -117,8 +117,8 @@
                                 <moorl-entity-form-element
                                         v-if="!column.flags.primary_key && !column.flags.moorl_unique"
                                         :value="selectedItem"
-                                        :column="column">
-                                </moorl-entity-form-element>
+                                        :column="column"
+                                />
                                 <span v-else class="sw-data-grid__cell-value">
                                     {{ $tc('moorl-foundation.import.isUnique') }}
                                 </span>
