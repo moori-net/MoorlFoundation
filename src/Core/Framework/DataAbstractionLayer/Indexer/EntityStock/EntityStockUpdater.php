@@ -62,19 +62,6 @@ class EntityStockUpdater implements EventSubscriberInterface
 
     protected function enrichSalesChannelProductCriteria(Criteria $criteria, OrderLineItemEntity $lineItem): void
     {
-        return;
-
-        /*
-        $salesChannelId = $lineItem->getOrder()->getSalesChannelId();
-
-        try {
-            $customerGroupId = $lineItem->getOrder()->getOrderCustomer()->getCustomer()->getGroupId();
-            $customerId = $lineItem->getOrder()->getOrderCustomer()->getCustomer()->getId();
-        } catch (\Exception $exception) {
-            $customerGroupId = null;
-            $customerId = null;
-        }
-        */
     }
 
     public function lineItemWritten(EntityWrittenEvent $event): void
