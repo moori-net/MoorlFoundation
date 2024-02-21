@@ -144,7 +144,10 @@ Component.register('moorl-entity-grid', {
 
             showEditModal: false,
             showImportModal: false,
-            showExportModal: false
+            showExportModal: false,
+
+            currentDefaultCurrency: null,
+            currentTax: null,
         };
     },
 
@@ -216,19 +219,21 @@ Component.register('moorl-entity-grid', {
 
         loadTax() {
             if (this.tax) {
+                this.currentTax = this.tax;
                 return;
             }
             return this.taxRepository.search(new Criteria(1, 500)).then((taxes) => {
-                this.tax = taxes[0];
+                this.currentTax = taxes[0];
             });
         },
 
         loadDefaultCurrency() {
             if (this.defaultCurrency) {
+                this.currentDefaultCurrency = this.defaultCurrency;
                 return;
             }
             this.currencyRepository.search(new Criteria(1, 500)).then((currencies) => {
-                this.defaultCurrency = currencies.find(currency => currency.isSystemDefault);
+                this.currentDefaultCurrency = currencies.find(currency => currency.isSystemDefault);
             });
         },
 
@@ -248,7 +253,7 @@ Component.register('moorl-entity-grid', {
             if (item.tax) {
                 return item.tax;
             } else {
-                return this.tax;
+                return this.currentTax;
             }
         },
 

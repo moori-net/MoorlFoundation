@@ -41,24 +41,29 @@
         </sw-button>
     </sw-container>
 
-    <sw-data-grid v-if="totalCount > 0"
-                  :dataSource="items"
-                  :columns="gridColumns"
-                  :showSelection="true"
-                  :showSettings="false"
-                  :isLoading="isLoading"
-                  :sortBy="sortBy"
-                  :sortDirection="sortDirection"
-                  :allowColumnEdit="false"
-                  @column-sort="onSortColumn"
-                  @select-all-items="onSelectionChanged"
-                  @selection-change="onSelectionChanged">
-        <template v-for="priceProperty in priceProperties" v-slot:[`column-${priceProperty}`]="{item}">
+    <sw-data-grid
+            v-if="totalCount > 0"
+            :dataSource="items"
+            :columns="gridColumns"
+            :showSelection="true"
+            :showSettings="false"
+            :isLoading="isLoading"
+            :sortBy="sortBy"
+            :sortDirection="sortDirection"
+            :allowColumnEdit="false"
+            @column-sort="onSortColumn"
+            @select-all-items="onSelectionChanged"
+            @selection-change="onSelectionChanged"
+    >
+        <template
+                v-for="priceProperty in priceProperties"
+                v-slot:[`column-${priceProperty}`]="{item}"
+        >
             <sw-price-preview
                     :price="getItemPrice(item)"
                     :default-price="{}"
                     :tax-rate="getItemTax(item)"
-                    :currency="defaultCurrency"
+                    :currency="currentDefaultCurrency"
             />
         </template>
 
@@ -107,8 +112,8 @@
                     :value="selectedItem"
                     :column="column"
                     :snippetSrc="snippetSrc"
-                    :tax="tax"
-                    :defaultCurrency="defaultCurrency"
+                    :tax="currentTax"
+                    :defaultCurrency="currentDefaultCurrency"
             />
 
             <template #modal-footer>
