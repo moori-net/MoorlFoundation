@@ -12,7 +12,7 @@ Component.register('moorl-listing-config', {
         value: {
             type: Object,
             required: false,
-            default: {}
+            default: defaultValue
         }
     },
 
@@ -22,22 +22,7 @@ Component.register('moorl-listing-config', {
         };
     },
 
-    watch: {
-        value: {
-            handler(value){
-                this.$emit('change', this.value);
-                console.log(this.value);
-            },
-            deep: true
-        }
-    },
-
     created() {
-        this.value = Object.assign(
-            cloneDeep(defaultValue),
-            this.value
-        );
-
         this.isLoading = false;
     },
 
