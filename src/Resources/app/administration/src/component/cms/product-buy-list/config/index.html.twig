@@ -11,7 +11,8 @@
                 v-model:entityCollection="productCollection"
                 @update:entity-collection="onProductsChange"
                 :context="productSearchContext"
-                :criteria="productSearchCriteria">
+                :criteria="productSearchCriteria"
+        >
             <template #result-item="{ item, index }">
                 <slot name="result-item" v-bind="{ item, index }">
                     <li is="sw-select-result" v-bind="{ item, index }">
@@ -27,17 +28,16 @@
     </sw-cms-mapping-field>
 
     <sw-container columns="1fr 1fr" gap="0px 30px">
-        <template
-                v-for="product in products"
-                v-if="element.config.productQuantities.value[product.id]"
-        >
-            <sw-number-field
-                    min="1"
-                    max="100"
-                    step="1"
-                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.productQuantity') + ': ' + product.translated.name"
-                    v-model:value="element.config.productQuantities.value[product.id]"
-            />
+        <template v-for="product in products">
+            <template v-if="element.config.productQuantities.value[product.id]">
+                <sw-number-field
+                        min="1"
+                        max="100"
+                        step="1"
+                        :label="$tc('sw-cms.elements.moorl-product-buy-list.label.productQuantity') + ': ' + product.translated.name"
+                        v-model:value="element.config.productQuantities.value[product.id]"
+                />
+            </template>
         </template>
     </sw-container>
 
