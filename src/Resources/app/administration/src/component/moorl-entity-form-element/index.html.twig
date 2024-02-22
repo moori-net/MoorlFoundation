@@ -86,7 +86,7 @@
 
     <template v-else-if="column.flags.moorl_edit_field === 'price' && column.property === 'price'">
         <sw-price-field
-                :price="price"
+                :value="price"
                 :tax-rate="tax"
                 :currency="defaultCurrency"
         />
