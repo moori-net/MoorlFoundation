@@ -60,7 +60,7 @@
                 v-slot:[`column-${priceProperty}`]="{item}"
         >
             <sw-price-preview
-                    :price="getItemPrice(item)"
+                    :value="getItemPrice(item)"
                     :default-price="{}"
                     :tax-rate="getItemTax(item)"
                     :currency="currentDefaultCurrency"
