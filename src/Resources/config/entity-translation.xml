@@ -6,19 +6,19 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="MoorlFoundation\EntityTranslation\ProductTranslation">
-            <tag name="moorl.foundation.entity_translation" priority="0" />
+            <tag name="moorl.foundation.entity_translation" priority="0"/>
         </service>
 
         <service id="MoorlFoundation\EntityTranslation\CategoryTranslation">
-            <tag name="moorl.foundation.entity_translation" priority="0" />
+            <tag name="moorl.foundation.entity_translation" priority="0"/>
         </service>
 
         <service id="MoorlFoundation\EntityTranslation\PropertyGroupTranslation">
-            <tag name="moorl.foundation.entity_translation" priority="0" />
+            <tag name="moorl.foundation.entity_translation" priority="0"/>
         </service>
 
         <service id="MoorlFoundation\EntityTranslation\PropertyGroupOptionTranslation">
-            <tag name="moorl.foundation.entity_translation" priority="0" />
+            <tag name="moorl.foundation.entity_translation" priority="0"/>
         </service>
     </services>
 </container>

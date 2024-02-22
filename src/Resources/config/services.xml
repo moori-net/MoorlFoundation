@@ -45,7 +45,7 @@
             <argument type="service" id="Shopware\Storefront\Theme\ThemeService"/>
             <argument>%kernel.project_dir%</argument>
 
-            <argument type="tagged" tag="moorl.foundation.data" />
+            <argument type="tagged" tag="moorl.foundation.data"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\EntitySearchService" public="true">
@@ -53,7 +53,7 @@
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="event_dispatcher"/>
 
-            <argument type="tagged" tag="moorl.foundation.entity_search" />
+            <argument type="tagged" tag="moorl.foundation.entity_search"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\EntitySuggestService" public="true">
@@ -61,7 +61,7 @@
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="event_dispatcher"/>
 
-            <argument type="tagged" tag="moorl.foundation.entity_suggest" />
+            <argument type="tagged" tag="moorl.foundation.entity_suggest"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\LocationService" public="true">
@@ -101,31 +101,31 @@
 
         <!-- Entities -->
         <service id="MoorlFoundation\Core\Content\CmsElementConfig\CmsElementConfigDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_cms_element_config" />
+            <tag name="shopware.entity.definition" entity="moorl_cms_element_config"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Location\LocationDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_location" />
+            <tag name="shopware.entity.definition" entity="moorl_location"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Location\LocationCacheDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_location_cache" />
+            <tag name="shopware.entity.definition" entity="moorl_location_cache"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Sorting\SortingDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_sorting" />
+            <tag name="shopware.entity.definition" entity="moorl_sorting"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Sorting\SortingTranslationDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_sorting_translation" />
+            <tag name="shopware.entity.definition" entity="moorl_sorting_translation"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Marker\MarkerDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_marker" />
+            <tag name="shopware.entity.definition" entity="moorl_marker"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Client\ClientDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_client" />
+            <tag name="shopware.entity.definition" entity="moorl_client"/>
         </service>
 
         <!-- Listing Route Decorator -->
@@ -135,7 +135,7 @@
                  public="true">
             <argument type="service" id="MoorlFoundation\Core\Content\Product\SalesChannel\Listing\FoundationProductListingRoute.inner"/>
             <argument type="service" id="MoorlFoundation\Core\Service\EntitySearchService"/>
-            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="event_dispatcher"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Product\SalesChannel\Search\FoundationProductSearchRoute"
@@ -144,7 +144,7 @@
                  public="true">
             <argument type="service" id="MoorlFoundation\Core\Content\Product\SalesChannel\Search\FoundationProductSearchRoute.inner"/>
             <argument type="service" id="MoorlFoundation\Core\Service\EntitySearchService"/>
-            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="event_dispatcher"/>
         </service>
 
         <!-- CMS Resolver -->
@@ -211,7 +211,7 @@
         <!-- Cookie consent -->
         <service id="MoorlFoundation\Core\Service\LocationCookieProvider"
                  decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
-            <argument type="service" id="MoorlFoundation\Core\Service\LocationCookieProvider.inner" />
+            <argument type="service" id="MoorlFoundation\Core\Service\LocationCookieProvider.inner"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
         </service>
 
