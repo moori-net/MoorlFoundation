@@ -7,9 +7,14 @@ use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Loader\DirectoryLoader;
+use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class PluginLifecycleHelper
 {
@@ -19,6 +24,31 @@ class PluginLifecycleHelper
             $loader = new XmlFileLoader($container, new FileLocator($paths));
             $loader->load('services.xml');
         }
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param string $path
+     * @return void
+     * @throws \Exception
+     *
+     * Copy from: https://developer.shopware.com/docs/guides/plugins/plugins/plugin-fundamentals/logging.html
+     */
+    public static function loadYaml(ContainerBuilder $container, string $path): void
+    {
+        $locator = new FileLocator('Resources/config');
+
+        $resolver = new LoaderResolver([
+            new YamlFileLoader($container, $locator),
+            new GlobFileLoader($container, $locator),
+            new DirectoryLoader($container, $locator),
+        ]);
+
+        $configLoader = new DelegatingLoader($resolver);
+
+        $confDir = \rtrim($path, '/') . '/Resources/config';
+
+        $configLoader->load($confDir . '/{packages}/*.yaml', 'glob');
     }
 
     public static function update(string $plugin, ContainerInterface $container): void
