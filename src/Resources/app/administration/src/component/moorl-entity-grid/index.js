@@ -141,6 +141,8 @@ Component.register('moorl-entity-grid', {
             limit: 10,
             searchTerm: null,
             isLoading: false,
+            sortBy: 'createdAt',
+            sortDirection: 'DESC',
 
             showEditModal: false,
             showImportModal: false,
