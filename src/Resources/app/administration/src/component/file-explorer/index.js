@@ -17,6 +17,10 @@ Component.register('moorl-file-explorer', {
         Mixin.getByName('notification')
     ],
 
+    emits: [
+        'update:value'
+    ],
+
     props: [
         'value',
         'clientId',
@@ -31,18 +35,13 @@ Component.register('moorl-file-explorer', {
             showCreateDirModal: false,
             dirname: null,
             filename: null,
+            directory: null,
         };
     },
 
-    computed: {},
-
-    watch: {
-        value: function () {
-            this.$emit('input', this.value);
-        }
-    },
-
     created() {
+        this.directory = this.value;
+
         this.listContents();
     },
 
@@ -51,7 +50,10 @@ Component.register('moorl-file-explorer', {
             if (directory === '..') {
                 directory = this.value.split("/").slice(0, -1).join('/');
             }
-            this.value = directory;
+
+            this.directory = directory;
+
+            this.$emit('update:value', directory);
             this.listContents();
         },
 
@@ -149,7 +151,7 @@ Component.register('moorl-file-explorer', {
 
             this.foundationApiService.post(`/moorl-foundation/file-explorer/list-contents`, {
                 clientId: this.clientId,
-                directory: this.value
+                directory: this.directory
             }).then((response) => {
                 this.items = response;
                 this.isLoading = false;
