@@ -4,10 +4,9 @@ const {Component} = Shopware;
 Component.register('moorl-parameter-grid', {
     template,
 
-    model: {
-        prop: 'parameters',
-        event: 'change',
-    },
+    emits: [
+        'update:parameters'
+    ],
 
     props: {
         label: {
@@ -22,7 +21,6 @@ Component.register('moorl-parameter-grid', {
         },
         parameters: {
             type: Array,
-            default: [],
             required: true,
         },
         dataSelection: {
@@ -80,39 +78,27 @@ Component.register('moorl-parameter-grid', {
         },
     },
 
-    watch: {
-        parameters: {
-            handler(value) {
-                if (!value || !value.length) {
-                    return;
-                }
-
-                this.items = value;
-            },
-        },
-    },
-
     methods: {
         toggleCustomValue(item, itemIndex) {
             this.$set(this.items, itemIndex, { ...item, isCustom: !item.isCustom });
-            this.$emit('change', this.items);
+            this.$emit('update:parameters', this.items);
         },
 
         onChangeItem(item, itemIndex) {
             if (!item.name || !item.data || itemIndex !== this.items.length - 1) {
                 return;
             }
-
-            this.$emit('change', this.items);
+            this.$emit('update:parameters', this.items);
         },
 
         addItem() {
-            this.items.push({data: '', name: ''})
+            this.items.push({data: '', name: ''});
+            this.$emit('update:parameters', this.items);
         },
 
         deleteItem(itemIndex) {
-            this.$delete(this.items, itemIndex);
-            this.$emit('change', this.items);
+            this.items.splice(itemIndex, 1);
+            this.$emit('update:parameters', this.items);
         }
     },
 });
