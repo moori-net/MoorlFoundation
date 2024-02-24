@@ -12,13 +12,16 @@ Module.register('moorl-marker', {
     routes: {
         list: {
             component: 'moorl-marker-list',
-            path: 'list'
+            path: 'list',
+            meta: {
+                parentPath: 'sw.settings.index.plugins'
+            }
         },
         detail: {
             component: 'moorl-marker-detail',
             path: 'detail/:id',
             meta: {
-                parentPath: 'moorl.marker.list'
+                parentPath: 'moorl.marker.list',
             }
         },
         create: {
