@@ -13,14 +13,14 @@ Module.register('moorl-foundation-settings', {
             component: 'moorl-foundation-settings-demo-data',
             path: 'demodata',
             meta: {
-                parentPath: 'sw.settings.index'
+                parentPath: 'sw.settings.index.plugins'
             },
         },
         cmselementconfig: {
             component: 'moorl-cms-element-config',
             path: 'cmselementconfig',
             meta: {
-                parentPath: 'sw.settings.index'
+                parentPath: 'sw.settings.index.plugins'
             },
         }
     },

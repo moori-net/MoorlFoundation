@@ -12,7 +12,10 @@ Module.register('moorl-client', {
     routes: {
         list: {
             component: 'moorl-client-list',
-            path: 'list'
+            path: 'list',
+            meta: {
+                parentPath: 'sw.settings.index.plugins'
+            }
         },
         detail: {
             component: 'moorl-client-detail',

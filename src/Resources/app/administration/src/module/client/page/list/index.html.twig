@@ -1,23 +1,9 @@
 <sw-page class="moorl-client-list">
-    <template #smart-bar-header>
-        <h2>
-            {{ $tc('moorl-client.title') }}
-        </h2>
-    </template>
-
     <template #smart-bar-actions>
         <sw-button variant="primary" :routerLink="{ name: 'moorl.client.create' }">
             {{ $tc('moorl-foundation.buttons.newButtonText') }}
         </sw-button>
     </template>
-
-    <sw-sidebar #sidebar>
-        <sw-sidebar-item
-                icon="regular-redo"
-                :title="$t('moorl-foundation.buttons.refreshButtonText')"
-                @click="getList"
-        />
-    </sw-sidebar>
 
     <template #content>
         <sw-entity-listing
@@ -28,7 +14,8 @@
                 :columns="columns"
                 detailRoute="moorl.client.detail"
                 @select-item="updateSelection"
-                @update-records="updateTotal">
+                @update-records="updateTotal"
+        >
             <template #more-actions="{ item }">
                 <sw-context-menu-item @click="onDuplicate(item)">
                     {{ $tc('sw-product.list.buttonDuplicate') }}

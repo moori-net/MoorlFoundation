@@ -15,7 +15,7 @@ Module.register('moorl-sorting', {
             component: 'moorl-sorting-list',
             path: 'list',
             meta: {
-                parentPath: 'sw.settings.index'
+                parentPath: 'sw.settings.index.plugins'
             }
         },
         detail: {
