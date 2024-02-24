@@ -191,7 +191,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         onSaveInlineEdit(item) {
             if (item.field === null) {
                 this.createNotificationError({
-                    message: this.$t(
+                    message: this.$tc(
                         'sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull',
                     ),
                 });

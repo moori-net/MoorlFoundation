@@ -51,12 +51,12 @@ Component.register('moorl-cms-element-config', {
             return [{
                 property: 'name',
                 dataIndex: 'name',
-                label: this.$t('moorl-foundation.properties.name'),
+                label: this.$tc('moorl-foundation.properties.name'),
                 inlineEdit: 'string'
             }, {
                 property: 'type',
                 dataIndex: 'type',
-                label: this.$t('moorl-foundation.properties.type'),
+                label: this.$tc('moorl-foundation.properties.type'),
                 inlineEdit: 'string'
             }];
         },
