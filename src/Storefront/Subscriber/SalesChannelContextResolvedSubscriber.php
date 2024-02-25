@@ -9,7 +9,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SalesChannelContextResolvedSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly SystemConfigService $systemConfigService, private readonly EntityRepository $cmsPageRepository)
+    public function __construct(
+        private readonly SystemConfigService $systemConfigService,
+        private readonly EntityRepository $cmsPageRepository
+    )
     {
     }
 
