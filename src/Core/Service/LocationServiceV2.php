@@ -58,16 +58,17 @@ INSERT INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `cre
 SELECT
     UNHEX('%s'),
     `id`, 
-    (6371 * acos(
+    IFNULL((6371 * acos(
         cos(radians(`location_lat`)) *
         cos(radians(%f)) *
         cos(radians(%f) - radians(`location_lon`)) +
         sin(radians(`location_lat`)) *
         sin(radians(%f))
-    )) AS distance,
+    )), 0) AS `distance`,
     `created_at`, 
     `updated_at`
 FROM `%s`
+WHERE `active` = '1'
 ON DUPLICATE KEY UPDATE `moorl_location_cache`.`distance` = `distance`;
 SQL;
         $this->connection->executeStatement(sprintf(

@@ -6,9 +6,7 @@ const {Component} = Shopware;
 Component.register('moorl-opening-hours', {
     template,
 
-    emits: [
-        'update:value'
-    ],
+    emits: ['update:value'],
 
     props: ['value'],
 
