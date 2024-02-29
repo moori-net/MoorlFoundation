@@ -1,5 +1,6 @@
 # Open todos
 
+* Use SEO URL management from Shopware in all moori plugins
 * TOC stutters on scroll with 15/27 screens
 * Check "hreflang" for CMS pages
 * Timestamps for CSV export
