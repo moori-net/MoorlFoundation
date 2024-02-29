@@ -6,6 +6,10 @@ const {Component} = Shopware;
 Component.register('moorl-opening-hours', {
     template,
 
+    emits: [
+        'update:value'
+    ],
+
     props: ['value'],
 
     watch: {
@@ -16,7 +20,7 @@ Component.register('moorl-opening-hours', {
 
     created() {
         if (!this.value || this.value === true) {
-            this.value = [
+            this.$emit('update:value', [
                 {day: 'monday', info: null, times: [{from: '08:00', until: '12:00'}, {from: '14:00', until: '18:00'}]},
                 {day: 'tuesday', info: null, times: [{from: '08:00', until: '12:00'}, {from: '14:00', until: '18:00'}]},
                 {day: 'wednesday', info: null, times: [{from: '08:00', until: '12:00'}, {from: '14:00', until: '18:00'}]},
@@ -24,7 +28,7 @@ Component.register('moorl-opening-hours', {
                 {day: 'friday', info: null, times: [{from: '08:00', until: '12:00'}, {from: '14:00', until: '18:00'}]},
                 {day: 'saturday', info: null, times: []},
                 {day: 'sunday', info: null, times: []}
-            ];
+            ]);
         }
     },
 

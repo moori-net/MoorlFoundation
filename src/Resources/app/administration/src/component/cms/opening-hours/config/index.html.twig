@@ -1,13 +1,15 @@
 <div class="sw-cms-el-config-moorl-opening-hours">
     <sw-cms-mapping-field
             v-model:value="element.config.openingHours"
-            value-types="string">
+            value-types="string"
+    >
         <moorl-opening-hours v-model:value="element.config.openingHours.value"/>
     </sw-cms-mapping-field>
 
     <sw-cms-mapping-field
             v-model:value="element.config.timeZone"
-            value-types="string">
+            value-types="string"
+    >
         <sw-text-field
                 :label="$tc('sw-cms.elements.moorl-opening-hours.label.timeZone')"
                 v-model:value="element.config.timeZone.value"
