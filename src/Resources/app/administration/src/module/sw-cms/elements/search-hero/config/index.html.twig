@@ -40,30 +40,24 @@
             </sw-container>
 
             <sw-container v-if="active === 'media'" class="sw-cms-el-config-moorl-search-hero__tab-media">
-                <sw-cms-mapping-field valueTypes="entity" entity="media" v-model:value="element.config.media">
+                <div class="sw-field">
                     <sw-media-upload-v2
                             variant="regular"
-                            :uploadTag="uploadTag"
+                            :upload-tag="uploadTag"
                             :source="previewSource"
-                            :allowMultiSelect="false"
-                            :defaultFolder="cmsPageState.pageEntityName"
+                            :allow-multi-select="false"
+                            :default-folder="cmsPageState.pageEntityName"
+                            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
                             @media-upload-sidebar-open="onOpenMediaModal"
                             @media-upload-remove-image="onImageRemove"
                     />
 
-                    <div class="sw-cms-el-config-image__mapping-preview" #preview="{ demoValue }">
-                        <img :src="demoValue.url" v-if="demoValue.url">
-                        <sw-alert class="sw-cms-el-config-image__preview-info" variant="info" v-else>
-                            {{ $tc('sw-cms.detail.label.mappingEmptyPreview') }}
-                        </sw-alert>
-                    </div>
-                </sw-cms-mapping-field>
-
-                <sw-upload-listener
-                    :uploadTag="uploadTag"
-                    autoUpload
-                    @media-upload-finish="onImageUpload"
-                />
+                    <sw-upload-listener
+                            :uploadTag="uploadTag"
+                            autoUpload
+                            @media-upload-finish="onImageUpload"
+                    />
+                </div>
 
                 <sw-select-field :label="$tc(snippetPrefix +'config.backgroundAttachment')"
                                  v-model:value="element.config.backgroundAttachment.value">
@@ -107,12 +101,11 @@
                         :label="$tc(snippetPrefix + 'config.subHeadline')"
                 />
                 <sw-colorpicker
-                    colorOutput="hex"
-                    :zIndex="1000"
-                    :label="$tc(snippetPrefix + 'config.textColor')"
-                    v-model:value="element.config.textColor.value"
+                        colorOutput="hex"
+                        :zIndex="1000"
+                        :label="$tc(snippetPrefix + 'config.textColor')"
+                        v-model:value="element.config.textColor.value"
                 />
-
                 <sw-switch-field
                         v-model:value="element.config.textShadowActive.value"
                         bordered
@@ -123,13 +116,14 @@
     </sw-tabs>
 
     <sw-media-modal-v2
-        variant="regular"
-        v-if="mediaModalIsOpen"
-        :entityContext="cmsPageState.entityName"
-        :allowMultiSelect="false"
-        :initialFolderId="cmsPageState.defaultMediaFolderId"
-        @media-upload-remove-image="onImageRemove"
-        @media-modal-selection-change="onSelectionChanges"
-        @modal-close="onCloseModal"
+            v-if="mediaModalIsOpen"
+            variant="full"
+            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+            :entity-context="cmsPageState.entityName"
+            :allow-multi-select="false"
+            :initial-folder-id="cmsPageState.defaultMediaFolderId"
+            @media-upload-remove-image="onImageRemove"
+            @media-modal-selection-change="onSelectionChanges"
+            @modal-close="onCloseModal"
     />
 </div>

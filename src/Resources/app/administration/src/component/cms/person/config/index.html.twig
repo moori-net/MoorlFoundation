@@ -2,7 +2,8 @@
     <sw-cms-mapping-field v-model:value="element.config.salutationId" value-types="string" entity="salutation">
         <sw-entity-single-select
                 :label="$tc('moorl-foundation.properties.salutation')"
-                entity="country_state"
+                entity="salutation"
+                labelProperty="displayName"
                 v-model:value="element.config.salutationId.value"
         />
     </sw-cms-mapping-field>
