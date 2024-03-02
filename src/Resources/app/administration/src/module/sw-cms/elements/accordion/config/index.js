@@ -1,6 +1,5 @@
 const { Component, Mixin } = Shopware;
 
-import draggable from 'vuedraggable';
 import template from './index.html.twig';
 import './index.scss';
 
@@ -8,10 +7,6 @@ Component.register('sw-cms-el-config-moorl-accordion', {
     template,
 
     inject: ['repositoryFactory'],
-
-    components: {
-        draggable,
-    },
 
     mixins: [
         Mixin.getByName('cms-element')
@@ -42,14 +37,14 @@ Component.register('sw-cms-el-config-moorl-accordion', {
 
         addEntry() {
             this.element.config.entries.value.push({
-                order: 1,
+                id: Date.now(),
                 name: 'This is my entry',
                 content: '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>'
             });
         },
 
         removeEntry(e, index) {
-            this.$delete(this.element.config.entries.value, index);
+            this.element.config.entries.value.splice(index, 1);
 
             if (this.element.config.entries.value.length === 0) {
                 this.addEntry();

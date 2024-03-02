@@ -21,13 +21,7 @@
                 />
 
                 <div class="sw-field">
-                    <draggable
-                        class="config-moorl_faq_list"
-                        v-model:value="element.config.entries.value"
-                        handle=".drag-indicator"
-                        @choose="dragChoose"
-                        @start="dragStart"
-                        @end="dragEnd">
+                    <div class="config-moorl_faq_list">
                         <sw-collapse v-for="(entry, index) in element.config.entries.value" :key="index" :ref="'collapse_' + index">
                             <template #header="{ expanded }">
                                 <div class="collapse-header" :class="expanded ? 'expanded' : ''">
@@ -71,7 +65,7 @@
                                 </div>
                             </template>
                         </sw-collapse>
-                    </draggable>
+                    </div>
 
                     <div class="config-moorl_faq_actions">
                         <sw-button :block="true" @click="addEntry" variant="ghost">

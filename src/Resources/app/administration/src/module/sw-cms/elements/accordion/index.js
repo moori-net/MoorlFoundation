@@ -19,12 +19,12 @@ Application.getContainer('service').cmsService.registerCmsElement({
             source: 'static',
             value: [
                 {
-                    order: 1,
+                    id: 1,
                     name: 'This is my first entry',
                     content: '<p>Lorem ipsum dolor sit amet, <a href="#">consetetur</a> sadipscing elitr, <b>sed diam nonumy eirmod tempor</b> invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>'
                 },
                 {
-                    order: 2,
+                    id: 2,
                     name: 'This is my second entry',
                     content: '<p>Lorem ipsum dolor sit amet, <a href="#">consetetur</a> sadipscing elitr, <b>sed diam nonumy eirmod tempor</b> invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>'
                 }
