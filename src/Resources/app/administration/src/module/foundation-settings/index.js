@@ -7,7 +7,7 @@ Module.register('moorl-foundation-settings', {
     type: 'plugin',
     name: 'moorl-foundation-settings',
     title: 'moorl-foundation.label.settingsTitle',
-
+    icon: 'regular-database',
     routes: {
         demodata: {
             component: 'moorl-foundation-settings-demo-data',
