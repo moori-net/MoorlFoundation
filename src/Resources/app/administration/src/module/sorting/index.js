@@ -9,7 +9,7 @@ Module.register('moorl-sorting', {
     type: 'plugin',
     name: 'settings-listing',
     title: 'moorl-sorting.general.mainMenuItemGeneral',
-
+    icon: 'regular-sort',
     routes: {
         list: {
             component: 'moorl-sorting-list',
@@ -33,11 +33,12 @@ Module.register('moorl-sorting', {
             }
         }
     },
-
-    settingsItem: {
-        privilege: 'system.system_config',
-        to: 'moorl.sorting.list',
-        group: 'plugins',
-        icon: 'regular-sort'
-    }
+    settingsItem: [
+        {
+            privilege: 'system.system_config',
+            to: 'moorl.sorting.list',
+            group: 'plugins',
+            icon: 'regular-sort'
+        }
+    ]
 });

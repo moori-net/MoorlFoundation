@@ -24,7 +24,6 @@ Module.register('moorl-foundation-settings', {
             },
         }
     },
-
     settingsItem: [
         {
             privilege: 'system.system_config',
