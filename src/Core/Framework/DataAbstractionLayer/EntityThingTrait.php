@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
 use Shopware\Core\Content\Cms\CmsPageEntity;
 use Shopware\Core\Content\Media\MediaEntity;
+use Shopware\Core\Content\Seo\SeoUrl\SeoUrlCollection;
 
 trait EntityThingTrait
 {
@@ -20,6 +21,17 @@ trait EntityThingTrait
     protected ?string $mediaId = null;
     protected ?MediaEntity $media = null;
     protected ?array $slotConfig = null;
+    protected ?SeoUrlCollection $seoUrls = null;
+
+    public function getSeoUrls(): ?SeoUrlCollection
+    {
+        return $this->seoUrls;
+    }
+
+    public function setSeoUrls(?SeoUrlCollection $seoUrls): void
+    {
+        $this->seoUrls = $seoUrls;
+    }
 
     public function getKeywords(): ?string
     {

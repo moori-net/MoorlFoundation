@@ -1,0 +1,22 @@
+{% block moorl_thing_seo_card %}
+    <sw-card class="moorl-thing-seo-card" :title="$tc('moorl-foundation.card.seo')">
+        <sw-textarea-field v-if="isVisible('keywords')" :label="$tc('moorl-foundation.properties.keywords')" v-model:value="item.keywords"/>
+        <sw-text-field :label="$tc('moorl-foundation.properties.metaTitle')" v-model:value="item.metaTitle"/>
+        <sw-textarea-field :label="$tc('moorl-foundation.properties.metaDescription')" v-model:value="item.metaDescription"/>
+
+        <sw-text-field v-if="isVisible('seoUrl')" :label="$tc('moorl-foundation.properties.seoUrl')" v-model:value="item.seoUrl">
+            <template #hint>
+                <div>
+                    <router-link target="_blank" rel="noopener" :to="{name: 'sw.settings.seo.index'}">{{ $tc('moorl-foundation.helpText.seoUrl') }}</router-link>
+                    <span v-pre>{&percnt; if item.translated.seoUrl &percnt;}{{ item.translated.seoUrl }}{&percnt; else &percnt;}item/{{ item.translated.name }}{&percnt; endif &percnt;}</span>
+                </div>
+            </template>
+        </sw-text-field>
+    </sw-card>
+
+    <sw-seo-url
+            v-if="item.seoUrls"
+            :has-default-template="false"
+            :urls="item.seoUrls"
+    />
+{% endblock %}
