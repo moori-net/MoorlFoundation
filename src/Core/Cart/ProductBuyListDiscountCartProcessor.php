@@ -62,9 +62,9 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
             $discountPercentage = $this->getDiscountPercentage($cmsSlot);
             $uniqueKey = 'discount-' . $code;
             $label = sprintf(
-                "%s | %s%%",
-                implode(', ', $label),
-                $discountPercentage
+                "%s%% | %s",
+                $discountPercentage,
+                implode(', ', $label)
             );
 
             $item = new LineItem($uniqueKey, LineItem::CUSTOM_LINE_ITEM_TYPE);
