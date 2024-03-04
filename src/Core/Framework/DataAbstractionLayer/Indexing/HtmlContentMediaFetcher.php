@@ -128,11 +128,17 @@ SQL;
 
             $tags = $doc->getElementsByTagName('img');
             foreach ($tags as $tag) {
-                $mediaId = $this->getMediaIdFromUrl($tag->getAttribute('src'), $entityName, $context);
+                $originSrc = $tag->getAttribute('src');
+                $mediaId = $this->getMediaIdFromUrl($originSrc, $entityName, $context);
                 if (!$mediaId) {
                     continue;
                 }
-                $tag->setAttribute('src', $this->getMediaUrl($mediaId, $context));
+                $newSrc = $this->getMediaUrl($mediaId, $context);
+                if ($newSrc === $originSrc) {
+                    continue;
+                }
+                $tag->setAttribute('src', $newSrc);
+                $tag->setAttribute('data-origin-src', $originSrc);
             }
         } catch (\Exception) {
             return $content;
