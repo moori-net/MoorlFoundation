@@ -18,16 +18,14 @@ use Shopware\Core\System\Language\LanguageEntity;
 
 class HtmlContentUpdater
 {
-    public function __construct(private readonly DefinitionInstanceRegistry $registry, private readonly Connection                 $connection)
+    public function __construct(
+        private readonly DefinitionInstanceRegistry $registry,
+        private readonly Connection $connection
+    )
     {
     }
 
-    public function update(
-        array   $ids,
-        string  $entityName,
-        Context $context,
-        array   $fields = []
-    ): void
+    public function update(array $ids, string $entityName, Context $context, array $fields = []): void
     {
         $definition = $this->registry->getByEntityName($entityName);
 
