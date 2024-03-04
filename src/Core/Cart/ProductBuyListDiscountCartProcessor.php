@@ -9,7 +9,6 @@ use Shopware\Core\Checkout\Cart\CartProcessorInterface;
 use Shopware\Core\Checkout\Cart\LineItem\CartDataCollection;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\PercentagePriceCalculator;
-use Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -24,8 +23,7 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
 {
     public function __construct(
         private readonly EntityRepository $cmsSlotRepository,
-        private readonly PercentagePriceCalculator $percentagePriceCalculator,
-        private readonly QuantityPriceCalculator $quantityPriceCalculator
+        private readonly PercentagePriceCalculator $percentagePriceCalculator
     )
     {
     }
@@ -72,7 +70,7 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
             $item->setGood(false);
             $item->setReferencedId($code);
             $item->setPrice($this->percentagePriceCalculator->calculate($discountPercentage, $calculated, $context));
-            $item->setStackable(true);
+
 
             $toCalculate->getLineItems()->add($item);
 
@@ -82,7 +80,6 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
     public function collect(CartDataCollection $data, Cart $original, SalesChannelContext $context, CartBehavior $behavior): void
     {
         Profiler::trace('cart::product-buy-list-discount::collect', function () use ($data, $original, $context, $behavior): void {
-
         }, 'cart');
     }
 
@@ -102,8 +99,16 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
         /** @var CmsSlotEntity $cmsSlot */
         foreach ($cmsSlots as $cmsSlot) {
             $productIds = $this->getProductIds($cmsSlot);
+            $productQuantities = $this->getProductQuantities($cmsSlot);
             foreach ($cart->getLineItems() as $lineItem) {
                 if (($key = array_search($lineItem->getReferencedId(), $productIds)) !== false) {
+                    $quantity = 1;
+                    if (isset($productQuantities[$lineItem->getReferencedId()])) {
+                        $quantity = (int) $productQuantities[$lineItem->getReferencedId()];
+                    }
+                    if ($lineItem->getQuantity() !== $quantity) {
+                        return null;
+                    }
                     unset($productIds[$key]);
                 }
                 if (empty($productIds)) {
@@ -130,5 +135,14 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
             return (int) - $config->getValue();
         }
         return 0;
+    }
+
+    private function getProductQuantities(CmsSlotEntity $cmsSlot): array
+    {
+        $config = $cmsSlot->getFieldConfig()->get('productQuantities');
+        if ($config && $config->getValue()) {
+            return (array) $config->getValue();
+        }
+        return [];
     }
 }
