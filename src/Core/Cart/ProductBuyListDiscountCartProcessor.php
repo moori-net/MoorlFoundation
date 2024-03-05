@@ -129,7 +129,9 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
                 continue;
             }
 
-            $subtracted = array_map(function ($x, $y) { return (int) floor($x / $y); } , $bundleQuantities, $productQuantities);
+            $subtracted = array_map(function($x, $y) {
+                return (int) floor($x / $y);
+            }, $bundleQuantities, $productQuantities);
             $bundleQuantity = min($subtracted);
             if (!$bundleQuantity) {
                 continue;
