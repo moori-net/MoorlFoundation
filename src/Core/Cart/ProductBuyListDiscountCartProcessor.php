@@ -9,12 +9,17 @@ use Shopware\Core\Checkout\Cart\CartProcessorInterface;
 use Shopware\Core\Checkout\Cart\LineItem\CartDataCollection;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Cart\Price\PercentagePriceCalculator;
+use Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator;
+use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
+use Shopware\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
+use Shopware\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\Profiling\Profiler;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection;
@@ -23,7 +28,8 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
 {
     public function __construct(
         private readonly EntityRepository $cmsSlotRepository,
-        private readonly PercentagePriceCalculator $percentagePriceCalculator
+        private readonly PercentagePriceCalculator $percentagePriceCalculator,
+        private readonly QuantityPriceCalculator $quantityPriceCalculator
     )
     {
     }
@@ -38,42 +44,45 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
     {
         Profiler::trace('cart::product-buy-list-discount::process', function () use ($data, $toCalculate, $context, $behavior): void {
             $cmsSlots = $this->getCmsSlots($context);
-            $cmsSlot = $this->checkForMatch($toCalculate, $cmsSlots);
-            if (!$cmsSlot) {
+            $discountBundles = $this->discountBundleExtractor($toCalculate, $cmsSlots);
+            if (empty($discountBundles)) {
                 return;
             }
 
-            $calculated = new PriceCollection();
-            $label = [];
+            foreach ($discountBundles as $discountBundle) {
+                $calculated = new PriceCollection();
+                $label = [];
 
-            $productIds = $this->getProductIds($cmsSlot);
-            foreach ($toCalculate->getLineItems() as $lineItem) {
-                if (($key = array_search($lineItem->getReferencedId(), $productIds)) !== false) {
-                    $lineItemPrice = $lineItem->getPrice();
-                    $calculated->add($lineItemPrice);
-                    $label[] = $lineItem->getLabel();
-                    unset($productIds[$key]);
+                foreach ($toCalculate->getLineItems() as $lineItem) {
+                    if (in_array($lineItem->getReferencedId(), $discountBundle['productIds'])) {
+                        $calculatedQuantity = $discountBundle['bundleQuantity'] * $discountBundle['productQuantities'][$lineItem->getReferencedId()];
+
+                        $calculated->add(
+                            $this->quantityPriceCalculator->calculate(
+                                $this->buildPriceDefinition($lineItem->getPrice(), $calculatedQuantity),
+                                $context
+                            )
+                        );
+                        $label[] = sprintf("%dx %s", $calculatedQuantity, $lineItem->getLabel());
+                    }
                 }
+
+                $code = Uuid::randomHex();
+                $uniqueKey = 'product-buy-list-discount-' . $code;
+                $label = sprintf(
+                    "%s%% | %s",
+                    $discountBundle['discountPercentage'],
+                    $discountBundle['discountName'] ? sprintf("%dx %s", $discountBundle['bundleQuantity'], $discountBundle['discountName']) : implode(', ', $label)
+                );
+
+                $item = new LineItem($uniqueKey, LineItem::CUSTOM_LINE_ITEM_TYPE);
+                $item->setLabel($label);
+                $item->setGood(false);
+                $item->setReferencedId($code);
+                $item->setPrice($this->percentagePriceCalculator->calculate($discountBundle['discountPercentage'], $calculated, $context));
+
+                $toCalculate->getLineItems()->add($item);
             }
-
-            $code = $cmsSlot->getId();
-            $discountPercentage = $this->getDiscountPercentage($cmsSlot);
-            $uniqueKey = 'discount-' . $code;
-            $label = sprintf(
-                "%s%% | %s",
-                $discountPercentage,
-                implode(', ', $label)
-            );
-
-            $item = new LineItem($uniqueKey, LineItem::CUSTOM_LINE_ITEM_TYPE);
-            $item->setLabel($label);
-            $item->setGood(false);
-            $item->setReferencedId($code);
-            $item->setPrice($this->percentagePriceCalculator->calculate($discountPercentage, $calculated, $context));
-
-
-            $toCalculate->getLineItems()->add($item);
-
         }, 'cart');
     }
 
@@ -86,37 +95,60 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
     private function getCmsSlots(SalesChannelContext $context): CmsSlotCollection
     {
         $criteria = new Criteria();
-        $criteria->addFilter(new EqualsFilter('type', 'moorl-product-buy-list'));
-        $criteria->addFilter(new RangeFilter('config.discountPercentage.value', [
-            RangeFilter::GT => 0
-        ]));
+        $criteria->addFilter(new EqualsAnyFilter('type', ['moorl-product-buy-list', 'moorl-shop-the-look']));
+        $criteria->addFilter(new EqualsFilter('config.discountActive.value', "true"));
 
         return $this->cmsSlotRepository->search($criteria, $context->getContext())->getEntities();
     }
 
-    private function checkForMatch(Cart $cart, CmsSlotCollection $cmsSlots): ?CmsSlotEntity
+    private function discountBundleExtractor(Cart $cart, CmsSlotCollection $cmsSlots): array
     {
+        $discountBundles = [];
+        $cartProductQuantities = [];
+
+        foreach ($cart->getLineItems() as $lineItem) {
+            $cartProductQuantities[$lineItem->getReferencedId()] = $lineItem->getQuantity();
+        }
+
         /** @var CmsSlotEntity $cmsSlot */
         foreach ($cmsSlots as $cmsSlot) {
-            $productIds = $this->getProductIds($cmsSlot);
             $productQuantities = $this->getProductQuantities($cmsSlot);
-            foreach ($cart->getLineItems() as $lineItem) {
-                if (($key = array_search($lineItem->getReferencedId(), $productIds)) !== false) {
-                    $quantity = 1;
-                    if (isset($productQuantities[$lineItem->getReferencedId()])) {
-                        $quantity = (int) $productQuantities[$lineItem->getReferencedId()];
-                    }
-                    if ($lineItem->getQuantity() !== $quantity) {
-                        return null;
-                    }
-                    unset($productIds[$key]);
-                }
-                if (empty($productIds)) {
-                    return $cmsSlot;
-                }
+            if (count($productQuantities) === 0) {
+                continue;
             }
+
+            if (count($productQuantities) > count($cartProductQuantities)) {
+                continue;
+            }
+
+            $bundleQuantities = array_filter($cartProductQuantities, function($k) use ($productQuantities) {
+                return in_array($k, array_keys($productQuantities));
+            }, ARRAY_FILTER_USE_KEY);
+
+            if (count($bundleQuantities) !== count($productQuantities)) {
+                continue;
+            }
+
+            $subtracted = array_map(function ($x, $y) { return (int) floor($x / $y); } , $bundleQuantities, $productQuantities);
+            $bundleQuantity = min($subtracted);
+            if (!$bundleQuantity) {
+                continue;
+            }
+
+            foreach (array_keys($productQuantities) as $key) {
+                $cartProductQuantities[$key] = $cartProductQuantities[$key] - $bundleQuantity;
+            }
+
+            $discountBundles[] = [
+                'productIds' => array_keys($productQuantities),
+                'productQuantities' => $productQuantities,
+                'discountPercentage' => $this->getDiscountPercentage($cmsSlot),
+                'discountName' => $this->getDiscountName($cmsSlot),
+                'bundleQuantity' => $bundleQuantity,
+            ];
         }
-        return null;
+
+        return $discountBundles;
     }
 
     private function getProductIds(CmsSlotEntity $cmsSlot): array
@@ -128,21 +160,57 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
         return [];
     }
 
-    private function getDiscountPercentage(CmsSlotEntity $cmsSlot): int
+    private function getDiscountPercentage(CmsSlotEntity $cmsSlot): float
     {
         $config = $cmsSlot->getFieldConfig()->get('discountPercentage');
         if ($config && $config->getValue()) {
-            return (int) - $config->getValue();
+            return (float) - $config->getValue();
         }
         return 0;
     }
 
+    private function getDiscountName(CmsSlotEntity $cmsSlot): ?string
+    {
+        $config = $cmsSlot->getFieldConfig()->get('discountName');
+        if ($config && $config->getValue()) {
+            return $config->getValue();
+        }
+        return null;
+    }
+
     private function getProductQuantities(CmsSlotEntity $cmsSlot): array
     {
+        $productIds = $this->getProductIds($cmsSlot);
+        $productQuantities = [];
+
         $config = $cmsSlot->getFieldConfig()->get('productQuantities');
         if ($config && $config->getValue()) {
-            return (array) $config->getValue();
+            foreach ((array) $config->getValue() as $key => $value) {
+                if (in_array($key, $productIds)) {
+                    $productQuantities[$key] = $value;
+                }
+            }
         }
-        return [];
+        return $productQuantities;
+    }
+
+    private function buildPriceDefinition(CalculatedPrice $price, int $quantity): QuantityPriceDefinition
+    {
+        $definition = new QuantityPriceDefinition($price->getUnitPrice(), $price->getTaxRules(), $quantity);
+        if ($price->getListPrice() !== null) {
+            $definition->setListPrice($price->getListPrice()->getPrice());
+        }
+
+        if ($price->getReferencePrice() !== null) {
+            $definition->setReferencePriceDefinition(
+                new ReferencePriceDefinition(
+                    $price->getReferencePrice()->getPurchaseUnit(),
+                    $price->getReferencePrice()->getReferenceUnit(),
+                    $price->getReferencePrice()->getUnitName()
+                )
+            );
+        }
+
+        return $definition;
     }
 }

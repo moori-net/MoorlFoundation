@@ -4,6 +4,9 @@
             "moorl-product-buy-list": {
                 "name": "Buy list",
                 "label": {
+                    "discountActive": "Activate discount",
+                    "discountPercentage": "Discount (%)",
+                    "discountName": "Discount name",
                     "productQuantity": "Quantity",
                     "products": "Products",
                     "enablePrices": "Show prices",

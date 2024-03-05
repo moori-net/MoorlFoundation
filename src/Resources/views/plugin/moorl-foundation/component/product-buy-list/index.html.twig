@@ -42,6 +42,15 @@
                             <span class="total-price">{{ 0|currency }}</span>
                         </div>
                     {% endif %}
+
+                    {% if discountActive %}
+                        <div class="text-end text-danger">
+                            {{ "moorl-foundation.general.discountActive"|trans({
+                                discountPercentage: discountPercentage,
+                                discountName: discountName
+                            })|sw_sanitize }}
+                        </div>
+                    {% endif %}
                 </div>
 
                 <form action="{{ path('frontend.checkout.line-item.add') }}"

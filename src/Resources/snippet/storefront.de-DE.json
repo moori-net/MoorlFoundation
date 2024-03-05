@@ -76,6 +76,7 @@
       "mediaFolder": "Save images in this folder"
     },
     "general": {
+      "discountActive": "Lege alle Produkte in den Warenkorb und erhalte discountPercentage% Rabatt!",
       "subTotal": "Gesamtpreis",
       "selectedItems": "Ausgewählt",
       "share": "Teilen",

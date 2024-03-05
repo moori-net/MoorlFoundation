@@ -77,9 +77,22 @@
                 :label="$tc('sw-cms.elements.moorl-product-buy-list.label.emptyText')"
         />
 
+        <sw-switch-field
+                v-model:value="element.config.discountActive.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountActive')"
+        />
+
         <sw-number-field
                 v-model:value="element.config.discountPercentage.value"
+                numberType="float"
+                :digits="4"
                 :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountPercentage')"
+        />
+
+        <sw-text-field
+                v-model:value="element.config.discountName.value"
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountName')"
         />
     </sw-container>
 </div>

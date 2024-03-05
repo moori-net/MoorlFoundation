@@ -76,6 +76,7 @@
             "mediaFolder": "Save images in this folder"
         },
         "general": {
+            "discountActive": "Add all products to your shopping cart and receive discountPercentage% discount!",
             "subTotal": "Subtotal",
             "selectedItems": "Selected items",
             "share": "Share",
