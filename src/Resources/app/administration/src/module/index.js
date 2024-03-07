@@ -1,5 +1,6 @@
 import './sw-cms';
-import './foundation-settings';
+import './demo-data';
+import './cms-element-config';
 import './sorting';
 import './marker';
 import './client';

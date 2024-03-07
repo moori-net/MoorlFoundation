@@ -1,4 +1,4 @@
-const {Component, Mixin} = Shopware;
+const {Component} = Shopware;
 
 import template from './index.html.twig';
 import './index.scss';

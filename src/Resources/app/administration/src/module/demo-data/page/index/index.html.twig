@@ -1,4 +1,4 @@
-<sw-page class="moorl-foundation-settings-demo-data">
+<sw-page class="moorl-demo-data-index">
     <template #content>
         <sw-card-view>
             <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.settingsDemoData')">
@@ -6,7 +6,8 @@
                     <sw-select-field
                             :label="$tc('moorl-foundation.properties.type')"
                             v-model:value="optionIndex"
-                            @update:value="selectOption()">
+                            @update:value="selectOption()"
+                    >
                         <option v-for="(option, index) in options" :key="`option-${index}`" :value="index">
                             {{ $tc('moorl-foundation.label.standardDemo') }} ({{ option.name }} | {{ option.pluginName }})
                         </option>
@@ -28,15 +29,19 @@
                             v-model:value="confirmed"
                     />
 
-                    <sw-button variant="primary"
-                               :disabled="!acl.can('system.system_config') || !confirmed"
-                               @click="install()">
+                    <sw-button
+                            variant="primary"
+                            :disabled="!acl.can('system.system_config') || !confirmed"
+                            @click="install()"
+                    >
                         {{ $tc('moorl-foundation.buttons.startButtonText') }}
                     </sw-button>
 
-                    <sw-button variant="primary"
-                               :disabled="!acl.can('system.system_config')"
-                               @click="remove()">
+                    <sw-button
+                            variant="primary"
+                            :disabled="!acl.can('system.system_config')"
+                            @click="remove()"
+                    >
                         {{ $tc('moorl-foundation.buttons.removeButtonText') }}
                     </sw-button>
                 </template>

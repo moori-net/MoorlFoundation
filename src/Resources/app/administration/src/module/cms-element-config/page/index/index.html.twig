@@ -1,4 +1,4 @@
-<sw-page class="moorl-cms-element-config">
+<sw-page class="moorl-cms-element-config-index">
     <template #content>
         <sw-entity-listing
                 :items="items"
@@ -7,7 +7,7 @@
                 :columns="columns"
                 :isLoading="isLoading"
                 @select-item="updateSelection"
-                @update-records="updateTotal">
-        </sw-entity-listing>
+                @update-records="updateTotal"
+        />
     </template>
 </sw-page>

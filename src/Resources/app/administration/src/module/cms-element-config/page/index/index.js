@@ -3,7 +3,7 @@ const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 
-Component.register('moorl-cms-element-config', {
+Component.register('moorl-cms-element-config-index', {
     template,
 
     inject: [

@@ -28,19 +28,23 @@
                     v-tooltip="helpText(behaviour.breakpoint,'show')"
             />
 
-            <sw-select-field :disabled="value[behaviour.breakpoint].inherit"
-                             v-if="showWidth"
-                             v-model:value="value[behaviour.breakpoint].width"
-                             v-tooltip="helpText(behaviour.breakpoint,'width')">
+            <sw-select-field
+                    :disabled="value[behaviour.breakpoint].inherit"
+                    v-if="showWidth"
+                    v-model:value="value[behaviour.breakpoint].width"
+                    v-tooltip="helpText(behaviour.breakpoint,'width')"
+            >
                 <option :value="-1">auto-fill</option>
                 <option :value="0">auto-fit</option>
                 <option v-for="i in 12" :value="i">{{ i }}/12</option>
             </sw-select-field>
 
-            <sw-select-field :disabled="value[behaviour.breakpoint].inherit"
-                             v-if="showOrder"
-                             v-model:value="value[behaviour.breakpoint].order"
-                             v-tooltip="helpText(behaviour.breakpoint,'order')">
+            <sw-select-field
+                    :disabled="value[behaviour.breakpoint].inherit"
+                    v-if="showOrder"
+                    v-model:value="value[behaviour.breakpoint].order"
+                    v-tooltip="helpText(behaviour.breakpoint,'order')"
+            >
                 <option :value="0">auto</option>
                 <option v-for="i in 48" :value="i">{{ i }}</option>
             </sw-select-field>

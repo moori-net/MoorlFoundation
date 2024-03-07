@@ -2,7 +2,7 @@ const {Component, Mixin} = Shopware;
 
 import template from './index.html.twig';
 
-Component.register('moorl-foundation-settings-demo-data', {
+Component.register('moorl-demo-data-index', {
     template,
 
     inject: [
