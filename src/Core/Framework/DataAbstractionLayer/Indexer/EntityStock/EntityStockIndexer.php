@@ -8,6 +8,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityStockIndexer extends EntityIndexer
@@ -78,6 +79,6 @@ class EntityStockIndexer extends EntityIndexer
 
     public function getDecorated(): EntityIndexer
     {
-        // TODO: Implement getDecorated() method.
+        throw new DecorationPatternException(static::class);
     }
 }

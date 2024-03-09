@@ -6,6 +6,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 
 trait EntityIndexerTrait
 {
@@ -32,7 +33,7 @@ trait EntityIndexerTrait
 
     public function getDecorated(): EntityIndexer
     {
-        // TODO: Implement getDecorated() method.
+        throw new DecorationPatternException(static::class);
     }
 
     public function update(EntityWrittenContainerEvent $event): ?EntityIndexingMessage
@@ -62,7 +63,7 @@ trait EntityIndexerTrait
 
     public function getName(): string
     {
-        // TODO: Implement getName() method.
+        return "";
     }
 
     public function handle(EntityIndexingMessage $message): void

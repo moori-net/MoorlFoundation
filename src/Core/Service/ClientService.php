@@ -119,6 +119,8 @@ class ClientService
                 ]
             ];
         }
+
+        return [];
     }
 
     public function getOptions(): array

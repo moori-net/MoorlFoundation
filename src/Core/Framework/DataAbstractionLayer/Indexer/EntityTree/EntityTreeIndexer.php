@@ -13,6 +13,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\Framework\Uuid\Uuid;
 
 class EntityTreeIndexer extends EntityIndexer
@@ -32,6 +33,7 @@ class EntityTreeIndexer extends EntityIndexer
 
     public function getDecorated(): EntityIndexer
     {
+        throw new DecorationPatternException(static::class);
     }
 
     public function getName(): string
