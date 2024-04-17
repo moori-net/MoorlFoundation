@@ -89,7 +89,8 @@ class EntityTreeIndexer extends EntityIndexer
             $this->treeUpdater->batchUpdate(
                 $idsWithChangedParentIds,
                 $this->entityName,
-                $event->getContext()
+                $event->getContext(),
+                true
             );
         }
 
@@ -117,7 +118,7 @@ class EntityTreeIndexer extends EntityIndexer
             }
 
             if ($this->treeUpdater && $message->allow($this->entityName . '.tree')) {
-                $this->treeUpdater->batchUpdate($ids, $this->entityName, $context);
+                $this->treeUpdater->batchUpdate($ids, $this->entityName, $context, true);
             }
 
             if ($this->breadcrumbUpdater && $message->allow($this->entityName . '.breadcrumb')) {
