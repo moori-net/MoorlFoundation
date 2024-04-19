@@ -154,7 +154,7 @@
                 <button class="{% block product_item_add_to_cart_class %}btn btn-light{% endblock %}"
                         title="{{ "detail.addProduct"|trans|striptags }}"
                         aria-label="{{ "detail.addProduct"|trans|striptags }}">
-                    {% sw_icon 'plus' %}
+                    {% block product_item_add_to_cart_icon %}{% sw_icon 'plus' %}{% endblock %}
                 </button>
             </form>
         {% endif %}
