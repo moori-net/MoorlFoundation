@@ -38,11 +38,11 @@ class MoorlFoundation extends Plugin
         $dataService->install(self::NAME);
     }
 
-    public function uninstall(UninstallContext $context): void
+    public function uninstall(UninstallContext $uninstallContext): void
     {
-        parent::uninstall($context);
+        parent::uninstall($uninstallContext);
 
-        if ($context->keepUserData()) {
+        if ($uninstallContext->keepUserData()) {
             return;
         }
 
