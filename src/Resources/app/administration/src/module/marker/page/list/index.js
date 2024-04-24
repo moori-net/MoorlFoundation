@@ -105,7 +105,7 @@ Component.register('moorl-marker-list', {
                 }
             };
 
-            this.repository.clone(reference.id, Shopware.Context.api, behavior).then((duplicate) => {
+            this.repository.clone(reference.id, behavior, Shopware.Context.api).then((duplicate) => {
                 this.$router.push({name: 'moorl.marker.detail', params: {id: duplicate.id}});
             });
         }
