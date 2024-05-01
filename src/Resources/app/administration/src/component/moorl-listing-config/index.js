@@ -8,11 +8,13 @@ const {cloneDeep} = Shopware.Utils.object;
 Component.register('moorl-listing-config', {
     template,
 
+    emits: ['update:value'],
+
     props: {
         value: {
             type: Object,
             required: false,
-            default: defaultValue
+            default: null
         }
     },
 
@@ -23,6 +25,10 @@ Component.register('moorl-listing-config', {
     },
 
     created() {
+        if (!this.value) {
+            this.$emit('update:value', defaultValue);
+        }
+
         this.isLoading = false;
     },
 

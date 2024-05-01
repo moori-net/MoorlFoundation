@@ -2,7 +2,7 @@
     {% set schemaOrgType = 'Thing' %}
 {% endif %}
 
-{% if element.translated.config %}
+{% if not collection and element.translated.config %}
     {% set config = element.translated.config %}
 {% endif %}
 

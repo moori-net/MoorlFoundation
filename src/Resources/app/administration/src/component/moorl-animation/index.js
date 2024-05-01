@@ -6,6 +6,8 @@ import './index.scss';
 Component.register('moorl-animation', {
     template,
 
+    emits: ['update:value'],
+
     props: {
         value: {
             type: Array,
@@ -64,11 +66,15 @@ Component.register('moorl-animation', {
                 }
             });
 
+            this.$emit('update:value', this.value);
+
             this.$forceUpdate();
         },
 
         deleteEntry(index) {
             this.value.splice(index, 1);
+
+            this.$emit('update:value', this.value);
 
             this.$forceUpdate();
         }
