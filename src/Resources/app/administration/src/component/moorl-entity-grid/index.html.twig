@@ -55,6 +55,8 @@
             @select-all-items="onSelectionChanged"
             @selection-change="onSelectionChanged"
     >
+        {% block moorl_entity_grid_templates %}{% endblock %}
+
         <template
                 v-for="priceProperty in priceProperties"
                 v-slot:[`column-${priceProperty}`]="{item}"
@@ -68,6 +70,8 @@
         </template>
 
         <template #actions="{ item }">
+            {% block moorl_entity_grid_actions %}{% endblock %}
+
             <sw-context-menu-item v-if="path" :routerLink="{ name: path, params: {id: item.id} }">
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
