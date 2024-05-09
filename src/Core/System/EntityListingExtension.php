@@ -19,7 +19,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class EntityListingExtension implements EntityListingInterface
 {
     protected EntityDefinition $entityDefinition;
-    protected SystemConfigService $systemConfigService;
+    protected ?SystemConfigService $systemConfigService = null;
     protected SalesChannelContext $salesChannelContext;
     protected ?ProductListingResultEvent $event = null;
     protected EventDispatcherInterface $eventDispatcher;
@@ -29,9 +29,13 @@ class EntityListingExtension implements EntityListingInterface
     /* @noRector $salesChannelRepository must not be accessed before initialization */
     protected ?SalesChannelRepository $salesChannelRepository = null;
 
-    public function __construct(?SalesChannelRepository $salesChannelRepository = null)
+    public function __construct(
+        ?SalesChannelRepository $salesChannelRepository = null,
+        ?SystemConfigService $systemConfigService = null
+    )
     {
         $this->salesChannelRepository = $salesChannelRepository;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function isWidget(): bool
