@@ -44,6 +44,29 @@ export default class MoorlCountdownPlugin extends Plugin {
                 });
             }
 
+            if (diff < 1) {
+                clearInterval(x);
+
+                if (actionUrl) {
+                    setTimeout(() => {
+                        client.get(actionUrl, (response) => {
+                            response = JSON.parse(response);
+                            if (response.url) {
+                                window.location.href = response.url;
+                            } else {
+                                window.location.reload();
+                            }
+                        });
+                    }, 5000);
+                } else {
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 5000);
+                }
+
+                diff = 0;
+            }
+
             let days = Math.trunc(diff / (60 * 60 * 24));
             let hours = Math.trunc((diff % (60 * 60 * 24)) / (60 * 60));
             let minutes = Math.trunc((diff % (60 * 60)) / (60));

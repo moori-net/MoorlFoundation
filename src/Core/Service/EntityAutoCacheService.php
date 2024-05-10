@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\System\EntityAutoCacheInterface;
 use Shopware\Core\Content\Category\CategoryDefinition;
@@ -19,6 +20,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\AndFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -26,8 +28,16 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityAutoCacheService implements EventSubscriberInterface
 {
+    public const OPT_ENTITY_NAME = 'entity_name';
+    public const OPT_ENTITY_ID = 'entity_id';
+    public const OPT_PRODUCT_ID = 'product_id';
+    public const OPT_CATEGORY_ID = 'category_id';
     public const OPT_ACTIVE = 'active';
     public const OPT_PRODUCT_STREAM = 'product_stream';
+    public const OPT_PRODUCT_OTM_ASSOCIATION = 'product_otm';
+    public const OPT_PRODUCT_MTM_ASSOCIATION = 'product_mtm';
+    public const OPT_CATEGORY_OTM_ASSOCIATION = 'category_otm';
+    public const OPT_CATEGORY_MTM_ASSOCIATION = 'category_mtm';
     public const OPT_START_TIME = 'start_time';
     public const OPT_END_TIME = 'end_time';
     public const OPT_TIMEZONE = 'timezone';
@@ -58,7 +68,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
-        $time = (new \DateTimeImmutable())->format(DATE_ATOM);
+        $time = (new \DateTimeImmutable())->modify("-10 Second")->format(DATE_ATOM);
         $context = Context::createDefaultContext();
 
         foreach ($this->entityDefinitions as $entityDefinition) {
@@ -131,6 +141,10 @@ class EntityAutoCacheService implements EventSubscriberInterface
         if (isset($options[self::OPT_CMS_SLOT])) {
             $this->updateCms($ids, $options, $context);
         }
+
+        if (isset($options[self::OPT_PRODUCT_OTM_ASSOCIATION])) {
+            $this->updateProductOtm($ids, $options, $context);
+        }
     }
 
     private function updateProductStream(EntityCollection $entities, array $options, Context $context): void
@@ -154,6 +168,29 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
             $this->eventDispatcher->dispatch(new ProductIndexerEvent($productIds, $context));
         }
+    }
+
+    private function updateProductOtm(array $ids, array $options, Context $context): void
+    {
+        $productOtmOptions = $options[self::OPT_PRODUCT_OTM_ASSOCIATION];
+
+        $productIds = [];
+        foreach ($productOtmOptions as $productOtmOption) {
+            $sql = sprintf(
+                "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `%s` IN (:ids);",
+                $productOtmOption[self::OPT_PRODUCT_ID],
+                $productOtmOption[self::OPT_ENTITY_NAME],
+                $productOtmOption[self::OPT_ENTITY_ID]
+            );
+
+            $productIds = array_merge($productIds, $this->connection->fetchFirstColumn(
+                $sql,
+                ['ids' => Uuid::fromHexToBytesList($ids)],
+                ['ids' => ArrayParameterType::BINARY]
+            ));
+        }
+
+        $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
     }
 
     private function updateCms(array $ids, array $options, Context $context): void
