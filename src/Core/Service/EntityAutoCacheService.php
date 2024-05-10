@@ -34,6 +34,8 @@ class EntityAutoCacheService implements EventSubscriberInterface
     public const OPT_CATEGORY_ID = 'category_id';
     public const OPT_ACTIVE = 'active';
     public const OPT_PRODUCT_STREAM = 'product_stream';
+    public const OPT_ENTITY_OTM_ASSOCIATION = 'entity_otm';
+    public const OPT_ENTITY_MTO_ASSOCIATION = 'entity_mto';
     public const OPT_PRODUCT_OTM_ASSOCIATION = 'product_otm';
     public const OPT_PRODUCT_MTM_ASSOCIATION = 'product_mtm';
     public const OPT_CATEGORY_OTM_ASSOCIATION = 'category_otm';
@@ -145,6 +147,10 @@ class EntityAutoCacheService implements EventSubscriberInterface
         if (isset($options[self::OPT_PRODUCT_OTM_ASSOCIATION])) {
             $this->updateProductOtm($ids, $options, $context);
         }
+
+        if (isset($options[self::OPT_ENTITY_MTO_ASSOCIATION])) {
+            $this->updateEntityMto($entityDefinition, $ids, $options, $context);
+        }
     }
 
     private function updateProductStream(EntityCollection $entities, array $options, Context $context): void
@@ -191,6 +197,28 @@ class EntityAutoCacheService implements EventSubscriberInterface
         }
 
         $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
+    }
+
+    private function updateEntityMto(EntityAutoCacheInterface $entityDefinition, array $ids, array $options, Context $context): void
+    {
+        $entityMtoOptions = $options[self::OPT_ENTITY_MTO_ASSOCIATION];
+
+        foreach ($entityMtoOptions as $entityMtoOption) {
+            $sql = sprintf(
+                "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `id` IN (:ids);",
+                $entityMtoOption[self::OPT_ENTITY_ID],
+                $entityDefinition->getEntityName()
+            );
+
+            $payload = $this->connection->fetchAllAssociative(
+                $sql,
+                ['ids' => Uuid::fromHexToBytesList($ids)],
+                ['ids' => ArrayParameterType::BINARY]
+            );
+
+            $entityRepository = $this->definitionInstanceRegistry->getRepository($entityMtoOption[self::OPT_ENTITY_NAME]);
+            $entityRepository->upsert($payload, $context);
+        }
     }
 
     private function updateCms(array $ids, array $options, Context $context): void
