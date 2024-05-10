@@ -42,7 +42,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
     public const OPT_CATEGORY_MTM_ASSOCIATION = 'category_mtm';
     public const OPT_START_TIME = 'start_time';
     public const OPT_END_TIME = 'end_time';
-    public const OPT_TIMEZONE = 'timezone';
+    public const OPT_TIME_ZONE = 'time_zone';
     public const OPT_CMS_SLOT = 'cms_slot';
     public const OPT_CMS_SLOT_TYPE = 'cms_slot_type';
     public const OPT_CMS_SLOT_CONFIG_KEY = 'cms_slot_config_key';
