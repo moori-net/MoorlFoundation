@@ -30,6 +30,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
     public const OPT_PRODUCT_STREAM = 'product_stream';
     public const OPT_START_TIME = 'start_time';
     public const OPT_END_TIME = 'end_time';
+    public const OPT_TIMEZONE = 'timezone';
     public const OPT_CMS_SLOT = 'cms_slot';
     public const OPT_CMS_SLOT_TYPE = 'cms_slot_type';
     public const OPT_CMS_SLOT_CONFIG_KEY = 'cms_slot_config_key';
@@ -167,10 +168,21 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
         $orFilters = [];
         foreach ($cmsSlotOptions as $cmsSlotOption) {
-            $orFilters[] = new AndFilter([
-                new EqualsAnyFilter(sprintf("cmsPage.sections.blocks.slots.config.%s.value", $cmsSlotOption[self::OPT_CMS_SLOT_CONFIG_KEY]), $ids),
-                new EqualsFilter('cmsPage.sections.blocks.slots.type', $cmsSlotOption[self::OPT_CMS_SLOT_TYPE])
-            ]);
+            $andFilters = [
+                new EqualsFilter(
+                    'cmsPage.sections.blocks.slots.type',
+                    $cmsSlotOption[self::OPT_CMS_SLOT_TYPE]
+                )
+            ];
+
+            if (isset($cmsSlotOption[self::OPT_CMS_SLOT_CONFIG_KEY])) {
+                $andFilters[] = new EqualsAnyFilter(
+                    sprintf("cmsPage.sections.blocks.slots.config.%s.value", $cmsSlotOption[self::OPT_CMS_SLOT_CONFIG_KEY]),
+                    $ids
+                );
+            }
+
+            $orFilters[] = new AndFilter($andFilters);
         }
 
         $criteria->addFilter(new OrFilter($orFilters));

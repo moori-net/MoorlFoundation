@@ -19,7 +19,7 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
 
-            <argument type="tagged" tag="moorl.foundation.cache"/>
+            <argument type="tagged" tag="moorl.foundation.entity_auto_cache"/>
 
             <tag name="kernel.event_subscriber"/>
         </service>
