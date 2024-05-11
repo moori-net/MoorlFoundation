@@ -35,8 +35,8 @@ class EntityAutoCacheService implements EventSubscriberInterface
     public const ENTITY = 'entity';
     public const PAYLOAD = 'payload';
     public const FLAT = 'flat';
-    public const MAIN_ID_FIELD = 'entity_pk_field';
-    public const REFERENCE_ID_FIELD = 'entity_fk_field';
+    public const MAIN_ID_FIELD = 'main_id_field';
+    public const REFERENCE_ID_FIELD = 'reference_id_field';
     public const RELATED_ENTITY = 'related_entity';
     public const MAIN_ENTITY = 'main_entity';
     public const ACTIVE = 'active';
@@ -44,7 +44,6 @@ class EntityAutoCacheService implements EventSubscriberInterface
     public const ENTITY_ASSOCIATION = 'entity_assoc';
     public const START_TIME = 'start_time';
     public const END_TIME = 'end_time';
-    public const TIME_ZONE = 'time_zone';
     public const CMS_SLOT = 'cms_slot';
     public const CMS_SLOT_TYPE = 'cms_slot_type';
     public const CMS_SLOT_CONFIG_KEY = 'cms_slot_config_key';
