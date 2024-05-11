@@ -110,16 +110,14 @@ class EntityAutoCacheService implements EventSubscriberInterface
     {
         $this->console = $console;
 
-        if ($config && $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger') !== $config) {
+        $trigger = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger') ?: self::TRIGGER_LIVE;
+        if ($config && $trigger !== $config) {
             return;
         } else {
-            $this->writeTitle(sprintf(
-                "Current trigger: %s",
-                $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger')
-            ));
+            $this->writeTitle(sprintf("Current trigger: %s", $trigger));
         }
 
-        $method = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheMethod');
+        $method = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheMethod') ?: self::METHOD_UPDATE;
         $time = (new \DateTimeImmutable())->modify("-10 Second")->format(DATE_ATOM);
         $context = Context::createDefaultContext();
         $cacheClear = false;
