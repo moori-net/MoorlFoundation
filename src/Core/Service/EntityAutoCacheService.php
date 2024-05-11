@@ -299,14 +299,21 @@ class EntityAutoCacheService implements EventSubscriberInterface
         }
 
         if (!empty($productIds)) {
-            $this->writeLine(sprintf("#%d - Processing entity %s", $d, $assocOption[self::MAIN_ENTITY]));
+            $this->writeLine(sprintf("#%d - Processing invalidate product with ids %s", $d, json_encode($productIds)));
             $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
         }
         if (!empty($categoryIds)) {
+            $this->writeLine(sprintf("#%d - Processing invalidate category with ids %s", $d, json_encode($categoryIds)));
             $this->eventDispatcher->dispatch(new CategoryIndexerEvent(array_unique(array_filter($categoryIds)), $context));
         }
         if (!empty($upsertCommands)) {
             foreach ($upsertCommands as $upsertCommand) {
+                $this->writeLine(sprintf(
+                    "#%d - Processing refresh %s with payload %s",
+                    $d,
+                    $upsertCommand[self::ENTITY],
+                    json_encode($upsertCommand[self::PAYLOAD])
+                ));
                 $entityRepository = $this->definitionInstanceRegistry->getRepository($upsertCommand[self::ENTITY]);
                 $entityRepository->upsert($upsertCommand[self::PAYLOAD], $context);
             }
