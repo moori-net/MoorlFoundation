@@ -31,30 +31,29 @@ use Shopware\Core\Framework\Adapter\Cache\CacheClearer;
 
 class EntityAutoCacheService implements EventSubscriberInterface
 {
-    public const OPT_ENTITY_NAME = 'entity_name';
-    public const OPT_ENTITY_ID = 'entity_id';
-    public const OPT_PRODUCT_ID = 'product_id';
-    public const OPT_CATEGORY_ID = 'category_id';
-    public const OPT_ACTIVE = 'active';
-    public const OPT_PRODUCT_STREAM = 'product_stream';
-    public const OPT_ENTITY_OTM_ASSOCIATION = 'entity_otm';
-    public const OPT_ENTITY_MTO_ASSOCIATION = 'entity_mto';
-    public const OPT_PRODUCT_OTM_ASSOCIATION = 'product_otm';
-    public const OPT_PRODUCT_MTM_ASSOCIATION = 'product_mtm';
-    public const OPT_CATEGORY_OTM_ASSOCIATION = 'category_otm';
-    public const OPT_CATEGORY_MTM_ASSOCIATION = 'category_mtm';
-    public const OPT_START_TIME = 'start_time';
-    public const OPT_END_TIME = 'end_time';
-    public const OPT_TIME_ZONE = 'time_zone';
-    public const OPT_CMS_SLOT = 'cms_slot';
-    public const OPT_CMS_SLOT_TYPE = 'cms_slot_type';
-    public const OPT_CMS_SLOT_CONFIG_KEY = 'cms_slot_config_key';
+    public const ENTITY = 'entity';
+    public const PAYLOAD = 'payload';
+    public const FLAT = 'flat';
+    public const MAIN_ID_FIELD = 'entity_pk_field';
+    public const REFERENCE_ID_FIELD = 'entity_fk_field';
+    public const RELATED_ENTITY = 'related_entity';
+    public const MAIN_ENTITY = 'main_entity';
+    public const ACTIVE = 'active';
+    public const PRODUCT_STREAM = 'product_stream';
+    public const ENTITY_ASSOCIATION = 'entity_assoc';
+    public const START_TIME = 'start_time';
+    public const END_TIME = 'end_time';
+    public const TIME_ZONE = 'time_zone';
+    public const CMS_SLOT = 'cms_slot';
+    public const CMS_SLOT_TYPE = 'cms_slot_type';
+    public const CMS_SLOT_CONFIG_KEY = 'cms_slot_config_key';
     public const METHOD_CLEAR = 'clear';
     public const METHOD_UPDATE = 'update';
     public const TRIGGER_LIVE = 'live';
     public const TRIGGER_SCHEDULED = 'scheduled';
 
-    private $updatedEntities = [];
+    private array $updatedEntities = [];
+    private ?SymfonyStyle $console = null;
 
     /**
      * @param EntityAutoCacheInterface[] $entityDefinitions
@@ -100,8 +99,15 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
     public function scanForTimeControlledEntities(?string $config = null, ?SymfonyStyle $console = null): void
     {
+        $this->console = $console;
+
         if ($config && $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger') !== $config) {
             return;
+        } else {
+            $this->writeTitle(sprintf(
+                "Current trigger: %s",
+                $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger')
+            ));
         }
 
         $method = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheMethod');
@@ -112,29 +118,29 @@ class EntityAutoCacheService implements EventSubscriberInterface
         foreach ($this->entityDefinitions as $entityDefinition) {
             $options = $entityDefinition->getEntityAutoCacheOptions();
 
-            if (isset($options[self::OPT_START_TIME]) || isset($options[self::OPT_END_TIME])) {
-                $console?->title(sprintf("Scanning for %s", $entityDefinition->getEntityName()));
+            if (isset($options[self::START_TIME]) || isset($options[self::END_TIME])) {
+                $this->writeTitle(sprintf("Scanning for %s", $entityDefinition->getEntityName()));
 
                 $activeFilterSql = "";
-                if (isset($options[self::OPT_ACTIVE])) {
-                    $activeFilterSql = sprintf("AND `%s` = '1'", $options[self::OPT_ACTIVE]);
+                if (isset($options[self::ACTIVE])) {
+                    $activeFilterSql = sprintf("AND `%s` = '1'", $options[self::ACTIVE]);
                 }
 
                 $timeRangeFilterSql = [];
-                if (isset($options[self::OPT_START_TIME])) {
+                if (isset($options[self::START_TIME])) {
                     $timeRangeFilterSql[] = sprintf(
                         "(`%s` > `updated_at` AND `%s` < '%s')",
-                        $options[self::OPT_START_TIME],
-                        $options[self::OPT_START_TIME],
-                        $time,
+                        $options[self::START_TIME],
+                        $options[self::START_TIME],
+                        $time
                     );
                 }
-                if (isset($options[self::OPT_END_TIME])) {
+                if (isset($options[self::END_TIME])) {
                     $timeRangeFilterSql[] = sprintf(
                         "(`%s` > `updated_at` AND `%s` < '%s')",
-                        $options[self::OPT_END_TIME],
-                        $options[self::OPT_END_TIME],
-                        $time,
+                        $options[self::END_TIME],
+                        $options[self::END_TIME],
+                        $time
                     );
                 }
 
@@ -145,7 +151,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
                     $activeFilterSql
                 );
 
-                $console?->writeln($sql);
+                $this->writeLine($sql);
 
                 if ($method === self::METHOD_CLEAR) {
                     $ids = $this->connection->fetchFirstColumn($sql);
@@ -154,7 +160,8 @@ class EntityAutoCacheService implements EventSubscriberInterface
                     }
 
                     $cacheClear = true;
-                    $console?->title(sprintf("Updating ids %s", json_encode($ids)));
+
+                    $this->writeTitle(sprintf("Updating ids %s", json_encode($ids)));
 
                     $sql = sprintf(
                         "UPDATE `%s` SET `updated_at` = '%s' WHERE `id` IN (:ids);",
@@ -173,7 +180,8 @@ class EntityAutoCacheService implements EventSubscriberInterface
                         continue;
                     }
 
-                    $console?->title(sprintf("Updating ids %s", json_encode($payload)));
+                    $this->writeTitle(sprintf("Updating ids %s", json_encode($payload)));
+
                     $entityRepository = $this->definitionInstanceRegistry->getRepository($entityDefinition->getEntityName());
                     $entityRepository->upsert($payload, $context);
                 }
@@ -181,9 +189,9 @@ class EntityAutoCacheService implements EventSubscriberInterface
         }
 
         if ($cacheClear && $method === self::METHOD_CLEAR) {
-            $console?->title("Clearing cache");
+            $this->writeTitle("Clearing cache");
             $this->cacheClearer->clear();
-            $console?->writeln("Done");
+            $this->writeLine("Done");
         }
     }
 
@@ -191,43 +199,34 @@ class EntityAutoCacheService implements EventSubscriberInterface
     {
         $options = $entityDefinition->getEntityAutoCacheOptions();
 
-        if (isset($options[self::OPT_PRODUCT_STREAM])) {
-            $entityRepository = $this->definitionInstanceRegistry->getRepository($entityDefinition->getEntityName());
-            $criteria = new Criteria($ids);
-            /** @var EntityCollection $entities */
-            $entities = $entityRepository->search($criteria, $context)->getEntities();
-
-            $this->updateProductStream($entities, $options, $context);
-        }
-
-        if (isset($options[self::OPT_CMS_SLOT])) {
-            $this->updateCms($ids, $options, $context);
-        }
-
-        if (isset($options[self::OPT_PRODUCT_OTM_ASSOCIATION])) {
-            $this->updateProductOtm($ids, $options, $context);
-        }
-
-        if (isset($options[self::OPT_ENTITY_MTO_ASSOCIATION])) {
-            $this->updateEntityMto($entityDefinition, $ids, $options, $context);
-        }
+        $this->updateProductStream($entityDefinition, $ids, $options, $context);
+        $this->updateCms($ids, $options, $context);
+        $this->updateEntityAssoc($entityDefinition, $ids, $options, $context);
 
         $this->updatedEntities[] = $entityDefinition->getEntityName();
     }
 
-    private function updateProductStream(EntityCollection $entities, array $options, Context $context): void
+    private function updateProductStream(EntityAutoCacheInterface $entityDefinition, array $ids, array $options, Context $context): void
     {
+        if (!isset($options[self::PRODUCT_STREAM])) {
+            return;
+        }
+
+        $entityRepository = $this->definitionInstanceRegistry->getRepository($entityDefinition->getEntityName());
+        $criteria = new Criteria($ids);
+        /** @var EntityCollection $entities */
+        $entities = $entityRepository->search($criteria, $context)->getEntities();
         $productRepository = $this->definitionInstanceRegistry->getRepository(ProductDefinition::ENTITY_NAME);
 
         /** @var Entity $entity */
         foreach ($entities as $entity) {
-            if (!$entity->__isset($options[self::OPT_PRODUCT_STREAM])) {
+            if (!$entity->__isset($options[self::PRODUCT_STREAM])) {
                 continue;
             }
 
             $criteria = new Criteria();
             $filters = $this->productStreamBuilder->buildFilters(
-                $entity->__get($options[self::OPT_PRODUCT_STREAM]),
+                $entity->__get($options[self::PRODUCT_STREAM]),
                 $context
             );
             $criteria->addFilter(...$filters);
@@ -238,58 +237,83 @@ class EntityAutoCacheService implements EventSubscriberInterface
         }
     }
 
-    private function updateProductOtm(array $ids, array $options, Context $context): void
+    private function updateEntityAssoc(EntityAutoCacheInterface $entityDefinition, array $ids, array $options, Context $context): void
     {
-        $productOtmOptions = $options[self::OPT_PRODUCT_OTM_ASSOCIATION];
-
-        $productIds = [];
-        foreach ($productOtmOptions as $productOtmOption) {
-            $sql = sprintf(
-                "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `%s` IN (:ids);",
-                $productOtmOption[self::OPT_PRODUCT_ID],
-                $productOtmOption[self::OPT_ENTITY_NAME],
-                $productOtmOption[self::OPT_ENTITY_ID]
-            );
-
-            $productIds = array_merge($productIds, $this->connection->fetchFirstColumn(
-                $sql,
-                ['ids' => Uuid::fromHexToBytesList($ids)],
-                ['ids' => ArrayParameterType::BINARY]
-            ));
+        if (!isset($options[self::ENTITY_ASSOCIATION])) {
+            return;
         }
 
-        $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
-    }
+        $assocOptions = $options[self::ENTITY_ASSOCIATION];
+        $productIds = [];
+        $categoryIds = [];
+        $upsertCommands = [];
 
-    private function updateEntityMto(EntityAutoCacheInterface $entityDefinition, array $ids, array $options, Context $context): void
-    {
-        $entityMtoOptions = $options[self::OPT_ENTITY_MTO_ASSOCIATION];
+        $this->writeTitle(sprintf("Find associations for %s", $entityDefinition->getEntityName()));
 
-        foreach ($entityMtoOptions as $entityMtoOption) {
-            if (in_array($entityMtoOption[self::OPT_ENTITY_NAME], $this->updatedEntities)) {
+        foreach ($assocOptions as $d => $assocOption) {
+            if (!isset($assocOption[self::MAIN_ENTITY])) {
+                $assocOption[self::MAIN_ENTITY] =$entityDefinition->getEntityName();
+                $assocOption[self::REFERENCE_ID_FIELD] = $this->makeId();
+            }
+
+            if (in_array($assocOption[self::MAIN_ENTITY], $this->updatedEntities)) {
+                $this->writeTitle(sprintf("#%d - The entity %s was already refreshed", $d, $assocOption[self::MAIN_ENTITY]));
                 continue;
             }
 
-            $sql = sprintf(
-                "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `id` IN (:ids);",
-                $entityMtoOption[self::OPT_ENTITY_ID],
-                $entityDefinition->getEntityName()
-            );
+            $this->writeTitle(sprintf("#%d - Processing association %s", $d, $assocOption[self::MAIN_ENTITY]));
 
-            $payload = $this->connection->fetchAllAssociative(
-                $sql,
-                ['ids' => Uuid::fromHexToBytesList($ids)],
-                ['ids' => ArrayParameterType::BINARY]
-            );
+            if (isset($assocOption[self::RELATED_ENTITY])) {
+                if (!isset($assocOption[self::MAIN_ID_FIELD])) {
+                    $assocOption[self::MAIN_ID_FIELD] = $this->makeId($assocOption[self::RELATED_ENTITY]);
+                }
+                if (!isset($assocOption[self::REFERENCE_ID_FIELD])) {
+                    $assocOption[self::REFERENCE_ID_FIELD] = $this->makeId($entityDefinition->getEntityName());
+                }
 
-            $entityRepository = $this->definitionInstanceRegistry->getRepository($entityMtoOption[self::OPT_ENTITY_NAME]);
-            $entityRepository->upsert($payload, $context);
+                if ($assocOption[self::RELATED_ENTITY] === ProductDefinition::ENTITY_NAME) {
+                    $productIds = array_merge($productIds, $this->getSelectIds($assocOption, $ids, self::FLAT));
+                } elseif ($assocOption[self::RELATED_ENTITY] === CategoryDefinition::ENTITY_NAME) {
+                    $categoryIds = array_merge($categoryIds, $this->getSelectIds($assocOption, $ids, self::FLAT));
+                } else {
+                    $upsertCommands[] = $this->makeUpsertCommand($assocOption, $ids);
+                }
+
+                continue;
+            }
+
+            if (!isset($assocOption[self::MAIN_ID_FIELD])) {
+                $assocOption[self::MAIN_ID_FIELD] = $this->makeId($entityDefinition->getEntityName());
+            }
+            if (!isset($assocOption[self::REFERENCE_ID_FIELD])) {
+                $assocOption[self::REFERENCE_ID_FIELD] = $this->makeId();
+            }
+
+            $upsertCommands[] = $this->makeUpsertCommand($assocOption, $ids, $entityDefinition->getEntityName());
+        }
+
+        if (!empty($productIds)) {
+            $this->writeLine(sprintf("#%d - Processing entity %s", $d, $assocOption[self::MAIN_ENTITY]));
+            $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
+        }
+        if (!empty($categoryIds)) {
+            $this->eventDispatcher->dispatch(new CategoryIndexerEvent(array_unique(array_filter($categoryIds)), $context));
+        }
+        if (!empty($upsertCommands)) {
+            foreach ($upsertCommands as $upsertCommand) {
+                $entityRepository = $this->definitionInstanceRegistry->getRepository($upsertCommand[self::ENTITY]);
+                $entityRepository->upsert($upsertCommand[self::PAYLOAD], $context);
+            }
         }
     }
 
     private function updateCms(array $ids, array $options, Context $context): void
     {
-        $cmsSlotOptions = $options[self::OPT_CMS_SLOT];
+        if (!isset($options[self::CMS_SLOT])) {
+            return;
+        }
+
+        $cmsSlotOptions = $options[self::CMS_SLOT];
 
         $categoryRepository = $this->definitionInstanceRegistry->getRepository(CategoryDefinition::ENTITY_NAME);
 
@@ -302,13 +326,13 @@ class EntityAutoCacheService implements EventSubscriberInterface
             $andFilters = [
                 new EqualsFilter(
                     'cmsPage.sections.blocks.slots.type',
-                    $cmsSlotOption[self::OPT_CMS_SLOT_TYPE]
+                    $cmsSlotOption[self::CMS_SLOT_TYPE]
                 )
             ];
 
-            if (isset($cmsSlotOption[self::OPT_CMS_SLOT_CONFIG_KEY])) {
+            if (isset($cmsSlotOption[self::CMS_SLOT_CONFIG_KEY])) {
                 $andFilters[] = new EqualsAnyFilter(
-                    sprintf("cmsPage.sections.blocks.slots.config.%s.value", $cmsSlotOption[self::OPT_CMS_SLOT_CONFIG_KEY]),
+                    sprintf("cmsPage.sections.blocks.slots.config.%s.value", $cmsSlotOption[self::CMS_SLOT_CONFIG_KEY]),
                     $ids
                 );
             }
@@ -321,5 +345,58 @@ class EntityAutoCacheService implements EventSubscriberInterface
         $categoryIds = $categoryRepository->searchIds($criteria, $context)->getIds();
 
         $this->eventDispatcher->dispatch(new CategoryIndexerEvent($categoryIds, $context));
+    }
+
+    private function getSelectIds(array $assocOption, array $ids, string $format): array
+    {
+        $this->writeLine(sprintf("Find ids with option %s", json_encode($assocOption)));
+
+        $sql = sprintf(
+            "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `%s` IN (:ids);",
+            $assocOption[self::MAIN_ID_FIELD],
+            $assocOption[self::MAIN_ENTITY],
+            $assocOption[self::REFERENCE_ID_FIELD]
+        );
+
+        $this->writeLine($sql);
+
+        if ($format === self::FLAT) {
+            return $this->connection->fetchFirstColumn(
+                $sql,
+                ['ids' => Uuid::fromHexToBytesList($ids)],
+                ['ids' => ArrayParameterType::BINARY]
+            );
+        } elseif ($format === self::PAYLOAD) {
+            return $this->connection->fetchAllAssociative(
+                $sql,
+                ['ids' => Uuid::fromHexToBytesList($ids)],
+                ['ids' => ArrayParameterType::BINARY]
+            );
+        }
+
+        return [];
+    }
+
+    private function makeId(?string $entityName = null): string
+    {
+        return $entityName ? $entityName . '_id' : 'id';
+    }
+
+    private function makeUpsertCommand(array $assocOption, array $ids, ?string $entityName = null): array
+    {
+        return [
+            self::ENTITY => $entityName ?: $assocOption[self::RELATED_ENTITY],
+            self::PAYLOAD => $this->getSelectIds($assocOption, $ids, self::PAYLOAD)
+        ];
+    }
+
+    private function writeTitle(string $text): void
+    {
+        $this->console?->title($text);
+    }
+
+    private function writeLine(string $text): void
+    {
+        $this->console?->writeln($text);
     }
 }
