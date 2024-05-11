@@ -4,6 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
+        <import resource="entity-auto-cache.xml"/>
         <import resource="controllers.xml"/>
         <import resource="subscribers.xml"/>
         <import resource="data.xml"/>
@@ -13,17 +14,6 @@
 
     <services>
         <!-- Services -->
-        <service id="MoorlFoundation\Core\Service\EntityAutoCacheService" public="true">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-            <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
-
-            <argument type="tagged" tag="moorl.foundation.entity_auto_cache"/>
-
-            <tag name="kernel.event_subscriber"/>
-        </service>
-
         <service id="MoorlFoundation\Core\Service\TranslationService" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>

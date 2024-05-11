@@ -21,10 +21,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Shopware\Core\Framework\Adapter\Cache\CacheClearer;
 
 class EntityAutoCacheService implements EventSubscriberInterface
 {
@@ -46,11 +49,19 @@ class EntityAutoCacheService implements EventSubscriberInterface
     public const OPT_CMS_SLOT = 'cms_slot';
     public const OPT_CMS_SLOT_TYPE = 'cms_slot_type';
     public const OPT_CMS_SLOT_CONFIG_KEY = 'cms_slot_config_key';
+    public const METHOD_CLEAR = 'clear';
+    public const METHOD_UPDATE = 'update';
+    public const TRIGGER_LIVE = 'live';
+    public const TRIGGER_SCHEDULED = 'scheduled';
+
+    private $updatedEntities = [];
 
     /**
      * @param EntityAutoCacheInterface[] $entityDefinitions
      */
     public function __construct(
+        private readonly SystemConfigService $systemConfigService,
+        private readonly CacheClearer $cacheClearer,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
         private readonly Connection $connection,
@@ -70,13 +81,40 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
+        $this->scanForTimeControlledEntities(self::TRIGGER_LIVE);
+    }
+
+    public function onEntityWrittenContainerEvent(EntityWrittenContainerEvent $event): void
+    {
+        if ($this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheSkip')) {
+            return;
+        }
+
+        foreach ($this->entityDefinitions as $entityDefinition) {
+            $entityEvent = $event->getEventByEntityName($entityDefinition->getEntityName());
+            if ($entityEvent) {
+                $this->updateEntity($entityDefinition, $entityEvent->getIds(), $event->getContext());
+            }
+        }
+    }
+
+    public function scanForTimeControlledEntities(?string $config = null, ?SymfonyStyle $console = null): void
+    {
+        if ($config && $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger') !== $config) {
+            return;
+        }
+
+        $method = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheMethod');
         $time = (new \DateTimeImmutable())->modify("-10 Second")->format(DATE_ATOM);
         $context = Context::createDefaultContext();
+        $cacheClear = false;
 
         foreach ($this->entityDefinitions as $entityDefinition) {
             $options = $entityDefinition->getEntityAutoCacheOptions();
 
             if (isset($options[self::OPT_START_TIME]) || isset($options[self::OPT_END_TIME])) {
+                $console?->title(sprintf("Scanning for %s", $entityDefinition->getEntityName()));
+
                 $activeFilterSql = "";
                 if (isset($options[self::OPT_ACTIVE])) {
                     $activeFilterSql = sprintf("AND `%s` = '1'", $options[self::OPT_ACTIVE]);
@@ -107,27 +145,49 @@ class EntityAutoCacheService implements EventSubscriberInterface
                     $activeFilterSql
                 );
 
-                $payload = $this->connection->fetchAllAssociative($sql);
+                $console?->writeln($sql);
 
-                if (!empty($payload)) {
+                if ($method === self::METHOD_CLEAR) {
+                    $ids = $this->connection->fetchFirstColumn($sql);
+                    if (empty($ids)) {
+                        continue;
+                    }
+
+                    $cacheClear = true;
+                    $console?->title(sprintf("Updating ids %s", json_encode($ids)));
+
+                    $sql = sprintf(
+                        "UPDATE `%s` SET `updated_at` = '%s' WHERE `id` IN (:ids);",
+                        $entityDefinition->getEntityName(),
+                        $time
+                    );
+
+                    $this->connection->executeStatement(
+                        $sql,
+                        ['ids' => Uuid::fromHexToBytesList($ids)],
+                        ['ids' => ArrayParameterType::BINARY]
+                    );
+                } else {
+                    $payload = $this->connection->fetchAllAssociative($sql);
+                    if (empty($payload)) {
+                        continue;
+                    }
+
+                    $console?->title(sprintf("Updating ids %s", json_encode($payload)));
                     $entityRepository = $this->definitionInstanceRegistry->getRepository($entityDefinition->getEntityName());
                     $entityRepository->upsert($payload, $context);
                 }
             }
         }
-    }
 
-    public function onEntityWrittenContainerEvent(EntityWrittenContainerEvent $event): void
-    {
-        foreach ($this->entityDefinitions as $entityDefinition) {
-            $entityEvent = $event->getEventByEntityName($entityDefinition->getEntityName());
-            if ($entityEvent) {
-                $this->updateEntity($entityDefinition, $entityEvent->getIds(), $event->getContext());
-            }
+        if ($cacheClear && $method === self::METHOD_CLEAR) {
+            $console?->title("Clearing cache");
+            $this->cacheClearer->clear();
+            $console?->writeln("Done");
         }
     }
 
-    private function updateEntity(EntityAutoCacheInterface $entityDefinition, array $ids, Context $context): void
+    public function updateEntity(EntityAutoCacheInterface $entityDefinition, array $ids, Context $context): void
     {
         $options = $entityDefinition->getEntityAutoCacheOptions();
 
@@ -151,6 +211,8 @@ class EntityAutoCacheService implements EventSubscriberInterface
         if (isset($options[self::OPT_ENTITY_MTO_ASSOCIATION])) {
             $this->updateEntityMto($entityDefinition, $ids, $options, $context);
         }
+
+        $this->updatedEntities[] = $entityDefinition->getEntityName();
     }
 
     private function updateProductStream(EntityCollection $entities, array $options, Context $context): void
@@ -204,6 +266,10 @@ class EntityAutoCacheService implements EventSubscriberInterface
         $entityMtoOptions = $options[self::OPT_ENTITY_MTO_ASSOCIATION];
 
         foreach ($entityMtoOptions as $entityMtoOption) {
+            if (in_array($entityMtoOption[self::OPT_ENTITY_NAME], $this->updatedEntities)) {
+                continue;
+            }
+
             $sql = sprintf(
                 "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `id` IN (:ids);",
                 $entityMtoOption[self::OPT_ENTITY_ID],

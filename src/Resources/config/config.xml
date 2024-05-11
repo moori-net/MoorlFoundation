@@ -424,6 +424,61 @@
     </card>
 
     <card>
+        <title>Automatic cache clearing</title>
+        <title lang="de-DE">Automatisches leeren des Caches</title>
+
+        <input-field type="single-select">
+            <name>entityAutoCacheTrigger</name>
+            <label>Triggering through</label>
+            <label lang="de-DE">Auslösen durch</label>
+            <options>
+                <option>
+                    <id>live</id>
+                    <name>Live (default)</name>
+                    <name lang="de-DE">Live (Standard)</name>
+                </option>
+                <option>
+                    <id>scheduled</id>
+                    <name>Scheduled task</name>
+                    <name lang="de-DE">Geplante Aufgabe</name>
+                </option>
+                <option>
+                    <id>disabled</id>
+                    <name>Disabled</name>
+                    <name lang="de-DE">Deaktiviert</name>
+                </option>
+            </options>
+            <defaultValue>live</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>entityAutoCacheMethod</name>
+            <label>Method</label>
+            <label lang="de-DE">Methode</label>
+            <options>
+                <option>
+                    <id>update</id>
+                    <name>Update single items (fast/experimental)</name>
+                    <name lang="de-DE">Einträge einzeln aktualisieren (schnell/experimentell)</name>
+                </option>
+                <option>
+                    <id>clear</id>
+                    <name>Clear full cache (slow/stable)</name>
+                    <name lang="de-DE">Vollständigen Cache leeren (langsam/stabil)</name>
+                </option>
+            </options>
+            <defaultValue>update</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>entityAutoCacheSkip</name>
+            <label>Skip indexing of items (Cache have to be cleared manually after saving)</label>
+            <label lang="de-DE">Überspringen der Indizierung von Einträgen (Cache muss nach dem Speichern manuell geleert werden)</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
         <title>Plugin settings</title>
         <title lang="de-DE">Plugin Einstellungen</title>
 

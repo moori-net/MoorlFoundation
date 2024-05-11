@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="MoorlFoundation\Core\Service\EntityAutoCacheService" public="true">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheClearer"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+
+            <argument type="tagged" tag="moorl.foundation.entity_auto_cache"/>
+
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Task\EntityAutoCacheTask">
+            <tag name="shopware.scheduled.task"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Task\EntityAutoCacheTaskHandler">
+            <argument type="service" id="MoorlFoundation\Core\Service\EntityAutoCacheService"/>
+            <argument type="service" id="scheduled_task.repository"/>
+            <argument type="service" id="logger"/>
+
+            <tag name="messenger.message_handler"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Command\EntityAutoCacheCommand">
+            <argument type="service" id="MoorlFoundation\Core\Service\EntityAutoCacheService"/>
+
+            <tag name="console.command"/>
+        </service>
+    </services>
+</container>
