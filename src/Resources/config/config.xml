@@ -444,8 +444,7 @@
                 </option>
                 <option>
                     <id>disabled</id>
-                    <name>Disabled</name>
-                    <name lang="de-DE">Deaktiviert</name>
+                    <name>Console (bin/console moorl-foundation:entity-auto-cache)</name>
                 </option>
             </options>
             <defaultValue>live</defaultValue>
