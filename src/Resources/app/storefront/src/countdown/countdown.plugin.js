@@ -32,23 +32,11 @@ export default class MoorlCountdownPlugin extends Plugin {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
 
-            if (actionUrl && (debug || diff < 1)) {
-                clearInterval(x);
-                client.get(actionUrl, (response) => {
-                    response = JSON.parse(response);
-                    if (response.url) {
-                        window.location.href = response.url;
-                    } else {
-                        window.location.reload();
-                    }
-                });
-            }
-
             if (diff < 1) {
                 clearInterval(x);
 
-                if (actionUrl) {
-                    setTimeout(() => {
+                setTimeout(() => {
+                    if (actionUrl) {
                         client.get(actionUrl, (response) => {
                             response = JSON.parse(response);
                             if (response.url) {
@@ -57,12 +45,10 @@ export default class MoorlCountdownPlugin extends Plugin {
                                 window.location.reload();
                             }
                         });
-                    }, 5000);
-                } else {
-                    setTimeout(() => {
+                    } else {
                         window.location.reload();
-                    }, 5000);
-                }
+                    }
+                }, 5000);
 
                 diff = 0;
             }

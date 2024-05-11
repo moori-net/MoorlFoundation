@@ -1,4 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
+import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlRelativeTimePlugin extends Plugin {
 
@@ -18,6 +19,7 @@ export default class MoorlRelativeTimePlugin extends Plugin {
         const time = new Intl.RelativeTimeFormat(this.options.locale);
         const from = new Date(this.options.from);
         const el = this.el;
+        const client = new HttpClient(window.accessKey, window.contextToken);
 
         if (!el.dataset.bsToggle) {
             el.innerText = '---';
@@ -29,8 +31,25 @@ export default class MoorlRelativeTimePlugin extends Plugin {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
 
-            if (actionUrl && diff < 1) {
-                location.href = actionUrl;
+            if (diff < 1) {
+                clearInterval(x);
+
+                setTimeout(() => {
+                    if (actionUrl) {
+                        client.get(actionUrl, (response) => {
+                            response = JSON.parse(response);
+                            if (response.url) {
+                                window.location.href = response.url;
+                            } else {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        window.location.reload();
+                    }
+                }, 5000);
+
+                diff = 0;
             }
 
             let days = Math.trunc(diff / (60 * 60 * 24));

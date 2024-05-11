@@ -80,6 +80,10 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
     public function onRequest(RequestEvent $event): void
     {
+        if (!$event->isMainRequest()) {
+            return;
+        }
+
         $this->scanForTimeControlledEntities(self::TRIGGER_LIVE);
     }
 
