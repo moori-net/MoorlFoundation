@@ -310,9 +310,11 @@ class EntityAutoCacheService implements EventSubscriberInterface
                 continue;
             }
 
-            $this->writeTitle(sprintf("Processing association %s", $assocOption[self::MAIN_ENTITY]));
+            $this->writeLine(sprintf("Current assoc option: %s", json_encode($assocOption)));
 
             if (isset($assocOption[self::RELATED_ENTITY])) {
+                $this->writeTitle(sprintf("Related entity %s", $assocOption[self::RELATED_ENTITY]));
+
                 if (!isset($assocOption[self::MAIN_ID_FIELD])) {
                     $assocOption[self::MAIN_ID_FIELD] = $this->makeId($assocOption[self::RELATED_ENTITY]);
                 }
@@ -343,11 +345,11 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
         if (!empty($productIds)) {
             $this->writeLine(sprintf("Processing invalidate product with ids %s", json_encode($productIds)));
-            $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
+            $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique($productIds), $context));
         }
         if (!empty($categoryIds)) {
             $this->writeLine(sprintf("Processing invalidate category with ids %s", json_encode($categoryIds)));
-            $this->eventDispatcher->dispatch(new CategoryIndexerEvent(array_unique(array_filter($categoryIds)), $context));
+            $this->eventDispatcher->dispatch(new CategoryIndexerEvent(array_unique($categoryIds), $context));
         }
         if (!empty($upsertCommands)) {
             foreach ($upsertCommands as $upsertCommand) {
@@ -486,6 +488,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
     private function writeLine(string $text): void
     {
         $this->console?->writeln($text);
+        $this->console?->writeln("");
         $this->logger->debug($text);
     }
 }

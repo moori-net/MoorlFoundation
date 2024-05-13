@@ -8,7 +8,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 
 class EntityTimeframeFilter extends MultiFilter
 {
-    public const DATE_FORMAT = 'Y-m-d H:i:s';
+    public const DATE_FORMAT = 'date_format';
     public const SHOW_BEFORE = 'show_before';
     public const SHOW_AFTER = 'show_after';
     public const TIMEZONE = 'timezone';
@@ -16,6 +16,12 @@ class EntityTimeframeFilter extends MultiFilter
     public function __construct(string $prefix, array $config = [])
     {
         $time = new \DateTime();
+
+        if (isset($config[self::DATE_FORMAT])) {
+            $format = $config[self::DATE_FORMAT];
+        } else {
+            $format = 'Y-m-d H:i:s';
+        }
 
         if (isset($config[self::TIMEZONE])) {
             $time = $time->setTimezone(new \DateTimeZone($config[self::TIMEZONE]));
@@ -42,7 +48,7 @@ class EntityTimeframeFilter extends MultiFilter
                     MultiFilter::CONNECTION_OR, [
                         new EqualsFilter($prefix . '.showFrom', null),
                         new RangeFilter($prefix . '.showFrom', [
-                            RangeFilter::LTE => $showFrom->format(self::DATE_FORMAT)
+                            RangeFilter::LTE => $showFrom->format($format)
                         ])
                     ]
                 ),
@@ -50,7 +56,7 @@ class EntityTimeframeFilter extends MultiFilter
                     MultiFilter::CONNECTION_OR, [
                         new EqualsFilter($prefix . '.showUntil', null),
                         new RangeFilter($prefix . '.showUntil', [
-                            RangeFilter::GTE => $showUntil->format(self::DATE_FORMAT)
+                            RangeFilter::GTE => $showUntil->format($format)
                         ])
                     ]
                 ),
