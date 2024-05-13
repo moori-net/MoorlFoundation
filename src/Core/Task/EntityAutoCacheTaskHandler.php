@@ -6,17 +6,16 @@ use MoorlFoundation\Core\Service\EntityAutoCacheService;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class EntityAutoCacheTaskHandler extends ScheduledTaskHandler
 {
     public function __construct(
-        private readonly EntityAutoCacheService $entityAutoCacheService,
         protected EntityRepository $scheduledTaskRepository,
-        protected readonly ?LoggerInterface $exceptionLogger = null
+        LoggerInterface $logger,
+        private readonly EntityAutoCacheService $entityAutoCacheService
     )
     {
-        parent::__construct($scheduledTaskRepository, $exceptionLogger);
+        parent::__construct($scheduledTaskRepository, $logger);
     }
 
     public static function getHandledMessages(): iterable
@@ -24,8 +23,8 @@ class EntityAutoCacheTaskHandler extends ScheduledTaskHandler
         return [EntityAutoCacheTask::class];
     }
 
-    public function run(?SymfonyStyle $console = null): void
+    public function run(): void
     {
-        $this->entityAutoCacheService->scanForTimeControlledEntities(EntityAutoCacheService::TRIGGER_SCHEDULED , $console);
+        $this->entityAutoCacheService->scanForTimeControlledEntities(EntityAutoCacheService::TRIGGER_SCHEDULED);
     }
 }

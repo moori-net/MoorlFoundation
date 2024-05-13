@@ -11,6 +11,7 @@
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
             <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
+            <argument type="service" id="logger"/>
 
             <argument type="tagged" tag="moorl.foundation.entity_auto_cache"/>
 
@@ -22,9 +23,9 @@
         </service>
 
         <service id="MoorlFoundation\Core\Task\EntityAutoCacheTaskHandler">
-            <argument type="service" id="MoorlFoundation\Core\Service\EntityAutoCacheService"/>
             <argument type="service" id="scheduled_task.repository"/>
             <argument type="service" id="logger"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\EntityAutoCacheService"/>
 
             <tag name="messenger.message_handler"/>
         </service>

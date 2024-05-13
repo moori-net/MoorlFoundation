@@ -15,4 +15,9 @@ class EntityAutoCacheTask extends ScheduledTask
     {
         return 60 * 5; // 5m
     }
+
+    public static function shouldRescheduleOnFailure(): bool
+    {
+        return true;
+    }
 }

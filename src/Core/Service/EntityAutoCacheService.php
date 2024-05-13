@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Service;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\System\EntityAutoCacheInterface;
+use Psr\Log\LoggerInterface;
 use Shopware\Core\Content\Category\CategoryDefinition;
 use Shopware\Core\Content\Category\Event\CategoryIndexerEvent;
 use Shopware\Core\Content\Product\Events\ProductIndexerEvent;
@@ -65,7 +66,8 @@ class EntityAutoCacheService implements EventSubscriberInterface
         private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
         private readonly Connection $connection,
         private readonly ProductStreamBuilderInterface $productStreamBuilder,
-        private readonly iterable $entityDefinitions
+        private readonly LoggerInterface $logger,
+        private readonly iterable $entityDefinitions,
     )
     {
     }
@@ -88,7 +90,13 @@ class EntityAutoCacheService implements EventSubscriberInterface
             return;
         }
 
-        $this->scanForTimeControlledEntities(self::TRIGGER_LIVE);
+        try {
+            $this->scanForTimeControlledEntities(self::TRIGGER_LIVE);
+        } catch (\Throwable $exception) {
+            $this->logger->critical(
+                sprintf("Error while scanning for time-controlled entities with message: %s", $exception->getMessage())
+            );
+        }
     }
 
     public function onEntityWrittenContainerEvent(EntityWrittenContainerEvent $event): void
@@ -112,8 +120,6 @@ class EntityAutoCacheService implements EventSubscriberInterface
         $trigger = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheTrigger') ?: self::TRIGGER_LIVE;
         if ($config && $trigger !== $config) {
             return;
-        } else {
-            $this->writeTitle(sprintf("Current trigger: %s", $trigger));
         }
 
         $method = $this->systemConfigService->get('MoorlFoundation.config.entityAutoCacheMethod') ?: self::METHOD_UPDATE;
@@ -205,9 +211,44 @@ class EntityAutoCacheService implements EventSubscriberInterface
     {
         $options = $entityDefinition->getEntityAutoCacheOptions();
 
-        $this->updateProductStream($entityDefinition, $ids, $options, $context);
-        $this->updateCms($ids, $options, $context);
-        $this->updateEntityAssoc($entityDefinition, $ids, $options, $context);
+        try {
+            $this->updateProductStream($entityDefinition, $ids, $options, $context);
+        } catch (\Throwable $exception) {
+            $this->logger->critical(
+                sprintf("Error while updating product stream with message: %s", $exception->getMessage()),
+                [
+                    'entityName' => $entityDefinition->getEntityName(),
+                    'ids' => $ids,
+                    'options' => $options
+                ]
+            );
+        }
+
+        try {
+            $this->updateCms($ids, $options, $context);
+        } catch (\Throwable $exception) {
+            $this->logger->critical(
+                sprintf("Error while updating cms with message: %s", $exception->getMessage()),
+                [
+                    'entityName' => $entityDefinition->getEntityName(),
+                    'ids' => $ids,
+                    'options' => $options
+                ]
+            );
+        }
+
+        try {
+            $this->updateEntityAssoc($entityDefinition, $ids, $options, $context);
+        } catch (\Throwable $exception) {
+            $this->logger->critical(
+                sprintf("Error while updating entity associations with message: %s", $exception->getMessage()),
+                [
+                    'entityName' => $entityDefinition->getEntityName(),
+                    'ids' => $ids,
+                    'options' => $options
+                ]
+            );
+        }
 
         $this->updatedEntities[] = $entityDefinition->getEntityName();
     }
@@ -238,8 +279,10 @@ class EntityAutoCacheService implements EventSubscriberInterface
             $criteria->addFilter(...$filters);
 
             $productIds = $productRepository->searchIds($criteria, $context)->getIds();
-
-            $this->eventDispatcher->dispatch(new ProductIndexerEvent($productIds, $context));
+            if (!empty($productIds)) {
+                $this->writeLine(sprintf("Processing invalidate product with ids %s", json_encode($productIds)));
+                $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
+            }
         }
     }
 
@@ -256,18 +299,18 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
         $this->writeTitle(sprintf("Find associations for %s", $entityDefinition->getEntityName()));
 
-        foreach ($assocOptions as $d => $assocOption) {
+        foreach ($assocOptions as $assocOption) {
             if (!isset($assocOption[self::MAIN_ENTITY])) {
                 $assocOption[self::MAIN_ENTITY] =$entityDefinition->getEntityName();
                 $assocOption[self::REFERENCE_ID_FIELD] = $this->makeId();
             }
 
             if (in_array($assocOption[self::MAIN_ENTITY], $this->updatedEntities)) {
-                $this->writeTitle(sprintf("#%d - The entity %s was already refreshed", $d, $assocOption[self::MAIN_ENTITY]));
+                $this->writeTitle(sprintf("The entity %s was already refreshed", $assocOption[self::MAIN_ENTITY]));
                 continue;
             }
 
-            $this->writeTitle(sprintf("#%d - Processing association %s", $d, $assocOption[self::MAIN_ENTITY]));
+            $this->writeTitle(sprintf("Processing association %s", $assocOption[self::MAIN_ENTITY]));
 
             if (isset($assocOption[self::RELATED_ENTITY])) {
                 if (!isset($assocOption[self::MAIN_ID_FIELD])) {
@@ -282,7 +325,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
                 } elseif ($assocOption[self::RELATED_ENTITY] === CategoryDefinition::ENTITY_NAME) {
                     $categoryIds = array_merge($categoryIds, $this->getSelectIds($assocOption, $ids, self::FLAT));
                 } else {
-                    $upsertCommands[] = $this->makeUpsertCommand($assocOption, $ids);
+                    $upsertCommands[] = $this->makeUpsertCommand($assocOption, $ids, $context);
                 }
 
                 continue;
@@ -295,22 +338,28 @@ class EntityAutoCacheService implements EventSubscriberInterface
                 $assocOption[self::REFERENCE_ID_FIELD] = $this->makeId();
             }
 
-            $upsertCommands[] = $this->makeUpsertCommand($assocOption, $ids, $entityDefinition->getEntityName());
+            $upsertCommands[] = $this->makeUpsertCommand($assocOption, $ids, $context, $entityDefinition->getEntityName());
         }
 
         if (!empty($productIds)) {
-            $this->writeLine(sprintf("#%d - Processing invalidate product with ids %s", $d, json_encode($productIds)));
+            $this->writeLine(sprintf("Processing invalidate product with ids %s", json_encode($productIds)));
             $this->eventDispatcher->dispatch(new ProductIndexerEvent(array_unique(array_filter($productIds)), $context));
         }
         if (!empty($categoryIds)) {
-            $this->writeLine(sprintf("#%d - Processing invalidate category with ids %s", $d, json_encode($categoryIds)));
+            $this->writeLine(sprintf("Processing invalidate category with ids %s", json_encode($categoryIds)));
             $this->eventDispatcher->dispatch(new CategoryIndexerEvent(array_unique(array_filter($categoryIds)), $context));
         }
         if (!empty($upsertCommands)) {
             foreach ($upsertCommands as $upsertCommand) {
+                if (!isset($upsertCommand[self::ENTITY])) {
+                    continue;
+                }
+                if (empty($upsertCommand[self::PAYLOAD])) {
+                    continue;
+                }
+
                 $this->writeLine(sprintf(
-                    "#%d - Processing refresh %s with payload %s",
-                    $d,
+                    "Processing refresh %s with payload %s",
                     $upsertCommand[self::ENTITY],
                     json_encode($upsertCommand[self::PAYLOAD])
                 ));
@@ -356,20 +405,33 @@ class EntityAutoCacheService implements EventSubscriberInterface
         $criteria->addFilter(new OrFilter($orFilters));
 
         $categoryIds = $categoryRepository->searchIds($criteria, $context)->getIds();
-
-        $this->eventDispatcher->dispatch(new CategoryIndexerEvent($categoryIds, $context));
+        if (!empty($categoryIds)) {
+            $this->writeLine(sprintf("Processing invalidate category with ids %s", json_encode($categoryIds)));
+            $this->eventDispatcher->dispatch(new CategoryIndexerEvent(array_unique(array_filter($categoryIds)), $context));
+        }
     }
 
     private function getSelectIds(array $assocOption, array $ids, string $format): array
     {
         $this->writeLine(sprintf("Find ids with option %s", json_encode($assocOption)));
 
-        $sql = sprintf(
-            "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `%s` IN (:ids);",
-            $assocOption[self::MAIN_ID_FIELD],
-            $assocOption[self::MAIN_ENTITY],
-            $assocOption[self::REFERENCE_ID_FIELD]
-        );
+        if (isset($assocOption[self::RELATED_ENTITY]) && isset($assocOption[self::ENTITY])) {
+            $sql = sprintf(
+                "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `%s` IN (:ids) AND `%s` = '%s';",
+                $assocOption[self::MAIN_ID_FIELD],
+                $assocOption[self::MAIN_ENTITY],
+                $assocOption[self::REFERENCE_ID_FIELD],
+                $assocOption[self::ENTITY],
+                $assocOption[self::RELATED_ENTITY]
+            );
+        } else {
+            $sql = sprintf(
+                "SELECT LOWER(HEX(`%s`)) AS `id` FROM `%s` WHERE `%s` IN (:ids);",
+                $assocOption[self::MAIN_ID_FIELD],
+                $assocOption[self::MAIN_ENTITY],
+                $assocOption[self::REFERENCE_ID_FIELD]
+            );
+        }
 
         $this->writeLine($sql);
 
@@ -395,21 +457,35 @@ class EntityAutoCacheService implements EventSubscriberInterface
         return $entityName ? $entityName . '_id' : 'id';
     }
 
-    private function makeUpsertCommand(array $assocOption, array $ids, ?string $entityName = null): array
+    private function makeUpsertCommand(array $assocOption, array $ids, Context $context, ?string $entityName = null): array
     {
+        $entityIds = $this->getSelectIds($assocOption, $ids, self::FLAT);
+        if (empty($entityIds)) {
+            return [];
+        }
+        if (isset($assocOption[self::RELATED_ENTITY]) && isset($assocOption[self::ENTITY])) {
+            $entityRepository = $this->definitionInstanceRegistry->getRepository($assocOption[self::RELATED_ENTITY]);
+            $criteria = new Criteria($entityIds);
+            $entityIds = $entityRepository->searchIds($criteria, $context)->getIds();
+        }
+        if (empty($entityIds)) {
+            return [];
+        }
         return [
             self::ENTITY => $entityName ?: $assocOption[self::RELATED_ENTITY],
-            self::PAYLOAD => $this->getSelectIds($assocOption, $ids, self::PAYLOAD)
+            self::PAYLOAD => \array_map(static fn (string $id): array => ['id' => $id], \array_values($entityIds))
         ];
     }
 
     private function writeTitle(string $text): void
     {
         $this->console?->title($text);
+        $this->logger->debug($text);
     }
 
     private function writeLine(string $text): void
     {
         $this->console?->writeln($text);
+        $this->logger->debug($text);
     }
 }
