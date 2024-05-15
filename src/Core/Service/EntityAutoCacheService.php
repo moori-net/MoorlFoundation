@@ -139,6 +139,9 @@ class EntityAutoCacheService implements EventSubscriberInterface
                 }
 
                 $timeRangeFilterSql = [];
+
+                $timeRangeFilterSql[] = "`updated_at` IS NULL";
+
                 if (isset($options[self::START_TIME])) {
                     $timeRangeFilterSql[] = sprintf(
                         "(`%s` > `updated_at` AND `%s` < '%s')",
@@ -147,6 +150,7 @@ class EntityAutoCacheService implements EventSubscriberInterface
                         $time
                     );
                 }
+
                 if (isset($options[self::END_TIME])) {
                     $timeRangeFilterSql[] = sprintf(
                         "(`%s` > `updated_at` AND `%s` < '%s')",
