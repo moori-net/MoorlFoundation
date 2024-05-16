@@ -31,22 +31,18 @@ export default class MoorlRelativeTimePlugin extends Plugin {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
 
-            if (diff < 1) {
+            if (diff < 1 && actionUrl) {
                 clearInterval(x);
 
                 setTimeout(() => {
-                    if (actionUrl) {
-                        client.get(actionUrl, (response) => {
-                            response = JSON.parse(response);
-                            if (response.url) {
-                                window.location.href = response.url;
-                            } else {
-                                window.location.reload();
-                            }
-                        });
-                    } else {
-                        window.location.reload();
-                    }
+                    client.get(actionUrl, (response) => {
+                        response = JSON.parse(response);
+                        if (response.url) {
+                            window.location.href = response.url;
+                        } else {
+                            window.location.reload();
+                        }
+                    });
                 }, 5000);
 
                 diff = 0;
