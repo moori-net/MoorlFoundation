@@ -6,7 +6,6 @@ use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\LocationStruct;
 use MoorlFoundation\Core\Content\Location\LocationDefinition;
 use MoorlFoundation\Core\Content\Location\LocationEntity;
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
-use MoorlFoundation\Core\Service\LocationService;
 use MoorlFoundation\Core\Service\LocationServiceV2;
 use MoorlFoundation\Core\Service\SortingService;
 use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
@@ -31,7 +30,7 @@ use Symfony\Component\HttpFoundation\Request;
 class EntityListingFeaturesSubscriberExtension
 {
     final public const DEFAULT_SEARCH_SORT = 'standard';
-    protected ?LocationService $locationService = null;
+
     protected string $entityName = "";
 
     public function __construct(
