@@ -42,6 +42,11 @@ class LocationServiceV2
         $this->context = Context::createDefaultContext();
     }
 
+    public function clearLocationCache()
+    {
+        $this->connection->executeStatement("TRUNCATE TABLE `moorl_location_cache`;");
+    }
+
     public function writeLocationCache(
         LocationEntity $location,
         string $entityName,

@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="entity-auto-cache.xml"/>
+        <import resource="location.xml"/>
         <import resource="controllers.xml"/>
         <import resource="subscribers.xml"/>
         <import resource="data.xml"/>
@@ -65,17 +66,6 @@
             <argument type="tagged" tag="moorl.foundation.entity_suggest"/>
         </service>
 
-        <service id="MoorlFoundation\Core\Service\LocationService" public="true">
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
-
-        <service id="MoorlFoundation\Core\Service\LocationServiceV2" public="true">
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb\EntityBreadcrumbUpdater">
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
@@ -110,14 +100,6 @@
         <!-- Entities -->
         <service id="MoorlFoundation\Core\Content\CmsElementConfig\CmsElementConfigDefinition">
             <tag name="shopware.entity.definition" entity="moorl_cms_element_config"/>
-        </service>
-
-        <service id="MoorlFoundation\Core\Content\Location\LocationDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_location"/>
-        </service>
-
-        <service id="MoorlFoundation\Core\Content\Location\LocationCacheDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_location_cache"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Sorting\SortingDefinition">
@@ -181,11 +163,7 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\LocationCmsElementResolver">
-            <argument type="service" id="moorl_marker.repository"/>
 
-            <tag name="shopware.cms.data_resolver"/>
-        </service>
 
         <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\OpeningHoursCmsElementResolver">
             <tag name="shopware.cms.data_resolver"/>
@@ -217,12 +195,7 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <!-- Cookie consent -->
-        <service id="MoorlFoundation\Core\Service\LocationCookieProvider"
-                 decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
-            <argument type="service" id="MoorlFoundation\Core\Service\LocationCookieProvider.inner"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-        </service>
+
 
         <!-- Core\Framework\DAL -->
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
