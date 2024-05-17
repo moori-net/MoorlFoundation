@@ -42,7 +42,7 @@ class LocationServiceV2
         $this->context = Context::createDefaultContext();
     }
 
-    public function clearLocationCache()
+    public function clearLocationCache(): void
     {
         $this->connection->executeStatement("TRUNCATE TABLE `moorl_location_cache`;");
     }
