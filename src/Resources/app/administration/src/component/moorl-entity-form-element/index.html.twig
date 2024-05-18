@@ -19,7 +19,9 @@
                         :context="productSearchContext"
                         :label="column.label"
                         :required="column.required"
-                        v-model:value="value[column.localField]">
+                        v-model:value="value[column.localField]"
+                        show-clearable-button
+                >
                     <template #result-item="{ item, index }">
                         <slot name="result-item" v-bind="{ item, index }">
                             <li is="sw-select-result" v-bind="{ item, index }">

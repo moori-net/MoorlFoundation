@@ -30,10 +30,10 @@ class FieldPriceCollection extends FieldCollection
         ];
     }
 
-    public static function getDefaults(): array
+    public static function getDefaults(string $key = 'price'): array
     {
         return [
-            'price' => [
+            $key => [
                 sprintf("c%s", Defaults::CURRENCY) => [
                     'net' => 0,
                     'gross' => 0,

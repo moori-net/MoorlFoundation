@@ -67,7 +67,7 @@
 
         {% block moorl_entity_grid_template_category_name %}
             <template #column-category.name="{ item }">
-                <router-link :to="{ name: 'sw.category.detail.dewa', params: { id: item.category.id } }">
+                <router-link v-if="item.category" :to="{ name: 'sw.category.detail', params: { id: item.category.id } }">
                     {{ item.category.name }}
                 </router-link>
             </template>
@@ -75,15 +75,31 @@
 
         {% block moorl_entity_grid_template_product_name %}
             <template #column-product.name="{ item }">
-                <router-link :to="{ name: 'sw.product.detail.dewa', params: { id: item.product.id } }">
+                <router-link v-if="item.product" :to="{ name: 'sw.product.detail', params: { id: item.product.id } }">
                     {{ item.product.name }}
+                </router-link>
+            </template>
+        {% endblock %}
+
+        {% block moorl_entity_grid_template_product_number %}
+            <template #column-product.productNumber="{ item }">
+                <router-link v-if="item.product" :to="{ name: 'sw.product.detail', params: { id: item.product.id } }">
+                    {{ item.product.productNumber }}
+                </router-link>
+            </template>
+        {% endblock %}
+
+        {% block moorl_entity_grid_template_product_stream_name %}
+            <template #column-productStream.name="{ item }">
+                <router-link v-if="item.productStream" :to="{ name: 'sw.product.stream.detail', params: { id: item.productStream.id } }">
+                    {{ item.productStream.name }}
                 </router-link>
             </template>
         {% endblock %}
 
         {% block moorl_entity_grid_template_order_ordernumber %}
             <template #column-order.orderNumber="{ item }">
-                <router-link :to="{ name: 'sw.order.detail.general', params: { id: item.order.id } }">
+                <router-link v-if="item.order" :to="{ name: 'sw.order.detail.general', params: { id: item.order.id } }">
                     {{ item.order.orderNumber }}
                 </router-link>
             </template>
