@@ -1,0 +1,69 @@
+{% set options = {
+    enablePrices: true,
+    enableAddToCartAll: true,
+    enableAddToCartSingle: true,
+    enableSelection: true,
+    currencyIso: context.currency.isoCode,
+    discountValue: 0
+}|merge(options) %}
+
+{% if items.count > 0 %}
+    <div class="moorl-product-buy-list"
+         data-moorl-product-buy-list
+         data-moorl-product-buy-list-options='{{ options|json_encode|raw }}'>
+        <ul class="moorl-product-buy-list-items">
+            {% for item in items %}
+                <li data-moorl-product-buy-list-item>
+                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/product-item.html.twig' %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% if options.enableAddToCartAll %}
+            <div class="moorl-product-buy-list-form">
+                <div class="mb-2">
+                    {% if options.enableSelection %}
+                        <div class="text-start">
+                            {{ "moorl-foundation.general.selectedItems"|trans|sw_sanitize }}:
+                            <span class="selected-items">0</span>
+                        </div>
+                    {% endif %}
+
+                    {% if options.enablePrices %}
+                        <div class="text-end">
+                            {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
+                            <span class="total-price">{{ 0|currency }}</span>
+                        </div>
+
+                        {% if options.discountValue %}
+                            <div class="text-end" title="{{ options.discountName }}">
+                                <span class="discount-price">{{ 0|currency }}</span>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <form action="{{ path('frontend.checkout.line-item.add') }}"
+                      method="post"
+                      data-add-to-cart="true">
+                    <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+                    <div class="form-values"><!-- Will be set by JavaScript --></div>
+
+                    <div class="d-grid">
+                        <button data-moorl-product-buy-list-button
+                                class="{% block product_buy_list_add_to_cart_class %}btn btn-primary btn-buy{% endblock %}"
+                                title="{{ "detail.addProduct"|trans|striptags }}"
+                                aria-label="{{ "detail.addProduct"|trans|striptags }}">
+                            {{ "detail.addProduct"|trans|striptags }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+{% elseif options.emptyText and config('MoorlFoundation.config.cmsEmptyAlert') %}
+    {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+        type: "primary",
+        content: options.emptyText ?: "moorl-foundation.search.notAvailable"|trans
+    } %}
+{% endif %}

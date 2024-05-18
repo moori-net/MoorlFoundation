@@ -10,6 +10,8 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         enableAddToCartSingle: true,
         enableAddToCartAll: true,
         productQuantities: {},
+        discountValue: 0,
+        star: '*'
     };
 
     init() {
@@ -17,6 +19,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         this._productListItems = this.el.querySelectorAll('[data-moorl-product-buy-list-item]');
         this._buyButton = this.el.querySelector('[data-moorl-product-buy-list-button]');
         this._totalPriceElement = this.el.querySelector('.total-price');
+        this._discountPriceElement = this.el.querySelector('.discount-price');
         this._selectedItemsElement = this.el.querySelector('.selected-items');
         this._formValuesElement = this.el.querySelector('.form-values');
 
@@ -80,11 +83,13 @@ export default class MoorlProductBuyListPlugin extends Plugin {
 
         let totalPrice = 0;
         let selectedItems = 0;
+        let allSelected = true;
 
         this._formValuesElement.innerHTML = null;
 
         this.el.querySelectorAll('[data-price]').forEach(item => {
             if (!item.checked) {
+                allSelected = false;
                 return;
             }
             totalPrice = totalPrice + (parseFloat(item.dataset.price) * parseInt(item.dataset.quantity));
@@ -92,15 +97,27 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             that._createFormValues(item.value, item.dataset.quantity);
         });
 
-
-        this._totalPriceElement.innerText = currency.format(totalPrice);
-        this._selectedItemsElement.innerText = selectedItems;
-
-        if (selectedItems === 0) {
-            this._buyButton.disabled = true;
+        if (allSelected) {
+            this._totalPriceElement.classList.add('striked');
         } else {
-            this._buyButton.disabled = false;
+            this._totalPriceElement.classList.remove('striked');
         }
+        this._totalPriceElement.innerText = currency.format(totalPrice) + this.options.star;
+
+        if (this.options.discountValue > 0) {
+            if (allSelected) {
+                this._discountPriceElement.classList.remove('d-none');
+            } else {
+                this._discountPriceElement.classList.add('d-none');
+            }
+            this._discountPriceElement.innerText = currency.format(totalPrice - (this.options.discountValue / 100 * totalPrice)) + this.options.star;
+        }
+
+        if (this._selectedItemsElement) {
+            this._selectedItemsElement.innerText = selectedItems;
+        }
+
+        this._buyButton.disabled = selectedItems === 0;
     }
 
     _createFormValues(productId, quantity) {
