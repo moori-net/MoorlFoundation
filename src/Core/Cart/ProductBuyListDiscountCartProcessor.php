@@ -44,6 +44,10 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
     {
         Profiler::trace('cart::product-buy-list-discount::process', function () use ($data, $toCalculate, $context, $behavior): void {
             $cmsSlots = $this->getCmsSlots($context);
+            if ($cmsSlots->count() === 0) {
+                return;
+            }
+
             $discountBundles = $this->discountBundleExtractor($toCalculate, $cmsSlots);
             if (empty($discountBundles)) {
                 return;
