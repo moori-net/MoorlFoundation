@@ -2,34 +2,30 @@
 
 namespace MoorlFoundation\Core\Cart;
 
+use MoorlFoundation\Core\Content\CartCombinationDiscount\CartCombinationDiscountCollection;
+use MoorlFoundation\Core\Content\CartCombinationDiscount\CartCombinationDiscountEntity;
+use MoorlFoundation\Core\Content\CartCombinationDiscount\CartCombinationDiscountItemCollection;
+use MoorlFoundation\Core\Content\CartCombinationDiscount\CartCombinationDiscountItemEntity;
+use MoorlFoundation\Core\Service\CartCombinationDiscountService;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\CartBehavior;
-use Shopware\Core\Checkout\Cart\CartDataCollectorInterface;
 use Shopware\Core\Checkout\Cart\CartProcessorInterface;
 use Shopware\Core\Checkout\Cart\LineItem\CartDataCollection;
-use Shopware\Core\Checkout\Cart\LineItem\LineItem;
-use Shopware\Core\Checkout\Cart\Price\PercentagePriceCalculator;
-use Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator;
-use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
-use Shopware\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
-use Shopware\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotCollection;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\Uuid\Uuid;
-use Shopware\Core\Profiling\Profiler;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
-use Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection;
 
-class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, CartDataCollectorInterface
+class ProductBuyListDiscountCartProcessor implements CartProcessorInterface
 {
+    private ?CartCombinationDiscountCollection $combinationDiscounts = null;
+
     public function __construct(
         private readonly EntityRepository $cmsSlotRepository,
-        private readonly PercentagePriceCalculator $percentagePriceCalculator,
-        private readonly QuantityPriceCalculator $quantityPriceCalculator
+        private readonly CartCombinationDiscountService $cartCombinationDiscountService
     )
     {
     }
@@ -42,58 +38,51 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
         CartBehavior $behavior
     ): void
     {
-        Profiler::trace('cart::product-buy-list-discount::process', function () use ($data, $toCalculate, $context, $behavior): void {
+        if (!$this->combinationDiscounts) {
             $cmsSlots = $this->getCmsSlots($context);
             if ($cmsSlots->count() === 0) {
                 return;
             }
 
-            $discountBundles = $this->discountBundleExtractor($toCalculate, $cmsSlots);
-            if (empty($discountBundles)) {
-                return;
-            }
-
-            foreach ($discountBundles as $discountBundle) {
-                $calculated = new PriceCollection();
-                $label = [];
-
-                foreach ($toCalculate->getLineItems() as $lineItem) {
-                    if (in_array($lineItem->getReferencedId(), $discountBundle['productIds'])) {
-                        $calculatedQuantity = $discountBundle['bundleQuantity'] * $discountBundle['productQuantities'][$lineItem->getReferencedId()];
-
-                        $calculated->add(
-                            $this->quantityPriceCalculator->calculate(
-                                $this->buildPriceDefinition($lineItem->getPrice(), $calculatedQuantity),
-                                $context
-                            )
-                        );
-                        $label[] = sprintf("%dx %s", $calculatedQuantity, $lineItem->getLabel());
-                    }
-                }
-
-                $code = Uuid::randomHex();
-                $uniqueKey = 'product-buy-list-discount-' . $code;
-                $label = sprintf(
-                    "%s%% | %s",
-                    $discountBundle['discountPercentage'],
-                    $discountBundle['discountName'] ? sprintf("%dx %s", $discountBundle['bundleQuantity'], $discountBundle['discountName']) : implode(', ', $label)
-                );
-
-                $item = new LineItem($uniqueKey, LineItem::CUSTOM_LINE_ITEM_TYPE);
-                $item->setLabel($label);
-                $item->setGood(false);
-                $item->setReferencedId($code);
-                $item->setPrice($this->percentagePriceCalculator->calculate($discountBundle['discountPercentage'], $calculated, $context));
-
-                $toCalculate->getLineItems()->add($item);
-            }
-        }, 'cart');
+            $this->combinationDiscounts = $this->convertToCartCombinationDiscounts($cmsSlots);
+            $this->cartCombinationDiscountService->addCombinationDiscounts($toCalculate, $this->combinationDiscounts);
+            $this->cartCombinationDiscountService->process($toCalculate, $context);
+        }
     }
 
-    public function collect(CartDataCollection $data, Cart $original, SalesChannelContext $context, CartBehavior $behavior): void
+    private function convertToCartCombinationDiscounts(CmsSlotCollection $cmsSlots): CartCombinationDiscountCollection
     {
-        Profiler::trace('cart::product-buy-list-discount::collect', function () use ($data, $original, $context, $behavior): void {
-        }, 'cart');
+        $combinationDiscounts = new CartCombinationDiscountCollection();
+
+        /** @var CmsSlotEntity $cmsSlot */
+        foreach ($cmsSlots as $cmsSlot) {
+            if ($this->getDiscountValue($cmsSlot) == 0) {
+                continue;
+            }
+
+            $productQuantities = $this->getProductQuantities($cmsSlot);
+            if (count($productQuantities) === 0) {
+                continue;
+            }
+
+            $combinationDiscountItems = new CartCombinationDiscountItemCollection();
+            foreach ($productQuantities as $productId => $quantity) {
+                $combinationDiscountItem = new CartCombinationDiscountItemEntity();
+                $combinationDiscountItem->setId(md5($cmsSlot->getId() . $productId));
+                $combinationDiscountItem->setProductId($productId);
+                $combinationDiscountItem->setQuantity($quantity);
+                $combinationDiscountItems->add($combinationDiscountItem);
+            }
+            $combinationDiscount = new CartCombinationDiscountEntity();
+            $combinationDiscount->setId($cmsSlot->getId());
+            $combinationDiscount->setDiscountValue($this->getDiscountValue($cmsSlot));
+            $combinationDiscount->setMaxStacks($this->getMaxStacks($cmsSlot));
+            $combinationDiscount->setTranslated(['name' => $this->getDiscountName($cmsSlot)]);
+            $combinationDiscount->setItems($combinationDiscountItems);
+            $combinationDiscounts->add($combinationDiscount);
+        }
+
+        return $combinationDiscounts;
     }
 
     private function getCmsSlots(SalesChannelContext $context): CmsSlotCollection
@@ -105,56 +94,13 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
         return $this->cmsSlotRepository->search($criteria, $context->getContext())->getEntities();
     }
 
-    private function discountBundleExtractor(Cart $cart, CmsSlotCollection $cmsSlots): array
+    private function getMaxStacks(CmsSlotEntity $cmsSlot): int
     {
-        $discountBundles = [];
-        $cartProductQuantities = [];
-
-        foreach ($cart->getLineItems() as $lineItem) {
-            $cartProductQuantities[$lineItem->getReferencedId()] = $lineItem->getQuantity();
+        $config = $cmsSlot->getFieldConfig()->get('maxStacks');
+        if ($config && $config->getValue()) {
+            return (int) $config->getValue();
         }
-
-        /** @var CmsSlotEntity $cmsSlot */
-        foreach ($cmsSlots as $cmsSlot) {
-            $productQuantities = $this->getProductQuantities($cmsSlot);
-            if (count($productQuantities) === 0) {
-                continue;
-            }
-
-            if (count($productQuantities) > count($cartProductQuantities)) {
-                continue;
-            }
-
-            $bundleQuantities = array_filter($cartProductQuantities, function($k) use ($productQuantities) {
-                return in_array($k, array_keys($productQuantities));
-            }, ARRAY_FILTER_USE_KEY);
-
-            if (count($bundleQuantities) !== count($productQuantities)) {
-                continue;
-            }
-
-            $subtracted = array_map(function($x, $y) {
-                return (int) floor($x / $y);
-            }, $bundleQuantities, $productQuantities);
-            $bundleQuantity = min($subtracted);
-            if (!$bundleQuantity) {
-                continue;
-            }
-
-            foreach (array_keys($productQuantities) as $key) {
-                $cartProductQuantities[$key] = $cartProductQuantities[$key] - $bundleQuantity;
-            }
-
-            $discountBundles[] = [
-                'productIds' => array_keys($productQuantities),
-                'productQuantities' => $productQuantities,
-                'discountPercentage' => $this->getDiscountPercentage($cmsSlot),
-                'discountName' => $this->getDiscountName($cmsSlot),
-                'bundleQuantity' => $bundleQuantity,
-            ];
-        }
-
-        return $discountBundles;
+        return 100;
     }
 
     private function getProductIds(CmsSlotEntity $cmsSlot): array
@@ -166,11 +112,11 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
         return [];
     }
 
-    private function getDiscountPercentage(CmsSlotEntity $cmsSlot): float
+    private function getDiscountValue(CmsSlotEntity $cmsSlot): float
     {
         $config = $cmsSlot->getFieldConfig()->get('discountPercentage');
         if ($config && $config->getValue()) {
-            return (float) - $config->getValue();
+            return (float) $config->getValue();
         }
         return 0;
     }
@@ -198,25 +144,5 @@ class ProductBuyListDiscountCartProcessor implements CartProcessorInterface, Car
             }
         }
         return $productQuantities;
-    }
-
-    private function buildPriceDefinition(CalculatedPrice $price, int $quantity): QuantityPriceDefinition
-    {
-        $definition = new QuantityPriceDefinition($price->getUnitPrice(), $price->getTaxRules(), $quantity);
-        if ($price->getListPrice() !== null) {
-            $definition->setListPrice($price->getListPrice()->getPrice());
-        }
-
-        if ($price->getReferencePrice() !== null) {
-            $definition->setReferencePriceDefinition(
-                new ReferencePriceDefinition(
-                    $price->getReferencePrice()->getPurchaseUnit(),
-                    $price->getReferencePrice()->getReferenceUnit(),
-                    $price->getReferencePrice()->getUnitName()
-                )
-            );
-        }
-
-        return $definition;
     }
 }
