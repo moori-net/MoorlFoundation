@@ -18,6 +18,7 @@ class CartCombinationDiscountEntity extends Entity
 
     protected ?string $mediaId = null;
     protected ?string $productId = null;
+    protected ?string $technicalName = null;
     protected bool $active = false;
     protected bool $hidden = false;
     protected string $countdownType;
@@ -27,6 +28,27 @@ class CartCombinationDiscountEntity extends Entity
     protected int $maxStacks = 1;
     protected int $priority = 0;
     protected string $name;
+    protected array $options = [];
+
+    public function getTechnicalName(): ?string
+    {
+        return $this->technicalName;
+    }
+
+    public function setTechnicalName(?string $technicalName): void
+    {
+        $this->technicalName = $technicalName;
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    public function setOptions(array $options): void
+    {
+        $this->options = $options;
+    }
     protected ?string $description = null;
     protected ?MediaEntity $media = null;
     protected ?ProductEntity $product = null;

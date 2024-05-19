@@ -4,6 +4,7 @@
             "moorl-product-buy-list": {
                 "name": "Buy list",
                 "label": {
+                    "enableSelection": "Enable selection via checkbox",
                     "discountActive": "Activate discount",
                     "discountPercentage": "Discount (%)",
                     "discountName": "Discount name",
