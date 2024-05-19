@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\CartCombinationDiscount;
 
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
@@ -15,6 +16,17 @@ class CartCombinationDiscountItemEntity extends Entity
     protected int $quantity = 1;
     protected int $posX = 50;
     protected int $posY = 50;
+    protected ?ProductEntity $product = null;
+
+    public function getProduct(): ?ProductEntity
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?ProductEntity $product): void
+    {
+        $this->product = $product;
+    }
 
     public function getPosX(): int
     {

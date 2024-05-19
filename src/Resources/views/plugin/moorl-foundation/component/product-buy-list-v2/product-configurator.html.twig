@@ -1,7 +1,7 @@
 {% block page_product_buy_list_configurator %}
     <div class="product-configurator">
         {% block page_product_buy_list_configurator_form %}
-            <form action="{{ seoUrl('moorl.product.buy.list.switch', {productId: product.parentId}) }}">
+            <form action="{{ seoUrl('moorl.product.buy.list.v2.switch', {productId: product.parentId}) }}">
                 {% block page_product_buy_list_configurator_groups %}
                     {% for group in product.sortedProperties %}
                         {% block page_product_detail_configurator_select %}

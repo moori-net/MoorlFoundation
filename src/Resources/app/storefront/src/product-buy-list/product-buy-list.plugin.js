@@ -48,13 +48,20 @@ export default class MoorlProductBuyListPlugin extends Plugin {
 
                 const actionUrl = form.action;
                 const formData = new FormData(form);
-                const object = {};
+                const options = {};
                 formData.forEach(function (value, key) {
-                    object[key] = value;
+                    options[key] = value;
                 });
+
+                const templateOptions = {};
+                for (const [key, value] of Object.entries(that.options)) {
+                    templateOptions[key] = value;
+                }
+
                 const query = {
                     switched: event.target.name,
-                    options: JSON.stringify(object),
+                    options: JSON.stringify(options),
+                    templateOptions: JSON.stringify(templateOptions),
                     enablePrices: that.options.enablePrices,
                     enableAddToCartSingle: that.options.enableAddToCartSingle,
                     enableAddToCartAll: that.options.enableAddToCartAll,
