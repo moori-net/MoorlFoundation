@@ -88,7 +88,7 @@ class ProductBuyListController extends StorefrontController
         return $this->renderStorefront('@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/product-item.html.twig', [
             'item' => [
                 'product' => $product,
-                'quantity' => 1
+                'quantity' => $request->query->getInt('quantity', 1)
             ],
             'options' => json_decode($request->query->get('templateOptions', ''), true)
         ]);

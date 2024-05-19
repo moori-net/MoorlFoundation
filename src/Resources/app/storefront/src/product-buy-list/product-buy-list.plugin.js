@@ -61,6 +61,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                 const query = {
                     switched: event.target.name,
                     options: JSON.stringify(options),
+                    quantity: item.dataset.quantity ?? 1,
                     templateOptions: JSON.stringify(templateOptions),
                     enablePrices: that.options.enablePrices,
                     enableAddToCartSingle: that.options.enableAddToCartSingle,
