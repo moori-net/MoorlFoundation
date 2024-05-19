@@ -14,9 +14,20 @@ class CartCombinationDiscountItemEntity extends Entity
     protected ?string $productId = null;
     protected bool $active = false;
     protected int $quantity = 1;
+    protected int $priority = 0;
     protected int $posX = 50;
     protected int $posY = 50;
     protected ?ProductEntity $product = null;
+
+    public function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
+    }
 
     public function getProduct(): ?ProductEntity
     {

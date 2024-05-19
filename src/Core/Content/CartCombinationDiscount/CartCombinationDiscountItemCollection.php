@@ -69,4 +69,9 @@ class CartCombinationDiscountItemCollection extends EntityCollection
 
         return $productQuantities;
     }
+
+    public function sortByPriority(): void
+    {
+        $this->sort(fn(CartCombinationDiscountItemEntity $a, CartCombinationDiscountItemEntity $b) => $b->getPriority() <=> $a->getPriority());
+    }
 }
