@@ -1,0 +1,60 @@
+<div class="moorl-product-buy-list-v2-options">
+    <sw-container columns="1fr 1fr" gap="0px 20px">
+        <sw-switch-field
+                v-model:value="value.enablePrices"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enablePrices')"
+        />
+
+        <sw-switch-field
+                v-model:value="value.enableVariantSwitch"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableVariantSwitch')"
+        />
+
+        <sw-switch-field
+                v-model:value="value.enableAddToCartAll"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
+        />
+
+        <sw-switch-field
+                v-model:value="value.enableSelection"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableSelection')"
+        />
+
+        <sw-switch-field
+                v-model:value="value.enableAddToCartSingle"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
+        />
+
+        <sw-switch-field
+                v-model:value="value.enableDirectUrl"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
+        />
+
+        <sw-switch-field
+                v-if="extended"
+                v-model:value="value.discountActive"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountActive')"
+        />
+
+        <sw-number-field
+                v-if="extended"
+                v-model:value="value.discountValue"
+                numberType="float"
+                :digits="4"
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountPercentage')"
+        />
+
+        <sw-text-field
+                v-if="extended"
+                v-model:value="value.discountName"
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountName')"
+        />
+    </sw-container>
+</div>
