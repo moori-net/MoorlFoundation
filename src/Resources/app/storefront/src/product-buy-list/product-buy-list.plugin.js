@@ -104,17 +104,14 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             that._createFormValues(item.value, item.dataset.quantity);
         });
 
-        if (allSelected) {
-            this._totalPriceElement.classList.add('striked');
-        } else {
-            this._totalPriceElement.classList.remove('striked');
-        }
         this._totalPriceElement.innerText = currency.format(totalPrice) + this.options.star;
 
         if (this.options.discountValue > 0) {
             if (allSelected) {
+                this._totalPriceElement.classList.add('striked');
                 this._discountPriceElement.classList.remove('d-none');
             } else {
+                this._totalPriceElement.classList.remove('striked');
                 this._discountPriceElement.classList.add('d-none');
             }
             this._discountPriceElement.innerText = currency.format(totalPrice - (this.options.discountValue / 100 * totalPrice)) + this.options.star;
