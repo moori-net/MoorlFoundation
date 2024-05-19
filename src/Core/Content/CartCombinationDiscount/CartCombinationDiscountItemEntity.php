@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\CartCombinationDiscount;
 
+use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -12,12 +13,34 @@ class CartCombinationDiscountItemEntity extends Entity
 
     protected ?string $productStreamId = null;
     protected ?string $productId = null;
+    protected ?string $categoryId = null;
     protected bool $active = false;
     protected int $quantity = 1;
     protected int $priority = 0;
     protected int $posX = 50;
     protected int $posY = 50;
     protected ?ProductEntity $product = null;
+    protected ?CategoryEntity $category = null;
+
+    public function getCategoryId(): ?string
+    {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId(?string $categoryId): void
+    {
+        $this->categoryId = $categoryId;
+    }
+
+    public function getCategory(): ?CategoryEntity
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?CategoryEntity $category): void
+    {
+        $this->category = $category;
+    }
 
     public function getPriority(): int
     {
