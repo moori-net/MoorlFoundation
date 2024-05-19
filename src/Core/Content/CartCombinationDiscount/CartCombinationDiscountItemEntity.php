@@ -9,11 +9,32 @@ class CartCombinationDiscountItemEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected string $CartCombinationDiscountId;
     protected ?string $productStreamId = null;
     protected ?string $productId = null;
     protected bool $active = false;
-    protected int $quantity;
+    protected int $quantity = 1;
+    protected int $posX = 50;
+    protected int $posY = 50;
+
+    public function getPosX(): int
+    {
+        return $this->posX;
+    }
+
+    public function setPosX(int $posX): void
+    {
+        $this->posX = $posX;
+    }
+
+    public function getPosY(): int
+    {
+        return $this->posY;
+    }
+
+    public function setPosY(int $posY): void
+    {
+        $this->posY = $posY;
+    }
 
     public function getProductStreamId(): ?string
     {
@@ -53,15 +74,5 @@ class CartCombinationDiscountItemEntity extends Entity
     public function setQuantity(int $quantity): void
     {
         $this->quantity = $quantity;
-    }
-
-    public function getCartCombinationDiscountId(): string
-    {
-        return $this->CartCombinationDiscountId;
-    }
-
-    public function setCartCombinationDiscountId(string $CartCombinationDiscountId): void
-    {
-        $this->CartCombinationDiscountId = $CartCombinationDiscountId;
     }
 }
