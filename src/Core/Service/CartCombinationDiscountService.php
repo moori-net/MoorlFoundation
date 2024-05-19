@@ -48,6 +48,7 @@ class CartCombinationDiscountService
     ): void
     {
         if (isset($this->collectionCache[$entityName])) {
+            /** @var CartCombinationDiscountCollection $combinationDiscounts */
             $combinationDiscounts = $this->collectionCache[$entityName];
         } else {
             $repository = $this->definitionInstanceRegistry->getRepository($entityName);
@@ -78,7 +79,6 @@ class CartCombinationDiscountService
     public function addCombinationDiscount(Cart $cart, CartCombinationDiscountEntity $combinationDiscount): void
     {
         $this->initCartProductQuantities($cart);
-
         if (count($this->cartProductQuantities) === 0) {
             return;
         }
@@ -93,16 +93,22 @@ class CartCombinationDiscountService
             return;
         }
 
-        $combinationQuantities = array_filter($this->cartProductQuantities, function($k) use ($combinationDiscountItems) {
-            return in_array($k, array_keys($combinationDiscountItems->getProductQuantities()));
+        $productQuantities = $combinationDiscountItems->getProductQuantities();
+
+        $combinationQuantities = array_filter($this->cartProductQuantities, function($k) use ($productQuantities) {
+            return in_array($k, array_keys($productQuantities));
         }, ARRAY_FILTER_USE_KEY);
-        if (count($combinationQuantities) !== count($combinationDiscountItems->getProductQuantities())) {
+        if (count($combinationQuantities) !== count($productQuantities)) {
             return;
         }
 
+        ksort($productQuantities);
+        ksort($combinationQuantities);
+
         $subtracted = array_map(function($x, $y) {
             return (int) floor($x / $y);
-        }, $combinationQuantities, $combinationDiscountItems->getProductQuantities());
+        }, $combinationQuantities, $productQuantities);
+
         $combinationStacks = min($subtracted);
         if (!$combinationStacks) {
             return;
