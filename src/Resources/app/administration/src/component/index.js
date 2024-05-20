@@ -27,4 +27,4 @@ import './flow-crm-mapping';
 import './parameter-grid';
 import './template-mapping-info';
 import './router-link';
-import './product-buy-list-v2-options';
+import './combination-element-options';

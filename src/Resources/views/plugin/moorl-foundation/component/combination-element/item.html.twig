@@ -1,0 +1,48 @@
+{% block combination_element %}
+    <div
+            class="moorl-combination-element {{ combinationElement.options.layout }}"
+            style="--min-width: {{ combinationElement.options.minWidth }};"
+    >
+        {% block combination_element_item %}
+            {% if combinationElement.options.showBanner %}
+                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/index.html.twig' with {
+                    item: combinationElement,
+                    options: combinationElement.options
+                } %}
+            {% endif %}
+
+            {% if combinationElement.options.showTitleDescription or combinationElement.options.showProductBuyList %}
+                {% block combination_element_content %}
+                    <div class="moorl-combination-element-content">
+                        {% if combinationElement.options.showTitleDescription %}
+                            {% block combination_element_title %}
+                                <div class="h3 moorl-combination-element-title">
+                                    {{ combinationElement.translated.name }}
+                                </div>
+                            {% endblock %}
+
+                            {% if combinationElement.translated.description %}
+                                {% block combination_element_description %}
+                                    <div class="moorl-combination-element-description">
+                                        {{ combinationElement.translated.description }}
+                                    </div>
+                                {% endblock %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% if combinationElement.options.showProductBuyList %}
+                            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/index.html.twig' with {
+                                items: combinationElement.items,
+                                options: combinationElement.options|merge({
+                                    discountName: combinationElement.translated.name,
+                                    discountValue: combinationElement.discountValue,
+                                    discountPrice: combinationElement.discountPrice
+                                })
+                            } %}
+                        {% endif %}
+                    </div>
+                {% endblock %}
+            {% endif %}
+        {% endblock %}
+    </div>
+{% endblock %}

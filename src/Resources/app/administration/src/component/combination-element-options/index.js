@@ -2,7 +2,7 @@ const {Component} = Shopware;
 
 import template from './index.html.twig';
 
-Component.register('moorl-product-buy-list-v2-options', {
+Component.register('moorl-combination-element-options', {
     template,
 
     emits: [

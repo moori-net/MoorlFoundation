@@ -1,0 +1,9 @@
+<div class="moorl-multi-banner">
+    {% block combination_element_countdown %}
+        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" with {
+            item: combinationElement,
+            options: combinationElement.options,
+            countdownTitle: combinationElement.translated.name
+        } %}
+    {% endblock %}
+</div>
