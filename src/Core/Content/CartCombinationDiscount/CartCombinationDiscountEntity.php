@@ -29,6 +29,10 @@ class CartCombinationDiscountEntity extends Entity
     protected int $priority = 0;
     protected string $name;
     protected array $options = [];
+    protected ?string $description = null;
+    protected ?MediaEntity $media = null;
+    protected ?ProductEntity $product = null;
+    protected ?CartCombinationDiscountItemCollection $items = null;
 
     public function getTechnicalName(): ?string
     {
@@ -49,10 +53,6 @@ class CartCombinationDiscountEntity extends Entity
     {
         $this->options = $options;
     }
-    protected ?string $description = null;
-    protected ?MediaEntity $media = null;
-    protected ?ProductEntity $product = null;
-    protected ?CartCombinationDiscountItemCollection $items = null;
 
     public function getPriority(): int
     {

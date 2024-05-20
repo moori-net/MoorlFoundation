@@ -6,12 +6,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
 class LabelProperty extends Flag
 {
-    public function __construct(
-        /*
-         * @var string|null
-         */
-        private readonly ?string $labelProperty
-    )
+    public function __construct(private readonly ?string $labelProperty)
     {
     }
 
