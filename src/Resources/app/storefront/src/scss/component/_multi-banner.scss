@@ -22,7 +22,9 @@
 }
 
 .moorl-multi-banner {
-  position: relative;
+  .moorl-multi-banner-container {
+    position: relative;
+  }
 
   .moorl-multi-banner-image {
     width: 100%;
