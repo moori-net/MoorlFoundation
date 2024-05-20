@@ -3,7 +3,7 @@
 
     {# Live countdown needs showUntil date #}
     {% if from %}
-        {% if item.countdownType == 'countdown' %}
+        {% if options.countdownType == 'countdown' %}
             {% set pluginOptions = {
                 debug: false,
                 from: from|date('Y-m-d\\TH:i:sP'),
@@ -23,7 +23,7 @@
                  data-moorl-countdown="true"
                  data-moorl-countdown-options='{{ pluginOptions|json_encode }}'>
             </div>
-        {% elseif item.countdownType == 'relative' %}
+        {% elseif options.countdownType == 'relative' %}
             {% set pluginOptions = {
                 from: from|date('Y-m-d\\TH:i:sP')
             } %}
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-        {% elseif item.countdownType == 'time' %}
+        {% elseif options.countdownType == 'time' %}
             <div class="moorl-countdown">
                 <div>
                     <div class="moorl-countdown-label">

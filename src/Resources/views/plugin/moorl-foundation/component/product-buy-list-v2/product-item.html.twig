@@ -151,7 +151,7 @@
                 <button class="{% block product_item_add_to_cart_class %}btn btn-light{% endblock %}"
                         title="{{ "detail.addProduct"|trans|striptags }}"
                         aria-label="{{ "detail.addProduct"|trans|striptags }}">
-                    {% block product_item_add_to_cart_icon %}{% sw_icon 'plus' %}{% endblock %}
+                    {% block product_item_add_to_cart_icon %}{% sw_icon 'icon' style {fileName: options.addToCartSingleIcon} %}{% endblock %}
                 </button>
             </form>
         {% endif %}

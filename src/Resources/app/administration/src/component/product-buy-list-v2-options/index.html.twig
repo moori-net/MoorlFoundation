@@ -7,8 +7,8 @@
                     :label="$tc('moorl-cms.elements.general.config.label.style')"
                     v-model:value="value.layout"
             >
-                <option value="banner-content">banner-content</option>
-                <option value="content-banner">content-banner</option>
+                <option value="banner-content">{{ $tc('sw-cms.elements.moorl-product-buy-list.layout.banner-content') }}</option>
+                <option value="content-banner">{{ $tc('sw-cms.elements.moorl-product-buy-list.layout.content-banner') }}</option>
             </sw-select-field>
 
             <sw-switch-field
@@ -41,6 +41,40 @@
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
             <sw-switch-field
+                    v-model:value="value.enableAddToCartSingle"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
+            />
+
+            <sw-select-field
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.addToCartSingleIcon')"
+                    v-model:value="value.addToCartSingleIcon"
+                    :disabled="!value.enableAddToCartSingle"
+            >
+                <option value="">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.none') }}</option>
+                <option value="plus">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.plus') }}</option>
+                <option value="cart">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.cart') }}</option>
+                <option value="bag">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.bag') }}</option>
+            </sw-select-field>
+
+            <sw-switch-field
+                    v-model:value="value.enableAddToCartAll"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
+            />
+
+            <sw-select-field
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.addToCartAllIcon')"
+                    v-model:value="value.addToCartAllIcon"
+                    :disabled="!value.enableAddToCartAll"
+            >
+                <option value="">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.none') }}</option>
+                <option value="plus">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.plus') }}</option>
+                <option value="cart">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.cart') }}</option>
+                <option value="bag">{{ $tc('sw-cms.elements.moorl-product-buy-list.icon.bag') }}</option>
+            </sw-select-field>
+
+            <sw-switch-field
                     v-model:value="value.enablePrices"
                     bordered
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enablePrices')"
@@ -53,21 +87,9 @@
             />
 
             <sw-switch-field
-                    v-model:value="value.enableAddToCartAll"
-                    bordered
-                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
-            />
-
-            <sw-switch-field
                     v-model:value="value.enableSelection"
                     bordered
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableSelection')"
-            />
-
-            <sw-switch-field
-                    v-model:value="value.enableAddToCartSingle"
-                    bordered
-                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
             />
 
             <sw-switch-field
@@ -91,13 +113,14 @@
             <sw-select-field
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.hotspotAnimation')"
                     v-model:value="value.hotspotAnimation"
+                    :disabled="!value.showHotspots"
             >
-                <option value="pulse">pulse</option>
+                <option value="pulse">{{ $tc('sw-cms.elements.moorl-product-buy-list.hotspotAnimation.pulse') }}</option>
             </sw-select-field>
         </sw-container>
     </sw-card-section>
 
-    <sw-card-section divider="bottom" slim v-if="isEnabled('stock') && value.showBanner">
+    <sw-card-section divider="bottom" slim v-if="value.showBanner">
         <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.stock') }}</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
@@ -106,6 +129,16 @@
                     bordered
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showStock')"
             />
+
+            <sw-select-field
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.stockType')"
+                    v-model:value="value.stockType"
+                    :disabled="!value.showStock"
+            >
+                <option value="progressBarAbs">{{ $tc('sw-cms.elements.moorl-product-buy-list.stockType.progressBarAbs') }}</option>
+                <option value="progressBarPc">{{ $tc('sw-cms.elements.moorl-product-buy-list.stockType.progressBarPc') }}</option>
+                <option value="text">{{ $tc('sw-cms.elements.moorl-product-buy-list.stockType.text') }}</option>
+            </sw-select-field>
         </sw-container>
     </sw-card-section>
 
@@ -118,6 +151,17 @@
                     bordered
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showCountdown')"
             />
+
+            <sw-select-field
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.countdownType')"
+                    v-model:value="value.countdownType"
+                    :disabled="!value.showCountdown"
+            >
+                <option value="countdown">{{ $tc('sw-cms.elements.moorl-product-buy-list.countdownType.countdown') }}</option>
+                <option value="relative">{{ $tc('sw-cms.elements.moorl-product-buy-list.countdownType.relative') }}</option>
+                <option value="time">{{ $tc('sw-cms.elements.moorl-product-buy-list.countdownType.time') }}</option>
+                <option value="hidden">{{ $tc('sw-cms.elements.moorl-product-buy-list.countdownType.hidden') }}</option>
+            </sw-select-field>
         </sw-container>
     </sw-card-section>
 </div>

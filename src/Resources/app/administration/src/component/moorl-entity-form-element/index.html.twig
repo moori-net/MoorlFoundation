@@ -20,7 +20,7 @@
                         :label="column.label"
                         :required="column.required"
                         v-model:value="value[column.localField]"
-                        show-clearable-button
+                        :show-clearable-button="!column.required"
                 >
                     <template #result-item="{ item, index }">
                         <slot name="result-item" v-bind="{ item, index }">
@@ -46,7 +46,7 @@
                             :entity="column.entity"
                             :criteria="sortingSearchCriteria"
                             :required="column.required"
-                            show-clearable-button
+                            :show-clearable-button="!column.required"
                     />
 
                     <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.sorting.list', params: { entity: column.entity } }">
@@ -63,7 +63,7 @@
                         :labelProperty="column.flags.moorl_label_property"
                         :entity="column.entity"
                         :required="column.required"
-                        show-clearable-button
+                        :show-clearable-button="!column.required"
                 />
             </template>
         </template>

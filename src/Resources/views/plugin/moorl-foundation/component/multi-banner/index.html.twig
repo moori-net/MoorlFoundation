@@ -24,7 +24,9 @@
 
                 <div class="moorl-multi-banner-overlay">
                     {% if item.options.showCountdown %}
-                        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" %}
+                        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" with {
+                            options: item.options
+                        } %}
                     {% endif %}
 
                     {% if item.options.showHotspots %}

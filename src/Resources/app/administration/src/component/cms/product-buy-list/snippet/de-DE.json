@@ -11,6 +11,8 @@
                     "countdown": "Countdown"
                 },
                 "label": {
+                    "addToCartSingleIcon": "Icon",
+                    "addToCartAllIcon": "Icon",
                     "hotspotAnimation": "Hotspot Animation",
                     "showBanner": "Zeige Banner",
                     "showTitleDescription": "Zeige Titel & Beschreibung",

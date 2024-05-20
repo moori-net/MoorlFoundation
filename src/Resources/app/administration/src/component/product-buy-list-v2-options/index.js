@@ -39,6 +39,8 @@ Component.register('moorl-product-buy-list-v2-options', {
                 enableAddToCartAll: true,
                 enableSelection: false,
                 enableAddToCartSingle: false,
+                addToCartSingleIcon: 'plus',
+                addToCartAllIcon: '',
                 enableDirectUrl: true,
                 layout: 'banner-content',
                 hotspotAnimation: 'pulse',
@@ -47,8 +49,10 @@ Component.register('moorl-product-buy-list-v2-options', {
                 showTitleDescription: true,
                 showProductBuyList: true,
                 showHotspots: true,
-                showStockBar: true,
+                showStock: true,
+                stockType: 'text',
                 showCountdown: true,
+                countdownType: 'countdown',
             }, this.value)
 
             if (this.value) {
