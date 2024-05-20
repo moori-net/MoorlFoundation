@@ -9,35 +9,47 @@
                 v-if="topBarOptions.includes('search')"
                 :placeholder="$tc('moorl-foundation.label.search')"
                 v-model:value="searchTerm"
-                @input="onSearch"
+                @update:value="onSearch"
         />
 
-        <sw-button v-if="topBarOptions.includes('new')"
-                   variant="primary"
-                   :block="true"
-                   size="small"
-                   @click="onEditItem(null)">
-            <sw-icon name="regular-plus" size="16"/>
-            {{ $tc('moorl-foundation.buttons.newButtonText') }}
+        <sw-button
+                v-if="topBarOptions.includes('new')"
+                variant="primary"
+                :block="true"
+                size="small"
+                @click="onEditItem(null)"
+        >
+            <span>
+                <sw-icon name="regular-plus" size="12"/>
+                {{ $tc('moorl-foundation.buttons.newButtonText') }}
+            </span>
         </sw-button>
 
-        <sw-button v-if="topBarOptions.includes('import')"
-                   variant="primary"
-                   :block="true"
-                   size="small"
-                   @click="onImportModal">
-            <sw-icon name="regular-cloud-upload" size="16"/>
-            {{ $tc('moorl-foundation.buttons.importButtonText') }}
+        <sw-button
+                v-if="topBarOptions.includes('import')"
+                variant="primary"
+                :block="true"
+                size="small"
+                @click="onImportModal"
+        >
+            <span>
+                <sw-icon name="regular-cloud-upload" size="12"/>
+                {{ $tc('moorl-foundation.buttons.importButtonText') }}
+            </span>
         </sw-button>
 
-        <sw-button v-if="topBarOptions.includes('export')"
-                   variant="primary"
-                   :block="true"
-                   :disabled="items.length === 0"
-                   size="small"
-                   @click="onExportModal">
-            <sw-icon name="regular-cloud-download" size="16"/>
-            {{ $tc('moorl-foundation.buttons.exportButtonText') }}
+        <sw-button
+                v-if="topBarOptions.includes('export')"
+                variant="primary"
+                :block="true"
+                :disabled="items.length === 0"
+                size="small"
+                @click="onExportModal"
+        >
+            <span>
+                <sw-icon name="regular-cloud-download" size="12"/>
+                {{ $tc('moorl-foundation.buttons.exportButtonText') }}
+            </span>
         </sw-button>
     </sw-container>
 

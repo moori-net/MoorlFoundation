@@ -3,19 +3,11 @@
   grid-template-columns: repeat(auto-fit, minmax(var(--min-width), 1fr));
   grid-gap: 20px;
   grid-auto-flow: dense;
-
-  .moorl-combination-element-content {
-    margin-bottom: 20px;
-  }
+  margin-bottom: 20px;
 
   &.content-banner {
     > .moorl-combination-element-content {
       order: -1;
-      margin-bottom: 0;
-    }
-
-    > .moorl-multi-banner {
-      margin-bottom: 20px;
     }
   }
 }

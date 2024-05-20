@@ -1,6 +1,7 @@
 {% block combination_element %}
     <div
-            class="moorl-combination-element {{ combinationElement.options.layout }}"
+            id="{{ combinationElement.options.idAttribute }}"
+            class="moorl-combination-element {{ combinationElement.options.layout }} {{ combinationElement.options.classAttribute }}"
             style="--min-width: {{ combinationElement.options.minWidth }};"
     >
         {% block combination_element_item %}

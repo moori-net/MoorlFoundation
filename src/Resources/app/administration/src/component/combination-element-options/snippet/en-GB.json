@@ -8,6 +8,8 @@
       "countdown": "Countdown"
     },
     "label": {
+      "classAttribute": "Class attribute",
+      "idAttribute": "ID attribute",
       "stockType": "Stock type",
       "countdownType": "Countdown type",
       "addToCartSingleIcon": "Icon",

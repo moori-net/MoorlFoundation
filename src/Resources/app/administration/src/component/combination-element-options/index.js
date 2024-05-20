@@ -77,6 +77,8 @@ Component.register('moorl-combination-element-options', {
                     minWidth: "330px",
                     showBanner: true,
                     showTitleDescription: true,
+                    classAttribute: "border bg-light p-3",
+                    idAttribute: null,
                 });
             }
 

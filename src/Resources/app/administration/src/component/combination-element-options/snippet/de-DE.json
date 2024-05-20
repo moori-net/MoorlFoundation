@@ -8,6 +8,8 @@
       "countdown": "Countdown"
     },
     "label": {
+      "classAttribute": "Class Attribut",
+      "idAttribute": "ID Attribut",
       "addToCartSingleIcon": "Icon",
       "addToCartAllIcon": "Icon",
       "hotspotAnimation": "Hotspot Animation",
