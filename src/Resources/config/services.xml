@@ -15,12 +15,6 @@
 
     <services>
         <!-- Services -->
-        <service id="MoorlFoundation\Core\Service\CartCombinationDiscountService">
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\PercentagePriceCalculator"/>
-            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-        </service>
-
         <service id="MoorlFoundation\Core\Service\TranslationService" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
@@ -201,18 +195,9 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-
-
         <!-- Core\Framework\DAL -->
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
             <tag name="shopware.dal.exception_handler"/>
-        </service>
-
-        <service id="MoorlFoundation\Core\Cart\ProductBuyListDiscountCartProcessor">
-            <argument type="service" id="cms_slot.repository"/>
-            <argument type="service" id="MoorlFoundation\Core\Service\CartCombinationDiscountService"/>
-
-            <tag name="shopware.cart.processor" priority="5000"/>
         </service>
     </services>
 </container>
