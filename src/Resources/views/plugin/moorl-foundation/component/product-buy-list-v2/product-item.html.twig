@@ -74,7 +74,9 @@
                 {% set attributes = {
                     'itemprop': 'image',
                     'alt': product.translated.name,
-                    'title': product.translated.name
+                    'title': product.translated.name,
+                    'width': '100',
+                    'height': '100'
                 } %}
                 {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
             {% else %}
