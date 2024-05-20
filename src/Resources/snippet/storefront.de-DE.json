@@ -4,6 +4,13 @@
     "cookieDescription": "Wir verwenden OpenStreetMap als Anbieter, um Ihnen den Standort unserer Geschäfte und Händler visuell darzustellen.",
     "cookieHint": "Bitte akzeptieren Sie das Cookie um die gewünschte Funktion zu nutzen."
   },
+  "moorl-countdown": {
+    "seconds": "Sekunden",
+    "minutes": "Minuten",
+    "hours": "Stunden",
+    "days": "Tage",
+    "countdownTitle": "Verbleibende Zeit"
+  },
   "moorl-foundation": {
     "card": {
       "address": "Adresse",

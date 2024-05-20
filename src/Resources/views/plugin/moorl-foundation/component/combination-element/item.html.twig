@@ -30,7 +30,7 @@
                             {% endif %}
                         {% endif %}
 
-                        {% if combinationElement.options.showProductBuyList %}
+                        {% if combinationElement.options.showProductBuyList and combinationElement.items %}
                             {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/index.html.twig' with {
                                 items: combinationElement.items,
                                 options: combinationElement.options|merge({

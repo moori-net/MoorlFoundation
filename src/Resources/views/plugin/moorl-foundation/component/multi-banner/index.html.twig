@@ -2,7 +2,7 @@
     {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/stock.html.twig" %}
 
     {% set media = item.media %}
-    {% set countdownTitle = "moorl-combination-discount.countdownTitle"|trans %}
+    {% set countdownTitle = "moorl-countdown.countdownTitle"|trans %}
 
     {% if media %}
         {% if not media.url %}
@@ -29,7 +29,7 @@
                         } %}
                     {% endif %}
 
-                    {% if item.options.showHotspots %}
+                    {% if item.options.showHotspots and item.items %}
                         {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/hotspots.html.twig' with {
                             items: item.items,
                             options: item.options
