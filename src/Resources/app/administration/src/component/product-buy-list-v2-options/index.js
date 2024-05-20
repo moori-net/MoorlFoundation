@@ -16,14 +16,9 @@ Component.register('moorl-product-buy-list-v2-options', {
             default: {}
         },
 
-        extended: {
-            type: Boolean,
-            default: false
-        },
-
-        layout: {
-            type: Boolean,
-            default: false
+        options: {
+            type: Array,
+            default: ['countdown', 'stock', 'hotspots', 'product-buy-list', 'layout']
         },
     },
 
@@ -32,6 +27,10 @@ Component.register('moorl-product-buy-list-v2-options', {
     },
 
     methods: {
+        isEnabled(option) {
+            return this.options.includes(option);
+        },
+
         createdComponent() {
             const value = Object.assign({
                 enablePrices: true,
@@ -46,6 +45,9 @@ Component.register('moorl-product-buy-list-v2-options', {
                 showBanner: true,
                 showTitleDescription: true,
                 showProductBuyList: true,
+                showHotspots: true,
+                showStockBar: true,
+                showCountdown: true,
             }, this.value)
 
             if (this.value) {

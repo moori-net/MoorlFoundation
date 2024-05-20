@@ -4,6 +4,13 @@
             "moorl-product-buy-list": {
                 "name": "Buy list",
                 "label": {
+                    "showBanner": "Show banner",
+                    "showTitleDescription": "Show title & description",
+                    "showProductBuyList": "Show product buy list",
+                    "minWidth": "Minimum width to be displayed side by side",
+                    "showHotspots": "Show hotspots",
+                    "showStock": "Show stock bar",
+                    "showCountdown": "Show countdown",
                     "enableSelection": "Enable selection via checkbox",
                     "discountActive": "Activate discount",
                     "discountPercentage": "Discount (%)",

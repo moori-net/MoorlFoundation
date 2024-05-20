@@ -1,12 +1,3 @@
-{% set options = {
-    enablePrices: true,
-    enableAddToCartAll: true,
-    enableAddToCartSingle: true,
-    enableSelection: true,
-    currencyIso: context.currency.isoCode,
-    discountValue: 0
-}|merge(options) %}
-
 <div class="moorl-multi-banner">
     {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/stock.html.twig" %}
 
@@ -32,18 +23,18 @@
                 } %}
 
                 <div class="moorl-multi-banner-overlay">
-                    {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" %}
+                    {% if item.options.showCountdown %}
+                        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" %}
+                    {% endif %}
 
-                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/hotspots.html.twig' with {
-                        items: item.items,
-                        options: item.options
-                    } %}
+                    {% if item.options.showHotspots %}
+                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/hotspots.html.twig' with {
+                            items: item.items,
+                            options: item.options
+                        } %}
+                    {% endif %}
                 </div>
             </div>
-        {% endblock %}
-    {% else %}
-        {% block combination_discount_countdown %}
-            {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" %}
         {% endblock %}
     {% endif %}
 </div>
