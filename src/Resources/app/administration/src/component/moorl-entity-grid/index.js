@@ -520,6 +520,8 @@ Component.register('moorl-entity-grid', {
                     this.showEditModal = false;
                 })
                 .catch((exception) => {
+                    this.isLoading = false;
+
                     const errorCode = Shopware.Utils.get(exception, 'response.data.errors[0].code');
 
                     if (errorCode === 'MOORL__DUPLICATE_ENTRY') {
