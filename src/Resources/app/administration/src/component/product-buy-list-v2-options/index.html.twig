@@ -120,7 +120,7 @@
         </sw-container>
     </sw-card-section>
 
-    <sw-card-section divider="bottom" slim v-if="value.showBanner">
+    <sw-card-section divider="bottom" slim v-if="isEnabled('stock') && value.showBanner">
         <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.stock') }}</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
