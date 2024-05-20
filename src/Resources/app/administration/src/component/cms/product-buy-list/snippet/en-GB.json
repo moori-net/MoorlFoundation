@@ -4,6 +4,7 @@
             "moorl-product-buy-list": {
                 "name": "Buy list",
                 "label": {
+                    "hotspotAnimation": "Hotspot animation",
                     "showBanner": "Show banner",
                     "showTitleDescription": "Show title & description",
                     "showProductBuyList": "Show product buy list",

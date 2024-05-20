@@ -41,6 +41,7 @@ Component.register('moorl-product-buy-list-v2-options', {
                 enableAddToCartSingle: false,
                 enableDirectUrl: true,
                 layout: 'banner-content',
+                hotspotAnimation: 'pulse',
                 minWidth: "330px",
                 showBanner: true,
                 showTitleDescription: true,

@@ -1,5 +1,5 @@
 <div class="moorl-product-buy-list-v2-options">
-    <template v-if="isEnabled('layout')">
+    <sw-card-section divider="bottom" slim v-if="isEnabled('layout')">
         <h4>Layout</h4>
 
         <sw-container  columns="1fr 1fr" gap="0px 20px">
@@ -34,9 +34,9 @@
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.minWidth')"
             />
         </sw-container>
-    </template>
+    </sw-card-section>
 
-    <template v-if="isEnabled('product-buy-list') && value.showProductBuyList">
+    <sw-card-section divider="bottom" slim v-if="isEnabled('product-buy-list') && value.showProductBuyList">
         <h4>Product by list</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
@@ -76,9 +76,9 @@
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
             />
         </sw-container>
-    </template>
+    </sw-card-section>
 
-    <template v-if="isEnabled('hotspots') && value.showBanner">
+    <sw-card-section divider="bottom" slim v-if="isEnabled('hotspots') && value.showBanner">
         <h4>Hotspots</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
@@ -87,10 +87,17 @@
                     bordered
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showHotspots')"
             />
-        </sw-container>
-    </template>
 
-    <template v-if="isEnabled('stock') && value.showBanner">
+            <sw-select-field
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.hotspotAnimation')"
+                    v-model:value="value.hotspotAnimation"
+            >
+                <option value="pulse">pulse</option>
+            </sw-select-field>
+        </sw-container>
+    </sw-card-section>
+
+    <sw-card-section divider="bottom" slim v-if="isEnabled('stock') && value.showBanner">
         <h4>Stock bar</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
@@ -100,9 +107,9 @@
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showStock')"
             />
         </sw-container>
-    </template>
+    </sw-card-section>
 
-    <template v-if="isEnabled('countdown') && value.showBanner">
+    <sw-card-section divider="bottom" slim v-if="isEnabled('countdown') && value.showBanner">
         <h4>Countdown</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
@@ -112,5 +119,5 @@
                     :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showCountdown')"
             />
         </sw-container>
-    </template>
+    </sw-card-section>
 </div>
