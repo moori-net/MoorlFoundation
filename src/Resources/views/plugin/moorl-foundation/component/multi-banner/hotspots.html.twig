@@ -1,0 +1,22 @@
+{% for item in items %}
+    {% set itemType = item.productId ? 'product' : item.categoryId ? 'category' : 'product-stream' %}
+
+    {% set itemUrl = null %}
+    {% set itemName = null %}
+    {% if itemType == 'product' %}
+        {% set itemUrl = seoUrl('frontend.detail.page', {'productId': item.productId}) %}
+        {% set itemName = item.product.translated.name %}
+    {% elseif itemType == 'category' %}
+        {% set itemUrl = seoUrl('frontend.navigation.page', {'navigationId': item.categoryId}) %}
+        {% set itemName = item.category.translated.name %}
+    {% endif %}
+
+    <a href="{{ itemUrl }}"
+       class="moorl-multi-banner-dot {{ itemType }}"
+       data-bs-toggle="tooltip"
+       data-bs-placement="top"
+       style="top: {{ item.posY }}%; left: {{ item.posX }}%"
+       title="{{ itemName }}">
+        <div class="pulse"></div>
+    </a>
+{% endfor %}

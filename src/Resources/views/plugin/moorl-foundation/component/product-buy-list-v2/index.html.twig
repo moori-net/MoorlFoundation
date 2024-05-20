@@ -13,9 +13,11 @@
          data-moorl-product-buy-list-options='{{ options|json_encode|raw }}'>
         <ul class="moorl-product-buy-list-items">
             {% for item in items %}
-                <li data-moorl-product-buy-list-item data-quantity="{{ item.quantity }}">
-                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/product-item.html.twig' %}
-                </li>
+                {% if item.productId %}
+                    <li data-moorl-product-buy-list-item data-quantity="{{ item.quantity }}">
+                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/product-item.html.twig' %}
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
 

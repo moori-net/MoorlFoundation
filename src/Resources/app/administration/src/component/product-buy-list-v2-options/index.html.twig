@@ -36,6 +36,7 @@
                 :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
         />
 
+        <!-- extended: Discount Options -->
         <sw-switch-field
                 v-if="extended"
                 v-model:value="value.discountActive"
@@ -55,6 +56,50 @@
                 v-if="extended"
                 v-model:value="value.discountName"
                 :label="$tc('sw-cms.elements.moorl-product-buy-list.label.discountName')"
+        />
+
+        <!-- layout: Layout Options -->
+        <sw-select-field
+                v-if="layout"
+                :label="$tc('moorl-cms.elements.general.config.label.style')"
+                v-model:value="value.layout"
+        >
+            <option value="banner-content">banner-content</option>
+            <option value="content-banner">content-banner</option>
+        </sw-select-field>
+
+        <sw-switch-field
+                v-if="layout"
+                v-model:value="value.showBanner"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showBanner')"
+        />
+
+        <sw-switch-field
+                v-if="layout"
+                v-model:value="value.showHotspots"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showHotspots')"
+        />
+
+        <sw-switch-field
+                v-if="layout"
+                v-model:value="value.showTitleDescription"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showTitleDescription')"
+        />
+
+        <sw-switch-field
+                v-if="layout"
+                v-model:value="value.showProductBuyList"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.showProductBuyList')"
+        />
+
+        <sw-text-field
+                v-if="layout"
+                v-model:value="value.minWidth"
+                :label="$tc('sw-cms.elements.moorl-product-buy-list.label.minWidth')"
         />
     </sw-container>
 </div>

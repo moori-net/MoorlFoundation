@@ -20,6 +20,11 @@ Component.register('moorl-product-buy-list-v2-options', {
             type: Boolean,
             default: false
         },
+
+        layout: {
+            type: Boolean,
+            default: false
+        },
     },
 
     created() {
@@ -36,6 +41,11 @@ Component.register('moorl-product-buy-list-v2-options', {
                 enableSelection: false,
                 enableAddToCartSingle: false,
                 enableDirectUrl: true,
+                layout: 'banner-content',
+                minWidth: "330px",
+                showBanner: true,
+                showTitleDescription: true,
+                showProductBuyList: true,
             }, this.value)
 
             if (this.value) {

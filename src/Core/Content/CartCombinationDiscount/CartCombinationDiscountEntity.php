@@ -54,6 +54,11 @@ class CartCombinationDiscountEntity extends Entity
         $this->options = $options;
     }
 
+    public function addOptions(array $options): void
+    {
+        $this->options = array_merge($this->options, $options);
+    }
+
     public function getPriority(): int
     {
         return $this->priority;

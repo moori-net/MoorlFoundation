@@ -1,0 +1,54 @@
+{% set progressMaxAbs = ppStock.sales + ppStock.stock %}
+
+{% if progressMaxAbs and ppPromotion.isStock and ppPromotion.stockType != 'hidden' %}
+    <div class="pp-promotion-stock">
+        {% set progressMaxAbs = ppStock.sales + ppStock.stock %}
+        {% set progressValueAbs = progressMaxAbs - ppStock.availableStock %}
+        {% set progressLeftAbs = progressMaxAbs - progressValueAbs %}
+
+        {% set progressMaxPc = 100 %}
+        {% set progressValuePc = (progressMaxPc / progressMaxAbs * progressValueAbs)|round %}
+        {% set progressLeftPc = progressMaxPc - progressValuePc %}
+        {% set bg = progressValuePc < 50 ? 'success' : progressValuePc < 75 ? 'warning' : 'danger' %}
+
+        {% set placeholder = {
+            '%progressMaxAbs%': progressMaxAbs,
+            '%progressValueAbs%': progressValueAbs,
+            '%progressLeftAbs%': progressLeftAbs,
+            '%progressMaxPc%': progressMaxPc,
+            '%progressValuePc%': progressValuePc,
+            '%progressLeftPc%': progressLeftPc
+        } %}
+
+        {% if ppPromotion.stockType == 'progressBarAbs' %}
+            <div class="progress bg-{{ bg }}"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{{ "moorl-product-promo.stockProgressBarAbs"|trans(placeholder) }}">
+                <div class="progress-bar bg-dark"
+                     role="progressbar"
+                     style="width: {{ progressValuePc }}%"
+                     aria-valuenow="{{ progressValuePc }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
+            </div>
+        {% elseif ppPromotion.stockType == 'progressBarPc' %}
+            <div class="progress bg-{{ bg }}"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="top"
+                 title="{{ "moorl-product-promo.stockProgressBarPc"|trans(placeholder) }}">
+                <div class="progress-bar bg-dark"
+                     role="progressbar"
+                     style="width: {{ progressValuePc }}%"
+                     aria-valuenow="{{ progressValuePc }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100"></div>
+            </div>
+        {% elseif ppPromotion.stockType == 'text' %}
+            <div class="pp-promotion-stock-text">
+                {{ "moorl-product-promo.stockText"|trans(placeholder) }}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
