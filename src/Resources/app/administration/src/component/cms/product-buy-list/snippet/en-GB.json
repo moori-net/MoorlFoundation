@@ -3,6 +3,13 @@
         "elements": {
             "moorl-product-buy-list": {
                 "name": "Buy list",
+                "title": {
+                    "productBuyList": "Product buy list",
+                    "hotspots": "Hotspots",
+                    "layout": "Layout",
+                    "stock": "Stock",
+                    "countdown": "Countdown"
+                },
                 "label": {
                     "hotspotAnimation": "Hotspot animation",
                     "showBanner": "Show banner",

@@ -1,6 +1,6 @@
 <div class="moorl-product-buy-list-v2-options">
     <sw-card-section divider="bottom" slim v-if="isEnabled('layout')">
-        <h4>Layout</h4>
+        <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.layout') }}</h4>
 
         <sw-container  columns="1fr 1fr" gap="0px 20px">
             <sw-select-field
@@ -37,7 +37,7 @@
     </sw-card-section>
 
     <sw-card-section divider="bottom" slim v-if="isEnabled('product-buy-list') && value.showProductBuyList">
-        <h4>Product by list</h4>
+        <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.productBuyList') }}</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
             <sw-switch-field
@@ -79,7 +79,7 @@
     </sw-card-section>
 
     <sw-card-section divider="bottom" slim v-if="isEnabled('hotspots') && value.showBanner">
-        <h4>Hotspots</h4>
+        <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.hotspots') }}</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
             <sw-switch-field
@@ -98,7 +98,7 @@
     </sw-card-section>
 
     <sw-card-section divider="bottom" slim v-if="isEnabled('stock') && value.showBanner">
-        <h4>Stock bar</h4>
+        <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.stock') }}</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
             <sw-switch-field
@@ -110,7 +110,7 @@
     </sw-card-section>
 
     <sw-card-section divider="bottom" slim v-if="isEnabled('countdown') && value.showBanner">
-        <h4>Countdown</h4>
+        <h4>{{ $tc('sw-cms.elements.moorl-product-buy-list.title.countdown') }}</h4>
 
         <sw-container columns="1fr 1fr" gap="0px 20px">
             <sw-switch-field

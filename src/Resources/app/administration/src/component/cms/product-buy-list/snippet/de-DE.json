@@ -3,7 +3,22 @@
         "elements": {
             "moorl-product-buy-list": {
                 "name": "Einkaufsliste",
+                "title": {
+                    "productBuyList": "Einkaufsliste",
+                    "hotspots": "Hotspots",
+                    "layout": "Layout",
+                    "stock": "Lager",
+                    "countdown": "Countdown"
+                },
                 "label": {
+                    "hotspotAnimation": "Hotspot Animation",
+                    "showBanner": "Zeige Banner",
+                    "showTitleDescription": "Zeige Titel & Beschreibung",
+                    "showProductBuyList": "Zeige Einkaufsliste",
+                    "minWidth": "Mindestbreite um nebeneinander dargestellt zu werden",
+                    "showHotspots": "Zeige Hotspots",
+                    "showStock": "Zeige Lagerbestand als Balken",
+                    "showCountdown": "Zeige Countdown",
                     "enableSelection": "Selektion durch Auswahlfeld aktivieren",
                     "discountActive": "Rabatt aktivieren",
                     "discountPercentage": "Rabatt (%)",
