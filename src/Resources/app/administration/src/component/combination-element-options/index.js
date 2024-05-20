@@ -34,28 +34,55 @@ Component.register('moorl-combination-element-options', {
         createdComponent() {
             const value = Object.assign({
                 enablePrices: true,
-                enableAddToCart: false,
-                enableVariantSwitch: false,
-                enableAddToCartAll: true,
-                enableSelection: false,
-                enableAddToCartSingle: false,
-                addToCartSingleIcon: 'plus',
-                addToCartAllIcon: '',
                 enableDirectUrl: true,
-                layout: 'banner-content',
-                hotspotAnimation: 'pulse',
-                minWidth: "330px",
-                showBanner: true,
-                showTitleDescription: true,
-                showProductBuyList: true,
-                showHotspots: true,
-                showStock: true,
-                stockType: 'text',
-                showCountdown: true,
-                countdownType: 'countdown',
-            }, this.value)
+            });
+
+            if (this.isEnabled('countdown')) {
+                Object.assign(value,{
+                    showCountdown: true,
+                    countdownType: 'countdown',
+                });
+            }
+
+            if (this.isEnabled('stock')) {
+                Object.assign(value,{
+                    showStock: true,
+                    stockType: 'text',
+                });
+            }
+
+            if (this.isEnabled('hotspots')) {
+                Object.assign(value,{
+                    showHotspots: true,
+                    hotspotAnimation: 'pulse',
+                });
+            }
+
+            if (this.isEnabled('product-buy-list')) {
+                Object.assign(value,{
+                    enableAddToCart: false,
+                    enableVariantSwitch: false,
+                    enableAddToCartAll: true,
+                    enableSelection: false,
+                    enableAddToCartSingle: false,
+                    addToCartSingleIcon: 'plus',
+                    addToCartAllIcon: '',
+                    showProductBuyList: true,
+                });
+            }
+
+            if (this.isEnabled('layout')) {
+                Object.assign(value,{
+                    layout: 'banner-content',
+                    minWidth: "330px",
+                    showBanner: true,
+                    showTitleDescription: true,
+                });
+            }
 
             if (this.value) {
+                Object.assign(value, this.value);
+
                 this.$emit('update:value', value);
             }
         }
