@@ -8,7 +8,7 @@
                 :isLoading="isLoading"
                 :processSuccess="processSuccess"
                 variant="primary"
-                @process-finish="saveFinish"
+                @update:process-success="saveFinish"
                 @click="onClickSave"
         >
             {{ $tc('moorl-foundation.buttons.saveButtonText') }}
