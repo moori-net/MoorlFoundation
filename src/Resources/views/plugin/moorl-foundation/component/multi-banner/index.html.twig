@@ -2,8 +2,6 @@
     {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/stock.html.twig" %}
 
     {% set media = item.media %}
-    {% set countdownTitle = "moorl-countdown.countdownTitle"|trans %}
-
     {% if media %}
         {% if not media.url %}
             {% set mediaCollection = searchMedia([media.id], context.context) %}
@@ -25,7 +23,8 @@
                 <div class="moorl-multi-banner-overlay">
                     {% if item.options.showCountdown %}
                         {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" with {
-                            options: item.options
+                            options: item.options,
+                            countdownTitle: "moorl-countdown.countdownTitle"|trans
                         } %}
                     {% endif %}
 
