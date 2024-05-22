@@ -281,6 +281,19 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
+    protected function getProductStreamFilter(Request $request): Filter
+    {
+        $ids = $this->getPropIds($request, "product-stream");
+
+        return new Filter(
+            'product-stream',
+            !empty($ids),
+            [new EntityAggregation('product-stream', $this->entityName . '.streams.id', 'product_stream')],
+            new EqualsAnyFilter($this->entityName . '.streams.id', $ids),
+            $ids
+        );
+    }
+
     protected function getManufacturerFilter(Request $request): Filter
     {
         $ids = $this->getPropIds($request, "manufacturer");

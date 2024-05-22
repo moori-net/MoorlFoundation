@@ -2,6 +2,19 @@
 
 {% block component_filter_panel_item_manufacturer %}
     {% if listing.aggregations %}
+        {# Show product streams #}
+        {% set productStreams = listing.aggregations.get('product-stream') %}
+        {% if productStreams and not productStreams.entities is empty %}
+            {% set productStreamsSorted = productStreams.entities|sort((a, b) => a.translated.name|lower > b.translated.name|lower) %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: productStreamsSorted,
+                sidebar: sidebar,
+                name: 'product-stream',
+                displayName: 'moorl-foundation.listing.filter.productStream'|trans
+            } %}
+        {% endif %}
+
         {# Show navigation tree with results in it #}
         {% set navigationCategories = listing.aggregations.get('navigation') %}
         {% if navigationCategories and not navigationCategories.entities is empty %}
