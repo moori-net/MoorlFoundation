@@ -113,7 +113,7 @@
             {% endblock %}
 
             {% block product_buy_list_item_product_configurator %}
-                {% if product.parentId %}
+                {% if product.parentId and options.enableVariantSwitch %}
                     {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/product-configurator.html.twig' %}
                 {% endif %}
             {% endblock %}

@@ -23,6 +23,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         this._selectedItemsElement = this.el.querySelector('.selected-items');
         this._formValuesElement = this.el.querySelector('.form-values');
 
+        this._productIds = [];
         this._client = new HttpClient(window.accessKey, window.contextToken);
 
         this._updateTotalPrice();
@@ -95,8 +96,15 @@ export default class MoorlProductBuyListPlugin extends Plugin {
 
         this._formValuesElement.innerHTML = null;
 
+        // Initial load product ids to prevent discount value failure on variant switch
+        if (this._productIds.length === 0) {
+            this.el.querySelectorAll('[data-price]').forEach(item => {
+                this._productIds.push(item.value);
+            });
+        }
+
         this.el.querySelectorAll('[data-price]').forEach(item => {
-            if (!item.checked) {
+            if (!item.checked || !this._productIds.includes(item.value)) {
                 allSelected = false;
                 return;
             }
