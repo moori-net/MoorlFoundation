@@ -281,14 +281,18 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getProductStreamFilter(Request $request): Filter
+    protected function getProductStreamFilter(Request $request, array $filers = []): Filter
     {
         $ids = $this->getPropIds($request, "product-stream");
 
         return new Filter(
             'product-stream',
             !empty($ids),
-            [new EntityAggregation('product-stream', $this->entityName . '.streams.id', 'product_stream')],
+            [new FilterAggregation(
+                'product-stream',
+                new EntityAggregation('product-stream', $this->entityName . '.streams.id', 'product_stream'),
+                $filers
+            )],
             new EqualsAnyFilter($this->entityName . '.streams.id', $ids),
             $ids
         );
@@ -370,7 +374,7 @@ class EntityListingFeaturesSubscriberExtension
         $ids = $this->getPropIds($request, "customer");
 
         return new Filter(
-            'appflix-ad-customer',
+            'customer',
             !empty($ids),
             [],
             new EqualsAnyFilter($this->entityName . '.customerId', $ids),
