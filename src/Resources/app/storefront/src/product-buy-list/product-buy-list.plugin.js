@@ -104,9 +104,12 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         }
 
         this.el.querySelectorAll('[data-price]').forEach(item => {
-            if (!item.checked || !this._productIds.includes(item.value)) {
+            if (!item.checked) {
                 allSelected = false;
                 return;
+            }
+            if (!this._productIds.includes(item.value)) {
+                allSelected = false;
             }
             totalPrice = totalPrice + (parseFloat(item.dataset.price) * parseInt(item.dataset.quantity));
             selectedItems++;
