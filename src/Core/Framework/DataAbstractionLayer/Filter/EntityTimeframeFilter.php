@@ -17,14 +17,15 @@ class EntityTimeframeFilter extends MultiFilter
 
     public function __construct(string $prefix, array $config = [])
     {
-        $time = new \DateTime();
+        $time = new \DateTimeImmutable();
         $time = $time->setTimezone(new \DateTimeZone($config[self::TIMEZONE] ?? 'UTC'));
         $format = $config[self::DATE_FORMAT] ?? 'Y-m-d H:i:s';
+
         $showFrom = isset($config[self::SHOW_BEFORE]) ? $time->modify('+' . $config[self::SHOW_BEFORE] . ' hours') : $time;
         $showUntil = isset($config[self::SHOW_AFTER]) ? $time->modify('-' . $config[self::SHOW_AFTER] . ' hours') : $time;
         $showFromField = $prefix . '.' . ($config[self::SHOW_FROM] ?? 'showFrom');
         $showUntilField = $prefix . '.' . ($config[self::SHOW_UNTIL] ?? 'showUntil');
-
+        
         parent::__construct(
             self::CONNECTION_AND,
             [
