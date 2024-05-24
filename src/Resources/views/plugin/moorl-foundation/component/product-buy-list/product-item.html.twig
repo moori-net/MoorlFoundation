@@ -1,11 +1,15 @@
-{% set price = product.calculatedPrice %}
-{% if product.calculatedPrices|length > 0 %}
-    {% set price = product.calculatedPrices.first() %}
-{% endif %}
-
 {% set quantity = 1 %}
 {% if productQuantities[product.id] %}
     {% set quantity = productQuantities[product.id] %}
+{% endif %}
+
+{% set price = product.calculatedPrice %}
+{% if product.calculatedPrices|length > 0 %}
+    {% for calculatedPrice in product.calculatedPrices %}
+        {% if quantity >= calculatedPrice.quantity %}
+            {% set price = calculatedPrice %}
+        {% endif %}
+    {% endfor %}
 {% endif %}
 
 <div itemscope
