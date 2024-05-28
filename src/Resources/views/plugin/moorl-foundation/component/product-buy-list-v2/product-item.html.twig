@@ -3,6 +3,8 @@
 
 {% set price = product.calculatedPrice %}
 {% if product.calculatedPrices|length > 0 %}
+    {% set price = product.calculatedPrices.first %}
+
     {% for calculatedPrice in product.calculatedPrices %}
         {% if quantity >= calculatedPrice.quantity %}
             {% set price = calculatedPrice %}
