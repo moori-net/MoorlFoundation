@@ -6,6 +6,7 @@
             "config": "Configuration"
         },
         "properties": {
+            "customerGroupId": "Customer group",
             "root": "Root directory",
             "host": "Host",
             "port": "Port",
