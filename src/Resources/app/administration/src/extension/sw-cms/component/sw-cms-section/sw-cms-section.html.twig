@@ -1,16 +1,22 @@
 {% block sw_cms_section_content %}
     <template v-if="isSectionGrid">
-        <div v-if="isSectionGridInitialized"
-             class="moorl-grid-row"
-             :style="sectionSpacingStyle">
-            <div class="sw-cms-section__content moorl-grid-column"
-                 v-for="(n, gridCol) in sectionGridConfig"
-                 :key="gridCol"
-                 :style="getSectionGridStyle(gridCol)">
+        <div
+                v-if="isSectionGridInitialized"
+                class="moorl-grid-row"
+                :style="sectionSpacingStyle"
+        >
+            <div
+                    class="sw-cms-section__content moorl-grid-column"
+                    v-for="(n, gridCol) in sectionGridConfig"
+                    :key="gridCol"
+                    :style="getSectionGridStyle(gridCol)"
+            >
                 <template v-if="isGridContentEmpty(gridCol)">
-                    <div v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(blockCount, gridCol) }"
-                         class="sw-cms-section__empty-stage"
-                         @click="openBlockBar">
+                    <div
+                            v-droppable="{ dragGroup: 'cms-stage', data: getDropGridData(blockCount, gridCol) }"
+                            class="sw-cms-section__empty-stage"
+                            @click="openBlockBar"
+                    >
                         <sw-icon
                                 name="regular-plus-circle"
                                 size="24"
@@ -29,14 +35,17 @@
                         />
                     </div>
 
-                    <template v-for="(block, index) in sectionGridBlocks(gridCol)">
+                    <template
+                            v-for="(block, index) in sectionGridBlocks(gridCol)"
+                            :key="block.id"
+                    >
                         <sw-cms-block
-                                :key="block.id"
                                 class="sw-cms-stage-block"
                                 :disabled="disabled"
                                 :block="block"
                                 :active="selectedBlock !== null && selectedBlock.id === block.id"
-                                @block-overlay-click="onBlockSelection(block)">
+                                @block-overlay-click="onBlockSelection(block)"
+                        >
                             <component :is="`sw-cms-block-${block.type}`">
                                 <template
                                         v-for="el in block.slots"

@@ -52,9 +52,11 @@
             <div class="sw-cms-sidebar__navigator-section-spacer"></div>
 
             <template v-if="getSectionGridContentBlocks(section.blocks, gridCol).length > 0">
-                <template v-for="block in getSectionGridContentBlocks(section.blocks, gridCol)">
+                <template
+                        v-for="block in getSectionGridContentBlocks(section.blocks, gridCol)"
+                        :key="block.id"
+                >
                     <sw-cms-sidebar-nav-element
-                            :key="block.id"
                             v-draggable="getSectionGridDragData(block, sectionIndex, gridCol)"
                             v-droppable="getSectionGridDropData(block, sectionIndex, gridCol)"
                             :block="block"

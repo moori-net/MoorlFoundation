@@ -23,8 +23,10 @@
             @update:value="initCustomFields"
     />
 
-    <div v-for="(configItem, configIndex) in section.customFields.moorl_section_grid_config"
-         :key="configIndex">
+    <div
+            v-for="(configItem, configIndex) in section.customFields.moorl_section_grid_config"
+            :key="configIndex"
+    >
         <div class="sw-cms-sidebar__navigator-section-spacer"></div>
 
         <moorl-bs-config
