@@ -193,6 +193,14 @@
         </sw-modal>
     </slot>
 
+    <sw-confirm-modal
+            v-if="deleteId"
+            type="yesno"
+            @close="deleteId = null"
+            @cancel="deleteId = null"
+            @confirm="onDeleteItemId"
+    />
+
     <moorl-csv-import
             v-if="showImportModal"
             :entity="entity"
