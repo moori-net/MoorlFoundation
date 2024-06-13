@@ -105,6 +105,11 @@ Component.register('moorl-entity-grid', {
             required: false,
             default: ['search', 'new', 'import', 'export']
         },
+        confirmDelete: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
         /* Handling for prices */
         tax: {
             type: Object,
@@ -148,7 +153,8 @@ Component.register('moorl-entity-grid', {
 
             showEditModal: false,
             showImportModal: false,
-            showExportModal: false
+            showExportModal: false,
+            deleteId: null,
         };
     },
 
@@ -462,9 +468,18 @@ Component.register('moorl-entity-grid', {
         },
 
         onDeleteItem(item) {
+            this.deleteId = item.id;
+            if (this.confirmDelete) {
+                return;
+            }
+            this.onDeleteItemId();
+        },
+
+        onDeleteItemId() {
             this.repository
-                .delete(item.id, Shopware.Context.api)
+                .delete(this.deleteId, Shopware.Context.api)
                 .then(() => {
+                    this.deleteId = null
                     this.getItems();
                 });
         },
