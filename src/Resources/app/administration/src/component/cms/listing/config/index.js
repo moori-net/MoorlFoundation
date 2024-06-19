@@ -84,15 +84,15 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                     {value: 'gallery', label: 'sw-cms.elements.moorl-foundation-listing.mode.gallery'}
                 ],
                 navigationArrows: [
-                    {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
-                    {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationArrows.outside'},
-                    {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationArrows.inside'}
+                    {value: null, label: this.$tc('sw-cms.elements.moorl-foundation-listing.none')},
+                    {value: 'outside', label: this.$tc('sw-cms.elements.moorl-foundation-listing.navigationArrows.outside')},
+                    {value: 'inside', label: this.$tc('sw-cms.elements.moorl-foundation-listing.navigationArrows.inside')}
                 ],
                 navigationDots: [
-                    {value: null, label: 'sw-cms.elements.moorl-foundation-listing.none'},
-                    {value: 'outside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.outside'},
-                    {value: 'inside', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.inside'},
-                    {value: 'thumbnails', label: 'sw-cms.elements.moorl-foundation-listing.navigationDots.thumbnails'}
+                    {value: null, label: this.$tc('sw-cms.elements.moorl-foundation-listing.none')},
+                    {value: 'outside', label: this.$tc('sw-cms.elements.moorl-foundation-listing.navigationDots.outside')},
+                    {value: 'inside', label: this.$tc('sw-cms.elements.moorl-foundation-listing.navigationDots.inside')},
+                    {value: 'thumbnails', label: this.$tc('sw-cms.elements.moorl-foundation-listing.navigationDots.thumbnails')}
                 ],
                 foreignKey: [
                     {value: null, label: this.$tc('sw-cms.elements.moorl-foundation-listing.none')}

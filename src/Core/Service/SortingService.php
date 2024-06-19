@@ -151,7 +151,7 @@ class SortingService
         if ($resolverContext instanceof EntityResolverContext) {
             $config = $slot->getFieldConfig();
             $foreignKeyConfig = $config->get('foreignKey');
-            if ($foreignKeyConfig && $foreignKeyConfig->getValue()) {
+            if ($foreignKeyConfig && $foreignKeyConfig->getValue() && !in_array($foreignKeyConfig->getValue(), ['Keine', 'None'])) {
                 $criteria->addFilter(new EqualsFilter(
                     $foreignKeyConfig->getValue(),
                     $resolverContext->getEntity()->getUniqueIdentifier()

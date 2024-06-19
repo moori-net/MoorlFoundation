@@ -65,11 +65,12 @@
                             :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')"
                     />
 
-                    <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
-                                     @update:value="onSelectionChange"
-                                     v-model:value="element.config.foreignKey.value">
-                        <option v-for="option in elementOptions.foreignKey" :value="option.value">{{ option.label }}</option>
-                    </sw-select-field>
+                    <sw-single-select
+                            v-model:value="element.config.foreignKey.value"
+                            @update:value="onSelectionChange"
+                            :options="elementOptions.foreignKey"
+                            :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
+                    />
                 </sw-container>
 
                 <sw-entity-multi-select
@@ -137,17 +138,17 @@
                     <option v-for="option in elementOptions.mode" :value="option.value">{{ $tc(option.label) }}</option>
                 </sw-select-field>
 
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigationArrows')"
-                                 v-model:value="element.config.navigationArrows.value"
-                                 show-clearable-button>
-                    <option v-for="option in elementOptions.navigationArrows" :value="option.value">{{ $tc(option.label) }}</option>
-                </sw-select-field>
+                <sw-single-select
+                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigationArrows')"
+                        v-model:value="element.config.navigationArrows.value"
+                        :options="elementOptions.navigationArrows"
+                />
 
-                <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigationDots')"
-                                 v-model:value="element.config.navigationDots.value"
-                                 show-clearable-button>
-                    <option v-for="option in elementOptions.navigationDots" :value="option.value">{{ $tc(option.label) }}</option>
-                </sw-select-field>
+                <sw-single-select
+                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigationDots')"
+                        v-model:value="element.config.navigationDots.value"
+                        :options="elementOptions.navigationDots"
+                />
 
                 <sw-number-field
                         v-model:value="element.config.speed.value"

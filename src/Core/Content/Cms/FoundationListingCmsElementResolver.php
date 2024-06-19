@@ -123,7 +123,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $translatedConfig = $slot->getTranslated()['config'];
 
         $foreignKeyConfig = $config->get('foreignKey');
-        if ($foreignKeyConfig && $foreignKeyConfig->getValue()) {
+        if ($foreignKeyConfig && $foreignKeyConfig->getValue() && !in_array($foreignKeyConfig->getValue(), ['Keine', 'None'])) {
             /* Ignore filter if manual selected */
             if (!$listingSourceConfig || $listingSourceConfig->getValue() !== 'select') {
                 $criteria->addFilter(new EqualsFilter(
