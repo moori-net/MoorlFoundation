@@ -69,7 +69,9 @@ class ClientExtension
         if (empty($options['scopes'])) {
             unset($options['scopes']);
         } elseif (is_string($options['scopes'])) {
-            $options['scopes'] = array_map('trim', explode(",", $options['scopes']));
+            $scope = array_map('trim', explode(",", $options['scopes']));
+            $options['scope'] = $scope;
+            $options['scopes'] = $scope;
         }
 
         foreach ($options as $k => $option) {
