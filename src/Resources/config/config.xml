@@ -7,8 +7,8 @@
 
         <input-field type="bool">
             <name>fontawesome</name>
-            <label>Enable Font Awesome 5 Free</label>
-            <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
+            <label>Enable Font Awesome 5 Free (via cdnjs.cloudflare.com)</label>
+            <label lang="de-DE">Aktiviere Font Awesome 5 Free (via cdnjs.cloudflare.com)</label>
             <defaultValue>false</defaultValue>
         </input-field>
 
