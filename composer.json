@@ -1,7 +1,7 @@
 {
     "name": "moorl/foundation",
     "description": "Foundation",
-    "version": "1.6.22",
+    "version": "1.6.23",
     "license": "proprietary",
     "authors": [
         {
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "shopware/core": "6.6.4"
+        "shopware/core": "6.6.*"
     },
     "type": "shopware-platform-plugin",
     "autoload": {
@@ -21,8 +21,8 @@
         "shopware-plugin-class": "MoorlFoundation\\MoorlFoundation",
         "copyright": "(c) by moori",
         "label": {
-            "de-DE": "Foundation",
-            "en-GB": "Foundation"
+            "de-DE": "Foundation // Bitte Hinweise in der Pluginbeschreibung beachten!",
+            "en-GB": "Foundation // Please note the information in the plugin description!"
         },
         "description": {
             "de-DE": "Das moori Basis Plugin",

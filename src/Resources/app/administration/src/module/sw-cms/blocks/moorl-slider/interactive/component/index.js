@@ -35,7 +35,7 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
     },
 
     created() {
-        this.block = this.$parent.block;
+        this.block = this.$parent.$parent.block;
 
         if (!this.block.customFields) {
             this.$set(this.block, 'customFields', {});
