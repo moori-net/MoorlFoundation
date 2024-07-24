@@ -21,6 +21,7 @@
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="logger"/>
         </service>
 
         <service id="MoorlFoundation\Core\Task\ClearLocationCacheTask">

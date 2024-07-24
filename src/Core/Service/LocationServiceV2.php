@@ -7,7 +7,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
 use MoorlFoundation\Core\Content\Location\LocationEntity;
+use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
+use Shopware\Core\DevOps\Environment\EnvironmentHelper;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -23,19 +25,23 @@ class LocationServiceV2
 {
     final public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
 
-    protected ?Context $context;
-    protected ClientInterface $client;
-    protected \DateTimeImmutable $now;
+    private ?Context $context;
+    private ClientInterface $client;
+    private \DateTimeImmutable $now;
+    private string $appUrl;
 
     public function __construct(
-        protected DefinitionInstanceRegistry $definitionInstanceRegistry,
-        protected SystemConfigService $systemConfigService,
-        protected Connection $connection
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly Connection $connection,
+        private readonly LoggerInterface $logger
     )
     {
+        $this->appUrl = (string) EnvironmentHelper::getVariable('APP_URL', getenv('APP_URL'));
+
         $this->client = new Client([
             'timeout' => 200,
-            'allow_redirects' => false,
+            'allow_redirects' => false
         ]);
 
         $this->now = new \DateTimeImmutable();
@@ -243,7 +249,12 @@ SQL;
 
                 return null;
             }
-        } catch (\Exception) {}
+        } catch (\Exception $exception) {
+            $this->logger->critical(
+                sprintf("Error get location by address: %s", $exception->getMessage()),
+                $payload
+            );
+        }
 
         return null;
     }
@@ -292,7 +303,8 @@ SQL;
     {
         $headers = [
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'referer' => $this->appUrl
         ];
 
         $httpBody = json_encode($data);
@@ -305,6 +317,8 @@ SQL;
             $headers,
             $httpBody
         );
+
+        sleep(1); // Throttle requests, see fair use policy https://operations.osmfoundation.org/policies/nominatim/
 
         $response = $this->client->send($request);
 
