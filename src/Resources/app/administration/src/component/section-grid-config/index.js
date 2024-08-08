@@ -79,7 +79,38 @@ Component.register('moorl-section-grid-config', {
                         isSidebar: false,
                         isSticky: false,
                         offsetTop: '30px',
-                        value: {}
+                        value: {
+                            lg: {
+                                show: true,
+                                order: 0,
+                                width: 3,
+                                inherit: false
+                            },
+                            md: {
+                                show: true,
+                                order: 0,
+                                width: 12,
+                                inherit: true
+                            },
+                            sm: {
+                                show: true,
+                                order: 0,
+                                width: 12,
+                                inherit: true
+                            },
+                            xl: {
+                                show: true,
+                                order: 0,
+                                width: 3,
+                                inherit: false
+                            },
+                            xs: {
+                                show: true,
+                                order: 0,
+                                width: 12,
+                                inherit: true
+                            }
+                        },
                     });
                 }
             }

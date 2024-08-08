@@ -82,13 +82,13 @@ Component.override('sw-cms-section', {
 
         getSectionGridStyle(index) {
             const configValue = this.sectionGridConfig[index].value;
-            let rows = configValue.xl.width;
+            let rows = configValue.xl?.width || 3;
             let rowWidth = (100 / 12).toFixed(2);
             if (this.cmsPageState.currentCmsDeviceView === 'tablet-landscape') {
-                rows = configValue.md.width;
+                rows = configValue.md?.width || 3;
             }
             if (this.cmsPageState.currentCmsDeviceView === 'mobile') {
-                rows = configValue.xs.width;
+                rows = configValue.xs?.width || 3;
             }
             let width = parseInt(rows, 10) * rowWidth;
 
