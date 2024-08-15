@@ -65,7 +65,7 @@ class LocationServiceV2
         }
 
         $sql = <<<SQL
-INSERT INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`, `updated_at`) 
+INSERT INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`) 
 SELECT
     UNHEX('%s'),
     `id`, 
@@ -76,8 +76,7 @@ SELECT
         sin(radians(`location_lat`)) *
         sin(radians(%f))
     )), 0) AS `distance`,
-    `created_at`, 
-    `updated_at`
+    NOW()
 FROM `%s`
 WHERE `active` = '1'
 ON DUPLICATE KEY UPDATE `moorl_location_cache`.`distance` = `distance`;

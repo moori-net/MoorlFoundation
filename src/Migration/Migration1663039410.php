@@ -24,7 +24,13 @@ CREATE TABLE IF NOT EXISTS `moorl_location_cache` (
     `distance` float NOT NULL,
     `created_at` DATETIME(3) NOT NULL,
     `updated_at` DATETIME(3),
-    PRIMARY KEY (`location_id`, `entity_id`)
+    
+    PRIMARY KEY (`location_id`, `entity_id`),
+    
+    CONSTRAINT `fk.moorl_location_cache.location_id` FOREIGN KEY (`location_id`)
+        REFERENCES `moorl_location` (`id`) 
+        ON DELETE CASCADE ON UPDATE CASCADE
+    
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 SQL;
         $connection->executeStatement($sql);
