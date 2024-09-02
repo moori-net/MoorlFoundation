@@ -167,10 +167,18 @@ SQL;
             return $this->mediaCache[$name];
         }
 
+        if (!str_contains($name, "http")) {
+            return null;
+        }
+
         try {
             $rawHeaders = get_headers($name, true);
         } catch (\Exception $exception) {
             $this->console->writeln(sprintf("%s %s", $exception->getMessage(), $name));
+            return null;
+        }
+
+        if (!is_array($rawHeaders)) {
             return null;
         }
 
