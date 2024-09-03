@@ -21,12 +21,15 @@
     </div>
 
     <div class="sw-cms-block-moorl-interactive-slider-content" ref="content">
-        <div v-for="slot in block.slots"
-             v-if="slot.id === activeSlot"
-             :style="slotStyle"
-             class="sw-cms-block-moorl-interactive-slider-slot">
-            <slot :name="slot.slot"/>
-        </div>
+        <template v-for="slot in block.slots">
+            <div
+                    v-if="slot.id === activeSlot"
+                    :style="slotStyle"
+                    class="sw-cms-block-moorl-interactive-slider-slot"
+            >
+                <slot :name="slot.slot"/>
+            </div>
+        </template>
     </div>
 
     <sw-modal v-if="showConfigurationModal"
