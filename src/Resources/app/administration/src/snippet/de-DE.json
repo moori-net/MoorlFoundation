@@ -93,6 +93,7 @@
             "seoUrl": "Die SEO Url anpassen:"
         },
         "properties": {
+            "availabilityRule": "Verfügbarkeitsregel",
             "seoUrl": "Eigene SEO Url",
             "showOpeningHours": "Öffnungszeiten zeigen",
             "showCmsPage": "CMS Seite zeigen",
