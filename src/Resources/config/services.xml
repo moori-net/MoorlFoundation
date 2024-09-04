@@ -163,8 +163,6 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-
-
         <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\OpeningHoursCmsElementResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
@@ -173,11 +171,8 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
-        <service id="MoorlFoundation\Core\Content\Product\Cms\ProductBuyListCmsElementResolver">
-            <argument type="service" id="Shopware\Core\Content\ProductStream\Service\ProductStreamBuilder"/>
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="sales_channel.product.repository"/>
-
+        <service id="MoorlFoundation\Core\Content\Product\Cms\ProductBuyListCmsElementResolver"
+                 parent="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
