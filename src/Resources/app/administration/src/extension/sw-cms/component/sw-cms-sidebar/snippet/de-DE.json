@@ -3,10 +3,10 @@
         "component": {
             "sw-cms-sidebar": {
                 "blockMoorlCms": "moori CMS",
-                "blockMoorlGridLayout": "Grid Layouts [Premium]",
-                "blockMoorlColumnLayout": "Spalten Layouts [Gratis]",
+                "blockMoorlGridLayout": "Grid Layouts - moori Foundation",
+                "blockMoorlColumnLayout": "Spalten Layouts - moori Foundation",
                 "blockMoorlAutofillLayout": "Autofill Layouts",
-                "blockMoorlSlider": "Slider [Premium]",
+                "blockMoorlSlider": "Slider - moori Foundation",
                 "blockMoorlCmsOld": "moori CMS (Old)",
                 "blockMoorlInfo": "Die CMS Elemente von moori beinhalten keine Blöcke. Bitte füge einen beliebigen Block hinzu und klicke das \"Austauschen\" Symbol.",
                 "blockMoorlLocked": "",

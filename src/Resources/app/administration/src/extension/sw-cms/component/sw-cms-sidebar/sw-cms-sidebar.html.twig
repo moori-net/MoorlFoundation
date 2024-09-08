@@ -6,12 +6,12 @@
             </option>
         {% endblock %}
         {% block sw_cms_sidebar_block_overview_category_moorl_grid_layout %}
-            <option v-if="moorlIsUnlocked" value="moorl-grid-layout">
+            <option value="moorl-grid-layout">
                 {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlGridLayout') }}
             </option>
         {% endblock %}
         {% block sw_cms_sidebar_block_overview_category_moorl_slider %}
-            <option v-if="moorlIsUnlocked" value="moorl-slider">
+            <option value="moorl-slider">
                 {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlSlider') }}
             </option>
         {% endblock %}
@@ -19,29 +19,6 @@
         {% block sw_cms_sidebar_block_overview_category_moorl_cms_old %}{% endblock %}
         {% block sw_cms_sidebar_block_overview_category_moorl_autofill_layout %}{% endblock %}
     {% endblock %}
-
-    {% parent %}
-{% endblock %}
-
-{% block sw_cms_sidebar_block_overview_preview %}
-    <template v-if="['moorl-column-layout','moorl-grid-layout','moorl-slider','moorl-cms','moorl-cms-old'].includes(currentBlockCategory)">
-        <div class="sw-cms-sidebar__block-category">
-            <p>
-                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlInfo') }}
-            </p>
-
-            <moorl-support-link
-                    path="/"
-                    snippet="sw-cms.component.sw-cms-sidebar.blockMoorlFAQ"
-            />
-
-            <moorl-support-link
-                    v-if="!moorlIsUnlocked"
-                    path="/MoorlFoundation/features-premium/"
-                    snippet="sw-cms.component.sw-cms-sidebar.blockMoorlFeatures"
-            />
-        </div>
-    </template>
 
     {% parent %}
 {% endblock %}

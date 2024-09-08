@@ -3,7 +3,7 @@
 .sw-cms-el-preview-moorl-default {
   width: 100%;
   height: 100%;
-  background: linear-gradient($color-shopware-brand-300 50%, $color-shopware-brand-100 50%);
+  background: linear-gradient($color-shopware-brand-300 25%, $color-shopware-brand-100 75%);
 
   .moorl-default {
     width: 100%;
@@ -15,6 +15,10 @@
     .moorl-default-box {
       width: 100%;
       text-align: center;
+
+      .moorl-default-box-label {
+        font-size: 12px;
+      }
 
       .moorl-default-box-icons {
         margin: 0;
@@ -28,6 +32,7 @@
           -ms-flex-align: center;
           align-items: center;
           padding: 4px 12px;
+          margin: 4px 0;
           border-right: 1px solid currentColor;
 
           img {

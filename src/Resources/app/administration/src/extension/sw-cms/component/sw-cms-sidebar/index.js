@@ -7,12 +7,6 @@ import template from './sw-cms-sidebar.html.twig';
 Component.override('sw-cms-sidebar', {
     template,
 
-    computed: {
-        moorlIsUnlocked() {
-            return Shopware.State.get('moorlFoundationState').unlocked;
-        }
-    },
-
     methods: {
         isSectionGrid(section) {
             return (section.type === 'moorl-grid');
