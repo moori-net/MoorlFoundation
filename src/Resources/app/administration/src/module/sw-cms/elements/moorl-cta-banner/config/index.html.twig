@@ -281,13 +281,12 @@
                     <template v-if="element.config.iconType.value === 'media'">
                         <div class="sw-field">
                             <sw-upload-listener
-                                        :uploadTag="uploadTag + 'iconMedia'"
-                                        autoUpload
-                                        @media-upload-finish="onImageUpload($event, 'iconMedia')"
+                                    :uploadTag="uploadTag + 'iconMedia'"
+                                    autoUpload
+                                    @media-upload-finish="onImageUpload($event, 'iconMedia')"
                             />
 
                             <sw-media-upload-v2
-                                    variant="full"
                                     :uploadTag="uploadTag + 'iconMedia'"
                                     :source="previewSource('iconMedia')"
                                     :allowMultiSelect="false"
