@@ -173,6 +173,7 @@
 
         <service id="MoorlFoundation\Core\Content\Product\Cms\ProductBuyListCmsElementResolver"
                  parent="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader"/>
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
