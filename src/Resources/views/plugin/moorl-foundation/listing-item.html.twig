@@ -24,7 +24,8 @@
                     'alt': title,
                     'class': "is-#{config.displayMode.value}",
                     'style': imageCss|join(';'),
-                    'title': ''
+                    'title': '',
+                    'loading': 'lazy'
                 }
             } %}
         {% elseif config.itemLayout.value == 'image-or-title' %}
