@@ -10,8 +10,6 @@
         {% elseif config.elementType.value == 'product' and element.data.product.id %}
             {% set bannerLink = seoUrl('frontend.detail.page', { productId: element.data.product.id }) %}
         {% endif %}
-
-        {% block element_moorl_cta_banner_link %}{% endblock %}
     {% endif %}
 
     {% if config.title.value %}
@@ -22,8 +20,6 @@
         {% elseif config.elementType.value == 'product' and element.data.product.id %}
             {% set bannerTitle = "<#{titleTag}>#{element.data.product.translated.name}</#{titleTag}>" %}
         {% endif %}
-
-        {% block element_moorl_cta_banner_title %}{% endblock %}
     {% endif %}
 
     {% if config.quote.value %}
@@ -34,8 +30,6 @@
         {% elseif config.elementType.value == 'product' and element.data.product.id %}
             {% set bannerDescription = element.data.product.translated.description %}
         {% endif %}
-
-        {% block element_moorl_cta_banner_description %}{% endblock %}
 
         {% if bannerDescription|striptags|length > config.contentLength.value %}
             {% set bannerDescription = '<p>' ~ bannerDescription|striptags|slice(0, config.contentLength.value) ~ '...</p>' %}
