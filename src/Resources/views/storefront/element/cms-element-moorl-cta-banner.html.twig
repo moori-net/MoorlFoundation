@@ -2,6 +2,46 @@
     {% set config = element.fieldConfig.elements %}
     {% set titleTag = config.titleTag.value ?: 'h3' %}
 
+    {% if config.elementUrl.value %}
+        {% set bannerLink = config.elementUrl.value %}
+    {% else %}
+        {% if config.elementType.value == 'category' and element.data.category.id %}
+            {% set bannerLink = seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) %}
+        {% elseif config.elementType.value == 'product' and element.data.product.id %}
+            {% set bannerLink = seoUrl('frontend.detail.page', { productId: element.data.product.id }) %}
+        {% endif %}
+
+        {% block element_moorl_cta_banner_link %}{% endblock %}
+    {% endif %}
+
+    {% if config.title.value %}
+        {% set bannerTitle = "<#{titleTag}>#{config.title.value}</#{titleTag}>" %}
+    {% else %}
+        {% if config.elementType.value == 'category' and element.data.category.id %}
+            {% set bannerTitle = "<#{titleTag}>#{element.data.category.translated.name}</#{titleTag}>" %}
+        {% elseif config.elementType.value == 'product' and element.data.product.id %}
+            {% set bannerTitle = "<#{titleTag}>#{element.data.product.translated.name}</#{titleTag}>" %}
+        {% endif %}
+
+        {% block element_moorl_cta_banner_title %}{% endblock %}
+    {% endif %}
+
+    {% if config.quote.value %}
+        {% set bannerDescription = '<p>' ~ config.quote.value ~ '</p>' %}
+    {% else %}
+        {% if config.elementType.value == 'category' and element.data.category.id %}
+            {% set bannerDescription = element.data.category.translated.description %}
+        {% elseif config.elementType.value == 'product' and element.data.product.id %}
+            {% set bannerDescription = element.data.product.translated.description %}
+        {% endif %}
+
+        {% block element_moorl_cta_banner_description %}{% endblock %}
+
+        {% if bannerDescription|striptags|length > config.contentLength.value %}
+            {% set bannerDescription = '<p>' ~ bannerDescription|striptags|slice(0, config.contentLength.value) ~ '...</p>' %}
+        {% endif %}
+    {% endif %}
+
     {% set elementCss = [
         "min-height:#{config.height.value}",
         "background:#{config.elementBackground.value}",
@@ -9,6 +49,7 @@
     {% set backgroundCss = [
         "background-position:#{config.backgroundVerticalAlign.value} #{config.backgroundHorizontalAlign.value}"
     ] %}
+
     {% if config.mediaActive.value and element.data.media %}
         {% set backgroundCss = backgroundCss|merge([
             "background-image:url('#{element.data.media.url}')"
@@ -84,70 +125,42 @@
                     </div>
                 {% endif %}
 
-                {% if config.elementType.value == 'cta' %}
-                    <div class="container-content">
-                        {% if element.config.title.value %}
-                            <{{ titleTag }}>{{ config.title.value }}</{{ titleTag }}>
+                <div class="container-content">
+                    {% block element_moorl_cta_banner_content %}
+                        {% if config.elementType.value == 'custom' %}
+                            {{ config.content.value|raw }}
+                        {% else %}
+                            {{ bannerTitle|raw }}
+                            {{ bannerDescription|raw }}
+                            {% if config.btnActive.value and not config.elementClickable.value %}
+                                <a
+                                        class="btn {{ config.btnClass.value }}"
+                                        href="{{ bannerLink }}"
+                                        {% if config.elementNewTab.value %}target="_blank"{% endif %}
+                                >{{ config.btnText.value }}</a>
+                            {% endif %}
                         {% endif %}
-                        {% if element.config.quote.value %}
-                            <p>{{ config.quote.value }}</p>
-                        {% endif %}
-                        {% if config.btnActive.value %}
-                            <a
-                                    class="btn {{ config.btnClass.value }}"
-                                    href="{{ config.btnUrl.value }}"
-                                    {% if config.btnNewTab.value %}target="_blank"{% endif %}
-                            >
-                                {{ config.btnText.value|raw }}
-                            </a>
-                        {% endif %}
-                    </div>
-                {% elseif config.elementType.value == 'custom' %}
-                    <div class="container-content">
-                        {{ config.content.value|raw }}
-                    </div>
-                {% elseif config.elementType.value == 'category' %}
-                    <div class="container-content">
-                        {% if element.data.category.name %}
-                            <{{ titleTag }}>{{ element.data.category.name }}</{{ titleTag }}>
-                        {% endif %}
-                        {% if element.data.category.description and config.contentLength.value > 0 %}
-                            <p>{{ element.data.category.description|length > config.contentLength.value ? element.data.category.description|striptags|slice(0, config.contentLength.value) ~ '...' : element.data.category.description|striptags }}</p>
-                        {% endif %}
-                        {% if config.btnActive.value and element.data.category.id %}
-                            <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) }}">{{ config.btnText.value }}</a>
-                        {% endif %}
-                    </div>
-                {% elseif config.elementType.value == 'product' and config.contentLength.value > 0 %}
-                    <div class="container-content">
-                        {% if element.data.product.name %}
-                            <{{ titleTag }}>{{ element.data.product.name }}</{{ titleTag }}>
-                        {% endif %}
-                        {% if element.data.product.description %}
-                            <p>{{ element.data.product.description|length > config.contentLength.value ? element.data.product.description|striptags|slice(0, config.contentLength.value) ~ '...' : element.data.product.description|striptags }}</p>
-                        {% endif %}
-                        {% if config.btnActive.value and element.data.product.id %}
-                            <a class="btn {{ config.btnClass.value }}" href="{{ seoUrl('frontend.detail.page', { productId: element.data.product.id }) }}">{{ config.btnText.value }}</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                    {% endblock %}
+                </div>
             </div>
         </div>
+
+        {% block element_moorl_cta_banner_overlay %}{% endblock %}
 
         <style>{{ element.data.scss|raw }}</style>
     {% endset %}
 
     {% if config.elementClickable.value %}
         <a
-                class="d-block cms-element-{{ element.type }}"
+                class="d-block cms-element-moorl-cta-banner"
                 id="{{ element.type }}-{{ element.id }}"
                 style="{{ elementCss|join(";") }}"
-                href="{% if config.elementType.value == 'category' %}{{ seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) }}{% else %}{{ config.elementUrl.value }}{% endif %}"
+                href="{{ bannerLink }}"
                 {% if config.elementNewTab.value %}target="_blank"{% endif %}
         >{{ bannerContent }}</a>
     {% else %}
         <div
-                class="cms-element-{{ element.type }}"
+                class="cms-element-moorl-cta-banner"
                 id="{{ element.type }}-{{ element.id }}"
                 style="{{ elementCss|join(";") }}"
         >{{ bannerContent }}</div>

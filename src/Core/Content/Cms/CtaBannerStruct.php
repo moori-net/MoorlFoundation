@@ -7,15 +7,26 @@ use Shopware\Core\Content\Cms\SalesChannel\Struct\ImageStruct;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Product\ProductEntity;
 use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Formatter\Crunched;
 use ScssPhp\ScssPhp\Formatter\Expanded;
+use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 
 class CtaBannerStruct extends ImageStruct
 {
     protected ?CategoryEntity $category = null;
     protected ?MediaEntity $iconMedia = null;
     protected ?ProductEntity $product = null;
+    protected ?Entity $customEntity = null;
     protected ?string $scss = null;
+
+    public function getCustomEntity(): ?Entity
+    {
+        return $this->customEntity;
+    }
+
+    public function setCustomEntity(?Entity $customEntity): void
+    {
+        $this->customEntity = $customEntity;
+    }
 
     public function getProduct(): ?ProductEntity
     {

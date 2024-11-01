@@ -1,33 +1,38 @@
 <div class="sw-cms-el-config-moorl-cta-banner">
     <sw-tabs default-item="general">
         <template #default="{ active }">
-            <sw-tabs-item name="general" :activeTab="active">
-                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.general') }}
-            </sw-tabs-item>
+            {% block moorl_cta_banner_tabs %}
+                <sw-tabs-item name="general" :activeTab="active">
+                    {{ $tc('sw-cms.elements.moorl-cta-banner.tab.general') }}
+                </sw-tabs-item>
 
-            <sw-tabs-item name="media" :activeTab="active">
-                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.media') }}
-            </sw-tabs-item>
+                <sw-tabs-item name="media" :activeTab="active">
+                    {{ $tc('sw-cms.elements.moorl-cta-banner.tab.media') }}
+                </sw-tabs-item>
 
-            <sw-tabs-item name="content" :activeTab="active">
-                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.content') }}
-            </sw-tabs-item>
+                <sw-tabs-item name="content" :activeTab="active">
+                    {{ $tc('sw-cms.elements.moorl-cta-banner.tab.content') }}
+                </sw-tabs-item>
 
-            <sw-tabs-item name="position" :activeTab="active">
-                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.position') }}
-            </sw-tabs-item>
+                <sw-tabs-item name="position" :activeTab="active">
+                    {{ $tc('sw-cms.elements.moorl-cta-banner.tab.position') }}
+                </sw-tabs-item>
 
-            <sw-tabs-item name="scss" :activeTab="active">
-                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.scss') }}
-            </sw-tabs-item>
+                <sw-tabs-item name="scss" :activeTab="active">
+                    {{ $tc('sw-cms.elements.moorl-cta-banner.tab.scss') }}
+                </sw-tabs-item>
+            {% endblock %}
         </template>
 
         <template #content="{ active }">
             <sw-container v-if="active === 'general'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
-                                     v-model:value="element.config.elementType.value">
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
+                            v-model:value="element.config.elementType.value"
+                    >
                         <option v-for="option in elementTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                        {% block moorl_cta_banner_element_type_options %}{% endblock %}
                     </sw-select-field>
 
                     <sw-text-field
@@ -62,6 +67,7 @@
                                 labelProperty="name"
                                 entity="category"
                                 @update:value="onChangeCategory"
+                                show-clearable-button
                         />
 
                         <sw-number-field
@@ -74,9 +80,10 @@
                         <sw-entity-single-select
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.product')"
                                 v-model:value="element.config.product.value"
-                                labelProperty="name"
+                                labelProperty="productNumber"
                                 entity="product"
                                 @update:value="onChangeProduct"
+                                show-clearable-button
                         />
 
                         <sw-number-field
@@ -84,6 +91,8 @@
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
                         />
                     </template>
+
+                    {% block moorl_cta_banner_element_type_config %}{% endblock %}
 
                     <template v-else>
                         <template v-if="element.config.elementClickable.value">
@@ -110,8 +119,10 @@
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaActive')"
                     />
 
-                    <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaHover')"
-                                     v-model:value="element.config.mediaHover.value">
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaHover')"
+                            v-model:value="element.config.mediaHover.value"
+                    >
                         <option v-for="option in mediaHoverOptions" :value="option.value">{{ $tc(option.label) }}</option>
                     </sw-select-field>
 
@@ -211,17 +222,15 @@
                         <option v-for="option in titleTagOptions" :value="option.value">{{ option.label }}</option>
                     </sw-select-field>
 
-                    <template v-if="element.config.elementType.value === 'cta'">
-                        <sw-text-field
-                                v-model:value="element.config.title.value"
-                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.title')"
-                        />
+                    <sw-text-field
+                            v-model:value="element.config.title.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.title')"
+                    />
 
-                        <sw-text-field
-                                v-model:value="element.config.quote.value"
-                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.quote')"
-                        />
-                    </template>
+                    <sw-text-field
+                            v-model:value="element.config.quote.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.quote')"
+                    />
 
                     <sw-switch-field
                             v-model:value="element.config.btnActive.value"
