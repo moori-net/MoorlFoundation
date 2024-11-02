@@ -128,7 +128,7 @@
                         {% else %}
                             {{ bannerTitle|raw }}
                             {{ bannerDescription|raw }}
-                            {% if config.btnActive.value and not config.elementClickable.value %}
+                            {% if config.btnActive.value and bannerLink and not config.elementClickable.value %}
                                 <a
                                         class="btn {{ config.btnClass.value }}"
                                         href="{{ bannerLink }}"
@@ -146,7 +146,7 @@
         <style>{{ element.data.scss|raw }}</style>
     {% endset %}
 
-    {% if config.elementClickable.value %}
+    {% if config.elementClickable.value and bannerLink %}
         <a
                 class="d-block cms-element-moorl-cta-banner"
                 id="{{ element.type }}-{{ element.id }}"
