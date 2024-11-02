@@ -251,6 +251,13 @@ Component.register('sw-cms-el-config-moorl-cta-banner', {
             this.initElementData('moorl-cta-banner');
         },
 
+        resetElementTypeConfig() {
+            this.element.config.category.value = null;
+            this.element.config.product.value = null;
+
+            this.initElementData('moorl-cta-banner');
+        },
+
         async onImageUpload({ targetId }, index) {
             const mediaEntity = await this.mediaRepository.get(targetId, Shopware.Context.api);
 

@@ -30,6 +30,7 @@
                     <sw-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
                             v-model:value="element.config.elementType.value"
+                            @update:value="resetElementTypeConfig()"
                     >
                         <option v-for="option in elementTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
                         {% block moorl_cta_banner_element_type_options %}{% endblock %}
@@ -59,55 +60,54 @@
                             bordered
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementClickable')"
                     />
-
-                    <template v-if="element.config.elementType.value === 'category'">
-                        <sw-entity-single-select
-                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.category')"
-                                v-model:value="element.config.category.value"
-                                labelProperty="name"
-                                entity="category"
-                                @update:value="onChangeCategory"
-                                show-clearable-button
-                        />
-
-                        <sw-number-field
-                                v-model:value="element.config.contentLength.value"
-                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
-                        />
-                    </template>
-
-                    <template v-else-if="element.config.elementType.value === 'product'">
-                        <sw-entity-single-select
-                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.product')"
-                                v-model:value="element.config.product.value"
-                                labelProperty="productNumber"
-                                entity="product"
-                                @update:value="onChangeProduct"
-                                show-clearable-button
-                        />
-
-                        <sw-number-field
-                                v-model:value="element.config.contentLength.value"
-                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
-                        />
-                    </template>
-
-                    {% block moorl_cta_banner_element_type_config %}{% endblock %}
-
-                    <template v-else>
-                        <template v-if="element.config.elementClickable.value">
-                            <sw-text-field
-                                    v-model:value="element.config.elementUrl.value"
-                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementUrl')"
+                    {% block moorl_cta_banner_element_type_config %}
+                        <template v-if="element.config.elementType.value === 'category'">
+                            <sw-entity-single-select
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.category')"
+                                    v-model:value="element.config.category.value"
+                                    labelProperty="name"
+                                    entity="category"
+                                    @update:value="onChangeCategory"
+                                    show-clearable-button
                             />
 
-                            <sw-switch-field
-                                    v-model:value="element.config.elementNewTab.value"
-                                    bordered
-                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementNewTab')"
+                            <sw-number-field
+                                    v-model:value="element.config.contentLength.value"
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
                             />
                         </template>
-                    </template>
+
+                        <template v-else-if="element.config.elementType.value === 'product'">
+                            <sw-entity-single-select
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.product')"
+                                    v-model:value="element.config.product.value"
+                                    labelProperty="productNumber"
+                                    entity="product"
+                                    @update:value="onChangeProduct"
+                                    show-clearable-button
+                            />
+
+                            <sw-number-field
+                                    v-model:value="element.config.contentLength.value"
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.contentLength')"
+                            />
+                        </template>
+
+                        <template v-else>
+                            <template v-if="element.config.elementClickable.value">
+                                <sw-text-field
+                                        v-model:value="element.config.elementUrl.value"
+                                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementUrl')"
+                                />
+
+                                <sw-switch-field
+                                        v-model:value="element.config.elementNewTab.value"
+                                        bordered
+                                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementNewTab')"
+                                />
+                            </template>
+                        </template>
+                    {% endblock %}
                 </sw-container>
             </sw-container>
 

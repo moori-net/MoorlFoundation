@@ -12,6 +12,59 @@ Component.register('sw-cms-el-moorl-cta-banner', {
     inject: ['repositoryFactory'],
 
     computed: {
+        bannerTitle() {
+            const titleTag = this.element.config.titleTag.value;
+            let bannerTitle = null;
+
+            if (this.element.config.title.value) {
+                bannerTitle = `<${titleTag}>${this.element.config.title.value}</${titleTag}>`;
+            } else {
+                if (this.element.config.elementType.value === 'category' && this.element.data.category) {
+                    bannerTitle = `<${titleTag}>${this.element.data.category.translated.name}</${titleTag}>`;
+                } else if (this.element.config.elementType.value === 'product' && this.element.data.product) {
+                    bannerTitle = `<${titleTag}>${this.element.data.product.translated.name}</${titleTag}>`;
+                }
+            }
+
+            return bannerTitle;
+        },
+
+        bannerDescription() {
+            let bannerDescription = null;
+
+            if (this.element.config.quote.value) {
+                bannerDescription = this.element.config.quote.value;
+            } else {
+                if (this.element.config.elementType.value === 'category' && this.element.data.category) {
+                    bannerDescription = this.element.data.category.description;
+                } else if (this.element.config.elementType.value === 'product' && this.element.data.product) {
+                    bannerDescription = this.element.data.product.description;
+                }
+            }
+
+            return bannerDescription;
+        },
+
+        bannerMediaUrl() {
+            const context = Shopware.Context.api;
+            let bannerMediaUrl = context.assetsPath + '/administration/static/img/cms/preview_mountain_large.jpg';
+            if (this.element.config.videoActive.value) {
+                bannerMediaUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+            }
+
+            if (this.element.data?.media) {
+                bannerMediaUrl = this.element.data.media.url;
+            } else {
+                if (this.element.config.elementType.value === 'category' && this.element.data?.category?.media) {
+                    bannerMediaUrl = this.element.data.category.media.url;
+                } else if (this.element.config.elementType.value === 'product' && this.element.data?.product?.cover?.media) {
+                    bannerMediaUrl = this.element.data.product.cover.media.url;
+                }
+            }
+
+            return bannerMediaUrl;
+        },
+
         moorlFoundation() {
             return MoorlFoundation;
         },
@@ -34,43 +87,6 @@ Component.register('sw-cms-el-moorl-cta-banner', {
 
         mediaRepository() {
             return this.repositoryFactory.create('media');
-        },
-
-        mediaUrl() {
-            const context = Shopware.Context.api;
-            const elemData = this.element.data.media;
-
-            if (!this.element.config.mediaActive.value) {
-                if (this.element.config.elementType.value === 'category') {
-                    if (this.category.media && this.category.media.id) {
-                        return this.category.media.url;
-                    }
-
-                    return `${context.assetsPath}${this.category.media.url}`;
-                }
-
-                if (this.element.config.elementType.value === 'product') {
-                    if (this.product.cover && this.product.cover.media) {
-                        return this.product.cover.media.url;
-                    }
-
-                    return `${context.assetsPath}${this.product.cover.media.url}`;
-                }
-            }
-
-            if (elemData && elemData.id) {
-                return this.element.data.media.url;
-            }
-
-            if (elemData && elemData.url) {
-                return `${context.assetsPath}${elemData.url}`;
-            }
-
-            if (this.element.config.videoActive.value) {
-                return 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-            }
-
-            return `${context.assetsPath}/administration/static/img/cms/preview_mountain_large.jpg`;
         },
 
         iconMediaUrl() {
@@ -97,7 +113,7 @@ Component.register('sw-cms-el-moorl-cta-banner', {
         backgroundCss() {
             if (!this.element.config.videoActive.value) {
                 return {
-                    'background-image': 'url("' + this.mediaUrl + '")',
+                    'background-image': 'url("' + this.bannerMediaUrl + '")',
                     'background-attachment': this.element.config.backgroundFixed.value ? 'fixed' : 'initial',
                     'background-position': `${this.element.config.backgroundVerticalAlign.value} ${this.element.config.backgroundHorizontalAlign.value}`,
                     'background-size': this.element.config.backgroundDisplayMode.value === 'custom' ? `${this.element.config.backgroundSizeX.value} ${this.element.config.backgroundSizeY.value}` : this.element.config.backgroundDisplayMode.value
