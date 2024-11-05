@@ -92,7 +92,7 @@ Application.getContainer('service').cmsService.registerCmsElement({
         },
         contentLength: {
             source: 'static',
-            value: 100
+            value: 300
         },
         quote: {
             source: 'static',
