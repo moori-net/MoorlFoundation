@@ -1,5 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
-import Choices from "choices.js";
+import TomSelect from 'tom-select';
 
 export default class MoorlSelectSearchPlugin extends Plugin {
     static options = {
@@ -8,9 +8,6 @@ export default class MoorlSelectSearchPlugin extends Plugin {
     };
 
     init() {
-        const sortingchoices = new Choices(this.el, {
-            placeholder: false,
-            itemSelectText: ''
-        });
+        const selectSearch = new TomSelect(this.el, {});
     }
 }

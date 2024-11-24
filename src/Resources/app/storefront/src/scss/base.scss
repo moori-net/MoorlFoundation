@@ -46,19 +46,19 @@
 @import "lib/leaflet";
 @import "lib/leaflet-gesture-handling";
 
+@import "../../node_modules/tom-select/src/scss/tom-select.bootstrap5";
+
 .bg-fixed {
   background-attachment: fixed;
 }
 
-/*
-.cms-section {
-  overflow: visible;
+.cms-section.overflow-visible {
+  overflow: visible !important;
 
-  &.cms-section-default {
-    overflow: hidden;
+  .cms-block {
+    overflow: visible !important;
   }
 }
-*/
 
 .moorl-foundation-hide,
 .moorl-animation-hidden {
