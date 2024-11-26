@@ -9,7 +9,12 @@
                             @update:value="selectOption()"
                     >
                         <option v-for="(option, index) in options" :key="`option-${index}`" :value="index">
-                            {{ $tc('moorl-foundation.label.standardDemo') }} ({{ option.name }} | {{ option.pluginName }})
+                            <template v-if="option.type === 'data'">
+                                {{ $tc('moorl-foundation.label.baseData') }} | {{ option.pluginName }}
+                            </template>
+                            <template v-else>
+                                {{ $tc('moorl-foundation.label.standardDemo') }} ({{ option.name }} | {{ option.pluginName }})
+                            </template>
                         </option>
                     </sw-select-field>
 
