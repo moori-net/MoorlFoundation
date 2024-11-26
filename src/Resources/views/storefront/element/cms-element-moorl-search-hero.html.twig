@@ -32,7 +32,7 @@
                 {% if config.searchActive.value %}
                     <div class="moorl-hero-search">
                         <form
-                                action="{{ seoUrl('frontend.search.page') }}"
+                                action="{{ path('frontend.search.page') }}"
                                 method="get"
                                 data-search-widget="true"
                                 data-search-widget-options="{{ searchWidgetOptions|json_encode }}"
@@ -45,10 +45,11 @@
                                        class="form-control header-search-input"
                                        autocomplete="off"
                                        autocapitalize="off"
-                                       placeholder="{{ "header.searchPlaceholder"|trans|striptags }}"
-                                       aria-label="{{ "header.searchPlaceholder"|trans|striptags }}"
+                                       placeholder="{{ 'header.searchPlaceholder'|trans|striptags }}"
+                                       aria-label="{{ 'header.searchPlaceholder'|trans|striptags }}"
                                        value="{{ page.searchTerm }}"
                                 >
+
                                 <button type="submit"
                                         class="btn header-search-btn"
                                         aria-label="{{ "header.searchButton"|trans|striptags }}">
@@ -56,6 +57,13 @@
                                         {% sw_icon 'search' style {pack: 'fas'} %}
                                     </span>
                                 </button>
+
+                                <a class="btn header-close-btn js-search-close-btn d-none"
+                                   aria-label="{{ 'header.searchCloseButton'|trans|striptags }}">
+                                    <span class="header-close-icon">
+                                        {% sw_icon 'x' %}
+                                    </span>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -64,5 +72,3 @@
         </div>
     {% endif %}
 </div>
-
-
