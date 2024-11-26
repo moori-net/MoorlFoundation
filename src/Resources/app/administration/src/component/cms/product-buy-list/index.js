@@ -57,18 +57,6 @@ Shopware.Service('cmsService').registerCmsElement({
             source: 'static',
             value: 'No products available'
         },
-        discountPercentage: {
-            source: 'static',
-            value: 0
-        },
-        discountActive: {
-            source: 'static',
-            value: false
-        },
-        discountName: {
-            source: 'static',
-            value: null
-        },
     },
     collect: function collect(elem) {
         const context = Object.assign(
