@@ -4,11 +4,15 @@
 {% set media = mediaCollection.get(mediaId) %}
 {% set mediaUrl = media.url %}
 
+{% set searchWidgetOptions = {
+    searchWidgetMinChars: page.header.activeLanguage.productSearchConfig.minSearchLength ?: 3
+} %}
+
 <div
     class="cms-element-{{ element.type }}"
     style="
         height:{{ config.elementHeight.value }};
-        background-image:url({{ mediaUrl }});
+        background-image:url('{{ mediaUrl }}');
         background-size:{{ config.backgroundSize.value }};
         background-attachment:{{ config.backgroundAttachment.value }};
         background-repeat:{{ config.backgroundRepeat.value }};
@@ -27,11 +31,14 @@
 
                 {% if config.searchActive.value %}
                     <div class="moorl-hero-search">
-                        <form action="{{ seoUrl('frontend.search.page') }}"
-                              method="get"
-                              data-search-form="true"
-                              data-url="{{ seoUrl('frontend.search.suggest') }}?default=1&search="
-                              class="header-search-form">
+                        <form
+                                action="{{ seoUrl('frontend.search.page') }}"
+                                method="get"
+                                data-search-widget="true"
+                                data-search-widget-options="{{ searchWidgetOptions|json_encode }}"
+                                data-url="{{ path('frontend.search.suggest') }}?search="
+                                class="header-search-form"
+                        >
                             <div class="input-group">
                                 <input type="search"
                                        name="search"
