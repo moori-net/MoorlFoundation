@@ -87,16 +87,21 @@ Component.register('sw-cms-el-config-moorl-product-buy-list', {
         },
 
         onProductsChange() {
-            const _that = this;
+            if (!this.element.config?.products) {
+                this.initElementConfig('moorl-product-buy-list');
+            }
+            if (!this.element.data?.products) {
+                this.initElementData('moorl-product-buy-list');
+            }
 
             this.element.config.products.value = this.productCollection.getIds();
 
-            this.element.config.products.value.forEach(function (id) {
-                if (!_that.element.config.productQuantities.value[id]) {
-                    _that.element.config.productQuantities.value[id] = 1;
+            this.element.config.products.value.forEach((id) => {
+                if (!this.element.config.productQuantities.value[id]) {
+                    this.element.config.productQuantities.value[id] = 1;
                 }
 
-                _that.element.config.productQuantities.value[id] = parseInt(_that.element.config.productQuantities.value[id]);
+                this.element.config.productQuantities.value[id] = parseInt(this.element.config.productQuantities.value[id]);
             });
 
             this.$set(this.element.data, 'products', this.productCollection);

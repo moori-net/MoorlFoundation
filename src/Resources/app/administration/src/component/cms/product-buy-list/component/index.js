@@ -136,6 +136,13 @@ Component.register('sw-cms-el-moorl-product-buy-list', {
         },
 
         onProductsChange() {
+            if (!this.element.config?.products) {
+                this.initElementConfig('moorl-product-buy-list');
+            }
+            if (!this.element.data?.products) {
+                this.initElementData('moorl-product-buy-list');
+            }
+
             this.element.config.products.value = this.productCollection.getIds();
             this.$set(this.element.data, 'products', this.productCollection);
         }
