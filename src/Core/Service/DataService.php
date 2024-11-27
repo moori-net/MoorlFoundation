@@ -88,10 +88,6 @@ class DataService
         $options = [];
 
         foreach ($this->dataObjects as $dataObject) {
-            if ($dataObject->getType() !== $type) {
-                continue;
-            }
-
             $options[] = [
                 'name' => $dataObject->getName(),
                 'pluginName' => $dataObject->getPluginName(),
@@ -138,6 +134,10 @@ class DataService
                 continue;
             }
 
+            if (!$name && $this->hasMigration($dataObject)) {
+                continue;
+            }
+
             $this->initGlobalReplacers($dataObject);
 
             foreach ($dataObject->getPreInstallQueries() as $sql) {
@@ -162,6 +162,8 @@ class DataService
 
             $dataObject->process();
 
+            $this->addMigration($dataObject);
+
             if ($this->themeId && $this->salesChannelId) {
                 $this->themeService->compileTheme(
                     $this->salesChannelId,
@@ -170,6 +172,35 @@ class DataService
                 );
             }
         }
+    }
+
+    public function addMigration(DataInterface $dataObject): void
+    {
+        $sql = <<<SQL
+INSERT INTO `migration` (`class`, `creation_timestamp`, `update`, `message`)
+VALUES  (:class, :creation_timestamp, NOW(), :message)
+ON DUPLICATE KEY UPDATE `update` = NOW();
+SQL;
+        $this->connection->executeStatement(
+            $sql,
+            [
+                'class' => $dataObject::class,
+                'creation_timestamp' => time(),
+                'message' => 'written by moori Foundation'
+            ]
+        );
+    }
+
+    public function hasMigration(DataInterface $dataObject): bool
+    {
+        $sql = sprintf("SELECT * FROM `migration` WHERE `class` = '%s';", str_ireplace('\\', '\\\\', $dataObject::class));
+        return ($this->connection->executeQuery($sql)->rowCount() > 0);
+    }
+
+    public function removeMigration(DataInterface $dataObject): void
+    {
+        $sql = sprintf("DELETE FROM `migration` WHERE `class` = '%s';", str_ireplace('\\', '\\\\', $dataObject::class));
+        $this->connection->executeQuery($sql);
     }
 
     public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
@@ -841,6 +872,8 @@ SQL;
                 $sql = $this->processReplace($sql, $dataObject);
                 $this->connection->executeStatement($sql);
             }
+
+            $this->removeMigration($dataObject);
         }
     }
 

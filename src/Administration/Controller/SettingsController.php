@@ -50,8 +50,16 @@ class SettingsController
             $this->dataService->setSalesChannelId($request->request->get('salesChannelId'));
         }
 
-        $this->dataService->remove($request->request->get('pluginName'), 'demo', $request->request->get('name'));
-        $this->dataService->install($request->request->get('pluginName'), 'demo', $request->request->get('name'));
+        $this->dataService->remove(
+            $request->request->get('pluginName'),
+            $request->request->get('type', 'demo'),
+            $request->request->get('name')
+        );
+        $this->dataService->install(
+            $request->request->get('pluginName'),
+            $request->request->get('type', 'demo'),
+            $request->request->get('name')
+        );
 
         return new JsonResponse([]);
     }
@@ -63,7 +71,11 @@ class SettingsController
             $this->dataService->setSalesChannelId($request->request->get('salesChannelId'));
         }
 
-        $this->dataService->remove($request->request->get('pluginName'), 'demo', $request->request->get('name'));
+        $this->dataService->remove(
+            $request->request->get('pluginName'),
+            $request->request->get('type', 'demo'),
+            $request->request->get('name')
+        );
 
         return new JsonResponse([]);
     }

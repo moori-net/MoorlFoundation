@@ -291,6 +291,7 @@
             "highlight": "Highlight"
         },
         "label": {
+            "baseData": "Base configuration / Reset",
             "settingsMarker": "moori Map Marker",
             "settingsTitle": "moori Tools",
             "standardDemo": "Standard Demo",

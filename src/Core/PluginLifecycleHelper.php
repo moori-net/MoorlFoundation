@@ -54,6 +54,15 @@ class PluginLifecycleHelper
         if (self::c($plugin, 'INHERITANCES')) {
             self::removeInheritances($connection, self::c($plugin, 'INHERITANCES'));
         }
+
+        if (self::c($plugin, 'NAME')) {
+            try {
+                /* @var $dataService DataService */
+                $dataService = $container->get(DataService::class);
+                $dataService->remove(self::c($plugin, 'NAME'));
+            } catch (\Exception) {
+            }
+        }
     }
 
     public static function updateInheritance(Connection $connection, string $table, string $propertyName): void
