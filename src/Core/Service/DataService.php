@@ -197,6 +197,12 @@ SQL;
         return ($this->connection->executeQuery($sql)->rowCount() > 0);
     }
 
+    public function removeMigration(DataInterface $dataObject): void
+    {
+        $sql = sprintf("DELETE FROM `migration` WHERE `class` = '%s';", str_ireplace('\\', '\\\\', $dataObject::class));
+        $this->connection->executeQuery($sql);
+    }
+
     public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
     {
         if ($isBundle) {
@@ -866,6 +872,8 @@ SQL;
                 $sql = $this->processReplace($sql, $dataObject);
                 $this->connection->executeStatement($sql);
             }
+
+            $this->removeMigration($dataObject);
         }
     }
 
