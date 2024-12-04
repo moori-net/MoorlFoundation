@@ -15,6 +15,7 @@
                     "iconClass": "See placeholder as example"
                 },
                 "label": {
+                    "captionActive": "Enable caption",
                     "start": "Start",
                     "end": "End",
                     "textShadowActive": "Text shadow",
