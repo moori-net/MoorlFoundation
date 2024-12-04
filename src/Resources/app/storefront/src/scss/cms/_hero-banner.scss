@@ -1,31 +1,26 @@
-.cms-element-moorl-search-hero {
-  display: flex;
-  align-items: center;
-
-  .moorl-hero-inner-container {
-    @include media-breakpoint-up(xl) {
-      max-width: 45%;
-    }
-
+.cms-element-moorl-hero-banner {
     .moorl-hero-caption {
-      margin-bottom: 25px;
-
-      .moorl-hero-headline, .moorl-hero-text {
-        color: #fff;
-        font-weight: 400;
-      }
+      display: inline-block;
+      max-width: 720px;
 
       .moorl-hero-headline {
+        font-weight: bold;
         font-size: 2.5em;
+        margin-bottom: 15px;
       }
 
       .moorl-hero-text {
-        font-size: 1.5em;
+        font-size: 1.3em;
+        margin-bottom: 25px;
       }
     }
 
-    .moorl-hero-search {
+    .moorl-hero-banner {
       max-width: 100%;
+
+      label {
+        display: none;
+      }
 
       .header-search-input {
         border: none;
@@ -56,5 +51,4 @@
         box-shadow: $moorl-general-box-shadow;
       }
     }
-  }
 }

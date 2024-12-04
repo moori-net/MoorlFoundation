@@ -20,6 +20,7 @@ import MoorlCharCounterPlugin from './char-counter/char-counter.plugin';
 import MoorlCopyPlugin from './copy/copy.plugin';
 import MoorlSelectSearchPlugin from './select-search/select-search.plugin';
 import MoorlSvgLoaderPlugin from './svg-loader/svg-loader.plugin';
+import MoorlInputLocationPlugin from './input-location/input-location.plugin';
 /* Plugins moved since Shopware 6.6 */
 import MoorlFbSignaturePlugin from './fb-signature/fb-signature.plugin';
 
@@ -46,6 +47,7 @@ PluginManager.register('MoorlCharCounter', MoorlCharCounterPlugin, '[data-moorl-
 PluginManager.register('MoorlCopy', MoorlCopyPlugin, '[data-moorl-copy]');
 PluginManager.register('MoorlSelectSearch', MoorlSelectSearchPlugin, '[data-moorl-select-search]');
 PluginManager.register('MoorlSvgLoader', MoorlSvgLoaderPlugin, '[data-moorl-svg-loader]');
+PluginManager.register('MoorlInputLocation', MoorlInputLocationPlugin, '[data-moorl-input-location]');
 /* Plugins moved since Shopware 6.6 */
 PluginManager.register('MoorlFbSignature', MoorlFbSignaturePlugin, '[data-moorl-fb-signature]');
 

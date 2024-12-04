@@ -388,6 +388,11 @@
                     <name>Number</name>
                     <name lang="de-DE">Zahl</name>
                 </option>
+                <option>
+                    <id>hidden</id>
+                    <name>Hidden (default distance)</name>
+                    <name lang="de-DE">Versteckt (Standard Entfernung)</name>
+                </option>
             </options>
             <defaultValue>number</defaultValue>
         </input-field>

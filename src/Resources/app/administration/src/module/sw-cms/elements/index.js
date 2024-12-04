@@ -3,7 +3,7 @@ import './moorl-html-tag';
 import './moorl-cta-banner';
 
 import './accordion';
-import './search-hero';
+import './hero-banner';
 import './usp';
 import './newsletter';
 import './sidebar-filter';

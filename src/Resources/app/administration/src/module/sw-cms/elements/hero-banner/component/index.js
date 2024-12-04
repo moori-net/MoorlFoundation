@@ -2,7 +2,7 @@ const { Component, Application, Mixin, Filter, Utils } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-moorl-search-hero', {
+Component.register('sw-cms-el-moorl-hero-banner', {
     template,
 
     mixins: [
@@ -11,7 +11,7 @@ Component.register('sw-cms-el-moorl-search-hero', {
 
     computed: {
         captionCss() {
-            const css = {color:this.element.config.textColor.value}
+            const css = {color:this.element.config.boxColor.value}
 
             if(this.element.config.textShadowActive.value){
                 css.textShadow = '2px 2px 15px #000'
@@ -74,8 +74,8 @@ Component.register('sw-cms-el-moorl-search-hero', {
 
     methods: {
         createdComponent() {
-            this.initElementConfig('moorl-search-hero');
-            this.initElementData('moorl-search-hero');
+            this.initElementConfig('moorl-hero-banner');
+            this.initElementData('moorl-hero-banner');
         }
     }
 });

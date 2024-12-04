@@ -1,0 +1,226 @@
+<div class="sw-cms-el-config-moorl-hero-banner">
+    <sw-tabs default-item="general">
+        <template #default="{ active }">
+            <sw-tabs-item name="general" :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.general') }}
+            </sw-tabs-item>
+            <sw-tabs-item
+                    v-if="element.config.mediaActive.value"
+                    name="media"
+                    :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.media') }}
+            </sw-tabs-item>
+            <sw-tabs-item name="position" :activeTab="active">
+                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.position') }}
+            </sw-tabs-item>
+            <sw-tabs-item
+                    v-if="element.config.captionActive.value"
+                    name="content"
+                    :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-cta-banner.tab.content') }}
+            </sw-tabs-item>
+        </template>
+
+        <template #content="{ active }">
+            <sw-container v-if="active === 'general'">
+                <sw-select-field
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
+                        v-model:value="element.config.searchType.value"
+                >
+                    <option value="search">{{ $tc('sw-cms.elements.moorl-cta-banner.label.search') }}</option>
+                    <option value="location">{{ $tc('sw-cms.elements.moorl-cta-banner.label.location') }}</option>
+                </sw-select-field>
+
+                <sw-entity-single-select
+                        v-if="element.config.searchType.value == 'location'"
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.category')"
+                        entity="category"
+                        v-model:value="element.config.categoryId.value"
+                />
+                
+                <sw-text-field
+                        v-model:value="element.config.height.value"
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.height')"
+                />
+
+                <sw-switch-field
+                        v-model:value="element.config.mediaActive.value"
+                        bordered
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaActive')"
+                />
+
+                <sw-switch-field
+                        v-model:value="element.config.captionActive.value"
+                        bordered
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.captionActive')"
+                />
+            </sw-container>
+
+            <sw-container v-if="active === 'media'">
+                <div class="sw-field">
+                    <sw-media-upload-v2
+                            :upload-tag="uploadTag"
+                            :source="previewSource"
+                            :allow-multi-select="false"
+                            :default-folder="cmsPageState.pageEntityName"
+                            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                            @media-upload-sidebar-open="onOpenMediaModal"
+                            @media-upload-remove-image="onImageRemove"
+                    />
+
+                    <sw-upload-listener
+                            :uploadTag="uploadTag"
+                            autoUpload
+                            @media-upload-finish="onImageUpload"
+                    />
+                </div>
+
+                <sw-container columns="1fr 1fr" gap="0 10px">
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundVerticalAlign')"
+                            v-model:value="element.config.backgroundVerticalAlign.value"
+                    >
+                        <option v-for="option in verticalTextAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundHorizontalAlign')"
+                            v-model:value="element.config.backgroundHorizontalAlign.value"
+                    >
+                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-switch-field
+                            v-model:value="element.config.backgroundFixed.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundFixed')"
+                    />
+
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundDisplayMode')"
+                            v-model:value="element.config.backgroundDisplayMode.value"
+                    >
+                        <option v-for="option in backgroundSizeOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+                </sw-container>
+
+                <sw-container
+                        v-if="element.config.backgroundDisplayMode.value == 'custom'"
+                        columns="1fr 1fr" gap="0 10px"
+                >
+                    <sw-text-field
+                            v-model:value="element.config.backgroundSizeX.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundSizeX')"
+                    />
+
+                    <sw-text-field
+                            v-model:value="element.config.backgroundSizeY.value"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundSizeY')"
+                    />
+                </sw-container>
+            </sw-container>
+
+            <sw-container v-if="active === 'position'">
+                <sw-container columns="1fr 1fr" gap="0 10px">
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxVerticalAlign')"
+                            v-model:value="element.config.boxVerticalAlign.value"
+                    >
+                        <option v-for="option in flexAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHorizontalAlign')"
+                            v-model:value="element.config.boxHorizontalAlign.value"
+                    >
+                        <option v-for="option in flexAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxWidth')"
+                            v-model:value="element.config.boxWidth.value"
+                    />
+
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHeight')"
+                            v-model:value="element.config.boxHeight.value"
+                    />
+
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxMargin')"
+                            v-model:value="element.config.boxMargin.value"
+                    />
+
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxPadding')"
+                            v-model:value="element.config.boxPadding.value"
+                    />
+
+                    <sw-select-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxTextAlign')"
+                            v-model:value="element.config.boxTextAlign.value"
+                    >
+                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
+                    </sw-select-field>
+
+                    <sw-colorpicker
+                            colorOutput="hex"
+                            :zIndex="1000"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxColor')"
+                            v-model:value="element.config.boxColor.value"
+                    />
+
+                    <sw-colorpicker
+                            colorOutput="hex"
+                            :zIndex="1000"
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxBackground')"
+                            v-model:value="element.config.boxBackground.value"
+                    />
+
+                    <sw-text-field
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxBorderRadius')"
+                            v-model:value="element.config.boxBorderRadius.value"
+                    />
+
+                    <sw-switch-field
+                            v-model:value="element.config.boxMaxWidth.value"
+                            bordered
+                            :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxMaxWidth')"
+                    />
+                </sw-container>
+            </sw-container>
+
+            <sw-container v-if="active === 'content'">
+                <sw-text-field
+                        v-model:value="element.config.title.value"
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.title')"
+                />
+
+                <sw-text-field
+                        v-model:value="element.config.content.value"
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.content')"
+                />
+
+                <sw-switch-field
+                        v-model:value="element.config.textShadowActive.value"
+                        bordered
+                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.textShadowActive')"
+                />
+            </sw-container>
+        </template>
+    </sw-tabs>
+
+    <sw-media-modal-v2
+            v-if="mediaModalIsOpen"
+            variant="full"
+            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+            :entity-context="cmsPageState.entityName"
+            :allow-multi-select="false"
+            :initial-folder-id="cmsPageState.defaultMediaFolderId"
+            @media-upload-remove-image="onImageRemove"
+            @media-modal-selection-change="onSelectionChanges"
+            @modal-close="onCloseModal"
+    />
+</div>

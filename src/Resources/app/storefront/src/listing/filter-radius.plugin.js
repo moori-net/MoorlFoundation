@@ -6,7 +6,6 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
 
     static options = deepmerge(FilterBasePlugin.options, {
         inputLocationSelector: '.location',
-        buttonMyLocationSelector: '.my-location',
         inputDistanceSelector: '.distance',
         inputInvalidCLass: 'is-invalid',
         inputTimeout: 1000,
@@ -26,7 +25,6 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         this._container = DomAccess.querySelector(this.el, this.options.containerSelector);
         this._inputLocation = DomAccess.querySelector(this.el, this.options.inputLocationSelector);
         this._inputDistance = DomAccess.querySelector(this.el, this.options.inputDistanceSelector);
-        this._buttonMyLocation = this.el.querySelector(this.options.buttonMyLocationSelector);
         this._timeout = null;
         this._hasError = false;
 
@@ -43,10 +41,6 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
     _registerEvents() {
         this._inputLocation.addEventListener('input', this._onChangeInput.bind(this));
         this._inputDistance.addEventListener('input', this._onChangeInput.bind(this));
-
-        if (this._buttonMyLocation) {
-            this._buttonMyLocation.addEventListener('click', this._onClickButton.bind(this));
-        }
     }
 
     /**
@@ -63,23 +57,6 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
                 this.listing.changeListing();
             }
         }, this.options.inputTimeout);
-    }
-
-    /**
-     * @private
-     */
-    _onClickButton() {
-        console.log("Request geolocation");
-        this._inputLocation.value = `0|0`;
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition( (position) => {
-                this._inputLocation.value = `${position.coords.latitude}|${position.coords.longitude}`;
-                this._onChangeInput();
-            });
-        } else {
-            console.log("Geolocation is not supported by this browser");
-        }
     }
 
     /**

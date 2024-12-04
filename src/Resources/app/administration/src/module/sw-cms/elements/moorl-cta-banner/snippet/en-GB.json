@@ -15,6 +15,11 @@
                     "iconClass": "See placeholder as example"
                 },
                 "label": {
+                    "start": "Start",
+                    "end": "End",
+                    "textShadowActive": "Text shadow",
+                    "search": "Search",
+                    "location": "Location search (Listing)",
                     "titleTag": "Title HTML tag",
                     "overlayBackground": "Overlay background",
                     "product": "Product",

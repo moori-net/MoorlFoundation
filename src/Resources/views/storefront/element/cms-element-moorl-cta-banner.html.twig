@@ -61,7 +61,7 @@
         {% set backgroundCss = backgroundCss|merge([
             "background-size:#{config.backgroundSizeX.value} #{config.backgroundSizeY.value}"
         ]) %}
-    {% elseif config.elementType.value == 'category' %}
+    {% else %}
         {% set backgroundCss = backgroundCss|merge([
             "background-size:#{config.backgroundDisplayMode.value}"
         ]) %}

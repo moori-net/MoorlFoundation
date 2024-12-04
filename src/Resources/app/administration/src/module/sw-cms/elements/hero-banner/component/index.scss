@@ -1,4 +1,4 @@
-.sw-cms-el-moorl-search-hero{
+.sw-cms-el-moorl-hero-banner{
     width: 100%;
     min-height:200px;
     height:auto;
@@ -20,11 +20,11 @@
             right: 70px;
 
             .caption{
-                .headline{
+                .title{
                     font-size: 2.5em;
                 }
 
-                .subheadline{
+                .content{
                     font-size: 1.5em;
                 }
             }
@@ -32,7 +32,7 @@
             .search{
                 margin-top: 20px;
 
-                .hero-searchbar{
+                .hero-bannerbar{
                     background-color: #fff;
                     padding: 10px 15px;
                 }

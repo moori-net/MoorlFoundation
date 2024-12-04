@@ -1,7 +1,7 @@
 {
     "sw-cms": {
         "elements": {
-            "moorl-search-hero": {
+            "moorl-hero-banner": {
                 "title": "Search + Hero Banner",
                 "tab": {
                     "general": "General",
@@ -11,7 +11,7 @@
                 "config": {
                     "searchActive": "Activate Searchbar",
                     "captionActive": "Activate Caption",
-                    "elementHeight": "Height of Element",
+                    "height": "Height of Element",
                     "backgroundAttachment": "Background Attachment",
                     "backgroundRepeat": "Background Repeat",
                     "backgroundSize": "Background Size",
@@ -31,8 +31,8 @@
                     "centerTop": "Center - Top",
                     "centerCenter": "Center - Center",
                     "centerBottom": "Center - Bottom",
-                    "headline": "Headline",
-                    "subHeadline": "Sub - Headline",
+                    "title": "Headline",
+                    "content": "Sub - Headline",
                     "textColor": "Text - Color",
                     "textShadowActive": "Activate Text - Shadow"
                 }

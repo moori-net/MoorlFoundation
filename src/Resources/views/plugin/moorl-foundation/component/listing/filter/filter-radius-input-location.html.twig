@@ -1,4 +1,4 @@
-<div class="input-group">
+<div data-moorl-input-location="true" class="input-group">
     <span class="input-group-text">
         {% sw_icon 'map-marker-alt' style {pack: 'fas'} %}
     </span>
@@ -9,9 +9,10 @@
             class="form-control location"
             aria-label="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}"
             placeholder="{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}"
+            required
     >
 
-    {% if showMyLocation and config('MoorlFoundation.config.filterRadiusMyLocation') %}
+    {% if config('MoorlFoundation.config.filterRadiusMyLocation') %}
         <button
                 class="btn btn-primary my-location"
                 type="button"
