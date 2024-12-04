@@ -4,6 +4,8 @@
 
     {% if config.elementUrl.value %}
         {% set bannerLink = config.elementUrl.value %}
+    {% elseif config.btnUrl.value %}
+        {% set bannerLink = config.btnUrl.value %}
     {% else %}
         {% if config.elementType.value == 'category' and element.data.category.id %}
             {% set bannerLink = seoUrl('frontend.navigation.page', { navigationId: element.data.category.id }) %}
