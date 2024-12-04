@@ -31,10 +31,6 @@ class MoorlFoundation extends Plugin
         /* @var $dataService DataService */
         $dataService = $this->container->get(DataService::class);
         $dataService->install(self::NAME);
-
-        $connection = $this->container->get(Connection::class);
-        $connection->executeStatement("UPDATE `cms_slot` SET `type` = REPLACE(`type`, 'moorl-search-hero', 'moorl-hero-banner');");
-        $connection->executeStatement("UPDATE `cms_slot` SET `type` = REPLACE(`type`, 'appflix-ad-hero', 'moorl-hero-banner');");
     }
 
     public function uninstall(UninstallContext $uninstallContext): void

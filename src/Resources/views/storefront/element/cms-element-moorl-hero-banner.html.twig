@@ -26,15 +26,15 @@
         ]) %}
     {% else %}
         {% set elementCss = elementCss|merge([
-            "background-size:#{config.backgroundDisplayMode.value}"
+            "background-size:#{config.backgroundDisplayMode.value ?: 'cover'}"
         ]) %}
     {% endif %}
 {% endif %}
 {% set overlayCss = [
     "min-height:#{config.height.value}",
     "background:#{config.overlayBackground.value ?: 'transparent'}",
-    "align-items:#{config.boxVerticalAlign.value}",
-    "justify-content:#{config.boxHorizontalAlign.value}",
+    "align-items:#{config.boxVerticalAlign.value ?: 'center'}",
+    "justify-content:#{config.boxHorizontalAlign.value ?: 'center'}",
 ] %}
 {% set boxCss = [
     "display:#{config.iconPosition.value == 'top' ? 'block' : 'flex'}",
@@ -44,7 +44,7 @@
     "width:#{config.boxWidth.value}",
     "height:#{config.boxHeight.value}",
     "border-radius:#{config.boxBorderRadius.value}",
-    "text-align:#{config.boxTextAlign.value}",
+    "text-align:#{config.boxTextAlign.value ?: 'center'}",
 ] %}
 {% set searchCss = [
     "padding:#{config.boxPadding.value}",
