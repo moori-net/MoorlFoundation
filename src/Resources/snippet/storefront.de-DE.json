@@ -1,4 +1,7 @@
 {
+  "moorl-hero-banner": {
+    "missingCategory": "Missing category id. Please check the CMS element configuration!"
+  },
   "moorl-location-map": {
     "cookieName": "Landkarte",
     "cookieDescription": "Wir verwenden OpenStreetMap als Anbieter, um Ihnen den Standort unserer Geschäfte und Händler visuell darzustellen.",

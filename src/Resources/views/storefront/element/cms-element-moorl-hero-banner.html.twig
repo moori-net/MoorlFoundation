@@ -138,7 +138,10 @@
                                 </div>
                             </form>
                         {% else %}
-                            {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with { type: 'info', content: 'appflix-customer-market.infoNoAdsCategory' | trans } %}
+                            {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                type: 'danger',
+                                content: 'moorl-hero-banner.missingCategory'|trans
+                            } %}
                         {% endif %}
                     {% endif %}
                 </div>
