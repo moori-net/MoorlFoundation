@@ -7,6 +7,7 @@
 /.php_cs.cache
 /docker-compose.override.yml
 
+package-lock.json
 /src/Resources/node_modules/
 /src/Resources/app/administration/node_modules/
 /src/Resources/app/storefront/node_modules/

@@ -1,5 +1,9 @@
 @import "default-variables";
 
+@import "lib/leaflet";
+@import "lib/leaflet-gesture-handling";
+@import "lib/tom-select/src/scss/tom-select.bootstrap5";
+
 @import "appflix/base";
 
 @import "sections/moorl-grid";
@@ -42,11 +46,6 @@
 @import "helpers/cms-helpers";
 @import "helpers/foundation-demo-html";
 @import "helpers/icon";
-
-@import "lib/leaflet";
-@import "lib/leaflet-gesture-handling";
-
-@import "../../node_modules/tom-select/src/scss/tom-select.bootstrap5";
 
 .bg-fixed {
   background-attachment: fixed;
