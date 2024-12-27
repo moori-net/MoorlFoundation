@@ -584,6 +584,13 @@ SQL;
             if (!is_array($item)) {
                 continue;
             }
+            if (array_is_list($item)) {
+                if (count($item) > 0) {
+                    if (is_string($item[0])) {
+                        continue;
+                    }
+                }
+            }
             /* Handle duplicate default media folder entity */
             if ($table === 'media_default_folder' && !empty($item['entity']) && is_array($item['folder'])) {
                 $defaultMediaFolderId = $dataObject->getReplacer(sprintf("MEDIA_FOLDER_%s_ID", $item['entity']));
