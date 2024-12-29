@@ -781,6 +781,9 @@ SQL;
 
         $filePath = sprintf('%s/media/%s', $dataObject->getPath(), $name);
         if (!file_exists($filePath)) {
+            $filePath = sprintf('%s/media/%s/%s', $dataObject->getPath(), $table, $name);
+        }
+        if (!file_exists($filePath)) {
             $filePath = sprintf('%s/media/%s.jpg', $dataObject->getPath(), $name);
         }
         if (!file_exists($filePath)) {
