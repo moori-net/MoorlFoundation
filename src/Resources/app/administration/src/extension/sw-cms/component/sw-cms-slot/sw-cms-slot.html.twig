@@ -1,17 +1,11 @@
 {% block sw_cms_slot_content_component %}
     <sw-cms-el-moorl-default
-            v-if="elementConfig.component === true"
+            v-if="elementConfig?.component === true"
             class="sw-cms-slot__element-preview"
             v-bind="{ element:elementConfig }"
     />
 
-    <component
-            v-else-if="elementConfig && elementConfig.component"
-            :is="elementConfig.component"
-            v-model:element="element"
-            :element-data="elementConfig"
-            :disabled="disabled"
-    />
+    {% parent %}
 {% endblock %}
 
 {% block sw_cms_slot_content_element_modal_selection_element_component %}
@@ -21,11 +15,9 @@
             v-bind="{ element:element, plugin:getPlugin(element) }"
     />
 
-    <component
-            v-else
-            :is="element.previewComponent"
-            class="sw-cms-slot__element-preview"
-    />
+    <template v-else>
+        {% parent %}
+    </template>
 {% endblock %}
 
 {% block sw_cms_slot_content_overlay_action_settings %}
