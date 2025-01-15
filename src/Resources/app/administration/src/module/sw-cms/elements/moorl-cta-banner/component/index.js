@@ -17,19 +17,39 @@ Component.register('sw-cms-el-moorl-cta-banner', {
         },
 
         category() {
-            if (!this.element.data || !this.element.data.category || !this.element.data.category.media) {
-                return this.element?.defaultData?.category;
+            if (this.element.data?.category?.name) {
+                return this.element.data.category;
             }
 
-            return this.element.data.category;
+            return {
+                name: 'Lorem Ipsum dolor',
+                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                          sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                          sed diam voluptua.`.trim(),
+                media: {
+                    url: '/administration/static/img/cms/preview_glasses_large.jpg',
+                    alt: 'Lorem Ipsum dolor'
+                }
+            };
         },
 
         product() {
-            if (!this.element.data || !this.element.data.product || !this.element.data.product.cover) {
-                return this.element?.defaultData?.product;
+            if (this.element.data?.product?.name) {
+                return this.element.data.product;
             }
 
-            return this.element.data.product;
+            return {
+                name: 'Demo Product',
+                description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                          sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                          sed diam voluptua.`.trim(),
+                cover: {
+                    media: {
+                        url: '/administration/static/img/cms/preview_glasses_large.jpg',
+                        alt: 'Add to cart'
+                    }
+                }
+            };
         },
 
         mediaRepository() {

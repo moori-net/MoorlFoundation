@@ -5,7 +5,13 @@
             v-bind="{ element:elementConfig }"
     />
 
-    {% parent %}
+    <component
+            :is="elementConfig.component"
+            v-else-if="elementConfig?.component"
+            v-model:element="element"
+            :element-data="elementConfig"
+            :disabled="disabled || undefined"
+    />
 {% endblock %}
 
 {% block sw_cms_slot_content_element_modal_selection_element_component %}
