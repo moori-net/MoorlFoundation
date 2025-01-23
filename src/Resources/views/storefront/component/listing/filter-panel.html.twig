@@ -26,6 +26,16 @@
             } %}
         {% endif %}
 
+        {% set categories = listing.aggregations.get('category') %}
+        {% if categories and not categories.entities is empty %}
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: categories.entities,
+                sidebar: sidebar,
+                name: 'category',
+                displayName: 'moorl-foundation.listing.filter.categories'|trans
+            } %}
+        {% endif %}
+
         {# Show child categories with results #}
         {% set childCategories = listing.aggregations.get('child-category') %}
         {% if childCategories and not childCategories.entities is empty %}
