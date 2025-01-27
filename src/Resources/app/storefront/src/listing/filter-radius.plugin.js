@@ -1,19 +1,23 @@
 import FilterBasePlugin from 'src/plugin/listing/filter-base.plugin';
 import DomAccess from 'src/helper/dom-access.helper';
 import deepmerge from 'deepmerge';
+import CookieStorageHelper from 'src/helper/storage/cookie-storage.helper';
 
 export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin {
 
     static options = deepmerge(FilterBasePlugin.options, {
         inputLocationSelector: '.location',
         inputDistanceSelector: '.distance',
+        inputPersistSelector: '.radius-persist',
         inputInvalidCLass: 'is-invalid',
         inputTimeout: 1000,
         locationKey: 'location',
         distanceKey: 'distance',
+        persistKey: 'radius-persist',
         errorContainerClass: 'filter-radius-error',
         containerSelector: '.filter-radius-container',
         defaultValue: null,
+        filterRadiusPersist: false,
         snippets: {
             filterRadiusActiveLocationLabel: '',
             filterRadiusActiveDistanceLabel: '',
@@ -25,6 +29,9 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         this._container = DomAccess.querySelector(this.el, this.options.containerSelector);
         this._inputLocation = DomAccess.querySelector(this.el, this.options.inputLocationSelector);
         this._inputDistance = DomAccess.querySelector(this.el, this.options.inputDistanceSelector);
+        if (this.options.filterRadiusPersist) {
+            this._inputPersist = DomAccess.querySelector(this.el, this.options.inputPersistSelector);
+        }
         this._timeout = null;
         this._hasError = false;
 
@@ -33,6 +40,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         }
 
         this._registerEvents();
+        this._setValuesFromCookie();
     }
 
     /**
@@ -41,12 +49,17 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
     _registerEvents() {
         this._inputLocation.addEventListener('input', this._onChangeInput.bind(this));
         this._inputDistance.addEventListener('input', this._onChangeInput.bind(this));
+        if (this.options.filterRadiusPersist) {
+            this._inputPersist.addEventListener('change', this._onChangeInput.bind(this));
+        }
     }
 
     /**
      * @private
      */
     _onChangeInput() {
+        console.log("_onChangeInput");
+
         clearTimeout(this._timeout);
 
         this._timeout = setTimeout(() => {
@@ -68,6 +81,9 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
 
         values[this.options.locationKey] = this._inputLocation.value;
         values[this.options.distanceKey] = this._inputDistance.value;
+        if (this.options.filterRadiusPersist) {
+            values[this.options.persistKey] = !!this._inputPersist.checked;
+        }
 
         return values;
     }
@@ -123,6 +139,23 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         this._hasError = false;
     }
 
+    _setValuesFromCookie() {
+        try {
+            let radiusPersistCookieData = CookieStorageHelper.getItem(this.options.persistKey);
+            if (this.options.filterRadiusPersist && radiusPersistCookieData) {
+                let radiusPersistCookie = JSON.parse(decodeURIComponent(radiusPersistCookieData));
+
+                this._inputLocation.value = radiusPersistCookie[this.options.locationKey];
+                this._inputDistance.value = radiusPersistCookie[this.options.distanceKey];
+                this._inputPersist.checked = true;
+
+                this._onChangeInput();
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     /**
      * @param params
      * @public
@@ -130,6 +163,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
      */
     setValuesFromUrl(params) {
         let stateChanged = false;
+
         Object.keys(params).forEach(key => {
             if (key === this.options.locationKey) {
                 this._inputLocation.value = params[key];
@@ -137,6 +171,10 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
             }
             if (key === this.options.distanceKey) {
                 this._inputDistance.value = params[key];
+                stateChanged = true;
+            }
+            if (this.options.filterRadiusPersist && key === this.options.persistKey) {
+                this._inputPersist.checked = params[key];
                 stateChanged = true;
             }
         });
@@ -173,11 +211,12 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         if (id === this.options.locationKey) {
             this._inputLocation.value = '';
         }
-
         if (id === this.options.distanceKey) {
             this._inputDistance.value = '';
         }
-
+        if (this.options.filterRadiusPersist && id === this.options.persistKey) {
+            this._inputPersist.checked = false;
+        }
         this._removeError();
     }
 
@@ -187,6 +226,9 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
     resetAll() {
         this._inputLocation.value = '';
         this._inputDistance.value = '';
+        if (this.options.filterRadiusPersist) {
+           this._inputPersist.checked = false;
+        }
         this._removeError();
     }
 }

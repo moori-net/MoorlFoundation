@@ -238,7 +238,7 @@
         <input-field>
             <name>osmTileLayer</name>
             <label>URL for tile layer</label>
-            <label lang="de-DE">URL Für Kachel-Ebene</label>
+            <label lang="de-DE">URL für Kachel-Ebene</label>
             <defaultValue><![CDATA[https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png]]></defaultValue>
             <placeholder><![CDATA[https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png]]></placeholder>
         </input-field>
@@ -411,6 +411,13 @@
             <label lang="de-DE">Standard Entfernung</label>
             <defaultValue>10</defaultValue>
             <placeholder>10</placeholder>
+        </input-field>
+
+        <input-field type="bool">
+            <name>filterRadiusPersist</name>
+            <label>Optional persistant radius filter via cookie</label>
+            <label lang="de-DE">Optionaler dauerhafter Radius Filter über Cookie</label>
+            <defaultValue>false</defaultValue>
         </input-field>
     </card>
 

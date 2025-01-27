@@ -2,6 +2,8 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
@@ -25,8 +27,8 @@ class FieldPriceCollection extends FieldCollection
     {
         return [
             (new FkField('tax_id', 'taxId', TaxDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new ManyToOneAssociationField('tax', 'tax_id', TaxDefinition::class)),
-            (new PriceField('price', 'price'))->addFlags(new Required()),
+            (new ManyToOneAssociationField('tax', 'tax_id', TaxDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
+            (new PriceField('price', 'price'))->addFlags(new Required(), new EditField('price')),
         ];
     }
 

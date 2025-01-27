@@ -25,6 +25,7 @@
     },
     "listing": {
       "filter": {
+        "persist": "Filter speichern",
         "productStream": "Produktgruppe",
         "firstChar": "Index",
         "tags": "Tags",

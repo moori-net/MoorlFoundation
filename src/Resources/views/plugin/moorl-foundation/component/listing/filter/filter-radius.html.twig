@@ -10,7 +10,8 @@
         snippets: {
             filterRadiusActiveLocationLabel: 'moorl-foundation.properties.inRadiusOf'|trans|sw_sanitize,
             filterRadiusActiveDistanceLabel: unit|trans|sw_sanitize
-        }
+        },
+        filterRadiusPersist: config('MoorlFoundation.config.filterRadiusPersist')
     } %}
 
     {% block component_filter_radius_panel_item %}
@@ -58,6 +59,23 @@
                                     wrapper: 'filter-multi-select-list-item'
                                 } %}
                             {% endblock %}
+
+                            {% if config('MoorlFoundation.config.filterRadiusPersist') %}
+                                {% block component_filter_persist_container %}
+                                    <div class="filter-multi-select-list-item">
+                                        <div class="form-check form-switch">
+                                            <input
+                                                    type="checkbox"
+                                                    class="form-check-input radius-persist"
+                                                    value="1"
+                                                    id="radius-persist"
+                                                    name="radius-persist"
+                                            >
+                                            <label for="radius-persist">{{ "moorl-foundation.listing.filter.persist"|trans }}</label>
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            {% endif %}
                         </div>
                     {% endblock %}
                 </div>

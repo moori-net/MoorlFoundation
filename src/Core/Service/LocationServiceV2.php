@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
+use MoorlFoundation\Core\Content\Location\LocationDefinition;
 use MoorlFoundation\Core\Content\Location\LocationEntity;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
@@ -16,6 +17,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\Country\CountryCollection;
 use Shopware\Core\System\Country\CountryDefinition;
 use Shopware\Core\System\Country\CountryEntity;
@@ -91,6 +93,18 @@ SQL;
         ));
     }
 
+    public function getEntityIdsByDistance(string $locationId, float $distance, string $entityName = ""): array
+    {
+        $sql = <<<SQL
+SELECT DISTINCT LOWER(HEX(`entity_id`)) as `id` FROM `moorl_location_cache` WHERE `location_id` = :location_id AND `distance` < :distance;
+SQL;
+        $ids = $this->connection->fetchFirstColumn($sql, [
+            'location_id' => Uuid::fromHexToBytes($locationId),
+            'distance' => $distance
+        ]);
+        return array_unique(array_filter($ids));
+    }
+
     public function getUnitOfMeasurement(): string
     {
         return $this->systemConfigService->get('MoorlFoundation.config.osmUnitOfMeasurement') ?: 'mi';
@@ -113,7 +127,7 @@ SQL;
         ));
         $criteria->setLimit(1);
 
-        $countryRepository = $this->definitionInstanceRegistry->getRepository('country');
+        $countryRepository = $this->definitionInstanceRegistry->getRepository(CountryDefinition::ENTITY_NAME);
 
         return $countryRepository->search($criteria, $this->context)->first();
     }
@@ -159,7 +173,7 @@ SQL;
         }
 
         /* Check if location already exists */
-        $repo = $this->definitionInstanceRegistry->getRepository('moorl_location');
+        $repo = $this->definitionInstanceRegistry->getRepository(LocationDefinition::ENTITY_NAME);
         $criteria = new Criteria([$locationId]);
         $criteria->addFilter(new RangeFilter('updatedAt', [
             RangeFilter::GTE => ($this->now->modify("-1 hour"))->format(DATE_ATOM)

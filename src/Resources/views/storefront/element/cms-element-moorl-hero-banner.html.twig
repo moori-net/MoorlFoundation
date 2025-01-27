@@ -123,6 +123,9 @@
                                         wrapper: 'col-auto',
                                         unit: "moorl-foundation.listing.filter.#{config('MoorlFoundation.config.osmUnitOfMeasurement')}"
                                     } %}
+                                    {% if config('MoorlFoundation.config.filterRadiusPersist') %}
+                                        <input type="hidden" value="1" name="radius-persist">
+                                    {% endif %}
                                     <div class="col-auto d-flex">
                                         <button
                                                 type="submit"
