@@ -39,7 +39,10 @@
                 "distance": "Distance",
                 "myLocation": "Use my location",
                 "categories": "Categories",
-                "navigation": "Categories"
+                "navigation": "Categories",
+                "nearbyFilterEnabled": "Your nearby filter is enabled. Your shown results are next to you (distanceKM of location).",
+                "nearbyFilterDisabled": "Your nearby filter is disabled.",
+                "nearbyFilterReset": "Reset"
             }
         },
         "customerUpload": {

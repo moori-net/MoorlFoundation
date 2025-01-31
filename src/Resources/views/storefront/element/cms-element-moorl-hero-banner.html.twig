@@ -109,6 +109,7 @@
                         {% if config.categoryId.value %}
                             <form
                                     name="{{ element.type }}-filter-form"
+                                    class="{{ element.type }}-filter-form"
                                     method="get"
                                     action="{{ seoUrl('frontend.navigation.page', { navigationId: config.categoryId.value }) }}"
                             >

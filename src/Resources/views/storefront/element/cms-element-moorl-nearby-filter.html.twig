@@ -1,0 +1,49 @@
+<div class="cms-element-moorl-nearby-filter">
+    {% set requestQuery = app.request.query.all() %}
+    {% if requestQuery.distance and requestQuery.location %}
+        {% set nearbyFilterInfo %}
+            {{ "moorl-foundation.listing.filter.nearbyFilterEnabled"|trans(requestQuery) }}<br>
+            <a href="?radius-persist=false">{{ "moorl-foundation.listing.filter.nearbyFilterReset"|trans }}</a>
+        {% endset %}
+
+        {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+            type: "info",
+            content: nearbyFilterInfo
+        } %}
+    {% else %}
+        {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+            type: "info",
+            content: "moorl-foundation.listing.filter.nearbyFilterDisabled"|trans(requestQuery)
+        } %}
+
+        <form
+                name="filter-form"
+                class="filter-form"
+                method="get"
+                action=""
+        >
+            <div class="row g-2">
+                <div class="col">
+                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-radius-input-location.html.twig' %}
+                </div>
+                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-radius-input-radius.html.twig' with {
+                    wrapper: 'col-auto',
+                    unit: "moorl-foundation.listing.filter.#{config('MoorlFoundation.config.osmUnitOfMeasurement')}"
+                } %}
+                <input type="hidden" value="true" name="radius-persist">
+                <div class="col-auto d-flex">
+                    <button
+                            type="submit"
+                            class="btn btn-primary "
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="{{ "header.searchButton"|trans|striptags }}"
+                            aria-label="{{ "header.searchButton"|trans|striptags }}"
+                    >
+                        {% sw_icon 'search' style {pack:'fas'} %}
+                    </button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+</div>
