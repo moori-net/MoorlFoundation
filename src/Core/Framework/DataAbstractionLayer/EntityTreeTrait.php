@@ -7,7 +7,7 @@ trait EntityTreeTrait
     protected ?string $parentId = null;
     protected ?string $afterId = null;
     protected ?string $path = null;
-    protected int $childCount = 0;
+    protected ?int $childCount = 0;
     protected int $level = 0;
 
     public function getParentId(): ?string
