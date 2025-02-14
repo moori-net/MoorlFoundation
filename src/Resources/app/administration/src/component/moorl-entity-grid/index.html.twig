@@ -168,9 +168,11 @@
     </sw-data-grid>
 
     <slot name="edit-modal" v-bind="{ showEditModal, selectedItem, onCloseModal }">
-        <sw-modal v-if="showEditModal"
-                  :title="$tc('global.default.edit')"
-                  @modal-close="onCloseModal">
+        <sw-modal
+                v-if="showEditModal"
+                :title="$tc('global.default.edit')"
+                @modal-close="onCloseModal"
+        >
             <moorl-entity-form-element
                     v-for="column in editColumns"
                     :value="selectedItem"

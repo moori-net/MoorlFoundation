@@ -28,3 +28,4 @@ import './parameter-grid';
 import './template-mapping-info';
 import './router-link';
 import './combination-element-options';
+import './svg-shape';

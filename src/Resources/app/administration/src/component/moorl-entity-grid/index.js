@@ -278,8 +278,8 @@ Component.register('moorl-entity-grid', {
                     continue;
                 }
 
-                if (column.type === 'json_object' && property !== 'price') {
-                    continue;
+                if (column.type === 'json_object' && property !== 'price' && property !== 'svgShape') {
+                    //continue;
                 }
 
                 if (Object.keys(this.defaultItem).indexOf(property) !== -1) {
@@ -289,7 +289,7 @@ Component.register('moorl-entity-grid', {
                     continue;
                 }
 
-                if (!column.flags.moorl_edit_field) {
+                if (!column.flags.moorl_edit_field && !column.flags.moorl_vue_component) {
                     continue;
                 }
 

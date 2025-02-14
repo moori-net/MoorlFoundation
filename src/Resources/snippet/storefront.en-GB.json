@@ -1,4 +1,7 @@
 {
+    "moorl-multi-banner": {
+        "missingMetaData": "This image has no width/height meta data"
+    },
     "moorl-hero-banner": {
         "missingCategory": "Missing category id. Please check the CMS element configuration!"
     },

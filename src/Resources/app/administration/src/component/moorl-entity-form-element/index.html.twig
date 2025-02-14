@@ -102,6 +102,14 @@
         />
     </template>
 
+    <template v-else-if="column.flags.moorl_vue_component">
+        <component
+                :is="column.flags.moorl_vue_component"
+                ref="component"
+                v-model:value="value[column.property]"
+        />
+    </template>
+
     <template v-else>
         <sw-form-field-renderer
                 v-model:value="value[column.property]"

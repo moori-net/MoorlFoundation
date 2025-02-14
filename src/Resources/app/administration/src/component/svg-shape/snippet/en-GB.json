@@ -1,0 +1,24 @@
+{
+  "moorl-svg-shape": {
+    "label": {
+      "shape": "Shape",
+      "unit": "Unit",
+      "width": "Width",
+      "height": "Height",
+      "x": "Left",
+      "y": "Top",
+      "rx": "X radius",
+      "ry": "Y radius",
+      "r": "Radius",
+      "cx": "Left center",
+      "cy": "Top center",
+      "style": "Stylesheet"
+    },
+    "shape": {
+      "none": "None",
+      "rect": "Rectangle",
+      "circle": "Circle",
+      "ellipse": "Ellipse"
+    }
+  }
+}

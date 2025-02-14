@@ -63,17 +63,11 @@ trait EntityLocationTrait
         }
     }
 
-    /**
-     * @return LocationCacheCollection|null
-     */
     public function getLocationCache(): ?LocationCacheCollection
     {
         return $this->locationCache;
     }
 
-    /**
-     * @param LocationCacheCollection|null $locationCache
-     */
     public function setLocationCache(?LocationCacheCollection $locationCache): void
     {
         $this->locationCache = $locationCache;

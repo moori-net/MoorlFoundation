@@ -8,7 +8,8 @@
             {% if combinationElement.options.showBanner %}
                 {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/index.html.twig' with {
                     item: combinationElement,
-                    options: combinationElement.options
+                    options: combinationElement.options,
+                    useSvg: combinationElement.useSvg
                 } %}
             {% endif %}
 

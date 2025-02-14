@@ -31,7 +31,10 @@
                     {% if item.options.showHotspots and item.items %}
                         {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/hotspots.html.twig' with {
                             items: item.items,
-                            options: item.options
+                            options: item.options,
+                            useSvg: useSvg,
+                            width: media.metaData.width,
+                            height: media.metaData.height
                         } %}
                     {% endif %}
                 </div>
