@@ -22,46 +22,55 @@
     <template v-if="value.shape !== 'none'">
         <sw-container  columns="1fr 1fr" gap="0px 20px">
             <sw-number-field
+                    v-if="['rect'].includes(value.shape)"
                     v-model:value="value.width"
                     :label="$tc('moorl-svg-shape.label.width')"
             />
 
             <sw-number-field
+                    v-if="['rect'].includes(value.shape)"
                     v-model:value="value.height"
                     :label="$tc('moorl-svg-shape.label.height')"
             />
 
             <sw-number-field
+                    v-if="['rect'].includes(value.shape)"
                     v-model:value="value.x"
                     :label="$tc('moorl-svg-shape.label.x')"
             />
 
             <sw-number-field
+                    v-if="['rect'].includes(value.shape)"
                     v-model:value="value.y"
                     :label="$tc('moorl-svg-shape.label.y')"
             />
 
             <sw-number-field
+                    v-if="['rect','ellipse'].includes(value.shape)"
                     v-model:value="value.rx"
                     :label="$tc('moorl-svg-shape.label.rx')"
             />
 
             <sw-number-field
+                    v-if="['rect','ellipse'].includes(value.shape)"
                     v-model:value="value.ry"
                     :label="$tc('moorl-svg-shape.label.ry')"
             />
 
             <sw-number-field
+                    v-if="['circle'].includes(value.shape)"
                     v-model:value="value.r"
                     :label="$tc('moorl-svg-shape.label.r')"
             />
 
             <sw-number-field
+                    v-if="['circle','ellipse'].includes(value.shape)"
                     v-model:value="value.cx"
                     :label="$tc('moorl-svg-shape.label.cx')"
             />
 
             <sw-number-field
+                    v-if="['circle','ellipse'].includes(value.shape)"
                     v-model:value="value.cy"
                     :label="$tc('moorl-svg-shape.label.cy')"
             />
