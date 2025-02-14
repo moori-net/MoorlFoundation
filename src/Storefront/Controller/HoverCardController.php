@@ -47,7 +47,11 @@ class HoverCardController extends StorefrontController
             default:
                 $repository = $this->definitionInstanceRegistry->getRepository($entityName);
                 $entityItem = $repository->search($criteria, $salesChannelContext->getContext())->get($entityId);
-
         }
+
+        return $this->renderStorefront('@MoorlFoundation/plugin/moorl-foundation/component/hover-card/index.html.twig', [
+            'item' => $entityItem,
+            'entity' => $entityName
+        ]);
     }
 }
