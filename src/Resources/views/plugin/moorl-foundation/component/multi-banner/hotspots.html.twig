@@ -19,15 +19,13 @@
             <a
                     href="{{ itemUrl }}"
                     class="{{ itemType }}"
-                    title="{{ itemName }}"
                     data-moorl-hover-card="{{ hoverCardUrl }}"
+                    title="{{ itemName }}"
             >{{ item.getSvgShapeHTML()|raw }}</a>
         {% else %}
             <a
                     href="{{ itemUrl }}"
                     class="moorl-multi-banner-dot {{ itemType }}"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
                     style="top: {{ item.posTop }}%; left: {{ item.posLeft }}%"
                     title="{{ itemName }}"
                     data-moorl-hover-card="{{ hoverCardUrl }}"
