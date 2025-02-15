@@ -1,12 +1,22 @@
 import Plugin from 'src/plugin-system/plugin.class';
 
 export default class MoorlHoverCardPlugin extends Plugin {
+    static options = {
+        url: null,
+        toggle: false,
+        title: "",
+        placement: "top",
+        animation: false,
+    };
+
     init() {
         this._popover = new bootstrap.Popover(this.el, {
             html: true,
             sanitize: false,
+            animation: this.options.animation,
             content: "",
-            placement: 'top'
+            title: this.options.title,
+            placement: this.options.placement
         });
         this._loaded = false;
         this._scheduled = null;
@@ -15,8 +25,31 @@ export default class MoorlHoverCardPlugin extends Plugin {
     }
 
     _registerEvents() {
+        if (this.options.toggle) {
+            this.el.addEventListener('click', (event) => {
+                event.preventDefault();
+                this._togglePopover();
+            });
+            return;
+        }
         this.el.addEventListener('mouseenter', () => this._showPopover());
         this.el.addEventListener('mouseleave', () => this._scheduleHidePopover());
+    }
+
+    _togglePopover() {
+        if (this._loaded) {
+            this._popover.toggle();
+            window.PluginManager.initializePlugins();
+        } else {
+            fetch(this.options.url)
+                .then(response => response.text())
+                .then(body => {
+                    this._popover.setContent({'.popover-body': body});
+                    this._popover.show();
+                    window.PluginManager.initializePlugins();
+                    this._loaded = true;
+                });
+        }
     }
 
     _showPopover() {
@@ -30,7 +63,7 @@ export default class MoorlHoverCardPlugin extends Plugin {
             this._popover.show();
             this._attachPopoverEvents();
         } else {
-            fetch(this.el.dataset.moorlHoverCard)
+            fetch(this.options.url)
                 .then(response => response.text())
                 .then(body => {
                     this._popover.setContent({'.popover-body': body});
