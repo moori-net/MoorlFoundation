@@ -121,6 +121,13 @@
                     :label="$tc('moorl-combination-element-options.label.showHotspots')"
             />
 
+            <sw-switch-field
+                    v-model:value="value.loadHoverCards"
+                    bordered
+                    :label="$tc('moorl-combination-element-options.label.loadHoverCards')"
+                    :disabled="!value.showHotspots"
+            />
+
             <sw-select-field
                     :label="$tc('moorl-combination-element-options.label.hotspotAnimation')"
                     v-model:value="value.hotspotAnimation"

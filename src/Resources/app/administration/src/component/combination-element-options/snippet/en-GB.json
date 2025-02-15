@@ -8,6 +8,7 @@
       "countdown": "Countdown"
     },
     "label": {
+      "loadHoverCards": "Load hover cards",
       "classAttribute": "Class attribute",
       "idAttribute": "ID attribute",
       "stockType": "Stock type",

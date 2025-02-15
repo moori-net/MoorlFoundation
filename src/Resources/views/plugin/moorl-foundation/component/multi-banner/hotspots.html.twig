@@ -19,7 +19,11 @@
             <a
                     href="{{ itemUrl }}"
                     class="{{ itemType }}"
-                    data-moorl-hover-card="{{ hoverCardUrl }}"
+                    {% if loadHoverCards %}
+                        data-moorl-hover-card="{{ hoverCardUrl }}"
+                    {% else %}
+                        data-bs-toggle="tooltip"
+                    {% endif %}
                     title="{{ itemName }}"
             >{{ item.getSvgShapeHTML()|raw }}</a>
         {% else %}
@@ -28,7 +32,11 @@
                     class="moorl-multi-banner-dot {{ itemType }}"
                     style="top: {{ item.posTop }}%; left: {{ item.posLeft }}%"
                     title="{{ itemName }}"
-                    data-moorl-hover-card="{{ hoverCardUrl }}"
+                    {% if loadHoverCards %}
+                        data-moorl-hover-card="{{ hoverCardUrl }}"
+                    {% else %}
+                        data-bs-toggle="tooltip"
+                    {% endif %}
             ><div class="pulse"></div></a>
         {% endif %}
     {% endfor %}
