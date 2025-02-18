@@ -22,6 +22,10 @@ class MoorlFoundation extends Plugin
         'moorl_sorting_translation',
         'moorl_marker',
         'moorl_client',
+        'moorl_image_map',
+        'moorl_image_map_translation',
+        'moorl_image_map_item',
+        'moorl_image_map_item_translation',
     ];
 
     public function activate(ActivateContext $activateContext): void
