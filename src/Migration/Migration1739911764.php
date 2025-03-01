@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `moorl_image_map_item_translation` (
     
     PRIMARY KEY (`moorl_image_map_item_id`, `language_id`),
     
-    CONSTRAINT `fk.moorl_image_map_translation.language_id` 
+    CONSTRAINT `fk.moorl_image_map_item_translation.language_id` 
         FOREIGN KEY (`language_id`) 
         REFERENCES `language` (`id`) 
         ON DELETE CASCADE ON UPDATE CASCADE,
