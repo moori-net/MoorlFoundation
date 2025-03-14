@@ -93,6 +93,7 @@
             "seoUrl": "Die SEO Url anpassen:"
         },
         "properties": {
+            "breadcrumbPlain": "Breadcrumb",
             "availabilityRule": "Verfügbarkeitsregel",
             "seoUrl": "Eigene SEO Url",
             "showOpeningHours": "Öffnungszeiten zeigen",
