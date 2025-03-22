@@ -1,36 +1,36 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Content\ProductBuyListV2Item;
+namespace MoorlFoundation\Core\Content\ProductBuyList;
 
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void                       add(ProductBuyListV2ItemEntity $entity)
- * @method void                       set(string $key, ProductBuyListV2ItemEntity $entity)
- * @method ProductBuyListV2ItemEntity[]    getIterator()
- * @method ProductBuyListV2ItemEntity[]    getElements()
- * @method ProductBuyListV2ItemEntity|null get(string $key)
- * @method ProductBuyListV2ItemEntity|null first()
- * @method ProductBuyListV2ItemEntity|null last()
+ * @method void                       add(ProductBuyListItemEntity $entity)
+ * @method void                       set(string $key, ProductBuyListItemEntity $entity)
+ * @method ProductBuyListItemEntity[]    getIterator()
+ * @method ProductBuyListItemEntity[]    getElements()
+ * @method ProductBuyListItemEntity|null get(string $key)
+ * @method ProductBuyListItemEntity|null first()
+ * @method ProductBuyListItemEntity|null last()
  */
-class ProductBuyListV2ItemCollection extends EntityCollection
+class ProductBuyListItemCollection extends EntityCollection
 {
     protected function getExpectedClass(): string
     {
-        return ProductBuyListV2ItemEntity::class;
+        return ProductBuyListItemEntity::class;
     }
 
     public function filterByProductStreamIds(?array $productStreamIds = null): self
     {
         return $this->filter(
-            static fn(ProductBuyListV2ItemEntity $entity) => $entity->getProductStreamId() === null || ($productStreamIds && in_array($entity->getProductStreamId(), $productStreamIds))
+            static fn(ProductBuyListItemEntity $entity) => $entity->getProductStreamId() === null || ($productStreamIds && in_array($entity->getProductStreamId(), $productStreamIds))
         );
     }
 
     public function filterByProductIds(?array $productIds = null): self
     {
         return $this->filter(
-            static fn(ProductBuyListV2ItemEntity $entity) => $entity->getProductId() === null || ($productIds && in_array($entity->getProductId(), $productIds))
+            static fn(ProductBuyListItemEntity $entity) => $entity->getProductId() === null || ($productIds && in_array($entity->getProductId(), $productIds))
         );
     }
 
@@ -72,6 +72,6 @@ class ProductBuyListV2ItemCollection extends EntityCollection
 
     public function sortByPriority(): void
     {
-        $this->sort(fn(ProductBuyListV2ItemEntity $a, ProductBuyListV2ItemEntity $b) => $b->getPriority() <=> $a->getPriority());
+        $this->sort(fn(ProductBuyListItemEntity $a, ProductBuyListItemEntity $b) => $b->getPriority() <=> $a->getPriority());
     }
 }

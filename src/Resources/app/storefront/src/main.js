@@ -6,6 +6,7 @@ import MoorlAnimation from './moorl-animation/moorl-animation';
 import MoorlRelativeTimePlugin from './relative-time/relative-time.plugin';
 import MoorlCountdownPlugin from './countdown/countdown.plugin';
 import MoorlProductBuyListPlugin from './product-buy-list/product-buy-list.plugin';
+import MoorlProductPartsListPlugin from './product-parts-list/product-parts-list.plugin';
 import MoorlTocPlugin from './toc/toc.plugin';
 import MoorlGridPlugin from './grid/grid.plugin';
 import MoorlPaintPlugin from './paint/paint.plugin';
@@ -34,6 +35,7 @@ PluginManager.register('MoorlLocation', MoorlLocationPlugin, '[data-moorl-locati
 PluginManager.register('MoorlRelativeTime', MoorlRelativeTimePlugin, '[data-moorl-relative-time]');
 PluginManager.register('MoorlCountdown', MoorlCountdownPlugin, '[data-moorl-countdown]');
 PluginManager.register('MoorlProductBuyList', MoorlProductBuyListPlugin, '[data-moorl-product-buy-list]');
+PluginManager.register('MoorlProductPartsList', MoorlProductPartsListPlugin, '[data-moorl-product-parts-list]');
 PluginManager.register('MoorlToc', MoorlTocPlugin, '[data-moorl-toc]');
 PluginManager.register('MoorlGrid', MoorlGridPlugin, '[data-moorl-grid]');
 PluginManager.register('MoorlPaint', MoorlPaintPlugin, '.moorl-paint');

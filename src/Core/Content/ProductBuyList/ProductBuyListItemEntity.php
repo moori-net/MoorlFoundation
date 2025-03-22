@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Content\ProductBuyListV2Item;
+namespace MoorlFoundation\Core\Content\ProductBuyList;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntitySvgShapeTrait;
 use Shopware\Core\Content\Category\CategoryEntity;
@@ -8,7 +8,7 @@ use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
-class ProductBuyListV2ItemEntity extends Entity
+class ProductBuyListItemEntity extends Entity
 {
     use EntityIdTrait;
     use EntitySvgShapeTrait;

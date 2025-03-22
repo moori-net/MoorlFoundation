@@ -1,0 +1,133 @@
+{% set quantity = item.quantity %}
+{% set product = item.product %}
+
+{% set price = product.calculatedPrice %}
+{% if product.calculatedPrices|length > 0 %}
+    {% set price = product.calculatedPrices.first %}
+
+    {% for calculatedPrice in product.calculatedPrices %}
+        {% if quantity >= calculatedPrice.quantity %}
+            {% set price = calculatedPrice %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div itemscope
+     itemtype="https://schema.org/Product"
+     class="moorl-product-parts-list-item">
+
+    {% block product_parts_list_item_rich_snippets_gtin13 %}
+        {% if product.ean %}
+            <meta itemprop="gtin13" content="{{ product.ean }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_parts_list_item_rich_snippets_mpn %}
+        {% if product.manufacturerNumber %}
+            <meta itemprop="mpn" content="{{ product.manufacturerNumber }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_parts_list_item_rich_snippets_weight %}
+        {% if product.weight %}
+            <meta itemprop="weight" content="{{ product.weight }} kg"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_parts_list_item_rich_snippets_height %}
+        {% if product.height %}
+            <meta itemprop="height" content="{{ product.height }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_parts_list_item_rich_snippets_width %}
+        {% if product.width %}
+            <meta itemprop="width" content="{{product.width }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_parts_list_item_rich_snippets_depth %}
+        {% if product.length %}
+            <meta itemprop="depth" content="{{product.length }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_parts_list_item_rich_snippets_release_date %}
+        <meta itemprop="releaseDate" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
+    {% endblock %}
+
+    {% block product_parts_list_item_product_cover %}
+        <div class="product-cover">
+            {% if product.cover.media.url %}
+                {% set attributes = {
+                    'itemprop': 'image',
+                    'alt': product.translated.name,
+                    'title': product.translated.name,
+                    'width': '100',
+                    'height': '100'
+                } %}
+                {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
+            {% else %}
+                {% sw_icon 'placeholder' style {'size': 'fluid'} %}
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    <div>
+        <form action="{{ path('frontend.checkout.line-item.add') }}" method="post" data-add-to-cart="true">
+            <input type="hidden" name="lineItems[{{ product.id }}][id]" value="{{ product.id }}">
+            <input type="hidden" name="lineItems[{{ product.id }}][type]" value="product">
+            <input type="hidden" name="lineItems[{{ product.id }}][referencedId]" value="{{ product.id }}">
+            <input type="hidden" name="lineItems[{{ product.id }}][stackable]" value="1">
+            <input type="hidden" name="lineItems[{{ product.id }}][removable]" value="1">
+            <input type="number"
+                   min="0"
+                   step="1"
+                   class="form-control"
+                   name="lineItems[{{ product.id }}][quantity]"
+                   value="{{ quantity }}">
+            <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+        </form>
+    </div>
+
+    {% block product_parts_list_item_product_content %}
+        <div class="product-content">
+            {% block product_parts_list_item_product_title %}
+                <div class="product-title">
+                    <a itemprop="url" href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}">
+                        <span itemprop="name">
+                            {{ product.translated.name }}
+                        </span>
+                    </a>
+                </div>
+            {% endblock %}
+
+            {% block product_parts_list_item_product_variant_characteristics %}
+                {% if not displayParent %}
+                    <div class="product-variant-characteristics">
+                        {% for variation in product.variation %}
+                            {{ variation.group }}:
+                            {{ variation.option }}
+                            {% if product.variation|last != variation %}
+                                {{ ' | ' }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block product_parts_list_item_product_price %}
+        <div itemprop="offers"
+             itemscope
+             itemtype="http://schema.org/Offer"
+             class="product-price">
+            <meta itemprop="priceCurrency"
+                  content="{{ context.currency.translated.shortName }}"/>
+            <meta itemprop="price" content="{{ price.unitPrice }}"/>
+            <link itemprop="availability" href="https://schema.org/InStock"/>
+            {{ (price.unitPrice * quantity)|currency }}{{ "general.star"|trans|sw_sanitize }}
+        </div>
+    {% endblock %}
+</div>

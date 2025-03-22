@@ -1,0 +1,68 @@
+.moorl-product-parts-list {
+  .moorl-product-parts-list-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .moorl-product-parts-list-item {
+      display: grid;
+      grid-template-columns: 80px 80px 1fr 120px;
+      align-items: center;
+      grid-gap: 8px;
+      border-bottom: 1px solid $border-color;
+    }
+  }
+
+  .product-cover {
+    img {
+      width: 100%;
+      max-height: 80px;
+      margin: 10px auto;
+      object-fit: contain;
+    }
+  }
+
+  .product-title {
+    font-size: 1.2em;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .product-variant-characteristics {
+
+  }
+
+  .product-price {
+    text-align: right;
+  }
+
+  .product-parts-form {
+    height: 100%;
+    .btn {
+      height: 100%;
+      border-radius: 0;
+    }
+  }
+
+  .total-price,
+  .products-parts-form-list-item-info-price {
+    font-size: 1.2em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: right;
+
+    &.striked {
+      text-decoration: line-through;
+    }
+  }
+
+  .discount-price {
+    font-size: 1.8em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: right;
+    color: $danger;
+  }
+}
