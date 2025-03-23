@@ -285,6 +285,7 @@ Component.register('moorl-entity-grid', {
                 if (Object.keys(this.defaultItem).indexOf(property) !== -1) {
                     continue;
                 }
+
                 if (this.excludeInput.indexOf(property) !== -1) {
                     continue;
                 }
@@ -315,12 +316,17 @@ Component.register('moorl-entity-grid', {
                     if (column.flags.moorl_edit_field_options.label) {
                         column.label = this.$tc(column.flags.moorl_edit_field_options.label);
                     }
+                    if (column.flags.moorl_edit_field_options.entity) {
+                        column.entity = this.$tc(column.flags.moorl_edit_field_options.entity);
+                    }
                 }
 
                 columns.push(column);
             }
 
             this.editColumns = columns;
+
+            console.log(this.editColumns);
         },
 
         getGridColumns(entityName, prefix, depth) {

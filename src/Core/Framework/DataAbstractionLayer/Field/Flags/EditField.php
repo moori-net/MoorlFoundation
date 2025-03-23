@@ -6,6 +6,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
 class EditField extends Flag
 {
+    public const TEXT = 'text';
+    public const NUMBER = 'number';
+    public const MULTI_ID = 'multi-id';
+
     public function __construct(private readonly ?string $type = null, private readonly ?array $options = null)
     {
     }

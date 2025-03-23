@@ -16,7 +16,10 @@
         <ul class="moorl-product-parts-list-items">
             {% for item in items %}
                 {% if item.productId %}
-                    <li data-moorl-product-parts-list-item data-quantity="{{ item.quantity }}">
+                    <li
+                            data-properties="{{ item.product.optionIds|json_encode }}"
+                            data-quantity="{{ item.quantity }}"
+                    >
                         {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-parts-list/product-item.html.twig' %}
                     </li>
                 {% endif %}

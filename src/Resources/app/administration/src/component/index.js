@@ -29,3 +29,5 @@ import './template-mapping-info';
 import './router-link';
 import './combination-element-options';
 import './svg-shape';
+import './media-gallery';
+import './properties';

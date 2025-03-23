@@ -1,14 +1,25 @@
 <div class="moorl-entity-form-element">
     <template v-if="column.type == 'association'">
         <template v-if="column.relation === 'many_to_many' || column.relation === 'one_to_many'">
-            <sw-entity-multi-select
-                    :label="column.label"
-                    :helpText="column.helpText"
-                    v-model:entityCollection="value[column.property]"
-                    :labelProperty="column.flags.moorl_label_property"
-                    :entity="column.entity"
-                    :localMode="true"
-            />
+            <template v-if="column.flags.moorl_vue_component">
+                <component
+                        :is="column.flags.moorl_vue_component"
+                        ref="component"
+                        v-model:entityCollection="value[column.property]"
+                        :label="column.label"
+                />
+            </template>
+
+            <template v-else>
+                <sw-entity-multi-select
+                        :label="column.label"
+                        :helpText="column.helpText"
+                        v-model:entityCollection="value[column.property]"
+                        :labelProperty="column.flags.moorl_label_property"
+                        :entity="column.entity"
+                        :localMode="true"
+                />
+            </template>
         </template>
 
         <template v-else>
@@ -67,6 +78,16 @@
                 />
             </template>
         </template>
+    </template>
+
+    <template v-else-if="column.flags.moorl_edit_field == 'multi-id'">
+        <sw-entity-multi-id-select
+                :label="column.label"
+                :labelProperty="column.flags.moorl_label_property"
+                v-model:value="value[column.property]"
+                :repository="repository"
+                :required="column.required"
+        />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'code'">

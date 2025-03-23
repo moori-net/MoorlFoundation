@@ -5,6 +5,8 @@ const {Component, Context} = Shopware;
 const {Criteria} = Shopware.Data;
 
 Component.register('moorl-entity-form-element', {
+    inject: ['repositoryFactory'],
+
     template,
 
     props: {
@@ -33,6 +35,10 @@ Component.register('moorl-entity-form-element', {
     },
 
     computed: {
+        repository() {
+            return this.repositoryFactory.create(this.column.entity);
+        },
+
         price: {
             get() {
                 let price = []
