@@ -2,6 +2,8 @@
 
 namespace MoorlFoundation\Core\Content\ProductBuyList;
 
+use Shopware\Core\Content\Product\ProductCollection;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
@@ -15,6 +17,17 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
  */
 class ProductBuyListItemCollection extends EntityCollection
 {
+    public static function createFromProducts(ProductCollection $products): self
+    {
+        $self = new self();
+
+        foreach ($products as $product) {
+            $self->add(ProductBuyListItemEntity::createFromProduct($product));
+        }
+
+        return $self;
+    }
+
     protected function getExpectedClass(): string
     {
         return ProductBuyListItemEntity::class;
@@ -22,8 +35,10 @@ class ProductBuyListItemCollection extends EntityCollection
 
     public function filterByProductStreamIds(?array $productStreamIds = null): self
     {
+        $containsAll = fn(array $needles, array $haystack): bool => empty(array_diff($needles, $haystack));
+
         return $this->filter(
-            static fn(ProductBuyListItemEntity $entity) => $entity->getProductStreamId() === null || ($productStreamIds && in_array($entity->getProductStreamId(), $productStreamIds))
+            static fn(ProductBuyListItemEntity $entity) => $entity->getProduct()->getStreamIds() === null || ($productStreamIds && $containsAll($productStreamIds, $entity->getProduct()->getStreamIds()))
         );
     }
 

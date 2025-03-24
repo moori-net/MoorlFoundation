@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Content\ProductBuyList;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntitySvgShapeTrait;
+use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
@@ -23,6 +24,17 @@ class ProductBuyListItemEntity extends Entity
     protected int $posTop = 50;
     protected ?ProductEntity $product = null;
     protected ?CategoryEntity $category = null;
+
+    public static function createFromProduct(ProductEntity $product): self
+    {
+        $self = new self();
+
+        $self->setId($product->getId());
+        $self->productId = $product->getId();
+        $self->product = $product;
+
+        return $self;
+    }
 
     public function getCategoryId(): ?string
     {
