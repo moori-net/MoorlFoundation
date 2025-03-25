@@ -543,6 +543,13 @@
         <title lang="de-DE">Kompatibilität</title>
 
         <input-field type="bool">
+            <name>cmpCustomerGroupCacheKeyGenerator</name>
+            <label>Enable cache fix</label>
+            <label lang="de-DE">Cache Fix aktivieren</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
             <name>cmpElasticSearchMappings</name>
             <label>Disable ElasticSearch mapping for moori Extensions</label>
             <label lang="de-DE">ElasticSearch-Zuordnung für moori Erweiterungen abschalten</label>

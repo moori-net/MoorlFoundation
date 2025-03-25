@@ -10,8 +10,19 @@ trait EntityThingTranslationTrait
     protected ?string $description = null;
     protected ?string $metaTitle = null;
     protected ?string $metaDescription = null;
+    protected ?string $metaKeywords = null;
     protected ?string $seoUrl = null;
     protected ?array $slotConfig = null;
+
+    public function getMetaKeywords(): ?string
+    {
+        return $this->metaKeywords;
+    }
+
+    public function setMetaKeywords(?string $metaKeywords): void
+    {
+        $this->metaKeywords = $metaKeywords;
+    }
 
     public function getSeoUrl(): ?string
     {

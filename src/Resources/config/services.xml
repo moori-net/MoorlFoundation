@@ -143,5 +143,12 @@
         <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\MoorlFoundationExceptionHandler">
             <tag name="shopware.dal.exception_handler"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Cache\CustomerGroupCacheKeyGenerator"
+                 decorates="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"
+                 public="true">
+            <argument type="service" id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Cache\CustomerGroupCacheKeyGenerator.inner"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+        </service>
     </services>
 </container>
