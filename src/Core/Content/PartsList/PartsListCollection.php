@@ -1,28 +1,27 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Content\ProductBuyList;
+namespace MoorlFoundation\Core\Content\PartsList;
 
 use Shopware\Core\Content\Product\ProductCollection;
-use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**
- * @method void                       add(ProductBuyListItemEntity $entity)
- * @method void                       set(string $key, ProductBuyListItemEntity $entity)
- * @method ProductBuyListItemEntity[]    getIterator()
- * @method ProductBuyListItemEntity[]    getElements()
- * @method ProductBuyListItemEntity|null get(string $key)
- * @method ProductBuyListItemEntity|null first()
- * @method ProductBuyListItemEntity|null last()
+ * @method void                       add(PartsListEntity $entity)
+ * @method void                       set(string $key, PartsListEntity $entity)
+ * @method PartsListEntity[]    getIterator()
+ * @method PartsListEntity[]    getElements()
+ * @method PartsListEntity|null get(string $key)
+ * @method PartsListEntity|null first()
+ * @method PartsListEntity|null last()
  */
-class ProductBuyListItemCollection extends EntityCollection
+class PartsListCollection extends EntityCollection
 {
     public static function createFromProducts(ProductCollection $products): self
     {
         $self = new self();
 
         foreach ($products as $product) {
-            $self->add(ProductBuyListItemEntity::createFromProduct($product));
+            $self->add(PartsListEntity::createFromProduct($product));
         }
 
         return $self;
@@ -30,7 +29,7 @@ class ProductBuyListItemCollection extends EntityCollection
 
     protected function getExpectedClass(): string
     {
-        return ProductBuyListItemEntity::class;
+        return PartsListEntity::class;
     }
 
     public function filterByProductStreamIds(?array $productStreamIds = null): self
@@ -38,14 +37,14 @@ class ProductBuyListItemCollection extends EntityCollection
         $containsAll = fn(array $needles, array $haystack): bool => empty(array_diff($needles, $haystack));
 
         return $this->filter(
-            static fn(ProductBuyListItemEntity $entity) => $entity->getProduct()->getStreamIds() === null || ($productStreamIds && $containsAll($productStreamIds, $entity->getProduct()->getStreamIds()))
+            static fn(PartsListEntity $entity) => $entity->getProduct()->getStreamIds() === null || ($productStreamIds && $containsAll($productStreamIds, $entity->getProduct()->getStreamIds()))
         );
     }
 
     public function filterByProductIds(?array $productIds = null): self
     {
         return $this->filter(
-            static fn(ProductBuyListItemEntity $entity) => $entity->getProductId() === null || ($productIds && in_array($entity->getProductId(), $productIds))
+            static fn(PartsListEntity $entity) => $entity->getProductId() === null || ($productIds && in_array($entity->getProductId(), $productIds))
         );
     }
 
@@ -87,6 +86,6 @@ class ProductBuyListItemCollection extends EntityCollection
 
     public function sortByPriority(): void
     {
-        $this->sort(fn(ProductBuyListItemEntity $a, ProductBuyListItemEntity $b) => $b->getPriority() <=> $a->getPriority());
+        $this->sort(fn(PartsListEntity $a, PartsListEntity $b) => $b->getPriority() <=> $a->getPriority());
     }
 }

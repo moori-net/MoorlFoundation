@@ -1,0 +1,34 @@
+{% set options = {
+    enablePrices: true,
+    enableAddToCartAll: true,
+    enableAddToCartSingle: true,
+    enableSelection: true,
+    currencyIso: context.currency.isoCode,
+    discountValue: 0,
+    addToCartSingleIcon: 'bag',
+    addToCartAllIcon: 'bag'
+}|merge(options) %}
+
+{% if items.count > 0 %}
+    <div class="moorl-parts-list"
+         data-moorl-parts-list
+         data-moorl-parts-list-options='{{ options|json_encode|raw }}'>
+        <ul class="moorl-parts-list-items">
+            {% for item in items %}
+                {% if item.productId %}
+                    <li
+                            data-properties="{{ item.product.optionIds|json_encode }}"
+                            data-quantity="{{ item.quantity }}"
+                    >
+                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/parts-list/product-item.html.twig' %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+{% elseif options.emptyText and config('MoorlFoundation.config.cmsEmptyAlert') %}
+    {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+        type: "primary",
+        content: options.emptyText ?: "moorl-foundation.search.notAvailable"|trans
+    } %}
+{% endif %}

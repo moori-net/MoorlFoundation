@@ -1,15 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Content\ProductBuyList;
+namespace MoorlFoundation\Core\Content\PartsList;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntitySvgShapeTrait;
-use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 
-class ProductBuyListItemEntity extends Entity
+class PartsListEntity extends Entity
 {
     use EntityIdTrait;
     use EntitySvgShapeTrait;
@@ -32,6 +31,7 @@ class ProductBuyListItemEntity extends Entity
         $self->setId($product->getId());
         $self->productId = $product->getId();
         $self->product = $product;
+        $self->quantity = 0;
 
         return $self;
     }

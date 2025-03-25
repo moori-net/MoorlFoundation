@@ -14,49 +14,49 @@
 
 <div itemscope
      itemtype="https://schema.org/Product"
-     class="moorl-product-parts-list-item">
+     class="moorl-parts-list-item">
 
-    {% block product_parts_list_item_rich_snippets_gtin13 %}
+    {% block parts_list_item_rich_snippets_gtin13 %}
         {% if product.ean %}
             <meta itemprop="gtin13" content="{{ product.ean }}"/>
         {% endif %}
     {% endblock %}
 
-    {% block product_parts_list_item_rich_snippets_mpn %}
+    {% block parts_list_item_rich_snippets_mpn %}
         {% if product.manufacturerNumber %}
             <meta itemprop="mpn" content="{{ product.manufacturerNumber }}"/>
         {% endif %}
     {% endblock %}
 
-    {% block product_parts_list_item_rich_snippets_weight %}
+    {% block parts_list_item_rich_snippets_weight %}
         {% if product.weight %}
             <meta itemprop="weight" content="{{ product.weight }} kg"/>
         {% endif %}
     {% endblock %}
 
-    {% block product_parts_list_item_rich_snippets_height %}
+    {% block parts_list_item_rich_snippets_height %}
         {% if product.height %}
             <meta itemprop="height" content="{{ product.height }} mm"/>
         {% endif %}
     {% endblock %}
 
-    {% block product_parts_list_item_rich_snippets_width %}
+    {% block parts_list_item_rich_snippets_width %}
         {% if product.width %}
             <meta itemprop="width" content="{{product.width }} mm"/>
         {% endif %}
     {% endblock %}
 
-    {% block product_parts_list_item_rich_snippets_depth %}
+    {% block parts_list_item_rich_snippets_depth %}
         {% if product.length %}
             <meta itemprop="depth" content="{{product.length }} mm"/>
         {% endif %}
     {% endblock %}
 
-    {% block product_parts_list_item_rich_snippets_release_date %}
+    {% block parts_list_item_rich_snippets_release_date %}
         <meta itemprop="releaseDate" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
     {% endblock %}
 
-    {% block product_parts_list_item_product_cover %}
+    {% block parts_list_item_product_cover %}
         <div class="product-cover">
             {% if product.cover.media.url %}
                 {% set attributes = {
@@ -74,25 +74,19 @@
     {% endblock %}
 
     <div>
-        <form action="{{ path('frontend.checkout.line-item.add') }}" method="post" data-add-to-cart="true">
-            <input type="hidden" name="lineItems[{{ product.id }}][id]" value="{{ product.id }}">
-            <input type="hidden" name="lineItems[{{ product.id }}][type]" value="product">
-            <input type="hidden" name="lineItems[{{ product.id }}][referencedId]" value="{{ product.id }}">
-            <input type="hidden" name="lineItems[{{ product.id }}][stackable]" value="1">
-            <input type="hidden" name="lineItems[{{ product.id }}][removable]" value="1">
-            <input type="number"
-                   min="0"
-                   step="1"
-                   class="form-control"
-                   name="lineItems[{{ product.id }}][quantity]"
-                   value="{{ quantity }}">
-            <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
-        </form>
+        <input
+                type="number"
+                min="0"
+                step="1"
+                class="form-control"
+                name="{{ namePrefix }}.{{ product.parentId ?: product.id }}"
+                value="{{ quantity }}"
+        >
     </div>
 
-    {% block product_parts_list_item_product_content %}
+    {% block parts_list_item_product_content %}
         <div class="product-content">
-            {% block product_parts_list_item_product_title %}
+            {% block parts_list_item_product_title %}
                 <div class="product-title">
                     <a itemprop="url" href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}">
                         <span itemprop="name">
@@ -102,7 +96,7 @@
                 </div>
             {% endblock %}
 
-            {% block product_parts_list_item_product_variant_characteristics %}
+            {% block parts_list_item_product_variant_characteristics %}
                 {% if not displayParent %}
                     <div class="product-variant-characteristics">
                         {% for variation in product.variation %}
@@ -118,7 +112,7 @@
         </div>
     {% endblock %}
 
-    {% block product_parts_list_item_product_price %}
+    {% block parts_list_item_product_price %}
         <div itemprop="offers"
              itemscope
              itemtype="http://schema.org/Offer"
@@ -127,7 +121,7 @@
                   content="{{ context.currency.translated.shortName }}"/>
             <meta itemprop="price" content="{{ price.unitPrice }}"/>
             <link itemprop="availability" href="https://schema.org/InStock"/>
-            {{ (price.unitPrice * quantity)|currency }}{{ "general.star"|trans|sw_sanitize }}
+            {{ (price.unitPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}
         </div>
     {% endblock %}
 </div>
