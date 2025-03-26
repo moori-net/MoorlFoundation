@@ -32,6 +32,13 @@ class PartsListCollection extends EntityCollection
         return PartsListEntity::class;
     }
 
+    public function filterByGroup(string $group): self
+    {
+        return $this->filter(
+            static fn(PartsListEntity $entity) => $entity->getGroup() === $group
+        );
+    }
+
     public function filterByProductStreamIds(?array $productStreamIds = null): self
     {
         $containsAll = fn(array $needles, array $haystack): bool => empty(array_diff($needles, $haystack));
@@ -84,8 +91,8 @@ class PartsListCollection extends EntityCollection
         return $productQuantities;
     }
 
-    public function sortByPriority(): void
+    public function sortByCalcX(): void
     {
-        $this->sort(fn(PartsListEntity $a, PartsListEntity $b) => $b->getPriority() <=> $a->getPriority());
+        $this->sort(fn(PartsListEntity $a, PartsListEntity $b) => $b->getCalcX() <=> $a->getCalcX());
     }
 }
