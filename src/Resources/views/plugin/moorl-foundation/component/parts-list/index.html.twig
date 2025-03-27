@@ -10,19 +10,20 @@
 }|merge(options) %}
 
 {% if items.count > 0 %}
-    <div class="moorl-parts-list"
-         data-moorl-parts-list
-         data-moorl-parts-list-options='{{ options|json_encode|raw }}'>
+    <div
+            class="moorl-parts-list"
+            data-moorl-parts-list
+            data-moorl-parts-list-options='{{ options|json_encode|raw }}'
+    >
         <ul class="moorl-parts-list-items">
+            <li class="moorl-parts-list-item">
+                <div></div>
+                <div>QTY</div>
+                <div>Product</div>
+                <div class="text-end">Unit Price</div>
+            </li>
             {% for item in items %}
-                {% if item.productId %}
-                    <li
-                            data-properties="{{ item.product.optionIds|json_encode }}"
-                            data-quantity="{{ item.quantity }}"
-                    >
-                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/parts-list/product-item.html.twig' %}
-                    </li>
-                {% endif %}
+                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/parts-list/product-item.html.twig' %}
             {% endfor %}
         </ul>
     </div>

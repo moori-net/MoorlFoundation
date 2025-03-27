@@ -46,11 +46,9 @@ class PartsListEntity extends Entity
 
     public function addGroup(?string $group): void
     {
-        if (!$group) {
-            return;
-        }
-
+        if (!$group) {return;}
         $this->groups[] = $group;
+        $this->groups = array_unique($this->groups);
     }
 
     public function getOptions(): array
@@ -65,11 +63,9 @@ class PartsListEntity extends Entity
 
     public function addOption(?string $option): void
     {
-        if (!$option) {
-            return;
-        }
-
+        if (!$option) {return;}
         $this->options[] = $option;
+        $this->options = array_unique($this->options);
     }
 
     public function getProductStreams(): array
@@ -84,11 +80,9 @@ class PartsListEntity extends Entity
 
     public function addProductStream(?string $productStream): void
     {
-        if (!$productStream) {
-            return;
-        }
-
+        if (!$productStream) {return;}
         $this->productStreams[] = $productStream;
+        $this->productStreams = array_unique($this->productStreams);
     }
 
     public function getTemporaryQuantity(): int

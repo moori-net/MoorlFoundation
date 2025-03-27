@@ -1,61 +1,16 @@
 {% set quantity = item.quantity %}
 {% set product = item.product %}
-
 {% set price = product.calculatedPrice %}
-{% if product.calculatedPrices|length > 0 %}
-    {% set price = product.calculatedPrices.first %}
 
-    {% for calculatedPrice in product.calculatedPrices %}
-        {% if quantity >= calculatedPrice.quantity %}
-            {% set price = calculatedPrice %}
-        {% endif %}
-    {% endfor %}
-{% endif %}
-
-<div itemscope
-     itemtype="https://schema.org/Product"
-     class="moorl-parts-list-item">
-
-    {% block parts_list_item_rich_snippets_gtin13 %}
-        {% if product.ean %}
-            <meta itemprop="gtin13" content="{{ product.ean }}"/>
-        {% endif %}
-    {% endblock %}
-
-    {% block parts_list_item_rich_snippets_mpn %}
-        {% if product.manufacturerNumber %}
-            <meta itemprop="mpn" content="{{ product.manufacturerNumber }}"/>
-        {% endif %}
-    {% endblock %}
-
-    {% block parts_list_item_rich_snippets_weight %}
-        {% if product.weight %}
-            <meta itemprop="weight" content="{{ product.weight }} kg"/>
-        {% endif %}
-    {% endblock %}
-
-    {% block parts_list_item_rich_snippets_height %}
-        {% if product.height %}
-            <meta itemprop="height" content="{{ product.height }} mm"/>
-        {% endif %}
-    {% endblock %}
-
-    {% block parts_list_item_rich_snippets_width %}
-        {% if product.width %}
-            <meta itemprop="width" content="{{product.width }} mm"/>
-        {% endif %}
-    {% endblock %}
-
-    {% block parts_list_item_rich_snippets_depth %}
-        {% if product.length %}
-            <meta itemprop="depth" content="{{product.length }} mm"/>
-        {% endif %}
-    {% endblock %}
-
-    {% block parts_list_item_rich_snippets_release_date %}
-        <meta itemprop="releaseDate" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
-    {% endblock %}
-
+<li
+        class="moorl-parts-list-item"
+        data-product-streams="{{ item.productStreams|json_encode }}"
+        data-groups="{{ item.groups|json_encode }}"
+        data-options="{{ item.options|json_encode }}"
+        data-calc-x="{{ item.calcX }}"
+        data-calc-y="{{ item.calcY }}"
+        data-calc-z="{{ item.calcZ }}"
+>
     {% block parts_list_item_product_cover %}
         <div class="product-cover">
             {% if product.cover.media.url %}
@@ -63,8 +18,8 @@
                     'itemprop': 'image',
                     'alt': product.translated.name,
                     'title': product.translated.name,
-                    'width': '100',
-                    'height': '100'
+                    'width': '50',
+                    'height': '50'
                 } %}
                 {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
             {% else %}
@@ -73,16 +28,16 @@
         </div>
     {% endblock %}
 
+    {% block parts_list_item_product_quantity %}
     <div>
-        <input
-                type="number"
-                min="0"
-                step="1"
-                class="form-control"
-                name="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
-                value="{{ quantity }}"
-        >
+        <input type="number"
+               min="0"
+               step="1"
+               class="form-control"
+               name="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
+               value="{{ quantity }}">
     </div>
+    {% endblock %}
 
     {% block parts_list_item_product_content %}
         <div class="product-content">
@@ -113,15 +68,8 @@
     {% endblock %}
 
     {% block parts_list_item_product_price %}
-        <div itemprop="offers"
-             itemscope
-             itemtype="http://schema.org/Offer"
-             class="product-price">
-            <meta itemprop="priceCurrency"
-                  content="{{ context.currency.translated.shortName }}"/>
-            <meta itemprop="price" content="{{ price.unitPrice }}"/>
-            <link itemprop="availability" href="https://schema.org/InStock"/>
+        <div class="text-end">
             {{ (price.unitPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}
         </div>
     {% endblock %}
-</div>
+</li>

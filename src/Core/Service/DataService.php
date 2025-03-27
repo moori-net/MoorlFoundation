@@ -681,6 +681,9 @@ SQL;
                 if ($table === 'cms_page' && $key === 'customFields') {
                     continue;
                 }
+                if ($table === 'custom_field_set' && $key === 'config') {
+                    continue;
+                }
 
                 $this->enrichData($value, $table, $dataObject);
             }

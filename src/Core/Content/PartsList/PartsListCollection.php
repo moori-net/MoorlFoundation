@@ -32,6 +32,13 @@ class PartsListCollection extends EntityCollection
         return PartsListEntity::class;
     }
 
+    public function filterByQuantity(int $minQuantity = 1): self
+    {
+        return $this->filter(
+            static fn(PartsListEntity $entity) => $entity->getQuantity() >= $minQuantity
+        );
+    }
+
     public function filterByGroup(string $group): self
     {
         return $this->filter(
