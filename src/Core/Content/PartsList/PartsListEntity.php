@@ -12,8 +12,11 @@ class PartsListEntity extends Entity
 
     protected ?string $productStreamId = null;
     protected ?string $productId = null;
-    protected ?string $group = null;
+    protected array $groups = [];
+    protected array $options = [];
+    protected array $productStreams = [];
     protected int $quantity = 0;
+    protected int $temporaryQuantity = 0;
     protected int $calcX = 0;
     protected int $calcY = 0;
     protected int $calcZ = 0;
@@ -31,14 +34,71 @@ class PartsListEntity extends Entity
         return $self;
     }
 
-    public function getGroup(): ?string
+    public function getGroups(): array
     {
-        return $this->group;
+        return $this->groups;
     }
 
-    public function setGroup(?string $group): void
+    public function setGroups(array $groups): void
     {
-        $this->group = $group;
+        $this->groups = $groups;
+    }
+
+    public function addGroup(?string $group): void
+    {
+        if (!$group) {
+            return;
+        }
+
+        $this->groups[] = $group;
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    public function setOptions(array $options): void
+    {
+        $this->options = $options;
+    }
+
+    public function addOption(?string $option): void
+    {
+        if (!$option) {
+            return;
+        }
+
+        $this->options[] = $option;
+    }
+
+    public function getProductStreams(): array
+    {
+        return $this->productStreams;
+    }
+
+    public function setProductStreams(array $productStreams): void
+    {
+        $this->productStreams = $productStreams;
+    }
+
+    public function addProductStream(?string $productStream): void
+    {
+        if (!$productStream) {
+            return;
+        }
+
+        $this->productStreams[] = $productStream;
+    }
+
+    public function getTemporaryQuantity(): int
+    {
+        return $this->temporaryQuantity;
+    }
+
+    public function setTemporaryQuantity(int $temporaryQuantity): void
+    {
+        $this->temporaryQuantity = $temporaryQuantity;
     }
 
     public function getProductStreamId(): ?string

@@ -35,7 +35,21 @@ class PartsListCollection extends EntityCollection
     public function filterByGroup(string $group): self
     {
         return $this->filter(
-            static fn(PartsListEntity $entity) => $entity->getGroup() === $group
+            static fn(PartsListEntity $entity) => in_array($group, $entity->getGroups())
+        );
+    }
+
+    public function filterByOption(string $option): self
+    {
+        return $this->filter(
+            static fn(PartsListEntity $entity) => in_array($option, $entity->getOptions())
+        );
+    }
+
+    public function filterByProductStream(string $productStream): self
+    {
+        return $this->filter(
+            static fn(PartsListEntity $entity) => in_array($productStream, $entity->getProductStreams())
         );
     }
 
