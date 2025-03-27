@@ -32,6 +32,15 @@ class PartsListCollection extends EntityCollection
         return PartsListEntity::class;
     }
 
+    public function getQuantitySum(): int
+    {
+        $sum = 0;
+        foreach ($this->getIterator() as $entity) {
+            $sum = $sum + $entity->getQuantity();
+        }
+        return $sum;
+    }
+
     public function filterByQuantity(int $minQuantity = 1): self
     {
         return $this->filter(
