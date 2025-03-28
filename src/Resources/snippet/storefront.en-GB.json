@@ -101,6 +101,11 @@
             "toc": "Table of contents"
         },
         "properties": {
+            "product": "Product",
+            "unitPrice": "Unit price",
+            "subtotal": "Subtotal",
+            "quantity": "Quantity",
+            "qty": "QTY",
             "inRadiusOf": "in radius of",
             "radius": "Radius",
             "distance": "Distance",

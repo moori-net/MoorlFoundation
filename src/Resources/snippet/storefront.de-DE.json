@@ -101,6 +101,11 @@
       "toc": "Inhaltsverzeichnis"
     },
     "properties": {
+      "product": "Produkt",
+      "unitPrice": "Stückpreis",
+      "subtotal": "Gesamt",
+      "quantity": "Menge",
+      "qty": "QTY",
       "inRadiusOf": "im Umkreis von",
       "radius": "Umkreis",
       "distance": "Entfernung",

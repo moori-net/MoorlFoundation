@@ -18,9 +18,9 @@
         <ul class="moorl-parts-list-items">
             <li class="moorl-parts-list-item">
                 <div></div>
-                <div>QTY</div>
-                <div>Product</div>
-                <div class="text-end">Unit Price</div>
+                <div>{{ "moorl-foundation.properties.quantity"|trans }}</div>
+                <div>{{ "moorl-foundation.properties.product"|trans }}</div>
+                <div class="text-end">{{ "moorl-foundation.properties.unitPrice"|trans }}</div>
             </li>
             {% for item in items %}
                 {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/parts-list/product-item.html.twig' %}

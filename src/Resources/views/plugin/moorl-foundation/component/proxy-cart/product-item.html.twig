@@ -1,0 +1,72 @@
+{% set quantity = lineItem.quantity %}
+{% set product = lineItem.product %}
+{% set price = lineItem.price %}
+
+<li class="moorl-parts-list-item">
+    {% block proxy_cart_item_product_cover %}
+        <div class="product-cover">
+            {% if lineItem.cover.url %}
+                {% set attributes = {
+                    'itemprop': 'image',
+                    'alt': lineItem.label,
+                    'title': lineItem.label,
+                    'width': '50',
+                    'height': '50'
+                } %}
+                {% sw_thumbnails 'product-image-thumbnails' with { media: lineItem.cover } %}
+            {% else %}
+                {% sw_icon 'placeholder' style {'size': 'fluid'} %}
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    {% block proxy_cart_item_product_quantity %}
+    <div>
+        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][id]" value="{{ lineItem.referencedId }}">
+        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][type]" value="{{ lineItem.type }}">
+        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][referencedId]" value="{{ lineItem.referencedId }}">
+        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][stackable]" value="1">
+        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][removable]" value="1">
+        <input type="number"
+               min="0"
+               step="1"
+               class="form-control"
+               name="lineItems[{{ lineItem.referencedId }}][quantity]"
+               value="{{ quantity }}">
+    </div>
+    {% endblock %}
+
+    {% block proxy_cart_item_product_content %}
+        <div class="product-content">
+            {% block proxy_cart_item_product_title %}
+                <div class="product-title">
+                    <a itemprop="url" href="{{ seoUrl('frontend.detail.page', {'productId': lineItem.referencedId}) }}">
+                        <span itemprop="name">
+                            {{ lineItem.label }}
+                        </span>
+                    </a>
+                </div>
+            {% endblock %}
+
+            {% block proxy_cart_item_product_variant_characteristics %}
+                {% if not displayParent %}
+                    <div class="product-variant-characteristics">
+                        {% for variation in product.variation %}
+                            {{ variation.group }}:
+                            {{ variation.option }}
+                            {% if product.variation|last != variation %}
+                                {{ ' | ' }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block proxy_cart_item_product_price %}
+        <div class="text-end">
+            {{ (price.totalPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}
+        </div>
+    {% endblock %}
+</li>
