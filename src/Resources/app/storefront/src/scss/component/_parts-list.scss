@@ -6,7 +6,7 @@
 
     .moorl-parts-list-item {
       display: grid;
-      grid-template-columns: 48px 64px 1fr 80px;
+      grid-template-columns: 48px 64px 1fr 90px;
       align-items: center;
       grid-gap: 4px;
       border-bottom: 1px solid $border-color;
@@ -28,16 +28,36 @@
 
   .product-title {
     a {
+      font-size: 1.1em;
       text-decoration: none;
     }
   }
 
-  .product-variant-characteristics {
+  .product-characteristics {
     font-size: 0.9em;
     min-height: 0;
   }
 
   .product-price {
     text-align: right;
+  }
+
+  .total-price {
+    font-size: 1.1em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: right;
+
+    &.striked {
+      text-decoration: line-through;
+    }
+  }
+
+  .discount-price {
+    font-size: 1.8em;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    text-align: right;
+    color: $danger;
   }
 }
