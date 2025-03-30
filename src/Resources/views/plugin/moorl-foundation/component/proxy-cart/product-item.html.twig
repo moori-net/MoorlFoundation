@@ -27,12 +27,15 @@
         <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][referencedId]" value="{{ lineItem.referencedId }}">
         <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][stackable]" value="1">
         <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][removable]" value="1">
-        <input type="number"
-               min="0"
-               step="1"
-               class="form-control"
-               name="lineItems[{{ lineItem.referencedId }}][quantity]"
-               value="{{ quantity }}">
+        <input
+                type="number"
+                min="0"
+                step="1"
+                class="form-control"
+                name="lineItems[{{ lineItem.referencedId }}][quantity]"
+                value="{{ quantity }}"
+                readonly
+        >
     </div>
     {% endblock %}
 
@@ -48,24 +51,22 @@
                 </div>
             {% endblock %}
 
-            {% block proxy_cart_item_product_variant_characteristics %}
-                {% if not displayParent %}
-                    <div class="product-variant-characteristics">
-                        {% for variation in product.variation %}
-                            {{ variation.group }}:
-                            {{ variation.option }}
-                            {% if product.variation|last != variation %}
-                                {{ ' | ' }}
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                {% endif %}
+            {% block proxy_cart_item_product_characteristics %}
+                <div class="product-characteristics">
+                    {% for variation in lineItem.payload.options %}
+                        {{ variation.group }}:
+                        {{ variation.option }}
+                        {% if lineItem.payload.options|last != variation %}
+                            {{ ' | ' }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
             {% endblock %}
         </div>
     {% endblock %}
 
     {% block proxy_cart_item_product_price %}
-        <div class="text-end">
+        <div class="text-end total-price">
             {{ (price.totalPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}
         </div>
     {% endblock %}

@@ -51,9 +51,9 @@
                 </div>
             {% endblock %}
 
-            {% block parts_list_item_product_variant_characteristics %}
+            {% block parts_list_item_product_characteristics %}
                 {% if not displayParent %}
-                    <div class="product-variant-characteristics">
+                    <div class="product-characteristics">
                         {% for variation in product.variation %}
                             {{ variation.group }}:
                             {{ variation.option }}

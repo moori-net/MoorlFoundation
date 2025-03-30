@@ -1,13 +1,6 @@
 {% set options = {
-    enablePrices: true,
-    enableAddToCartAll: true,
-    enableAddToCartSingle: true,
-    enableSelection: true,
-    currencyIso: context.currency.isoCode,
-    discountValue: 0,
-    addToCartSingleIcon: 'bag',
-    addToCartAllIcon: 'bag'
-}|merge(options) %}
+    currencyIso: context.currency.isoCode
+} %}
 
 {% if items.count > 0 %}
     <div
@@ -27,7 +20,7 @@
             {% endfor %}
         </ul>
     </div>
-{% elseif options.emptyText and config('MoorlFoundation.config.cmsEmptyAlert') %}
+{% elseif config('MoorlFoundation.config.cmsEmptyAlert') %}
     {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
         type: "primary",
         content: options.emptyText ?: "moorl-foundation.search.notAvailable"|trans
