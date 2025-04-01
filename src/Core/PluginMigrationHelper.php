@@ -233,21 +233,10 @@ class PluginMigrationHelper
             $sql = "ALTER TABLE `:table` ADD " . self::getFieldSpecs($field) . ";";
         }
 
-        try {
-            self::executeStatement($connection, $sql, [
-                'table'  => $table,
-                'column' => $column,
-            ]);
-        } catch (\Exception $exception) {
-            if ($exception->getCode() === 1138) {
-                $sql = "UPDATE `:table` SET `:column` = '0' WHERE `:column` IS NULL;" . $sql;
-
-                self::executeStatement($connection, $sql, [
-                    'table'  => $table,
-                    'column' => $column,
-                ]);
-            }
-        }
+        self::executeStatement($connection, $sql, [
+            'table'  => $table,
+            'column' => $column,
+        ]);
 
         self::$after = $column;
     }
@@ -397,7 +386,17 @@ SQL;
 
         self::$queryLog[] = $sql;
 
-        return $connection->executeStatement($sql, $params, $types);
+        try {
+            return $connection->executeStatement($sql, $params, $types);
+        } catch (\Exception $exception) {
+            if ($exception->getCode() === 1138) {
+                $sql = "UPDATE `:table` SET `:column` = '0' WHERE `:column` IS NULL;" . $sql;
+
+                return self::executeStatement($connection, $sql, $params);
+            } else {
+                dd(end(self::$queryLog));
+            }
+        }
     }
 
     /**
