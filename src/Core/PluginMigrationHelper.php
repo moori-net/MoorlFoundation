@@ -613,15 +613,12 @@ SQL;
 
             $sql = "ALTER TABLE `:table` CHANGE `:column` `:column` " . $column['COLUMN_TYPE'] . " COMMENT ':comment';";
 
-            try {
-                self::executeStatement($connection, $sql, [
-                    'table'  => $table,
-                    'column' => $column['COLUMN_NAME'],
-                    'comment' => self::UNUSED,
-                ]);
-            } catch (\Exception) {
-                dd(end(self::$queryLog));
-            }
+
+            self::executeStatement($connection, $sql, [
+                'table'  => $table,
+                'column' => $column['COLUMN_NAME'],
+                'comment' => self::UNUSED,
+            ]);
         }
     }
 }
