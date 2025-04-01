@@ -135,9 +135,27 @@ class PluginLifecycleHelper
 
     public static function removePluginTables(Connection $connection, array $pluginTables): void
     {
+        self::removeForeignKeys($connection, $pluginTables);
+
         foreach (array_reverse($pluginTables) as $table) {
             $sql = sprintf('DROP TABLE IF EXISTS `%s`;', $table);
             $connection->executeStatement($sql);
+        }
+    }
+
+    public static function removeForeignKeys(Connection $connection, array $pluginTables): void
+    {
+        foreach (array_reverse($pluginTables) as $table) {
+            $foreignKeys = $connection->fetchAllAssociative(
+                "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = :table AND CONSTRAINT_TYPE = 'FOREIGN KEY'",
+                ['table' => $table]
+            );
+
+            foreach ($foreignKeys as $fk) {
+                $constraint = $fk['CONSTRAINT_NAME'];
+                $sql = sprintf("ALTER TABLE `%s` DROP FOREIGN KEY `%s`;", $table, $constraint);
+                $connection->executeStatement($sql);
+            }
         }
     }
 
