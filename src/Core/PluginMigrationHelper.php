@@ -42,6 +42,7 @@ class PluginMigrationHelper
     public const ENGINE = 'InnoDB';
     public const CHARSET = 'utf8mb4';
     public const COLLATE = 'utf8mb4_unicode_ci';
+    public const UNUSED = 'unused column';
 
     public static ?string $after = null;
     public static array $queryLog = [];
@@ -69,6 +70,7 @@ class PluginMigrationHelper
                 $entityDefinition = $definitionRegistry->getByEntityName($table);
 
                 self::sortByInstance($entityDefinition->getFields());
+                self::commentUnusedTableColumns($connection, $entityDefinition);
 
                 if (self::isMigrationNecessary($connection, $entityDefinition)) {
                     $entityDefinitions[] = $entityDefinition;
@@ -231,10 +233,22 @@ class PluginMigrationHelper
             $sql = "ALTER TABLE `:table` ADD " . self::getFieldSpecs($field) . ";";
         }
 
-        self::executeStatement($connection, $sql, [
-            'table'  => $table,
-            'column' => $column,
-        ]);
+        try {
+            self::executeStatement($connection, $sql, [
+                'table'  => $table,
+                'column' => $column,
+            ]);
+        } catch (\Exception $exception) {
+            if ($exception->getCode() === 1138) {
+                $sql = "UPDATE `:table` SET `:column` = '0' WHERE `:column` IS NULL;" . $sql;
+
+                self::executeStatement($connection, $sql, [
+                    'table'  => $table,
+                    'column' => $column,
+                ]);
+            }
+        }
+
         self::$after = $column;
     }
 
@@ -320,13 +334,14 @@ SQL;
         } elseif ($field instanceof JsonField) {
             $spec .= "JSON";
         } elseif ($field instanceof FloatField) {
-            $spec .= "DECIMAL(10,3)";
+            $spec .= "DOUBLE";
         }
 
         if (
             $field->is(Required::class)
             || $field instanceof BoolField
             || $field instanceof IntField
+            || $field instanceof FloatField
         ) {
             $spec .= " NOT NULL";
         }
@@ -334,7 +349,7 @@ SQL;
         if (self::$after) {
             $spec .= " AFTER `:after`";
         } else {
-            $spec .= " FIRST";
+            //$spec .= " FIRST";
         }
 
         return $spec;
@@ -382,12 +397,7 @@ SQL;
 
         self::$queryLog[] = $sql;
 
-        try {
-            return $connection->executeStatement($sql, $params, $types);
-        } catch (\Exception $exception) {
-            // Statt dd() werfen wir hier eine Exception, damit der Fehler weiter oben behandelt werden kann
-            throw new \RuntimeException('SQL-Fehler: ' . $exception->getMessage() . "\nQueryLog: " . print_r(self::$queryLog, true));
-        }
+        return $connection->executeStatement($sql, $params, $types);
     }
 
     /**
@@ -425,6 +435,15 @@ SQL;
             "SHOW INDEXES FROM `" . $table . "` WHERE Key_name = '" . $keyName . "';"
         );
         return array_values(array_map(static fn(array $row) => $row['Column_name'], $data));
+    }
+
+    public static function getTableColumns(Connection $connection, string $table): array
+    {
+        $data = $connection->fetchAllAssociative(
+            "SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = :table;",
+            ['table' => $table]
+        );
+        return $data;
     }
 
     /**
@@ -540,6 +559,13 @@ SQL;
         });
     }
 
+    public static function filterByMigratable(CompiledFieldCollection $fields): CompiledFieldCollection
+    {
+        return $fields->filter(function (Field $field) {
+            return self::isMigratableField($field);
+        });
+    }
+
     private static function getFieldSortOrder(Field $field): int
     {
         if ($field instanceof IdField) {
@@ -567,5 +593,36 @@ SQL;
             return 9;
         }
         return 12;
+    }
+
+    private static function commentUnusedTableColumns(Connection $connection, EntityDefinition $entityDefinition): void
+    {
+        $table = $entityDefinition->getEntityName();
+
+        $allColumns = self::getTableColumns($connection, $table);
+
+        $availableColumns = [];
+        /** @var StorageAware $field */
+        foreach (self::filterByMigratable($entityDefinition->getFields()) as $field) {
+            $availableColumns[] = $field->getStorageName();
+        }
+
+        foreach ($allColumns as $column) {
+            if (in_array($column['COLUMN_NAME'], $availableColumns)) {
+                continue;
+            }
+
+            $sql = "ALTER TABLE `:table` CHANGE `:column` `:column` " . $column['COLUMN_TYPE'] . " COMMENT ':comment';";
+
+            try {
+                self::executeStatement($connection, $sql, [
+                    'table'  => $table,
+                    'column' => $column['COLUMN_NAME'],
+                    'comment' => self::UNUSED,
+                ]);
+            } catch (\Exception) {
+                dd(end(self::$queryLog));
+            }
+        }
     }
 }
