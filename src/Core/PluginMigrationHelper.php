@@ -4,7 +4,8 @@ namespace MoorlFoundation\Core;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
+use Shopware\Core\Framework\DataAbstractionLayer\CompiledFieldCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
@@ -19,6 +20,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\NoConstraint;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
@@ -65,6 +67,9 @@ class PluginMigrationHelper
         foreach ($pluginTables as $table) {
             if ($definitionRegistry->has($table)) {
                 $entityDefinition = $definitionRegistry->getByEntityName($table);
+
+                self::sortByInstance($entityDefinition->getFields());
+
                 if (self::isMigrationNecessary($connection, $entityDefinition)) {
                     $entityDefinitions[] = $entityDefinition;
                 }
@@ -136,24 +141,23 @@ class PluginMigrationHelper
     }
 
     /**
-     * Fügt Primärschlüssel für Mapping- oder Übersetzungs-Definitionen hinzu.
+     * Fügt Primärschlüssel hinzu.
      *
      * @param Connection $connection
      * @param EntityDefinition $entityDefinition
      */
     public static function updatePrimaryKeys(Connection $connection, EntityDefinition $entityDefinition): void
     {
-        if (!($entityDefinition instanceof MappingEntityDefinition ||
-            $entityDefinition instanceof EntityTranslationDefinition)) {
-            return;
-        }
-
         $table = $entityDefinition->getEntityName();
         $primaryKeys = [];
         $currentPrimaryKeys = self::getIndexColumns($connection, $table);
 
         foreach ($entityDefinition->getFields() as $field) {
-            if ($field instanceof FkField && $field->is(Required::class)) {
+            if (!self::isMigratableField($field)) {
+                continue;
+            }
+
+            if ($field->is(PrimaryKey::class)) {
                 if (in_array($field->getStorageName(), $currentPrimaryKeys, true)) {
                     continue;
                 }
@@ -222,11 +226,11 @@ class PluginMigrationHelper
 
         $column = $field->getStorageName();
         if (EntityDefinitionQueryHelper::columnExists($connection, $table, $column)) {
-            self::$after = $column;
-            return;
+            $sql = "ALTER TABLE `:table` CHANGE `:column` " . self::getFieldSpecs($field) . ";";
+        } else {
+            $sql = "ALTER TABLE `:table` ADD " . self::getFieldSpecs($field) . ";";
         }
 
-        $sql = "ALTER TABLE `:table` ADD " . self::getFieldSpecs($field) . ";";
         self::executeStatement($connection, $sql, [
             'table'  => $table,
             'column' => $column,
@@ -300,7 +304,7 @@ SQL;
         $spec = "`" . $field->getStorageName() . "` ";
 
         if ($field instanceof IdField) {
-            $spec .= "BINARY(16) PRIMARY KEY";
+            $spec .= "BINARY(16)";
         } elseif ($field instanceof FkField) {
             $spec .= "BINARY(16)";
         } elseif ($field instanceof BoolField) {
@@ -315,6 +319,8 @@ SQL;
             $spec .= "LONGTEXT";
         } elseif ($field instanceof JsonField) {
             $spec .= "JSON";
+        } elseif ($field instanceof FloatField) {
+            $spec .= "DECIMAL(10,3)";
         }
 
         if (
@@ -327,6 +333,8 @@ SQL;
 
         if (self::$after) {
             $spec .= " AFTER `:after`";
+        } else {
+            $spec .= " FIRST";
         }
 
         return $spec;
@@ -523,5 +531,41 @@ SQL;
     private static function isMigratableField(Field $field): bool
     {
         return $field instanceof StorageAware && !$field->is(Runtime::class);
+    }
+
+    public static function sortByInstance(CompiledFieldCollection $fields): void
+    {
+        $fields->sort(function (Field $a, Field $b) {
+            return self::getFieldSortOrder($a) <=> self::getFieldSortOrder($b);
+        });
+    }
+
+    private static function getFieldSortOrder(Field $field): int
+    {
+        if ($field instanceof IdField) {
+            return 1;
+        } elseif ($field instanceof FkField) {
+            return 2;
+        } elseif ($field instanceof BoolField) {
+            return 3;
+        } elseif ($field instanceof IntField) {
+            return 4;
+        } elseif ($field instanceof FloatField) {
+            return 5;
+        } elseif ($field instanceof StringField) {
+            return 6;
+        } elseif ($field instanceof LongTextField) {
+            return 7;
+        } elseif ($field instanceof JsonField) {
+            return 8;
+        } elseif ($field instanceof DateField || $field instanceof DateTimeField) {
+            if ($field->getStorageName() === 'created_at') {
+                return 10;
+            } elseif ($field->getStorageName() === 'updated_at') {
+                return 11;
+            }
+            return 9;
+        }
+        return 12;
     }
 }
