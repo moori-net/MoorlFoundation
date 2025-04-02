@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
@@ -14,13 +13,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingBaseCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
-    {
-        return new parent(self::getFieldItems());
-    }
-
     public static function getFieldItems(): array
     {
         return [

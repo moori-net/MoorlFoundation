@@ -410,6 +410,8 @@ SQL;
             try {
                 $repository->upsert($data, $this->context);
             } catch (\Exception $exception) {
+                throw $exception;
+
                 throw new Exception(sprintf("Table: %s %s %s",
                     $table,
                     $exception->getMessage(),

@@ -1,6 +1,7 @@
 # Open todos
 
 * Replace MissingRequestParameterException with RoutingException::missingRequestParameter()
+* Remove all FieldCollectionMergeTrait
 * Use SEO URL management from Shopware in all moori plugins
 * TOC stutters on scroll with 15/27 screens
 * Check "hreflang" for CMS pages

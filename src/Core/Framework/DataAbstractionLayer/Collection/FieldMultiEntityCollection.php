@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
 
 class FieldMultiEntityCollection extends FieldCollection
 {
-    public static function getFieldItems(array $referenceClasses): array
+    public static function getFieldItems(array $referenceClasses, array $fkFlags = [], array $assocFlags = []): array
     {
         $fieldItems = [];
 
@@ -26,8 +26,19 @@ class FieldMultiEntityCollection extends FieldCollection
                 $propertyName = $referenceClass::PROPERTY_NAME;
             }
 
-            $fieldItems[] = (new FkField($storageName, self::kebabCaseToCamelCase($propertyName . '_id'), $referenceClass))->addFlags(new ApiAware());
-            $fieldItems[] = (new ManyToOneAssociationField(self::kebabCaseToCamelCase($propertyName), $storageName, $referenceClass, 'id', false));
+            $fieldItems[] = (new FkField(
+                $storageName,
+                self::kebabCaseToCamelCase($propertyName . '_id'),
+                $referenceClass
+            ))->addFlags(new ApiAware(), ...$fkFlags);
+
+            $fieldItems[] = (new ManyToOneAssociationField(
+                self::kebabCaseToCamelCase($propertyName),
+                $storageName,
+                $referenceClass,
+                'id',
+                false
+            ))->addFlags(...$assocFlags);
         }
 
         return $fieldItems;
