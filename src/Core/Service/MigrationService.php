@@ -9,7 +9,6 @@ use Doctrine\DBAL\Schema\Table;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\OperationStruct;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\SchemaBuilderExtension;
-use MoorlFoundation\Core\PluginLifecycleHelper;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\DataAbstractionLayer\CompiledFieldCollection;
@@ -19,7 +18,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StorageAware;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -56,7 +54,7 @@ class MigrationService
             $this->log("Caught Exception, quitting...", "critical", [
                 "message" => $exception->getMessage(), "bundle" => $bundleName
             ]);
-            exit();
+            throw $exception;
         }
 
         $pluginTables = $this->getPluginConstant(get_class($this->bundle), 'PLUGIN_TABLES');
@@ -320,16 +318,6 @@ class MigrationService
         }
     }
 
-    public function uninstall(string $plugin, ContainerInterface $container): void
-    {
-        $pluginTables = $this->getPluginConstant($plugin, 'PLUGIN_TABLES');
-        if (!$pluginTables) {
-            return;
-        }
-
-        PluginLifecycleHelper::removePluginTables($this->connection, $pluginTables);
-    }
-
     private function sortOperations(EntityDefinition $entityDefinition, array $operations): array
     {
         // Höchste Priorität: Element-Typen
@@ -417,14 +405,9 @@ class MigrationService
             return $field instanceof StorageAware && !$field->is(Runtime::class);
         });
 
-        // Sort by name
         $storageFields->sort(function (StorageAware $a, StorageAware $b) {
-            return strnatcasecmp($a->getStorageName(), $b->getStorageName());
-        });
-
-        // Sort by type
-        $storageFields->sort(function (StorageAware $a, StorageAware $b) {
-            return $this->getFieldSortOrder($a) <=> $this->getFieldSortOrder($b);
+            $order = $this->getFieldSortOrder($a) <=> $this->getFieldSortOrder($b);
+            return $order !== 0 ? $order : strnatcasecmp($a->getStorageName(), $b->getStorageName());
         });
 
         // Return storage names as array
