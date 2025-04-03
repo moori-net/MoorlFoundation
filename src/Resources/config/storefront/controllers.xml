@@ -5,21 +5,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services
         https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <!-- Administration -->
-        <service id="MoorlFoundation\Administration\Controller\SettingsController" public="true">
-            <argument type="service" id="MoorlFoundation\Core\Service\DataService"/>
-            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
-        </service>
-
-        <service id="MoorlFoundation\Administration\Controller\FileExplorerController" public="true">
-            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
-        </service>
-
-        <service id="MoorlFoundation\Administration\Controller\AdminHelperController" public="true">
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
         <!-- Storefront -->
         <service id="MoorlFoundation\Storefront\Controller\ProductBuyListController" public="true">
             <argument type="service" id="sales_channel.product.repository"/>

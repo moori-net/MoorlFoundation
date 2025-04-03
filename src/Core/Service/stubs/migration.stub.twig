@@ -1,0 +1,59 @@
+<?php declare(strict_types=1);
+
+namespace {{ namespace }};
+
+use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\Migration\MigrationStep;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+
+class {{ className }} extends MigrationStep
+{
+    public function getCreationTimestamp(): int
+    {
+        return {{ timestamp }};
+    }
+
+    public function update(Connection $connection): void
+    {
+        if (!class_exists(EntityDefinitionQueryHelper::class)) {
+            $sql = <<<SQL
+{% for operation in operations %}
+{{ operation.query|raw }}
+{% endfor %}
+SQL;
+            $connection->executeStatement($sql);
+            return;
+        }
+
+{% for operation in operations %}
+{% if operation.elType in ['column', 'constraint', 'table'] %}
+{% set negate = operation.add ? '!' : '' %}
+        if ({{ negate }}EntityDefinitionQueryHelper::{{ operation.elType }}Exists($connection, '{{ operation.table }}', '{{ operation.column }}')) {
+{% if operation.sort %}
+{% if operation.afterColumn %}
+            if (EntityDefinitionQueryHelper::{{ operation.elType }}Exists($connection, '{{ operation.table }}', '{{ operation.afterColumn }}')) {
+                $sql = "{{ operation.queryWithSorting|raw }}";
+            } else {
+                $sql = "{{ operation.query|raw }}";
+            }
+{% else %}
+            $sql = "{{ operation.queryWithSorting|raw }}";
+{% endif %}
+{% else %}
+            $sql = "{{ operation.query|raw }}";
+{% endif %}
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, '{{ operation.table }}');
+        }
+{% else %}
+        $sql = "{{ operation.query|raw }}";
+        EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, '{{ operation.table }}');
+{% endif %}
+
+{% endfor %}
+    }
+
+    public function updateDestructive(Connection $connection): void
+    {
+        // Add destructive update if necessary
+    }
+}

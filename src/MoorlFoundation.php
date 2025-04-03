@@ -7,6 +7,7 @@ use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class MoorlFoundation extends Plugin
 {
@@ -27,6 +28,11 @@ class MoorlFoundation extends Plugin
         'moorl_image_map_item',
         'moorl_image_map_item_translation',
     ];
+
+    public function build(ContainerBuilder $container): void
+    {
+        parent::build($container);
+    }
 
     public function activate(ActivateContext $activateContext): void
     {

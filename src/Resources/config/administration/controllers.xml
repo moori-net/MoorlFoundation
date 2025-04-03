@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="MoorlFoundation\Administration\Controller\SettingsController" public="true">
+            <argument type="service" id="MoorlFoundation\Core\Service\DataService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
+        </service>
+
+        <service id="MoorlFoundation\Administration\Controller\FileExplorerController" public="true">
+            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
+        </service>
+
+        <service id="MoorlFoundation\Administration\Controller\AdminHelperController" public="true">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+        </service>
+    </services>
+</container>
