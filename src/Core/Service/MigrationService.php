@@ -202,7 +202,7 @@ class MigrationService
                     break;
                 case OperationStruct::CHANGE:
                     if (count($tokens) >= 3) {
-                        $column = $tokens[2];
+                        $column = $tokens[1];
                     }
                     break;
                 case OperationStruct::MODIFY:

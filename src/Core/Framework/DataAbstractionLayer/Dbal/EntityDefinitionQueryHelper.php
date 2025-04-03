@@ -14,6 +14,15 @@ class EntityDefinitionQueryHelper
         } catch (NotNullConstraintViolationException $exception) {
             self::updateNotNullTableData($connection, $sql, $table);
             $connection->executeStatement($sql);
+        } catch (\Exception $exception) {
+            if ($exception->getCode() === 1061) {
+                if (preg_match("/Duplicate key name '([^']+)'/", $exception->getMessage(), $matches)) {
+                    $connection->executeStatement(sprintf("ALTER TABLE %s DROP INDEX `%s`;", $table, $matches[1]));
+                }
+            } else {
+                throw $exception;
+            }
+            $connection->executeStatement($sql);
         }
     }
 
