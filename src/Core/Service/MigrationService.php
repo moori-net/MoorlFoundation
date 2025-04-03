@@ -110,6 +110,9 @@ class MigrationService
         foreach ($queries as $query) {
             $operations = array_merge($operations, $this->parseQuery($query, $drop));
         }
+        if (empty($operations)) {
+            return;
+        }
 
         $this->sortOperations($entityDefinition, $operations);
 
@@ -179,9 +182,6 @@ class MigrationService
             }
 
             $opType = strtoupper($tokens[0]);
-            if (!$drop && $opType === OperationStruct::DROP) {
-                continue;
-            }
 
             $column = '';
             $elType = OperationStruct::COLUMN;
@@ -190,7 +190,10 @@ class MigrationService
                 case OperationStruct::ADD:
                 case OperationStruct::DROP:
                     $opTypeSuffix = $tokens[1];
-                    if (in_array(strtoupper($opTypeSuffix), ['INDEX', 'UNIQUE', 'CONSTRAINT'])) {
+                    if (strtoupper($opTypeSuffix) === 'FOREIGN') {
+                        $column = $tokens[3];
+                        $elType = OperationStruct::CONSTRAINT;
+                    } elseif (in_array(strtoupper($opTypeSuffix), ['INDEX', 'UNIQUE', 'CONSTRAINT'])) {
                         $column = $tokens[2];
                         $elType = strtolower($opTypeSuffix);
                     } else {
@@ -209,6 +212,10 @@ class MigrationService
                     break;
                 default:
                     continue 2;
+            }
+
+            if (!$drop && $opType === OperationStruct::DROP && $elType !== OperationStruct::CONSTRAINT) {
+                continue;
             }
 
             $column = trim($column, '`');

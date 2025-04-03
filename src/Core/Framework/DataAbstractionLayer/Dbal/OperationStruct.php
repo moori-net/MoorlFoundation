@@ -9,6 +9,7 @@ class OperationStruct extends Struct
     public const COLUMN = 'column';
     public const CONSTRAINT = 'constraint';
     public const TABLE = 'table';
+    public const KEY = 'key';
     public const ADD = 'ADD';
     public const CREATE = 'CREATE';
     public const MODIFY = 'MODIFY';

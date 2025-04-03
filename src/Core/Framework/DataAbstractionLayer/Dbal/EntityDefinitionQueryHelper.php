@@ -45,12 +45,11 @@ SQL;
 
     public static function columnExists(Connection $connection, string $table, string $column): bool
     {
-        $exists = $connection->fetchOne(
-            'SHOW COLUMNS FROM ' . self::escape($table) . ' WHERE `Field` LIKE :column',
-            ['column' => $column]
-        );
+        $table = $connection->quoteIdentifier($table);
+        $sql = "SHOW COLUMNS FROM {$table} WHERE `Field` LIKE :column";
+        $result = $connection->fetchOne($sql, ['column' => $column]);
 
-        return !empty($exists);
+        return !empty($result);
     }
 
     public static function tableExists(Connection $connection, string $table): bool
