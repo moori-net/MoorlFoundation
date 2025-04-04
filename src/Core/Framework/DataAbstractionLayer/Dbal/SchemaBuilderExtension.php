@@ -254,7 +254,7 @@ class SchemaBuilderExtension extends SchemaBuilder
                 $default = $definition->getDefaults()[$field->getPropertyName()];
 
                 if (is_string($default) && Uuid::isValid($default) && $field instanceof FkField) {
-                    $options['default'] = sprintf("0x%s", $default);
+                    //$options['default'] = sprintf("0x%s", $default);
                 } else {
                     $options['default'] = is_array($default) ? json_encode($default) : $default;
                 }
@@ -281,7 +281,7 @@ class SchemaBuilderExtension extends SchemaBuilder
         }
 
         if ($field instanceof VersionField || $field instanceof ReferenceVersionField) {
-            $options['default'] = sprintf("0x%s", Defaults::LIVE_VERSION);
+            //$options['default'] = sprintf("0x%s", Defaults::LIVE_VERSION);
         }
 
         return $options;
