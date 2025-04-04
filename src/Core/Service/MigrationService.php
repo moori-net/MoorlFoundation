@@ -398,6 +398,7 @@ class MigrationService
     private function formatQuery(string $query): ?string
     {
         $query = $this->addFkBackticks($query);
+        $query = $this->replaceBinaryValue($query);
 
         return $this->removeBadQueries($query);
     }
@@ -405,6 +406,11 @@ class MigrationService
     private function addFkBackticks(string $query): string
     {
         return preg_replace('/\b(fk\.[A-Za-z0-9_]+\.[A-Za-z0-9_]+)\b/', '`$1`', $query);
+    }
+    function replaceBinaryValue(string $query): string
+    {
+        $pattern = "/(DEFAULT\s+)'(0x[a-f0-9]+)'/i";
+        return preg_replace($pattern, "$1$2", $query);
     }
 
     private function removeBadQueries(string $query): ?string

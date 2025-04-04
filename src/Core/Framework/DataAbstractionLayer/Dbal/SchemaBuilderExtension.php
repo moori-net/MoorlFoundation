@@ -9,6 +9,7 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\DoubleField;
 use Shopware\Core\Content\Cms\DataAbstractionLayer\Field\SlotConfigField;
 use Shopware\Core\Content\Flow\DataAbstractionLayer\Field\FlowTemplateConfigField;
 use Shopware\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceField;
+use Shopware\Core\Defaults;
 use Shopware\Core\Framework\DataAbstractionLayer\Attribute\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\CompiledFieldCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
@@ -78,6 +79,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\VariantListingConfigField
 use Shopware\Core\Framework\DataAbstractionLayer\Field\VersionDataPayloadField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\NumberRange\DataAbstractionLayer\NumberRangeField;
 
 class SchemaBuilderExtension extends SchemaBuilder
@@ -250,7 +252,12 @@ class SchemaBuilderExtension extends SchemaBuilder
         if (\array_key_exists($field->getPropertyName(), $definition->getDefaults())) {
             if (!$field instanceof JsonField && !$field instanceof BlobField && !$field instanceof LongTextField) {
                 $default = $definition->getDefaults()[$field->getPropertyName()];
-                $options['default'] = is_array($default) ? json_encode($default) : $default;
+
+                if (is_string($default) && Uuid::isValid($default) && $field instanceof FkField) {
+                    $options['default'] = sprintf("0x%s", $default);
+                } else {
+                    $options['default'] = is_array($default) ? json_encode($default) : $default;
+                }
             }
         }
 
@@ -271,6 +278,10 @@ class SchemaBuilderExtension extends SchemaBuilder
 
         if ($field->is(WriteProtected::class)) {
             //$options['comment'] = 'WriteProtected';
+        }
+
+        if ($field instanceof VersionField || $field instanceof ReferenceVersionField) {
+            $options['default'] = sprintf("0x%s", Defaults::LIVE_VERSION);
         }
 
         return $options;
