@@ -243,7 +243,7 @@ class SchemaBuilderExtension extends SchemaBuilder
 
         $options['notnull'] = false;
 
-        if ($field->is(Required::class) && !$field instanceof UpdatedAtField && !$field instanceof ReferenceVersionField) {
+        if ($field->is(Required::class) && !$field instanceof UpdatedAtField) {
             $options['notnull'] = true;
         }
 

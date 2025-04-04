@@ -7,69 +7,107 @@ use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 
 class EntityDefinitionQueryHelper
 {
-    public static function tryExecuteStatement(Connection $connection, string $sql, ?string $table = null): void
+    public static function tryExecuteStatement(
+        Connection $connection,
+        string $sql,
+        ?string $table = null,
+        ?string $column = null
+    ): void
     {
         try {
             $connection->executeStatement($sql);
-        } catch (NotNullConstraintViolationException $exception) {
-            self::updateNotNullTableData($connection, $sql, $table);
-            $connection->executeStatement($sql);
         } catch (\Exception $exception) {
-            if ($exception->getCode() === 1061) {
-                if (preg_match("/Duplicate key name '([^']+)'/", $exception->getMessage(), $matches)) {
-                    $connection->executeStatement(sprintf("ALTER TABLE %s DROP INDEX `%s`;", $table, $matches[1]));
-                }
-            } else {
-                throw $exception;
-            }
+            self::handleDbalException($exception, $connection, $sql, $table, $column);
             $connection->executeStatement($sql);
         }
     }
 
-    public static function updateNotNullTableData(Connection $connection, string $query, ?string $table): void
+    public static function handleDbalException(
+        \Exception $exception,
+        Connection $connection,
+        string $sql,
+        ?string $table = null,
+        ?string $column = null
+    ): void
     {
         if (!$table) {
-            return;
+            // Extrahiere den Tabellennamen anhand gängiger SQL-Befehle
+            $pattern = '/\b(?:ALTER\s+TABLE|CREATE\s+TABLE|INSERT\s+INTO|UPDATE|DELETE\s+FROM|DROP\s+TABLE)\s+`?(?<table>[a-zA-Z0-9_]+)`?/i';
+            if (preg_match($pattern, $sql, $matches)) {
+                $table = $matches['table'] ?? null;
+            }
         }
 
-        preg_match_all('/CHANGE\s+\S+\s+(\S+).*?DEFAULT\s+\'([^\']*)\'.*?NOT\s+NULL\b/i', $query, $matches, PREG_SET_ORDER);
+        if (!$table) {
+            throw $exception;
+        }
 
-        foreach ($matches as $match) {
-            $column = $match[1];
+        if ($exception instanceof NotNullConstraintViolationException) {
+            // Falls eine Spalte auf NOT NULL gesetzt ist und NULL-Werte enthält,
+            // aktualisiere die Daten, indem du den Default-Wert setzt.
+            self::updateNotNullTableData($connection, $sql, $table, $column);
+        } elseif ($exception->getCode() === 1061) {
+            // Falls ein Foreign-Key hinzugefügt wird, aber bereits ein Index mit gleichem Namen existiert
+            if (!$column) {
+                if (preg_match("/Duplicate key name '([^']+)'/", $exception->getMessage(), $matches)) {
+                    $column = $matches[1];
+                }
+            }
+            self::dropIndexIfExists($connection, $table, $column);
+        }
+    }
+
+    public static function dropIndexIfExists(Connection $connection, string $table, string $column): void
+    {
+        $sql = sprintf(
+            "ALTER TABLE %s DROP INDEX %s",
+            $connection->quoteIdentifier($table),
+            $connection->quoteIdentifier($column)
+        );
+        $connection->executeStatement($sql);
+    }
+
+    public static function updateNotNullTableData(Connection $connection, string $query, string $table, ?string $column): void
+    {
+        if (preg_match('/CHANGE\s+\S+\s+(\S+).*?DEFAULT\s+\'([^\']*)\'.*?NOT\s+NULL\b/i', $query, $match)) {
+            $column  = $match[1] ?? $column;
             $default = $match[2] ?? "0";
-            $sql = sprintf("UPDATE `%s` SET `%s` = '%s' WHERE `%s` IS NULL;", $table, $column, $default, $column);
+            $sql = sprintf(
+                "UPDATE %s SET %s = '%s' WHERE %s IS NULL;",
+                $connection->quoteIdentifier($table),
+                $connection->quoteIdentifier($column),
+                $default,
+                $connection->quoteIdentifier($column)
+            );
             $connection->executeStatement($sql);
         }
     }
 
     public static function constraintExists(Connection $connection, string $table, string $constraint): bool
     {
-        $sql = <<<SQL
-SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = :table AND CONSTRAINT_NAME = :constraint;
-SQL;
-        $result = $connection->fetchOne($sql, ['table' => $table, 'constraint' => $constraint]);
+        $sql = sprintf(
+            "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = '%s' AND CONSTRAINT_NAME = '%s'",
+            $table,
+            $constraint
+        );
+        $result = $connection->fetchOne($sql);
 
         return !empty($result);
     }
 
     public static function columnExists(Connection $connection, string $table, string $column): bool
     {
-        $table = $connection->quoteIdentifier($table);
-        $sql = "SHOW COLUMNS FROM {$table} WHERE `Field` LIKE :column";
-        $result = $connection->fetchOne($sql, ['column' => $column]);
-
-        return !empty($result);
+        $sql = sprintf(
+            "SHOW COLUMNS FROM %s WHERE `Field` LIKE '%s'",
+            $connection->quoteIdentifier($table),
+            $column
+        );
+        return !empty($connection->fetchOne($sql));
     }
 
     public static function tableExists(Connection $connection, string $table): bool
     {
-        return !empty(
-            $connection->fetchOne(
-                'SHOW TABLES LIKE :table',
-                [
-                    'table' => $table,
-                ]
-            )
-        );
+        $sql = sprintf("SHOW TABLES LIKE '%s'", $table);
+        return !empty($connection->fetchOne($sql));
     }
 }
