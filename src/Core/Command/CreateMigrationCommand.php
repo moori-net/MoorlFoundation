@@ -39,8 +39,9 @@ class CreateMigrationCommand extends Command
     {
         $this
             ->addArgument('plugins', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Plugins')
+            ->addOption('dry', 'd', InputOption::VALUE_NONE, 'Dry run (simulate)')
             ->addOption('live', 'l', InputOption::VALUE_NONE, 'Live migration (do not create files)')
-            ->addOption('drop', 'd', InputOption::VALUE_NONE, 'Allow to drop tables or columns')
+            ->addOption('drop', null, InputOption::VALUE_NONE, 'Allow to drop tables or columns')
             ->addOption('sort', 's', InputOption::VALUE_NONE, 'Sort table columns')
             ->addOption('auto', 'a', InputOption::VALUE_NONE, 'Auto update plugin');
     }
@@ -64,8 +65,13 @@ class CreateMigrationCommand extends Command
                 $plugin->getName(),
                 (bool) $input->getOption('drop'),
                 (bool) $input->getOption('live'),
-                (bool) $input->getOption('sort')
+                (bool) $input->getOption('sort'),
+                (bool) $input->getOption('dry')
             );
+
+            if ($input->getOption('dry')) {
+                continue;
+            }
 
             if ($input->getOption('auto')) {
                 $io->text('Updating plugin ' . $plugin->getName());
@@ -85,10 +91,16 @@ class CreateMigrationCommand extends Command
         // try exact match first
         if (\count($plugins) === 1) {
             $criteria = new Criteria();
+
+            if ($plugins[0] === "*") {
+                return $this->pluginRepo->search($criteria, $context)->getEntities();
+            }
+
             $criteria->addFilter(new EqualsFilter('name', $plugins[0]));
 
             /** @var PluginCollection $matches */
             $matches = $this->pluginRepo->search($criteria, $context)->getEntities();
+
             if ($matches->count() === 1) {
                 return $matches;
             }

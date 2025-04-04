@@ -46,7 +46,13 @@ class MigrationService
         $this->io = $io;
     }
 
-    public function createMigration(string $bundleName, bool $drop = false, bool $live = false, bool $sort = false): void
+    public function createMigration(
+        string $bundleName,
+        bool $drop = false,
+        bool $live = false,
+        bool $sort = false,
+        bool $dry = false
+    ): void
     {
         try {
             $this->bundle = $this->kernel->getBundle($bundleName);
@@ -54,7 +60,7 @@ class MigrationService
             $this->log("Caught Exception, quitting...", "critical", [
                 "message" => $exception->getMessage(), "bundle" => $bundleName
             ]);
-            throw $exception;
+            return;
         }
 
         $pluginTables = $this->getPluginConstant(get_class($this->bundle), 'PLUGIN_TABLES');
@@ -80,7 +86,8 @@ class MigrationService
                     $entityDefinition,
                     $drop,
                     $live,
-                    $sort
+                    $sort,
+                    $dry
                 );
             } else {
                 if ($tableExists) {
@@ -97,7 +104,8 @@ class MigrationService
         EntityDefinition $entityDefinition,
         bool $drop = false,
         bool $live = false,
-        bool $sort = false
+        bool $sort = false,
+        bool $dry = false
     ): void
     {
         if (empty($queries)) {
@@ -130,7 +138,9 @@ class MigrationService
             $this->sortOperations($entityDefinition, $operations);
         }
 
-        if ($live) {
+        if ($dry) {
+            $this->dryRun($operations);
+        } else if ($live) {
             $this->execute($operations, $entityDefinition->getEntityName());
         } else {
             $this->makeFile($operations, $entityDefinition->getEntityName());
@@ -327,6 +337,14 @@ class MigrationService
         }
 
         EntityDefinitionQueryHelper::tryExecuteStatement($this->connection, $operation->getQuery(), $operation->getTable() ?: $table);
+    }
+
+    private function dryRun(array $operations): void
+    {
+        /** @var OperationStruct $operation */
+        foreach ($operations as $operation) {
+            $this->log($operation->getQueryWithSorting());
+        }
     }
 
     private function execute(array $operations, string $table): void
