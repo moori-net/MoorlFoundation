@@ -183,7 +183,8 @@ class MigrationService
 
             $opType = strtoupper($tokens[0]);
 
-            $column = '';
+            $column = null;
+            $sourceColumn = null;
             $elType = OperationStruct::COLUMN;
 
             switch ($opType) {
@@ -202,7 +203,8 @@ class MigrationService
                     break;
                 case OperationStruct::CHANGE:
                     if (count($tokens) >= 3) {
-                        $column = $tokens[1];
+                        $sourceColumn = $tokens[1];
+                        $column = $tokens[2];
                     }
                     break;
                 case OperationStruct::MODIFY:
@@ -225,7 +227,8 @@ class MigrationService
                 $table,
                 $elType,
                 $opType,
-                $column
+                $column,
+                $sourceColumn
             );
         }
 

@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Framework\Migration\MigrationStep;
+use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 
 class {{ className }} extends MigrationStep
@@ -15,20 +16,27 @@ class {{ className }} extends MigrationStep
 
     public function update(Connection $connection): void
     {
-        if (!class_exists(EntityDefinitionQueryHelper::class)) {
-            $sql = <<<SQL
+        $sql = <<<SQL
 {% for operation in operations %}
-{{ operation.query|raw }}
+{{ operation.queryWithSorting|raw }}
 {% endfor %}
 SQL;
+
+        // Try to execute all queries at once
+        try {
             $connection->executeStatement($sql);
             return;
+        } catch (\Exception) {
+            if (!class_exists(EntityDefinitionQueryHelper::class)) {
+                throw new MissingRequirementException('moorl/foundation', '1.6.50');
+            }
         }
 
+        // Try to execute all queries step by step
 {% for operation in operations %}
 {% if operation.elType in ['column', 'constraint', 'table'] %}
 {% set negate = operation.add ? '!' : '' %}
-        if ({{ negate }}EntityDefinitionQueryHelper::{{ operation.elType }}Exists($connection, '{{ operation.table }}', '{{ operation.column }}')) {
+        if ({{ negate }}EntityDefinitionQueryHelper::{{ operation.elType }}Exists($connection, '{{ operation.table }}', '{{ operation.sourceColumn }}')) {
 {% if operation.sort %}
 {% if operation.afterColumn %}
             if (EntityDefinitionQueryHelper::{{ operation.elType }}Exists($connection, '{{ operation.table }}', '{{ operation.afterColumn }}')) {

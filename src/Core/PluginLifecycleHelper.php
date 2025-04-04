@@ -5,6 +5,8 @@ namespace MoorlFoundation\Core;
 use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use Shopware\Core\Framework\Plugin\PluginException;
+use Shopware\Core\Kernel;
 use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
@@ -93,6 +95,15 @@ class PluginLifecycleHelper
             } catch (\Exception) {
             }
         }
+
+        self::removeMigrations($connection, $plugin);
+    }
+
+    public static function removeMigrations(Connection $connection, string $plugin): void
+    {
+        $class = new \ReflectionClass($plugin);
+        $class = addcslashes($class->getNamespaceName(), '\\_%') . '%';
+        $connection->executeStatement('DELETE FROM migration WHERE class LIKE :class', ['class' => $class]);
     }
 
     public static function updateInheritance(Connection $connection, string $table, string $propertyName): void

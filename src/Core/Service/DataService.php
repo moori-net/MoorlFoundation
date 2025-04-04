@@ -199,8 +199,9 @@ SQL;
 
     public function removeMigration(DataInterface $dataObject): void
     {
-        $sql = sprintf("DELETE FROM `migration` WHERE `class` = '%s';", str_ireplace('\\', '\\\\', $dataObject::class));
-        $this->connection->executeQuery($sql);
+        $class = new \ReflectionClass($dataObject);
+        $class = addcslashes($class->getNamespaceName(), '\\_%') . '%';
+        $this->connection->executeStatement('DELETE FROM migration WHERE class LIKE :class', ['class' => $class]);
     }
 
     public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string

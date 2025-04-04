@@ -32,6 +32,7 @@ class OperationStruct extends Struct
         private readonly ?string $elType = null,
         private readonly ?string $opType = null,
         private readonly ?string $column = null,
+        private readonly ?string $sourceColumn = null,
         private ?string $afterColumn = null,
         private bool $sort = false
     )
@@ -53,6 +54,11 @@ class OperationStruct extends Struct
                 implode(", ", self::OP_TYPES_ALL)
             ));
         }
+    }
+
+    public function getSourceColumn(): ?string
+    {
+        return $this->sourceColumn ?: $this->column;
     }
 
     public function isSort(): bool
