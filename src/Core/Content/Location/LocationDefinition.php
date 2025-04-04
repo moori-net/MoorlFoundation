@@ -2,10 +2,10 @@
 
 namespace MoorlFoundation\Core\Content\Location;
 
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\DoubleField;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\FloatField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
@@ -40,8 +40,8 @@ class LocationDefinition extends EntityDefinition
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
             (new JsonField('payload', 'payload'))->addFlags(new Required()),
-            (new FloatField('location_lat','locationLat')),
-            (new FloatField('location_lon','locationLon')),
+            (new DoubleField('location_lat','locationLat')),
+            (new DoubleField('location_lon','locationLon')),
             new OneToManyAssociationField('locationCache', LocationCacheDefinition::class, 'location_id')
         ]);
     }

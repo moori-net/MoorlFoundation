@@ -107,7 +107,7 @@ class OperationStruct extends Struct
             return $this->query . " " . ($this->afterColumn ? "AFTER {$this->afterColumn}" : self::FIRST) . ";";
         }
 
-        return $this->query;
+        return $this->getQuery();
     }
 
     public function getTable(): ?string
