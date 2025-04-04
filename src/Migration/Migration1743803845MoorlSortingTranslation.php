@@ -7,17 +7,17 @@ use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 
-class Migration1743755430MoorlSortingTranslation extends MigrationStep
+class Migration1743803845MoorlSortingTranslation extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1743755430;
+        return 1743803845;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL AFTER moorl_sorting_id;
+ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL;
 SQL;
 
         // Try to execute all queries at once
@@ -32,11 +32,7 @@ SQL;
 
         // Try to execute all queries step by step
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting_translation', 'label')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting_translation', 'moorl_sorting_id')) {
-                $sql = "ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL AFTER moorl_sorting_id;";
-            } else {
-                $sql = "ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting_translation');
         }
 

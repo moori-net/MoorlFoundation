@@ -7,19 +7,19 @@ use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 
-class Migration1743755430MoorlCmsElementConfig extends MigrationStep
+class Migration1743803845MoorlCmsElementConfig extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1743755430;
+        return 1743803845;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-ALTER TABLE moorl_cms_element_config CHANGE name name VARCHAR(255) NOT NULL AFTER custom_fields;
-ALTER TABLE moorl_cms_element_config CHANGE type type VARCHAR(255) NOT NULL AFTER name;
-ALTER TABLE moorl_cms_element_config CHANGE created_at created_at DATETIME NOT NULL AFTER type;
+ALTER TABLE moorl_cms_element_config CHANGE name name VARCHAR(255) NOT NULL;
+ALTER TABLE moorl_cms_element_config CHANGE type type VARCHAR(255) NOT NULL;
+ALTER TABLE moorl_cms_element_config CHANGE created_at created_at DATETIME NOT NULL;
 SQL;
 
         // Try to execute all queries at once
@@ -34,29 +34,17 @@ SQL;
 
         // Try to execute all queries step by step
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_cms_element_config', 'name')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_cms_element_config', 'custom_fields')) {
-                $sql = "ALTER TABLE moorl_cms_element_config CHANGE name name VARCHAR(255) NOT NULL AFTER custom_fields;";
-            } else {
-                $sql = "ALTER TABLE moorl_cms_element_config CHANGE name name VARCHAR(255) NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_cms_element_config CHANGE name name VARCHAR(255) NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_cms_element_config');
         }
 
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_cms_element_config', 'type')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_cms_element_config', 'name')) {
-                $sql = "ALTER TABLE moorl_cms_element_config CHANGE type type VARCHAR(255) NOT NULL AFTER name;";
-            } else {
-                $sql = "ALTER TABLE moorl_cms_element_config CHANGE type type VARCHAR(255) NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_cms_element_config CHANGE type type VARCHAR(255) NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_cms_element_config');
         }
 
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_cms_element_config', 'created_at')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_cms_element_config', 'type')) {
-                $sql = "ALTER TABLE moorl_cms_element_config CHANGE created_at created_at DATETIME NOT NULL AFTER type;";
-            } else {
-                $sql = "ALTER TABLE moorl_cms_element_config CHANGE created_at created_at DATETIME NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_cms_element_config CHANGE created_at created_at DATETIME NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_cms_element_config');
         }
 

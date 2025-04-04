@@ -7,19 +7,19 @@ use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 
-class Migration1743755430MoorlSorting extends MigrationStep
+class Migration1743803845MoorlSorting extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1743755430;
+        return 1743803845;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL AFTER locked;
-ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL AFTER id;
-ALTER TABLE moorl_sorting CHANGE locked locked TINYINT(1) DEFAULT 0 AFTER active;
+ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL;
+ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL;
+ALTER TABLE moorl_sorting CHANGE locked locked TINYINT(1) DEFAULT 0;
 SQL;
 
         // Try to execute all queries at once
@@ -34,29 +34,17 @@ SQL;
 
         // Try to execute all queries step by step
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'priority')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'locked')) {
-                $sql = "ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL AFTER locked;";
-            } else {
-                $sql = "ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
         }
 
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'active')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'id')) {
-                $sql = "ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL AFTER id;";
-            } else {
-                $sql = "ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
         }
 
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'locked')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'active')) {
-                $sql = "ALTER TABLE moorl_sorting CHANGE locked locked TINYINT(1) DEFAULT 0 AFTER active;";
-            } else {
-                $sql = "ALTER TABLE moorl_sorting CHANGE locked locked TINYINT(1) DEFAULT 0;";
-            }
+            $sql = "ALTER TABLE moorl_sorting CHANGE locked locked TINYINT(1) DEFAULT 0;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
         }
 

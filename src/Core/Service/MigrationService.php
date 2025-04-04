@@ -79,7 +79,8 @@ class MigrationService
                     $this->generateQueries($entityDefinition),
                     $entityDefinition,
                     $drop,
-                    $live
+                    $live,
+                    $sort
                 );
             } else {
                 if ($tableExists) {
@@ -95,7 +96,8 @@ class MigrationService
         array|string $queries,
         EntityDefinition $entityDefinition,
         bool $drop = false,
-        bool $live = false
+        bool $live = false,
+        bool $sort = false
     ): void
     {
         if (empty($queries)) {
@@ -124,7 +126,9 @@ class MigrationService
             return;
         }
 
-        $this->sortOperations($entityDefinition, $operations);
+        if ($sort) {
+            $this->sortOperations($entityDefinition, $operations);
+        }
 
         if ($live) {
             $this->execute($operations, $entityDefinition->getEntityName());
@@ -506,7 +510,7 @@ class MigrationService
         }
     }
 
-    public function log(string|\Stringable $message, $level = 'info', array $context = []): void
+    private function log(string|\Stringable $message, $level = 'info', array $context = []): void
     {
         if (method_exists($this->logger, $level)) {
             $this->logger->{$level}($message, $context);

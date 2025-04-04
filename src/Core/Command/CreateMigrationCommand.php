@@ -8,10 +8,11 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: 'moorl-foundation:migration:create',
+    name: 'moorl:migration:create',
     description: 'Creates migration for entity schema',
 )]
 class CreateMigrationCommand extends Command
@@ -25,9 +26,9 @@ class CreateMigrationCommand extends Command
     {
         $this
             ->addArgument('bundle', InputArgument::REQUIRED, 'Bundle name (plugin name)')
-            ->addOption('live', null, InputArgument::OPTIONAL, 'Live migration (do not create files)')
-            ->addOption('drop', null, InputArgument::OPTIONAL, 'Allow to drop tables or columns')
-            ->addOption('sort', null, InputArgument::OPTIONAL, 'Sort table columns');
+            ->addOption('live', null, InputOption::VALUE_NONE, 'Live migration (do not create files)')
+            ->addOption('drop', null, InputOption::VALUE_NONE, 'Allow to drop tables or columns')
+            ->addOption('sort', null, InputOption::VALUE_NONE, 'Sort table columns');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

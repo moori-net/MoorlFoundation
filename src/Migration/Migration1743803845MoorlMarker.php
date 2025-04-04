@@ -7,17 +7,17 @@ use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 
-class Migration1743755430MoorlMarker extends MigrationStep
+class Migration1743803845MoorlMarker extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1743755430;
+        return 1743803845;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-ALTER TABLE moorl_marker CHANGE name name VARCHAR(255) NOT NULL AFTER class_name;
+ALTER TABLE moorl_marker CHANGE name name VARCHAR(255) NOT NULL;
 ALTER TABLE moorl_marker ADD CONSTRAINT `fk.moorl_marker.marker_id` FOREIGN KEY (marker_id) REFERENCES media (id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE moorl_marker ADD CONSTRAINT `fk.moorl_marker.marker_shadow_id` FOREIGN KEY (marker_shadow_id) REFERENCES media (id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE moorl_marker ADD CONSTRAINT `fk.moorl_marker.marker_retina_id` FOREIGN KEY (marker_retina_id) REFERENCES media (id) ON UPDATE CASCADE ON DELETE SET NULL;
@@ -35,11 +35,7 @@ SQL;
 
         // Try to execute all queries step by step
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_marker', 'name')) {
-            if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_marker', 'class_name')) {
-                $sql = "ALTER TABLE moorl_marker CHANGE name name VARCHAR(255) NOT NULL AFTER class_name;";
-            } else {
-                $sql = "ALTER TABLE moorl_marker CHANGE name name VARCHAR(255) NOT NULL;";
-            }
+            $sql = "ALTER TABLE moorl_marker CHANGE name name VARCHAR(255) NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_marker');
         }
 
