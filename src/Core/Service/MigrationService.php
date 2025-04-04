@@ -70,7 +70,7 @@ class MigrationService
 
             if ($this->definitionInstanceRegistry->has($table)) {
                 if (!$tableExists) {
-                    $this->log('Table for definition not found, creating new one', 'warning');
+                    $this->log('Table for definition not found, creating new one');
                 }
 
                 $entityDefinition = $this->definitionInstanceRegistry->getByEntityName($table);
@@ -84,9 +84,9 @@ class MigrationService
                 );
             } else {
                 if ($tableExists) {
-                    $this->log('Definition not found, but table found. Maybe the table can be deleted', 'error');
+                    $this->log('Definition not found, but table found. Maybe the table can be deleted');
                 } else {
-                    $this->log('Definition not found', 'error');
+                    $this->log('Definition not found');
                 }
             }
         }
@@ -510,7 +510,7 @@ class MigrationService
         }
     }
 
-    private function log(string|\Stringable $message, $level = 'info', array $context = []): void
+    private function log(string|\Stringable $message, $level = 'text', array $context = []): void
     {
         if (method_exists($this->logger, $level)) {
             $this->logger->{$level}($message, $context);
