@@ -104,7 +104,7 @@ class OperationStruct extends Struct
     public function getQueryWithSorting(): string
     {
         if ($this->sort && $this->elType && $this->elType === self::COLUMN && $this->column) {
-            return $this->query . " " . ($this->afterColumn ? "AFTER {$this->afterColumn}" : self::FIRST) . ";";
+            return $this->query . " " . ($this->afterColumn ? "AFTER `{$this->afterColumn}`" : self::FIRST) . ";";
         }
 
         return $this->getQuery();
