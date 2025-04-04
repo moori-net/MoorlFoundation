@@ -2,11 +2,11 @@
 
 namespace MoorlFoundation;
 
-use Doctrine\DBAL\Connection;
-use MoorlFoundation\Core\Service\DataService;
+use MoorlFoundation\Core\PluginLifecycleHelper;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
+use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class MoorlFoundation extends Plugin
@@ -34,13 +34,18 @@ class MoorlFoundation extends Plugin
         parent::build($container);
     }
 
+    public function update(UpdateContext $updateContext): void
+    {
+        parent::update($updateContext);
+
+        PluginLifecycleHelper::update(self::class, $this->container);
+    }
+
     public function activate(ActivateContext $activateContext): void
     {
         parent::activate($activateContext);
 
-        /* @var $dataService DataService */
-        $dataService = $this->container->get(DataService::class);
-        $dataService->install(self::NAME);
+        PluginLifecycleHelper::update(self::class, $this->container);
     }
 
     public function uninstall(UninstallContext $uninstallContext): void
@@ -51,38 +56,6 @@ class MoorlFoundation extends Plugin
             return;
         }
 
-        $this->uninstallTrait();
-    }
-
-    private function uninstallTrait(): void
-    {
-        $connection = $this->container->get(Connection::class);
-
-        foreach (array_reverse(self::PLUGIN_TABLES) as $table) {
-            $sql = sprintf('DROP TABLE IF EXISTS `%s`;', $table);
-            $connection->executeStatement($sql);
-        }
-
-        foreach (array_reverse(self::SHOPWARE_TABLES) as $table) {
-            $sql = sprintf("DELETE FROM `%s` WHERE `created_at` = '%s';", $table, self::DATA_CREATED_AT);
-
-            try {
-                $connection->executeStatement($sql);
-            } catch (\Exception) {
-                continue;
-            }
-        }
-
-        foreach (self::INHERITANCES as $table => $propertyNames) {
-            foreach ($propertyNames as $propertyName) {
-                $sql = sprintf("ALTER TABLE `%s` DROP `%s`;", $table, $propertyName);
-
-                try {
-                    $connection->executeStatement($sql);
-                } catch (\Exception) {
-                    continue;
-                }
-            }
-        }
+        PluginLifecycleHelper::uninstall(self::class, $this->container);
     }
 }
