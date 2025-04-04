@@ -187,9 +187,9 @@ class MigrationService
         } elseif (preg_match('/(CREATE|DROP)\s+TABLE\s+`?(\w+)`?/i', $query, $matches)) {
             return [new OperationStruct(
                 $query,
-                $matches[1],
+                $matches[2],
                 OperationStruct::TABLE,
-                strtoupper($matches[2])
+                strtoupper($matches[1])
             )];
         } else {
             $this->log(sprintf("Error while parsing %s", $query), 'error');
