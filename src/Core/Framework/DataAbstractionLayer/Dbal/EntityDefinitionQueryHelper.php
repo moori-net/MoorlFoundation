@@ -61,8 +61,8 @@ class EntityDefinitionQueryHelper
     {
         $sql = sprintf(
             "ALTER TABLE %s DROP INDEX %s",
-            $connection->quoteIdentifier($table),
-            $connection->quoteIdentifier($column)
+            self::quote($table),
+            self::quote($column)
         );
         $connection->executeStatement($sql);
     }
@@ -74,10 +74,10 @@ class EntityDefinitionQueryHelper
             $default = $match[2] ?? "0";
             $sql = sprintf(
                 "UPDATE %s SET %s = '%s' WHERE %s IS NULL;",
-                $connection->quoteIdentifier($table),
-                $connection->quoteIdentifier($column),
+                self::quote($table),
+                self::quote($column),
                 $default,
-                $connection->quoteIdentifier($column)
+                self::quote($column)
             );
             $connection->executeStatement($sql);
         }
@@ -99,7 +99,7 @@ class EntityDefinitionQueryHelper
     {
         $sql = sprintf(
             "SHOW COLUMNS FROM %s WHERE `Field` LIKE '%s'",
-            $connection->quoteIdentifier($table),
+            self::quote($table),
             $column
         );
         return !empty($connection->fetchOne($sql));
@@ -109,5 +109,10 @@ class EntityDefinitionQueryHelper
     {
         $sql = sprintf("SHOW TABLES LIKE '%s'", $table);
         return !empty($connection->fetchOne($sql));
+    }
+
+    public static function quote(string $string): string
+    {
+        return sprintf("`%s`", trim($string));
     }
 }

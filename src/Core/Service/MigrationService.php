@@ -66,7 +66,13 @@ class MigrationService
         foreach ($pluginTables as $table) {
             $this->log('Processing entity: ' . $table);
 
+            $tableExists = EntityDefinitionQueryHelper::tableExists($this->connection, $table);
+
             if ($this->definitionInstanceRegistry->has($table)) {
+                if (!$tableExists) {
+                    $this->log('Table for definition not found, creating new one', 'warning');
+                }
+
                 $entityDefinition = $this->definitionInstanceRegistry->getByEntityName($table);
 
                 $this->handleQueries(
@@ -76,7 +82,11 @@ class MigrationService
                     $live
                 );
             } else {
-                $this->log('Definition not found', 'error');
+                if ($tableExists) {
+                    $this->log('Definition not found, but table found. Maybe the table can be deleted', 'error');
+                } else {
+                    $this->log('Definition not found', 'error');
+                }
             }
         }
     }
