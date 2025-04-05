@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 
 class EntityDefinitionQueryHelper
@@ -16,14 +17,14 @@ class EntityDefinitionQueryHelper
     {
         try {
             $connection->executeStatement($sql);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             self::handleDbalException($exception, $connection, $sql, $table, $column);
             $connection->executeStatement($sql);
         }
     }
 
     public static function handleDbalException(
-        \Exception $exception,
+        Exception $exception,
         Connection $connection,
         string $sql,
         ?string $table = null,
@@ -55,6 +56,14 @@ class EntityDefinitionQueryHelper
             }
             self::dropIndexIfExists($connection, $table, $column);
         }
+    }
+
+    public static function migrationExists(Connection $connection, string $class): bool
+    {
+        $class = addcslashes($class, '\\_%') . '%';
+        $sql = "SELECT * FROM `migration` WHERE `class` LIKE :class";
+
+        return $connection->executeStatement($sql, ['class' => $class]) > 0;
     }
 
     public static function dropIndexIfExists(Connection $connection, string $table, string $column): void

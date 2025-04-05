@@ -7,12 +7,18 @@ use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\Framework\Plugin;
+use Shopware\Core\Framework\Plugin\KernelPluginCollection;
 use Shopware\Core\Framework\Plugin\PluginCollection;
+use Shopware\Core\Framework\Plugin\PluginEntity;
 use Shopware\Core\Framework\Plugin\PluginLifecycleService;
+use Shopware\Core\Framework\Plugin\Requirement\RequirementsValidator;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,7 +35,9 @@ class CreateMigrationCommand extends Command
     public function __construct(
         private readonly MigrationService $migrationService,
         private readonly EntityRepository $pluginRepo,
-        private readonly PluginLifecycleService $pluginLifecycleService
+        private readonly PluginLifecycleService $pluginLifecycleService,
+        private readonly RequirementsValidator $requirementValidator,
+        private readonly KernelPluginCollection $pluginCollection
     )
     {
         parent::__construct();
@@ -45,7 +53,12 @@ class CreateMigrationCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Mode',
                 MigrationService::MODE_DRY,
-                [MigrationService::MODE_DRY, MigrationService::MODE_LIVE, MigrationService::MODE_FILE]
+                [
+                    MigrationService::MODE_DRY,
+                    MigrationService::MODE_LIVE,
+                    MigrationService::MODE_FILE,
+                    MigrationService::MODE_CLEANUP
+                ]
             )
             ->addOption('drop', 'r', InputOption::VALUE_NONE, 'Allow to drop tables or columns')
             ->addOption('sort', 's', InputOption::VALUE_NONE, 'Sort table columns')
@@ -62,6 +75,8 @@ class CreateMigrationCommand extends Command
             return self::SUCCESS;
         }
 
+        $mode = $input->getOption('mode');
+
         $io->title($plugins->count() . ' plugins found');
 
         $this->migrationService->setIo($io);
@@ -69,22 +84,48 @@ class CreateMigrationCommand extends Command
         foreach ($plugins as $plugin) {
             $io->title('DAL generate migration for ' . $plugin->getName());
 
-            $this->migrationService->createMigration(
+            $actionRequired = $this->migrationService->createMigration(
                 $plugin->getName(),
-                $input->getOption('mode'),
+                $mode,
                 (bool) $input->getOption('drop'),
                 (bool) $input->getOption('sort')
             );
 
             if ($input->getOption('auto')) {
-                $io->text('Updating plugin ' . $plugin->getName());
-
-                $this->pluginLifecycleService->updatePlugin($plugin, $context);
+                if ($mode === MigrationService::MODE_CLEANUP) {
+                    // Used migration files have been deleted. The plugin have to be re-installed
+                    $io->text('Refresh plugin ' . $plugin->getName());
+                    $this->refreshPluginWithDependencies($plugin, $context);
+                } elseif ($mode === MigrationService::MODE_FILE) {
+                    $io->text('Update plugin ' . $plugin->getName());
+                    $this->pluginLifecycleService->updatePlugin($plugin, $context);
+                }
             }
         }
 
-
         return self::SUCCESS;
+    }
+
+    private function refreshPluginWithDependencies(PluginEntity $plugin, Context $context): void
+    {
+        $dependantPlugins = $this->getEntities($this->pluginCollection->all(), $context)->getEntities()->getElements();
+
+        $dependants = $this->requirementValidator->resolveActiveDependants(
+            $plugin,
+            $dependantPlugins
+        );
+
+        foreach ($dependants as $dependant) {
+            $this->pluginLifecycleService->deactivatePlugin($dependant, $context);
+        }
+
+        $this->pluginLifecycleService->uninstallPlugin($plugin, $context);
+        $this->pluginLifecycleService->installPlugin($plugin, $context);
+        $this->pluginLifecycleService->activatePlugin($plugin, $context);
+
+        foreach ($dependants as $dependant) {
+            $this->pluginLifecycleService->activatePlugin($dependant, $context);
+        }
     }
 
     private function parsePluginArgument(array $arguments, Context $context): ?PluginCollection
@@ -92,10 +133,11 @@ class CreateMigrationCommand extends Command
         $plugins = array_unique($arguments);
         $filter = [];
 
+        $criteria = new Criteria();
+        $criteria->addSorting(new FieldSorting('installedAt', FieldSorting::DESCENDING));
+
         // try exact match first
         if (\count($plugins) === 1) {
-            $criteria = new Criteria();
-
             if ($plugins[0] === "_") {
                 return $this->pluginRepo->search($criteria, $context)->getEntities();
             }
@@ -114,8 +156,6 @@ class CreateMigrationCommand extends Command
             $filter[] = new ContainsFilter('name', $plugin);
         }
 
-        $criteria = new Criteria();
-        $criteria->addSorting(new FieldSorting('name'));
         $criteria->addFilter(new MultiFilter(MultiFilter::CONNECTION_OR, $filter));
 
         /** @var PluginCollection $pluginCollection */
@@ -126,5 +166,15 @@ class CreateMigrationCommand extends Command
         }
 
         return $pluginCollection;
+    }
+
+    private function getEntities(array $plugins, Context $context): EntitySearchResult
+    {
+        $names = array_map(static fn (Plugin $plugin) => $plugin->getName(), $plugins);
+
+        return $this->pluginRepo->search(
+            (new Criteria())->addFilter(new EqualsAnyFilter('name', $names)),
+            $context
+        );
     }
 }

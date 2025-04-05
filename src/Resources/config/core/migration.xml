@@ -17,6 +17,8 @@
             <argument type="service" id="MoorlFoundation\Core\Service\MigrationService"/>
             <argument type="service" id="plugin.repository"/>
             <argument type="service" id="Shopware\Core\Framework\Plugin\PluginLifecycleService"/>
+            <argument type="service" id="Shopware\Core\Framework\Plugin\Requirement\RequirementsValidator"/>
+            <argument type="service" id="Shopware\Core\Framework\Plugin\KernelPluginCollection"/>
 
             <tag name="console.command"/>
         </service>

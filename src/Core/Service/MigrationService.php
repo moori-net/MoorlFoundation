@@ -24,6 +24,7 @@ use Shopware\Core\Framework\Util\Hasher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Intl\Exception\ResourceBundleNotFoundException;
 use Twig\Environment;
 
 class MigrationService
@@ -54,7 +55,12 @@ class MigrationService
         $this->io = $io;
     }
 
-    public function createMigration(string $pluginName, string $mode = self::MODE_DRY, bool $drop = false, bool $sort = false): void
+    public function createMigration(
+        string $pluginName,
+        string $mode = self::MODE_DRY,
+        bool $drop = false,
+        bool $sort = false
+    ): bool
     {
         try {
             $this->bundle = $this->kernel->getBundle($pluginName);
@@ -62,14 +68,20 @@ class MigrationService
             $this->log("Caught Exception, quitting...", "critical", [
                 "message" => $exception->getMessage(), "plugin" => $pluginName
             ]);
-            return;
+            return false;
+        }
+
+        if ($mode === self::MODE_CLEANUP) {
+            return $this->cleanup();
         }
 
         $pluginTables = $this->getPluginConstant(get_class($this->bundle), 'PLUGIN_TABLES');
         if (!$pluginTables) {
-            $this->log("No tables found", "error", ["plugin" => $pluginName]);
-            return;
+            $this->log("No tables found", "info", ["plugin" => $pluginName]);
+            return false;
         }
+
+        $actionRequired = false;
 
         foreach ($pluginTables as $table) {
             $this->log('Processing entity: ' . $table);
@@ -83,13 +95,19 @@ class MigrationService
 
                 $entityDefinition = $this->definitionInstanceRegistry->getByEntityName($table);
 
-                $this->handleQueries(
+                if (!str_contains($entityDefinition::class, $this->bundle->getNamespace())) {
+                    throw new ResourceBundleNotFoundException(
+                        sprintf("This entity is not a part of the plugin %s", $pluginName)
+                    );
+                }
+
+                $actionRequired = $this->handleQueries(
                     $this->generateQueries($entityDefinition),
                     $entityDefinition,
                     $mode,
                     $drop,
                     $sort
-                );
+                ) || $actionRequired;
             } else {
                 if ($tableExists) {
                     $this->log('Definition not found, but table found. Maybe the table can be deleted');
@@ -98,6 +116,8 @@ class MigrationService
                 }
             }
         }
+
+        return $actionRequired;
     }
 
     private function handleQueries(
@@ -106,10 +126,10 @@ class MigrationService
         string $mode,
         bool $drop = false,
         bool $sort = false
-    ): void
+    ): bool
     {
         if (empty($queries)) {
-            return;
+            return false;
         }
 
         $queries = is_array($queries) ? $queries : [$queries];
@@ -123,7 +143,7 @@ class MigrationService
         });
 
         if (empty($queries)) {
-            return;
+            return false;
         }
 
         $operations = [];
@@ -131,7 +151,7 @@ class MigrationService
             $operations = array_merge($operations, $this->parseQuery($query, $drop));
         }
         if (empty($operations)) {
-            return;
+            return false;
         }
 
         if ($sort) {
@@ -140,10 +160,11 @@ class MigrationService
 
         if ($mode === self::MODE_DRY) {
             $this->dryRun($operations);
+            return false;
         } else if ($mode === self::MODE_LIVE) {
-            $this->execute($operations, $entityDefinition->getEntityName());
+            return $this->execute($operations, $entityDefinition->getEntityName());
         } else {
-            $this->makeFile($operations, $entityDefinition->getEntityName());
+            return $this->makeFile($operations, $entityDefinition->getEntityName());
         }
     }
 
@@ -259,24 +280,15 @@ class MigrationService
         return $result;
     }
 
-    private function cleanup(array $operations, string $entity): void
+    private function processMigrationDirectory(string $directory, callable $callback): bool
     {
-    }
-
-    private function makeFile(array $operations, string $entity): void
-    {
-        $directory = $this->bundle->getMigrationPath();
-        if (!$this->filesystem->exists($directory)) {
-            $this->filesystem->mkdir($directory);
-        }
-
-        $operationHash = $this->getOperationHash($operations);
-        $namespace = $this->bundle->getMigrationNamespace();
-
         $classFiles = scandir($directory, \SCANDIR_SORT_ASCENDING);
+
         if ($classFiles) {
+            $namespace = $this->bundle->getMigrationNamespace();
+
             foreach ($classFiles as $classFileName) {
-                $path = $directory . '/' . $classFileName;
+                $path = sprintf("%s/%s", $directory, $classFileName);
                 if (pathinfo($path, \PATHINFO_EXTENSION) !== 'php') {
                     continue;
                 }
@@ -291,18 +303,99 @@ class MigrationService
                     continue;
                 }
 
-                $classOperationHash = $this->getPluginConstant($className, 'OPERATION_HASH');
-                if ($classOperationHash && $classOperationHash === $operationHash) {
-                    $this->log(
-                        "An other class with the same operations already exists, skipping...",
-                        "info",
-                        ["constant" => sprintf("%s::OPERATION_HASH", $className), "value" => $operationHash]
-                    );
-                    return;
+                preg_match('/(\d{10,})/', $classFileName, $matches);
+                $classTimestamp = (int) ($matches[1] ?? 0);
+                if ($classTimestamp === 0) {
+                    $this->log("The class have no valid timestamp, skipping...", "error", [
+                        "class" => $className,
+                        'file' => $classFileName,
+                        'matches' => json_encode($matches)
+                    ]);
+                    continue;
+                }
+
+                $this->log(sprintf("Found migration class %s with timestamp %d", $className, $classTimestamp));
+
+                if ($callback($path, $className, $classTimestamp)) {
+                    return true;
                 }
             }
         }
 
+        return false;
+    }
+
+    private function cleanup(): bool
+    {
+        $directory = $this->bundle->getMigrationPath();
+        if (!$this->filesystem->exists($directory)) {
+            return false;
+        }
+
+        $time = $this->now->modify("-3 days");
+        $timestamp = $time->getTimestamp();
+        $actionRequired = false;
+
+        $this->processMigrationDirectory(
+            $directory,
+            function ($path, $className, $classTimestamp) use ($timestamp, &$actionRequired): bool {
+                if ($classTimestamp > $timestamp) {
+                    if (EntityDefinitionQueryHelper::migrationExists($this->connection, $className)) {
+                        $this->log("--- already has been migrated");
+                        $actionRequired = true;
+                    }
+
+                    if (!$this->isValidMigrationFile($path)) {
+                        $this->log("Migration file is not auto generated, skipping...", "error");
+                        return false;
+                    }
+
+                    $this->filesystem->remove($path);
+                    $this->log(sprintf("Removed %s", $path));
+                }
+                return false;
+            }
+        );
+
+        if ($actionRequired) {
+            $this->log("Plugin have to be refreshed", "warning");
+        }
+
+        return $actionRequired;
+    }
+
+    private function isValidMigrationFile(string $path): bool
+    {
+        $content = file_get_contents($path);
+        return str_contains($content, "use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper");
+    }
+
+    private function makeFile(array $operations, string $entity): bool
+    {
+        $directory = $this->bundle->getMigrationPath();
+        if (!$this->filesystem->exists($directory)) {
+            $this->filesystem->mkdir($directory);
+        }
+
+        $operationHash = $this->getOperationHash($operations);
+
+        $hasDuplicate = $this->processMigrationDirectory($directory, function ($path, $className) use ($operationHash): bool {
+            $classOperationHash = $this->getPluginConstant($className, 'OPERATION_HASH');
+            if ($classOperationHash && $classOperationHash === $operationHash) {
+                $this->log(
+                    "An other class with the same operations already exists, skipping...",
+                    "info",
+                    ["constant" => sprintf("%s::OPERATION_HASH", $className), "value" => $operationHash]
+                );
+                return true;
+            }
+            return false;
+        });
+        if ($hasDuplicate) {
+            return false;
+        }
+
+        $namespace = $this->bundle->getMigrationNamespace();
         $timestamp = (string) $this->now->getTimestamp();
         $className = 'Migration' . $timestamp . ucfirst(str_replace('_', '', ucwords($entity, '_')));
         $path = $directory . '/' . $className . '.php';
@@ -328,6 +421,8 @@ class MigrationService
         $this->filesystem->dumpFile($path, $content);
 
         $this->log('Migration file created: ' . $path, 'success');
+
+        return true;
     }
 
     private function getOperationHash(array $operations): string
@@ -393,7 +488,7 @@ class MigrationService
         }
     }
 
-    private function execute(array $operations, string $table): void
+    private function execute(array $operations, string $table): bool
     {
         /** @var OperationStruct $operation */
         foreach ($operations as $operation) {
@@ -401,9 +496,11 @@ class MigrationService
                 $this->handleOperation($operation, $table);
             } catch (\Exception $exception) {
                 $this->log("Caught Exception, quitting...", "critical", $operation->jsonSerialize());
-                exit();
+                return false;
             }
         }
+
+        return true;
     }
 
     private function sortOperations(EntityDefinition $entityDefinition, array $operations): array
