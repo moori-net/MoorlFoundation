@@ -47,6 +47,14 @@ class EntityDefinitionQueryHelper
             // Falls eine Spalte auf NOT NULL gesetzt ist und NULL-Werte enthält,
             // aktualisiere die Daten, indem du den Default-Wert setzt.
             self::updateNotNullTableData($connection, $sql, $table, $column);
+        } elseif ($exception->getCode() === 1170) {
+            // Falls ein Unique-Key hinzugefügt wird, aber bereits ein Index mit gleichem Namen existiert
+            if (!$column) {
+                if (preg_match("/BLOB\/TEXT column '([^']+)'/", $exception->getMessage(), $matches)) {
+                    $column = $matches[1];
+                }
+            }
+            self::dropIndexIfExists($connection, $table, $column);
         } elseif ($exception->getCode() === 1061) {
             // Falls ein Foreign-Key hinzugefügt wird, aber bereits ein Index mit gleichem Namen existiert
             if (!$column) {

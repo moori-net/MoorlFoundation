@@ -26,6 +26,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Shopware\Core\Framework\Plugin\Exception\PluginNotInstalledException;
+use Shopware\Core\Framework\Plugin\Requirement\Exception\RequirementStackException;
+use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
 #[AsCommand(
     name: 'moorl:migration:create',
@@ -112,10 +114,6 @@ class CreateMigrationCommand extends Command
 
     private function refreshPluginWithDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
     {
-        if ($this->uninstalledPlugins->has($plugin->getId())) {
-            return;
-        }
-
         $this->uninstallDependencies($plugin, $context, $io);
     }
 
@@ -128,13 +126,32 @@ class CreateMigrationCommand extends Command
 
     private function installDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
     {
+        $dependencies = [];
+
+        try {
+            $this->requirementValidator->validateRequirements($plugin, $context, 'install');
+        } catch (RequirementStackException $exception) {
+            /** @var MissingRequirementException $requirement */
+            foreach ($exception->getRequirements() as $requirement) {
+                $composerName = $requirement->getParameter('requirement');
+                $dependency = $this->getByComposerName($composerName, $context);
+                if (!$dependency) {
+                    $io->warning(sprintf("Dependency not found: %s", $composerName));
+                    continue;
+                }
+                $dependencies[] = $dependency;
+                $this->uninstalledPlugins->add($dependency);
+            }
+        }
+
         if (!$this->uninstalledPlugins->has($plugin->getId())) {
             return;
         }
 
-        foreach ($this->getDependantPlugins($plugin, $context) as $dependant) {
-            $this->installDependencies($dependant, $context, $io);
+        foreach ($dependencies as $dependency) {
+            $this->installDependencies($dependency, $context, $io);
         }
+
         $io->text('Install plugin ' . $plugin->getName());
         $this->pluginLifecycleService->installPlugin($plugin, $context);
         $io->text('Activate plugin ' . $plugin->getName());
@@ -144,12 +161,11 @@ class CreateMigrationCommand extends Command
 
     private function uninstallDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
     {
-        if ($this->uninstalledPlugins->has($plugin->getId())) {
-            return;
-        }
-
         foreach ($this->getDependantPlugins($plugin, $context) as $dependant) {
             $this->uninstallDependencies($dependant, $context, $io);
+        }
+        if ($this->uninstalledPlugins->has($plugin->getId())) {
+            return;
         }
 
         $io->text('Uninstall plugin ' . $plugin->getName());
@@ -165,6 +181,7 @@ class CreateMigrationCommand extends Command
     private function getDependantPlugins(PluginEntity $plugin, Context $context): array
     {
         $dependantPlugins = $this->getEntities($this->pluginCollection->all(), $context)->getEntities()->getElements();
+
         return $this->requirementValidator->resolveActiveDependants(
             $plugin,
             $dependantPlugins
@@ -219,5 +236,13 @@ class CreateMigrationCommand extends Command
             (new Criteria())->addFilter(new EqualsAnyFilter('name', $names)),
             $context
         );
+    }
+
+    private function getByComposerName(string $composerName, Context $context): ?PluginEntity
+    {
+        return $this->pluginRepo->search(
+            (new Criteria())->addFilter(new EqualsFilter('composerName', $composerName)),
+            $context
+        )->first();
     }
 }
