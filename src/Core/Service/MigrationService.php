@@ -18,6 +18,9 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StorageAware;
+use Shopware\Core\Framework\Migration\Exception\InvalidMigrationClassException;
+use Shopware\Core\Framework\Migration\MigrationStep;
+use Shopware\Core\Framework\Util\Hasher;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -25,6 +28,11 @@ use Twig\Environment;
 
 class MigrationService
 {
+    public const MODE_DRY = 'dry';
+    public const MODE_LIVE = 'live';
+    public const MODE_FILE = 'file';
+    public const MODE_CLEANUP = 'cleanup'; // Remove not processed migration files
+
     private BundleInterface $bundle;
     private ?ShopwareStyle $io = null;
 
@@ -46,26 +54,20 @@ class MigrationService
         $this->io = $io;
     }
 
-    public function createMigration(
-        string $bundleName,
-        bool $drop = false,
-        bool $live = false,
-        bool $sort = false,
-        bool $dry = false
-    ): void
+    public function createMigration(string $pluginName, string $mode = self::MODE_DRY, bool $drop = false, bool $sort = false): void
     {
         try {
-            $this->bundle = $this->kernel->getBundle($bundleName);
+            $this->bundle = $this->kernel->getBundle($pluginName);
         } catch (\Exception $exception) {
             $this->log("Caught Exception, quitting...", "critical", [
-                "message" => $exception->getMessage(), "bundle" => $bundleName
+                "message" => $exception->getMessage(), "plugin" => $pluginName
             ]);
             return;
         }
 
         $pluginTables = $this->getPluginConstant(get_class($this->bundle), 'PLUGIN_TABLES');
         if (!$pluginTables) {
-            $this->log("No tables found", "error", ["bundle" => $bundleName]);
+            $this->log("No tables found", "error", ["plugin" => $pluginName]);
             return;
         }
 
@@ -84,10 +86,9 @@ class MigrationService
                 $this->handleQueries(
                     $this->generateQueries($entityDefinition),
                     $entityDefinition,
+                    $mode,
                     $drop,
-                    $live,
-                    $sort,
-                    $dry
+                    $sort
                 );
             } else {
                 if ($tableExists) {
@@ -102,10 +103,9 @@ class MigrationService
     private function handleQueries(
         array|string $queries,
         EntityDefinition $entityDefinition,
+        string $mode,
         bool $drop = false,
-        bool $live = false,
-        bool $sort = false,
-        bool $dry = false
+        bool $sort = false
     ): void
     {
         if (empty($queries)) {
@@ -138,9 +138,9 @@ class MigrationService
             $this->sortOperations($entityDefinition, $operations);
         }
 
-        if ($dry) {
+        if ($mode === self::MODE_DRY) {
             $this->dryRun($operations);
-        } else if ($live) {
+        } else if ($mode === self::MODE_LIVE) {
             $this->execute($operations, $entityDefinition->getEntityName());
         } else {
             $this->makeFile($operations, $entityDefinition->getEntityName());
@@ -259,6 +259,10 @@ class MigrationService
         return $result;
     }
 
+    private function cleanup(array $operations, string $entity): void
+    {
+    }
+
     private function makeFile(array $operations, string $entity): void
     {
         $directory = $this->bundle->getMigrationPath();
@@ -266,8 +270,40 @@ class MigrationService
             $this->filesystem->mkdir($directory);
         }
 
-        $timestamp = (string) $this->now->getTimestamp();
+        $operationHash = $this->getOperationHash($operations);
         $namespace = $this->bundle->getMigrationNamespace();
+
+        $classFiles = scandir($directory, \SCANDIR_SORT_ASCENDING);
+        if ($classFiles) {
+            foreach ($classFiles as $classFileName) {
+                $path = $directory . '/' . $classFileName;
+                if (pathinfo($path, \PATHINFO_EXTENSION) !== 'php') {
+                    continue;
+                }
+
+                $className = $namespace . '\\' . pathinfo($classFileName, \PATHINFO_FILENAME);
+
+                if (!class_exists($className) && !trait_exists($className) && !interface_exists($className)) {
+                    throw new InvalidMigrationClassException($className, $path);
+                }
+
+                if (!is_subclass_of($className, MigrationStep::class, true)) {
+                    continue;
+                }
+
+                $classOperationHash = $this->getPluginConstant($className, 'OPERATION_HASH');
+                if ($classOperationHash && $classOperationHash === $operationHash) {
+                    $this->log(
+                        "An other class with the same operations already exists, skipping...",
+                        "info",
+                        ["constant" => sprintf("%s::OPERATION_HASH", $className), "value" => $operationHash]
+                    );
+                    return;
+                }
+            }
+        }
+
+        $timestamp = (string) $this->now->getTimestamp();
         $className = 'Migration' . $timestamp . ucfirst(str_replace('_', '', ucwords($entity, '_')));
         $path = $directory . '/' . $className . '.php';
 
@@ -280,6 +316,7 @@ class MigrationService
         $template = $this->twig->createTemplate($stub);
 
         $data = [
+            'operationHash' => $operationHash,
             'namespace' => $namespace,
             'className' => $className,
             'timestamp' => $timestamp,
@@ -291,6 +328,15 @@ class MigrationService
         $this->filesystem->dumpFile($path, $content);
 
         $this->log('Migration file created: ' . $path, 'success');
+    }
+
+    private function getOperationHash(array $operations): string
+    {
+        $parts = array_map(function (OperationStruct $operation) {
+            return $operation->getQuery();
+        }, $operations);
+
+        return Hasher::hash($parts);
     }
 
     private function handleOperation(OperationStruct $operation, string $table): void
@@ -362,32 +408,26 @@ class MigrationService
 
     private function sortOperations(EntityDefinition $entityDefinition, array $operations): array
     {
-        // Höchste Priorität: Element-Typen
         $sortedElTypes = [OperationStruct::TABLE, OperationStruct::COLUMN, OperationStruct::CONSTRAINT];
-        // Mittlere Priorität: Operation-Typen
         $sortedOpTypes = [OperationStruct::DROP, OperationStruct::ADD, OperationStruct::CREATE, OperationStruct::MODIFY, OperationStruct::CHANGE];
-        // Niedrigste Priorität: Reihenfolge der Spalten (wie in $sortedColumns definiert)
         $sortedColumns = $this->getSortedStorageFields($entityDefinition->getFields());
 
         usort($operations, function(OperationStruct $a, OperationStruct $b) use ($sortedElTypes, $sortedOpTypes, $sortedColumns) {
-            // 1. Vergleich: Element-Typen
             $posA = array_search($a->getElType(), $sortedElTypes);
             $posB = array_search($b->getElType(), $sortedElTypes);
             if ($posA !== $posB) {
                 return $posA - $posB;
             }
 
-            // 2. Vergleich: Operation-Typen
             $posA = array_search($a->getOpType(), $sortedOpTypes);
             $posB = array_search($b->getOpType(), $sortedOpTypes);
             if ($posA !== $posB) {
                 return $posA - $posB;
             }
 
-            // 3. Vergleich: Spalten-Reihenfolge
             $posA = array_search($a->getColumn(), $sortedColumns);
             $posB = array_search($b->getColumn(), $sortedColumns);
-            // Falls die Spalte nicht gefunden wird, wird sie ans Ende sortiert
+
             $posA = $posA === false ? PHP_INT_MAX : $posA;
             $posB = $posB === false ? PHP_INT_MAX : $posB;
 
@@ -448,7 +488,6 @@ class MigrationService
 
     private function getSortedStorageFields(CompiledFieldCollection $fields): array
     {
-        // Filter and clone storage fields
         $storageFields = $fields->filter(function (Field $field) {
             return $field instanceof StorageAware && !$field->is(Runtime::class);
         });
@@ -458,7 +497,6 @@ class MigrationService
             return $order !== 0 ? $order : strnatcasecmp($a->getStorageName(), $b->getStorageName());
         });
 
-        // Return storage names as array
         return array_values($storageFields->fmap(function (StorageAware $field) {
             return $field->getStorageName();
         }));

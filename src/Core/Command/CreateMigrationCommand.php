@@ -39,9 +39,15 @@ class CreateMigrationCommand extends Command
     {
         $this
             ->addArgument('plugins', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Plugins')
-            ->addOption('dry', 'd', InputOption::VALUE_NONE, 'Dry run (simulate)')
-            ->addOption('live', 'l', InputOption::VALUE_NONE, 'Live migration (do not create files)')
-            ->addOption('drop', null, InputOption::VALUE_NONE, 'Allow to drop tables or columns')
+            ->addOption(
+                'mode',
+                'm',
+                InputOption::VALUE_REQUIRED,
+                'Mode',
+                MigrationService::MODE_DRY,
+                [MigrationService::MODE_DRY, MigrationService::MODE_LIVE, MigrationService::MODE_FILE]
+            )
+            ->addOption('drop', 'r', InputOption::VALUE_NONE, 'Allow to drop tables or columns')
             ->addOption('sort', 's', InputOption::VALUE_NONE, 'Sort table columns')
             ->addOption('auto', 'a', InputOption::VALUE_NONE, 'Auto update plugin');
     }
@@ -56,6 +62,8 @@ class CreateMigrationCommand extends Command
             return self::SUCCESS;
         }
 
+        $io->title($plugins->count() . ' plugins found');
+
         $this->migrationService->setIo($io);
 
         foreach ($plugins as $plugin) {
@@ -63,15 +71,10 @@ class CreateMigrationCommand extends Command
 
             $this->migrationService->createMigration(
                 $plugin->getName(),
+                $input->getOption('mode'),
                 (bool) $input->getOption('drop'),
-                (bool) $input->getOption('live'),
-                (bool) $input->getOption('sort'),
-                (bool) $input->getOption('dry')
+                (bool) $input->getOption('sort')
             );
-
-            if ($input->getOption('dry')) {
-                continue;
-            }
 
             if ($input->getOption('auto')) {
                 $io->text('Updating plugin ' . $plugin->getName());
@@ -79,6 +82,7 @@ class CreateMigrationCommand extends Command
                 $this->pluginLifecycleService->updatePlugin($plugin, $context);
             }
         }
+
 
         return self::SUCCESS;
     }
@@ -92,7 +96,7 @@ class CreateMigrationCommand extends Command
         if (\count($plugins) === 1) {
             $criteria = new Criteria();
 
-            if ($plugins[0] === "*") {
+            if ($plugins[0] === "_") {
                 return $this->pluginRepo->search($criteria, $context)->getEntities();
             }
 

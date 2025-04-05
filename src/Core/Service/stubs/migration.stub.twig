@@ -9,6 +9,8 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 
 class {{ className }} extends MigrationStep
 {
+    public const OPERATION_HASH = '{{ operationHash }}';
+
     public function getCreationTimestamp(): int
     {
         return {{ timestamp }};
