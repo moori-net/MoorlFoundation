@@ -25,6 +25,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Shopware\Core\Framework\Plugin\Exception\PluginNotInstalledException;
 
 #[AsCommand(
     name: 'moorl:migration:create',
@@ -37,7 +38,8 @@ class CreateMigrationCommand extends Command
         private readonly EntityRepository $pluginRepo,
         private readonly PluginLifecycleService $pluginLifecycleService,
         private readonly RequirementsValidator $requirementValidator,
-        private readonly KernelPluginCollection $pluginCollection
+        private readonly KernelPluginCollection $pluginCollection,
+        private PluginCollection $uninstalledPlugins = new PluginCollection()
     )
     {
         parent::__construct();
@@ -91,11 +93,11 @@ class CreateMigrationCommand extends Command
                 (bool) $input->getOption('sort')
             );
 
-            if ($input->getOption('auto')) {
+            if ($actionRequired && $input->getOption('auto')) {
                 if ($mode === MigrationService::MODE_CLEANUP) {
                     // Used migration files have been deleted. The plugin have to be re-installed
                     $io->text('Refresh plugin ' . $plugin->getName());
-                    $this->refreshPluginWithDependencies($plugin, $context);
+                    $this->refreshPluginWithDependencies($plugin, $context, $io);
                 } elseif ($mode === MigrationService::MODE_FILE) {
                     $io->text('Update plugin ' . $plugin->getName());
                     $this->pluginLifecycleService->updatePlugin($plugin, $context);
@@ -103,29 +105,70 @@ class CreateMigrationCommand extends Command
             }
         }
 
+        $this->installAll($context, $io);
+
         return self::SUCCESS;
     }
 
-    private function refreshPluginWithDependencies(PluginEntity $plugin, Context $context): void
+    private function refreshPluginWithDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
+    {
+        if ($this->uninstalledPlugins->has($plugin->getId())) {
+            return;
+        }
+
+        $this->uninstallDependencies($plugin, $context, $io);
+    }
+
+    private function installAll(Context $context, ShopwareStyle $io): void
+    {
+        foreach ($this->uninstalledPlugins as $disabledPlugin) {
+            $this->installDependencies($disabledPlugin, $context, $io);
+        }
+    }
+
+    private function installDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
+    {
+        if (!$this->uninstalledPlugins->has($plugin->getId())) {
+            return;
+        }
+
+        foreach ($this->getDependantPlugins($plugin, $context) as $dependant) {
+            $this->installDependencies($dependant, $context, $io);
+        }
+        $io->text('Install plugin ' . $plugin->getName());
+        $this->pluginLifecycleService->installPlugin($plugin, $context);
+        $io->text('Activate plugin ' . $plugin->getName());
+        $this->pluginLifecycleService->activatePlugin($plugin, $context);
+        $this->uninstalledPlugins->remove($plugin->getId());
+    }
+
+    private function uninstallDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
+    {
+        if ($this->uninstalledPlugins->has($plugin->getId())) {
+            return;
+        }
+
+        foreach ($this->getDependantPlugins($plugin, $context) as $dependant) {
+            $this->uninstallDependencies($dependant, $context, $io);
+        }
+
+        $io->text('Uninstall plugin ' . $plugin->getName());
+
+        try {
+            $this->pluginLifecycleService->uninstallPlugin($plugin, $context);
+        } catch (PluginNotInstalledException $exception) {
+        }
+
+        $this->uninstalledPlugins->add($plugin);
+    }
+
+    private function getDependantPlugins(PluginEntity $plugin, Context $context): array
     {
         $dependantPlugins = $this->getEntities($this->pluginCollection->all(), $context)->getEntities()->getElements();
-
-        $dependants = $this->requirementValidator->resolveActiveDependants(
+        return $this->requirementValidator->resolveActiveDependants(
             $plugin,
             $dependantPlugins
         );
-
-        foreach ($dependants as $dependant) {
-            $this->pluginLifecycleService->deactivatePlugin($dependant, $context);
-        }
-
-        $this->pluginLifecycleService->uninstallPlugin($plugin, $context);
-        $this->pluginLifecycleService->installPlugin($plugin, $context);
-        $this->pluginLifecycleService->activatePlugin($plugin, $context);
-
-        foreach ($dependants as $dependant) {
-            $this->pluginLifecycleService->activatePlugin($dependant, $context);
-        }
     }
 
     private function parsePluginArgument(array $arguments, Context $context): ?PluginCollection
