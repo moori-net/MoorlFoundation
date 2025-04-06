@@ -63,14 +63,27 @@ class EntityDefinitionQueryHelper
                 }
             }
             self::dropIndexIfExists($connection, $table, $column);
+        } elseif ($exception->getCode() === 1822) {
+            // Fehler in der SQL-Abfrage (1822): Failed to add the foreign key constraint. Missing index for constraint
+            if (preg_match("/in the referenced table '([^']+)'/", $exception->getMessage(), $matches)) {
+                self::makeVersionPrimaryKey($connection, $matches[1]);
+            }
         }
+    }
+
+    public static function makeVersionPrimaryKey(Connection $connection, string $table)
+    {
+        $sql = sprintf(
+            "ALTER TABLE %s ADD PRIMARY KEY `PRIMARY` (`id`, `version_id`), DROP INDEX `PRIMARY`;",
+            self::quote($table)
+        );
+        $connection->executeStatement($sql);
     }
 
     public static function migrationExists(Connection $connection, string $class): bool
     {
         $class = addcslashes($class, '\\_%') . '%';
         $sql = "SELECT * FROM `migration` WHERE `class` LIKE :class";
-
         return $connection->executeStatement($sql, ['class' => $class]) > 0;
     }
 
