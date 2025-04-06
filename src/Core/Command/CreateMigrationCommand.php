@@ -7,12 +7,6 @@ use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\ContainsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\KernelPluginCollection;
 use Shopware\Core\Framework\Plugin\PluginCollection;
@@ -35,13 +29,16 @@ use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementExcep
 )]
 class CreateMigrationCommand extends Command
 {
+    public const ALL_PLUGINS = 'all';
+
     public function __construct(
         private readonly MigrationService $migrationService,
         private readonly EntityRepository $pluginRepo,
         private readonly PluginLifecycleService $pluginLifecycleService,
         private readonly RequirementsValidator $requirementValidator,
         private readonly KernelPluginCollection $pluginCollection,
-        private PluginCollection $uninstalledPlugins = new PluginCollection()
+        private readonly PluginCollection $uninstalledPlugins = new PluginCollection(),
+        private ?PluginCollection $allPlugins = null
     )
     {
         parent::__construct();
@@ -134,7 +131,7 @@ class CreateMigrationCommand extends Command
             /** @var MissingRequirementException $requirement */
             foreach ($exception->getRequirements() as $requirement) {
                 $composerName = $requirement->getParameter('requirement');
-                $dependency = $this->getByComposerName($composerName, $context);
+                $dependency = $this->getByComposerName($composerName);
                 if (!$dependency) {
                     $io->warning(sprintf("Dependency not found: %s", $composerName));
                     continue;
@@ -161,9 +158,10 @@ class CreateMigrationCommand extends Command
 
     private function uninstallDependencies(PluginEntity $plugin, Context $context, ShopwareStyle $io): void
     {
-        foreach ($this->getDependantPlugins($plugin, $context) as $dependant) {
+        foreach ($this->getDependantPlugins($plugin) as $dependant) {
             $this->uninstallDependencies($dependant, $context, $io);
         }
+
         if ($this->uninstalledPlugins->has($plugin->getId())) {
             return;
         }
@@ -178,71 +176,44 @@ class CreateMigrationCommand extends Command
         $this->uninstalledPlugins->add($plugin);
     }
 
-    private function getDependantPlugins(PluginEntity $plugin, Context $context): array
+    private function getDependantPlugins(PluginEntity $plugin): array
     {
-        $dependantPlugins = $this->getEntities($this->pluginCollection->all(), $context)->getEntities()->getElements();
-
         return $this->requirementValidator->resolveActiveDependants(
             $plugin,
-            $dependantPlugins
+            $this->getEntities($this->pluginCollection->all())->getElements()
         );
     }
 
     private function parsePluginArgument(array $arguments, Context $context): ?PluginCollection
     {
         $plugins = array_unique($arguments);
-        $filter = [];
-
         $criteria = new Criteria();
-        $criteria->addSorting(new FieldSorting('installedAt', FieldSorting::DESCENDING));
+        $this->allPlugins = $this->pluginRepo->search($criteria, $context)->getEntities();
 
-        // try exact match first
-        if (\count($plugins) === 1) {
-            if ($plugins[0] === "_") {
-                return $this->pluginRepo->search($criteria, $context)->getEntities();
-            }
-
-            $criteria->addFilter(new EqualsFilter('name', $plugins[0]));
-
-            /** @var PluginCollection $matches */
-            $matches = $this->pluginRepo->search($criteria, $context)->getEntities();
-
-            if ($matches->count() === 1) {
-                return $matches;
-            }
+        if (\count($plugins) === 1 && $plugins[0] === self::ALL_PLUGINS) {
+            return $this->allPlugins;
         }
 
-        foreach ($plugins as $plugin) {
-            $filter[] = new ContainsFilter('name', $plugin);
-        }
-
-        $criteria->addFilter(new MultiFilter(MultiFilter::CONNECTION_OR, $filter));
-
-        /** @var PluginCollection $pluginCollection */
-        $pluginCollection = $this->pluginRepo->search($criteria, $context)->getEntities();
-
-        if ($pluginCollection->count() <= 1) {
-            return $pluginCollection;
-        }
-
-        return $pluginCollection;
+        return $this->allPlugins->filter(fn (PluginEntity $plugin) => in_array(
+            $plugin->getName(),
+            $plugins
+        ));
     }
 
-    private function getEntities(array $plugins, Context $context): EntitySearchResult
+    private function getEntities(array $plugins): PluginCollection
     {
         $names = array_map(static fn (Plugin $plugin) => $plugin->getName(), $plugins);
 
-        return $this->pluginRepo->search(
-            (new Criteria())->addFilter(new EqualsAnyFilter('name', $names)),
-            $context
-        );
+        return $this->allPlugins->filter(fn (PluginEntity $plugin) => in_array(
+            $plugin->getName(),
+            $names
+        ));
     }
 
-    private function getByComposerName(string $composerName, Context $context): ?PluginEntity
+    private function getByComposerName(string $composerName): ?PluginEntity
     {
-        return $this->pluginRepo->search(
-            (new Criteria())->addFilter(new EqualsFilter('composerName', $composerName)),
-            $context
-        )->first();
+        return $this->allPlugins->firstWhere(fn (PluginEntity $plugin) =>
+            $plugin->getComposerName() === $composerName
+        );
     }
 }
