@@ -6,6 +6,7 @@ use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Types;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\DoubleField;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\Unique;
 use Shopware\Core\Content\Cms\DataAbstractionLayer\Field\SlotConfigField;
 use Shopware\Core\Content\Flow\DataAbstractionLayer\Field\FlowTemplateConfigField;
 use Shopware\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceField;
@@ -38,6 +39,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\EmailField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\EnumField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Field;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowEmptyString;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
@@ -282,6 +284,10 @@ class SchemaBuilderExtension extends SchemaBuilder
 
         if ($field instanceof VersionField || $field instanceof ReferenceVersionField) {
             $options['default'] = sprintf("0x%s", strtoupper(Defaults::LIVE_VERSION));
+        }
+
+        if ($field->is(Unique::class) || $field->is(AllowEmptyString::class)) {
+            unset($options['default']);
         }
 
         return $options;
