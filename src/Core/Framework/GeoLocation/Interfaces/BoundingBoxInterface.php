@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Framework\GeoLocation\Interfaces;
 
 use MoorlFoundation\Core\Framework\GeoLocation\GeoPoint;
-use MoorlFoundation\Core\Framework\GeoLocation;
 
 interface BoundingBoxInterface {
   public function __construct($geopoint, $distance, $unit_of_measurement);

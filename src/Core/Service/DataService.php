@@ -2,12 +2,12 @@
 
 namespace MoorlFoundation\Core\Service;
 
-use Doctrine\DBAL\Driver\PDO\Exception;
-use League\Flysystem\Filesystem;
-use MoorlFoundation\Core\System\DataInterface;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\PDO\Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use League\Flysystem\Filesystem;
+use MoorlFoundation\Core\System\DataInterface;
 use Shopware\Core\Content\MailTemplate\MailTemplateActions;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;

@@ -2,10 +2,10 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
+use Mautic\Auth\ApiAuth;
 use MoorlFormsMautic\Api\Contacts;
 use MoorlFoundation\Core\Service\ClientService;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
-use Mautic\Auth\ApiAuth;
 
 class ClientMautic extends ClientExtension implements ClientInterface
 {

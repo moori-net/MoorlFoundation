@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Content\Cms\SalesChannel\Struct;
 
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntityAddressTrait;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\EntityOpeningHoursTrait;
 use Shopware\Core\Framework\Struct\Struct;
 

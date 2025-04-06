@@ -4,8 +4,8 @@ namespace MoorlFoundation\Core\Framework\Twig;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class ListingExtension extends AbstractExtension
 {

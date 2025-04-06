@@ -3,8 +3,8 @@
 namespace MoorlFoundation\Migration;
 
 use Doctrine\DBAL\Connection;
-use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Migration\InheritanceUpdaterTrait;
+use Shopware\Core\Framework\Migration\MigrationStep;
 
 class Migration1616141231 extends MigrationStep
 {

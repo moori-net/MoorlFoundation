@@ -1,7 +1,6 @@
 <?php
 namespace MoorlFoundation\Core\Framework\GeoLocation;
 
-use MoorlFoundation\Core\Framework\GeoLocation\Earth;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\InvalidArgumentException;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\InvalidBoundingBoxCoordinatesException;
 

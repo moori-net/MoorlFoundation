@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Content\Cms\DataResolver\Element;
 
 use MoorlFoundation\Core\Content\Cms\DataResolver\FoundationCmsElementResolver;
-use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\AddressStruct;
 use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\OpeningHoursStruct;
 use Shopware\Core\Framework\Struct\Struct;
 

@@ -2,9 +2,9 @@
 
 namespace MoorlFoundation\Core\Content\Client;
 
+use HubSpot\Factory;
 use MoorlFoundation\Core\Service\ClientService;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
-use HubSpot\Factory;
 
 class ClientHubspot extends ClientExtension implements ClientInterface
 {

@@ -1,8 +1,7 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import DomAccess from 'src/helper/dom-access.helper';
 import L from 'leaflet';
-import { GestureHandling } from "leaflet-gesture-handling";
-import {COOKIE_CONFIGURATION_UPDATE} from 'src/plugin/cookie/cookie-configuration.plugin';
+import {GestureHandling} from "leaflet-gesture-handling";
 import CookieStorageHelper from 'src/helper/storage/cookie-storage.helper';
 
 export default class MoorlLocationPlugin extends Plugin {

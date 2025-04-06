@@ -2,12 +2,12 @@
 
 namespace MoorlFoundation\Core\Content\Cms;
 
+use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Formatter\Expanded;
 use Shopware\Core\Content\Category\CategoryEntity;
 use Shopware\Core\Content\Cms\SalesChannel\Struct\ImageStruct;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Product\ProductEntity;
-use ScssPhp\ScssPhp\Compiler;
-use ScssPhp\ScssPhp\Formatter\Expanded;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 
 class CtaBannerStruct extends ImageStruct

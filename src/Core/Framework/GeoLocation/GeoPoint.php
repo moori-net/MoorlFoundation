@@ -2,11 +2,8 @@
 
 namespace MoorlFoundation\Core\Framework\GeoLocation;
 
-use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\NoApiKeyException;
-use MoorlFoundation\Core\Framework\GeoLocation\Polygon;
 use MoorlFoundation\Core\Framework\GeoLocation\Base\GeoLocation;
-use MoorlFoundation\Core\Framework\GeoLocation\Earth;
-use MoorlFoundation\Core\Framework\GeoLocation\BoundingBox;
+use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\NoApiKeyException;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\OutOfBoundsException;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\UnexpectedResponseException;
 

@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Content\ImageMap;
 
-use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 
 /**

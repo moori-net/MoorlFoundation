@@ -2,8 +2,6 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
-use Shopware\Core\Content\Cms\CmsPageEntity;
-
 trait EntityThingPageTranslationTrait
 {
     protected ?array $slotConfig = null;
