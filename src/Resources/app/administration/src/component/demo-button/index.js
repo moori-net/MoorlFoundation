@@ -37,19 +37,7 @@ Component.register('moorl-demo-button', {
         };
     },
 
-    computed: {},
-
-    created() {
-        this.createdComponent();
-    },
-
     methods: {
-        createdComponent() {
-            if (!this.acl.can('system.system_config')) {
-                return;
-            }
-        },
-
         openModal() {
             if (!this.acl.can('system.system_config')) {
                 return;
