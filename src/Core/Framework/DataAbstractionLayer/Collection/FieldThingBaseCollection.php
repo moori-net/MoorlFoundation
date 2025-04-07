@@ -25,7 +25,7 @@ class FieldThingBaseCollection extends FieldCollection
     public static function getTranslatedFieldItems(): array
     {
         return [
-            (new StringField('name', 'name'))->addFlags(new Required()),
+            (new StringField('name', 'name'))->addFlags(),
             (new LongTextField('description', 'description'))->addFlags(new AllowHtml(false)),
             new LongTextField('keywords', 'keywords')
         ];
