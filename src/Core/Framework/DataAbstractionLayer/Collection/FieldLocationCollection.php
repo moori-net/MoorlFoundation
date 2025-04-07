@@ -33,7 +33,7 @@ class FieldLocationCollection extends FieldCollection
         return [
             'locationLat' => 0,
             'locationLon' => 0,
-            'autoLocation' => true
+            'autoLocation' => false
         ];
     }
 }
