@@ -19,6 +19,7 @@ class EntityDefinitionQueryHelper
             $connection->executeStatement($sql);
         } catch (Exception $exception) {
             self::handleDbalException($exception, $connection, $sql, $table, $column);
+
             $connection->executeStatement($sql);
         }
     }
