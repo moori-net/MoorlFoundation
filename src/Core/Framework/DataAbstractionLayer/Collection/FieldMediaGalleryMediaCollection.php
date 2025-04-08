@@ -49,7 +49,7 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
             (new FkField($referenceEd->getFkStorageName(), $referenceEd->getFkPropertyName(), $referenceClass))
                 ->addFlags(new ApiAware(), new Required()),
             (new IntField('position', 'position'))
-                ->addFlags(new ApiAware(), new Required()),
+                ->addFlags(new ApiAware()),
             (new CustomFields())
                 ->addFlags(new ApiAware()),
             (new ManyToOneAssociationField($referenceEd->getPropertyName(), $referenceEd->getFkStorageName(), $referenceClass))
