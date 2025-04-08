@@ -82,44 +82,49 @@ class FieldMultiEntityCollection extends FieldCollection
         return $fieldItems;
     }
 
-    public static function getOneToManyFieldItems(string $parentClass, array $referenceClasses): array
+    public static function getOneToManyFieldItems(string $localClass, array $referenceClasses): array
     {
-        $parentEd = ExtractedDefinition::get(class: $parentClass);
+        $localEd = ExtractedDefinition::get(class: $localClass);
 
         $fieldItems = [];
 
         foreach ($referenceClasses as $referenceClass) {
-            $ed = ExtractedDefinition::get(
+            $referenceEd = ExtractedDefinition::get(
                 class: $referenceClass
             );
 
             $fieldItems[] = (new OneToManyAssociationField(
-                $ed->getCollectionName(),
+                $referenceEd->getCollectionName(),
                 $referenceClass,
-                $parentEd->getReferenceField()
+                $localEd->getFkStorageName()
             ))->addFlags(new ApiAware(), new CascadeDelete());
         }
 
         return $fieldItems;
     }
 
-    public static function getManyToManyFieldItems(string $parentClass, array $references): array
+    public static function getManyToManyFieldItems(string $localClass, array $references): array
     {
-        $parentEd = ExtractedDefinition::get(class: $parentClass);
+        $localEd = ExtractedDefinition::get(
+            class: $localClass
+        );
 
         $fieldItems = [];
 
-        foreach ($references as [$toManyDefinitionClass, $mappingDefinition, $flags]) {
-            $ed = ExtractedDefinition::get(
+        foreach ($references as [$referenceClass, $mappingDefinition, $flags]) {
+            $referenceEd = ExtractedDefinition::get(
+                class: $referenceClass
+            );
+            $mappingEd = ExtractedDefinition::get(
                 class: $mappingDefinition
             );
 
             $fieldItems[] = (new ManyToManyAssociationField(
-                $ed->getCollectionName(),
-                $toManyDefinitionClass,
+                $mappingEd->getCollectionName(),
+                $referenceClass,
                 $mappingDefinition,
-                $parentEd->getFkStorageName(),
-                $ed->getFkStorageName())
+                $localEd->getFkStorageName(),
+                $referenceEd->getFkStorageName())
             )->addFlags(new ApiAware(), new CascadeDelete(), ...$flags);
         }
 

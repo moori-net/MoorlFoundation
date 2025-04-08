@@ -14,6 +14,7 @@ final class ExtractedDefinition
 {
     private const SEP = '_';
     private const ID = 'id';
+
     private static array $cache = [];
     private static array $versionDefinitions = [
         CategoryDefinition::class,
@@ -22,94 +23,56 @@ final class ExtractedDefinition
         CmsBlockDefinition::class,
         CmsSlotDefinition::class
     ];
+
     protected string $entityName;
     protected string $propertyName;
     protected string $collectionName;
     protected string $fkStorageName;
     protected string $fkPropertyName;
-    protected string $referenceField;
     protected string $extensionPropertyName;
     protected string $extensionCollectionName;
 
-    public function __construct(
-        string $class,
-        bool $entityName = true,
-        bool $propertyName = false,
-        bool $collectionName = false,
-        bool $fkStorageName = false,
-        bool $fkPropertyName = false,
-        bool $referenceField = false,
-        bool $extensionPropertyName = false,
-        bool $extensionCollectionName = false,
-        ?string $replace = null,
-        ?string $append = null,
-        bool $debug = false
-    )
+    public function __construct(string $class,)
     {
-        if (!defined("{$class}::ENTITY_NAME")) {
-            throw new DefinitionNotFoundException($class);
+        $entity = self::tryGetPluginConstant(
+            "{$class}::ENTITY_NAME",
+            fn() => throw new DefinitionNotFoundException($class)
+        );
+
+        $this->entityName = $entity;
+
+        $this->propertyName = self::tryGetPluginConstant(
+            "{$class}::PROPERTY_NAME",
+            fn() => self::kebabCaseToCamelCase($entity)
+        );
+
+        $this->collectionName = self::tryGetPluginConstant(
+            "{$class}::COLLECTION_NAME",
+            fn() => self::kebabCaseToCamelCase(self::getPluralName($this->propertyName))
+        );
+
+        $extensionPrefix = explode(self::SEP, $entity)[0];
+        if (str_starts_with($this->propertyName, $extensionPrefix)) {
+            $extensionPrefix = "";
         }
 
-        $entity = $class::ENTITY_NAME;
+        $this->extensionPropertyName = self::tryGetPluginConstant(
+            "{$class}::EXTENSION_PROPERTY_NAME",
+            fn() => self::kebabCaseToCamelCase(
+                $this->propertyName ? $extensionPrefix . self::SEP . $this->propertyName : $entity
+            )
+        );
 
-        if ($debug || $entityName || $referenceField) {
-            $this->entityName = $replace ? str_replace($replace, "", $entity) : $entity;
-        }
+        $this->extensionCollectionName = self::tryGetPluginConstant(
+            "{$class}::EXTENSION_COLLECTION_NAME",
+            fn() => self::kebabCaseToCamelCase(
+                self::getPluralName($this->extensionPropertyName)
+            )
+        );
 
-        if ($debug || $propertyName) {
-            $this->propertyName = self::tryGetPluginConstant(
-                "{$class}::PROPERTY_NAME",
-                fn() => self::kebabCaseToCamelCase($entity)
-            );
-        }
+        $this->fkStorageName = $entity . self::SEP . self::ID;
 
-        if ($debug || ($propertyName && $collectionName)) {
-            $this->collectionName = self::tryGetPluginConstant(
-                "{$class}::COLLECTION_NAME",
-                fn() => self::kebabCaseToCamelCase(self::getPluralName($this->propertyName))
-            );
-        }
-
-        if ($debug || $extensionPropertyName || $extensionCollectionName) {
-            if ($debug || $extensionPropertyName) {
-                $extensionPrefix = explode(self::SEP, $entity)[0];
-                if (str_starts_with($this->propertyName ?? "", $extensionPrefix)) {
-                    $extensionPrefix = "";
-                }
-
-                $this->extensionPropertyName = self::tryGetPluginConstant(
-                    "{$class}::EXTENSION_PROPERTY_NAME",
-                    fn() => self::kebabCaseToCamelCase(
-                        $this->propertyName ? $extensionPrefix . self::SEP . $this->propertyName : $entity
-                    )
-                );
-            }
-
-            if ($debug || ($extensionPropertyName && $extensionCollectionName)) {
-                $this->extensionCollectionName = self::tryGetPluginConstant(
-                    "{$class}::EXTENSION_COLLECTION_NAME",
-                    fn() => self::kebabCaseToCamelCase(
-                        self::getPluralName($this->extensionPropertyName)
-                    )
-                );
-            }
-        }
-
-        if ($debug || $fkStorageName) {
-            $this->fkStorageName = $entity . self::SEP . self::ID;
-        }
-
-        if ($debug || ($propertyName && $fkPropertyName)) {
-            $this->fkPropertyName = self::kebabCaseToCamelCase($this->propertyName . self::SEP . self::ID);
-        }
-
-        if ($debug || $referenceField) {
-            $this->referenceField = $this->entityName . $append . self::SEP . self::ID;
-        }
-
-        if ($debug) {
-            dd($this);
-        }
+        $this->fkPropertyName = self::kebabCaseToCamelCase($this->propertyName . self::SEP . self::ID);
     }
 
     public static function hasClass(string $class, array $instances): bool
@@ -137,26 +100,13 @@ final class ExtractedDefinition
         return in_array($class, self::$versionDefinitions);
     }
 
-    public static function get(string $class, ?string $replace = null, ?string $append = null, bool $debug = false): self
+    public static function get(string $class): self
     {
         if (isset(self::$cache[$class])) {
             return self::$cache[$class];
         }
 
-        return self::$cache[$class] = new self(
-            $class,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            $replace,
-            $append,
-            $debug
-        );
+        return self::$cache[$class] = new self($class);
     }
 
     public function getExtensionPropertyName(): string
@@ -192,11 +142,6 @@ final class ExtractedDefinition
     public function getFkPropertyName(): string
     {
         return $this->fkPropertyName;
-    }
-
-    public function getReferenceField(): string
-    {
-        return $this->referenceField;
     }
 
     private static function tryGetPluginConstant(string $constantName, callable $onNotDefined): string

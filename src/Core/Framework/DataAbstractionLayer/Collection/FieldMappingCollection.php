@@ -18,17 +18,14 @@ class FieldMappingCollection extends FieldCollection
         $fieldItems = [];
 
         foreach ($mappingClasses as $mappingClass) {
-            $extracted = new ExtractedDefinition(
-                class: $mappingClass,
-                propertyName: true,
-                fkStorageName: true,
-                fkPropertyName: true
+            $mappingEd = ExtractedDefinition::get(
+                class: $mappingClass
             );
 
-            $fieldItems[] = (new FkField($extracted->getFkStorageName(), $extracted->getFkPropertyName(), $mappingClass))
+            $fieldItems[] = (new FkField($mappingEd->getFkStorageName(), $mappingEd->getFkPropertyName(), $mappingClass))
                 ->addFlags(new ApiAware(), new PrimaryKey(), new Required());
 
-            $fieldItems[] = (new ManyToOneAssociationField($extracted->getPropertyName(), $extracted->getFkStorageName(), $mappingClass))
+            $fieldItems[] = (new ManyToOneAssociationField($mappingEd->getPropertyName(), $mappingEd->getFkStorageName(), $mappingClass))
                 ->addFlags(new CascadeDelete());
 
             if (ExtractedDefinition::isVersionDefinition($mappingClass)) {

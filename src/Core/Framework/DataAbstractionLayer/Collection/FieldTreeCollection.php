@@ -24,7 +24,8 @@ class FieldTreeCollection extends FieldCollection
             new TreeLevelField('level', 'level'),
             new TreePathField('path', 'path'),
             new ChildrenAssociationField($referenceClass),
-            (new ParentAssociationField($referenceClass, 'id'))->addFlags(new EditField(), new LabelProperty('breadcrumbPlain')),
+            (new ParentAssociationField($referenceClass, 'id'))
+                ->addFlags(new EditField(), new LabelProperty('breadcrumbPlain')),
         ];
     }
 }
