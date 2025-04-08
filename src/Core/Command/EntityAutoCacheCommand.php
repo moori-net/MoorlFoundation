@@ -14,7 +14,7 @@ class EntityAutoCacheCommand extends Command
 {
     public function __construct(private readonly EntityAutoCacheService $entityAutoCacheService,)
     {
-        parent::__construct('moorl-foundation:entity-auto-cache');
+        parent::__construct();
     }
 
     protected function configure(): void
