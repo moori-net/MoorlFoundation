@@ -13,28 +13,37 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(
+        bool $thingBase = true,
+        bool $thingPage = true,
+        bool $thingMeta = true,
+        bool $media = true
+    ): array
     {
         return array_merge([
                 (new BoolField('active', 'active'))->addFlags(new EditField('switch')),
                 (new TranslatedField('teaser'))->addFlags(new EditField('textarea')),
                 (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
             ],
-            FieldThingBaseCollection::getFieldItems(),
-            FieldThingPageCollection::getFieldItems(),
-            FieldThingMetaCollection::getFieldItems(),
-            FieldMediaCollection::getFieldItems(),
+            $thingBase ? FieldThingBaseCollection::getFieldItems() : [],
+            $thingPage ? FieldThingPageCollection::getFieldItems() : [],
+            $thingMeta ? FieldThingMetaCollection::getFieldItems() : [],
+            $media ? FieldMediaCollection::getFieldItems() : [],
         );
     }
 
-    public static function getTranslatedFieldItems(): array
+    public static function getTranslatedFieldItems(
+        bool $thingBase = true,
+        bool $thingPage = true,
+        bool $thingMeta = true
+    ): array
     {
         return array_merge([
             new LongTextField('teaser', 'teaser')
         ],
-            FieldThingBaseCollection::getTranslatedFieldItems(),
-            FieldThingPageCollection::getTranslatedFieldItems(),
-            FieldThingMetaCollection::getTranslatedFieldItems(),
+            $thingBase ? FieldThingBaseCollection::getTranslatedFieldItems() : [],
+            $thingPage ? FieldThingPageCollection::getTranslatedFieldItems() : [],
+            $thingMeta ? FieldThingMetaCollection::getTranslatedFieldItems() : [],
         );
     }
 }
