@@ -39,7 +39,7 @@ class FieldMappingCollection extends FieldCollection
             );
 
             $fieldItems[] = (new FkField($extracted->getFkStorageName(), $extracted->getFkPropertyName(), $mappingClass))
-                ->addFlags(new ApiAware(), new PrimaryKey());
+                ->addFlags(new ApiAware(), new PrimaryKey(), new Required());
 
             $fieldItems[] = (new ManyToOneAssociationField($extracted->getPropertyName(), $extracted->getFkStorageName(), $mappingClass))
                 ->addFlags(new CascadeDelete());

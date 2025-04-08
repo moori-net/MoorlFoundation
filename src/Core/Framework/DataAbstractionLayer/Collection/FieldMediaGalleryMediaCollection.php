@@ -22,9 +22,9 @@ use function Symfony\Component\Translation\t;
 
 class FieldMediaGalleryMediaCollection extends FieldCollection
 {
-    public static function getFieldItems(string $mediaReferenceClass): array
+    public static function getFieldItems(string $parentClass, string $mediaReferenceClass): array
     {
-        $extracted = new ExtractedDefinition(
+        $ed = new ExtractedDefinition(
             class: $mediaReferenceClass,
             fkStorageName: true,
             referenceField: true,
@@ -32,9 +32,9 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
         );
 
         return [
-            (new FkField($extracted->getFkStorageName(), 'coverId', $mediaReferenceClass))->addFlags(new ApiAware(), new NoConstraint()),
-            (new ManyToOneAssociationField('cover', $extracted->getFkStorageName(), $mediaReferenceClass, 'id'))->addFlags(new ApiAware()),
-            (new OneToManyAssociationField('media', $mediaReferenceClass, $extracted->getReferenceField()))->addFlags(new ApiAware(), new CascadeDelete()),
+            (new FkField($ed->getFkStorageName(), 'coverId', $mediaReferenceClass))->addFlags(new ApiAware(), new NoConstraint()),
+            (new ManyToOneAssociationField('cover', $ed->getFkStorageName(), $mediaReferenceClass, 'id'))->addFlags(new ApiAware()),
+            (new OneToManyAssociationField('media', $mediaReferenceClass, $ed->getReferenceField()))->addFlags(new ApiAware(), new CascadeDelete()),
         ];
     }
 
@@ -47,6 +47,7 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
             fkPropertyName: true,
             referenceField: true,
             append: "_media",
+            //debug: true
         );
 
         $fieldItems = [

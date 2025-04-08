@@ -9,7 +9,7 @@ final class ExtractedDefinition
 {
     private const SEP = '_';
     private const ID = 'id';
-
+    private static array $cache = [];
     protected string $entityName;
     protected string $propertyName;
     protected string $collectionName;
@@ -98,6 +98,28 @@ final class ExtractedDefinition
         if ($debug) {
             dd($this);
         }
+    }
+
+    public static function get(string $class, ?string $replace = null, ?string $append = null, bool $debug = false): self
+    {
+        if (isset(self::$cache[$class])) {
+            return self::$cache[$class];
+        }
+
+        return self::$cache[$class] = new self(
+            $class,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            $replace,
+            $append,
+            $debug
+        );
     }
 
     public function getExtensionPropertyName(): string
