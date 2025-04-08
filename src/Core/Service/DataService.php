@@ -117,8 +117,9 @@ class DataService
         return $options;
     }
 
-    public function install(string $pluginName, string $type = 'data', ?string $name = null): void
+    public function install(string $pluginName, string $type = 'data', ?string $name = null): int
     {
+        $counter = 0;
         $this->initTaxes();
 
         foreach ($this->dataObjects as $dataObject) {
@@ -137,6 +138,8 @@ class DataService
             if (!$name && $this->hasMigration($dataObject)) {
                 continue;
             }
+
+            $counter++;
 
             $this->initGlobalReplacers($dataObject);
 
@@ -172,6 +175,8 @@ class DataService
                 );
             }
         }
+
+        return $counter;
     }
 
     public function addMigration(DataInterface $dataObject): void

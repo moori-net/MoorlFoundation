@@ -27,8 +27,7 @@ class DemoCommand extends Command
     {
         $this
             ->addArgument('plugin', InputArgument::REQUIRED, 'Plugin')
-            ->addOption('name', 'd', InputOption::VALUE_OPTIONAL, 'Name (default: standard)')
-            ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Type (default: demo)', 'demo');
+            ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Type');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -38,7 +37,6 @@ class DemoCommand extends Command
         $io = new ShopwareStyle($input, $output);
 
         $plugin = $input->getArgument('plugin');
-        $name = $input->getOption('name') ?? null;
         $type = $input->getOption('type');
 
         $io->title("Demo assistant: " . $plugin);
@@ -50,9 +48,9 @@ class DemoCommand extends Command
 
             $io->info("Installing...");
 
-            $this->dataService->install($plugin, $type, $name);
+            $counter = $this->dataService->install($plugin, $type);
 
-            $io->success("Demo has been installed");
+            $io->success($counter . " demos has been installed");
         } catch (\Exception $exception) {
             $io->error($exception->getMessage());
         }
