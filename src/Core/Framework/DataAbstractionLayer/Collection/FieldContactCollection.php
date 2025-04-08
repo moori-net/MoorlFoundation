@@ -8,8 +8,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldContactCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new StringField('email', 'email'))->addFlags(new EditField('text')),
             (new StringField('phone_number', 'phoneNumber'))->addFlags(new EditField('text')),

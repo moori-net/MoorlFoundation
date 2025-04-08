@@ -18,7 +18,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use function Symfony\Component\Translation\t;
 
 class FieldMediaGalleryMediaCollection extends FieldCollection
 {
@@ -38,7 +37,7 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
         ];
     }
 
-    public static function getMediaFieldItems(string $referenceClass, bool $isVersionAware = false): array
+    public static function getMediaFieldItems(string $referenceClass): array
     {
         $extracted = new ExtractedDefinition(
             class: $referenceClass,
@@ -47,7 +46,6 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
             fkPropertyName: true,
             referenceField: true,
             append: "_media",
-            //debug: true
         );
 
         $fieldItems = [
@@ -69,9 +67,8 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
                 ->addFlags(new SetNullOnDelete(false)),
         ];
 
-        if ($isVersionAware) {
-            $fieldItems[] = (new VersionField())
-                ->addFlags(new ApiAware());
+        if (ExtractedDefinition::isVersionDefinition($referenceClass)) {
+            $fieldItems[] = new VersionField();
             $fieldItems[] = (new ReferenceVersionField($referenceClass))
                 ->addFlags(new PrimaryKey(), new Required());
         }

@@ -16,8 +16,10 @@ use Shopware\Core\System\Tax\TaxDefinition;
 
 class FieldPriceCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new FkField('tax_id', 'taxId', TaxDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ManyToOneAssociationField('tax', 'tax_id', TaxDefinition::class))->addFlags(new RestrictDelete(), new EditField(), new LabelProperty('name')),

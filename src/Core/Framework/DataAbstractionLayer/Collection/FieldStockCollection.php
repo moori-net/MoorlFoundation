@@ -15,8 +15,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldStockCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ReferenceVersionField(ProductDefinition::class))->addFlags(new ApiAware(), new Required()),

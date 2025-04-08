@@ -20,15 +20,16 @@ class FieldThingCollection extends FieldCollection
         bool $media = true
     ): array
     {
-        return array_merge([
+        return array_merge(
+            [
                 (new BoolField('active', 'active'))->addFlags(new EditField('switch')),
                 (new TranslatedField('teaser'))->addFlags(new EditField('textarea')),
                 (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
             ],
-            $thingBase ? FieldThingBaseCollection::getFieldItems() : [],
-            $thingPage ? FieldThingPageCollection::getFieldItems() : [],
-            $thingMeta ? FieldThingMetaCollection::getFieldItems() : [],
-            $media ? FieldMediaCollection::getFieldItems() : [],
+            FieldThingBaseCollection::getFieldItems(flag: $thingBase),
+            FieldThingPageCollection::getFieldItems(flag: $thingPage),
+            FieldThingMetaCollection::getFieldItems(flag: $thingMeta),
+            FieldMediaCollection::getFieldItems(flag: $media),
         );
     }
 
@@ -38,12 +39,13 @@ class FieldThingCollection extends FieldCollection
         bool $thingMeta = true
     ): array
     {
-        return array_merge([
-            new LongTextField('teaser', 'teaser')
-        ],
-            $thingBase ? FieldThingBaseCollection::getTranslatedFieldItems() : [],
-            $thingPage ? FieldThingPageCollection::getTranslatedFieldItems() : [],
-            $thingMeta ? FieldThingMetaCollection::getTranslatedFieldItems() : [],
+        return array_merge(
+            [
+                new LongTextField('teaser', 'teaser')
+            ],
+            FieldThingBaseCollection::getTranslatedFieldItems(flag: $thingBase),
+            FieldThingPageCollection::getTranslatedFieldItems(flag: $thingPage),
+            FieldThingMetaCollection::getTranslatedFieldItems(flag: $thingMeta),
         );
     }
 }

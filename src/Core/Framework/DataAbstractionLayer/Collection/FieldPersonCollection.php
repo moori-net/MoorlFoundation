@@ -13,8 +13,10 @@ use Shopware\Core\System\Salutation\SalutationDefinition;
 
 class FieldPersonCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             new FkField('salutation_id', 'salutationId', SalutationDefinition::class),
             (new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('displayName')),

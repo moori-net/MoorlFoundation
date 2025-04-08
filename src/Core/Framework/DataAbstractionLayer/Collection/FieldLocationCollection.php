@@ -16,8 +16,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldLocationCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new DoubleField('location_lat','locationLat'))->addFlags(new EditField('number')),
             (new DoubleField('location_lon','locationLon'))->addFlags(new EditField('number')),

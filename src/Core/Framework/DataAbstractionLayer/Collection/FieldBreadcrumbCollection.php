@@ -11,16 +11,20 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldBreadcrumbCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             new TranslatedField('breadcrumb'),
             (new TranslatedField('breadcrumbPlain'))->addFlags(new EditField('text'), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
         ];
     }
 
-    public static function getTranslatedFieldItems(): array
+    public static function getTranslatedFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             new LongTextField('breadcrumb_plain', 'breadcrumbPlain'),
             new JsonField('breadcrumb', 'breadcrumb'),

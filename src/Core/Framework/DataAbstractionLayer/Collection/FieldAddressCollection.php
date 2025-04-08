@@ -15,8 +15,10 @@ use Shopware\Core\System\Country\CountryDefinition;
 
 class FieldAddressCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+        
         return [
             (new StringField('street', 'street'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new StringField('street_number', 'streetNumber'))->addFlags(new EditField('text')),

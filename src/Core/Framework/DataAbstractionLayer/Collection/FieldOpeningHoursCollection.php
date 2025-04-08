@@ -11,8 +11,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldOpeningHoursCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new StringField('time_zone', 'timeZone'))->addFlags(new EditField('text')),
             (new JsonField('opening_hours','openingHours'))->addFlags(new VueComponent('moorl-opening-hours')),

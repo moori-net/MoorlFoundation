@@ -8,8 +8,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldCustomCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new StringField('custom1', 'custom1'))->addFlags(new EditField('text')),
             (new StringField('custom2', 'custom2'))->addFlags(new EditField('text')),

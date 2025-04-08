@@ -2,6 +2,11 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use Shopware\Core\Checkout\Order\OrderDefinition;
+use Shopware\Core\Content\Category\CategoryDefinition;
+use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockDefinition;
+use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotDefinition;
+use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\DefinitionNotFoundException;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
@@ -10,6 +15,13 @@ final class ExtractedDefinition
     private const SEP = '_';
     private const ID = 'id';
     private static array $cache = [];
+    private static array $versionDefinitions = [
+        CategoryDefinition::class,
+        ProductDefinition::class,
+        OrderDefinition::class,
+        CmsBlockDefinition::class,
+        CmsSlotDefinition::class
+    ];
     protected string $entityName;
     protected string $propertyName;
     protected string $collectionName;
@@ -98,6 +110,31 @@ final class ExtractedDefinition
         if ($debug) {
             dd($this);
         }
+    }
+
+    public static function hasClass(string $class, array $instances): bool
+    {
+        foreach ($instances as $instance) {
+            if ($class === $instance::class) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function addVersionDefinition(string $class): void
+    {
+        if (self::isVersionDefinition($class)) {
+            return;
+        }
+
+        self::$versionDefinitions[] = $class;
+    }
+
+    public static function isVersionDefinition(string $class): bool
+    {
+        return in_array($class, self::$versionDefinitions);
     }
 
     public static function get(string $class, ?string $replace = null, ?string $append = null, bool $debug = false): self

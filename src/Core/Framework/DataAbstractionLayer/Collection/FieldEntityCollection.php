@@ -12,23 +12,21 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldEntityCollection extends FieldCollection
 {
-    public static function getFieldItems(
-        string $parentClass,
-        string $translationReferenceClass = null,
-        bool $isVersionAware = false
-    ): array
+    public static function getFieldItems(string $class, string $translationReferenceClass = null): array
     {
         $fieldItems = [
-            (new IdField('id', 'id'))->addFlags(new ApiAware(), new PrimaryKey(), new Required())
+            (new IdField('id', 'id'))
+                ->addFlags(new ApiAware(), new PrimaryKey(), new Required())
         ];
 
-        if ($isVersionAware) {
+        if (ExtractedDefinition::isVersionDefinition($class)) {
             $fieldItems[] = new VersionField();
         }
 
         if ($translationReferenceClass) {
-            $parentEd = ExtractedDefinition::get(class: $parentClass);
-            $fieldItems[] = (new TranslationsAssociationField($translationReferenceClass, $parentEd->getReferenceField()))
+            $ed = ExtractedDefinition::get(class: $class);
+
+            $fieldItems[] = (new TranslationsAssociationField($translationReferenceClass, $ed->getReferenceField()))
                 ->addFlags(new Required());
         }
 

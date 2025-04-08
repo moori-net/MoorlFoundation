@@ -8,8 +8,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldCompanyCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new StringField('executive_director', 'executiveDirector'))->addFlags(new EditField('text')),
             (new StringField('place_of_fulfillment', 'placeOfFulfillment'))->addFlags(new EditField('text')),

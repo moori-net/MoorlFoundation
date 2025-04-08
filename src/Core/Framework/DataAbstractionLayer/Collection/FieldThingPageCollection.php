@@ -12,8 +12,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingPageCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new TranslatedField('slotConfig'))->addFlags(),
             new FkField('cms_page_id', 'cmsPageId', CmsPageDefinition::class),
@@ -22,8 +24,10 @@ class FieldThingPageCollection extends FieldCollection
         ];
     }
 
-    public static function getTranslatedFieldItems(): array
+    public static function getTranslatedFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             new JsonField('slot_config', 'slotConfig'),
         ];

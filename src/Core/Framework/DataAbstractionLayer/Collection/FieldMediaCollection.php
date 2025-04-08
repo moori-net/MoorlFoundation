@@ -9,8 +9,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldMediaCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             new FkField('media_id', 'mediaId', MediaDefinition::class),
             new ManyToOneAssociationField('media', 'media_id', MediaDefinition::class),

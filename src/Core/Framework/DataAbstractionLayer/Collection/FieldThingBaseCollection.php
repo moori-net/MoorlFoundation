@@ -13,8 +13,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingBaseCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new TranslatedField('name'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new TranslatedField('keywords'))->addFlags(new EditField('textarea')),
@@ -22,8 +24,10 @@ class FieldThingBaseCollection extends FieldCollection
         ];
     }
 
-    public static function getTranslatedFieldItems(): array
+    public static function getTranslatedFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new StringField('name', 'name'))->addFlags(),
             (new LongTextField('description', 'description'))->addFlags(new AllowHtml(false)),

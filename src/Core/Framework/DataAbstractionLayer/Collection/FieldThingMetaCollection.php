@@ -9,8 +9,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldThingMetaCollection extends FieldCollection
 {
-    public static function getFieldItems(): array
+    public static function getFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             (new TranslatedField('metaTitle'))->addFlags(new EditField('text')),
             (new TranslatedField('metaDescription'))->addFlags(new EditField('textarea')),
@@ -18,8 +20,10 @@ class FieldThingMetaCollection extends FieldCollection
         ];
     }
 
-    public static function getTranslatedFieldItems(): array
+    public static function getTranslatedFieldItems(bool $flag = true): array
     {
+        if (!$flag) return [];
+
         return [
             new LongTextField('meta_keywords', 'metaKeywords'),
             new LongTextField('meta_title', 'metaTitle'),
