@@ -32,7 +32,7 @@ final class ExtractedDefinition
     protected string $extensionPropertyName;
     protected string $extensionCollectionName;
 
-    public function __construct(string $class,)
+    public function __construct(string $class)
     {
         $entity = self::tryGetPluginConstant(
             "{$class}::ENTITY_NAME",
