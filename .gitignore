@@ -1,13 +1,18 @@
-/composer.lock
-
+# Ignore root directories
 /vendor/
-/libs/vendor/
-/.idea/
-/.psh.yaml.override
-/.php_cs.cache
-/docker-compose.override.yml
+/packages/
+/.*/
 
-package-lock.json
+# Ignore root files
+/*.lock
+/*.yml
+/.*
+
+# Ignore npm packages
 /src/Resources/node_modules/
 /src/Resources/app/administration/node_modules/
 /src/Resources/app/storefront/node_modules/
+
+# Ignore built content
+/src/Resources/public/administration/
+/src/Resources/app/storefront/dist/storefront/
