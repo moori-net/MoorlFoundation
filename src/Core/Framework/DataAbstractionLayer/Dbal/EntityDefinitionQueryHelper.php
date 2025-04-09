@@ -15,9 +15,6 @@ class EntityDefinitionQueryHelper
         ?string $column = null
     ): void
     {
-
-        $connection->executeStatement($sql);return;
-
         try {
             $connection->executeStatement($sql);
         } catch (Exception $exception) {
@@ -59,7 +56,8 @@ class EntityDefinitionQueryHelper
             }
             self::dropIndexIfExists($connection, $table, $column);
         } elseif ($exception->getCode() === 1061) {
-            // Falls ein Foreign-Key hinzugefügt wird, aber bereits ein Index mit gleichem Namen existiert
+            // Wenn der index eines gelöschten constraints nicht automatisch gelöscht wurde,
+            // muss der index nochmal explizit gelöscht werden, damit ein neuer constraint erstellt werden kann
             if (!$column) {
                 if (preg_match("/Duplicate key name '([^']+)'/", $exception->getMessage(), $matches)) {
                     $column = $matches[1];
