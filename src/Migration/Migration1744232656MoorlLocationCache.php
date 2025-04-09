@@ -7,19 +7,20 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
-class Migration1743954050MoorlSortingTranslation extends MigrationStep
+class Migration1744232656MoorlLocationCache extends MigrationStep
 {
-    public const OPERATION_HASH = '8697761d64af0806132cbe1f5bb7cd15';
+    public const OPERATION_HASH = 'bfe8b2157633b247a71ed3b53d08d97e';
+    public const PLUGIN_VERSION = '1.6.50';
 
     public function getCreationTimestamp(): int
     {
-        return 1743954050;
+        return 1744232656;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
-ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL;
+ALTER TABLE moorl_location_cache CHANGE distance distance NUMERIC(10, 2) NOT NULL;
 SQL;
 
         // Try to execute all queries at once
@@ -33,9 +34,9 @@ SQL;
         }
 
         // Try to execute all queries step by step
-        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting_translation', 'label')) {
-            $sql = "ALTER TABLE moorl_sorting_translation CHANGE label label VARCHAR(255) NOT NULL;";
-            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting_translation');
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_location_cache', 'distance')) {
+            $sql = "ALTER TABLE moorl_location_cache CHANGE distance distance NUMERIC(10, 2) NOT NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_location_cache');
         }
 
     }

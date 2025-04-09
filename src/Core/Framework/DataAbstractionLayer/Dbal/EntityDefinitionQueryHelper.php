@@ -15,6 +15,9 @@ class EntityDefinitionQueryHelper
         ?string $column = null
     ): void
     {
+
+        $connection->executeStatement($sql);return;
+
         try {
             $connection->executeStatement($sql);
         } catch (Exception $exception) {

@@ -7,20 +7,24 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
-class Migration1743954050MoorlSorting extends MigrationStep
+class Migration1744232656MoorlSorting extends MigrationStep
 {
-    public const OPERATION_HASH = '0f8774c20afc8cbbc8cdc9c5555e4143';
+    public const OPERATION_HASH = '9a81fa38fa18617bb5125b78e56f39dd';
+    public const PLUGIN_VERSION = '1.6.50';
 
     public function getCreationTimestamp(): int
     {
-        return 1743954050;
+        return 1744232656;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
+UPDATE `moorl_sorting` SET `priority` = 0 WHERE `priority` IS NULL;
 ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL;
+UPDATE `moorl_sorting` SET `active` = 0 WHERE `active` IS NULL;
 ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL;
+UPDATE `moorl_sorting` SET `locked` = 0 WHERE `locked` IS NULL;
 ALTER TABLE moorl_sorting CHANGE locked locked TINYINT(1) DEFAULT 0;
 SQL;
 
@@ -36,12 +40,27 @@ SQL;
 
         // Try to execute all queries step by step
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'priority')) {
+            $sql = "UPDATE `moorl_sorting` SET `priority` = 0 WHERE `priority` IS NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
+        }
+
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'priority')) {
             $sql = "ALTER TABLE moorl_sorting CHANGE priority priority INT DEFAULT 0 NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
         }
 
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'active')) {
+            $sql = "UPDATE `moorl_sorting` SET `active` = 0 WHERE `active` IS NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
+        }
+
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'active')) {
             $sql = "ALTER TABLE moorl_sorting CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
+        }
+
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_sorting', 'locked')) {
+            $sql = "UPDATE `moorl_sorting` SET `locked` = 0 WHERE `locked` IS NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_sorting');
         }
 

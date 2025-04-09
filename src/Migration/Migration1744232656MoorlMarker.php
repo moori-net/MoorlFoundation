@@ -7,13 +7,14 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
-class Migration1743954050MoorlMarker extends MigrationStep
+class Migration1744232656MoorlMarker extends MigrationStep
 {
     public const OPERATION_HASH = '10e82a8dce09fb43563b2ce790986903';
+    public const PLUGIN_VERSION = '1.6.50';
 
     public function getCreationTimestamp(): int
     {
-        return 1743954050;
+        return 1744232656;
     }
 
     public function update(Connection $connection): void

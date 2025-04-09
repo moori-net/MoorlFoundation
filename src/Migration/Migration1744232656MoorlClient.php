@@ -7,20 +7,24 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Plugin\Requirement\Exception\MissingRequirementException;
 
-class Migration1743954050MoorlClient extends MigrationStep
+class Migration1744232656MoorlClient extends MigrationStep
 {
-    public const OPERATION_HASH = '233785aa3d1703b4b104f204157d3849';
+    public const OPERATION_HASH = '99862fa085c02b3f775d06194fff3853';
+    public const PLUGIN_VERSION = '1.6.50';
 
     public function getCreationTimestamp(): int
     {
-        return 1743954050;
+        return 1744232656;
     }
 
     public function update(Connection $connection): void
     {
         $sql = <<<SQL
+UPDATE `moorl_client` SET `type` = 'ftp' WHERE `type` IS NULL;
 ALTER TABLE moorl_client CHANGE type type VARCHAR(255) DEFAULT 'ftp' NOT NULL;
+UPDATE `moorl_client` SET `name` = 'My Client' WHERE `name` IS NULL;
 ALTER TABLE moorl_client CHANGE name name VARCHAR(255) DEFAULT 'My Client' NOT NULL;
+UPDATE `moorl_client` SET `active` = 0 WHERE `active` IS NULL;
 ALTER TABLE moorl_client CHANGE active active TINYINT(1) DEFAULT 0 NOT NULL;
 SQL;
 
@@ -36,12 +40,27 @@ SQL;
 
         // Try to execute all queries step by step
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_client', 'type')) {
+            $sql = "UPDATE `moorl_client` SET `type` = 'ftp' WHERE `type` IS NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_client');
+        }
+
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_client', 'type')) {
             $sql = "ALTER TABLE moorl_client CHANGE type type VARCHAR(255) DEFAULT 'ftp' NOT NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_client');
         }
 
         if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_client', 'name')) {
+            $sql = "UPDATE `moorl_client` SET `name` = 'My Client' WHERE `name` IS NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_client');
+        }
+
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_client', 'name')) {
             $sql = "ALTER TABLE moorl_client CHANGE name name VARCHAR(255) DEFAULT 'My Client' NOT NULL;";
+            EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_client');
+        }
+
+        if (EntityDefinitionQueryHelper::columnExists($connection, 'moorl_client', 'active')) {
+            $sql = "UPDATE `moorl_client` SET `active` = 0 WHERE `active` IS NULL;";
             EntityDefinitionQueryHelper::tryExecuteStatement($connection, $sql, 'moorl_client');
         }
 
