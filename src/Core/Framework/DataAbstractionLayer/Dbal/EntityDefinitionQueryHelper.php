@@ -46,7 +46,6 @@ class EntityDefinitionQueryHelper
 
         if ($exception instanceof NotNullConstraintViolationException) {
             // Falls eine Spalte auf NOT NULL gesetzt ist und NULL-Werte enthält,
-            // aktualisiere die Daten, indem du den Default-Wert setzt.
             self::updateNotNullTableData($connection, $sql, $table, $column);
         } elseif ($exception->getCode() === 1170) {
             // Falls ein Unique-Key hinzugefügt wird, aber bereits ein Index mit gleichem Namen existiert
@@ -124,11 +123,11 @@ SQL;
 
     public static function updateNotNullTableData(Connection $connection, string $query, string $table, ?string $column): void
     {
-        if (preg_match('/CHANGE\s+\S+\s+(\S+).*?DEFAULT\s+\'([^\']*)\'.*?NOT\s+NULL\b/i', $query, $match)) {
+        if (preg_match('/CHANGE\s+\S+\s+(\S+).*?DEFAULT\s+(.*)\s+NOT\s+NULL\b/i', $query, $match)) {
             $column  = $match[1] ?? $column;
             $default = $match[2] ?? "0";
             $sql = sprintf(
-                "UPDATE %s SET %s = '%s' WHERE %s IS NULL;",
+                "UPDATE %s SET %s = %s WHERE %s IS NULL;",
                 self::quote($table),
                 self::quote($column),
                 $default,
