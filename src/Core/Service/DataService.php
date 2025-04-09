@@ -7,12 +7,14 @@ use Doctrine\DBAL\Driver\PDO\Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\Filesystem;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\System\DataInterface;
 use Shopware\Core\Content\MailTemplate\MailTemplateActions;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Defaults;
+use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
@@ -36,6 +38,7 @@ class DataService
     private ?string $customerId = null;
     private array $mediaCache = [];
     private EntityCollection $taxes;
+    private ?ShopwareStyle $io = null;
 
     /**
      * @param DataInterface[] $dataObjects
@@ -63,26 +66,6 @@ class DataService
         $this->demoCustomerMail = $systemConfigService->get('MoorlFoundation.config.demoCustomerMail') ?: 'test@example.com';
     }
 
-    public function getSalesChannelId(): ?string
-    {
-        return $this->salesChannelId;
-    }
-
-    public function setSalesChannelId(?string $salesChannelId): void
-    {
-        $this->salesChannelId = $salesChannelId;
-    }
-
-    public function getCustomerId(): ?string
-    {
-        return $this->customerId;
-    }
-
-    public function setCustomerId(?string $customerId): void
-    {
-        $this->customerId = $customerId;
-    }
-
     public function getOptions(string $type = 'demo'): array
     {
         $options = [];
@@ -99,24 +82,6 @@ class DataService
         return $options;
     }
 
-    public function getOptionsByPluginName(string $pluginName, string $type = 'demo'): array
-    {
-        $options = [];
-
-        foreach ($this->dataObjects as $dataObject) {
-            if ($pluginName !== $dataObject->getPluginName()) {
-                continue;
-            }
-            if ($dataObject->getType() !== $type) {
-                continue;
-            }
-
-            $options[] = $dataObject->getName();
-        }
-
-        return $options;
-    }
-
     public function install(string $pluginName, string $type = 'data', ?string $name = null): int
     {
         $counter = 0;
@@ -126,20 +91,18 @@ class DataService
             if ($pluginName !== $dataObject->getPluginName()) {
                 continue;
             }
-
             if ($dataObject->getType() !== $type) {
                 continue;
             }
-
             if ($name && $name !== $dataObject->getName()) {
                 continue;
             }
-
-            if (!$name && $this->hasMigration($dataObject)) {
+            if (!$name && EntityDefinitionQueryHelper::migrationExists($this->connection, $dataObject::class)) {
+                $this->log("--- already has been migrated " . $dataObject::class);
                 continue;
             }
 
-            $counter++;
+            $this->log("Installing " . $dataObject::class);
 
             $this->initGlobalReplacers($dataObject);
 
@@ -165,7 +128,7 @@ class DataService
 
             $dataObject->process();
 
-            $this->addMigration($dataObject);
+            EntityDefinitionQueryHelper::addMigration($this->connection, $dataObject::class);
 
             if ($this->themeId && $this->salesChannelId) {
                 $this->themeService->compileTheme(
@@ -174,39 +137,48 @@ class DataService
                     $this->context
                 );
             }
+
+            $counter++;
         }
 
         return $counter;
     }
 
-    public function addMigration(DataInterface $dataObject): void
+    public function remove(string $pluginName, string $type = 'data', ?string $name = null): int
     {
-        $sql = <<<SQL
-INSERT INTO `migration` (`class`, `creation_timestamp`, `update`, `message`)
-VALUES  (:class, :creation_timestamp, NOW(), :message)
-ON DUPLICATE KEY UPDATE `update` = NOW();
-SQL;
-        $this->connection->executeStatement(
-            $sql,
-            [
-                'class' => $dataObject::class,
-                'creation_timestamp' => time(),
-                'message' => 'written by moori Foundation'
-            ]
-        );
-    }
+        $counter = 0;
 
-    public function hasMigration(DataInterface $dataObject): bool
-    {
-        $sql = sprintf("SELECT * FROM `migration` WHERE `class` = '%s';", str_ireplace('\\', '\\\\', $dataObject::class));
-        return ($this->connection->executeQuery($sql)->rowCount() > 0);
-    }
+        foreach ($this->dataObjects as $dataObject) {
+            if (!$dataObject->isCleanUp()) {
+                continue;
+            }
+            if ($pluginName !== $dataObject->getPluginName()) {
+                continue;
+            }
+            if ($type && $dataObject->getType() !== $type) {
+                continue;
+            }
+            if ($name && $name !== $dataObject->getName()) {
+                continue;
+            }
 
-    public function removeMigration(DataInterface $dataObject): void
-    {
-        $class = new \ReflectionClass($dataObject);
-        $class = addcslashes($class->getNamespaceName(), '\\_%') . '%';
-        $this->connection->executeStatement('DELETE FROM migration WHERE class LIKE :class', ['class' => $class]);
+            $this->log("Uninstalling " . $dataObject::class);
+
+            $this->initGlobalReplacers($dataObject);
+            $this->cleanUpPluginTables($dataObject);
+            $this->cleanUpShopwareTables($dataObject);
+
+            foreach ($dataObject->getRemoveQueries() as $sql) {
+                $sql = $this->processReplace($sql, $dataObject);
+                $this->connection->executeStatement($sql);
+            }
+
+            EntityDefinitionQueryHelper::removeMigration($this->connection, $dataObject::class);
+
+            $counter++;
+        }
+
+        return $counter;
     }
 
     public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
@@ -384,7 +356,8 @@ SQL;
             $query = $this->connection->executeQuery($sql)->fetchAssociative();
             $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
             $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
-        } catch (\Exception) {
+        } catch (\Exception $exception) {
+            $this->log("Unable to set SALES_CHANNEL_ID and NAVIGATION_CATEGORY_ID " . $exception->getMessage(), "error");
         }
 
         /**
@@ -866,38 +839,6 @@ SQL;
         ];
     }
 
-    public function remove(string $pluginName, string $type = 'data', ?string $name = null): void
-    {
-        foreach ($this->dataObjects as $dataObject) {
-            if (!$dataObject->isCleanUp()) {
-                continue;
-            }
-
-            if ($pluginName !== $dataObject->getPluginName()) {
-                continue;
-            }
-
-            if ($type && $dataObject->getType() !== $type) {
-                continue;
-            }
-
-            if ($name && $name !== $dataObject->getName()) {
-                continue;
-            }
-
-            $this->initGlobalReplacers($dataObject);
-            $this->cleanUpPluginTables($dataObject);
-            $this->cleanUpShopwareTables($dataObject);
-
-            foreach ($dataObject->getRemoveQueries() as $sql) {
-                $sql = $this->processReplace($sql, $dataObject);
-                $this->connection->executeStatement($sql);
-            }
-
-            $this->removeMigration($dataObject);
-        }
-    }
-
     public function cleanUpPluginTables(DataInterface $dataObject): void
     {
         if (!$dataObject->getPluginTables()) {
@@ -951,15 +892,42 @@ SQL;
         return file_exists(sprintf('%s/content/%s.json', $dataObject->getPath(), $table));
     }
 
-    public function dropTables(DataInterface $dataObject): void
+    private function log(string|\Stringable $message, $level = 'text', array $context = []): void
     {
-        if (!$dataObject->getPluginTables()) {
+        if (!$this->io instanceof ShopwareStyle) {
             return;
         }
+        array_unshift($context, $message);
 
-        foreach ($dataObject->getPluginTables() as $table) {
-            $sql = sprintf('SET FOREIGN_KEY_CHECKS=0; DROP TABLE IF EXISTS `%s`;', $table);
-            $this->connection->executeStatement($sql);
+        if (method_exists($this->io, $level)) {
+            $this->io->{$level}($context);
+        } else {
+            $this->io->info($context);
         }
+    }
+
+    public function setIo(?ShopwareStyle $io): void
+    {
+        $this->io = $io;
+    }
+
+    public function getSalesChannelId(): ?string
+    {
+        return $this->salesChannelId;
+    }
+
+    public function setSalesChannelId(?string $salesChannelId): void
+    {
+        $this->salesChannelId = $salesChannelId;
+    }
+
+    public function getCustomerId(): ?string
+    {
+        return $this->customerId;
+    }
+
+    public function setCustomerId(?string $customerId): void
+    {
+        $this->customerId = $customerId;
     }
 }

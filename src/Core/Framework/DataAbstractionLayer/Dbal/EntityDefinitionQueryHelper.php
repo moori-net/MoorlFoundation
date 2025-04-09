@@ -88,6 +88,30 @@ class EntityDefinitionQueryHelper
         return $connection->executeStatement($sql, ['class' => $class]) > 0;
     }
 
+    public static function addMigration(Connection $connection, string $class): void
+    {
+        $sql = <<<SQL
+INSERT INTO `migration` 
+    (`class`, `creation_timestamp`, `update`)
+VALUES 
+    (:class, :creation_timestamp, NOW())
+ON DUPLICATE KEY UPDATE `update` = NOW();
+SQL;
+        $connection->executeStatement(
+            $sql,
+            ['class' => $class, 'creation_timestamp' => time()]
+        );
+    }
+
+    public static function removeMigration(Connection $connection, string $class): void
+    {
+        $class = addcslashes($class, '\\_%') . '%';
+        $sql = "DELETE FROM `migration` WHERE `class` LIKE :class";
+        $connection->executeStatement(
+            $sql,
+            ['class' => $class]);
+    }
+
     public static function dropIndexIfExists(Connection $connection, string $table, string $column): void
     {
         $sql = sprintf(
