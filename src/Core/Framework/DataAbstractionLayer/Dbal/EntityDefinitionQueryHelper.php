@@ -18,8 +18,9 @@ class EntityDefinitionQueryHelper
         try {
             $connection->executeStatement($sql);
         } catch (Exception $exception) {
+            usleep(100000);
             self::handleDbalException($exception, $connection, $sql, $table, $column);
-
+            usleep(100000);
             $connection->executeStatement($sql);
         }
     }
