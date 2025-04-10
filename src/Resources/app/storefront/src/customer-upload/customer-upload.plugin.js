@@ -30,7 +30,7 @@ export default class MoorlCustomerUploadPlugin extends Plugin {
                 const duplicateEl = document.getElementById(responseEl.id);
 
                 if (duplicateEl) {
-                    console.log('duplicateEl');
+
                     //filesContainer.replaceChild(responseEl, duplicateEl);
                 } else {
                     filesContainer.append(responseEl);

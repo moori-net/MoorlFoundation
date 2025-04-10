@@ -55,11 +55,11 @@ Component.register('moorl-flow-crm-mapping', {
             }
 
             if (!this.triggerEvent) {
-                console.log('swFlowState triggerEvent not found');
+
                 return [];
             } else {
-                console.log('swFlowState triggerEvent found');
-                console.log(this.triggerEvent);
+
+
             }
 
             return this.getEntityProperty(this.triggerEvent.data)

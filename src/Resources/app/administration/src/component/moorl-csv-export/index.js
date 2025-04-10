@@ -110,7 +110,7 @@ Component.register('moorl-csv-export', {
             criteria.setPage(this.page);
 
             await this.repository.search(criteria, Shopware.Context.api).then(async (items) => {
-                //console.log(items);
+                //
 
                 this.items = [...this.items, ...items];
                 this.total = items.total;
@@ -131,20 +131,20 @@ Component.register('moorl-csv-export', {
                 this.exportItems.push(this.sanitizeItem(item));
             } while (this.items.length > 0);
 
-            //console.log("sanitizeItems", this.exportItems);
+            //
         },
 
         sanitizeItem(item) {
-            //console.log("sanitizeItem", item);
+            //
 
             const exportItem = {};
 
             for (let column of this.columns) {
                 if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
                     if (item[column.property] && item[column.property].length > 0) {
-                        /*console.log(column.property);
-                        console.log(column.entity);
-                        console.log(item[column.property].length);*/
+                        /*
+
+                        */
 
                         if (column.entity === 'tag') {
                             exportItem[column.property] = item[column.property].map((item) => {
@@ -173,7 +173,7 @@ Component.register('moorl-csv-export', {
                 }
             }
 
-            //console.log("--- sanitizeItem", exportItem);
+            //
 
             return exportItem;
         },
@@ -226,7 +226,7 @@ Component.register('moorl-csv-export', {
                 columns.push(column);
             }
 
-            //console.log("Export Columns", columns);
+            //
 
             this.columns = columns;
         },
@@ -240,8 +240,8 @@ Component.register('moorl-csv-export', {
 
             this.sanitizeItems();
 
-            //console.log("Export Data");
-            //console.log(this.exportItems);
+            //
+            //
 
             let csv = Papa.unparse(this.exportItems, {delimiter: ";"});
             const blob = new Blob([csv]);

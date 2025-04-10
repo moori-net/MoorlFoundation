@@ -12,7 +12,7 @@ export default class MoorlRelativeTimePlugin extends Plugin {
 
     init() {
         if (this.options.actionUrl) {
-            console.log(this.options.actionUrl);
+
         }
 
         const actionUrl = this.options.actionUrl;

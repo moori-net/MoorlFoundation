@@ -229,7 +229,7 @@ Component.register('moorl-map', {
                 ]
             };
 
-            console.log(iconOptions);
+
 
             const featureMarker = [];
 

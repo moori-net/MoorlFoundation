@@ -58,7 +58,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
      * @private
      */
     _onChangeInput() {
-        console.log("_onChangeInput");
+
 
         clearTimeout(this._timeout);
 
@@ -152,7 +152,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
                 this._onChangeInput();
             }
         } catch (e) {
-            console.log(e);
+
         }
     }
 

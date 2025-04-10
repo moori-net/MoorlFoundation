@@ -326,7 +326,7 @@ Component.register('moorl-entity-grid', {
 
             this.editColumns = columns;
 
-            console.log(this.editColumns);
+
         },
 
         getGridColumns(entityName, prefix, depth) {
@@ -402,7 +402,7 @@ Component.register('moorl-entity-grid', {
             }
 
             if (depth === 0) {
-                //console.log(columns);
+                //
             }
 
             return columns;

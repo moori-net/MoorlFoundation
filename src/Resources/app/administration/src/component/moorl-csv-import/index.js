@@ -93,7 +93,7 @@ Component.register('moorl-csv-import', {
 
     methods: {
         async getItemById(entity, id) {
-            console.log("getItemById", entity, id);
+
 
             if (typeof id == 'undefined') {
                 return null;
@@ -115,12 +115,12 @@ Component.register('moorl-csv-import', {
                 })
             }
 
-            console.log("getItemById result" ,item);
+
             return item ? item : null;
         },
 
         async getItemByUniqueProperties(item) {
-            console.log("getItemByUniqueProperties", item);
+
 
             const isUuid = /^[a-f0-9]{32}$/i; // uuid check
             const criteria = new Criteria(1, 1);
@@ -158,10 +158,10 @@ Component.register('moorl-csv-import', {
 
             await this.repository.search(criteria, Shopware.Context.api).then(async (result) => {
                 entity = result.first();
-                console.log("1---- result getItemByUniqueProperties", entity);
+
             });
 
-            console.log("2---- result getItemByUniqueProperties", entity);
+
 
             return entity;
         },
@@ -194,7 +194,7 @@ Component.register('moorl-csv-import', {
             let columns = [];
             let properties = Shopware.EntityDefinition.get(this.entity).properties
 
-            console.log("initEditColumns IN", properties);
+
 
             for (const [property, column] of Object.entries(properties)) {
                 // Since 6.3.5 there are new fields here
@@ -220,7 +220,7 @@ Component.register('moorl-csv-import', {
                 columns.push(column);
             }
 
-            console.log("initEditColumns OUT", columns);
+
 
             this.columns = columns;
         },
@@ -272,7 +272,7 @@ Component.register('moorl-csv-import', {
                 header: true,
                 skipEmptyLines: true,
                 complete: function (results, file) {
-                    console.log("NOTICE: Parsing complete", results, file);
+
 
                     if (results.errors && results.errors.length > 0) {
                         that.createSystemNotificationError({
@@ -346,7 +346,7 @@ Component.register('moorl-csv-import', {
 
         async prepareSaveItem(srcItem) {
             const item = Object.assign({}, this.selectedItem, srcItem)
-            console.log("prepareSaveItem()", item);
+
 
             let entity = await this.getItemByUniqueProperties(item);
 
@@ -369,7 +369,7 @@ Component.register('moorl-csv-import', {
         },
 
         saveItem(item) {
-            console.log("saveItem()", item);
+
 
             this.repository
                 .save(item, Shopware.Context.api)
@@ -406,7 +406,7 @@ Component.register('moorl-csv-import', {
 
         onError(message) {
             this.errorCount++;
-            console.log(message);
+
             this.statusMessage = message;
             this.pause = true;
         },
@@ -422,7 +422,7 @@ Component.register('moorl-csv-import', {
         },
 
         async sanitizeItem(item) {
-            console.log("sanitizeItem() ", item);
+
 
             const that = this;
 

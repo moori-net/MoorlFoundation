@@ -21,7 +21,7 @@ export default class MoorlFoundationForm extends Plugin {
     }
 
     _formSubmit(event) {
-        console.log(event);
+
 
         if (typeof event != 'undefined') {
             event.preventDefault();

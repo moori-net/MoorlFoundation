@@ -50,7 +50,7 @@ class FoundationApiService extends ApiService {
                 link.dispatchEvent(new MouseEvent('click'));
                 link.remove();
             }).catch((error) => {
-                console.log(error);
+
             });
         } else {
             this.httpClient({
@@ -69,7 +69,7 @@ class FoundationApiService extends ApiService {
                     link.remove();
                 }
             }).catch((error) => {
-                console.log(error);
+
             });
         }
     }

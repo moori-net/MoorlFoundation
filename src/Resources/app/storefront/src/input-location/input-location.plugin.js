@@ -22,7 +22,7 @@ export default class MoorlInputLocationPlugin extends Plugin{
     }
 
     _onClickButton() {
-        console.log("Request geolocation");
+
         this._inputLocation.value = `0|0`;
 
         if (navigator.geolocation) {
@@ -31,7 +31,7 @@ export default class MoorlInputLocationPlugin extends Plugin{
                 this._inputLocation.dispatchEvent(new Event('input'));
             });
         } else {
-            console.log("Geolocation is not supported by this browser");
+
         }
     }
 }
