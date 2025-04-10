@@ -169,6 +169,8 @@ SQL;
 
     public static function quote(string $string): string
     {
+        $string = str_replace("`", "", $string); // prevent double backticks
+
         return sprintf("`%s`", trim($string));
     }
 }
