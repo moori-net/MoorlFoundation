@@ -7,7 +7,7 @@ use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(defaults: ['_routeScope' => ['api']])]
 class SettingsController
