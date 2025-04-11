@@ -1,6 +1,24 @@
 {% block moorl_thing_seo_card %}
     <sw-card class="moorl-thing-seo-card" :title="$tc('moorl-foundation.card.seo')">
         {% block moorl_thing_seo_card_inner %}
+            <div v-if="item.metaMediaId !== undefined" class="sw-field">
+                <sw-upload-listener
+                        :upload-tag="item.id"
+                        auto-upload
+                        @media-upload-finish="setMediaItem"
+                />
+                <sw-media-upload-v2
+                        :upload-tag="item.id"
+                        :source="item.metaMediaId"
+                        :allowMultiSelect="false"
+                        :label="$tc('moorl-foundation.properties.logo')"
+                        @sw-media-upload-media-upload-success="setMediaItem"
+                        @media-drop="onDropMedia"
+                        @media-upload-sidebar-open="onOpenMediaModal"
+                        @media-upload-remove-image="onUnlinkMedia"
+                />
+            </div>
+
             <sw-textarea-field
                     v-if="item.keywords !== undefined"
                     :label="$tc('moorl-foundation.properties.keywords')"
@@ -17,6 +35,12 @@
                     v-if="item.metaDescription !== undefined"
                     :label="$tc('moorl-foundation.properties.metaDescription')"
                     v-model:value="item.metaDescription"
+            />
+
+            <sw-text-field
+                    v-if="item.metaAuthor !== undefined"
+                    :label="$tc('moorl-foundation.properties.metaAuthor')"
+                    v-model:value="item.metaAuthor"
             />
 
             <sw-textarea-field
@@ -50,5 +74,15 @@
             v-if="item.seoUrls !== undefined"
             :has-default-template="false"
             :urls="item.seoUrls"
+    />
+
+    <sw-media-modal-v2
+            variant="full"
+            v-if="mediaModalIsOpen"
+            :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+            :allowMultiSelect="false"
+            @media-upload-remove-image="onUnlinkMedia"
+            @media-modal-selection-change="onSelectionChanges"
+            @modal-close="onCloseModal"
     />
 {% endblock %}

@@ -17,6 +17,8 @@ class FieldThingCollection extends FieldCollection
         bool $thingBase = true,
         bool $thingPage = true,
         bool $thingMeta = true,
+        bool $thingMetaAuthor = false,
+        bool $thingMetaMedia = false,
         bool $media = true
     ): array
     {
@@ -28,7 +30,11 @@ class FieldThingCollection extends FieldCollection
             ],
             FieldThingBaseCollection::getFieldItems(flag: $thingBase),
             FieldThingPageCollection::getFieldItems(flag: $thingPage),
-            FieldThingMetaCollection::getFieldItems(flag: $thingMeta),
+            FieldThingMetaCollection::getFieldItems(
+                flag: $thingMeta,
+                metaAuthor: $thingMetaAuthor,
+                metaMedia: $thingMetaMedia
+            ),
             FieldMediaCollection::getFieldItems(flag: $media),
         );
     }
@@ -36,7 +42,9 @@ class FieldThingCollection extends FieldCollection
     public static function getTranslatedFieldItems(
         bool $thingBase = true,
         bool $thingPage = true,
-        bool $thingMeta = true
+        bool $thingMeta = true,
+        bool $thingMetaAuthor = false,
+        bool $thingMetaMedia = false,
     ): array
     {
         return array_merge(
@@ -45,7 +53,11 @@ class FieldThingCollection extends FieldCollection
             ],
             FieldThingBaseCollection::getTranslatedFieldItems(flag: $thingBase),
             FieldThingPageCollection::getTranslatedFieldItems(flag: $thingPage),
-            FieldThingMetaCollection::getTranslatedFieldItems(flag: $thingMeta),
+            FieldThingMetaCollection::getTranslatedFieldItems(
+                flag: $thingMeta,
+                metaAuthor: $thingMetaAuthor,
+                metaMedia: $thingMetaMedia
+            ),
         );
     }
 }

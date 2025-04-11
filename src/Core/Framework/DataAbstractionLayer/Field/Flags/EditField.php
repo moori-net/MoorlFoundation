@@ -7,6 +7,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 class EditField extends Flag
 {
     public const TEXT = 'text';
+    public const TEXTAREA = 'textarea';
     public const NUMBER = 'number';
     public const MULTI_ID = 'multi-id';
 
