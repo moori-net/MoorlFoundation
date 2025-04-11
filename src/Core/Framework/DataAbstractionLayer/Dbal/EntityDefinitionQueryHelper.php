@@ -70,6 +70,11 @@ class EntityDefinitionQueryHelper
             if (preg_match("/in the referenced table '([^']+)'/", $exception->getMessage(), $matches)) {
                 self::makeVersionPrimaryKey($connection, $matches[1]);
             }
+        } elseif ($exception->getCode() === 1005) {
+            // Fehler in der SQL-Abfrage (1005): Fehler: 150 "Foreign key constraint is incorrectly formed"
+            if (preg_match("/REFERENCES (\S+)/", $sql, $matches)) {
+                self::makeVersionPrimaryKeyV2($connection, $matches[1]);
+            }
         }
     }
 
@@ -77,6 +82,15 @@ class EntityDefinitionQueryHelper
     {
         $sql = sprintf(
             "ALTER TABLE %s ADD PRIMARY KEY `PRIMARY` (`id`, `version_id`), DROP INDEX `PRIMARY`;",
+            self::quote($table)
+        );
+        $connection->executeStatement($sql);
+    }
+
+    public static function makeVersionPrimaryKeyV2(Connection $connection, string $table)
+    {
+        $sql = sprintf(
+            "ALTER TABLE %s DROP PRIMARY KEY, ADD PRIMARY KEY (`id`, `version_id`) USING BTREE;",
             self::quote($table)
         );
         $connection->executeStatement($sql);
