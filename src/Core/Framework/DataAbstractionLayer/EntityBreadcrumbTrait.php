@@ -5,7 +5,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 trait EntityBreadcrumbTrait
 {
     protected ?string $breadcrumbPlain = null;
-    protected ?array $breadcrumb;
+    protected ?array $breadcrumb = null;
 
     public function getBreadcrumbPlain(): ?string
     {

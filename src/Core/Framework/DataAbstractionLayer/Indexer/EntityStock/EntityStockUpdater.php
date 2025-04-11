@@ -32,7 +32,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EntityStockUpdater implements EventSubscriberInterface
 {
-    protected string $propertyNamePlural;
+    protected string $propertyNamePlural = "";
 
     public function __construct(
         protected Connection $connection,

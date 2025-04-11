@@ -9,8 +9,8 @@ trait EntityStockTrait
     protected int $stock = 0;
     protected int $availableStock = 0;
     protected int $sales = 0;
-    protected string $productId;
-    protected string $productVersionId;
+    protected string $productId = "";
+    protected string $productVersionId = "";
     protected ?ProductEntity $product = null;
 
     public function getStock(): int

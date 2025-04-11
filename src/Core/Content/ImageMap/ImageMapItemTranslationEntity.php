@@ -6,7 +6,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\TranslationEntity;
 
 class ImageMapItemTranslationEntity extends TranslationEntity
 {
-    protected string $name;
+    protected string $name = "";
     protected ?string $description = null;
 
     public function getName(): string

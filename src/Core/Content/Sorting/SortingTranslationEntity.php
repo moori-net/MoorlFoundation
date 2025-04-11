@@ -6,7 +6,7 @@ use Shopware\Core\Content\Product\SalesChannel\Sorting\ProductSortingTranslation
 
 class SortingTranslationEntity extends ProductSortingTranslationEntity
 {
-    protected string $moorlSortingId;
+    protected string $moorlSortingId = "";
     protected SortingEntity $moorlSorting;
 
     public function getMoorlSortingId(): string

@@ -13,8 +13,8 @@ class CmsElementConfigEntity extends Entity
 
     protected ?string $name = null;
     protected ?string $type = null;
-    protected ?array $config;
-    protected ?array $data;
+    protected ?array $config = null;
+    protected ?array $data = null;
 
     public function getData(): ?array
     {

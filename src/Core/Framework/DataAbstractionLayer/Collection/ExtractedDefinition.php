@@ -24,13 +24,13 @@ final class ExtractedDefinition
         CmsSlotDefinition::class
     ];
 
-    protected string $entityName;
-    protected string $propertyName;
-    protected string $collectionName;
-    protected string $fkStorageName;
-    protected string $fkPropertyName;
-    protected string $extensionPropertyName;
-    protected string $extensionCollectionName;
+    protected string $entityName = "";
+    protected string $propertyName = "";
+    protected string $collectionName = "";
+    protected string $fkStorageName = "";
+    protected string $fkPropertyName = "";
+    protected string $extensionPropertyName = "";
+    protected string $extensionCollectionName = "";
 
     public function __construct(string $class)
     {

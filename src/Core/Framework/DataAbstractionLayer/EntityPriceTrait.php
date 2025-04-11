@@ -7,7 +7,7 @@ use Shopware\Core\System\Tax\TaxEntity;
 
 trait EntityPriceTrait
 {
-    protected string $taxId;
+    protected string $taxId = "";
     protected ?TaxEntity $tax = null;
     protected ?PriceCollection $price = null;
 

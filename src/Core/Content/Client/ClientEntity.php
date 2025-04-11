@@ -9,10 +9,10 @@ class ClientEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected bool $active;
-    protected string $type;
-    protected string $name;
-    protected array $config;
+    protected bool $active = false;
+    protected string $type = "";
+    protected string $name = "";
+    protected array $config = [];
 
     public function getActive(): bool
     {

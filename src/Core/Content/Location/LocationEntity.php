@@ -10,9 +10,9 @@ class LocationEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected array $payload;
-    protected float $locationLat;
-    protected float $locationLon;
+    protected array $payload = [];
+    protected float $locationLat = 0;
+    protected float $locationLon = 0;
 
     public function getGeoPoint(): GeoPoint
     {

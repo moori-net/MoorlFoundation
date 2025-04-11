@@ -18,7 +18,7 @@ use Shopware\Core\Framework\Uuid\Uuid;
 
 class EntityTreeIndexer extends EntityIndexer
 {
-    protected string $entityName;
+    protected string $entityName = "";
 
     public function __construct(
         protected Connection $connection,

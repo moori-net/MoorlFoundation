@@ -10,10 +10,10 @@ class LocationStruct extends Struct
 {
     use EntityLocationTrait;
 
-    protected string $height;
+    protected string $height = "";
     protected bool $legend = false;
     protected bool $overrideOsmOptions = false;
-    protected array $legendItems;
+    protected array $legendItems = [];
     protected ?MarkerCollection $markers = null;
     protected array $osmOptions = [];
 

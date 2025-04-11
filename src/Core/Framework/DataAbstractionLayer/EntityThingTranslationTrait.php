@@ -4,7 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
 trait EntityThingTranslationTrait
 {
-    protected string $name;
+    protected ?string $name = null;
     protected ?string $teaser = null;
     protected ?string $keywords = null;
     protected ?string $description = null;
@@ -44,12 +44,12 @@ trait EntityThingTranslationTrait
         $this->keywords = $keywords;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }

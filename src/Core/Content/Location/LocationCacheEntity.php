@@ -9,7 +9,7 @@ class LocationCacheEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected float $distance;
+    protected float $distance = 0;
 
     public function getDistance(): float
     {

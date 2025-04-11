@@ -17,7 +17,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityLocationIndexer extends EntityIndexer
 {
-    protected string $entityName;
+    protected string $entityName = "";
 
     public function __construct(
         protected Connection $connection,

@@ -22,12 +22,12 @@ class ImageMapEntity extends Entity
     protected bool $active = false;
     protected bool $hidden = false;
     protected bool $useSvg = false;
-    protected string $discountType;
-    protected float $discountValue;
+    protected string $discountType = "";
+    protected float $discountValue = 0;
     protected ?PriceCollection $discountPrice = null;
     protected int $maxStacks = 1;
     protected int $priority = 0;
-    protected string $name;
+    protected string $name = "";
     protected array $options = [];
     protected ?string $description = null;
     protected ?MediaEntity $media = null;
