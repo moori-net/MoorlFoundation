@@ -1,0 +1,5 @@
+[
+  { "value": "cover", "label": "moorl-select.displayMode.cover" },
+  { "value": "contain", "label": "moorl-select.displayMode.contain" },
+  { "value": "standard", "label": "moorl-select.displayMode.standard" }
+]

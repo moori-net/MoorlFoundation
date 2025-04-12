@@ -137,7 +137,9 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
                 .search(this.defaultCriteria, Shopware.Context.api)
                 .then((result) => {
                     this.items = result;
-                    this.$set(this.element.data, 'listingItems', result);
+
+                    this.element.data.listingItems = result;
+                    //this.$set(this.element.data, 'listingItems', result);
                 });
         },
 

@@ -1,0 +1,62 @@
+{% block moorl_listing_slider %}
+    <sw-container columns="1fr 1fr" gap="0px 30px">
+        <moorl-select
+                v-model:config="item.mode"
+                set="sliderMode"
+        />
+
+        <moorl-select
+                v-model:config="item.navigationArrows"
+                set="navigationArrows"
+                showClearableButton
+        />
+
+        <moorl-select
+                v-model:config="item.navigationDots"
+                set="navigationDots"
+                showClearableButton
+        />
+
+        <sw-number-field
+                v-model:value="item.speed.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')"
+        />
+
+        <sw-number-field
+                v-model:value="item.autoplayTimeout.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayTimeout')"
+        />
+
+        <sw-switch-field
+                v-model:value="item.autoplay.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplay')"
+        />
+
+        <sw-switch-field
+                v-model:value="item.autoplayHoverPause.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')"
+        />
+
+        <sw-switch-field
+                v-model:value="item.mouseDrag.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.mouseDrag')"
+        />
+
+        <template v-if="item.mode.value === 'gallery'">
+            <moorl-select
+                    v-model:config="item.animateIn"
+                    set="animateIn"
+                    showClearableButton
+            />
+
+            <moorl-select
+                    v-model:config="item.animateOut"
+                    set="animateOut"
+                    showClearableButton
+            />
+        </template>
+    </sw-container>
+{% endblock %}

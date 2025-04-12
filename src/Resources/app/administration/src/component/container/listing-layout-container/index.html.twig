@@ -1,0 +1,41 @@
+{% block moorl_listing_layout %}
+    <sw-container columns="1fr 1fr" gap="0px 30px">
+        <moorl-select
+                v-model:config="item.listingLayout"
+                set="listingLayout"
+        />
+
+        <moorl-select
+                v-if="item.listingLayout.value == 'standard'"
+                v-model:config="item.listingJustifyContent"
+                set="listingJustifyContent"
+        />
+
+        <moorl-select
+                v-model:config="item.itemLayout"
+                set="itemLayout"
+        />
+
+        <sw-text-field
+                v-model:value="item.listingHeaderTitle.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingHeaderTitle')"
+                :helpText="$tc('sw-cms.elements.moorl-foundation-listing.helpText.listingHeaderTitle')"
+        />
+
+        <sw-text-field
+                v-if="item.itemLayout.value == 'custom'"
+                v-model:value="item.itemLayoutTemplate.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemLayoutTemplate')"
+        />
+
+        <moorl-select
+                v-model:config="item.displayMode"
+                set="displayMode"
+        />
+
+        <sw-text-field
+                v-model:value="item.gapSize.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')"
+        />
+    </sw-container>
+{% endblock %}

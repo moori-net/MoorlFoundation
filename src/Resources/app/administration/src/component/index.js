@@ -31,3 +31,5 @@ import './combination-element-options';
 import './svg-shape';
 import './media-gallery';
 import './properties';
+import './select';
+import './container';

@@ -1,0 +1,5 @@
+[
+  { "value": "flex-start", "label": "moorl-select.verticalAlign.top" },
+  { "value": "center", "label": "moorl-select.verticalAlign.center" },
+  { "value": "flex-end", "label": "moorl-select.verticalAlign.bottom" }
+]

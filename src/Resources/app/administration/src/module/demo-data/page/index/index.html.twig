@@ -3,24 +3,24 @@
         <sw-card-view>
             <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.settingsDemoData')">
                 <template v-if="options.length">
-                    <sw-select-field
+                    <moorl-select
+                            :label="$tc('moorl-foundation.properties.type')"
+                            set="flexVerticalAlign"
+                            v-model:value="test"
+                            showClearableButton
+                    />
+
+                    <pre>{{ test }}</pre>
+
+                    <sw-single-select
                             :label="$tc('moorl-foundation.properties.type')"
                             v-model:value="optionIndex"
-                            @update:value="selectOption()"
-                    >
-                        <option v-for="(option, index) in options" :key="`option-${index}`" :value="index">
-                            <template v-if="option.type === 'data'">
-                                {{ $tc('moorl-foundation.label.baseData') }} | {{ option.pluginName }}
-                            </template>
-                            <template v-else>
-                                {{ $tc('moorl-foundation.label.standardDemo') }} ({{ option.name }} | {{ option.pluginName }})
-                            </template>
-                        </option>
-                    </sw-select-field>
+                            :options="options"
+                    />
 
                     <sw-entity-single-select
                             :label="$tc('moorl-foundation.properties.salesChannel')"
-                            v-model:value="item.salesChannelId"
+                            v-model:value="salesChannelId"
                             labelProperty="name"
                             entity="sales_channel"
                     />

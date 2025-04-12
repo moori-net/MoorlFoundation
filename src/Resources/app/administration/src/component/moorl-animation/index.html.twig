@@ -40,20 +40,18 @@
                         v-model:value="currentConfig[type].active"
                 />
 
-                <sw-select-field :label="$tc(snippetPrefix + 'label.name.' + type)"
-                                 :helpText="$tc(snippetPrefix + 'helpText.name')"
-                                 v-model:value="currentConfig[type].name">
-                    <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                        <option v-for="value in item.options" :value="value">{{ value }}</option>
-                    </optgroup>
-                </sw-select-field>
+                <moorl-select
+                        :label="$tc(snippetPrefix + 'label.name.' + type)"
+                        :helpText="$tc(snippetPrefix + 'helpText.name')"
+                        v-model:value="value[type].name"
+                        set="animateCss"
+                />
 
-                <sw-select-field :label="$tc(snippetPrefix + 'label.condition')"
-                                 v-model:value="currentConfig[type].condition">
-                    <option v-for="value in ['isLoaded','isOverBottom','isInViewport']" :value="value">
-                        {{ $tc(snippetPrefix + 'label.' + value) }}
-                    </option>
-                </sw-select-field>
+                <moorl-select
+                        :label="$tc(snippetPrefix + 'label.condition')"
+                        v-model:value="value[type].condition"
+                        set="domElementState"
+                />
 
                 <sw-number-field
                         v-model:value="currentConfig[type].duration"

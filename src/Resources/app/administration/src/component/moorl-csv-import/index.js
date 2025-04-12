@@ -1,10 +1,9 @@
 import template from './index.html.twig';
 import './index.scss';
+import Papa from 'papaparse';
 
 const { Component, Mixin } = Shopware;
 const Criteria = Shopware.Data.Criteria;
-
-const Papa = require('papaparse');
 
 Component.register('moorl-csv-import', {
     template,

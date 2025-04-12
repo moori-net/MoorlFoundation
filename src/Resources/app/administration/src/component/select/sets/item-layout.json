@@ -1,0 +1,9 @@
+[
+  { "value": "overlay", "label": "moorl-select.itemLayout.overlay" },
+  { "value": "image-or-title", "label": "moorl-select.itemLayout.image-or-title" },
+  { "value": "image-content", "label": "moorl-select.itemLayout.image-content" },
+  { "value": "content-image", "label": "moorl-select.itemLayout.content-image" },
+  { "value": "avatar", "label": "moorl-select.itemLayout.avatar" },
+  { "value": "standard", "label": "moorl-select.itemLayout.standard" },
+  { "value": "custom", "label": "moorl-select.itemLayout.custom" }
+]

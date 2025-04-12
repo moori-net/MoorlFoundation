@@ -1,0 +1,84 @@
+{
+  "moorl-select": {
+    "label": {
+      "none": "None",
+      "horizontalAlign": "Horizontal alignment",
+      "verticalAlign": "Vertical alignment",
+      "sliderMode": "Slider mode",
+      "navigationArrows": "Navigation arrows",
+      "navigationDots": "Navigation dots",
+      "listingSorting": "Sorting",
+      "listingItemIds": "Select items",
+      "listingSource": "Listing Source",
+      "listingLayout": "Listing layout",
+      "itemLayout": "Item layout",
+      "displayMode": "Display mode",
+      "listingJustifyContent": "Justify content",
+      "animateIn": "Animate in",
+      "animateOut": "Animate out",
+      "animateHover": "Animate hover",
+      "animateCss": "Animate",
+      "bsGridWith": "Width",
+      "bsButton": "Button type",
+      "bsColorScheme": "Color scheme"
+    },
+    "bsColor": {},
+    "displayMode": {
+      "cover": "Cover",
+      "contain": "Contain",
+      "standard": "Standard"
+    },
+    "listingSource": {
+      "static": "Static items",
+      "select": "Select items",
+      "auto": "Automatic items (with pagination)"
+    },
+    "listingLayout": {
+      "standard": "Shopware standard",
+      "grid": "Responsive Grid",
+      "list": "List",
+      "slider": "Slider",
+      "search-suggest": "Suggest search list (minimal)"
+    },
+    "listingJustifyContent": {
+      "normal": "Normal",
+      "flex-start": "Start",
+      "flex-end": "End",
+      "center": "Center",
+      "space-between": "Space between",
+      "space-around": "Space around"
+    },
+    "itemLayout": {
+      "avatar": "Avatar (Round image)",
+      "custom": "Custom template",
+      "standard": "Standard",
+      "overlay": "Overlay",
+      "image-or-title": "Image (if not set use title)",
+      "image-content": "1st Image - 2nd Content",
+      "content-image": "1st Content - 2nd Image"
+    },
+    "horizontalAlign": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    },
+    "verticalAlign": {
+      "top": "Top",
+      "center": "Center",
+      "bottom": "Bottom"
+    },
+    "sliderMode": {
+      "carousel": "Carousel",
+      "gallery": "Gallery"
+    },
+    "navigationArrows": {
+      "inside": "Inside",
+      "outside": "Outside"
+    },
+    "navigationDots": {
+      "inside": "Inside",
+      "outside": "Outside",
+      "thumbnails": "Thumbnails"
+    }
+  }
+}

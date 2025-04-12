@@ -1,0 +1,32 @@
+{% block moorl_listing_item %}
+    <sw-container columns="1fr 1fr" gap="0px 30px">
+        <sw-text-field
+                v-model:value="item.itemWidth.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')"
+        />
+
+        <sw-text-field
+                v-model:value="item.itemHeight.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')"
+        />
+
+        <sw-text-field
+                v-model:value="item.itemPadding.value"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemPadding')"
+        />
+
+        <sw-colorpicker
+                v-model:value="item.itemBackgroundColor.value"
+                colorOutput="hex"
+                :zIndex="1000"
+                :alpha="false"
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemBackgroundColor')"
+        />
+
+        <sw-switch-field
+                v-model:value="item.itemHasBorder.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHasBorder')"
+        />
+    </sw-container>
+{% endblock %}

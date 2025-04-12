@@ -1,0 +1,8 @@
+[
+  {"value": "normal", "label": "moorl-select.listingJustifyContent.normal"},
+  {"value": "flex-start", "label": "moorl-select.listingJustifyContent.flex-start"},
+  {"value": "flex-end", "label": "moorl-select.listingJustifyContent.flex-end"},
+  {"value": "center", "label": "moorl-select.listingJustifyContent.center"},
+  {"value": "space-between", "label": "moorl-select.listingJustifyContent.space-between"},
+  {"value": "space-around", "label": "moorl-select.listingJustifyContent.space-around"}
+]

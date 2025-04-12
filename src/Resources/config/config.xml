@@ -258,7 +258,7 @@
             <options>
                 <option>
                     <id>scrollWheelZoom</id>
-                    <name>Zoom with scrollwheel</name>
+                    <name>Zoom with scroll wheel</name>
                     <name lang="de-DE">Mit Mausrad zoomen</name>
                 </option>
                 <option>
@@ -510,31 +510,10 @@
         </input-field>
 
         <input-field type="bool">
-            <name>cmsElements</name>
-            <label>Remove CMS elements when uninstalling</label>
-            <label lang="de-DE">CMS Elemente beim deinstallieren entfernen</label>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field type="bool">
-            <name>mailTemplates</name>
-            <label>Remove/Refresh email templates when uninstalling/activating</label>
-            <label lang="de-DE">Entfernen/Erneuern von E-Mail Templates beim Deinstallieren/Aktivieren</label>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field type="bool">
-            <name>customFields</name>
-            <label>Remove/Refresh custom fields when uninstalling/activating</label>
-            <label lang="de-DE">Entfernen/Erneuern von Freitextfeldern beim Deinstallieren/Aktivieren</label>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field type="bool">
-            <name>snippets</name>
-            <label>Remove/Refresh snippets when uninstalling/activating</label>
-            <label lang="de-DE">Entfernen/Erneuern von Textbausteinen beim Deinstallieren/Aktivieren</label>
-            <defaultValue>true</defaultValue>
+            <name>demoCreateSalesChannel</name>
+            <label>Create a new sales channel for demo content (if no sales channel selected)</label>
+            <label lang="de-DE">einen neuen Verkaufskanal für Demo-Inhalte erstellen (wenn kein Verkaufskanal ausgewählt wurde)</label>
+            <defaultValue>false</defaultValue>
         </input-field>
     </card>
 

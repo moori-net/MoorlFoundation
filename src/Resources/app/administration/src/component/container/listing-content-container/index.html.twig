@@ -1,0 +1,75 @@
+{% block moorl_listing_content %}
+    <sw-container columns="1fr 1fr" gap="0px 30px">
+        {% block moorl_listing_content_inner %}
+            <sw-switch-field
+                    v-model:value="item.sanitize.value"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.sanitize')"
+            />
+
+            <sw-number-field
+                    v-model:value="item.contentLength.value"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentLength')"
+            />
+
+            <moorl-select
+                    v-model:config="item.textAlign"
+                    set="textHorizontalAlign"
+                    showClearableButton
+            />
+
+            <sw-text-field
+                    v-model:value="item.contentPadding.value"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentPadding')"
+            />
+
+            <sw-colorpicker
+                    v-model:value="item.contentBackgroundColor.value"
+                    colorOutput="hex"
+                    :zIndex="1000"
+                    :alpha="true"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentBackgroundColor')"
+            />
+
+            <sw-colorpicker
+                    v-model:value="item.contentHighlightColor.value"
+                    colorOutput="hex"
+                    :zIndex="1000"
+                    :alpha="false"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentHighlightColor')"
+            />
+
+            <sw-colorpicker
+                    v-model:value="item.contentColor.value"
+                    colorOutput="hex"
+                    :zIndex="1000"
+                    :alpha="false"
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentColor')"
+            />
+
+            <sw-switch-field
+                    v-model:value="item.urlNewTab.value"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.urlNewTab')"
+            />
+
+            <sw-switch-field
+                    v-model:value="item.hasButton.value"
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-foundation-listing.label.hasButton')"
+            />
+
+            <template v-if="item.hasButton.value">
+                <sw-text-field
+                        v-model:value="item.buttonClass.value"
+                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonClass')"
+                />
+
+                <sw-text-field
+                        v-model:value="item.buttonLabel.value"
+                        :label="$tc('sw-cms.elements.moorl-foundation-listing.label.buttonLabel')"
+                />
+            </template>
+        {% endblock %}
+    </sw-container>
+{% endblock %}
