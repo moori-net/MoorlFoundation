@@ -1,6 +1,5 @@
 {
-  "moorl-element-animation": {
-    "title": "moori element animation",
+  "moorl-animation-container": {
     "label": {
       "active": "Aktiv",
       "name": {
@@ -10,10 +9,7 @@
       },
       "duration": "Dauer (ms)",
       "delay": "Verzögerung (ms)",
-      "condition": "Bedingung",
-      "isLoaded": "Sofort",
-      "isOverBottom": "Teilweise sichtbar",
-      "isInViewport": "Vollständig sichtbar"
+      "condition": "Bedingung"
     },
     "helpText": {
       "name": "Aktivere Animate.css in den moori Foundation Einstellungen"

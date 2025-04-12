@@ -1,7 +1,6 @@
 const {Component, Mixin} = Shopware;
 
 import template from './index.html.twig';
-import './index.scss';
 
 Component.register('moorl-element-animation', {
     template,
@@ -20,41 +19,12 @@ Component.register('moorl-element-animation', {
         this.createdComponentExtra();
     },
 
-    computed: {
-        moorlFoundation() {
-            return MoorlFoundation;
-        }
-    },
-
     methods: {
         async createdComponentExtra() {
             const extraConfig = {
                 moorlAnimation: {
                     source: 'static',
-                    value: {
-                        cssSelector: null,
-                        in: {
-                            active: false,
-                            name: 'none',
-                            condition: 'isInViewport',
-                            duration: 1000,
-                            delay: 0,
-                        },
-                        out: {
-                            active: false,
-                            name: 'none',
-                            condition: 'isInViewport',
-                            duration: 1000,
-                            delay: 0,
-                        },
-                        hover: {
-                            active: false,
-                            name: 'none',
-                            condition: 'isInViewport',
-                            duration: 1000,
-                            delay: 0,
-                        }
-                    }
+                    value: null
                 }
             };
 

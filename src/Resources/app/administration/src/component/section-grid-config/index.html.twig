@@ -41,16 +41,16 @@
                 v-model:value="configItem.offsetTop"
         />
 
-        <sw-select-field
-                v-model:value="configItem.justifyContent"
-                :options="flexAlignments"
+        <moorl-select
                 :label="$tc('moorl-section-grid-config.label.justifyContent')"
+                v-model:value="configItem.justifyContent"
+                set="listingJustifyContent"
         />
 
-        <sw-select-field
-                v-model:value="configItem.alignItems"
-                :options="flexAlignments"
+        <moorl-select
                 :label="$tc('moorl-section-grid-config.label.alignItems')"
+                v-model:value="configItem.alignItems"
+                set="listingJustifyContent"
         />
     </div>
 </div>

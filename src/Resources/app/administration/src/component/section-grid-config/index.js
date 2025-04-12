@@ -13,41 +13,6 @@ Component.register('moorl-section-grid-config', {
         },
     },
 
-    computed: {
-        flexAlignments() {
-            return [
-                {
-                    name: 'normal',
-                    id: 'normal'
-                },
-                {
-                    name: 'flex-start',
-                    id: 'flex-start'
-                },
-                {
-                    name: 'center',
-                    id: 'center'
-                },
-                {
-                    name: 'flex-end',
-                    id: 'flex-end'
-                },
-                {
-                    name: 'space-around',
-                    id: 'space-around'
-                },
-                {
-                    name: 'space-between',
-                    id: 'space-between'
-                },
-                {
-                    name: 'space-evenly',
-                    id: 'space-evenly'
-                },
-            ];
-        }
-    },
-
     created() {
         this.initCustomFields();
     },
