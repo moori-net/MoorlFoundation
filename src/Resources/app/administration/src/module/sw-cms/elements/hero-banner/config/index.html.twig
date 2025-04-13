@@ -28,7 +28,7 @@
 
         <template #content="{ active }">
             <sw-container v-if="active === 'general'">
-                <moorl-select
+                <moorl-select-field
                         :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
                         v-model:value="element.config.searchType.value"
                         :customSet="['search','location']"
@@ -80,13 +80,13 @@
                 </div>
 
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <moorl-select
+                    <moorl-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundVerticalAlign')"
                             v-model:value="element.config.backgroundVerticalAlign.value"
                             set="textVerticalAlign"
                     />
 
-                    <moorl-select
+                    <moorl-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundHorizontalAlign')"
                             v-model:value="element.config.backgroundHorizontalAlign.value"
                             set="textHorizontalAlign"
@@ -98,7 +98,7 @@
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundFixed')"
                     />
 
-                    <moorl-select
+                    <moorl-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundDisplayMode')"
                             v-model:value="element.config.backgroundDisplayMode.value"
                             set="displayMode"
@@ -123,13 +123,13 @@
 
             <sw-container v-if="active === 'position'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <moorl-select
+                    <moorl-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxVerticalAlign')"
                             v-model:value="element.config.boxVerticalAlign.value"
                             set="flexVerticalAlign"
                     />
 
-                    <moorl-select
+                    <moorl-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHorizontalAlign')"
                             v-model:value="element.config.boxHorizontalAlign.value"
                             set="flexHorizontalAlign"
@@ -155,7 +155,7 @@
                             v-model:value="element.config.boxPadding.value"
                     />
 
-                    <moorl-select
+                    <moorl-select-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxTextAlign')"
                             v-model:value="element.config.boxTextAlign.value"
                             set="textHorizontalAlign"

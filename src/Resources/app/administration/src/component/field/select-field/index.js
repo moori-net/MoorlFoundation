@@ -53,7 +53,7 @@ const sets = {
     bsGridColumns
 };
 
-Component.register('moorl-select', {
+Component.register('moorl-select-field', {
     template,
 
     emits: ['update:value'],

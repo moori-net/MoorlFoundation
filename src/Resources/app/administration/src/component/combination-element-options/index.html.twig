@@ -13,7 +13,7 @@
                     :label="$tc('moorl-combination-element-options.label.classAttribute')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :label="$tc('moorl-cms.elements.general.config.label.style')"
                     v-model:value="value.layout"
                     :customSet="['banner-content','content-banner']"
@@ -56,7 +56,7 @@
                     :label="$tc('moorl-combination-element-options.label.enableAddToCartSingle')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :label="$tc('moorl-combination-element-options.label.addToCartSingleIcon')"
                     v-model:value="value.addToCartSingleIcon"
                     :disabled="!value.enableAddToCartSingle"
@@ -71,7 +71,7 @@
                     :label="$tc('moorl-combination-element-options.label.enableAddToCartAll')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :label="$tc('moorl-combination-element-options.label.addToCartAllIcon')"
                     v-model:value="value.addToCartAllIcon"
                     :disabled="!value.enableAddToCartAll"
@@ -123,7 +123,7 @@
                     :disabled="!value.showHotspots"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :label="$tc('moorl-combination-element-options.label.hotspotAnimation')"
                     v-model:value="value.hotspotAnimation"
                     :disabled="!value.showHotspots"
@@ -143,7 +143,7 @@
                     :label="$tc('moorl-combination-element-options.label.showStock')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :label="$tc('moorl-combination-element-options.label.stockType')"
                     v-model:value="value.stockType"
                     :disabled="!value.showStock"
@@ -163,7 +163,7 @@
                     :label="$tc('moorl-combination-element-options.label.showCountdown')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :label="$tc('moorl-combination-element-options.label.countdownType')"
                     v-model:value="value.countdownType"
                     :disabled="!value.showCountdown"

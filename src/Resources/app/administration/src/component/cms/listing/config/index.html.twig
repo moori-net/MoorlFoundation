@@ -30,7 +30,7 @@
             <sw-container v-if="active === 'listing'" key="listing">
                 <sw-container columns="1fr 1fr" gap="0px 30px">
                     <div class="link-field">
-                        <moorl-select
+                        <moorl-select-field
                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
                                 @update:value="onSelectionChange"
                                 v-model:value="element.config.listingSource.value"
@@ -64,7 +64,7 @@
                             :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')"
                     />
 
-                    <moorl-select
+                    <moorl-select-field
                             v-model:value="element.config.foreignKey.value"
                             @update:value="onSelectionChange"
                             :customSet="elementOptions.foreignKey"

@@ -1,5 +1,5 @@
 <div class="moorl-section-grid-config">
-    <moorl-select
+    <moorl-select-field
             v-model:value="section.customFields.moorl_section_column_count"
             :label="$tc('moorl-section-grid-config.label.sectionColumnCount')"
             @update:value="initCustomFields"
@@ -41,13 +41,13 @@
                 v-model:value="configItem.offsetTop"
         />
 
-        <moorl-select
+        <moorl-select-field
                 :label="$tc('moorl-section-grid-config.label.justifyContent')"
                 v-model:value="configItem.justifyContent"
                 set="listingJustifyContent"
         />
 
-        <moorl-select
+        <moorl-select-field
                 :label="$tc('moorl-section-grid-config.label.alignItems')"
                 v-model:value="configItem.alignItems"
                 set="listingJustifyContent"

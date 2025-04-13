@@ -12,7 +12,7 @@
             {{ $tc('moorl-foundation.buttons.remove') }}
         </sw-button>
 
-        <moorl-select
+        <moorl-select-field
                 v-model:value="activeSlot"
                 :customSet="block.slots"
                 valueProperty="id"
@@ -79,12 +79,12 @@
                     :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     v-model:value="block.customFields.moorl_interactive_slider.animateIn"
                     set="animateIn"
             />
 
-            <moorl-select
+            <moorl-select-field
                     v-model:value="block.customFields.moorl_interactive_slider.animateOut"
                     set="animateOut"
             />

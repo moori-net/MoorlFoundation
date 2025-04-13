@@ -4,7 +4,7 @@ import './index.scss';
 const { Component, Context } = Shopware;
 const { Criteria, EntityCollection } = Shopware.Data;
 
-Component.register('moorl-properties', {
+Component.register('moorl-properties-card', {
     template,
 
     compatConfig: Shopware.compatConfig,

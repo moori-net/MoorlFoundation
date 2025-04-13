@@ -98,14 +98,14 @@
 
                         <td class="sw-data-grid__cell">
                             <div class="sw-data-grid__cell-content">
-                                <moorl-select
+                                <moorl-select-field
                                         v-if="column.localField"
                                         v-model:value="mapping[column.localField]"
                                         :customSet="properties"
                                         showClearableButton
                                 />
 
-                                <moorl-select
+                                <moorl-select-field
                                         v-else
                                         v-model:value="mapping[column.property]"
                                         :customSet="properties"

@@ -28,14 +28,14 @@
                     v-tooltip="helpText(behaviour.breakpoint,'show')"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :disabled="value[behaviour.breakpoint].inherit"
                     v-model:value="value[behaviour.breakpoint].width"
                     v-tooltip="helpText(behaviour.breakpoint,'width')"
                     set="bsGridWidth"
             />
 
-            <moorl-select
+            <moorl-select-field
                     :disabled="value[behaviour.breakpoint].inherit"
                     v-model:value="value[behaviour.breakpoint].order"
                     v-tooltip="helpText(behaviour.breakpoint,'order')"
