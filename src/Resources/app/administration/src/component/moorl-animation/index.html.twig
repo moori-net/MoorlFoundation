@@ -1,7 +1,9 @@
 <div class="moorl-animation">
-    <sw-collapse v-for="currentConfig, index in value"
-                 :ref="'moorl-animation_' + index"
-                 class="moorl-collapse">
+    <sw-collapse
+            v-for="currentConfig, index in value"
+            :ref="'moorl-animation_' + index"
+            class="moorl-collapse"
+    >
         <template #header="{ expanded }">
             <h4>{{ $tc(snippetPrefix + 'label.cssSelector') }}</h4>
 
@@ -11,11 +13,7 @@
             />
 
             <div>
-                <sw-icon
-                        @click="deleteEntry(index)"
-                        name="regular-trash"
-                        small
-                />
+                <sw-icon @click="deleteEntry(index)" name="regular-trash" small/>
             </div>
 
             <div>

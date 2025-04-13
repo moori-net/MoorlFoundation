@@ -1,18 +1,18 @@
 {% block moorl_listing_layout %}
     <sw-container columns="1fr 1fr" gap="0px 30px">
         <moorl-select
-                v-model:config="item.listingLayout"
+                v-model:value="item.listingLayout.value"
                 set="listingLayout"
         />
 
         <moorl-select
                 v-if="item.listingLayout.value == 'standard'"
-                v-model:config="item.listingJustifyContent"
+                v-model:value="item.listingJustifyContent.value"
                 set="listingJustifyContent"
         />
 
         <moorl-select
-                v-model:config="item.itemLayout"
+                v-model:value="item.itemLayout.value"
                 set="itemLayout"
         />
 
@@ -29,7 +29,7 @@
         />
 
         <moorl-select
-                v-model:config="item.displayMode"
+                v-model:value="item.displayMode.value"
                 set="displayMode"
         />
 

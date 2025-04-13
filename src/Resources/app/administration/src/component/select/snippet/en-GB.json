@@ -27,10 +27,16 @@
       "left": "Left"
     },
     "bsColor": {},
+    "domElementState": {
+      "isLoaded": "Load",
+      "isOverBottom": "Over bottom",
+      "isInViewport": "In viewport"
+    },
     "displayMode": {
       "cover": "Cover",
       "contain": "Contain",
-      "standard": "Standard"
+      "standard": "Standard",
+      "custom": "Custom"
     },
     "listingSource": {
       "static": "Static items",

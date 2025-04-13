@@ -67,11 +67,6 @@ Component.register('moorl-select', {
             required: false,
             default: undefined
         },
-        config: {
-            type: Object,
-            required: false,
-            default: null
-        },
         label: {
             type: String,
             required: false,
@@ -164,7 +159,7 @@ Component.register('moorl-select', {
         options() {
             const options = [];
 
-            if (typeof sets[this.currentSet] === undefined) {
+            if (typeof sets[this.currentSet] === 'undefined') {
                 return [{value: null, label: `set ${this.currentSet} not found`}];
             }
 
@@ -172,18 +167,19 @@ Component.register('moorl-select', {
                 let value = null;
                 let label = null;
 
-                if (typeof option === "string") {
+                if (typeof option === 'string') {
                     value = option;
                     label = this.getLabel(option);
                 } else if (
-                    typeof option[this.valueProperty] === "string" &&
-                    typeof option.translated[this.labelProperty] === "string"
+                    typeof option[this.valueProperty] === 'string' &&
+                    typeof option.translated !== 'undefined' &&
+                    typeof option.translated[this.labelProperty] === 'string'
                 ) {
                     value = option[this.valueProperty];
                     label = option.translated[this.labelProperty];
                 } else if (
-                    typeof option[this.valueProperty] === "string" &&
-                    typeof option[this.labelProperty] === "string"
+                    typeof option[this.valueProperty] === 'string' &&
+                    typeof option[this.labelProperty] === 'string'
                 ) {
                     value = option[this.valueProperty];
                     label = this.translated
@@ -218,21 +214,15 @@ Component.register('moorl-select', {
         },
 
         currentPlaceholder() {
-            return this.placeholder ?? this.showClearableButton ? this.$tc('moorl-select.label.none') : this.currentLabel;
+            return this.placeholder ?? this.$tc('moorl-select.label.none');
         },
 
         currentValue: {
             get() {
-                return this.value ?? this.config.value;
+                return this.value;
             },
             set(newValue) {
-                if (this.value) {
-                    this.$emit('update:value', newValue);
-                } else {
-                    const newConfig = Object.assign({}, this.config);
-                    newConfig.value = newValue;
-                    this.$emit('update:config', newConfig);
-                }
+                this.$emit('update:value', newValue ?? null);
             }
         }
     },

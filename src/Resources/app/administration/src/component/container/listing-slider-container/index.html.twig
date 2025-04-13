@@ -1,18 +1,18 @@
 {% block moorl_listing_slider %}
     <sw-container columns="1fr 1fr" gap="0px 30px">
         <moorl-select
-                v-model:config="item.mode"
+                v-model:value="item.mode.value"
                 set="sliderMode"
         />
 
         <moorl-select
-                v-model:config="item.navigationArrows"
+                v-model:value="item.navigationArrows.value"
                 set="navigationArrows"
                 showClearableButton
         />
 
         <moorl-select
-                v-model:config="item.navigationDots"
+                v-model:value="item.navigationDots.value"
                 set="navigationDots"
                 showClearableButton
         />
@@ -47,13 +47,13 @@
 
         <template v-if="item.mode.value === 'gallery'">
             <moorl-select
-                    v-model:config="item.animateIn"
+                    v-model:value="item.animateIn.value"
                     set="animateIn"
                     showClearableButton
             />
 
             <moorl-select
-                    v-model:config="item.animateOut"
+                    v-model:value="item.animateOut.value"
                     set="animateOut"
                     showClearableButton
             />

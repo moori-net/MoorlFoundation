@@ -15,12 +15,6 @@ Component.override('sw-cms-el-config-image-slider', {
         this.createdComponentExtra();
     },
 
-    computed: {
-        moorlFoundation() {
-            return MoorlFoundation;
-        }
-    },
-
     methods: {
         async createdComponentExtra() {
             const extraConfig = {

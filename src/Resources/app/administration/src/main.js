@@ -1,4 +1,3 @@
-import './core/moorl-foundation.scss';
 import './main.scss';
 
 import './core/moorl-foundation';

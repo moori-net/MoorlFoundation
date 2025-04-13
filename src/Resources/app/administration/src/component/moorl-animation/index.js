@@ -33,12 +33,6 @@ Component.register('moorl-animation', {
         this.currentValue = JSON.parse(JSON.stringify(this.value));
     },
 
-    computed: {
-        moorlFoundation() {
-            return MoorlFoundation;
-        }
-    },
-
     methods: {
         addEntry() {
             this.value.push({

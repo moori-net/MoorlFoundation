@@ -65,10 +65,6 @@ Component.register('sw-cms-el-moorl-cta-banner', {
             return bannerMediaUrl;
         },
 
-        moorlFoundation() {
-            return MoorlFoundation;
-        },
-
         category() {
             if (!this.element.data || !this.element.data.category || !this.element.data.category.media) {
                 return this.element?.defaultData?.category;

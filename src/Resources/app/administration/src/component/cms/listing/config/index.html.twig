@@ -32,8 +32,8 @@
                     <div class="link-field">
                         <moorl-select
                                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingSource')"
-                                @update:config="onSelectionChange"
-                                v-model:config="element.config.listingSource"
+                                @update:value="onSelectionChange"
+                                v-model:value="element.config.listingSource.value"
                                 set="listingSource"
                         />
 
@@ -59,16 +59,17 @@
                     </div>
 
                     <sw-number-field
-                            v-model:config="element.config.limit"
-                            @update:config="onSelectionChange"
+                            v-model:value="element.config.limit.value"
+                            @update:value="onSelectionChange"
                             :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')"
                     />
 
-                    <sw-single-select
+                    <moorl-select
                             v-model:value="element.config.foreignKey.value"
                             @update:value="onSelectionChange"
-                            :options="elementOptions.foreignKey"
+                            :customSet="elementOptions.foreignKey"
                             :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
+                            show-clearable-button
                     />
                 </sw-container>
 

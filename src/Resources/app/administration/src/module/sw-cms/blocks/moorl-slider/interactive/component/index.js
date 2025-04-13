@@ -19,10 +19,6 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
     },
 
     computed: {
-        moorlFoundation() {
-            return MoorlFoundation;
-        },
-
         slotRepository() {
             return this.repositoryFactory.create('cms_slot');
         },
