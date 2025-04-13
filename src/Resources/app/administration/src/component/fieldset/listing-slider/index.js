@@ -2,7 +2,7 @@ import template from './index.html.twig';
 
 const {Component} = Shopware;
 
-Component.register('moorl-listing-slider-container', {
+Component.register('moorl-listing-slider-fieldset', {
     template,
 
     props: {

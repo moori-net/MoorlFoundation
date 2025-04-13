@@ -38,7 +38,6 @@ Component.register('moorl-svg-shape', {
                 style: ""
             });
 
-
             Object.assign(value, this.value);
 
             this.$emit('update:value', value);

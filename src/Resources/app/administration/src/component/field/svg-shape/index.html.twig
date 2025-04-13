@@ -1,5 +1,5 @@
 <div class="moorl-svg-shape">
-    <sw-container  columns="2fr 1fr" gap="0px 20px">
+    <sw-container columns="2fr 1fr" gap="0px 20px">
         <moorl-select-field
                 v-model:value="value.shape"
                 set="svgShape"
@@ -11,8 +11,8 @@
         />
     </sw-container>
 
-    <template v-if="value.shape !== 'none'">
-        <sw-container  columns="1fr 1fr" gap="0px 20px">
+    <template v-if="value.shape">
+        <sw-container columns="1fr 1fr" gap="0px 20px">
             <sw-number-field
                     v-if="['rect'].includes(value.shape)"
                     v-model:value="value.width"

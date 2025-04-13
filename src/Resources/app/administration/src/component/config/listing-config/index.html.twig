@@ -31,7 +31,7 @@
         </template>
 
         <template #content="{ active }">
-            <moorl-listing-layout-container
+            <moorl-listing-layout-fieldset
                     v-if="active === 'layout'"
                     v-model:item="value"
             />
@@ -41,12 +41,12 @@
                     v-model:item="value"
             />
 
-            <moorl-listing-item-container
+            <moorl-listing-item-fieldset
                     v-if="active === 'item'"
                     v-model:item="value"
             />
 
-            <moorl-listing-content-container
+            <moorl-listing-content-fieldset
                     v-if="active === 'content'"
                     v-model:item="value"
             />

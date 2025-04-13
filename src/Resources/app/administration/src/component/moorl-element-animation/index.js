@@ -9,12 +9,6 @@ Component.register('moorl-element-animation', {
         Mixin.getByName('cms-element')
     ],
 
-    data() {
-        return {
-            snippetPrefix: 'moorl-element-animation.',
-        };
-    },
-
     created() {
         this.createdComponentExtra();
     },

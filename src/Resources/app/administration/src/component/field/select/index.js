@@ -139,6 +139,15 @@ Component.register('moorl-select-field', {
             }
         },
 
+        currentValue: {
+            get() {
+                return this.value;
+            },
+            set(newValue) {
+                this.$emit('update:value', newValue ?? null);
+            }
+        },
+
         translated() {
             return [
                 'animateIn',
@@ -212,15 +221,6 @@ Component.register('moorl-select-field', {
 
         currentPlaceholder() {
             return this.placeholder ?? this.$tc('moorl-select.label.none');
-        },
-
-        currentValue: {
-            get() {
-                return this.value;
-            },
-            set(newValue) {
-                this.$emit('update:value', newValue ?? null);
-            }
         }
     },
 

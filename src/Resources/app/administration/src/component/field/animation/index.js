@@ -4,7 +4,7 @@ import defaultValue from './default.json';
 
 const {Component} = Shopware;
 
-Component.register('moorl-animation-container', {
+Component.register('moorl-animation-fieldset', {
     template,
 
     emits: ['update:item'],

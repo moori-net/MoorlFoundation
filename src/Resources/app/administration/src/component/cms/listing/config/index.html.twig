@@ -91,7 +91,7 @@
                 {% block sw_cms_element_moorl_foundation_listing_config %}{% endblock %}
             </sw-container>
 
-            <moorl-listing-layout-container
+            <moorl-listing-layout-fieldset
                     v-if="active === 'layout'"
                     v-model:item="element.config"
             />
@@ -101,12 +101,12 @@
                     v-model:item="element.config"
             />
 
-            <moorl-listing-item-container
+            <moorl-listing-item-fieldset
                     v-if="active === 'item'"
                     v-model:item="element.config"
             />
 
-            <moorl-listing-content-container
+            <moorl-listing-content-fieldset
                     v-if="active === 'content'"
                     v-model:item="element.config"
             />

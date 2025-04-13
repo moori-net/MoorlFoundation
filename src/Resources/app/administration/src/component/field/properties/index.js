@@ -91,7 +91,7 @@ Component.register('moorl-properties-card', {
             return Shopware.Filter.getByName('asset');
         },
 
-        productHasProperties() {
+        itemHasProperties() {
             return this.groupIds.length > 0;
         },
     },
