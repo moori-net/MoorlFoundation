@@ -98,17 +98,19 @@
 
                         <td class="sw-data-grid__cell">
                             <div class="sw-data-grid__cell-content">
-                                <sw-select-field v-if="column.localField" v-model:value="mapping[column.localField]">
-                                        <option value>{{ $t('moorl-foundation.import.choseDefault') }}</option>
-                                        <option v-for="property in properties"
-                                                :value="property">{{ property }}</option>
-                                </sw-select-field>
+                                <moorl-select
+                                        v-if="column.localField"
+                                        v-model:value="mapping[column.localField]"
+                                        :customSet="properties"
+                                        showClearableButton
+                                />
 
-                                <sw-select-field v-else v-model:value="mapping[column.property]">
-                                        <option value>{{ $t('moorl-foundation.import.choseDefault') }}</option>
-                                        <option v-for="property in properties"
-                                                :value="property">{{ property }}</option>
-                                </sw-select-field>
+                                <moorl-select
+                                        v-else
+                                        v-model:value="mapping[column.property]"
+                                        :customSet="properties"
+                                        showClearableButton
+                                />
                             </div>
                         </td>
 

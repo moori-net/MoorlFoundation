@@ -34,17 +34,13 @@
                         validation="required"
                 />
 
-                <template v-if="options.length">
-                    <sw-select-field
-                            :label="$tc('moorl-client.properties.type')"
-                            v-model:value="item.type"
-                            @update:value="resetConfig"
-                    >
-                        <option v-for="(option, index) in options" :key="option.name" :value="option.name">
-                            {{ option.name }}
-                        </option>
-                    </sw-select-field>
-                </template>
+                <moorl-select
+                        v-if="options.length"
+                        :label="$tc('moorl-client.properties.type')"
+                        v-model:value="item.type"
+                        @update:value="resetConfig"
+                        :customSet="options"
+                />
             </sw-card>
 
             <sw-card v-if="item && item.config" :isLoading="isLoading" :title="$tc('moorl-client.card.config')">

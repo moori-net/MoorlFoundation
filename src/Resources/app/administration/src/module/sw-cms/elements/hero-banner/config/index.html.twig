@@ -4,6 +4,7 @@
             <sw-tabs-item name="general" :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-cta-banner.tab.general') }}
             </sw-tabs-item>
+
             <sw-tabs-item
                     v-if="element.config.mediaActive.value"
                     name="media"
@@ -11,9 +12,11 @@
             >
                 {{ $tc('sw-cms.elements.moorl-cta-banner.tab.media') }}
             </sw-tabs-item>
+
             <sw-tabs-item name="position" :activeTab="active">
                 {{ $tc('sw-cms.elements.moorl-cta-banner.tab.position') }}
             </sw-tabs-item>
+
             <sw-tabs-item
                     v-if="element.config.captionActive.value"
                     name="content"
@@ -25,13 +28,12 @@
 
         <template #content="{ active }">
             <sw-container v-if="active === 'general'">
-                <sw-select-field
+                <moorl-select
                         :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
                         v-model:value="element.config.searchType.value"
-                >
-                    <option value="search">{{ $tc('sw-cms.elements.moorl-cta-banner.label.search') }}</option>
-                    <option value="location">{{ $tc('sw-cms.elements.moorl-cta-banner.label.location') }}</option>
-                </sw-select-field>
+                        :customSet="['search','location']"
+                        snippetPath="sw-cms.elements.moorl-cta-banner.label"
+                />
 
                 <sw-entity-single-select
                         v-if="element.config.searchType.value == 'location'"
@@ -78,19 +80,17 @@
                 </div>
 
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundVerticalAlign')"
                             v-model:value="element.config.backgroundVerticalAlign.value"
-                    >
-                        <option v-for="option in verticalTextAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="textVerticalAlign"
+                    />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundHorizontalAlign')"
                             v-model:value="element.config.backgroundHorizontalAlign.value"
-                    >
-                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="textHorizontalAlign"
+                    />
 
                     <sw-switch-field
                             v-model:value="element.config.backgroundFixed.value"
@@ -98,12 +98,11 @@
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundFixed')"
                     />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundDisplayMode')"
                             v-model:value="element.config.backgroundDisplayMode.value"
-                    >
-                        <option v-for="option in backgroundSizeOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="displayMode"
+                    />
                 </sw-container>
 
                 <sw-container
@@ -124,19 +123,17 @@
 
             <sw-container v-if="active === 'position'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxVerticalAlign')"
                             v-model:value="element.config.boxVerticalAlign.value"
-                    >
-                        <option v-for="option in flexAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="flexVerticalAlign"
+                    />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHorizontalAlign')"
                             v-model:value="element.config.boxHorizontalAlign.value"
-                    >
-                        <option v-for="option in flexAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="flexHorizontalAlign"
+                    />
 
                     <sw-text-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxWidth')"
@@ -158,12 +155,11 @@
                             v-model:value="element.config.boxPadding.value"
                     />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxTextAlign')"
                             v-model:value="element.config.boxTextAlign.value"
-                    >
-                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="textHorizontalAlign"
+                    />
 
                     <sw-colorpicker
                             colorOutput="hex"

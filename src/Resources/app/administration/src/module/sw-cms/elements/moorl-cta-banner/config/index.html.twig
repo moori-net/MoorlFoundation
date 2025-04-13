@@ -27,14 +27,15 @@
         <template #content="{ active }">
             <sw-container v-if="active === 'general'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementType')"
                             v-model:value="element.config.elementType.value"
                             @update:value="resetElementTypeConfig()"
-                    >
-                        <option v-for="option in elementTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                        {% block moorl_cta_banner_element_type_options %}{% endblock %}
-                    </sw-select-field>
+                            :customSet="['custom','category','cta','product']"
+                            snippetPath="sw-cms.elements.moorl-cta-banner.label"
+                    />
+
+                    {% block moorl_cta_banner_element_type_options %}{% endblock %}
 
                     <sw-text-field
                             v-model:value="element.config.height.value"
@@ -119,12 +120,12 @@
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaActive')"
                     />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.mediaHover')"
                             v-model:value="element.config.mediaHover.value"
-                    >
-                        <option v-for="option in mediaHoverOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            :customSet="['zoom','rotate','rotate-zoom','colorize','colorize-zoom','colorize-blur','blur','blur-zoom']"
+                            snippetPath="sw-cms.elements.moorl-cta-banner.label"
+                    />
 
                     <sw-switch-field
                             v-model:value="element.config.backgroundFixed.value"
@@ -132,12 +133,11 @@
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundFixed')"
                     />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundDisplayMode')"
                             v-model:value="element.config.backgroundDisplayMode.value"
-                    >
-                        <option v-for="option in backgroundSizeOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="displayMode"
+                    />
                 </sw-container>
 
                 <sw-container
@@ -156,19 +156,17 @@
                 </sw-container>
 
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundVerticalAlign')"
                             v-model:value="element.config.backgroundVerticalAlign.value"
-                    >
-                        <option v-for="option in verticalTextAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="textVerticalAlign"
+                    />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.backgroundHorizontalAlign')"
                             v-model:value="element.config.backgroundHorizontalAlign.value"
-                    >
-                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="textHorizontalAlign"
+                    />
                 </sw-container>
 
                 <template v-if="element.config.mediaActive.value">
@@ -226,12 +224,11 @@
 
                 <template v-else>
                     <sw-container columns="1fr 1fr" gap="0 10px">
-                        <sw-select-field
+                        <moorl-select
                                 :label="$tc('sw-cms.elements.moorl-cta-banner.label.titleTag')"
                                 v-model:value="element.config.titleTag.value"
-                        >
-                            <option v-for="option in titleTagOptions" :value="option.value">{{ option.label }}</option>
-                        </sw-select-field>
+                                :customSet="['h1','h2','h3','h4','h5','div']"
+                        />
 
                         <sw-text-field
                                 v-model:value="element.config.title.value"
@@ -255,12 +252,11 @@
                                     :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnText')"
                             />
 
-                            <sw-select-field
+                            <moorl-select
                                     :label="$tc('sw-cms.elements.moorl-cta-banner.label.btnClass')"
                                     v-model:value="element.config.btnClass.value"
-                            >
-                                <option v-for="item in moorlFoundation.btnClass" :value="item.value">{{ $tc(item.label) }}</option>
-                            </sw-select-field>
+                                    set="bsButton"
+                            />
 
                             <sw-text-field
                                     v-model:value="element.config.btnUrl.value"
@@ -276,12 +272,11 @@
                     </sw-container>
                 </template>
 
-                <sw-select-field
+                <moorl-select
                         :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconType')"
                         v-model:value="element.config.iconType.value"
-                >
-                    <option v-for="option in iconTypeOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                </sw-select-field>
+                        set="iconType"
+                />
 
                 <template v-if="element.config.iconType.value !== 'none'">
                     <template v-if="element.config.iconType.value === 'fa'">
@@ -322,10 +317,11 @@
                     </template>
 
                     <sw-container columns="1fr 1fr" gap="0 10px">
-                        <sw-select-field :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconPosition')"
-                                         v-model:value="element.config.iconPosition.value">
-                            <option v-for="option in iconPositionOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                        </sw-select-field>
+                        <moorl-select
+                                :label="$tc('sw-cms.elements.moorl-cta-banner.label.iconPosition')"
+                                v-model:value="element.config.iconPosition.value"
+                                :customSet="['top','left']"
+                        />
 
                         <sw-text-field
                                 v-model:value="element.config.iconFontSize.value"
@@ -347,19 +343,17 @@
 
             <sw-container v-if="active === 'position'">
                 <sw-container columns="1fr 1fr" gap="0 10px">
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxVerticalAlign')"
                             v-model:value="element.config.boxVerticalAlign.value"
-                    >
-                        <option v-for="option in verticalAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="flexVerticalAlign"
+                    />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxHorizontalAlign')"
                             v-model:value="element.config.boxHorizontalAlign.value"
-                    >
-                        <option v-for="option in horizontalAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="flexHorizontalAlign"
+                    />
 
                     <sw-text-field
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxWidth')"
@@ -381,12 +375,11 @@
                             v-model:value="element.config.boxPadding.value"
                     />
 
-                    <sw-select-field
+                    <moorl-select
                             :label="$tc('sw-cms.elements.moorl-cta-banner.label.boxTextAlign')"
                             v-model:value="element.config.boxTextAlign.value"
-                    >
-                        <option v-for="option in textAlignOptions" :value="option.value">{{ $tc(option.label) }}</option>
-                    </sw-select-field>
+                            set="textHorizontalAlign"
+                    />
 
                     <sw-colorpicker
                             colorOutput="hex"

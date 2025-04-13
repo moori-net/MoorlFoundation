@@ -13,13 +13,12 @@
                     :label="$tc('moorl-combination-element-options.label.classAttribute')"
             />
 
-            <sw-select-field
+            <moorl-select
                     :label="$tc('moorl-cms.elements.general.config.label.style')"
                     v-model:value="value.layout"
-            >
-                <option value="banner-content">{{ $tc('moorl-combination-element-options.layout.banner-content') }}</option>
-                <option value="content-banner">{{ $tc('moorl-combination-element-options.layout.content-banner') }}</option>
-            </sw-select-field>
+                    :customSet="['banner-content','content-banner']"
+                    snippetPath="moorl-combination-element-options.layout"
+            />
 
             <sw-switch-field
                     v-model:value="value.showBanner"
@@ -57,16 +56,14 @@
                     :label="$tc('moorl-combination-element-options.label.enableAddToCartSingle')"
             />
 
-            <sw-select-field
+            <moorl-select
                     :label="$tc('moorl-combination-element-options.label.addToCartSingleIcon')"
                     v-model:value="value.addToCartSingleIcon"
                     :disabled="!value.enableAddToCartSingle"
-            >
-                <option value="">{{ $tc('moorl-combination-element-options.icon.none') }}</option>
-                <option value="plus">{{ $tc('moorl-combination-element-options.icon.plus') }}</option>
-                <option value="cart">{{ $tc('moorl-combination-element-options.icon.cart') }}</option>
-                <option value="bag">{{ $tc('moorl-combination-element-options.icon.bag') }}</option>
-            </sw-select-field>
+                    :customSet="['plus','cart','bag']"
+                    snippetPath="moorl-combination-element-options.icon"
+                    showClearableButton
+            />
 
             <sw-switch-field
                     v-model:value="value.enableAddToCartAll"
@@ -74,16 +71,14 @@
                     :label="$tc('moorl-combination-element-options.label.enableAddToCartAll')"
             />
 
-            <sw-select-field
+            <moorl-select
                     :label="$tc('moorl-combination-element-options.label.addToCartAllIcon')"
                     v-model:value="value.addToCartAllIcon"
                     :disabled="!value.enableAddToCartAll"
-            >
-                <option value="">{{ $tc('moorl-combination-element-options.icon.none') }}</option>
-                <option value="plus">{{ $tc('moorl-combination-element-options.icon.plus') }}</option>
-                <option value="cart">{{ $tc('moorl-combination-element-options.icon.cart') }}</option>
-                <option value="bag">{{ $tc('moorl-combination-element-options.icon.bag') }}</option>
-            </sw-select-field>
+                    :customSet="['plus','cart','bag']"
+                    snippetPath="moorl-combination-element-options.icon"
+                    showClearableButton
+            />
 
             <sw-switch-field
                     v-model:value="value.enablePrices"
@@ -128,13 +123,13 @@
                     :disabled="!value.showHotspots"
             />
 
-            <sw-select-field
+            <moorl-select
                     :label="$tc('moorl-combination-element-options.label.hotspotAnimation')"
                     v-model:value="value.hotspotAnimation"
                     :disabled="!value.showHotspots"
-            >
-                <option value="pulse">{{ $tc('moorl-combination-element-options.hotspotAnimation.pulse') }}</option>
-            </sw-select-field>
+                    :customSet="['pulse']"
+                    snippetPath="moorl-combination-element-options.hotspotAnimation"
+            />
         </sw-container>
     </sw-card-section>
 
@@ -148,15 +143,13 @@
                     :label="$tc('moorl-combination-element-options.label.showStock')"
             />
 
-            <sw-select-field
+            <moorl-select
                     :label="$tc('moorl-combination-element-options.label.stockType')"
                     v-model:value="value.stockType"
                     :disabled="!value.showStock"
-            >
-                <option value="progressBarAbs">{{ $tc('moorl-combination-element-options.stockType.progressBarAbs') }}</option>
-                <option value="progressBarPc">{{ $tc('moorl-combination-element-options.stockType.progressBarPc') }}</option>
-                <option value="text">{{ $tc('moorl-combination-element-options.stockType.text') }}</option>
-            </sw-select-field>
+                    :customSet="['progressBarAbs','progressBarPc','text']"
+                    snippetPath="moorl-combination-element-options.stockType"
+            />
         </sw-container>
     </sw-card-section>
 
@@ -170,16 +163,13 @@
                     :label="$tc('moorl-combination-element-options.label.showCountdown')"
             />
 
-            <sw-select-field
+            <moorl-select
                     :label="$tc('moorl-combination-element-options.label.countdownType')"
                     v-model:value="value.countdownType"
                     :disabled="!value.showCountdown"
-            >
-                <option value="countdown">{{ $tc('moorl-combination-element-options.countdownType.countdown') }}</option>
-                <option value="relative">{{ $tc('moorl-combination-element-options.countdownType.relative') }}</option>
-                <option value="time">{{ $tc('moorl-combination-element-options.countdownType.time') }}</option>
-                <option value="hidden">{{ $tc('moorl-combination-element-options.countdownType.hidden') }}</option>
-            </sw-select-field>
+                    :customSet="['countdown','relative','time','hidden']"
+                    snippetPath="moorl-combination-element-options.countdownType"
+            />
         </sw-container>
     </sw-card-section>
 </div>

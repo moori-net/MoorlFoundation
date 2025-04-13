@@ -1,0 +1,4 @@
+[
+  { "value": "px", "label": "moorl-select.cssSizeUnit.px" },
+  { "value": "%", "label": "moorl-select.cssSizeUnit.pc" }
+]

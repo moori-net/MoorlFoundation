@@ -1,13 +1,10 @@
 <sw-tabs default-item="general">
     <template #default="{ active }">
-        <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
-                      name="general"
-                      :activeTab="active">
+        <sw-tabs-item name="general" :activeTab="active">
             {{ $tc(snippetPrefix + 'tab.general') }}
         </sw-tabs-item>
-        <sw-tabs-item :title="$tc(snippetPrefix + 'tab.textColor')"
-                      name="textColor"
-                      :activeTab="active">
+
+        <sw-tabs-item name="textColor" :activeTab="active">
             {{ $tc(snippetPrefix + 'tab.textColor') }}
         </sw-tabs-item>
     </template>
@@ -20,14 +17,13 @@
                     :label="$tc(snippetPrefix + 'config.iconActive')"
             />
 
-            <template v-if="element.config.iconActive.value">
-                <sw-text-field
-                        v-model:value="element.config.iconClass.value"
-                        placeholder="fab|shopware"
-                        :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
-                        :label="$tc(snippetPrefix + 'config.iconClass')"
-                />
-            </template>
+            <sw-text-field
+                    v-if="element.config.iconActive.value"
+                    v-model:value="element.config.iconClass.value"
+                    placeholder="fab|shopware"
+                    :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
+                    :label="$tc(snippetPrefix + 'config.iconClass')"
+            />
 
             <sw-text-field
                     v-model:value="element.config.title.value"
@@ -39,11 +35,12 @@
                     :label="$tc(snippetPrefix + 'config.subHeadline')"
             />
 
-            <sw-select-field :label="$tc(snippetPrefix + 'config.alignment')"
-                             v-model:value="element.config.alignment.value">
-                <option value="left">{{ $tc(snippetPrefix + 'config.left') }}</option>
-                <option value="center">{{ $tc(snippetPrefix + 'config.center') }}</option>
-            </sw-select-field>
+            <moorl-select
+                    :label="$tc(snippetPrefix + 'config.alignment')"
+                    v-model:value="element.config.alignment.value"
+                    set="textHorizontalAlign"
+                    :filter="['left','center']"
+            />
         </sw-container>
 
         <sw-container v-if="active === 'textColor'" class="sw-cms-el-config-moorl-usp__tab-colors">
@@ -53,12 +50,14 @@
                 :label="$tc(snippetPrefix + 'config.iconColor')"
                 v-model:value="element.config.iconColor.value"
             />
+
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
                 :label="$tc(snippetPrefix + 'config.headlineColor')"
                 v-model:value="element.config.headlineColor.value"
             />
+
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"

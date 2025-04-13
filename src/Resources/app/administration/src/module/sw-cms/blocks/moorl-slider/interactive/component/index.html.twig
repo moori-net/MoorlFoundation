@@ -12,12 +12,12 @@
             {{ $tc('moorl-foundation.buttons.remove') }}
         </sw-button>
 
-        <sw-select-field
-                :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.activeSlot')"
+        <moorl-select
                 v-model:value="activeSlot"
-        >
-            <option v-for="slot in block.slots" :value="slot.id">{{ slot.slot }}</option>
-        </sw-select-field>
+                :customSet="block.slots"
+                valueProperty="id"
+                labelProperty="slot"
+        />
     </div>
 
     <div class="sw-cms-block-moorl-interactive-slider-content" ref="content">
@@ -79,21 +79,15 @@
                     :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')"
             />
 
-            <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             v-model:value="block.customFields.moorl_interactive_slider.animateIn">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
+            <moorl-select
+                    v-model:value="block.customFields.moorl_interactive_slider.animateIn"
+                    set="animateIn"
+            />
 
-            <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateOut')"
-                             :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             v-model:value="block.customFields.moorl_interactive_slider.animateOut">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
+            <moorl-select
+                    v-model:value="block.customFields.moorl_interactive_slider.animateOut"
+                    set="animateOut"
+            />
         </sw-container>
     </sw-modal>
 </div>

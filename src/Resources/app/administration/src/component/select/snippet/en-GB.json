@@ -22,6 +22,10 @@
       "bsButton": "Button type",
       "bsColorScheme": "Color scheme"
     },
+    "customSet": {
+      "top": "Top",
+      "left": "Left"
+    },
     "bsColor": {},
     "displayMode": {
       "cover": "Cover",

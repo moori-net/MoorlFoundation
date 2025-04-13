@@ -1,9 +1,7 @@
 {% block sw_cms_element_image_slider_config_tab_content %}
     {% parent %}
 
-    <sw-tabs-item :title="$tc(snippetPrefix + 'tab.extra')"
-                  name="extra"
-                  :activeTab="active">
+    <sw-tabs-item name="extra" :activeTab="active">
         {{ $tc(snippetPrefix + 'tab.extra') }}
     </sw-tabs-item>
 {% endblock %}
@@ -11,8 +9,7 @@
 {% block sw_cms_element_image_slider_config_settings %}
     {% parent %}
 
-    <sw-container v-if="active === 'extra'"
-                  class="sw-cms-el-config-image-slider__tab-extra">
+    <sw-container v-if="active === 'extra'" class="sw-cms-el-config-image-slider__tab-extra">
         <sw-switch-field
                 v-model:value="element.config.enableFeature.value"
                 bordered
@@ -41,20 +38,14 @@
                 :label="$tc(snippetPrefix + 'label.autoplayHoverPause')"
         />
 
-        <sw-select-field :label="$tc(snippetPrefix + 'label.animateIn')"
-                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                         v-model:value="element.config.animateIn.value">
-            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                <option v-for="value in item.options" :value="value">{{ value }}</option>
-            </optgroup>
-        </sw-select-field>
+        <moorl-select
+                v-model:value="element.config.animateIn.value"
+                set="animateIn"
+        />
 
-        <sw-select-field :label="$tc(snippetPrefix + 'label.animateOut')"
-                         :helpText="$tc(snippetPrefix + 'helpText.animate')"
-                         v-model:value="element.config.animateOut.value">
-            <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                <option v-for="value in item.options" :value="value">{{ value }}</option>
-            </optgroup>
-        </sw-select-field>
+        <moorl-select
+                v-model:value="element.config.animateOut.value"
+                set="animateOut"
+        />
     </sw-container>
 {% endblock %}

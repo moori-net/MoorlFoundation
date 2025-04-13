@@ -108,11 +108,11 @@
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'select'">
-        <sw-select-field :label="column.label" v-model:value="value[column.property]">
-            <option v-for="option in column.flags.moorl_edit_field_options.options" :value="option">
-                {{ $tc(snippetSrc + '.' + column.property + '.' + option) }}
-            </option>
-        </sw-select-field>
+        <moorl-select
+                :label="column.label"
+                v-model:value="value[column.property]"
+                :customSet="column.flags.moorl_edit_field_options.options"
+        />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field === 'price' && column.property === 'price'">

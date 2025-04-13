@@ -1,22 +1,14 @@
 <div class="moorl-svg-shape">
     <sw-container  columns="2fr 1fr" gap="0px 20px">
-        <sw-select-field
-                :label="$tc('moorl-svg-shape.label.shape')"
+        <moorl-select
                 v-model:value="value.shape"
-        >
-            <option value="none">{{ $tc('moorl-svg-shape.shape.none') }}</option>
-            <option value="rect">{{ $tc('moorl-svg-shape.shape.rect') }}</option>
-            <option value="circle">{{ $tc('moorl-svg-shape.shape.circle') }}</option>
-            <option value="ellipse">{{ $tc('moorl-svg-shape.shape.ellipse') }}</option>
-        </sw-select-field>
+                set="svgShape"
+        />
 
-        <sw-select-field
-                :label="$tc('moorl-svg-shape.label.unit')"
+        <moorl-select
                 v-model:value="value.unit"
-        >
-            <option value="px">px</option>
-            <option value="pc">%</option>
-        </sw-select-field>
+                set="cssSizeUnit"
+        />
     </sw-container>
 
     <template v-if="value.shape !== 'none'">

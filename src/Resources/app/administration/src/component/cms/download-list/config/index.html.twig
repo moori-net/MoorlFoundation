@@ -15,10 +15,11 @@
         />
     </sw-cms-mapping-field>
 
-    <sw-select-field :label="$tc('sw-cms.elements.moorl-download-list.label.layout')"
-                     v-model:value="element.config.layout.value">
-        <option v-for="option in elementOptions.layout" :value="option.value">{{ $tc(option.label) }}</option>
-    </sw-select-field>
+    <moorl-select
+            :label="$tc('sw-cms.elements.moorl-download-list.label.layout')"
+            v-model:value="element.config.layout.value"
+            :customSet="elementOptions.layout"
+    />
 
     <sw-text-field
             v-model:value="element.config.emptyText.value"

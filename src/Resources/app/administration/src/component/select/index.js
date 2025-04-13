@@ -19,6 +19,9 @@ import sliderMode from './sets/slider-mode.json';
 import textHorizontalAlign from './sets/text-horizontal-align.json';
 import textVerticalAlign from './sets/text-vertical-align.json';
 import domElementState from './sets/dom-element-state.json';
+import svgShape from './sets/svg-shape.json';
+import cssSizeUnit from './sets/css-size-unit.json';
+import iconType from './sets/icon-type.json';
 
 import bsGridWith from './sets/bs-grid-width';
 import bsGridOrder from './sets/bs-grid-order';
@@ -42,6 +45,9 @@ const sets = {
     listingSource,
     listingJustifyContent,
     domElementState,
+    svgShape,
+    cssSizeUnit,
+    iconType,
     bsGridWith,
     bsGridOrder,
     bsGridColumns
@@ -110,7 +116,22 @@ Component.register('moorl-select', {
             type: Array,
             required: false,
             default: []
-        }
+        },
+        snippetPath: {
+            type: String,
+            required: false,
+            default: undefined
+        },
+        valueProperty: {
+            type: String,
+            required: true,
+            default: 'value'
+        },
+        labelProperty: {
+            type: String,
+            required: true,
+            default: 'label'
+        },
     },
 
     computed: {
@@ -143,19 +164,38 @@ Component.register('moorl-select', {
         options() {
             const options = [];
 
-            this.currentSet.split(",").forEach((set) => {
-                if (typeof sets[set] !== undefined) {
-                    sets[set].forEach((option) => {
-                        if (this.filter.length && this.filter.indexOf(option.value) === -1) {
-                            return;
-                        }
+            if (typeof sets[this.currentSet] === undefined) {
+                return [{value: null, label: `set ${this.currentSet} not found`}];
+            }
 
-                        options.push({
-                            value: option.value,
-                            label: this.translated ? this.$tc(option.label) : option.label
-                        });
-                    });
+            sets[this.currentSet].forEach((option) => {
+                let value = null;
+                let label = null;
+
+                if (typeof option === "string") {
+                    value = option;
+                    label = this.getLabel(option);
+                } else if (
+                    typeof option[this.valueProperty] === "string" &&
+                    typeof option.translated[this.labelProperty] === "string"
+                ) {
+                    value = option[this.valueProperty];
+                    label = option.translated[this.labelProperty];
+                } else if (
+                    typeof option[this.valueProperty] === "string" &&
+                    typeof option[this.labelProperty] === "string"
+                ) {
+                    value = option[this.valueProperty];
+                    label = this.translated
+                        ? this.$tc(option[this.labelProperty])
+                        : this.getLabel(option[this.labelProperty]);
                 }
+
+                if (this.filter.length && this.filter.indexOf(value) === -1) {
+                    return;
+                }
+
+                options.push({value, label});
             });
 
             return options;
@@ -202,4 +242,14 @@ Component.register('moorl-select', {
             sets.customSet = this.customSet;
         }
     },
+
+    methods: {
+        getLabel(value) {
+            if (this.snippetPath) {
+                return this.$tc(`${this.snippetPath}.${value}`);
+            }
+
+            return value;
+        },
+    }
 });
