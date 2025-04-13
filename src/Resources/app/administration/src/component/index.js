@@ -21,4 +21,4 @@ import './grid/parameter-grid';
 import './template-mapping-info';
 import './combination-element-options';
 import './field/svg-shape';
-import './container';
+import './fieldset';
