@@ -129,7 +129,7 @@ class EntityStockUpdater implements EventSubscriberInterface
                 continue;
             }
             /** @var ChangeSetAware|InsertCommand|UpdateCommand $command */
-            if ($command->getDefinition()->getEntityName() !== OrderLineItemDefinition::ENTITY_NAME) {
+            if ($command->getEntityName() !== OrderLineItemDefinition::ENTITY_NAME) {
                 continue;
             }
             if ($command instanceof DeleteCommand) {
@@ -323,11 +323,11 @@ SQL;
     private function getLineItemsOfOrder(string $orderId): array
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select([
+        $query->select(
             'referenced_id',
             'quantity',
             sprintf('LOWER(HEX(%s)) AS entity_stock_id', $this->propertyName)
-        ]);
+        );
         $query->from('order_line_item');
         $query->andWhere('type = :type');
         $query->andWhere('order_id = :id');
