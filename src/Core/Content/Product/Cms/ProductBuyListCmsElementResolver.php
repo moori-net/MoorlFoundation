@@ -9,19 +9,16 @@ use Shopware\Core\Content\Cms\SalesChannel\Struct\ProductSliderStruct;
 use Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver;
 use Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
-use Shopware\Core\Content\ProductStream\Service\ProductStreamBuilderInterface;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
-use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
 {
-    public function __construct(
-        ProductStreamBuilderInterface $productStreamBuilder,
-        SystemConfigService $systemConfigService,
-        SalesChannelRepository $productRepository,
-        private readonly ProductConfiguratorLoader $configuratorLoader
-    ) {
-        parent::__construct($productStreamBuilder, $systemConfigService, $productRepository);
+    private readonly ProductConfiguratorLoader $configuratorLoader;
+
+    public function __construct() {
+        $args = func_get_args();
+        $this->configuratorLoader = array_pop($args);
+
+        parent::__construct(...$args);
     }
 
     public function getType(): string
