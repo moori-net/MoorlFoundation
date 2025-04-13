@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityTree;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -17,7 +18,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdaterBag;
 use Shopware\Core\Framework\Uuid\Exception\InvalidUuidException;
 use Shopware\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 use Shopware\Core\Framework\Uuid\Uuid;
-
 /**
  * @deprecated: Should be fixed in core now
  */
@@ -263,7 +263,7 @@ class EntityTreeUpdater
         $query->from($escaped);
         $query->select('id', 'parent_id');
         $query->andWhere($column . ' IN (:ids)');
-        $query->setParameter('ids', $ids, Connection::PARAM_STR_ARRAY);
+        $query->setParameter('ids', $ids, ArrayParameterType::STRING);
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
         $fetchedIds = [];

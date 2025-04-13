@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
@@ -21,7 +22,6 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpFoundation\Request;
-
 class HtmlContentMediaFetcher
 {
     private ?SymfonyStyle $console = null;
@@ -82,7 +82,7 @@ SQL;
         $data = $this->connection->fetchAllAssociative(
             $sql,
             ['ids' => Uuid::fromHexToBytesList($ids), 'languageId' => $languageId],
-            ['ids' => Connection::PARAM_STR_ARRAY]
+            ['ids' => ArrayParameterType::STRING]
         );
 
         $sqlTemplate = "UPDATE `%s_translation` SET %s WHERE `language_id` = :languageId AND `%s` = :%s ";

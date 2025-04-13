@@ -2,7 +2,6 @@
 
 namespace MoorlFoundation\Core\Framework\GeoLocation;
 
-use MoorlFoundation\Core\Framework\GeoLocation\Base\GeoLocation;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\NoApiKeyException;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\OutOfBoundsException;
 use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\UnexpectedResponseException;
@@ -44,7 +43,7 @@ class GeoPoint
     /**
      * Computes the great circle distance between this GeoLocation instance
      * and the location argument.
-     * @param \MoorlFoundation\Core\Framework\GeoLocation\GeoLocation $location
+     * @param GeoLocation $location
      * @param string $unit_of_measurement
      * @return double the distance, measured in the same unit as the radius
      * argument.

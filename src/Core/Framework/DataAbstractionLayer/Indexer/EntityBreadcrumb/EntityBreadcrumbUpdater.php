@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Category\Exception\CategoryNotFoundException;
 use Shopware\Core\Defaults;
@@ -14,7 +15,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\Language\LanguageDefinition;
 use Shopware\Core\System\Language\LanguageEntity;
-
 class EntityBreadcrumbUpdater
 {
     public function __construct(
@@ -41,7 +41,7 @@ class EntityBreadcrumbUpdater
             $query->andWhere($entityName . '.version_id = :version');
         }
         $query->setParameter('version', $versionId);
-        $query->setParameter('ids', Uuid::fromHexToBytesList($ids), Connection::PARAM_STR_ARRAY);
+        $query->setParameter('ids', Uuid::fromHexToBytesList($ids), ArrayParameterType::STRING);
 
         $paths = $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
 

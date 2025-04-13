@@ -5,7 +5,6 @@ namespace MoorlFoundation\Core\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
-use MoorlFoundation\Core\Content\Location\LocationEntity;
 use MoorlFoundation\Core\Framework\GeoLocation\GeoPoint;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Framework\Context;
