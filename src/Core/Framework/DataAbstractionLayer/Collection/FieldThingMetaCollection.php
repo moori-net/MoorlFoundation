@@ -30,7 +30,7 @@ class FieldThingMetaCollection extends FieldCollection
                 (new TranslatedField('metaAuthor'))->addFlags(new EditField(EditField::TEXT))
             ] : [],
             $metaMedia ? [
-                (new TranslatedField('metaMediaId'))->addFlags()
+                (new TranslatedField('metaMediaId'))->addFlags(),
             ] : [],
         );
     }
@@ -54,6 +54,7 @@ class FieldThingMetaCollection extends FieldCollection
             ] : [],
             $metaMedia ? [
                 new FkField('meta_media_id', 'metaMediaId', MediaDefinition::class),
+                new ManyToOneAssociationField('metaMedia', 'meta_media_id', MediaDefinition::class),
             ] : [],
         );
     }
