@@ -93,12 +93,12 @@ class EntityTreeUpdater
         $escaped = EntityDefinitionQueryHelper::escape($definition->getEntityName());
         $query->from($escaped);
 
-        $query->select($this->getFieldsToSelect($definition));
+        $query->select(...$this->getFieldsToSelect($definition));
         $query->andWhere('parent_id = :id');
         $query->setParameter('id', $parent['id']);
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
-        return $query->execute()->fetchAll();
+        return $query->executeQuery()->fetchAllAssociative();
     }
 
     private function updateTree(array $entity, EntityDefinition $definition, Context $context): string
@@ -134,7 +134,7 @@ class EntityTreeUpdater
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
         RetryableQuery::retryable(function () use ($query): void {
-            $query->execute();
+            $query->executeQuery();
         });
 
         return Uuid::fromBytesToHex($entity['id']);
@@ -162,7 +162,7 @@ class EntityTreeUpdater
         $query = $this->getEntityByIdQuery($parentId, $definition);
         $this->makeQueryVersionAware($definition, $versionId, $query);
 
-        $result = $query->execute()->fetch();
+        $result = $query->executeQuery()->fetch();
 
         if ($result === false) {
             return [];
@@ -220,7 +220,7 @@ class EntityTreeUpdater
 
         $query->from($escaped);
 
-        $query->select($this->getFieldsToSelect($definition));
+        $query->select(...$this->getFieldsToSelect($definition));
         $query->andWhere('id = :id');
         $query->setParameter('id', $parentId);
 
@@ -267,7 +267,7 @@ class EntityTreeUpdater
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
         $fetchedIds = [];
-        foreach ($query->execute()->fetchAll() as $entity) {
+        foreach ($query->executeQuery()->fetchAllAssociative() as $entity) {
             $bag->addEntity($entity['id'], $entity);
             $fetchedIds[$entity['id']] = $entity['id'];
         }

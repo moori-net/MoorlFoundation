@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Service;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\PDO\Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\Filesystem;
@@ -386,16 +385,9 @@ SQL;
 
             $repository = $this->definitionInstanceRegistry->getRepository($table);
 
-            try {
-                $repository->upsert($data, $this->context);
-            } catch (\Exception $exception) {
-                throw $exception;
+            $this->io->text(sprintf("Inserting data into table '%s'", $table));
 
-                throw new Exception(sprintf("Table: %s %s %s",
-                    $table,
-                    $exception->getMessage(),
-                    json_encode($data)));
-            }
+            $repository->upsert($data, $this->context);
         }
     }
 

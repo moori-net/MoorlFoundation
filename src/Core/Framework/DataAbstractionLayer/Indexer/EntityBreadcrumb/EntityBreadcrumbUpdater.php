@@ -43,7 +43,7 @@ class EntityBreadcrumbUpdater
         $query->setParameter('version', $versionId);
         $query->setParameter('ids', Uuid::fromHexToBytesList($ids), ArrayParameterType::STRING);
 
-        $paths = $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        $paths = $query->executeQuery()->fetchFirstColumn();
 
         $all = $ids;
         foreach ($paths as $path) {
