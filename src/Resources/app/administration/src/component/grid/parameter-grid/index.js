@@ -81,7 +81,7 @@ Component.register('moorl-parameter-grid', {
 
     methods: {
         toggleCustomValue(item, itemIndex) {
-            this.$set(this.items, itemIndex, { ...item, isCustom: !item.isCustom });
+            this.items[itemIndex] = { ...item, isCustom: !item.isCustom };
             this.$emit('update:parameters', this.items);
         },
 

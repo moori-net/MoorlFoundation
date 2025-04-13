@@ -139,7 +139,7 @@ Component.register('sw-cms-el-moorl-foundation-listing', {
                     this.items = result;
 
                     this.element.data.listingItems = result;
-                    //this.$set(this.element.data, 'listingItems', result);
+                    //this.element.data.listingItems = result;
                 });
         },
 

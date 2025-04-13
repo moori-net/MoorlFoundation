@@ -34,11 +34,11 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
         this.block = this.$parent.$parent.block;
 
         if (!this.block.customFields) {
-            this.$set(this.block, 'customFields', {});
+            this.block.customFields = {};
         }
 
         if (!this.block.customFields.moorl_interactive_slider) {
-            this.$set(this.block.customFields, 'moorl_interactive_slider', {
+            this.block.customFields.moorl_interactive_slider = {
                 slots: 1,
                 itemWidth: '100%',
                 itemHeight: '340px',
@@ -50,7 +50,7 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
                 navigation: false,
                 animateIn: null,
                 animateOut: null
-            });
+            };
         }
 
         this.sanitizeSlots();

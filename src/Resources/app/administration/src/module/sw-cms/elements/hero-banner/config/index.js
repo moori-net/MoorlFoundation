@@ -132,8 +132,8 @@ Component.register('sw-cms-el-config-moorl-hero-banner', {
         },
 
         updateElementData(media = null) {
-            this.$set(this.element.data, 'mediaId', media === null ? null : media.id);
-            this.$set(this.element.data, 'media', media);
+            this.element.data.mediaId = media === null ? null : media.id;
+            this.element.data.media = media;
 
             this.$emit('element-update', this.element);
         },
@@ -146,8 +146,8 @@ Component.register('sw-cms-el-config-moorl-hero-banner', {
             this.element.config.media.value = mediaEntity[0].id;
 
             if (this.element.data) {
-                this.$set(this.element.data, 'mediaId', mediaEntity[0].id);
-                this.$set(this.element.data, 'media', mediaEntity[0]);
+                this.element.data.mediaId = mediaEntity[0].id;
+                this.element.data.media = mediaEntity[0];
             }
 
             this.$emit('element-update', this.element);

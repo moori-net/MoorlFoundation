@@ -104,7 +104,7 @@ Component.register('sw-cms-el-config-moorl-product-buy-list', {
                 this.element.config.productQuantities.value[id] = parseInt(this.element.config.productQuantities.value[id]);
             });
 
-            this.$set(this.element.data, 'products', this.productCollection);
+            this.element.data.products = this.productCollection;
             this.$emit('products-change');
         },
     }

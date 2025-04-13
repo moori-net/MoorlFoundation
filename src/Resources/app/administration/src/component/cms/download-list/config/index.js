@@ -90,7 +90,7 @@ Component.register('sw-cms-el-config-moorl-download-list', {
 
         onDownloadsChange() {
             this.element.config.downloads.value = this.downloadCollection.getIds();
-            this.$set(this.element.data, 'downloads', this.downloadCollection);
+            this.element.data.downloads = this.downloadCollection;
             this.$emit('downloads-change');
         }
     }

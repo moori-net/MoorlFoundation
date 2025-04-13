@@ -52,13 +52,13 @@ Component.register('moorl-entity-form-element', {
                         linked: true,
                         currencyId: this.defaultCurrency.id
                     }
-                    this.$set(this.value, 'price', cPrice);
+                    this.value.price = cPrice;
                     return cPrice;
                 }
                 return price;
             },
             set(newValue) {
-                //this.$set(this.value, 'price', newValue || null);
+                //this.value.price = newValue || null;
                 this.value.price = newValue || null;
             }
         },

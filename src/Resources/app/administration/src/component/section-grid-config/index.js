@@ -23,22 +23,22 @@ Component.register('moorl-section-grid-config', {
                 return;
             }
             if (!this.section.customFields) {
-                this.$set(this.section, 'customFields', {});
+                this.section.customFields = {};
             }
             if (!this.section.customFields.moorl_section_column_count) {
-                this.$set(this.section.customFields, 'moorl_section_column_count', 3);
+                this.section.customFields.moorl_section_column_count = 3;
             }
             if (!Number.isInteger(this.section.customFields.moorl_section_spacing)) {
-                this.$set(this.section.customFields, 'moorl_section_spacing', 30);
+                this.section.customFields.moorl_section_spacing = 30;
             }
             if (!this.section.customFields.moorl_section_grid_config) {
-                this.$set(this.section.customFields, 'moorl_section_grid_config', []);
+                this.section.customFields.moorl_section_grid_config = [];
             }
             this.section.customFields.moorl_section_grid_config.length
                 = this.section.customFields.moorl_section_column_count;
             for (let i = 0; i < this.section.customFields.moorl_section_column_count; i++) {
                 if (!this.section.customFields.moorl_section_grid_config[i]) {
-                    this.$set(this.section.customFields.moorl_section_grid_config, i, {
+                    this.section.customFields.moorl_section_grid_config[i] = {
                         alignItems: 'normal',
                         justifyContent: 'normal',
                         isSidebar: false,
@@ -76,7 +76,7 @@ Component.register('moorl-section-grid-config', {
                                 inherit: true
                             }
                         },
-                    });
+                    };
                 }
             }
         }

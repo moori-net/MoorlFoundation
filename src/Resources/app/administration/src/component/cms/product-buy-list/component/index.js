@@ -144,7 +144,7 @@ Component.register('sw-cms-el-moorl-product-buy-list', {
             }
 
             this.element.config.products.value = this.productCollection.getIds();
-            this.$set(this.element.data, 'products', this.productCollection);
+            this.element.data.products = this.productCollection;
         }
     },
 

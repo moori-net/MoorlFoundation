@@ -66,12 +66,12 @@ Component.register('moorl-bs-config', {
         initValue() {
             for (let behaviour of this.defaultBehaviour) {
                 if (!this.value[behaviour.breakpoint]) {
-                    this.$set(this.value, behaviour.breakpoint, {
+                    this.value[behaviour.breakpoint] = {
                         'inherit': true,
                         'show': true,
                         'width': 12,
                         'order': 0
-                    });
+                    };
                 }
             }
         },

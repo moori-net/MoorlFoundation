@@ -71,8 +71,8 @@ Component.register('sw-cms-el-config-moorl-cta-banner', {
         },
 
         updateElementData(index, media = null) {
-            this.$set(this.element.data, index + 'Id', media === null ? null : media.id);
-            this.$set(this.element.data, index, media);
+            this.element.data[index + 'Id'] = media === null ? null : media.id;
+            this.element.data[index] = media;
 
             this.$emit('element-update', this.element);
         },
@@ -110,8 +110,8 @@ Component.register('sw-cms-el-config-moorl-cta-banner', {
             this.element.config[index].value = mediaEntity[0].id;
 
             if (this.element.data) {
-                this.$set(this.element.data, index + 'Id', mediaEntity[0].id);
-                this.$set(this.element.data, index, mediaEntity[0]);
+                this.element.data[index + 'Id'] = mediaEntity[0].id;
+                this.element.data[index] = mediaEntity[0];
             }
 
             this.$emit('element-update', this.element);

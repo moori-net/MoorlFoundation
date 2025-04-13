@@ -38,11 +38,11 @@ Component.register('moorl-block-behaviour', {
     methods: {
         initValue() {
             if (!this.block.customFields) {
-                this.$set(this.block, 'customFields', {});
+                this.block.customFields = {};
             }
 
             if (!this.block.customFields.moorl_block_behaviour) {
-                this.$set(this.block.customFields, 'moorl_block_behaviour', {
+                this.block.customFields.moorl_block_behaviour = {
                     'xs': {
                         'inherit': true,
                         'show': true,
@@ -73,7 +73,7 @@ Component.register('moorl-block-behaviour', {
                         'width': 12,
                         'order': 0
                     }
-                });
+                };
             }
         }
     }

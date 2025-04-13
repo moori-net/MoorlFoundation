@@ -186,15 +186,15 @@ Component.register('sw-cms-el-moorl-cta-banner', {
             if (this.element.config.iconMedia.value) {
                 const mediaEntity = await this.mediaRepository.get(this.element.config.iconMedia.value, Shopware.Context.api);
 
-                this.$set(this.element.data, 'iconMediaId', mediaEntity === null ? null : mediaEntity.id);
-                this.$set(this.element.data, 'iconMedia', mediaEntity);
+                this.element.data.iconMediaId = mediaEntity === null ? null : mediaEntity.id;
+                this.element.data.iconMedia = mediaEntity;
             }
 
             if (this.element.config.media.value) {
                 const mediaEntity2 = await this.mediaRepository.get(this.element.config.media.value, Shopware.Context.api);
 
-                this.$set(this.element.data, 'mediaId', mediaEntity2 === null ? null : mediaEntity2.id);
-                this.$set(this.element.data, 'media', mediaEntity2);
+                this.element.data.mediaId = mediaEntity2 === null ? null : mediaEntity2.id;
+                this.element.data.media = mediaEntity2;
             }
 
             this.$emit('element-update', this.element);

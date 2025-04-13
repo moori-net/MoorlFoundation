@@ -109,17 +109,17 @@ Component.register('moorl-section-config', {
                 return;
             }
             if (!this.section.customFields) {
-                this.$set(this.section, 'customFields', {});
+                this.section.customFields = {};
             }
             if (!this.section.customFields.moorl_section_config) {
-                this.$set(this.section.customFields, 'moorl_section_config', {
+                this.section.customFields.moorl_section_config = {
                     color: null
-                });
+                };
             }
             if (Array.isArray(this.section.customFields.moorl_section_config)) {
-                this.$set(this.section.customFields, 'moorl_section_config', {
+                this.section.customFields.moorl_section_config = {
                     color: null
-                });
+                };
             }
         }
     }
