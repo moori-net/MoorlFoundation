@@ -56,10 +56,7 @@ const sets = {
 Component.register('moorl-select', {
     template,
 
-    emits: [
-        'update:value',
-        'update:config'
-    ],
+    emits: ['update:value'],
 
     props: {
         value: {
