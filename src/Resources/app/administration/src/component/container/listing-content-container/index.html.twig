@@ -2,12 +2,14 @@
     <sw-container columns="1fr 1fr" gap="0px 30px">
         {% block moorl_listing_content_inner %}
             <sw-switch-field
+                    v-if="item.sanitize !== undefined"
                     v-model:value="item.sanitize.value"
                     bordered
                     :label="$tc('sw-cms.elements.moorl-foundation-listing.label.sanitize')"
             />
 
             <sw-number-field
+                    v-if="item.contentLength !== undefined"
                     v-model:value="item.contentLength.value"
                     :label="$tc('sw-cms.elements.moorl-foundation-listing.label.contentLength')"
             />
@@ -32,6 +34,7 @@
             />
 
             <sw-colorpicker
+                    v-if="item.contentHighlightColor !== undefined"
                     v-model:value="item.contentHighlightColor.value"
                     colorOutput="hex"
                     :zIndex="1000"

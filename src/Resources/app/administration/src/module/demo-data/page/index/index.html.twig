@@ -3,15 +3,6 @@
         <sw-card-view>
             <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.settingsDemoData')">
                 <template v-if="options.length">
-                    <moorl-select
-                            :label="$tc('moorl-foundation.properties.type')"
-                            set="flexVerticalAlign"
-                            v-model:value="test"
-                            showClearableButton
-                    />
-
-                    <pre>{{ test }}</pre>
-
                     <sw-single-select
                             :label="$tc('moorl-foundation.properties.type')"
                             v-model:value="optionIndex"

@@ -159,7 +159,7 @@ Component.register('moorl-select', {
         options() {
             const options = [];
 
-            if (typeof sets[this.currentSet] === 'undefined') {
+            if (sets[this.currentSet] === undefined) {
                 return [{value: null, label: `set ${this.currentSet} not found`}];
             }
 
@@ -171,15 +171,15 @@ Component.register('moorl-select', {
                     value = option;
                     label = this.getLabel(option);
                 } else if (
-                    typeof option[this.valueProperty] === 'string' &&
-                    typeof option.translated !== 'undefined' &&
-                    typeof option.translated[this.labelProperty] === 'string'
+                    option[this.valueProperty] !== undefined &&
+                    option.translated !== undefined &&
+                    option.translated[this.labelProperty] !== undefined
                 ) {
                     value = option[this.valueProperty];
                     label = option.translated[this.labelProperty];
                 } else if (
-                    typeof option[this.valueProperty] === 'string' &&
-                    typeof option[this.labelProperty] === 'string'
+                    option[this.valueProperty] !== undefined &&
+                    option[this.labelProperty] !== undefined
                 ) {
                     value = option[this.valueProperty];
                     label = this.translated

@@ -7,7 +7,7 @@ Component.register('moorl-feature-unlocker', {
     template,
 
     shortcuts: {
-        'SYSTEMKEY+m': 'openModal',
+        'SHIFT+m': 'openModal',
     },
 
     inject: ['acl'],

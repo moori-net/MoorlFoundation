@@ -17,6 +17,7 @@
         />
 
         <sw-text-field
+                v-if="item.listingHeaderTitle !== undefined"
                 v-model:value="item.listingHeaderTitle.value"
                 :label="$tc('sw-cms.elements.moorl-foundation-listing.label.listingHeaderTitle')"
                 :helpText="$tc('sw-cms.elements.moorl-foundation-listing.helpText.listingHeaderTitle')"
