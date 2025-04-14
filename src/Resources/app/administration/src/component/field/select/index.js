@@ -26,8 +26,9 @@ import operator from './sets/operator.json';
 import cssFlexWrap from './sets/css-flex-wrap.json';
 import cssFlexDirection from './sets/css-flex-direction.json';
 import cssObjectFit from './sets/css-object-fit.json';
+import cssDisplay from './sets/css-display.json';
 
-import bsGridWith from './sets/bs-grid-width';
+import bsGridWidth from './sets/bs-grid-width';
 import bsGridOrder from './sets/bs-grid-order';
 import bsGridColumns from './sets/bs-grid-columns';
 
@@ -56,9 +57,53 @@ const sets = {
     cssFlexWrap,
     cssFlexDirection,
     cssObjectFit,
-    bsGridWith,
+    cssDisplay,
+    bsGridWidth,
     bsGridOrder,
     bsGridColumns
+};
+
+const defaults = {
+    animateIn: {set: 'animateCss'},
+    animateOut: {set: 'animateCss'},
+    animateHover: {set: 'animateCss'},
+    animateCss: {
+        variant: 'small',
+        translated: false,
+        showClearableButton: true
+    },
+    bsGridWidth: {
+        variant: 'small',
+        translated: false
+    },
+    bsGridOrder: {
+        variant: 'small',
+        translated: false
+    },
+    cssDisplay: {
+        showClearableButton: true
+    },
+    cssFlexDirection: {
+        showClearableButton: true
+    },
+    cssJustifyContent: {
+        showClearableButton: true
+    },
+    cssFlexWrap: {
+        showClearableButton: true
+    },
+    flexHorizontalAlign: {
+        showClearableButton: true
+    },
+    flexVerticalAlign: {
+        showClearableButton: true
+    },
+    textHorizontalAlign: {
+        showClearableButton: true
+    },
+    textVerticalAlign: {
+        showClearableButton: true
+    }
 };
 
 Component.register('moorl-select-field', {
@@ -71,6 +116,11 @@ Component.register('moorl-select-field', {
             type: String,
             required: false,
             default: undefined
+        },
+        variant: {
+            type: String,
+            required: false,
+            default: undefined,
         },
         label: {
             type: String,
@@ -100,7 +150,7 @@ Component.register('moorl-select-field', {
         showClearableButton: {
             type: Boolean,
             required: false,
-            default: false,
+            default: undefined,
         },
         set: {
             type: String,
@@ -140,7 +190,7 @@ Component.register('moorl-select-field', {
                 label: this.currentLabel,
                 helpText: this.helpText,
                 placeholder: this.currentPlaceholder,
-                showClearableButton: this.showClearableButton,
+                showClearableButton: this.currentShowClearableButton,
                 options: this.options,
                 disabled: this.disabled,
                 isLoading: this.isLoading
@@ -156,18 +206,72 @@ Component.register('moorl-select-field', {
             }
         },
 
-        translated() {
-            return [
-                'animateIn',
-                'animateOut',
-                'animateHover',
-                'bsGridWidth',
-                'bsGridOrder'
-            ].indexOf(this.set) === -1;
+        currentSet() {
+            if (defaults[this.set] === undefined || defaults[this.set].set === undefined) {
+                return this.set;
+            }
+
+            return defaults[this.set].set;
         },
 
-        currentSet() {
-            return ['animateIn', 'animateOut', 'animateHover'].indexOf(this.set) === -1 ? this.set : 'animateCss';
+        currentVariant() {
+            if (this.variant) {
+                return this.variant;
+            }
+
+            if (defaults[this.currentSet] === undefined || defaults[this.currentSet].variant === undefined) {
+                return 'normal';
+            }
+
+            return defaults[this.currentSet].variant;
+        },
+
+        currentShowClearableButton() {
+            if (this.showClearableButton !== undefined) {
+                return this.showClearableButton;
+            }
+
+            if (defaults[this.currentSet] === undefined || defaults[this.currentSet].showClearableButton === undefined) {
+                return false;
+            }
+
+            return defaults[this.currentSet].showClearableButton;
+        },
+
+        translated() {
+            if (this.snippetPath) {
+                return true;
+            }
+
+            if (defaults[this.currentSet] === undefined || defaults[this.currentSet].translated === undefined) {
+                return true;
+            }
+
+            return defaults[this.currentSet].translated;
+        },
+
+        currentLabel() {
+            if (this.label) {
+                return this.label;
+            }
+
+            if (this.currentVariant === 'small') {
+                return undefined;
+            }
+
+            return this.$tc(`moorl-select.label.${this.set}`);
+        },
+
+        currentPlaceholder() {
+            if (this.placeholder) {
+                return this.placeholder;
+            }
+
+            if (this.currentVariant === 'small') {
+                return this.$tc(`moorl-select.label.${this.set}`);
+            }
+
+            return this.$tc('moorl-select.label.none');
         },
 
         options() {
@@ -181,7 +285,7 @@ Component.register('moorl-select-field', {
                 let value = null;
                 let label = null;
 
-                if (typeof option === 'string') {
+                if (typeof option !== 'object') {
                     value = option;
                     label = this.getLabel(option);
                 } else if (
@@ -209,26 +313,6 @@ Component.register('moorl-select-field', {
             });
 
             return options;
-        },
-
-        currentLabel() {
-            if (this.label) {
-                return this.label;
-            }
-
-            if (['textHorizontalAlign', 'flexHorizontalAlign'].indexOf(this.set) !== -1) {
-                return this.label ?? this.$tc('moorl-select.label.horizontalAlign');
-            }
-
-            if (['textVerticalAlign', 'flexVerticalAlign'].indexOf(this.set) !== -1) {
-                return this.label ?? this.$tc('moorl-select.label.verticalAlign');
-            }
-
-            return this.$tc(`moorl-select.label.${this.set}`);
-        },
-
-        currentPlaceholder() {
-            return this.placeholder ?? this.$tc('moorl-select.label.none');
         }
     },
 

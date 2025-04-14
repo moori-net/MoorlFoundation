@@ -3,11 +3,11 @@
 .moorl-collapse {
     border-bottom: 1px solid $color-gray-400;
 
-    .sw-field {
+    .sw-field, .mt-field {
         margin-bottom: 0;
     }
 
-    .sw-field--switch {
+    .mt-field--switch, .sw-field--switch {
         margin-bottom: 0;
     }
 

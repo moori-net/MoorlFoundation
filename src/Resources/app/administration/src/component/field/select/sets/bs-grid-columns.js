@@ -1,12 +1,9 @@
-export default() => {
-  const options = [];
+const options = [];
 
-  for (let value = 1; value < 12; value++) {
+for (let value = 1; value <= 12; value++) {
     options.push({
-      value,
-      label: value
+        value,
+        label: value
     });
-  }
-
-  return options;
 }
+export default options;

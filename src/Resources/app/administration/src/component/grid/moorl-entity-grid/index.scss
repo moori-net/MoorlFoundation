@@ -11,10 +11,10 @@
             height: 32px;
         }
 
-        .sw-field {
+        .sw-field, .mt-field {
             margin-bottom: 0;
 
-            .sw-field__help-text {
+            .mt-field__help-text, .sw-field__help-text {
                 position: relative;
                 top: 33px;
                 right: 15px;

@@ -385,7 +385,7 @@ SQL;
 
             $repository = $this->definitionInstanceRegistry->getRepository($table);
 
-            $this->io->text(sprintf("Inserting data into table '%s'", $table));
+            $this->log(sprintf("Inserting data into table '%s'", $table));
 
             $repository->upsert($data, $this->context);
         }

@@ -18,9 +18,30 @@
       "animateOut": "Animate out",
       "animateHover": "Animate hover",
       "animateCss": "Animate",
-      "bsGridWith": "Width",
       "bsButton": "Button type",
-      "bsColorScheme": "Color scheme"
+      "bsColorScheme": "Color scheme",
+      "bsGridWidth": "Grid width",
+      "bsGridOrder": "Grid order",
+      "cssDisplay": "Display",
+      "cssFlexDirection": "Flex direction",
+      "flexHorizontalAlign": "Horizontal align",
+      "cssFlexWrap": "Flex wrap"
+    },
+    "cssFlexWrap": {
+      "wrap": "Wrap",
+      "nowrap": "No wrap"
+    },
+    "cssDisplay": {
+      "block": "Block",
+      "flex": "Flex",
+      "inline": "Inline",
+      "none": "None",
+      "inline-block": "Inline-block",
+      "inline-flex": "Inline-flex"
+    },
+    "cssFlexDirection": {
+      "row": "Row",
+      "column": "Column"
     },
     "customSet": {
       "top": "Top",
@@ -56,7 +77,8 @@
       "flex-end": "End",
       "center": "Center",
       "space-between": "Space between",
-      "space-around": "Space around"
+      "space-around": "Space around",
+      "stretch": "Stretch"
     },
     "itemLayout": {
       "avatar": "Avatar (Round image)",
@@ -70,12 +92,14 @@
     "horizontalAlign": {
       "left": "Left",
       "center": "Center",
-      "right": "Right"
+      "right": "Right",
+      "stretch": "Stretch"
     },
     "verticalAlign": {
       "top": "Top",
       "center": "Center",
-      "bottom": "Bottom"
+      "bottom": "Bottom",
+      "stretch": "Stretch"
     },
     "sliderMode": {
       "carousel": "Carousel",
