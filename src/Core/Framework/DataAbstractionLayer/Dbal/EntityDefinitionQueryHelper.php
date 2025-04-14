@@ -75,7 +75,26 @@ class EntityDefinitionQueryHelper
             if (preg_match("/REFERENCES (\S+)/", $sql, $matches)) {
                 self::makeVersionPrimaryKeyV2($connection, $matches[1]);
             }
+        } elseif ($exception->getCode() === 1452) {
+            // Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails
+            self::removeInvalidForeignKeys($connection, $sql, $table);
         }
+    }
+
+    public static function removeInvalidForeignKeys(Connection $connection, string $query, string $table)
+    {
+        preg_match('/FOREIGN KEY \((.*?)\) REFERENCES (\w+)/', $query, $matches);
+        $foreignKeyColumn = trim($matches[1], '` ');
+        $referencedTable = trim($matches[2], '` ');
+
+        $connection->fetchFirstColumn(sprintf(
+            "UPDATE %s SET %s = NULL WHERE %s IS NOT NULL AND %s NOT IN (SELECT `id` FROM %s);",
+            self::quote($table),
+            self::quote($foreignKeyColumn),
+            self::quote($foreignKeyColumn),
+            self::quote($foreignKeyColumn),
+            self::quote($referencedTable)
+        ));
     }
 
     public static function makeVersionPrimaryKey(Connection $connection, string $table)
