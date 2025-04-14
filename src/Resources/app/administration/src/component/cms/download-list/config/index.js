@@ -74,7 +74,7 @@ Component.register('sw-cms-el-config-moorl-download-list', {
 
             this.downloadCollection = new EntityCollection('/media', 'media', Shopware.Context.api);
 
-            if (this.element.config.downloads.value.length <= 0) {
+            if (!Array.isArray(this.element.config.downloads.value)) {
                 return;
             }
 

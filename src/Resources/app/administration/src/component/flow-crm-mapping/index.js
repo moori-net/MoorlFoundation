@@ -46,7 +46,7 @@ Component.register('moorl-flow-crm-mapping', {
 
     computed: {
         triggerEvent() {
-            return State.get('swFlowState')?.triggerEvent;
+            return Store.get('swFlowState')?.triggerEvent;
         },
 
         dataSelection() {

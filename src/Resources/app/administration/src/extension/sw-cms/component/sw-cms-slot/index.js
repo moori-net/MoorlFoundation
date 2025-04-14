@@ -39,11 +39,11 @@ Component.override('sw-cms-slot', {
         },
 
         plugins() {
-            return Shopware.State.get('moorlFoundationState').plugins;
+            return Shopware.Store.get('moorlFoundationState').plugins;
         },
 
         moorlIsUnlocked() {
-            return Shopware.State.get('moorlFoundationState').unlocked;
+            return Shopware.Store.get('moorlFoundationState').unlocked;
         }
     },
 
@@ -63,7 +63,7 @@ Component.override('sw-cms-slot', {
 
             const plugins = await this.pluginRepository.search(this.pluginCriteria);
 
-            Shopware.State.commit('moorlFoundationState/setPlugins', plugins);
+            Shopware.Store.get('moorlFoundationState').setPlugins(plugins);
 
             this.$super('onElementButtonClick');
         },

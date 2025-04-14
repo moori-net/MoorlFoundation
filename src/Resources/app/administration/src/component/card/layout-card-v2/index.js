@@ -69,7 +69,7 @@ Component.register('moorl-layout-card-v2', {
             return this.item ? this.item.cmsPageId : null;
         },
         cmsPage() {
-            return Shopware.State.get('cmsPageState').currentPage;
+            return Shopware.Store.get('cmsPage').currentPage;
         },
         cmsPageTypes() {
             return {
@@ -87,13 +87,13 @@ Component.register('moorl-layout-card-v2', {
 
     watch: {
         cmsPageId() {
-            Shopware.State.dispatch('cmsPageState/resetCmsPageState');
+            Shopware.Store.get('cmsPage').resetCmsPageState();
             this.getAssignedCmsPage();
         }
     },
 
     created() {
-        Shopware.State.dispatch('cmsPageState/resetCmsPageState');
+        Shopware.Store.get('cmsPage').resetCmsPageState();
 
         if (this.pageTypes.length === 0) {
             this.pageTypes.push(this.pageType)
@@ -166,18 +166,14 @@ Component.register('moorl-layout-card-v2', {
                     });
                 }
                 this.updateCmsPageDataMapping();
-                Shopware.State.commit('cmsPageState/setCurrentPage', cmsPage);
+                Shopware.Store.get('cmsPage').setCurrentPage(cmsPage);
 
                 return this.cmsPage;
             });
         },
         updateCmsPageDataMapping() {
-            Shopware.State.commit('cmsPageState/setCurrentMappingEntity', this.entity);
-            Shopware.State.commit(
-                'cmsPageState/setCurrentMappingTypes',
-                this.cmsService.getEntityMappingTypes(this.pageType),
-            );
-            Shopware.State.commit('cmsPageState/setCurrentDemoEntity', this.item);
+            Shopware.Store.get('cmsPage').setCurrentMappingEntity(this.entity);
+            Shopware.Store.get('cmsPage').setCurrentMappingTypes(this.cmsService.getEntityMappingTypes(this.pageType));            Shopware.Store.get('cmsPage').setCurrentDemoEntity(this.item);
         },
         getCmsPageOverrides() {
             if (this.cmsPage === null) {

@@ -6,7 +6,7 @@ const {snakeCase} = Shopware.Utils.string;
 Mixin.register('moorl-flow-action-helper', {
     computed: {
         triggerEvent() {
-            return State.get('swFlowState').triggerEvent;
+            return Store.get('swFlowState').triggerEvent;
         },
 
         dataSelection() {

@@ -24,10 +24,10 @@ Component.register('moorl-feature-unlocker', {
 
     computed: {
         moorlIsUnlocked() {
-            return Shopware.State.get('moorlFoundationState').unlocked;
+            return Shopware.Store.get('moorlFoundationState').unlocked;
         },
         unlockInfoSeen() {
-            return Shopware.State.get('moorlFoundationState').unlockInfoSeen;
+            return Shopware.Store.get('moorlFoundationState').unlockInfoSeen;
         }
     },
 
@@ -41,7 +41,7 @@ Component.register('moorl-feature-unlocker', {
                 return;
             }
 
-            Shopware.State.commit('moorlFoundationState/setUnlocked', false);
+            Shopware.Store.get('moorlFoundationState').setUnlocked(false);
 
             if (!localStorage.getItem('moorl-foundation-welcome-seen')) {
                 this.createNotificationInfo({
@@ -69,14 +69,14 @@ Component.register('moorl-feature-unlocker', {
         toggleUnlocked() {
             if (this.moorlIsUnlocked) {
                 localStorage.removeItem('moorl-foundation-unlocked');
-                Shopware.State.commit('moorlFoundationState/setUnlocked', false);
+                Shopware.Store.get('moorlFoundationState').setUnlocked(false);
                 this.createNotificationInfo({
                     message: this.$tc('moorl-feature-unlocker.notifications.locked'),
                 });
                 return false;
             } else {
                 localStorage.setItem('moorl-foundation-unlocked', '1');
-                Shopware.State.commit('moorlFoundationState/setUnlocked', true);
+                Shopware.Store.get('moorlFoundationState').setUnlocked(true);
                 this.createNotificationInfo({
                     message: this.$tc('moorl-feature-unlocker.notifications.unlocked'),
                 });

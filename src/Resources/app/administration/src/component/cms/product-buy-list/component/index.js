@@ -119,7 +119,7 @@ Component.register('sw-cms-el-moorl-product-buy-list', {
 
             this.productCollection = new EntityCollection('/product', 'product', Shopware.Context.api);
 
-            if (this.element.config.products.value.length <= 0) {
+            if (!Array.isArray(this.element.config.products.value)) {
                 return;
             }
 

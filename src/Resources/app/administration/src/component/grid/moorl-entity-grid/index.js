@@ -575,7 +575,7 @@ Component.register('moorl-entity-grid', {
                 this.selectedItem = this.repository.create(Shopware.Context.api);
 
                 if (Shopware.Context.api.languageId !== Shopware.Context.api.systemLanguageId) {
-                    Shopware.State.commit('context/setApiLanguageId', Shopware.Context.api.systemLanguageId)
+                    Shopware.Store.get('context').setApiLanguageId(Shopware.Context.api.systemLanguageId)
                 }
 
                 for (let column of this.editColumns) {
