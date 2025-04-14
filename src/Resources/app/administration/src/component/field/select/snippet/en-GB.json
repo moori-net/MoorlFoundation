@@ -13,7 +13,7 @@
       "listingLayout": "Listing layout",
       "itemLayout": "Item layout",
       "displayMode": "Display mode",
-      "listingJustifyContent": "Justify content",
+      "cssJustifyContent": "Justify content",
       "animateIn": "Animate in",
       "animateOut": "Animate out",
       "animateHover": "Animate hover",
@@ -50,7 +50,7 @@
       "slider": "Slider",
       "search-suggest": "Suggest search list (minimal)"
     },
-    "listingJustifyContent": {
+    "cssJustifyContent": {
       "normal": "Normal",
       "flex-start": "Start",
       "flex-end": "End",

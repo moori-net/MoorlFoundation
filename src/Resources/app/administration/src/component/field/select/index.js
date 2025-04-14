@@ -12,7 +12,7 @@ import fontAwesomeIcon from './sets/font-awesome-icon.json';
 import itemLayout from './sets/item-layout.json';
 import listingLayout from './sets/listing-layout.json';
 import listingSource from './sets/listing-source.json';
-import listingJustifyContent from './sets/listing-justify-content.json';
+import cssJustifyContent from './sets/css-justify-content.json';
 import navigationArrows from './sets/navigation-arrows.json';
 import navigationDots from './sets/navigation-dots.json';
 import sliderMode from './sets/slider-mode.json';
@@ -22,6 +22,10 @@ import domElementState from './sets/dom-element-state.json';
 import svgShape from './sets/svg-shape.json';
 import cssSizeUnit from './sets/css-size-unit.json';
 import iconType from './sets/icon-type.json';
+import operator from './sets/operator.json';
+import cssFlexWrap from './sets/css-flex-wrap.json';
+import cssFlexDirection from './sets/css-flex-direction.json';
+import cssObjectFit from './sets/css-object-fit.json';
 
 import bsGridWith from './sets/bs-grid-width';
 import bsGridOrder from './sets/bs-grid-order';
@@ -43,11 +47,15 @@ const sets = {
     textHorizontalAlign,
     textVerticalAlign,
     listingSource,
-    listingJustifyContent,
+    cssJustifyContent,
     domElementState,
     svgShape,
     cssSizeUnit,
     iconType,
+    operator,
+    cssFlexWrap,
+    cssFlexDirection,
+    cssObjectFit,
     bsGridWith,
     bsGridOrder,
     bsGridColumns

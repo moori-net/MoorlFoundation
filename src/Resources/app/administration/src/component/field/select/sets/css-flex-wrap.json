@@ -1,0 +1,4 @@
+[
+  {"value": "wrap", "label": "moorl-select.cssFlexWrap.wrap"},
+  {"value": "nowrap", "label": "moorl-select.cssFlexWrap.nowrap"}
+]
