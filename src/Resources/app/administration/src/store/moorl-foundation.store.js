@@ -4,7 +4,7 @@ Shopware.Store.register({
     state: () => ({
         unlocked: false,
         unlockInfoSeen: false,
-        plugins: [],
+        plugins: []
     }),
 
     actions: {

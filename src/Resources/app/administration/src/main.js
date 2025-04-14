@@ -1,5 +1,7 @@
 import './main.scss';
 
+import './proxy';
+
 import './core/moorl-foundation';
 import './store/moorl-foundation.store';
 import './init/foundation-api-service.init';
