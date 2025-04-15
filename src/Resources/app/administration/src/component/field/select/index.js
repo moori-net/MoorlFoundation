@@ -210,6 +210,18 @@ Component.register('moorl-select-field', {
             }
         },
 
+        setOptions() {
+            if (this.set === 'customSet') {
+                return this.customSet
+            }
+
+            if (sets[this.currentSet] === undefined) {
+                return [{value: null, label: `set ${this.currentSet} not found`}];
+            }
+
+            return sets[this.currentSet];
+        },
+
         currentSet() {
             if (defaults[this.set] === undefined || defaults[this.set].set === undefined) {
                 return this.set;
@@ -281,11 +293,7 @@ Component.register('moorl-select-field', {
         options() {
             const options = [];
 
-            if (sets[this.currentSet] === undefined) {
-                return [{value: null, label: `set ${this.currentSet} not found`}];
-            }
-
-            sets[this.currentSet].forEach((option) => {
+            this.setOptions.forEach((option) => {
                 let value = null;
                 let label = null;
 
@@ -317,12 +325,6 @@ Component.register('moorl-select-field', {
             });
 
             return options;
-        }
-    },
-
-    created() {
-        if (this.customSet.length) {
-            sets.customSet = this.customSet;
         }
     },
 
