@@ -29,6 +29,11 @@ class MoorlFoundation extends Plugin
         'moorl_image_map_item_translation',
     ];
 
+    public function __getMigrationNamespace(): string
+    {
+        return $this->getNamespace() . '\Migration_6_7';
+    }
+
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
