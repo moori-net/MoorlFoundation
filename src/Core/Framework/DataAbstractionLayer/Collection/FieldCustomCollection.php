@@ -14,9 +14,9 @@ class FieldCustomCollection extends FieldCollection
 
         return [
             (new StringField('custom1', 'custom1'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('custom2', 'custom2'))->addFlags(new EditField('text')),
-            (new StringField('custom3', 'custom3'))->addFlags(new EditField('text')),
-            (new StringField('custom4', 'custom4'))->addFlags(new EditField('text')),
+            (new StringField('custom2', 'custom2'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('custom3', 'custom3'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('custom4', 'custom4'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }

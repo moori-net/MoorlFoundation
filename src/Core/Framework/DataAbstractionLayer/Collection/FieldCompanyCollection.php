@@ -15,13 +15,13 @@ class FieldCompanyCollection extends FieldCollection
         return [
             (new StringField('executive_director', 'executiveDirector'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('place_of_fulfillment', 'placeOfFulfillment'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('place_of_jurisdiction', 'placeOfJurisdiction'))->addFlags(new EditField('text')),
-            (new StringField('bank_bic', 'bankBic'))->addFlags(new EditField('text')),
-            (new StringField('bank_iban', 'bankIban'))->addFlags(new EditField('text')),
-            (new StringField('bank_name', 'bankName'))->addFlags(new EditField('text')),
-            (new StringField('tax_office', 'taxOffice'))->addFlags(new EditField('text')),
-            (new StringField('tax_number', 'taxNumber'))->addFlags(new EditField('text')),
-            (new StringField('vat_id', 'vatId'))->addFlags(new EditField('text')),
+            (new StringField('place_of_jurisdiction', 'placeOfJurisdiction'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('bank_bic', 'bankBic'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('bank_iban', 'bankIban'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('bank_name', 'bankName'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('tax_office', 'taxOffice'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('tax_number', 'taxNumber'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('vat_id', 'vatId'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }

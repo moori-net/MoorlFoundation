@@ -24,8 +24,8 @@ class FieldStockCollection extends FieldCollection
             (new ReferenceVersionField(ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ManyToOneAssociationField('product', 'product_id', ProductDefinition::class))->addFlags(new EditField(), new LabelProperty('productNumber')),
             (new IntField('sales', 'sales'))->addFlags(new Required(), new EditField(EditField::NUMBER)),
-            (new IntField('stock', 'stock'))->addFlags(new Required(), new EditField('number')),
-            (new IntField('available_stock', 'availableStock'))->addFlags(new Required(), new EditField('number'))
+            (new IntField('stock', 'stock'))->addFlags(new Required(), new EditField(EditField::NUMBER)),
+            (new IntField('available_stock', 'availableStock'))->addFlags(new Required(), new EditField(EditField::NUMBER))
         ];
     }
 

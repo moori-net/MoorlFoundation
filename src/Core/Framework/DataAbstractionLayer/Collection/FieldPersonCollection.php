@@ -22,8 +22,8 @@ class FieldPersonCollection extends FieldCollection
             (new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('displayName')),
             (new StringField('title', 'title'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('first_name', 'firstName'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('last_name', 'lastName'))->addFlags(new EditField('text')),
-            (new StringField('company', 'company'))->addFlags(new EditField('text')),
+            (new StringField('last_name', 'lastName'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('company', 'company'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }

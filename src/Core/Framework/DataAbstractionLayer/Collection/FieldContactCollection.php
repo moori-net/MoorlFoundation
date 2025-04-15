@@ -15,8 +15,8 @@ class FieldContactCollection extends FieldCollection
         return [
             (new StringField('email', 'email'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('phone_number', 'phoneNumber'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('shop_url', 'shopUrl'))->addFlags(new EditField('text')),
-            (new StringField('merchant_url', 'merchantUrl'))->addFlags(new EditField('text')),
+            (new StringField('shop_url', 'shopUrl'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('merchant_url', 'merchantUrl'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }

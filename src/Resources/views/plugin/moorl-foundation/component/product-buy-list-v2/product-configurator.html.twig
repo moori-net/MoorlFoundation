@@ -4,7 +4,7 @@
             <form action="{{ seoUrl('moorl.product.buy.list.v2.switch', {productId: product.parentId}) }}">
                 {% block page_product_buy_list_configurator_groups %}
                     {% for group in product.sortedProperties %}
-                        {% block page_product_detail_configurator_select %}
+                        {% block buy_widget_configurator_select %}
                             <div class="product-configurator-option">
                                 <label for="{{ product.id }}{{ group.id }}">
                                     {{ group.translated.name }}
@@ -18,7 +18,7 @@
                                             {% if option.id in product.optionIds %}
                                                 {% set selected = true %}
                                             {% endif %}
-                                            {% block page_product_detail_configurator_select_option %}
+                                            {% block buy_widget_configurator_select_option %}
                                                 <option
                                                         value="{{ option.id }}"
                                                         {% if selected %}selected="selected"{% endif %}

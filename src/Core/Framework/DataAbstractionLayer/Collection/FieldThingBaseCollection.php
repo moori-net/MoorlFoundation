@@ -19,8 +19,8 @@ class FieldThingBaseCollection extends FieldCollection
 
         return [
             (new TranslatedField('name'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
-            (new TranslatedField('keywords'))->addFlags(new EditField('textarea')),
-            (new TranslatedField('description'))->addFlags(new EditField('textarea')),
+            (new TranslatedField('keywords'))->addFlags(new EditField(EditField::TEXTAREA)),
+            (new TranslatedField('description'))->addFlags(new EditField(EditField::TEXTAREA)),
         ];
     }
 

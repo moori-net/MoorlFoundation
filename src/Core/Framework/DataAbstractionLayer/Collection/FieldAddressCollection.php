@@ -22,16 +22,16 @@ class FieldAddressCollection extends FieldCollection
         return [
             (new StringField('street', 'street'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
             (new StringField('street_number', 'streetNumber'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('zipcode', 'zipcode'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
-            (new StringField('city', 'city'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
-            (new StringField('additional_address_line1', 'additionalAddressLine1'))->addFlags(new EditField('text')),
-            (new StringField('additional_address_line2', 'additionalAddressLine2'))->addFlags(new EditField('text')),
-            (new StringField('country_code', 'countryCode'))->addFlags(new EditField('text')),
+            (new StringField('zipcode', 'zipcode'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new StringField('city', 'city'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new StringField('additional_address_line1', 'additionalAddressLine1'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('additional_address_line2', 'additionalAddressLine2'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('country_code', 'countryCode'))->addFlags(new EditField(EditField::TEXT)),
             new FkField('country_id', 'countryId', CountryDefinition::class),
             new FkField('country_state_id', 'countryStateId', CountryStateDefinition::class),
             (new ManyToOneAssociationField('country', 'country_id', CountryDefinition::class))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('name')),
             (new ManyToOneAssociationField('countryState', 'country_state_id', CountryStateDefinition::class))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('name')),
-            (new StringField('location_place_id', 'locationPlaceId'))->addFlags(new EditField('text')),
+            (new StringField('location_place_id', 'locationPlaceId'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }
