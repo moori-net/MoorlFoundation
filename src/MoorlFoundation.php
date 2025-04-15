@@ -5,6 +5,7 @@ namespace MoorlFoundation;
 use MoorlFoundation\Core\PluginLifecycleHelper;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
+use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,6 +33,14 @@ class MoorlFoundation extends Plugin
     public function __getMigrationNamespace(): string
     {
         return $this->getNamespace() . '\Migration_6_7';
+    }
+
+    public function install(InstallContext $installContext): void
+    {
+        $installContext->setAutoMigrate(false); //??
+
+        // Migrations are done before install() is called :(
+        PluginLifecycleHelper::migrationSkipper($this, 1744278006, $this->container);
     }
 
     public function build(ContainerBuilder $container): void

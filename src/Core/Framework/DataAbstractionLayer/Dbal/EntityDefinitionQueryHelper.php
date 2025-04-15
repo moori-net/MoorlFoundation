@@ -129,18 +129,18 @@ class EntityDefinitionQueryHelper
         return $connection->executeStatement($sql, ['class' => $class]) > 0;
     }
 
-    public static function addMigration(Connection $connection, string $class): void
+    public static function addMigration(Connection $connection, string $class, string $message = ""): void
     {
         $sql = <<<SQL
-INSERT INTO `migration` 
-    (`class`, `creation_timestamp`, `update`)
-VALUES 
-    (:class, :creation_timestamp, NOW())
+INSERT INTO `migration`
+    (`class`, `creation_timestamp`, `update`, `message`)
+VALUES
+    (:class, :creation_timestamp, NOW(), :class)
 ON DUPLICATE KEY UPDATE `update` = NOW();
 SQL;
         $connection->executeStatement(
             $sql,
-            ['class' => $class, 'creation_timestamp' => time()]
+            ['class' => $class, 'creation_timestamp' => time(), 'message' => $message]
         );
     }
 

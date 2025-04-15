@@ -3,8 +3,10 @@
 namespace MoorlFoundation\Core;
 
 use Doctrine\DBAL\Connection;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\Service\DataService;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use Shopware\Core\Framework\Bundle;
+use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
@@ -95,6 +97,39 @@ class PluginLifecycleHelper
         }
 
         self::removeMigrations($connection, $plugin);
+    }
+
+    public static function migrationSkipper(Bundle $bundle, int $timestamp, ContainerInterface $container): void
+    {
+        $connection = $container->get(Connection::class);
+
+        $classFiles = scandir($bundle->getMigrationPath(), \SCANDIR_SORT_ASCENDING);
+
+        if ($classFiles) {
+            $namespace = $bundle->getMigrationNamespace();
+
+            foreach ($classFiles as $classFileName) {
+                $path = sprintf("%s/%s", $bundle->getMigrationPath(), $classFileName);
+                if (pathinfo($path, \PATHINFO_EXTENSION) !== 'php') {continue;}
+
+                $className = $namespace . '\\' . pathinfo($classFileName, \PATHINFO_FILENAME);
+                if (!is_subclass_of($className, MigrationStep::class)) {continue;}
+
+                if (preg_match('/Migration(\d{10})/', $classFileName, $matches)) {
+                    $migrationTimestamp = (int)$matches[1];
+                } else {
+                    throw new \Exception('Invalid migration step: ' . $classFileName);
+                }
+
+                if ($migrationTimestamp < $timestamp) {
+                    EntityDefinitionQueryHelper::addMigration(
+                        $connection,
+                        $className,
+                        "migration skipped"
+                    );
+                }
+            }
+        }
     }
 
     public static function removeMigrations(Connection $connection, string $plugin): void
