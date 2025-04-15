@@ -72,6 +72,10 @@ const defaults = {
         translated: false,
         showClearableButton: true
     },
+    operator: {
+        variant: 'small',
+        translated: false
+    },
     bsGridWidth: {
         variant: 'small',
         translated: false

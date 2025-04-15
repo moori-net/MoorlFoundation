@@ -21,7 +21,11 @@
             }
         }
 
-        .sw-button {
+        .mt-block-field__block {
+            min-height: auto;
+        }
+
+        .sw-button, .mt-button {
             height: 32px;
             line-height: 16px;
             position: relative;

@@ -25,7 +25,8 @@
       "cssDisplay": "Display",
       "cssFlexDirection": "Flex direction",
       "flexHorizontalAlign": "Horizontal align",
-      "cssFlexWrap": "Flex wrap"
+      "cssFlexWrap": "Flex wrap",
+      "operator": "Operator"
     },
     "cssFlexWrap": {
       "wrap": "Wrap",

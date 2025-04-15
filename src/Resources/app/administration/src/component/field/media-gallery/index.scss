@@ -70,7 +70,7 @@
     }
 
     &.is--disabled {
-        .sw-button {
+        .sw-button, .mt-button {
             background-color: $color-gray-100;
             color: lighten($color-darkgray-200, 25%);
         }
