@@ -20,8 +20,8 @@ class FieldAddressCollection extends FieldCollection
         if (!$flag) return [];
         
         return [
-            (new StringField('street', 'street'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
-            (new StringField('street_number', 'streetNumber'))->addFlags(new EditField('text')),
+            (new StringField('street', 'street'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new StringField('street_number', 'streetNumber'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('zipcode', 'zipcode'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new StringField('city', 'city'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField('text')),
             (new StringField('additional_address_line1', 'additionalAddressLine1'))->addFlags(new EditField('text')),

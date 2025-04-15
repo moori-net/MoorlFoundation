@@ -16,7 +16,7 @@ class FieldOpeningHoursCollection extends FieldCollection
         if (!$flag) return [];
 
         return [
-            (new StringField('time_zone', 'timeZone'))->addFlags(new EditField('text')),
+            (new StringField('time_zone', 'timeZone'))->addFlags(new EditField(EditField::TEXT)),
             (new JsonField('opening_hours','openingHours'))->addFlags(new VueComponent('moorl-opening-hours')),
         ];
     }

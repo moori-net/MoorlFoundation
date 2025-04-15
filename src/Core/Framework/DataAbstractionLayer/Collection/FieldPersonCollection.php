@@ -20,8 +20,8 @@ class FieldPersonCollection extends FieldCollection
         return [
             new FkField('salutation_id', 'salutationId', SalutationDefinition::class),
             (new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('displayName')),
-            (new StringField('title', 'title'))->addFlags(new EditField('text')),
-            (new StringField('first_name', 'firstName'))->addFlags(new EditField('text')),
+            (new StringField('title', 'title'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('first_name', 'firstName'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('last_name', 'lastName'))->addFlags(new EditField('text')),
             (new StringField('company', 'company'))->addFlags(new EditField('text')),
         ];

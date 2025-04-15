@@ -21,9 +21,9 @@ class FieldLocationCollection extends FieldCollection
         if (!$flag) return [];
 
         return [
-            (new DoubleField('location_lat','locationLat'))->addFlags(new EditField('number')),
-            (new DoubleField('location_lon','locationLon'))->addFlags(new EditField('number')),
-            (new BoolField('auto_location', 'autoLocation'))->addFlags(new EditField('switch')),
+            (new DoubleField('location_lat','locationLat'))->addFlags(new EditField(EditField::NUMBER)),
+            (new DoubleField('location_lon','locationLon'))->addFlags(new EditField(EditField::NUMBER)),
+            (new BoolField('auto_location', 'autoLocation'))->addFlags(new EditField(EditField::SWITCH)),
             new FkField('moorl_marker_id', 'markerId', MarkerDefinition::class),
             (new ManyToOneAssociationField('marker', 'moorl_marker_id', MarkerDefinition::class, 'id', true))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('name')),
             new OneToManyAssociationField('locationCache', LocationCacheDefinition::class, 'entity_id')

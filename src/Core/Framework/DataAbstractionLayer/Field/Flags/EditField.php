@@ -7,9 +7,15 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 class EditField extends Flag
 {
     public const TEXT = 'text';
+    public const CODE = 'code';
+    public const SELECT = 'select';
+    public const DATE = 'date';
     public const TEXTAREA = 'textarea';
     public const NUMBER = 'number';
     public const MULTI_ID = 'multi-id';
+    public const PRICE = 'price';
+    public const SWITCH = 'switch';
+    public const NAME = 'name'; // @deprecated: Dont use this for properties
 
     public function __construct(private readonly ?string $type = null, private readonly ?array $options = null)
     {

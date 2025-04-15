@@ -17,7 +17,7 @@ class FieldBreadcrumbCollection extends FieldCollection
 
         return [
             new TranslatedField('breadcrumb'),
-            (new TranslatedField('breadcrumbPlain'))->addFlags(new EditField('text'), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new TranslatedField('breadcrumbPlain'))->addFlags(new EditField(EditField::TEXT), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
         ];
     }
 

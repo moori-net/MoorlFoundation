@@ -23,7 +23,7 @@ class FieldPriceCollection extends FieldCollection
         return [
             (new FkField('tax_id', 'taxId', TaxDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ManyToOneAssociationField('tax', 'tax_id', TaxDefinition::class))->addFlags(new RestrictDelete(), new EditField(), new LabelProperty('name')),
-            (new PriceField('price', 'price'))->addFlags(new Required(), new EditField('price')),
+            (new PriceField('price', 'price'))->addFlags(new Required(), new EditField(EditField::PRICE)),
         ];
     }
 

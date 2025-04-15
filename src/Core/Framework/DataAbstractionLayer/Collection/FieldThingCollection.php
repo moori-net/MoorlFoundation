@@ -24,8 +24,8 @@ class FieldThingCollection extends FieldCollection
     {
         return array_merge(
             [
-                (new BoolField('active', 'active'))->addFlags(new EditField('switch')),
-                (new TranslatedField('teaser'))->addFlags(new EditField('textarea')),
+                (new BoolField('active', 'active'))->addFlags(new EditField(EditField::SWITCH)),
+                (new TranslatedField('teaser'))->addFlags(new EditField(EditField::TEXTAREA)),
                 (new OneToManyAssociationField('seoUrls', SeoUrlDefinition::class, 'foreign_key'))->addFlags(new ApiAware()),
             ],
             FieldThingBaseCollection::getFieldItems(flag: $thingBase),

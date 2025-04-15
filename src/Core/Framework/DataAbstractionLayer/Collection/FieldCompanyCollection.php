@@ -13,8 +13,8 @@ class FieldCompanyCollection extends FieldCollection
         if (!$flag) return [];
 
         return [
-            (new StringField('executive_director', 'executiveDirector'))->addFlags(new EditField('text')),
-            (new StringField('place_of_fulfillment', 'placeOfFulfillment'))->addFlags(new EditField('text')),
+            (new StringField('executive_director', 'executiveDirector'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('place_of_fulfillment', 'placeOfFulfillment'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('place_of_jurisdiction', 'placeOfJurisdiction'))->addFlags(new EditField('text')),
             (new StringField('bank_bic', 'bankBic'))->addFlags(new EditField('text')),
             (new StringField('bank_iban', 'bankIban'))->addFlags(new EditField('text')),
