@@ -10,12 +10,12 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 class EntityAutoCacheTaskHandler extends ScheduledTaskHandler
 {
     public function __construct(
-        protected EntityRepository $scheduledTaskRepository,
-        LoggerInterface $logger,
+        EntityRepository $scheduledTaskRepository,
+        LoggerInterface $exceptionLogger,
         private readonly EntityAutoCacheService $entityAutoCacheService
     )
     {
-        parent::__construct($scheduledTaskRepository, $logger);
+        parent::__construct($scheduledTaskRepository, $exceptionLogger);
     }
 
     public static function getHandledMessages(): iterable
