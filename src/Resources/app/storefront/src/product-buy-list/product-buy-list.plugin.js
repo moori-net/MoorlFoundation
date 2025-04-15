@@ -1,6 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
 import HttpClient from 'src/service/http-client.service';
-import queryString from 'query-string';
 
 export default class MoorlProductBuyListPlugin extends Plugin {
     static options = {
@@ -69,7 +68,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                     enableAddToCartAll: that.options.enableAddToCartAll,
                 };
 
-                that._client.get(actionUrl + "?" + queryString.stringify(query), (response) => {
+                that._client.get(actionUrl + "?" + new URLSearchParams(query).toString(), (response) => {
                     item.innerHTML = response;
                     that._updateTotalPrice();
 

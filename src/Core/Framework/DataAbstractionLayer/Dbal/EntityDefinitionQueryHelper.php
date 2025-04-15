@@ -76,7 +76,12 @@ class EntityDefinitionQueryHelper
                 self::makeVersionPrimaryKeyV2($connection, $matches[1]);
             }
         } elseif ($exception->getCode() === 1452) {
+            // ER_NO_REFERENCED_ROW_2
             // Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails
+            self::removeInvalidForeignKeys($connection, $sql, $table);
+        } elseif ($exception->getCode() === 1216) {
+            // ER_NO_REFERENCED_ROW
+            // Integrity constraint violation: 1216 Cannot add or update a child row: a foreign key constraint fails
             self::removeInvalidForeignKeys($connection, $sql, $table);
         }
     }
@@ -87,14 +92,16 @@ class EntityDefinitionQueryHelper
         $foreignKeyColumn = trim($matches[1], '` ');
         $referencedTable = trim($matches[2], '` ');
 
-        $connection->fetchFirstColumn(sprintf(
+        $sql = sprintf(
             "UPDATE %s SET %s = NULL WHERE %s IS NOT NULL AND %s NOT IN (SELECT `id` FROM %s);",
             self::quote($table),
             self::quote($foreignKeyColumn),
             self::quote($foreignKeyColumn),
             self::quote($foreignKeyColumn),
             self::quote($referencedTable)
-        ));
+        );
+
+        $connection->executeStatement($sql);
     }
 
     public static function makeVersionPrimaryKey(Connection $connection, string $table)
