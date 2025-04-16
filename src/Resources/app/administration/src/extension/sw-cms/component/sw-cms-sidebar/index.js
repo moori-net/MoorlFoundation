@@ -1,6 +1,4 @@
 const {Component} = Shopware;
-const {cloneDeep} = Shopware.Utils.object;
-const types = Shopware.Utils.types;
 
 import template from './sw-cms-sidebar.html.twig';
 

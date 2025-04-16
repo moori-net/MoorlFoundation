@@ -1,17 +1,15 @@
 {
-    "sw-cms": {
-        "component": {
-            "sw-cms-sidebar": {
-                "blockMoorlCms": "moori CMS",
-                "blockMoorlGridLayout": "Grid Layouts - moori Foundation",
-                "blockMoorlColumnLayout": "Spalten Layouts - moori Foundation",
-                "blockMoorlAutofillLayout": "Autofill Layouts",
-                "blockMoorlSlider": "Slider - moori Foundation",
-                "blockMoorlCmsOld": "moori CMS (Old)",
-                "blockMoorlInfo": "Die CMS Elemente von moori beinhalten keine Blöcke. Bitte füge einen beliebigen Block hinzu und klicke das \"Austauschen\" Symbol.",
-                "blockMoorlLocked": "",
-                "blockMoorlFeatures": "Premium Features freischalten",
-                "blockMoorlFAQ": "FAQ lesen"
+    "apps": {
+        "sw-cms": {
+            "detail": {
+                "label": {
+                    "blockCategory": {
+                        "moorl-cms-old": "CMS - moori Foundation",
+                        "moorl-grid-layout": "Grid - moori Foundation",
+                        "moorl-column-layout": "Spalten - moori Foundation",
+                        "moorl-slider": "Slider - moori Foundation"
+                    }
+                }
             }
         }
     }

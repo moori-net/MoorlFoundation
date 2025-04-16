@@ -1,28 +1,3 @@
-{% block sw_cms_sidebar_block_overview_category_options %}
-    {% block sw_cms_sidebar_block_overview_category_moorl %}
-        {% block sw_cms_sidebar_block_overview_category_moorl_column_layout %}
-            <option value="moorl-column-layout">
-                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlColumnLayout') }}
-            </option>
-        {% endblock %}
-        {% block sw_cms_sidebar_block_overview_category_moorl_grid_layout %}
-            <option value="moorl-grid-layout">
-                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlGridLayout') }}
-            </option>
-        {% endblock %}
-        {% block sw_cms_sidebar_block_overview_category_moorl_slider %}
-            <option value="moorl-slider">
-                {{ $tc('sw-cms.component.sw-cms-sidebar.blockMoorlSlider') }}
-            </option>
-        {% endblock %}
-        {% block sw_cms_sidebar_block_overview_category_moorl_cms %}{% endblock %}
-        {% block sw_cms_sidebar_block_overview_category_moorl_cms_old %}{% endblock %}
-        {% block sw_cms_sidebar_block_overview_category_moorl_autofill_layout %}{% endblock %}
-    {% endblock %}
-
-    {% parent %}
-{% endblock %}
-
 {% block sw_cms_sidebar_navigator_main_elements %}
     <template v-if="isSectionGrid(section) && isSectionGridInitialized(section)">
         <template v-for="gridCol in sectionColumnCount(section)">
@@ -47,9 +22,11 @@
             </template>
 
             <template v-else>
-                <div :key="section.id + '_column_' + gridCol"
-                     v-droppable="getSectionGridDropData({ position: 0 }, sectionIndex, gridCol)"
-                     class="sw-cms-sidebar__navigator-empty-element">
+                <div
+                        :key="section.id + '_column_' + gridCol"
+                        v-droppable="getSectionGridDropData({ position: 0 }, sectionIndex, gridCol)"
+                        class="sw-cms-sidebar__navigator-empty-element"
+                >
                     {{ $tc('sw-cms.detail.label.addBlocks') }}
                 </div>
             </template>
