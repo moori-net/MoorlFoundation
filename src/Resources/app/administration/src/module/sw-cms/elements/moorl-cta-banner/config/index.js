@@ -21,6 +21,10 @@ Component.register('sw-cms-el-config-moorl-cta-banner', {
     },
 
     computed: {
+        assetFilter() {
+            return Shopware.Filter.getByName('asset');
+        },
+
         mediaRepository() {
             return this.repositoryFactory.create('media');
         },

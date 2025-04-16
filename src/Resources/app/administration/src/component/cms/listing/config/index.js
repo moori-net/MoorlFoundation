@@ -11,10 +11,7 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
         Mixin.getByName('cms-element')
     ],
 
-    inject: [
-        'repositoryFactory',
-        'cmsService'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
@@ -35,51 +32,6 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
             return criteria;
         },
 
-        elementOptions() {
-            const options = {
-                foreignKey: []
-            };
-
-            if (this.entityForeignKeys) {
-                for (let value of this.entityForeignKeys.string) {
-                    if (value.match(/\./g).length > 1) {
-                        continue;
-                    }
-                    if (value.lastIndexOf("Id") === -1) {
-                        continue;
-                    }
-                    options.foreignKey.push({
-                        value: value,
-                        label: value
-                    });
-                }
-
-                Object.values(this.entityForeignKeys.entity).forEach(entity => {
-                    for (let value of entity) {
-                        if (value.match(/\./g).length > 1) {
-                            continue;
-                        }
-                        options.foreignKey.push({
-                            value: value + '.id',
-                            label: value + '.id'
-                        });
-                    }
-                });
-            }
-
-            if (this.configWhitelist) {
-                for (const [key, whitelist] of Object.entries(this.configWhitelist)) {
-                    options[key] = options[key].filter(
-                        option => whitelist.includes(option.value)
-                    );
-                }
-
-                return options;
-            }
-
-            return options;
-        },
-
         repository() {
             return this.repositoryFactory.create(this.entity);
         },
@@ -95,10 +47,6 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
             }
 
             return this.criteria;
-        },
-
-        entityForeignKeys() {
-            return this.cmsService.getEntityMappingTypes(this.entity);
         }
     },
 
@@ -107,6 +55,13 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
     },
 
     methods: {
+        getSelectFilter(key) {
+            if (this.configWhitelist && this.configWhitelist[key] !== undefined) {
+                return this.configWhitelist[key];
+            }
+            return [];
+        },
+
         createdComponent() {
             if (this.elementName) {
                 this.initElementConfig(this.elementName);
@@ -143,7 +98,6 @@ Component.register('sw-cms-el-config-moorl-foundation-listing', {
                 .search(this.defaultCriteria, Shopware.Context.api)
                 .then((result) => {
                     this.element.data.listingItems = result;
-                    //this.element.data.listingItems = result;
                 });
         },
 

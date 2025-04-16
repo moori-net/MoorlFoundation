@@ -35,6 +35,7 @@
                                 @update:value="onSelectionChange"
                                 v-model:value="element.config.listingSource.value"
                                 set="listingSource"
+                                :filter="getSelectFilter('listingSource')"
                         />
 
                         <router-link v-if="contentRoute" target="_blank" rel="noopener" :to="{ name: contentRoute }">
@@ -64,12 +65,11 @@
                             :label="$tc('sw-cms.elements.moorl-foundation-listing.label.limit')"
                     />
 
-                    <moorl-select-field
+                    <sw-text-field
+                            v-if="element.config.foreignKey !== undefined"
+                            :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
                             v-model:value="element.config.foreignKey.value"
                             @update:value="onSelectionChange"
-                            :customSet="elementOptions.foreignKey"
-                            :label="$tc('sw-cms.elements.moorl-foundation-listing.label.foreignKey')"
-                            show-clearable-button
                     />
                 </sw-container>
 
@@ -96,7 +96,7 @@
                     v-model:item="element.config"
             />
 
-            <moorl-listing-slider-container
+            <moorl-listing-slider-fieldset
                     v-if="active === 'slider'"
                     v-model:item="element.config"
             />

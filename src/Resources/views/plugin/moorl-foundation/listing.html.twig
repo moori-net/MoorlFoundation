@@ -148,7 +148,10 @@
                                         {% block moorl_foundation_listing_slider_thumbnails_item %}
                                             {% sw_thumbnails 'moorl-listing-slider-thumbnail' with {
                                                 media: item.media,
-                                                attributes: {alt: '',title: ''}
+                                                attributes: {
+                                                    alt: item.translated.name,
+                                                    title: item.translated.name
+                                                }
                                             } %}
                                         {% endblock %}
                                     </li>

@@ -3,7 +3,11 @@
     "label": {
       "none": "None",
       "horizontalAlign": "Horizontal alignment",
+      "textHorizontalAlign": "Horizontal alignment",
+      "flexHorizontalAlign": "Horizontal alignment",
       "verticalAlign": "Vertical alignment",
+      "textVerticalAlign": "Vertical alignment",
+      "flexVerticalAlign": "Vertical alignment",
       "sliderMode": "Slider mode",
       "navigationArrows": "Navigation arrows",
       "navigationDots": "Navigation dots",
@@ -24,7 +28,6 @@
       "bsGridOrder": "Grid order",
       "cssDisplay": "Display",
       "cssFlexDirection": "Flex direction",
-      "flexHorizontalAlign": "Horizontal align",
       "cssFlexWrap": "Flex wrap",
       "operator": "Operator"
     },

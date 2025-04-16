@@ -1,4 +1,4 @@
-const { Component, Application, Mixin, Filter, Utils } = Shopware;
+const { Component, Mixin, Utils } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
@@ -10,6 +10,10 @@ Component.register('sw-cms-el-moorl-hero-banner', {
     ],
 
     computed: {
+        assetFilter() {
+            return Shopware.Filter.getByName('asset');
+        },
+
         captionCss() {
             const css = {color:this.element.config.boxColor.value}
 
@@ -31,7 +35,7 @@ Component.register('sw-cms-el-moorl-hero-banner', {
                     return demoMedia.url;
                 }
 
-                return this.assetFilter('administration/static/img/cms/preview_mountain_large.jpg');
+                return this.assetFilter('administration/administration/static/img/cms/preview_mountain_large.jpg');
             }
 
             if (elemData && elemData.id) {
@@ -42,11 +46,7 @@ Component.register('sw-cms-el-moorl-hero-banner', {
                 return this.assetFilter(elemData.url);
             }
 
-            return this.assetFilter('administration/static/img/cms/preview_mountain_large.jpg');
-        },
-
-        assetFilter() {
-            return Filter.getByName('asset');
+            return this.assetFilter('administration/administration/static/img/cms/preview_mountain_large.jpg');
         }
     },
 

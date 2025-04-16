@@ -276,7 +276,7 @@ Application.getContainer('service').cmsService.registerCmsElement({
                           sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
                           sed diam voluptua.`.trim(),
             media: {
-                url: '/administration/static/img/cms/preview_glasses_large.jpg',
+                url: 'administration/administration/static/img/cms/preview_glasses_large.jpg',
                 alt: 'Lorem Ipsum dolor'
             }
         },
@@ -287,7 +287,7 @@ Application.getContainer('service').cmsService.registerCmsElement({
                           sed diam voluptua.`.trim(),
             cover: {
                 media: {
-                    url: '/administration/static/img/cms/preview_glasses_large.jpg',
+                    url: 'administration/administration/static/img/cms/preview_glasses_large.jpg',
                     alt: 'Add to cart'
                 }
             }

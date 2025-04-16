@@ -12,6 +12,10 @@ Component.register('sw-cms-el-moorl-cta-banner', {
     inject: ['repositoryFactory'],
 
     computed: {
+        assetFilter() {
+            return Shopware.Filter.getByName('asset');
+        },
+
         bannerTitle() {
             const titleTag = this.element.config.titleTag.value;
             let bannerTitle = null;
@@ -47,7 +51,7 @@ Component.register('sw-cms-el-moorl-cta-banner', {
 
         bannerMediaUrl() {
             const context = Shopware.Context.api;
-            let bannerMediaUrl = context.assetsPath + '/administration/static/img/cms/preview_mountain_large.jpg';
+            let bannerMediaUrl = context.assetsPath + 'administration/administration/static/img/cms/preview_mountain_large.jpg';
             if (this.element.config.videoActive.value) {
                 bannerMediaUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
             }
@@ -96,7 +100,7 @@ Component.register('sw-cms-el-moorl-cta-banner', {
                 return `${context.assetsPath}${elemData.url}`;
             }
 
-            return `${context.assetsPath}/administration/static/img/cms/preview_mountain_large.jpg`;
+            return `${context.assetsPath}administration/administration/static/img/cms/preview_mountain_large.jpg`;
         },
 
         elementCss() {
