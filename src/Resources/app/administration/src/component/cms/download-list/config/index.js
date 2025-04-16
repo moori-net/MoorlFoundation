@@ -1,4 +1,4 @@
-const {Criteria, EntityCollection} = Shopware.Data;
+const { Criteria, EntityCollection } = Shopware.Data;
 
 import template from './index.html.twig';
 
@@ -10,20 +10,16 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
-            downloadCollection: null
+            downloadCollection: null,
         };
     },
 
@@ -33,7 +29,11 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
         },
 
         downloads() {
-            if (this.element.data && this.element.data.downloads && this.element.data.downloads.length > 0) {
+            if (
+                this.element.data &&
+                this.element.data.downloads &&
+                this.element.data.downloads.length > 0
+            ) {
                 return this.element.data.downloads;
             }
 
@@ -43,9 +43,15 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
         elementOptions() {
             return {
                 layout: [
-                    {value: 'default', label: 'sw-cms.elements.moorl-download-list.label.default'},
-                    {value: 'minimal', label: 'sw-cms.elements.moorl-download-list.label.minimal'}
-                ]
+                    {
+                        value: 'default',
+                        label: 'sw-cms.elements.moorl-download-list.label.default',
+                    },
+                    {
+                        value: 'minimal',
+                        label: 'sw-cms.elements.moorl-download-list.label.minimal',
+                    },
+                ],
             };
         },
 
@@ -59,7 +65,7 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
             context.inheritance = true;
 
             return context;
-        }
+        },
     },
 
     created() {
@@ -71,7 +77,11 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
             this.initElementConfig('moorl-download-list');
             this.initElementData('moorl-download-list');
 
-            this.downloadCollection = new EntityCollection('/media', 'media', Shopware.Context.api);
+            this.downloadCollection = new EntityCollection(
+                '/media',
+                'media',
+                Shopware.Context.api
+            );
 
             if (!Array.isArray(this.element.config.downloads.value)) {
                 return;
@@ -80,17 +90,19 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
             const criteria = new Criteria(1, 25);
             criteria.setIds(this.element.config.downloads.value);
 
-            this.downloadRepository.search(criteria, this.downloadSearchContext)
-                .then(result => {
+            this.downloadRepository
+                .search(criteria, this.downloadSearchContext)
+                .then((result) => {
                     this.downloadCollection = result;
                     this.onDownloadsChange();
                 });
         },
 
         onDownloadsChange() {
-            this.element.config.downloads.value = this.downloadCollection.getIds();
+            this.element.config.downloads.value =
+                this.downloadCollection.getIds();
             this.element.data.downloads = this.downloadCollection;
             this.$emit('downloads-change');
-        }
-    }
+        },
+    },
 });

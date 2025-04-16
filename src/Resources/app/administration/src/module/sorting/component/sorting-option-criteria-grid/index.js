@@ -1,7 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-sorting-option-criteria-grid', {
     template,
@@ -17,13 +17,13 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         item: {
             type: Object,
             required: true,
-        }
+        },
     },
 
     data() {
         return {
             customFieldSets: [],
-            selectedCriteria: null
+            selectedCriteria: null,
         };
     },
 
@@ -73,25 +73,38 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         criteriaOptions() {
             const storeOptions = [];
             const entity = this.item.entity;
-            const entityDefinition = Shopware.EntityDefinition.get(entity).properties;
+            const entityDefinition =
+                Shopware.EntityDefinition.get(entity).properties;
 
             Object.entries(entityDefinition).forEach(([property, value]) => {
-                if (['uuid', 'text', 'string', 'json_object', 'date', 'boolean', 'int'].indexOf(value.type) !== -1) {
+                if (
+                    [
+                        'uuid',
+                        'text',
+                        'string',
+                        'json_object',
+                        'date',
+                        'boolean',
+                        'int',
+                    ].indexOf(value.type) !== -1
+                ) {
                     if (property === 'customFields') {
                         this.customFieldSets.forEach(function (customFieldSet) {
-                            customFieldSet.customFields.forEach(function (customField) {
-                                storeOptions.push({
-                                    value: `${entity}.${property}.${customField.name}`,
-                                    label: `${property}.${customField.name}`,
-                                    type: `${customField.type}`
-                                });
-                            });
+                            customFieldSet.customFields.forEach(
+                                function (customField) {
+                                    storeOptions.push({
+                                        value: `${entity}.${property}.${customField.name}`,
+                                        label: `${property}.${customField.name}`,
+                                        type: `${customField.type}`,
+                                    });
+                                }
+                            );
                         });
                     } else {
                         storeOptions.push({
                             value: `${entity}.${property}`,
                             label: `${property}`,
-                            type: `${value.type}`
+                            type: `${value.type}`,
                         });
                     }
                 }
@@ -139,8 +152,14 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         loadCustomFieldSets() {
             const criteria = new Criteria(1, 100);
 
-            criteria.addFilter(Criteria.equals('relations.entityName', this.item.entity));
-            criteria.addAssociation('customFields').addSorting(Criteria.sort('config.customFieldPosition', 'ASC', true));
+            criteria.addFilter(
+                Criteria.equals('relations.entityName', this.item.entity)
+            );
+            criteria
+                .addAssociation('customFields')
+                .addSorting(
+                    Criteria.sort('config.customFieldPosition', 'ASC', true)
+                );
 
             this.customFieldSetRepository
                 .search(criteria, Shopware.Context.api)
@@ -153,7 +172,9 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
             if (!this.criteriaIsAlreadyUsed(fieldName)) {
                 this.$emit('criteria-add', fieldName);
 
-                const record = this.item.fields.find(field => field.field === fieldName);
+                const record = this.item.fields.find(
+                    (field) => field.field === fieldName
+                );
                 this.$nextTick().then(() => {
                     if (record && this.$refs.dataGrid) {
                         this.$refs.dataGrid.onDbClickCell(record);
@@ -164,10 +185,9 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
             }
 
             this.createNotificationError({
-                message: this.$t(
-                    'moorl-sorting.general.criteriaAlreadyUsed',
-                    {fieldName},
-                ),
+                message: this.$t('moorl-sorting.general.criteriaAlreadyUsed', {
+                    fieldName,
+                }),
             });
         },
 
@@ -184,14 +204,19 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         },
 
         getCriteriaTemplate(fieldName) {
-            return {field: fieldName, order: 'asc', priority: 1, naturalSorting: 0};
+            return {
+                field: fieldName,
+                order: 'asc',
+                priority: 1,
+                naturalSorting: 0,
+            };
         },
 
         onSaveInlineEdit(item) {
             if (item.field === null) {
                 this.createNotificationError({
                     message: this.$tc(
-                        'sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull',
+                        'sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull'
                     ),
                 });
 
@@ -206,9 +231,9 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         },
 
         criteriaIsAlreadyUsed(criteriaName) {
-            return this.item.fields.some(currentCriteria => {
+            return this.item.fields.some((currentCriteria) => {
                 return currentCriteria.field === criteriaName;
             });
-        }
+        },
     },
 });

@@ -1,15 +1,11 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 import template from './index.html.twig';
 
 Shopware.Component.register('moorl-client-list', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'numberRangeService',
-        'context'
-    ],
+    inject: ['repositoryFactory', 'numberRangeService', 'context'],
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
@@ -25,7 +21,7 @@ Shopware.Component.register('moorl-client-list', {
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -37,7 +33,7 @@ Shopware.Component.register('moorl-client-list', {
         searchContext() {
             return {
                 ...Shopware.Context.api,
-                inheritance: true
+                inheritance: true,
             };
         },
 
@@ -49,7 +45,7 @@ Shopware.Component.register('moorl-client-list', {
                     routerLink: 'moorl.client.detail',
                     label: this.$tc('moorl-client.properties.active'),
                     allowResize: true,
-                    inlineEdit: 'boolean'
+                    inlineEdit: 'boolean',
                 },
                 {
                     property: 'name',
@@ -57,17 +53,17 @@ Shopware.Component.register('moorl-client-list', {
                     routerLink: 'moorl.client.detail',
                     label: this.$tc('moorl-client.properties.name'),
                     allowResize: true,
-                    inlineEdit: 'string'
+                    inlineEdit: 'string',
                 },
                 {
                     property: 'type',
                     dataIndex: 'type',
                     routerLink: 'moorl.client.detail',
                     label: this.$tc('moorl-client.properties.type'),
-                    allowResize: true
-                }
-            ]
-        }
+                    allowResize: true,
+                },
+            ];
+        },
     },
 
     created() {
@@ -81,7 +77,10 @@ Shopware.Component.register('moorl-client-list', {
             this.isLoading = true;
 
             try {
-                const items = await this.repository.search(criteria, Shopware.Context.api);
+                const items = await this.repository.search(
+                    criteria,
+                    Shopware.Context.api
+                );
 
                 this.total = items.total;
                 this.isLoading = false;
@@ -96,10 +95,9 @@ Shopware.Component.register('moorl-client-list', {
             this.getList();
         },
 
-        updateSelection() {
-        },
+        updateSelection() {},
 
-        updateTotal({total}) {
+        updateTotal({ total }) {
             this.total = total;
         },
 
@@ -108,13 +106,18 @@ Shopware.Component.register('moorl-client-list', {
                 cloneChildren: true,
                 overwrites: {
                     name: `${reference.name} ${this.$tc('global.default.duplicate')}`,
-                    locked: false
-                }
+                    locked: false,
+                },
             };
 
-            this.repository.clone(reference.id, behavior, Shopware.Context.api).then((duplicate) => {
-                this.$router.push({name: 'moorl.client.detail', params: {id: duplicate.id}});
-            });
-        }
-    }
+            this.repository
+                .clone(reference.id, behavior, Shopware.Context.api)
+                .then((duplicate) => {
+                    this.$router.push({
+                        name: 'moorl.client.detail',
+                        params: { id: duplicate.id },
+                    });
+                });
+        },
+    },
 });

@@ -1,7 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-entity-form-element', {
     inject: ['repositoryFactory'],
@@ -11,25 +11,25 @@ Shopware.Component.register('moorl-entity-form-element', {
     props: {
         column: {
             type: Object,
-            required: true
+            required: true,
         },
         value: {
             type: Object,
-            required: true
+            required: true,
         },
         snippetSrc: {
             type: String,
             required: false,
-            default: 'moorl-foundation'
+            default: 'moorl-foundation',
         },
         /* Handling for prices */
         tax: {
             type: Object,
-            required: false
+            required: false,
         },
         defaultCurrency: {
             type: Object,
-            required: false
+            required: false,
         },
     },
 
@@ -40,7 +40,7 @@ Shopware.Component.register('moorl-entity-form-element', {
 
         price: {
             get() {
-                let price = []
+                let price = [];
                 if (this.value && Array.isArray(this.value.price)) {
                     price = [...this.value.price];
                 } else {
@@ -49,8 +49,8 @@ Shopware.Component.register('moorl-entity-form-element', {
                         net: 0,
                         gross: 0,
                         linked: true,
-                        currencyId: this.defaultCurrency.id
-                    }
+                        currencyId: this.defaultCurrency.id,
+                    };
                     this.value.price = cPrice;
                     return cPrice;
                 }
@@ -59,12 +59,17 @@ Shopware.Component.register('moorl-entity-form-element', {
             set(newValue) {
                 //this.value.price = newValue || null;
                 this.value.price = newValue || null;
-            }
+            },
         },
 
         sortingSearchCriteria() {
             const criteria = new Criteria(1, 25);
-            criteria.addFilter(Criteria.equals('entity', this.column?.flags?.moorl_edit_field_options?.entity));
+            criteria.addFilter(
+                Criteria.equals(
+                    'entity',
+                    this.column?.flags?.moorl_edit_field_options?.entity
+                )
+            );
 
             return criteria;
         },
@@ -79,8 +84,8 @@ Shopware.Component.register('moorl-entity-form-element', {
         productSearchContext() {
             return {
                 ...Shopware.Context.api,
-                inheritance: true
+                inheritance: true,
             };
-        }
+        },
     },
 });

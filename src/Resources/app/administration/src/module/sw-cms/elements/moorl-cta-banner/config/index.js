@@ -4,9 +4,7 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-config-moorl-cta-banner', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     inject: ['repositoryFactory'],
 
@@ -14,7 +12,7 @@ Shopware.Component.register('sw-cms-el-config-moorl-cta-banner', {
         return {
             mediaModalIsOpen: false,
             mediaModalIndex: 'media',
-            initialFolderId: null
+            initialFolderId: null,
         };
     },
 
@@ -50,7 +48,10 @@ Shopware.Component.register('sw-cms-el-config-moorl-cta-banner', {
         },
 
         async onImageUpload({ targetId }, index) {
-            const mediaEntity = await this.mediaRepository.get(targetId, Shopware.Context.api);
+            const mediaEntity = await this.mediaRepository.get(
+                targetId,
+                Shopware.Context.api
+            );
 
             this.element.config[index].value = mediaEntity.id;
 
@@ -58,7 +59,11 @@ Shopware.Component.register('sw-cms-el-config-moorl-cta-banner', {
         },
 
         previewSource(index) {
-            if (this.element.data && this.element.data[index] && this.element.data[index].id) {
+            if (
+                this.element.data &&
+                this.element.data[index] &&
+                this.element.data[index].id
+            ) {
                 return this.element.data[index];
             }
 
@@ -137,6 +142,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-cta-banner', {
             }
 
             this.$emit('element-update', this.element);
-        }
-    }
+        },
+    },
 });

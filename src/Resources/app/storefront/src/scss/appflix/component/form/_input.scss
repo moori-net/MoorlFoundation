@@ -1,17 +1,17 @@
-.input-group-text{
-  background-color: $light;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $input-color;
+.input-group-text {
+    background-color: $light;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $input-color;
 
-  .icon {
-    width: 17px;
-    height: 17px;
+    .icon {
+        width: 17px;
+        height: 17px;
 
-    svg {
-      top: 0;
-      color: $input-color;
+        svg {
+            top: 0;
+            color: $input-color;
+        }
     }
-  }
 }

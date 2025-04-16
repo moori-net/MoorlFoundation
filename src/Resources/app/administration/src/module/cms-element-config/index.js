@@ -10,9 +10,9 @@ Shopware.Module.register('moorl-cms-element-config', {
             component: 'moorl-cms-element-config-index',
             path: 'index',
             meta: {
-                parentPath: 'sw.settings.index.plugins'
+                parentPath: 'sw.settings.index.plugins',
             },
-        }
+        },
     },
     settingsItem: [
         {
@@ -21,7 +21,7 @@ Shopware.Module.register('moorl-cms-element-config', {
             to: 'moorl.cms.element.config.index',
             group: 'plugins',
             icon: 'regular-layout',
-            label: 'moorl-foundation.label.settingsCmsElementConfig'
-        }
-    ]
+            label: 'moorl-foundation.label.settingsCmsElementConfig',
+        },
+    ],
 });

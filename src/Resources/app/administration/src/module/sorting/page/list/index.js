@@ -1,29 +1,25 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 import template from './index.html.twig';
 
 Shopware.Component.register('moorl-sorting-list', {
     template,
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
-    mixins: [
-        Shopware.Mixin.getByName('listing')
-    ],
+    mixins: [Shopware.Mixin.getByName('listing')],
 
     data() {
         return {
             isLoading: false,
             items: null,
-            sortBy: 'entity'
+            sortBy: 'entity',
         };
     },
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -37,8 +33,14 @@ Shopware.Component.register('moorl-sorting-list', {
 
             criteria.setTerm(this.term);
 
-            this.sortBy.split(',').forEach(sorting => {
-                criteria.addSorting(Criteria.sort(sorting, this.sortDirection, this.naturalSorting));
+            this.sortBy.split(',').forEach((sorting) => {
+                criteria.addSorting(
+                    Criteria.sort(
+                        sorting,
+                        this.sortDirection,
+                        this.naturalSorting
+                    )
+                );
             });
 
             return criteria;
@@ -51,29 +53,29 @@ Shopware.Component.register('moorl-sorting-list', {
                     dataIndex: 'active',
                     label: this.$tc('moorl-sorting.properties.active'),
                     inlineEdit: 'boolean',
-                    align: 'center'
+                    align: 'center',
                 },
                 {
                     property: 'entity',
                     dataIndex: 'entity',
                     label: this.$tc('moorl-sorting.properties.entity'),
-                    routerLink: 'moorl.sorting.detail'
+                    routerLink: 'moorl.sorting.detail',
                 },
                 {
                     property: 'label',
                     dataIndex: 'label',
                     label: this.$tc('moorl-sorting.properties.label'),
                     routerLink: 'moorl.sorting.detail',
-                    inlineEdit: 'string'
+                    inlineEdit: 'string',
                 },
                 {
                     property: 'priority',
                     dataIndex: 'priority',
                     label: this.$tc('moorl-sorting.properties.priority'),
-                    inlineEdit: 'number'
-                }
-            ]
-        }
+                    inlineEdit: 'number',
+                },
+            ];
+        },
     },
 
     created() {
@@ -88,25 +90,32 @@ Shopware.Component.register('moorl-sorting-list', {
         getList() {
             this.isLoading = true;
 
-            const context = {...Shopware.Context.api, inheritance: true};
-            return this.repository.search(this.criteria, context).then((result) => {
-                this.total = result.total;
-                this.items = result;
-                this.isLoading = false;
-            });
+            const context = { ...Shopware.Context.api, inheritance: true };
+            return this.repository
+                .search(this.criteria, context)
+                .then((result) => {
+                    this.total = result.total;
+                    this.items = result;
+                    this.isLoading = false;
+                });
         },
 
         onDelete(option) {
             this.$refs.listing.deleteItem(option);
 
-            this.repository.search(this.criteria, {...Shopware.Context.api, inheritance: true}).then((result) => {
-                this.total = result.total;
-                this.items = result;
-            });
+            this.repository
+                .search(this.criteria, {
+                    ...Shopware.Context.api,
+                    inheritance: true,
+                })
+                .then((result) => {
+                    this.total = result.total;
+                    this.items = result;
+                });
         },
 
         changeLanguage() {
             this.getList();
-        }
-    }
+        },
+    },
 });

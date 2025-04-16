@@ -3,38 +3,38 @@ import template from './index.html.twig';
 Shopware.Component.register('moorl-thing-seo-card', {
     template,
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     props: {
         item: {
             type: Object,
             required: true,
-        }
+        },
     },
 
     data() {
         return {
-            mediaModalIsOpen: false
+            mediaModalIsOpen: false,
         };
     },
 
     computed: {
         mediaRepository() {
             return this.repositoryFactory.create('media');
-        }
+        },
     },
 
     methods: {
-        setMediaItem({targetId}) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
-                this.item.metaMediaId = targetId;
-                this.item.metaMedia = updatedMedia;
-            });
+        setMediaItem({ targetId }) {
+            this.mediaRepository
+                .get(targetId, Shopware.Context.api)
+                .then((updatedMedia) => {
+                    this.item.metaMediaId = targetId;
+                    this.item.metaMedia = updatedMedia;
+                });
         },
         onDropMedia(dragData) {
-            this.setMediaItem({targetId: dragData.id});
+            this.setMediaItem({ targetId: dragData.id });
         },
         setMediaFromSidebar(mediaEntity) {
             this.item.metaMediaId = mediaEntity.id;
@@ -51,6 +51,6 @@ Shopware.Component.register('moorl-thing-seo-card', {
         },
         onOpenMediaModal() {
             this.mediaModalIsOpen = true;
-        }
-    }
+        },
+    },
 });

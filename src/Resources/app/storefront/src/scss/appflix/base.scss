@@ -1,65 +1,65 @@
-@import "global/colors";
-@import "global/root";
-@import "global/helper";
+@import 'global/colors';
+@import 'global/root';
+@import 'global/helper';
 
-@import "component/form/customer-upload";
-@import "component/form/input";
+@import 'component/form/customer-upload';
+@import 'component/form/input';
 
-[class*=cms-element-appflix]{
-    &.has-vertical-alignment{
-        display:flex;
+[class*='cms-element-appflix'] {
+    &.has-vertical-alignment {
+        display: flex;
         height: 100%;
 
-        .cms-element-alignment{
+        .cms-element-alignment {
             width: 100%;
         }
     }
 }
 
 .cms-element-image-slider {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .moorl-foundation-hide,
 .moorl-animation-hidden {
-  opacity: 0;
+    opacity: 0;
 }
 
 .moorl-animation-processing {
-  z-index: 9000;
+    z-index: 9000;
 }
 
 .cms-block.no-gutters {
-  overflow: visible;
+    overflow: visible;
 
-  .cms-block-container-row {
-    @extend .no-gutters;
-  }
+    .cms-block-container-row {
+        @extend .no-gutters;
+    }
 }
 
 .modal {
-  z-index: 1060;
+    z-index: 1060;
 }
 
 $foundation-colors: (
-        "facebook": #3C5A99,
-        "google": #0F9D58,
-        "azure": #00A4EF,
-        "amazon": #FF9900,
-        "office365": #00A4EF,
-        "paypal": #0173b9,
-        "generic": #efc34a,
-        "discord": #7289DA,
-        "twitter": #55acee,
-        "instagram": #eee,
-        "pinterest": #bd081c,
-        "whatsapp": #25d366,
-        "youtube": #ff0000,
-        "xing": #126567
+    'facebook': #3c5a99,
+    'google': #0f9d58,
+    'azure': #00a4ef,
+    'amazon': #ff9900,
+    'office365': #00a4ef,
+    'paypal': #0173b9,
+    'generic': #efc34a,
+    'discord': #7289da,
+    'twitter': #55acee,
+    'instagram': #eee,
+    'pinterest': #bd081c,
+    'whatsapp': #25d366,
+    'youtube': #ff0000,
+    'xing': #126567,
 );
 
 @each $color, $value in $foundation-colors {
-  .btn-#{$color} {
-    @include button-variant($value, $value);
-  }
+    .btn-#{$color} {
+        @include button-variant($value, $value);
+    }
 }

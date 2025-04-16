@@ -7,6 +7,6 @@ Shopware.Component.register('moorl-person-card', {
         item: {
             type: Object,
             required: true,
-        }
-    }
+        },
+    },
 });

@@ -1,46 +1,46 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-location {
-  .moorl-location-map {
-    height: 100%;
-    width: 100%;
-    min-height: 400px;
-    position: relative;
-  }
-
-  .leaflet-marker-icon {
-    .marker-pin {
-      background: $color-shopware-brand-900;
-      width: 40px;
-      height: 40px;
-      border-radius: 50% 50% 50% 0;
-      position: absolute;
-      transform: rotate(-45deg);
-      left: 50%;
-      top: 50%;
-      margin: -20px 0 0 -20px;
-
-      &::after {
-        content: '';
-        width: 34px;
-        height: 34px;
-        margin: 3px 0 0 3px;
-        background: #fff;
-        position: absolute;
-        border-radius: 50%;
-      }
+    .moorl-location-map {
+        height: 100%;
+        width: 100%;
+        min-height: 400px;
+        position: relative;
     }
 
-    svg {
-      position: absolute;
-      width: 32px;
-      left: 0;
-      right: 0;
-      margin: 12px auto;
+    .leaflet-marker-icon {
+        .marker-pin {
+            background: $color-shopware-brand-900;
+            width: 40px;
+            height: 40px;
+            border-radius: 50% 50% 50% 0;
+            position: absolute;
+            transform: rotate(-45deg);
+            left: 50%;
+            top: 50%;
+            margin: -20px 0 0 -20px;
 
-      path {
-        fill: #222222;
-      }
+            &::after {
+                content: '';
+                width: 34px;
+                height: 34px;
+                margin: 3px 0 0 3px;
+                background: #fff;
+                position: absolute;
+                border-radius: 50%;
+            }
+        }
+
+        svg {
+            position: absolute;
+            width: 32px;
+            left: 0;
+            right: 0;
+            margin: 12px auto;
+
+            path {
+                fill: #222222;
+            }
+        }
     }
-  }
 }

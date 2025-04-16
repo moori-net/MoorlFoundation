@@ -49,11 +49,15 @@ Shopware.Component.register('moorl-layout-card', {
         cmsPageTypes() {
             return {
                 page: this.$tc('sw-cms.detail.label.pageTypeShopPage'),
-                landingpage: this.$tc('sw-cms.detail.label.pageTypeLandingpage'),
+                landingpage: this.$tc(
+                    'sw-cms.detail.label.pageTypeLandingpage'
+                ),
                 product_list: this.$tc('sw-cms.detail.label.pageTypeCategory'),
                 product_detail: this.$tc('sw-cms.detail.label.pageTypeProduct'),
                 creator_detail: this.$tc('moorl-creator.general.creator'),
-                magazine_article_detail: this.$tc('moorl-magazine.general.article'),
+                magazine_article_detail: this.$tc(
+                    'moorl-magazine.general.article'
+                ),
             };
         },
     },
@@ -69,9 +73,12 @@ Shopware.Component.register('moorl-layout-card', {
 
         openInPagebuilder() {
             if (!this.cmsPage) {
-                this.$router.push({name: 'sw.cms.create'});
+                this.$router.push({ name: 'sw.cms.create' });
             } else {
-                this.$router.push({name: 'sw.cms.detail', params: {id: this.item.cmsPageId}});
+                this.$router.push({
+                    name: 'sw.cms.detail',
+                    params: { id: this.item.cmsPageId },
+                });
             }
         },
 

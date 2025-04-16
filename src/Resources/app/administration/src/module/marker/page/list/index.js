@@ -1,15 +1,11 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 import template from './index.html.twig';
 
 Shopware.Component.register('moorl-marker-list', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'numberRangeService',
-        'context'
-    ],
+    inject: ['repositoryFactory', 'numberRangeService', 'context'],
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
@@ -25,7 +21,7 @@ Shopware.Component.register('moorl-marker-list', {
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -37,7 +33,7 @@ Shopware.Component.register('moorl-marker-list', {
         searchContext() {
             return {
                 ...Shopware.Context.api,
-                inheritance: true
+                inheritance: true,
             };
         },
 
@@ -48,17 +44,17 @@ Shopware.Component.register('moorl-marker-list', {
                     dataIndex: 'name',
                     routerLink: 'moorl.marker.detail',
                     label: this.$tc('moorl-marker.properties.name'),
-                    allowResize: true
+                    allowResize: true,
                 },
                 {
                     property: 'type',
                     dataIndex: 'type',
                     routerLink: 'moorl.marker.detail',
                     label: this.$tc('moorl-marker.properties.type'),
-                    allowResize: true
-                }
-            ]
-        }
+                    allowResize: true,
+                },
+            ];
+        },
     },
 
     created() {
@@ -72,7 +68,10 @@ Shopware.Component.register('moorl-marker-list', {
             this.isLoading = true;
 
             try {
-                const items = await this.repository.search(criteria, Shopware.Context.api);
+                const items = await this.repository.search(
+                    criteria,
+                    Shopware.Context.api
+                );
 
                 this.total = items.total;
                 this.isLoading = false;
@@ -87,10 +86,9 @@ Shopware.Component.register('moorl-marker-list', {
             this.getList();
         },
 
-        updateSelection() {
-        },
+        updateSelection() {},
 
-        updateTotal({total}) {
+        updateTotal({ total }) {
             this.total = total;
         },
 
@@ -100,13 +98,18 @@ Shopware.Component.register('moorl-marker-list', {
                 overwrites: {
                     name: `${reference.name} ${this.$tc('global.default.duplicate')}`,
                     createdAt: null,
-                    locked: false
-                }
+                    locked: false,
+                },
             };
 
-            this.repository.clone(reference.id, behavior, Shopware.Context.api).then((duplicate) => {
-                this.$router.push({name: 'moorl.marker.detail', params: {id: duplicate.id}});
-            });
-        }
-    }
+            this.repository
+                .clone(reference.id, behavior, Shopware.Context.api)
+                .then((duplicate) => {
+                    this.$router.push({
+                        name: 'moorl.marker.detail',
+                        params: { id: duplicate.id },
+                    });
+                });
+        },
+    },
 });

@@ -58,54 +58,54 @@ const sets = {
     cssDisplay,
     bsGridWidth,
     bsGridOrder,
-    bsGridColumns
+    bsGridColumns,
 };
 
 const defaults = {
-    animateIn: {set: 'animateCss'},
-    animateOut: {set: 'animateCss'},
-    animateHover: {set: 'animateCss'},
+    animateIn: { set: 'animateCss' },
+    animateOut: { set: 'animateCss' },
+    animateHover: { set: 'animateCss' },
     animateCss: {
         variant: 'small',
         translated: false,
-        showClearableButton: true
+        showClearableButton: true,
     },
     operator: {
         variant: 'small',
-        translated: false
+        translated: false,
     },
     bsGridWidth: {
         variant: 'small',
-        translated: false
+        translated: false,
     },
     bsGridOrder: {
         variant: 'small',
-        translated: false
+        translated: false,
     },
     cssDisplay: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     cssFlexDirection: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     cssJustifyContent: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     cssFlexWrap: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     flexHorizontalAlign: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     flexVerticalAlign: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     textHorizontalAlign: {
-        showClearableButton: true
+        showClearableButton: true,
     },
     textVerticalAlign: {
-        showClearableButton: true
-    }
+        showClearableButton: true,
+    },
 };
 
 Shopware.Component.register('moorl-select-field', {
@@ -117,7 +117,7 @@ Shopware.Component.register('moorl-select-field', {
         value: {
             type: String,
             required: false,
-            default: undefined
+            default: undefined,
         },
         variant: {
             type: String,
@@ -157,32 +157,32 @@ Shopware.Component.register('moorl-select-field', {
         set: {
             type: String,
             required: true,
-            default: 'customSet'
+            default: 'customSet',
         },
         filter: {
             type: Array,
             required: false,
-            default: []
+            default: [],
         },
         customSet: {
             type: Array,
             required: false,
-            default: []
+            default: [],
         },
         snippetPath: {
             type: String,
             required: false,
-            default: undefined
+            default: undefined,
         },
         valueProperty: {
             type: String,
             required: true,
-            default: 'value'
+            default: 'value',
         },
         labelProperty: {
             type: String,
             required: true,
-            default: 'label'
+            default: 'label',
         },
     },
 
@@ -195,8 +195,8 @@ Shopware.Component.register('moorl-select-field', {
                 showClearableButton: this.currentShowClearableButton,
                 options: this.options,
                 disabled: this.disabled,
-                isLoading: this.isLoading
-            }
+                isLoading: this.isLoading,
+            };
         },
 
         currentValue: {
@@ -205,23 +205,28 @@ Shopware.Component.register('moorl-select-field', {
             },
             set(newValue) {
                 this.$emit('update:value', newValue ?? null);
-            }
+            },
         },
 
         setOptions() {
             if (this.set === 'customSet') {
-                return this.customSet
+                return this.customSet;
             }
 
             if (sets[this.currentSet] === undefined) {
-                return [{value: null, label: `set ${this.currentSet} not found`}];
+                return [
+                    { value: null, label: `set ${this.currentSet} not found` },
+                ];
             }
 
             return sets[this.currentSet];
         },
 
         currentSet() {
-            if (defaults[this.set] === undefined || defaults[this.set].set === undefined) {
+            if (
+                defaults[this.set] === undefined ||
+                defaults[this.set].set === undefined
+            ) {
                 return this.set;
             }
 
@@ -233,7 +238,10 @@ Shopware.Component.register('moorl-select-field', {
                 return this.variant;
             }
 
-            if (defaults[this.currentSet] === undefined || defaults[this.currentSet].variant === undefined) {
+            if (
+                defaults[this.currentSet] === undefined ||
+                defaults[this.currentSet].variant === undefined
+            ) {
                 return 'normal';
             }
 
@@ -245,7 +253,10 @@ Shopware.Component.register('moorl-select-field', {
                 return this.showClearableButton;
             }
 
-            if (defaults[this.currentSet] === undefined || defaults[this.currentSet].showClearableButton === undefined) {
+            if (
+                defaults[this.currentSet] === undefined ||
+                defaults[this.currentSet].showClearableButton === undefined
+            ) {
                 return false;
             }
 
@@ -257,7 +268,10 @@ Shopware.Component.register('moorl-select-field', {
                 return true;
             }
 
-            if (defaults[this.currentSet] === undefined || defaults[this.currentSet].translated === undefined) {
+            if (
+                defaults[this.currentSet] === undefined ||
+                defaults[this.currentSet].translated === undefined
+            ) {
                 return true;
             }
 
@@ -319,11 +333,11 @@ Shopware.Component.register('moorl-select-field', {
                     return;
                 }
 
-                options.push({value, label});
+                options.push({ value, label });
             });
 
             return options;
-        }
+        },
     },
 
     methods: {
@@ -334,5 +348,5 @@ Shopware.Component.register('moorl-select-field', {
 
             return value;
         },
-    }
+    },
 });

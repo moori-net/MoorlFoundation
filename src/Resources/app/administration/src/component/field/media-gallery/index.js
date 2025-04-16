@@ -1,31 +1,29 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {isEmpty} = Shopware.Utils.types;
+const { isEmpty } = Shopware.Utils.types;
 
 Shopware.Component.register('moorl-media-gallery', {
     template,
 
     inject: ['repositoryFactory', 'acl'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     props: {
         item: {
             type: Object,
-            required: true
+            required: true,
         },
         entity: {
             type: String,
-            required: true
+            required: true,
         },
         defaultFolder: {
             type: String,
             required: false,
-            default: "product"
-        }
+            default: 'product',
+        },
     },
 
     data() {
@@ -61,8 +59,10 @@ Shopware.Component.register('moorl-media-gallery', {
             if (!this.currentItem?.media) {
                 return null;
             }
-            const coverId = this.currentItem.cover ? this.currentItem.cover.mediaId : this.currentItem.coverId;
-            return this.currentItem.media.find(media => media.id === coverId);
+            const coverId = this.currentItem.cover
+                ? this.currentItem.cover.mediaId
+                : this.currentItem.coverId;
+            return this.currentItem.media.find((media) => media.id === coverId);
         },
 
         isLoading() {
@@ -86,7 +86,7 @@ Shopware.Component.register('moorl-media-gallery', {
 
         gridAutoRows() {
             return `grid-auto-rows: ${this.columnWidth}`;
-        }
+        },
     },
 
     methods: {
@@ -103,9 +103,13 @@ Shopware.Component.register('moorl-media-gallery', {
                 return;
             }
             media.forEach((item) => {
-                this.addMedia(item).catch(({fileName}) => {
+                this.addMedia(item).catch(({ fileName }) => {
                     this.createNotificationError({
-                        message: this.$tc('sw-product.mediaForm.errorMediaItemDuplicated', 0, {fileName}),
+                        message: this.$tc(
+                            'sw-product.mediaForm.errorMediaItemDuplicated',
+                            0,
+                            { fileName }
+                        ),
                     });
                 });
             });
@@ -115,7 +119,9 @@ Shopware.Component.register('moorl-media-gallery', {
             if (this.isExistingMedia(media)) {
                 return Promise.reject(media);
             }
-            const newMedia = this.itemMediaRepository.create(Shopware.Context.api);
+            const newMedia = this.itemMediaRepository.create(
+                Shopware.Context.api
+            );
             newMedia.mediaId = media.id;
             newMedia.media = {
                 url: media.url,
@@ -129,7 +135,7 @@ Shopware.Component.register('moorl-media-gallery', {
         },
 
         isExistingMedia(media) {
-            return this.itemMedia.some(({id, mediaId}) => {
+            return this.itemMedia.some(({ id, mediaId }) => {
                 return id === media.id || mediaId === media.id;
             });
         },
@@ -144,7 +150,8 @@ Shopware.Component.register('moorl-media-gallery', {
                     return false;
                 }
 
-                const cssColumns = window.getComputedStyle(this.$refs.grid, null)
+                const cssColumns = window
+                    .getComputedStyle(this.$refs.grid, null)
                     .getPropertyValue('grid-template-columns')
                     .split(' ');
                 this.columnCount = cssColumns.length;
@@ -162,7 +169,8 @@ Shopware.Component.register('moorl-media-gallery', {
             let placeholderCount = columnCount;
 
             if (this.itemMedia.length !== 0) {
-                placeholderCount = columnCount - ((this.itemMedia.length) % columnCount);
+                placeholderCount =
+                    columnCount - (this.itemMedia.length % columnCount);
                 if (placeholderCount === columnCount) {
                     return 0;
                 }
@@ -203,7 +211,11 @@ Shopware.Component.register('moorl-media-gallery', {
 
         successfulUpload({ targetId }) {
             // on replace
-            if (this.currentItem.media.find((itemMedia) => itemMedia.mediaId === targetId)) {
+            if (
+                this.currentItem.media.find(
+                    (itemMedia) => itemMedia.mediaId === targetId
+                )
+            ) {
                 return;
             }
 
@@ -245,9 +257,14 @@ Shopware.Component.register('moorl-media-gallery', {
         },
 
         isCover(itemMedia) {
-            const coverId = this.currentItem.cover ? this.currentItem.cover.id : this.currentItem.coverId;
+            const coverId = this.currentItem.cover
+                ? this.currentItem.cover.id
+                : this.currentItem.coverId;
 
-            if (this.currentItem.media.length === 0 || itemMedia.isPlaceholder) {
+            if (
+                this.currentItem.media.length === 0 ||
+                itemMedia.isPlaceholder
+            ) {
                 return false;
             }
 
@@ -260,7 +277,10 @@ Shopware.Component.register('moorl-media-gallery', {
                 this.currentItem.coverId = null;
             }
 
-            if (this.currentItem.coverId === null && this.currentItem.media.length > 0) {
+            if (
+                this.currentItem.coverId === null &&
+                this.currentItem.media.length > 0
+            ) {
                 this.currentItem.coverId = this.currentItem.media.first().id;
             }
 
@@ -277,7 +297,10 @@ Shopware.Component.register('moorl-media-gallery', {
                 return;
             }
 
-            this.currentItem.media.moveItem(dragData.position, dropData.position);
+            this.currentItem.media.moveItem(
+                dragData.position,
+                dropData.position
+            );
             this.updateMediaItemPositions();
         },
 

@@ -18,15 +18,20 @@ Shopware.Component.extend('moorl-marker-create', 'moorl-marker-detail', {
                 .save(this.item, Shopware.Context.api)
                 .then(() => {
                     this.isLoading = false;
-                    this.$router.push({name: 'moorl.marker.detail', params: {id: this.item.id}});
+                    this.$router.push({
+                        name: 'moorl.marker.detail',
+                        params: { id: this.item.id },
+                    });
                 })
                 .catch((exception) => {
                     this.isLoading = false;
                     this.createNotificationError({
-                        title: this.$tc('moorl-foundation.notification.errorTitle'),
-                        message: exception
+                        title: this.$tc(
+                            'moorl-foundation.notification.errorTitle'
+                        ),
+                        message: exception,
                     });
                 });
-        }
-    }
+        },
+    },
 });

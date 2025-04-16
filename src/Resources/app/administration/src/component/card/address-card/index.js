@@ -7,6 +7,6 @@ Shopware.Component.register('moorl-address-card', {
         item: {
             type: Object,
             required: true,
-        }
-    }
+        },
+    },
 });

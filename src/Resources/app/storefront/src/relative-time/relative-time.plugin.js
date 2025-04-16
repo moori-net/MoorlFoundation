@@ -2,17 +2,15 @@ import Plugin from 'src/plugin-system/plugin.class';
 import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlRelativeTimePlugin extends Plugin {
-
     static options = {
         locale: document.documentElement.lang,
         intervalTimeout: 1000,
         from: 'now',
-        actionUrl: null
+        actionUrl: null,
     };
 
     init() {
         if (this.options.actionUrl) {
-
         }
 
         const actionUrl = this.options.actionUrl;
@@ -50,17 +48,17 @@ export default class MoorlRelativeTimePlugin extends Plugin {
 
             let days = Math.trunc(diff / (60 * 60 * 24));
             let hours = Math.trunc((diff % (60 * 60 * 24)) / (60 * 60));
-            let minutes = Math.trunc((diff % (60 * 60)) / (60));
-            let seconds = Math.trunc((diff % (60)));
+            let minutes = Math.trunc((diff % (60 * 60)) / 60);
+            let seconds = Math.trunc(diff % 60);
 
             if (days !== 0) {
-                relTime = time.format(days, 'day')
+                relTime = time.format(days, 'day');
             } else if (hours !== 0) {
-                relTime = time.format(hours, 'hour')
+                relTime = time.format(hours, 'hour');
             } else if (minutes !== 0) {
-                relTime = time.format(minutes, 'minute')
+                relTime = time.format(minutes, 'minute');
             } else if (seconds !== 0) {
-                relTime = time.format(seconds, 'second')
+                relTime = time.format(seconds, 'second');
             }
 
             if (el.dataset.bsToggle) {

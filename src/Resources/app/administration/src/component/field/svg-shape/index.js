@@ -3,16 +3,14 @@ import template from './index.html.twig';
 Shopware.Component.register('moorl-svg-shape', {
     template,
 
-    emits: [
-        'update:value'
-    ],
+    emits: ['update:value'],
 
     props: {
         value: {
             type: Object,
             required: true,
-            default: {}
-        }
+            default: {},
+        },
     },
 
     created() {
@@ -33,12 +31,12 @@ Shopware.Component.register('moorl-svg-shape', {
                 r: 50,
                 cx: 50,
                 cy: 50,
-                style: ""
+                style: '',
             });
 
             Object.assign(value, this.value);
 
             this.$emit('update:value', value);
-        }
-    }
+        },
+    },
 });

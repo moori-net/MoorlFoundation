@@ -14,139 +14,139 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         listingSource: {
             source: 'static',
-            value: 'static'
+            value: 'static',
         },
         foreignKey: {
             source: 'static',
-            value: null
+            value: null,
         },
         listingSorting: {
             source: 'static',
-            value: null
+            value: null,
         },
         listingItemIds: {
             source: 'static',
-            value: []
+            value: [],
         },
         listingItems: {
             source: 'static',
-            value: []
+            value: [],
         },
         listingLayout: {
             source: 'static',
-            value: 'grid'
+            value: 'grid',
         },
         listingJustifyContent: {
             source: 'static',
-            value: 'normal'
+            value: 'normal',
         },
         listingHeaderTitle: {
             source: 'static',
-            value: null
+            value: null,
         },
         itemLayout: {
             source: 'static',
-            value: 'overlay'
+            value: 'overlay',
         },
         itemLayoutTemplate: {
             source: 'static',
-            value: '@Storefront/storefront/component/product/card/box.html.twig'
+            value: '@Storefront/storefront/component/product/card/box.html.twig',
         },
         displayMode: {
             source: 'static',
-            value: 'cover'
+            value: 'cover',
         },
         textAlign: {
             source: 'static',
-            value: 'left'
+            value: 'left',
         },
         limit: {
             source: 'static',
-            value: 12
+            value: 12,
         },
         gapSize: {
             source: 'static',
-            value: '20px'
+            value: '20px',
         },
         itemWidth: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         itemHeight: {
             source: 'static',
-            value: '400px'
+            value: '400px',
         },
         itemPadding: {
             source: 'static',
-            value: '0px'
+            value: '0px',
         },
         itemBackgroundColor: {
             source: 'static',
-            value: null
+            value: null,
         },
         itemHasBorder: {
             source: 'static',
-            value: false
+            value: false,
         },
         contentPadding: {
             source: 'static',
-            value: '20px'
+            value: '20px',
         },
         contentBackgroundColor: {
             source: 'static',
-            value: null
+            value: null,
         },
         contentHighlightColor: {
             source: 'static',
-            value: null
+            value: null,
         },
         contentColor: {
             source: 'static',
-            value: null
+            value: null,
         },
         hasButton: {
             source: 'static',
-            value: true
+            value: true,
         },
         buttonClass: {
             source: 'static',
-            value: 'btn btn-primary'
+            value: 'btn btn-primary',
         },
         buttonLabel: {
             source: 'static',
-            value: 'Click here!'
+            value: 'Click here!',
         },
         urlNewTab: {
             source: 'static',
-            value: true
+            value: true,
         },
         speed: {
             source: 'static',
-            value: 1000
+            value: 1000,
         },
         autoplayTimeout: {
             source: 'static',
-            value: 3000
+            value: 3000,
         },
         autoplay: {
             source: 'static',
-            value: true
+            value: true,
         },
         autoplayHoverPause: {
             source: 'static',
-            value: true
+            value: true,
         },
         animateIn: {
             source: 'static',
-            value: null
+            value: null,
         },
         animateOut: {
             source: 'static',
-            value: null
+            value: null,
         },
         mode: {
             source: 'static',
-            value: 'carousel'
+            value: 'carousel',
         },
         navigationArrows: {
             source: 'static',
@@ -162,11 +162,11 @@ Shopware.Service('cmsService').registerCmsElement({
         },
         sanitize: {
             source: 'static',
-            value: true
+            value: true,
         },
         contentLength: {
             source: 'static',
-            value: 150
+            value: 150,
         },
-    }
+    },
 });

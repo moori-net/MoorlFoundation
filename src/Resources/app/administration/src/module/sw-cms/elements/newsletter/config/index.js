@@ -5,7 +5,5 @@ Shopware.Component.register('sw-cms-el-config-moorl-newsletter', {
 
     inject: ['repositoryFactory'],
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ]
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 });

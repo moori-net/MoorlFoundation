@@ -1,13 +1,11 @@
 import template from './index.html.twig';
 
-const {mapPropertyErrors} = Shopware.Component.getComponentHelper();
+const { mapPropertyErrors } = Shopware.Component.getComponentHelper();
 
 Shopware.Component.register('moorl-thing-card', {
     template,
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     props: {
         item: {
@@ -17,37 +15,37 @@ Shopware.Component.register('moorl-thing-card', {
         hidden: {
             type: Array,
             required: false,
-            default: []
-        }
+            default: [],
+        },
     },
 
     data() {
         return {
-            mediaModalIsOpen: false
+            mediaModalIsOpen: false,
         };
     },
 
     computed: {
-        ...mapPropertyErrors('item', [
-            'name'
-        ]),
+        ...mapPropertyErrors('item', ['name']),
         mediaRepository() {
             return this.repositoryFactory.create('media');
-        }
+        },
     },
 
     methods: {
         isVisible(property) {
             return !this.hidden.includes(property);
         },
-        setMediaItem({targetId}) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
-                this.item.mediaId = targetId;
-                this.item.media = updatedMedia;
-            });
+        setMediaItem({ targetId }) {
+            this.mediaRepository
+                .get(targetId, Shopware.Context.api)
+                .then((updatedMedia) => {
+                    this.item.mediaId = targetId;
+                    this.item.media = updatedMedia;
+                });
         },
         onDropMedia(dragData) {
-            this.setMediaItem({targetId: dragData.id});
+            this.setMediaItem({ targetId: dragData.id });
         },
         setMediaFromSidebar(mediaEntity) {
             this.item.mediaId = mediaEntity.id;
@@ -64,6 +62,6 @@ Shopware.Component.register('moorl-thing-card', {
         },
         onOpenMediaModal() {
             this.mediaModalIsOpen = true;
-        }
-    }
+        },
+    },
 });

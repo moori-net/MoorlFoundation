@@ -20,27 +20,27 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         title: {
             source: 'static',
-            value: 'Lorem ipsum dolor'
+            value: 'Lorem ipsum dolor',
         },
         text: {
             source: 'static',
-            value: 'Lorem ipsum dolor sit amet, consetetur sadipscing'
+            value: 'Lorem ipsum dolor sit amet, consetetur sadipscing',
         },
         iconColor: {
             source: 'static',
-            value: '#4495c0'
+            value: '#4495c0',
         },
         headlineColor: {
             source: 'static',
-            value: '#4c4c4c'
+            value: '#4c4c4c',
         },
         subHeadlineColor: {
             source: 'static',
-            value: '#4c4c4c'
+            value: '#4c4c4c',
         },
         alignment: {
             source: 'static',
-            value: 'left'
+            value: 'left',
         },
-    }
+    },
 });

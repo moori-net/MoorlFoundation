@@ -7,12 +7,12 @@ Shopware.Component.register('moorl-opening-hours-card', {
         item: {
             type: Object,
             required: true,
-        }
+        },
     },
 
     data() {
         return {
-            timezoneOptions: []
+            timezoneOptions: [],
         };
     },
 
@@ -22,20 +22,21 @@ Shopware.Component.register('moorl-opening-hours-card', {
 
     methods: {
         loadTimezones() {
-            return Shopware.Service('timezoneService').loadTimezones()
+            return Shopware.Service('timezoneService')
+                .loadTimezones()
                 .then((result) => {
                     this.timezoneOptions.push({
                         label: 'UTC',
                         value: 'UTC',
                     });
 
-                    const loadedTimezoneOptions = result.map(timezone => ({
+                    const loadedTimezoneOptions = result.map((timezone) => ({
                         label: timezone,
                         value: timezone,
                     }));
 
                     this.timezoneOptions.push(...loadedTimezoneOptions);
                 });
-        }
-    }
+        },
+    },
 });

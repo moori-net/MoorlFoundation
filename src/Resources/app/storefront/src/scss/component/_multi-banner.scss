@@ -1,161 +1,161 @@
 @keyframes moorl-pulse {
-  0% {
-    -ms-transform: scale(.95);
-    -webkit-transform: scale(.95);
-    transform: scale(.95);
-    box-shadow: 0 0 0 0 rgba($body-bg, 80%);
-  }
+    0% {
+        -ms-transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba($body-bg, 80%);
+    }
 
-  70% {
-    -ms-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    box-shadow: 0 0 0 10px transparent;
-  }
+    70% {
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        box-shadow: 0 0 0 10px transparent;
+    }
 
-  100% {
-    -ms-transform: scale(.95);
-    -webkit-transform: scale(.95);
-    transform: scale(.95);
-    box-shadow: 0 0 0 0 transparent;
-  }
+    100% {
+        -ms-transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 transparent;
+    }
 }
 
 @keyframes moorl-pulse-svg {
-  0% {
-    transform: scale(1, 1);
-    opacity: 0;
-  }
+    0% {
+        transform: scale(1, 1);
+        opacity: 0;
+    }
 
-  50% {
-    opacity: 1;
-  }
+    50% {
+        opacity: 1;
+    }
 
-  100% {
-    transform: scale(6, 6);
-    opacity: 0;
-  }
+    100% {
+        transform: scale(6, 6);
+        opacity: 0;
+    }
 }
 
 .moorl-multi-banner {
-  .moorl-multi-banner-container {
-    position: relative;
-  }
-
-  .moorl-multi-banner-image {
-    width: 100%;
-    height: auto;
-  }
-
-  .moorl-multi-banner-countdown {
-    > div {
-      color: $white;
-      font-size: 22px;
-
-      > div {
-        background-color: rgba($black, 0.7);
-      }
+    .moorl-multi-banner-container {
+        position: relative;
     }
-  }
 
-  .moorl-multi-banner-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    .moorl-multi-banner-image {
+        width: 100%;
+        height: auto;
+    }
 
-    figure {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    .moorl-multi-banner-countdown {
+        > div {
+            color: $white;
+            font-size: 22px;
 
-      rect,
-      circle,
-      ellipse {
-        fill: transparent;
-        stroke: var(--bs-primary);
-        stroke-width: 1;
-        stroke-dasharray: 1 1;
-
-        &:hover {
-          fill: white;
-          opacity: 0.5;
+            > div {
+                background-color: rgba($black, 0.7);
+            }
         }
-      }
     }
 
-    .moorl-multi-banner-dot {
-      position: absolute;
-      margin-top: -10px;
-      margin-left: -10px;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      border: 3px solid $light;
-      background-color: rgba($body-bg, 30%);
-      cursor: pointer;
-      transition: border-color 0.3s;
-
-      .pulse {
-        animation: moorl-pulse 2s infinite;
-        width: 20px;
-        height: 20px;
-        border-radius: 100%;
-        padding: 10px;
+    .moorl-multi-banner-overlay {
         position: absolute;
-        top: -3px;
-        left: -3px;
-      }
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        figure {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            rect,
+            circle,
+            ellipse {
+                fill: transparent;
+                stroke: var(--bs-primary);
+                stroke-width: 1;
+                stroke-dasharray: 1 1;
+
+                &:hover {
+                    fill: white;
+                    opacity: 0.5;
+                }
+            }
+        }
+
+        .moorl-multi-banner-dot {
+            position: absolute;
+            margin-top: -10px;
+            margin-left: -10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid $light;
+            background-color: rgba($body-bg, 30%);
+            cursor: pointer;
+            transition: border-color 0.3s;
+
+            .pulse {
+                animation: moorl-pulse 2s infinite;
+                width: 20px;
+                height: 20px;
+                border-radius: 100%;
+                padding: 10px;
+                position: absolute;
+                top: -3px;
+                left: -3px;
+            }
+        }
     }
-  }
 }
 
 .product-box {
-  .moorl-multi-banner {
-    padding: 0;
-    margin-bottom: 0;
-    border: 0;
-    z-index: 200;
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    right: -1px;
+    .moorl-multi-banner {
+        padding: 0;
+        margin-bottom: 0;
+        border: 0;
+        z-index: 200;
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        right: -1px;
 
-    .moorl-multi-banner-countdown {
-      margin-bottom: 0;
+        .moorl-multi-banner-countdown {
+            margin-bottom: 0;
 
-      > div {
-        font-size: 13px;
-        > div {
-          padding: 6px;
+            > div {
+                font-size: 13px;
+                > div {
+                    padding: 6px;
+                }
+            }
         }
-      }
     }
-  }
 }
 
 .cms-element-moorl-cta-banner {
-  .moorl-multi-banner {
-    padding: 0;
-    margin-bottom: 0;
-    border: 0;
-    z-index: 200;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    .moorl-multi-banner {
+        padding: 0;
+        margin-bottom: 0;
+        border: 0;
+        z-index: 200;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
 
-    .moorl-multi-banner-countdown {
-      margin-bottom: 0;
+        .moorl-multi-banner-countdown {
+            margin-bottom: 0;
 
-      > div {
-        > div {
-          padding: 6px;
+            > div {
+                > div {
+                    padding: 6px;
+                }
+            }
         }
-      }
     }
-  }
 }

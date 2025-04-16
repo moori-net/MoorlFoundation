@@ -10,13 +10,11 @@ Shopware.Component.register('moorl-feature-unlocker', {
 
     inject: ['acl'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     data() {
         return {
-            open: false
+            open: false,
         };
     },
 
@@ -26,7 +24,7 @@ Shopware.Component.register('moorl-feature-unlocker', {
         },
         unlockInfoSeen() {
             return Shopware.Store.get('moorlFoundationState').unlockInfoSeen;
-        }
+        },
     },
 
     created() {
@@ -43,14 +41,19 @@ Shopware.Component.register('moorl-feature-unlocker', {
 
             if (!localStorage.getItem('moorl-foundation-welcome-seen')) {
                 this.createNotificationInfo({
-                    message: this.$tc('moorl-feature-unlocker.notifications.welcome'),
+                    message: this.$tc(
+                        'moorl-feature-unlocker.notifications.welcome'
+                    ),
                 });
 
                 localStorage.setItem('moorl-foundation-welcome-seen', '1');
             }
 
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Alt' || (event.key === 'm' && event.altKey)) {
+                if (
+                    event.key === 'Alt' ||
+                    (event.key === 'm' && event.altKey)
+                ) {
                     event.preventDefault();
                 }
             });
@@ -69,14 +72,18 @@ Shopware.Component.register('moorl-feature-unlocker', {
                 localStorage.removeItem('moorl-foundation-unlocked');
                 Shopware.Store.get('moorlFoundationState').setUnlocked(false);
                 this.createNotificationInfo({
-                    message: this.$tc('moorl-feature-unlocker.notifications.locked'),
+                    message: this.$tc(
+                        'moorl-feature-unlocker.notifications.locked'
+                    ),
                 });
                 return false;
             } else {
                 localStorage.setItem('moorl-foundation-unlocked', '1');
                 Shopware.Store.get('moorlFoundationState').setUnlocked(true);
                 this.createNotificationInfo({
-                    message: this.$tc('moorl-feature-unlocker.notifications.unlocked'),
+                    message: this.$tc(
+                        'moorl-feature-unlocker.notifications.unlocked'
+                    ),
                 });
                 return true;
             }

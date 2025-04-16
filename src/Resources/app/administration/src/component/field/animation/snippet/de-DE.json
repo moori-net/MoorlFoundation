@@ -1,18 +1,18 @@
 {
-  "moorl-animation-field": {
-    "label": {
-      "active": "Aktiv",
-      "name": {
-        "in": "Einblenden",
-        "out": "Ausblenden",
-        "hover": "Mauszeiger"
-      },
-      "duration": "Dauer (ms)",
-      "delay": "Verzögerung (ms)",
-      "condition": "Bedingung"
-    },
-    "helpText": {
-      "name": "Aktivere Animate.css in den moori Foundation Einstellungen"
+    "moorl-animation-field": {
+        "label": {
+            "active": "Aktiv",
+            "name": {
+                "in": "Einblenden",
+                "out": "Ausblenden",
+                "hover": "Mauszeiger"
+            },
+            "duration": "Dauer (ms)",
+            "delay": "Verzögerung (ms)",
+            "condition": "Bedingung"
+        },
+        "helpText": {
+            "name": "Aktivere Animate.css in den moori Foundation Einstellungen"
+        }
     }
-  }
 }

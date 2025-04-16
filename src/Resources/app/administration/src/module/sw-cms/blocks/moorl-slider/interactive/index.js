@@ -12,9 +12,9 @@ Shopware.Service('cmsService').registerCmsBlock({
         marginTop: '0',
         marginLeft: '0',
         marginRight: '0',
-        sizingMode: 'boxed'
+        sizingMode: 'boxed',
     },
     slots: {
-        'slot-a': 'moorl-replacer'
-    }
+        'slot-a': 'moorl-replacer',
+    },
 });

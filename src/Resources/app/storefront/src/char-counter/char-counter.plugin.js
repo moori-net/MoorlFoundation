@@ -3,7 +3,7 @@ import Plugin from 'src/plugin-system/plugin.class';
 export default class MoorlCharCounterPlugin extends Plugin {
     static options = {
         inputElId: null,
-        type: null
+        type: null,
     };
 
     init() {
@@ -36,7 +36,7 @@ export default class MoorlCharCounterPlugin extends Plugin {
     }
 
     _registerEvents() {
-        ['oninput', 'keyup', 'change'].forEach(evt => {
+        ['oninput', 'keyup', 'change'].forEach((evt) => {
             this._inputEl.addEventListener(evt, () => {
                 this._writeCurrent();
             });
@@ -47,7 +47,9 @@ export default class MoorlCharCounterPlugin extends Plugin {
         this._currentLength = parseInt(this._inputEl.value.length);
 
         if (this.options.type === 'progress-bar') {
-            this._currentPercentage = Math.ceil(this._currentLength / this._maxLength * 100);
+            this._currentPercentage = Math.ceil(
+                (this._currentLength / this._maxLength) * 100
+            );
 
             if (this._currentPercentage >= 100) {
                 this._progressBarEl.classList.remove('bg-success');

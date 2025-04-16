@@ -7,6 +7,6 @@ Shopware.Component.register('moorl-contact-card', {
         item: {
             type: Object,
             required: true,
-        }
-    }
+        },
+    },
 });

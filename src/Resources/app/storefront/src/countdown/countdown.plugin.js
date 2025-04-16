@@ -5,20 +5,19 @@ export default class MoorlCountdownPlugin extends Plugin {
     static options = {
         locale: document.documentElement.lang,
         label: {
-            days: "Days",
-            hours: "Hours",
-            minutes: "Minutes",
-            seconds: "Seconds"
+            days: 'Days',
+            hours: 'Hours',
+            minutes: 'Minutes',
+            seconds: 'Seconds',
         },
         intervalTimeout: 1000,
         from: 'now',
         actionUrl: null,
-        debug: false
+        debug: false,
     };
 
     init() {
         if (this.options.actionUrl) {
-
         }
 
         const actionUrl = this.options.actionUrl;
@@ -55,8 +54,8 @@ export default class MoorlCountdownPlugin extends Plugin {
 
             let days = Math.trunc(diff / (60 * 60 * 24));
             let hours = Math.trunc((diff % (60 * 60 * 24)) / (60 * 60));
-            let minutes = Math.trunc((diff % (60 * 60)) / (60));
-            let seconds = Math.trunc((diff % (60)));
+            let minutes = Math.trunc((diff % (60 * 60)) / 60);
+            let seconds = Math.trunc(diff % 60);
 
             cdItems[0].innerText = zeroPad(days, 2);
             cdItems[1].innerText = zeroPad(hours, 2);
@@ -68,15 +67,15 @@ export default class MoorlCountdownPlugin extends Plugin {
     buildContainer() {
         const cdItems = [];
 
-        for (let item of ['days','hours','minutes','seconds']) {
-            const itemDiv = document.createElement("div");
-            const labelDiv = document.createElement("div");
-            const timeDiv = document.createElement("div");
+        for (let item of ['days', 'hours', 'minutes', 'seconds']) {
+            const itemDiv = document.createElement('div');
+            const labelDiv = document.createElement('div');
+            const timeDiv = document.createElement('div');
 
             labelDiv.classList.add('moorl-countdown-label');
-            labelDiv.innerText =  this.options.label[item];
+            labelDiv.innerText = this.options.label[item];
             timeDiv.classList.add('moorl-countdown-time');
-            timeDiv.innerText = "--";
+            timeDiv.innerText = '--';
 
             itemDiv.appendChild(labelDiv);
             itemDiv.appendChild(timeDiv);

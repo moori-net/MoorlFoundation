@@ -2,43 +2,37 @@ import template from './index.html.twig';
 import './index.scss';
 import Papa from 'papaparse';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-csv-import', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'context',
-        'mediaService'
-    ],
+    inject: ['repositoryFactory', 'context', 'mediaService'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     props: {
         entity: {
             type: String,
-            required: true
+            required: true,
         },
         onCloseModal: {
             type: Function,
             required: true,
-            default: null
+            default: null,
         },
         onFinishImport: {
             type: Function,
             required: true,
-            default: null
+            default: null,
         },
         defaultItem: {
             type: Object,
             required: false,
             default() {
                 return {};
-            }
-        }
+            },
+        },
     },
 
     data() {
@@ -49,7 +43,7 @@ Shopware.Component.register('moorl-csv-import', {
                 overwrite: true,
                 pause: true,
                 validateIds: true,
-                mediaFolderId: null
+                mediaFolderId: null,
             },
             requiredColumns: [],
             selectedItem: null,
@@ -65,7 +59,7 @@ Shopware.Component.register('moorl-csv-import', {
             mapping: {},
             columns: null,
             showImportModal: true,
-            statusMessage: null
+            statusMessage: null,
         };
     },
 
@@ -91,7 +85,6 @@ Shopware.Component.register('moorl-csv-import', {
 
     methods: {
         async getItemById(entity, id) {
-
             if (typeof id == 'undefined') {
                 return null;
             }
@@ -103,20 +96,24 @@ Shopware.Component.register('moorl-csv-import', {
             let item = null;
 
             if (typeof entity != 'undefined' && entity !== this.entity) {
-                await this.repositoryFactory.create(entity).get(id.toLowerCase(), Shopware.Context.api, new Criteria()).then(async (entity) => {
-                    item = entity;
-                })
+                await this.repositoryFactory
+                    .create(entity)
+                    .get(id.toLowerCase(), Shopware.Context.api, new Criteria())
+                    .then(async (entity) => {
+                        item = entity;
+                    });
             } else {
-                await this.repository.get(id.toLowerCase(), Shopware.Context.api, new Criteria()).then(async (entity) => {
-                    item = entity;
-                })
+                await this.repository
+                    .get(id.toLowerCase(), Shopware.Context.api, new Criteria())
+                    .then(async (entity) => {
+                        item = entity;
+                    });
             }
 
             return item ? item : null;
         },
 
         async getItemByUniqueProperties(item) {
-
             const isUuid = /^[a-f0-9]{32}$/i; // uuid check
             const criteria = new Criteria(1, 1);
 
@@ -130,7 +127,12 @@ Shopware.Component.register('moorl-csv-import', {
                 for (let column of this.columns) {
                     if (column.flags.moorl_unique || column.flags.primary_key) {
                         if (item[column.property]) {
-                            multiFromImport.push(Criteria.equals(column.property, item[column.property]));
+                            multiFromImport.push(
+                                Criteria.equals(
+                                    column.property,
+                                    item[column.property]
+                                )
+                            );
                         }
                     }
                 }
@@ -143,18 +145,21 @@ Shopware.Component.register('moorl-csv-import', {
                     multiFromDefaultValues.push(Criteria.equals(field, value));
                 }
 
-                criteria.addFilter(Criteria.multi('AND', [
-                    Criteria.multi('OR', multiFromImport),
-                    Criteria.multi('AND', multiFromDefaultValues)
-                ]));
+                criteria.addFilter(
+                    Criteria.multi('AND', [
+                        Criteria.multi('OR', multiFromImport),
+                        Criteria.multi('AND', multiFromDefaultValues),
+                    ])
+                );
             }
 
             let entity = null;
 
-            await this.repository.search(criteria, Shopware.Context.api).then(async (result) => {
-                entity = result.first();
-
-            });
+            await this.repository
+                .search(criteria, Shopware.Context.api)
+                .then(async (result) => {
+                    entity = result.first();
+                });
 
             return entity;
         },
@@ -164,18 +169,22 @@ Shopware.Component.register('moorl-csv-import', {
             criteria.addFilter(Criteria.equals('fileName', filename));
             criteria.addFilter(Criteria.equals('fileExtension', fileExtension));
             let media = null;
-            await this.mediaRepository.search(criteria, Shopware.Context.api).then((result) => {
-                media = result.first();
-            });
+            await this.mediaRepository
+                .search(criteria, Shopware.Context.api)
+                .then((result) => {
+                    media = result.first();
+                });
             return media ? media.id : null;
         },
 
         createdComponent() {
             this.initEditColumns();
 
-            this.tagRepository.search(new Criteria(), Shopware.Context.api).then((result) => {
-                this.tags = result;
-            });
+            this.tagRepository
+                .search(new Criteria(), Shopware.Context.api)
+                .then((result) => {
+                    this.tags = result;
+                });
         },
 
         onCancel() {
@@ -185,17 +194,25 @@ Shopware.Component.register('moorl-csv-import', {
 
         initEditColumns() {
             let columns = [];
-            let properties = Shopware.EntityDefinition.get(this.entity).properties
+            let properties = Shopware.EntityDefinition.get(
+                this.entity
+            ).properties;
 
             for (const [property, column] of Object.entries(properties)) {
                 // Since 6.3.5 there are new fields here
-                if (column.relation === 'many_to_many' && column.localField !== null) {
+                if (
+                    column.relation === 'many_to_many' &&
+                    column.localField !== null
+                ) {
                     delete column.flags.required;
                     delete column.localField;
                     delete column.referenceField;
                 }
 
-                if (!column.flags.moorl_edit_field && !column.flags.primary_key) {
+                if (
+                    !column.flags.moorl_edit_field &&
+                    !column.flags.primary_key
+                ) {
                     continue;
                 }
                 if (Object.keys(this.defaultItem).indexOf(property) !== -1) {
@@ -207,7 +224,9 @@ Shopware.Component.register('moorl-csv-import', {
                     }
                 }
                 column.property = property;
-                column.label = this.$tc(`moorl-foundation.properties.${property}`);
+                column.label = this.$tc(
+                    `moorl-foundation.properties.${property}`
+                );
                 columns.push(column);
             }
 
@@ -230,14 +249,20 @@ Shopware.Component.register('moorl-csv-import', {
             this.properties = Object.keys(this.data[0]);
             this.matches = 0;
 
-            const indexOf = (arr, q) => arr.findIndex(item => q.toLowerCase().replace(/[\W_]+/g,"") === item.toLowerCase().replace(/[\W_]+/g,""));
+            const indexOf = (arr, q) =>
+                arr.findIndex(
+                    (item) =>
+                        q.toLowerCase().replace(/[\W_]+/g, '') ===
+                        item.toLowerCase().replace(/[\W_]+/g, '')
+                );
 
             for (let column of this.columns) {
                 if (column.localField) {
                     let result = indexOf(that.properties, column.localField);
 
                     if (result != -1) {
-                        that.mapping[column.localField] = that.properties[result];
+                        that.mapping[column.localField] =
+                            that.properties[result];
                         that.matches++;
                     }
                 } else {
@@ -261,11 +286,14 @@ Shopware.Component.register('moorl-csv-import', {
                 header: true,
                 skipEmptyLines: true,
                 complete: function (results, file) {
-
                     if (results.errors && results.errors.length > 0) {
                         that.createSystemNotificationError({
-                            title: that.$t('moorl-foundation.notification.errorTitle'),
-                            message: that.$t('moorl-foundation.notification.errorFileText'),
+                            title: that.$t(
+                                'moorl-foundation.notification.errorTitle'
+                            ),
+                            message: that.$t(
+                                'moorl-foundation.notification.errorFileText'
+                            ),
                         });
 
                         that.onCloseModal();
@@ -282,7 +310,7 @@ Shopware.Component.register('moorl-csv-import', {
                     that.step = 2;
 
                     that.initSelectedItem();
-                }
+                },
             });
         },
 
@@ -290,15 +318,24 @@ Shopware.Component.register('moorl-csv-import', {
             this.selectedItem = {};
 
             for (let column of this.columns) {
-                if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
-                    let repository = this.repositoryFactory.create(column.entity);
-
-                    this.selectedItem[column.property] = new Shopware.Data.EntityCollection(
-                        repository.route,
-                        repository.entityName,
-                        Shopware.Context.api
+                if (
+                    column.relation === 'many_to_many' ||
+                    column.relation === 'one_to_many'
+                ) {
+                    let repository = this.repositoryFactory.create(
+                        column.entity
                     );
-                } else if (column.relation === 'many_to_one' && column.localField) {
+
+                    this.selectedItem[column.property] =
+                        new Shopware.Data.EntityCollection(
+                            repository.route,
+                            repository.entityName,
+                            Shopware.Context.api
+                        );
+                } else if (
+                    column.relation === 'many_to_one' &&
+                    column.localField
+                ) {
                     this.selectedItem[column.localField] = null;
                 }
             }
@@ -323,8 +360,12 @@ Shopware.Component.register('moorl-csv-import', {
 
         onClickImport() {
             this.createSystemNotificationSuccess({
-                title: this.$tc('moorl-foundation.notification.finishImportTitle'),
-                message: this.$tc('moorl-foundation.notification.finishImportText'),
+                title: this.$tc(
+                    'moorl-foundation.notification.finishImportTitle'
+                ),
+                message: this.$tc(
+                    'moorl-foundation.notification.finishImportText'
+                ),
             });
 
             this.step = 3;
@@ -333,7 +374,7 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         async prepareSaveItem(srcItem) {
-            const item = Object.assign({}, this.selectedItem, srcItem)
+            const item = Object.assign({}, this.selectedItem, srcItem);
 
             let entity = await this.getItemByUniqueProperties(item);
 
@@ -344,7 +385,11 @@ Shopware.Component.register('moorl-csv-import', {
                 this.rowsSkipped++;
 
                 if (!this.options.overwrite) {
-                    return this.onError('Error: (' + this.getUniquePropertyLabels() + ') is already in Database. Please chose overwrite and try again');
+                    return this.onError(
+                        'Error: (' +
+                            this.getUniquePropertyLabels() +
+                            ') is already in Database. Please chose overwrite and try again'
+                    );
                 }
             }
 
@@ -356,13 +401,14 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         saveItem(item) {
-
             this.repository
                 .save(item, Shopware.Context.api)
                 .then(() => {
-                    this.statusMessage = this.rowsDone + ' of ' + this.rowCount + ' done';
-                    this.importItem()
-                }).catch((exception) => {
+                    this.statusMessage =
+                        this.rowsDone + ' of ' + this.rowCount + ' done';
+                    this.importItem();
+                })
+                .catch((exception) => {
                     this.onError(exception);
                 });
         },
@@ -404,108 +450,185 @@ Shopware.Component.register('moorl-csv-import', {
             } catch (_) {
                 return false;
             }
-            return url.protocol === "http:" || url.protocol === "https:";
+            return url.protocol === 'http:' || url.protocol === 'https:';
         },
 
         async sanitizeItem(item) {
-
             const that = this;
 
             const newItem = {};
             const isBool = /^\s*(true|1|on|yes|y|j|ja|an|si|x|check)\s*$/i; // boolean check
             const isUuid = /^[a-f0-9]{32}$/i; // uuid check
 
-            for (const [newProperty, property] of Object.entries(this.mapping)) {
+            for (const [newProperty, property] of Object.entries(
+                this.mapping
+            )) {
                 const currentValue = item[property];
 
                 if (currentValue) {
-                    const column = this.columns.find(column => {
-                        return (column.property === newProperty || column.localField === newProperty);
+                    const column = this.columns.find((column) => {
+                        return (
+                            column.property === newProperty ||
+                            column.localField === newProperty
+                        );
                     });
 
                     if (!column) {
-                        return this.onError(newProperty + " - import validation error: unknown column");
+                        return this.onError(
+                            newProperty +
+                                ' - import validation error: unknown column'
+                        );
                     }
 
                     // database exports have uppercase ids
-                    const currentUuid = (typeof currentValue === 'string' && isUuid.test(currentValue)) ? currentValue.toLowerCase() : null;
+                    const currentUuid =
+                        typeof currentValue === 'string' &&
+                        isUuid.test(currentValue)
+                            ? currentValue.toLowerCase()
+                            : null;
 
                     switch (column.type) {
                         case 'association':
-                            if (column.relation === 'one_to_one' || column.relation === 'many_to_one') {
+                            if (
+                                column.relation === 'one_to_one' ||
+                                column.relation === 'many_to_one'
+                            ) {
                                 if (column.entity === 'media' && !currentUuid) {
-                                    const newMediaItem = this.mediaRepository.create(Shopware.Context.api);
+                                    const newMediaItem =
+                                        this.mediaRepository.create(
+                                            Shopware.Context.api
+                                        );
                                     let file, mediaUrl;
 
                                     if (that.isValidHttpUrl(currentValue)) {
                                         mediaUrl = new URL(currentValue);
-                                        file = mediaUrl.pathname.split('/').pop().split('.');
+                                        file = mediaUrl.pathname
+                                            .split('/')
+                                            .pop()
+                                            .split('.');
                                     } else {
                                         file = currentValue.split('.');
                                     }
 
                                     if (file.length === 1) {
-                                        newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
+                                        newMediaItem.fileName = file[0].replace(
+                                            /[^a-zA-Z0-9_\- ]/g,
+                                            ''
+                                        );
                                     } else {
-                                        newMediaItem.fileName = file[0].replace(/[^a-zA-Z0-9_\- ]/g, "");
+                                        newMediaItem.fileName = file[0].replace(
+                                            /[^a-zA-Z0-9_\- ]/g,
+                                            ''
+                                        );
                                         newMediaItem.fileExtension = file.pop();
                                     }
 
-                                    newMediaItem.mediaFolderId = this.options.mediaFolderId;
+                                    newMediaItem.mediaFolderId =
+                                        this.options.mediaFolderId;
 
-                                    let mediaId = await this.getMediaIdByFileName(newMediaItem.fileName, newMediaItem.fileExtension);
+                                    let mediaId =
+                                        await this.getMediaIdByFileName(
+                                            newMediaItem.fileName,
+                                            newMediaItem.fileExtension
+                                        );
 
                                     if (mediaId) {
                                         newItem[column.localField] = mediaId;
-                                    } else if (that.isValidHttpUrl(currentValue)) {
-                                        newItem[column.localField] = newMediaItem.id;
-                                        this.mediaRepository.save(newMediaItem, Shopware.Context.api).then(() => {
-                                            this.mediaService.uploadMediaFromUrl(
-                                                newMediaItem.id,
-                                                mediaUrl,
-                                                newMediaItem.fileExtension,
-                                                newMediaItem.fileName
-                                            );
-                                        });
+                                    } else if (
+                                        that.isValidHttpUrl(currentValue)
+                                    ) {
+                                        newItem[column.localField] =
+                                            newMediaItem.id;
+                                        this.mediaRepository
+                                            .save(
+                                                newMediaItem,
+                                                Shopware.Context.api
+                                            )
+                                            .then(() => {
+                                                this.mediaService.uploadMediaFromUrl(
+                                                    newMediaItem.id,
+                                                    mediaUrl,
+                                                    newMediaItem.fileExtension,
+                                                    newMediaItem.fileName
+                                                );
+                                            });
                                     }
-                                } else if (!this.options.validateIds || await this.getItemById(column.entity, currentUuid)) {
+                                } else if (
+                                    !this.options.validateIds ||
+                                    (await this.getItemById(
+                                        column.entity,
+                                        currentUuid
+                                    ))
+                                ) {
                                     newItem[newProperty] = currentUuid;
                                 } else {
-                                    return this.onError(newProperty + " - import " + column.entity + " validation error: unknown ID (" + currentUuid + ")");
+                                    return this.onError(
+                                        newProperty +
+                                            ' - import ' +
+                                            column.entity +
+                                            ' validation error: unknown ID (' +
+                                            currentUuid +
+                                            ')'
+                                    );
                                 }
-                            } else if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
+                            } else if (
+                                column.relation === 'many_to_many' ||
+                                column.relation === 'one_to_many'
+                            ) {
                                 //let parts = currentValue.toLowerCase().split("|");
-                                let parts = currentValue.split("|");
+                                let parts = currentValue.split('|');
 
                                 if (parts.length !== 0) {
                                     newItem[newProperty] = [];
 
                                     for (const uuid of parts) {
-                                        const isValidId = (isUuid.test(uuid) && (!this.options.validateIds || await that.getItemById(column.entity, uuid)));
+                                        const isValidId =
+                                            isUuid.test(uuid) &&
+                                            (!this.options.validateIds ||
+                                                (await that.getItemById(
+                                                    column.entity,
+                                                    uuid
+                                                )));
 
                                         if (isValidId) {
-                                            newItem[newProperty].push({ id: uuid });
+                                            newItem[newProperty].push({
+                                                id: uuid,
+                                            });
                                         } else if (column.entity === 'tag') {
                                             // search for tags, if not found create new
                                             let tagMatch = false;
 
                                             for (let tag of that.tags) {
                                                 if (tag.name === uuid) {
-                                                    newItem[newProperty].push(tag);
+                                                    newItem[newProperty].push(
+                                                        tag
+                                                    );
                                                     tagMatch = true;
                                                 }
                                             }
 
                                             if (tagMatch === false) {
-                                                const tag = that.tagRepository.create(Shopware.Context.api);
+                                                const tag =
+                                                    that.tagRepository.create(
+                                                        Shopware.Context.api
+                                                    );
                                                 tag.name = uuid;
-                                                tag.id = Shopware.Utils.createId();
-                                                await that.tagRepository.save(tag, Shopware.Context.api);
+                                                tag.id =
+                                                    Shopware.Utils.createId();
+                                                await that.tagRepository.save(
+                                                    tag,
+                                                    Shopware.Context.api
+                                                );
                                                 that.tags.add(tag);
                                                 newItem[newProperty].push(tag);
                                             }
                                         } else {
-                                            return that.onError(newProperty + " - import validation error: unknown/invalid ID (" + uuid + ")");
+                                            return that.onError(
+                                                newProperty +
+                                                    ' - import validation error: unknown/invalid ID (' +
+                                                    uuid +
+                                                    ')'
+                                            );
                                         }
                                     }
                                 }
@@ -524,7 +647,12 @@ Shopware.Component.register('moorl-csv-import', {
                             if (currentUuid) {
                                 newItem[newProperty] = currentUuid;
                             } else {
-                                return this.onError(newProperty + " - import validation error: unknown ID (" + currentUuid + ")");
+                                return this.onError(
+                                    newProperty +
+                                        ' - import validation error: unknown ID (' +
+                                        currentUuid +
+                                        ')'
+                                );
                             }
                             break;
                         case 'date':
@@ -543,6 +671,6 @@ Shopware.Component.register('moorl-csv-import', {
             }
 
             return newItem;
-        }
-    }
+        },
+    },
 });

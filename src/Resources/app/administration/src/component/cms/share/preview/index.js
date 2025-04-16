@@ -5,7 +5,7 @@ Shopware.Component.register('sw-cms-el-preview-moorl-share', {
     template,
     data() {
         return {
-            label: 'sw-cms.elements.moorl-share.name'
-        }
-    }
+            label: 'sw-cms.elements.moorl-share.name',
+        };
+    },
 });

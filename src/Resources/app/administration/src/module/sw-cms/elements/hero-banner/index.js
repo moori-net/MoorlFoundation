@@ -12,30 +12,30 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
     defaultConfig: {
         searchType: {
             source: 'static',
-            value: 'search'
+            value: 'search',
         },
         categoryId: {
             source: 'static',
-            value: null
+            value: null,
         },
         captionActive: {
             source: 'static',
-            value: true
+            value: true,
         },
         mediaActive: {
             source: 'static',
-            value: true
+            value: true,
         },
         height: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         media: {
             source: 'static',
             value: null,
             entity: {
-                name: 'media'
-            }
+                name: 'media',
+            },
         },
         backgroundFixed: {
             source: 'static',
@@ -43,79 +43,79 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         backgroundVerticalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         backgroundHorizontalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         backgroundDisplayMode: {
             source: 'static',
-            value: 'cover'
+            value: 'cover',
         },
         backgroundSizeX: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         backgroundSizeY: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         title: {
             source: 'static',
-            value: 'Lorem ipsum dolor'
+            value: 'Lorem ipsum dolor',
         },
         content: {
             source: 'static',
-            value: 'Lorem ipsum dolor sit amet, consetetur sadipscing'
+            value: 'Lorem ipsum dolor sit amet, consetetur sadipscing',
         },
         textShadowActive: {
             source: 'static',
-            value: true
+            value: true,
         },
         boxVerticalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         boxHorizontalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         boxTextAlign: {
             source: 'static',
-            value: 'left'
+            value: 'left',
         },
         boxWidth: {
             source: 'static',
-            value: 'auto'
+            value: 'auto',
         },
         boxHeight: {
             source: 'static',
-            value: 'auto'
+            value: 'auto',
         },
         boxMargin: {
             source: 'static',
-            value: '20px'
+            value: '20px',
         },
         boxPadding: {
             source: 'static',
-            value: '15px'
+            value: '15px',
         },
         boxColor: {
             source: 'static',
-            value: '#FFFFFF'
+            value: '#FFFFFF',
         },
         boxBackground: {
             source: 'static',
-            value: 'rgba(255,255,255,0.7)'
+            value: 'rgba(255,255,255,0.7)',
         },
         boxMaxWidth: {
             source: 'static',
-            value: false
+            value: false,
         },
         boxBorderRadius: {
             source: 'static',
-            value: '8px'
+            value: '8px',
         },
-    }
+    },
 });

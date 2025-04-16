@@ -1,20 +1,16 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 import template from './index.html.twig';
 
 Shopware.Component.register('moorl-cms-element-config-index', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'context',
-        'numberRangeService'
-    ],
+    inject: ['repositoryFactory', 'context', 'numberRangeService'],
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
         Shopware.Mixin.getByName('listing'),
-        Shopware.Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('placeholder'),
     ],
 
     data() {
@@ -37,7 +33,7 @@ Shopware.Component.register('moorl-cms-element-config-index', {
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -47,28 +43,37 @@ Shopware.Component.register('moorl-cms-element-config-index', {
         },
 
         columns() {
-            return [{
-                property: 'name',
-                dataIndex: 'name',
-                label: this.$tc('moorl-foundation.properties.name'),
-                inlineEdit: 'string'
-            }, {
-                property: 'type',
-                dataIndex: 'type',
-                label: this.$tc('moorl-foundation.properties.type'),
-                inlineEdit: 'string'
-            }];
+            return [
+                {
+                    property: 'name',
+                    dataIndex: 'name',
+                    label: this.$tc('moorl-foundation.properties.name'),
+                    inlineEdit: 'string',
+                },
+                {
+                    property: 'type',
+                    dataIndex: 'type',
+                    label: this.$tc('moorl-foundation.properties.type'),
+                    inlineEdit: 'string',
+                },
+            ];
         },
 
         defaultCriteria() {
             const defaultCriteria = new Criteria(this.page, this.limit);
             this.naturalSorting = this.sortBy === 'name';
             defaultCriteria.setTerm(this.term);
-            this.sortBy.split(',').forEach(sortBy => {
-                defaultCriteria.addSorting(Criteria.sort(sortBy, this.sortDirection, this.naturalSorting));
+            this.sortBy.split(',').forEach((sortBy) => {
+                defaultCriteria.addSorting(
+                    Criteria.sort(
+                        sortBy,
+                        this.sortDirection,
+                        this.naturalSorting
+                    )
+                );
             });
 
-            this.filterCriteria.forEach(filter => {
+            this.filterCriteria.forEach((filter) => {
                 defaultCriteria.addFilter(filter);
             });
 
@@ -86,7 +91,10 @@ Shopware.Component.register('moorl-cms-element-config-index', {
             this.isLoading = true;
 
             try {
-                const items = await this.repository.search(this.defaultCriteria, Shopware.Context.api);
+                const items = await this.repository.search(
+                    this.defaultCriteria,
+                    Shopware.Context.api
+                );
 
                 this.total = items.total;
                 this.items = items;
@@ -99,12 +107,12 @@ Shopware.Component.register('moorl-cms-element-config-index', {
 
         updateSelection() {},
 
-        updateTotal({total}) {
+        updateTotal({ total }) {
             this.total = total;
         },
 
         onRefresh() {
             this.getList();
-        }
-    }
+        },
+    },
 });

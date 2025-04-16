@@ -1,5 +1,11 @@
 [
-  { "value": "isLoaded", "label": "moorl-select.domElementState.isLoaded" },
-  { "value": "isOverBottom", "label": "moorl-select.domElementState.isOverBottom" },
-  { "value": "isInViewport", "label": "moorl-select.domElementState.isInViewport" }
+    { "value": "isLoaded", "label": "moorl-select.domElementState.isLoaded" },
+    {
+        "value": "isOverBottom",
+        "label": "moorl-select.domElementState.isOverBottom"
+    },
+    {
+        "value": "isInViewport",
+        "label": "moorl-select.domElementState.isInViewport"
+    }
 ]

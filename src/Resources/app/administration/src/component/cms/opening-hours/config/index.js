@@ -8,24 +8,22 @@ Shopware.Component.register('sw-cms-el-config-moorl-opening-hours', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     computed: {
         elementOptions() {
             return {
                 provider: [
-                    {value: 'facebook', label: 'Facebook'},
-                    {value: 'twitter', label: 'Twitter'},
-                    {value: 'pinterest', label: 'Pinterest'},
-                    {value: 'email', label: 'E-Mail'}
-                ]
+                    { value: 'facebook', label: 'Facebook' },
+                    { value: 'twitter', label: 'Twitter' },
+                    { value: 'pinterest', label: 'Pinterest' },
+                    { value: 'email', label: 'E-Mail' },
+                ],
             };
-        }
+        },
     },
 
     created() {
@@ -37,6 +35,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-opening-hours', {
             if (!Object.keys(this.element.config).length) {
                 this.initElementConfig('moorl-opening-hours');
             }
-        }
-    }
+        },
+    },
 });

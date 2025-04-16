@@ -1,4 +1,4 @@
-const {Criteria, EntityCollection} = Shopware.Data;
+const { Criteria, EntityCollection } = Shopware.Data;
 
 import template from './index.html.twig';
 
@@ -10,20 +10,16 @@ Shopware.Component.register('sw-cms-el-config-moorl-product-buy-list', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
-            productCollection: null
+            productCollection: null,
         };
     },
 
@@ -33,7 +29,11 @@ Shopware.Component.register('sw-cms-el-config-moorl-product-buy-list', {
         },
 
         products() {
-            if (this.element.data && this.element.data.products && this.element.data.products.length > 0) {
+            if (
+                this.element.data &&
+                this.element.data.products &&
+                this.element.data.products.length > 0
+            ) {
                 return this.element.data.products;
             }
 
@@ -53,7 +53,7 @@ Shopware.Component.register('sw-cms-el-config-moorl-product-buy-list', {
             context.inheritance = true;
 
             return context;
-        }
+        },
     },
 
     created() {
@@ -67,7 +67,11 @@ Shopware.Component.register('sw-cms-el-config-moorl-product-buy-list', {
                 this.initElementData('moorl-product-buy-list');
             }
 
-            this.productCollection = new EntityCollection('/product', 'product', Shopware.Context.api);
+            this.productCollection = new EntityCollection(
+                '/product',
+                'product',
+                Shopware.Context.api
+            );
 
             if (!Array.isArray(this.element.config.products.value)) {
                 return;
@@ -78,8 +82,9 @@ Shopware.Component.register('sw-cms-el-config-moorl-product-buy-list', {
             criteria.addAssociation('cover');
             criteria.setIds(this.element.config.products.value);
 
-            this.productRepository.search(criteria, this.productSearchContext)
-                .then(result => {
+            this.productRepository
+                .search(criteria, this.productSearchContext)
+                .then((result) => {
                     this.productCollection = result;
                     this.onProductsChange();
                 });
@@ -93,18 +98,21 @@ Shopware.Component.register('sw-cms-el-config-moorl-product-buy-list', {
                 this.initElementData('moorl-product-buy-list');
             }
 
-            this.element.config.products.value = this.productCollection.getIds();
+            this.element.config.products.value =
+                this.productCollection.getIds();
 
             this.element.config.products.value.forEach((id) => {
                 if (!this.element.config.productQuantities.value[id]) {
                     this.element.config.productQuantities.value[id] = 1;
                 }
 
-                this.element.config.productQuantities.value[id] = parseInt(this.element.config.productQuantities.value[id]);
+                this.element.config.productQuantities.value[id] = parseInt(
+                    this.element.config.productQuantities.value[id]
+                );
             });
 
             this.element.data.products = this.productCollection;
             this.$emit('products-change');
         },
-    }
+    },
 });

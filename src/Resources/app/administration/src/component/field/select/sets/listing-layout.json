@@ -1,7 +1,10 @@
 [
-  { "value": "grid", "label": "moorl-select.listingLayout.grid" },
-  { "value": "list", "label": "moorl-select.listingLayout.list" },
-  { "value": "standard", "label": "moorl-select.listingLayout.standard" },
-  { "value": "slider", "label": "moorl-select.listingLayout.slider" },
-  { "value": "search-suggest", "label": "moorl-select.listingLayout.search-suggest" }
+    { "value": "grid", "label": "moorl-select.listingLayout.grid" },
+    { "value": "list", "label": "moorl-select.listingLayout.list" },
+    { "value": "standard", "label": "moorl-select.listingLayout.standard" },
+    { "value": "slider", "label": "moorl-select.listingLayout.slider" },
+    {
+        "value": "search-suggest",
+        "label": "moorl-select.listingLayout.search-suggest"
+    }
 ]

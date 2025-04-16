@@ -1,19 +1,19 @@
 {
-  "moorl-flow-crm-mapping": {
-    "description": "Die folgenden Felder sind in diesem {name}-Formular verfügbar. Bitte wählen Sie welche Formularfelder gesendet werden sollen.",
-    "mappingPlaceholder": "Text oder Platzhalter",
-    "helpText": {
-      "clientId": "Sie brauchen einen Client vom Typ: {name}",
-      "formId": "Wenn kein Formular erscheint, müssen Sie ein neues Formular in Ihrem {name}-Konto erstellen",
-      "formField": "Bitte nur textbasierte Felder verwenden"
-    },
-    "properties": {
-      "technicalName": "Technischer Name",
-      "label": "Bezeichnung",
-      "mapping": "Zugeordnet zu",
-      "clientId": "{name} Client",
-      "formId": "{name} Formular",
-      "formField": "Zugeordnet zum {name} Formularfeld"
+    "moorl-flow-crm-mapping": {
+        "description": "Die folgenden Felder sind in diesem {name}-Formular verfügbar. Bitte wählen Sie welche Formularfelder gesendet werden sollen.",
+        "mappingPlaceholder": "Text oder Platzhalter",
+        "helpText": {
+            "clientId": "Sie brauchen einen Client vom Typ: {name}",
+            "formId": "Wenn kein Formular erscheint, müssen Sie ein neues Formular in Ihrem {name}-Konto erstellen",
+            "formField": "Bitte nur textbasierte Felder verwenden"
+        },
+        "properties": {
+            "technicalName": "Technischer Name",
+            "label": "Bezeichnung",
+            "mapping": "Zugeordnet zu",
+            "clientId": "{name} Client",
+            "formId": "{name} Formular",
+            "formField": "Zugeordnet zum {name} Formularfeld"
+        }
     }
-  }
 }

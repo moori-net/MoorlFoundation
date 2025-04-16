@@ -1,4 +1,4 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
@@ -6,43 +6,42 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-moorl-foundation-listing', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
             entity: null,
             items: [],
             criteria: new Criteria(1, 12),
-            elementName: null
+            elementName: null,
         };
     },
 
     computed: {
         listingCss() {
-            if (this.element.config.listingLayout.value === 'grid' || this.element.config.listingLayout.value === 'standard') {
+            if (
+                this.element.config.listingLayout.value === 'grid' ||
+                this.element.config.listingLayout.value === 'standard'
+            ) {
                 return {
                     'grid-template-columns': `repeat(auto-fit, minmax(${this.element.config.itemWidth.value}, 1fr))`,
                     'grid-auto-rows': this.element.config.itemHeight.value,
-                    'grid-gap': this.element.config.gapSize.value
-                }
+                    'grid-gap': this.element.config.gapSize.value,
+                };
             }
             if (this.element.config.listingLayout.value === 'list') {
                 return {
                     'grid-gap': this.element.config.gapSize.value,
                     'grid-auto-rows': this.element.config.itemHeight.value,
-                }
+                };
             }
             if (this.element.config.listingLayout.value === 'slider') {
                 return {
                     'grid-gap': this.element.config.gapSize.value,
-                    'height': this.element.config.itemHeight.value,
-                }
+                    height: this.element.config.itemHeight.value,
+                };
             }
         },
 
@@ -57,23 +56,29 @@ Shopware.Component.register('sw-cms-el-moorl-foundation-listing', {
         imageCss() {
             if (this.element.config.itemLayout.value === 'avatar') {
                 return {
-                    'width': this.element.config.itemWidth.value,
-                    'height': this.element.config.itemWidth.value
-                }
+                    width: this.element.config.itemWidth.value,
+                    height: this.element.config.itemWidth.value,
+                };
             }
         },
 
         itemCss() {
             return {
-                'padding': this.element.config.itemPadding.value,
-                'background-color': this.element.config.itemBackgroundColor.value,
-                'border': this.element.config.itemHasBorder.value ? '1px solid #333' : null,
-                'border-radius': this.element.config.itemHasBorder.value ? '6px' : null,
+                padding: this.element.config.itemPadding.value,
+                'background-color':
+                    this.element.config.itemBackgroundColor.value,
+                border: this.element.config.itemHasBorder.value
+                    ? '1px solid #333'
+                    : null,
+                'border-radius': this.element.config.itemHasBorder.value
+                    ? '6px'
+                    : null,
                 '--content-color': this.element.config.contentColor.value,
-                '--content-background-color': this.element.config.contentBackgroundColor.value,
-                '--content-highlight-color': this.element.config.contentHighlightColor.value
-
-            }
+                '--content-background-color':
+                    this.element.config.contentBackgroundColor.value,
+                '--content-highlight-color':
+                    this.element.config.contentHighlightColor.value,
+            };
         },
 
         itemClass() {
@@ -82,11 +87,12 @@ Shopware.Component.register('sw-cms-el-moorl-foundation-listing', {
 
         contentCss() {
             return {
-                'padding': this.element.config.contentPadding.value,
-                'background-color': this.element.config.contentBackgroundColor.value,
-                'color': this.element.config.contentColor.value,
+                padding: this.element.config.contentPadding.value,
+                'background-color':
+                    this.element.config.contentBackgroundColor.value,
+                color: this.element.config.contentColor.value,
                 'text-align': this.element.config.textAlign.value,
-            }
+            };
         },
 
         repository() {
@@ -104,7 +110,7 @@ Shopware.Component.register('sw-cms-el-moorl-foundation-listing', {
             }
 
             return this.criteria;
-        }
+        },
     },
 
     watch: {
@@ -112,8 +118,8 @@ Shopware.Component.register('sw-cms-el-moorl-foundation-listing', {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
-        }
+            },
+        },
     },
 
     created() {
@@ -153,5 +159,5 @@ Shopware.Component.register('sw-cms-el-moorl-foundation-listing', {
         itemDescription(item) {
             return item.teaser;
         },
-    }
+    },
 });

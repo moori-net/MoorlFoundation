@@ -8,12 +8,10 @@ Shopware.Component.register('sw-cms-el-config-moorl-address', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     created() {
         this.createdComponent();
@@ -24,6 +22,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-address', {
             if (!Object.keys(this.element.config).length) {
                 this.initElementConfig('moorl-address');
             }
-        }
-    }
+        },
+    },
 });

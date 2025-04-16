@@ -17,11 +17,15 @@ export default class MoorlAnimation extends Plugin {
     _registerEvents() {
         const that = this;
 
-        window.addEventListener("scroll", function () {
-            that.animate();
-        }, false);
+        window.addEventListener(
+            'scroll',
+            function () {
+                that.animate();
+            },
+            false
+        );
 
-        this.el.addEventListener("mouseenter",  () => {
+        this.el.addEventListener('mouseenter', () => {
             if (that.activeAnimation) {
                 return;
             }
@@ -50,7 +54,7 @@ export default class MoorlAnimation extends Plugin {
     }
 
     _ms(number) {
-        return number.toString() + "ms";
+        return number.toString() + 'ms';
     }
 
     _visible(rule) {
@@ -71,7 +75,8 @@ export default class MoorlAnimation extends Plugin {
         const rect = this.el.getBoundingClientRect();
 
         return (
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+            rect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight)
         );
     }
 
@@ -79,7 +84,8 @@ export default class MoorlAnimation extends Plugin {
         const rect = this.el.getBoundingClientRect();
 
         return (
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight)
+            rect.top <=
+            (window.innerHeight || document.documentElement.clientHeight)
         );
     }
 
@@ -97,7 +103,7 @@ export default class MoorlAnimation extends Plugin {
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
-    };
+    }
 
     animateIn() {
         const config = this.config.in;
@@ -113,7 +119,7 @@ export default class MoorlAnimation extends Plugin {
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
-    };
+    }
 
     animateOut() {
         const config = this.config.out;
@@ -128,7 +134,7 @@ export default class MoorlAnimation extends Plugin {
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
-    };
+    }
 
     animateInit() {
         const config = this.config;
@@ -140,7 +146,7 @@ export default class MoorlAnimation extends Plugin {
                 this.el.classList.add('moorl-animation-hidden');
             }
         }
-    };
+    }
 
     animate() {
         if (this.activeAnimation) {
@@ -154,5 +160,5 @@ export default class MoorlAnimation extends Plugin {
         if (this.config.out && this.config.out.active) {
             this.animateOut();
         }
-    };
+    }
 }

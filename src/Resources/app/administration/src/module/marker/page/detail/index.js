@@ -1,24 +1,18 @@
 import template from './index.html.twig';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 const utils = Shopware.Utils;
 
 Shopware.Component.register('moorl-marker-detail', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'context',
-        'foundationApiService'
-    ],
+    inject: ['repositoryFactory', 'context', 'foundationApiService'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification')
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     metaInfo() {
         return {
-            title: this.$createTitle()
+            title: this.$createTitle(),
         };
     },
 
@@ -29,18 +23,18 @@ Shopware.Component.register('moorl-marker-detail', {
             processSuccess: false,
             uploadTagMarker: utils.createId(),
             uploadTagMarkerRetina: utils.createId(),
-            uploadTagMarkerShadow: utils.createId()
+            uploadTagMarkerShadow: utils.createId(),
         };
     },
 
     computed: {
         locations() {
-            const ms = this.item.markerSettings
+            const ms = this.item.markerSettings;
 
             return [
                 {
                     entityId: this.item.id,
-                    latlng: [52.5173, 13.4020],
+                    latlng: [52.5173, 13.402],
                     icon: {
                         svg: this.item.svg,
                         iconUrl: this.item.marker?.url,
@@ -52,8 +46,8 @@ Shopware.Component.register('moorl-marker-detail', {
                         shadowSize: [ms.shadowSizeX, ms.shadowSizeY],
                         shadowAnchor: [ms.shadowAnchorX, ms.shadowAnchorY],
                     },
-                    popup: '<p><b>Lorem Ipsum GmbH</b><br>Musterstraße 1<br>12345 Musterstadt</p>'
-                }
+                    popup: '<p><b>Lorem Ipsum GmbH</b><br>Musterstraße 1<br>12345 Musterstadt</p>',
+                },
             ];
         },
 
@@ -67,7 +61,7 @@ Shopware.Component.register('moorl-marker-detail', {
 
         defaultCriteria() {
             return new Criteria();
-        }
+        },
     },
 
     created() {
@@ -77,7 +71,11 @@ Shopware.Component.register('moorl-marker-detail', {
     methods: {
         getItem() {
             this.repository
-                .get(this.$route.params.id, Shopware.Context.api, this.defaultCriteria)
+                .get(
+                    this.$route.params.id,
+                    Shopware.Context.api,
+                    this.defaultCriteria
+                )
                 .then((entity) => {
                     this.item = entity;
 
@@ -99,8 +97,10 @@ Shopware.Component.register('moorl-marker-detail', {
                 .catch((exception) => {
                     this.isLoading = false;
                     this.createNotificationError({
-                        title: this.$tc('moorl-foundation.notification.errorTitle'),
-                        message: exception
+                        title: this.$tc(
+                            'moorl-foundation.notification.errorTitle'
+                        ),
+                        message: exception,
                     });
                 });
         },
@@ -114,14 +114,16 @@ Shopware.Component.register('moorl-marker-detail', {
         },
 
         // Marker
-        setMarkerItem({targetId}) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
-                this.item.markerId = targetId;
-                this.item.marker = updatedMedia;
-            });
+        setMarkerItem({ targetId }) {
+            this.mediaRepository
+                .get(targetId, Shopware.Context.api)
+                .then((updatedMedia) => {
+                    this.item.markerId = targetId;
+                    this.item.marker = updatedMedia;
+                });
         },
         onDropMarker(dragData) {
-            this.setMarkerItem({targetId: dragData.id});
+            this.setMarkerItem({ targetId: dragData.id });
         },
         setMarkerFromSidebar(mediaEntity) {
             this.item.markerId = mediaEntity.id;
@@ -131,14 +133,16 @@ Shopware.Component.register('moorl-marker-detail', {
         },
 
         // Marker Shadow
-        setMarkerRetinaItem({targetId}) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
-                this.item.markerRetinaId = targetId;
-                this.item.markerRetina = updatedMedia;
-            });
+        setMarkerRetinaItem({ targetId }) {
+            this.mediaRepository
+                .get(targetId, Shopware.Context.api)
+                .then((updatedMedia) => {
+                    this.item.markerRetinaId = targetId;
+                    this.item.markerRetina = updatedMedia;
+                });
         },
         onDropMarkerRetina(dragData) {
-            this.setMarkerRetinaItem({targetId: dragData.id});
+            this.setMarkerRetinaItem({ targetId: dragData.id });
         },
         setMarkerRetinaFromSidebar(mediaEntity) {
             this.item.markerRetinaId = mediaEntity.id;
@@ -148,20 +152,22 @@ Shopware.Component.register('moorl-marker-detail', {
         },
 
         // Marker Shadow
-        setMarkerShadowItem({targetId}) {
-            this.mediaRepository.get(targetId, Shopware.Context.api).then((updatedMedia) => {
-                this.item.markerShadowId = targetId;
-                this.item.markerShadow = updatedMedia;
-            });
+        setMarkerShadowItem({ targetId }) {
+            this.mediaRepository
+                .get(targetId, Shopware.Context.api)
+                .then((updatedMedia) => {
+                    this.item.markerShadowId = targetId;
+                    this.item.markerShadow = updatedMedia;
+                });
         },
         onDropMarkerShadow(dragData) {
-            this.setMarkerShadowItem({targetId: dragData.id});
+            this.setMarkerShadowItem({ targetId: dragData.id });
         },
         setMarkerShadowFromSidebar(mediaEntity) {
             this.item.markerShadowId = mediaEntity.id;
         },
         onUnlinkMarkerShadow() {
             this.item.markerShadowId = null;
-        }
-    }
+        },
+    },
 });

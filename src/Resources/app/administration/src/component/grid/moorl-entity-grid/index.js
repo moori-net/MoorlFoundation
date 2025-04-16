@@ -1,7 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 /**
  * Standard variable names
@@ -39,91 +39,91 @@ Shopware.Component.register('moorl-entity-grid', {
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('placeholder'),
     ],
 
     props: {
         entity: {
             type: String,
-            required: true
+            required: true,
         },
         path: {
             type: String,
-            required: false
+            required: false,
         },
         columns: {
             type: Array,
-            required: false
+            required: false,
         },
         filterColumns: {
             type: Array,
             required: false,
-            default: []
+            default: [],
         },
         snippetSrc: {
             type: String,
             required: false,
-            default: 'moorl-foundation'
+            default: 'moorl-foundation',
         },
         excludeInput: {
             type: Array,
             required: false,
-            default: []
+            default: [],
         },
         criteria: {
             type: Object,
             required: false,
             default() {
                 return {};
-            }
+            },
         },
         sortBy: {
             type: String,
             required: false,
-            default: 'createdAt'
+            default: 'createdAt',
         },
         sortDirection: {
             type: String,
             required: false,
-            default: 'DESC'
+            default: 'DESC',
         },
         depth: {
             type: Number,
             required: false,
-            default: 1
+            default: 1,
         },
         defaultItem: {
             type: Object,
             required: false,
             default() {
                 return {};
-            }
+            },
         },
         topBarOptions: {
             type: Array,
             required: false,
-            default: ['search', 'new', 'import', 'export']
+            default: ['search', 'new', 'import', 'export'],
         },
         confirmDelete: {
             type: Boolean,
             required: false,
-            default: true
+            default: true,
         },
         /* Handling for prices */
         tax: {
             type: Object,
             required: false,
-            default: null
+            default: null,
         },
         defaultCurrency: {
             type: Object,
             required: false,
-            default: null
+            default: null,
         },
         priceProperties: {
             type: Array,
             required: false,
-            default: ['price']
+            default: ['price'],
         },
     },
 
@@ -210,7 +210,7 @@ Shopware.Component.register('moorl-entity-grid', {
             if (this.topBarOptions.length === 1) {
                 return '1fr';
             }
-        }
+        },
     },
     created() {
         this.createdComponent();
@@ -229,9 +229,11 @@ Shopware.Component.register('moorl-entity-grid', {
                 this.currentTax = this.tax;
                 return;
             }
-            return this.taxRepository.search(new Criteria(1, 500)).then((taxes) => {
-                this.currentTax = taxes[0];
-            });
+            return this.taxRepository
+                .search(new Criteria(1, 500))
+                .then((taxes) => {
+                    this.currentTax = taxes[0];
+                });
         },
 
         loadDefaultCurrency() {
@@ -239,9 +241,13 @@ Shopware.Component.register('moorl-entity-grid', {
                 this.currentDefaultCurrency = this.defaultCurrency;
                 return;
             }
-            this.currencyRepository.search(new Criteria(1, 500)).then((currencies) => {
-                this.currentDefaultCurrency = currencies.find(currency => currency.isSystemDefault);
-            });
+            this.currencyRepository
+                .search(new Criteria(1, 500))
+                .then((currencies) => {
+                    this.currentDefaultCurrency = currencies.find(
+                        (currency) => currency.isSystemDefault
+                    );
+                });
         },
 
         getItemPrice(item) {
@@ -270,14 +276,20 @@ Shopware.Component.register('moorl-entity-grid', {
 
         initEditColumns() {
             let columns = [];
-            let properties = Shopware.EntityDefinition.get(this.entity).properties
+            let properties = Shopware.EntityDefinition.get(
+                this.entity
+            ).properties;
 
             for (const [property, column] of Object.entries(properties)) {
                 if (column.type === 'uuid') {
                     continue;
                 }
 
-                if (column.type === 'json_object' && property !== 'price' && property !== 'svgShape') {
+                if (
+                    column.type === 'json_object' &&
+                    property !== 'price' &&
+                    property !== 'svgShape'
+                ) {
                     //continue;
                 }
 
@@ -289,7 +301,10 @@ Shopware.Component.register('moorl-entity-grid', {
                     continue;
                 }
 
-                if (!column.flags.moorl_edit_field && !column.flags.moorl_vue_component) {
+                if (
+                    !column.flags.moorl_edit_field &&
+                    !column.flags.moorl_vue_component
+                ) {
                     continue;
                 }
 
@@ -306,17 +321,25 @@ Shopware.Component.register('moorl-entity-grid', {
                     }
                 }
 
-                column.label = this.$tc(`${this.snippetSrc}.properties.${property}`);
+                column.label = this.$tc(
+                    `${this.snippetSrc}.properties.${property}`
+                );
 
                 if (column.flags.moorl_edit_field_options) {
                     if (column.flags.moorl_edit_field_options.tooltip) {
-                        column.helpText = this.$tc(column.flags.moorl_edit_field_options.tooltip);
+                        column.helpText = this.$tc(
+                            column.flags.moorl_edit_field_options.tooltip
+                        );
                     }
                     if (column.flags.moorl_edit_field_options.label) {
-                        column.label = this.$tc(column.flags.moorl_edit_field_options.label);
+                        column.label = this.$tc(
+                            column.flags.moorl_edit_field_options.label
+                        );
                     }
                     if (column.flags.moorl_edit_field_options.entity) {
-                        column.entity = this.$tc(column.flags.moorl_edit_field_options.entity);
+                        column.entity = this.$tc(
+                            column.flags.moorl_edit_field_options.entity
+                        );
                     }
                 }
 
@@ -324,7 +347,6 @@ Shopware.Component.register('moorl-entity-grid', {
             }
 
             this.editColumns = columns;
-
         },
 
         getGridColumns(entityName, prefix, depth) {
@@ -344,7 +366,8 @@ Shopware.Component.register('moorl-entity-grid', {
             }
 
             let columns = [];
-            let properties = Shopware.EntityDefinition.get(entityName).properties
+            let properties =
+                Shopware.EntityDefinition.get(entityName).properties;
 
             for (const [property, column] of Object.entries(properties)) {
                 let propertyName = prefix + property;
@@ -358,17 +381,24 @@ Shopware.Component.register('moorl-entity-grid', {
                     case 'json_object':
                         break;
                     case 'association':
-                        columns = [...columns, ...this.getGridColumns(column.entity, propertyName, depth)];
+                        columns = [
+                            ...columns,
+                            ...this.getGridColumns(
+                                column.entity,
+                                propertyName,
+                                depth
+                            ),
+                        ];
                         continue;
-                    case "text":
+                    case 'text':
                         column.inlineEdit = 'string';
                         break;
-                    case "int":
+                    case 'int':
                         column.inlineEdit = 'int';
                         column.fieldType = 'number';
                         column.align = 'right';
                         break;
-                    case "boolean":
+                    case 'boolean':
                         /* sw do not support nested properties boolean */
                         if (depth === 0) {
                             column.inlineEdit = 'boolean';
@@ -393,7 +423,7 @@ Shopware.Component.register('moorl-entity-grid', {
                     inlineEdit: column.inlineEdit,
                     sortable: true,
                     fieldType: column.fieldType,
-                    align: column.align ? column.align : 'left'
+                    align: column.align ? column.align : 'left',
                 });
 
                 primary = false;
@@ -409,8 +439,10 @@ Shopware.Component.register('moorl-entity-grid', {
         getPropertyLabel(propertyName) {
             let labelParts = [];
 
-            for (let part of propertyName.split(".")) {
-                labelParts.push(this.$tc(`${this.snippetSrc}.properties.${part}`))
+            for (let part of propertyName.split('.')) {
+                labelParts.push(
+                    this.$tc(`${this.snippetSrc}.properties.${part}`)
+                );
             }
 
             return labelParts.join(' - ');
@@ -436,16 +468,18 @@ Shopware.Component.register('moorl-entity-grid', {
                 criteria.setTerm(this.searchTerm);
             }
 
-            this.repository.search(criteria, Shopware.Context.api).then((items) => {
-                this.totalCount = items.total;
-                this.items = items;
-                this.isLoading = false;
+            this.repository
+                .search(criteria, Shopware.Context.api)
+                .then((items) => {
+                    this.totalCount = items.total;
+                    this.items = items;
+                    this.isLoading = false;
 
-                if (this.totalCount > 0 && this.items.length <= 0) {
-                    this.page = (this.page === 1) ? 1 : this.page -= 1;
-                    this.getItems();
-                }
-            });
+                    if (this.totalCount > 0 && this.items.length <= 0) {
+                        this.page = this.page === 1 ? 1 : (this.page -= 1);
+                        this.getItems();
+                    }
+                });
         },
 
         onSelectionChanged(selection) {
@@ -486,7 +520,7 @@ Shopware.Component.register('moorl-entity-grid', {
             this.repository
                 .delete(this.deleteId, Shopware.Context.api)
                 .then(() => {
-                    this.deleteId = null
+                    this.deleteId = null;
                     this.getItems();
                 });
         },
@@ -541,24 +575,40 @@ Shopware.Component.register('moorl-entity-grid', {
                 .catch((exception) => {
                     this.isLoading = false;
 
-                    const errorCode = Shopware.Utils.get(exception, 'response.data.errors[0].code');
+                    const errorCode = Shopware.Utils.get(
+                        exception,
+                        'response.data.errors[0].code'
+                    );
 
                     if (errorCode === 'MOORL__DUPLICATE_ENTRY') {
-                        const parameters = Shopware.Utils.get(exception, 'response.data.errors[0].meta.parameters');
-                        const titleSaveError = this.$tc('moorl-foundation.notification.errorTitle');
-                        const messageSaveError = this.$tc('moorl-foundation.notification.errorDuplicateEntryText', 0, parameters);
+                        const parameters = Shopware.Utils.get(
+                            exception,
+                            'response.data.errors[0].meta.parameters'
+                        );
+                        const titleSaveError = this.$tc(
+                            'moorl-foundation.notification.errorTitle'
+                        );
+                        const messageSaveError = this.$tc(
+                            'moorl-foundation.notification.errorDuplicateEntryText',
+                            0,
+                            parameters
+                        );
                         this.createNotificationError({
                             title: titleSaveError,
-                            message: messageSaveError
+                            message: messageSaveError,
                         });
                         return;
                     }
 
-                    const titleSaveError = this.$tc('moorl-foundation.notification.errorTitle');
-                    const messageSaveError = this.$tc('moorl-foundation.notification.errorRequiredText');
+                    const titleSaveError = this.$tc(
+                        'moorl-foundation.notification.errorTitle'
+                    );
+                    const messageSaveError = this.$tc(
+                        'moorl-foundation.notification.errorRequiredText'
+                    );
                     this.createNotificationError({
                         title: titleSaveError,
-                        message: messageSaveError
+                        message: messageSaveError,
                     });
                 });
         },
@@ -570,22 +620,38 @@ Shopware.Component.register('moorl-entity-grid', {
                 this.selectedItem = item;
                 this.showEditModal = true;
             } else {
-                this.selectedItem = this.repository.create(Shopware.Context.api);
+                this.selectedItem = this.repository.create(
+                    Shopware.Context.api
+                );
 
-                if (Shopware.Context.api.languageId !== Shopware.Context.api.systemLanguageId) {
-                    Shopware.Store.get('context').setApiLanguageId(Shopware.Context.api.systemLanguageId)
+                if (
+                    Shopware.Context.api.languageId !==
+                    Shopware.Context.api.systemLanguageId
+                ) {
+                    Shopware.Store.get('context').setApiLanguageId(
+                        Shopware.Context.api.systemLanguageId
+                    );
                 }
 
                 for (let column of this.editColumns) {
-                    if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
-                        let repository = this.repositoryFactory.create(column.entity);
-
-                        this.selectedItem[column.property] = new Shopware.Data.EntityCollection(
-                            repository.route,
-                            repository.entityName,
-                            Shopware.Context.api
+                    if (
+                        column.relation === 'many_to_many' ||
+                        column.relation === 'one_to_many'
+                    ) {
+                        let repository = this.repositoryFactory.create(
+                            column.entity
                         );
-                    } else if (column.relation === 'many_to_one' && column.localField) {
+
+                        this.selectedItem[column.property] =
+                            new Shopware.Data.EntityCollection(
+                                repository.route,
+                                repository.entityName,
+                                Shopware.Context.api
+                            );
+                    } else if (
+                        column.relation === 'many_to_one' &&
+                        column.localField
+                    ) {
                         this.selectedItem[column.localField] = null;
                     }
                 }
@@ -612,6 +678,6 @@ Shopware.Component.register('moorl-entity-grid', {
             this.showEditModal = false;
             this.showExportModal = false;
             this.showImportModal = false;
-        }
-    }
+        },
+    },
 });

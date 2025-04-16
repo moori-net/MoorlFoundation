@@ -11,7 +11,7 @@ Shopware.Component.register('moorl-animation-field', {
         item: {
             type: Object,
             required: true,
-        }
+        },
     },
 
     created() {

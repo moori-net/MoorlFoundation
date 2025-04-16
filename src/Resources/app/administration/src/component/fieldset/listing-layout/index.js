@@ -7,6 +7,6 @@ Shopware.Component.register('moorl-listing-layout-fieldset', {
         item: {
             type: Object,
             required: true,
-        }
-    }
+        },
+    },
 });

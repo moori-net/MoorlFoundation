@@ -7,5 +7,5 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
     label: 'sw-cms.elements.moorl-replacer.title',
     component: 'sw-cms-el-moorl-replacer',
     previewComponent: true,
-    defaultConfig: null
+    defaultConfig: null,
 });

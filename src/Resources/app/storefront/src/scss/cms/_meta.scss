@@ -1,69 +1,69 @@
 .cms-element-moorl-meta {
-  display: flex;
-  color: $text-muted;
-  line-height: 24px;
+    display: flex;
+    color: $text-muted;
+    line-height: 24px;
 
-  .icon {
-    color: $primary;
-    margin-right: 8px;
-    > svg {
-      top: 0;
-    }
-  }
-
-  ul {
-    margin: 20px 0;
-    padding: 0;
-    display: block;
-    list-style: none;
-    width: 100%;
-
-    li {
-      display: flex;
-      padding: 8px 16px;
-      border-bottom: 1px solid $border-color;
-      align-items: center;
-
-      div > a,
-      div > span {
-        &:after {
-          content: ",";
+    .icon {
+        color: $primary;
+        margin-right: 8px;
+        > svg {
+            top: 0;
         }
-        &:last-child:after {
-          content: none;
-        }
-      }
-
-      a {
-        color: $text-muted;
-      }
-
-      &:last-child {
-        border-bottom: 0;
-      }
     }
-  }
+
+    ul {
+        margin: 20px 0;
+        padding: 0;
+        display: block;
+        list-style: none;
+        width: 100%;
+
+        li {
+            display: flex;
+            padding: 8px 16px;
+            border-bottom: 1px solid $border-color;
+            align-items: center;
+
+            div > a,
+            div > span {
+                &:after {
+                    content: ',';
+                }
+                &:last-child:after {
+                    content: none;
+                }
+            }
+
+            a {
+                color: $text-muted;
+            }
+
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
 }
 
 @include media-breakpoint-up(lg) {
-  .cms-element-moorl-meta {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .cms-element-moorl-meta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-    ul {
-      display: flex;
-      width: auto;
+        ul {
+            display: flex;
+            width: auto;
 
-      li {
-        padding: 4px 16px;
-        border-right: 1px solid $border-color;
-        border-bottom: 0;
+            li {
+                padding: 4px 16px;
+                border-right: 1px solid $border-color;
+                border-bottom: 0;
 
-        &:last-child {
-          border-right: 0;
+                &:last-child {
+                    border-right: 0;
+                }
+            }
         }
-      }
     }
-  }
 }

@@ -1,51 +1,62 @@
-.moorl-card{
+.moorl-card {
     background-color: $sw-background-color;
-    color:$sw-text-color;
+    color: $sw-text-color;
     border-radius: $border-radius;
-    padding:25px;
+    padding: 25px;
     box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
 
-    h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
-        color:$sw-headline-color !important;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6 {
+        color: $sw-headline-color !important;
     }
 
-    .badge{
-        font-size: .7em;
+    .badge {
+        font-size: 0.7em;
         padding: 5px 10px;
         margin-bottom: 5px;
     }
 }
 
-.moorl-list-checked{
+.moorl-list-checked {
     list-style-type: none;
-    padding:0;
+    padding: 0;
 
-    li{
+    li {
         position: relative;
         padding-left: 30px;
 
-        &:before{
+        &:before {
             top: 50%;
             left: 0;
             transform: translateY(-50%);
             position: absolute;
-            content: "";
+            content: '';
             height: 18px;
             width: 18px;
             z-index: 10;
             background-color: $sw-color-brand-primary;
-            -webkit-mask-image: url("/bundles/moorlfoundation/assets/icons/check-solid.svg");
+            -webkit-mask-image: url('/bundles/moorlfoundation/assets/icons/check-solid.svg');
         }
     }
 }
 
-.moorl-demo-grid-item{
-    padding:10px;
+.moorl-demo-grid-item {
+    padding: 10px;
     width: 100%;
     height: 100%;
-    border:2px dashed $sw-color-brand-secondary;
+    border: 2px dashed $sw-color-brand-secondary;
 
-    .inner{
+    .inner {
         width: 100%;
         height: 100%;
         display: flex;
@@ -57,7 +68,7 @@
         font-weight: 700;
         color: $sw-text-color;
 
-        p{
+        p {
             font-size: 1.1em;
             text-transform: uppercase;
         }

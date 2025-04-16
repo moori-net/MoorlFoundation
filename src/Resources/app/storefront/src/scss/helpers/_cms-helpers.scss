@@ -1,21 +1,21 @@
 .cms-element-image-slider {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .cms-block.no-gutters {
-  overflow: visible;
+    overflow: visible;
 
-  .cms-block-container-row {
-    @extend .no-gutters;
-  }
+    .cms-block-container-row {
+        @extend .no-gutters;
+    }
 }
 
 @include media-breakpoint-up(lg) {
-  .sticky-sidebar {
-    .cms-section-sidebar-sidebar-content {
-      position: sticky;
-      top: 0;
-      align-self: flex-start;
+    .sticky-sidebar {
+        .cms-section-sidebar-sidebar-content {
+            position: sticky;
+            top: 0;
+            align-self: flex-start;
+        }
     }
-  }
 }

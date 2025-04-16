@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-entity-grid {
     .moorl-entity-grid__top-bar {
@@ -11,10 +11,12 @@
             height: 32px;
         }
 
-        .sw-field, .mt-field {
+        .sw-field,
+        .mt-field {
             margin-bottom: 0;
 
-            .mt-field__help-text, .sw-field__help-text {
+            .mt-field__help-text,
+            .sw-field__help-text {
                 position: relative;
                 top: 33px;
                 right: 15px;
@@ -25,7 +27,8 @@
             min-height: auto;
         }
 
-        .sw-button, .mt-button {
+        .sw-button,
+        .mt-button {
             height: 32px;
             line-height: 16px;
             position: relative;

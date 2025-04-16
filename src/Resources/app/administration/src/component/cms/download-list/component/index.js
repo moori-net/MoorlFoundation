@@ -9,24 +9,20 @@ Shopware.Component.register('sw-cms-el-moorl-download-list', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     watch: {
         cmsPageState: {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
-        }
+            },
+        },
     },
 
     created() {
@@ -37,6 +33,6 @@ Shopware.Component.register('sw-cms-el-moorl-download-list', {
         createdComponent() {
             this.initElementConfig('moorl-download-list');
             this.initElementData('moorl-download-list');
-        }
-    }
+        },
+    },
 });

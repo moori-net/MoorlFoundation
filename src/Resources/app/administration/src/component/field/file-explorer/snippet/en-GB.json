@@ -1,14 +1,12 @@
 {
-  "moorl-file-explorer": {
-    "actions": {
-      "createDir": "Create directory"
-    },
-    "title": "File explorer",
-    "helpText":{
-
-    },
-    "label": {
-      "parentDirectory": "Parent directory"
+    "moorl-file-explorer": {
+        "actions": {
+            "createDir": "Create directory"
+        },
+        "title": "File explorer",
+        "helpText": {},
+        "label": {
+            "parentDirectory": "Parent directory"
+        }
     }
-  }
 }

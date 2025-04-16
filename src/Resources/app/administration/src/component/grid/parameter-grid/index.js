@@ -3,9 +3,7 @@ import template from './index.html.twig';
 Shopware.Component.register('moorl-parameter-grid', {
     template,
 
-    emits: [
-        'update:parameters'
-    ],
+    emits: ['update:parameters'],
 
     props: {
         label: {
@@ -44,7 +42,7 @@ Shopware.Component.register('moorl-parameter-grid', {
             items: this.parameters,
         };
     },
-    
+
     computed: {
         gridColumns() {
             const columns = [
@@ -52,7 +50,7 @@ Shopware.Component.register('moorl-parameter-grid', {
                     label: this.$tc('moorl-parameter-grid.properties.name'),
                     property: 'name',
                     dataIndex: 'name',
-                    primary: true
+                    primary: true,
                 },
             ];
 
@@ -61,7 +59,7 @@ Shopware.Component.register('moorl-parameter-grid', {
                     label: this.$tc('moorl-parameter-grid.properties.label'),
                     property: 'label',
                     dataIndex: 'label',
-                    primary: true
+                    primary: true,
                 });
             }
 
@@ -70,7 +68,7 @@ Shopware.Component.register('moorl-parameter-grid', {
                 property: 'data',
                 dataIndex: 'data',
                 primary: true,
-                width: '320px'
+                width: '320px',
             });
 
             return columns;
@@ -84,20 +82,24 @@ Shopware.Component.register('moorl-parameter-grid', {
         },
 
         onChangeItem(item, itemIndex) {
-            if (!item.name || !item.data || itemIndex !== this.items.length - 1) {
+            if (
+                !item.name ||
+                !item.data ||
+                itemIndex !== this.items.length - 1
+            ) {
                 return;
             }
             this.$emit('update:parameters', this.items);
         },
 
         addItem() {
-            this.items.push({data: '', name: ''});
+            this.items.push({ data: '', name: '' });
             this.$emit('update:parameters', this.items);
         },
 
         deleteItem(itemIndex) {
             this.items.splice(itemIndex, 1);
             this.$emit('update:parameters', this.items);
-        }
+        },
     },
 });

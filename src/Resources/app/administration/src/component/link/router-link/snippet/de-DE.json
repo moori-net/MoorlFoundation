@@ -1,6 +1,6 @@
 {
-  "moorl-router-link": {
-    "label": "Dokumentation lesen",
-    "routerLink": "https://docs.moori.net/plugin"
-  }
+    "moorl-router-link": {
+        "label": "Dokumentation lesen",
+        "routerLink": "https://docs.moori.net/plugin"
+    }
 }

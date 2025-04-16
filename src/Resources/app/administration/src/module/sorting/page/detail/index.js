@@ -1,22 +1,20 @@
 import template from './index.html.twig';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-sorting-detail', {
     template,
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('placeholder'),
     ],
 
     metaInfo() {
         return {
-            title: this.$createTitle(this.identifier)
+            title: this.$createTitle(this.identifier),
         };
     },
 
@@ -26,7 +24,7 @@ Shopware.Component.register('moorl-sorting-detail', {
             isLoading: true,
             processSuccess: false,
             productSortingEntity: null,
-            toBeDeletedCriteria: null
+            toBeDeletedCriteria: null,
         };
     },
 
@@ -41,11 +39,12 @@ Shopware.Component.register('moorl-sorting-detail', {
 
         entityOptions() {
             const storeOptions = [];
-            const definitionRegistry = Shopware.EntityDefinition.getDefinitionRegistry();
+            const definitionRegistry =
+                Shopware.EntityDefinition.getDefinitionRegistry();
 
             definitionRegistry.forEach(function (value, key, map) {
                 storeOptions.push({
-                    name: `${key}`
+                    name: `${key}`,
                 });
             });
 
@@ -54,7 +53,7 @@ Shopware.Component.register('moorl-sorting-detail', {
 
         identifier() {
             return this.placeholder(this.item, 'label');
-        }
+        },
     },
 
     created() {
@@ -63,7 +62,7 @@ Shopware.Component.register('moorl-sorting-detail', {
 
     methods: {
         createdComponent() {
-            this.getItem()
+            this.getItem();
         },
 
         saveProductSorting() {
@@ -76,20 +75,31 @@ Shopware.Component.register('moorl-sorting-detail', {
                     const sortingOptionName = this.item.label;
 
                     this.createNotificationSuccess({
-                        message: this.$t('sw-settings-listing.base.notification.saveSuccess', { sortingOptionName }),
+                        message: this.$t(
+                            'sw-settings-listing.base.notification.saveSuccess',
+                            { sortingOptionName }
+                        ),
                     });
                 })
                 .catch(() => {
                     const sortingOptionName = this.item.label;
 
                     this.createNotificationError({
-                        message: this.$t('sw-settings-listing.base.notification.saveError', { sortingOptionName }),
+                        message: this.$t(
+                            'sw-settings-listing.base.notification.saveError',
+                            { sortingOptionName }
+                        ),
                     });
                 });
         },
 
         getCriteriaTemplate(fieldName) {
-            return { field: fieldName, order: 'asc', priority: 1, naturalSorting: 0 };
+            return {
+                field: fieldName,
+                order: 'asc',
+                priority: 1,
+                naturalSorting: 0,
+            };
         },
 
         onDeleteCriteria(toBeRemovedItem) {
@@ -97,7 +107,7 @@ Shopware.Component.register('moorl-sorting-detail', {
         },
 
         onConfirmDeleteCriteria() {
-            this.item.fields = this.item.fields.filter(currentCriteria => {
+            this.item.fields = this.item.fields.filter((currentCriteria) => {
                 return currentCriteria.field !== this.toBeDeletedCriteria.field;
             });
             this.saveProductSorting();
@@ -125,14 +135,18 @@ Shopware.Component.register('moorl-sorting-detail', {
                 return;
             }
 
-            this.item.fields = this.item.fields.filter(currentCriteria => {
+            this.item.fields = this.item.fields.filter((currentCriteria) => {
                 return currentCriteria.field !== item.field;
             });
         },
 
         getItem() {
             this.repository
-                .get(this.$route.params.id, Shopware.Context.api, this.defaultCriteria)
+                .get(
+                    this.$route.params.id,
+                    Shopware.Context.api,
+                    this.defaultCriteria
+                )
                 .then((response) => {
                     if (!Array.isArray(response.fields)) {
                         response.fields = [];
@@ -157,21 +171,27 @@ Shopware.Component.register('moorl-sorting-detail', {
                     this.getItem();
                     this.isLoading = false;
                     this.processSuccess = true;
-                }).catch((exception) => {
-                this.isLoading = false;
-                if (exception.response.data && exception.response.data.errors) {
-                    exception.response.data.errors.forEach((error) => {
-                        this.createNotificationWarning({
-                            title: this.$tc('moorl-foundation.notification.errorTitle'),
-                            message: error.detail
+                })
+                .catch((exception) => {
+                    this.isLoading = false;
+                    if (
+                        exception.response.data &&
+                        exception.response.data.errors
+                    ) {
+                        exception.response.data.errors.forEach((error) => {
+                            this.createNotificationWarning({
+                                title: this.$tc(
+                                    'moorl-foundation.notification.errorTitle'
+                                ),
+                                message: error.detail,
+                            });
                         });
-                    });
-                }
-            });
+                    }
+                });
         },
 
         saveFinish() {
             this.processSuccess = false;
-        }
-    }
+        },
+    },
 });

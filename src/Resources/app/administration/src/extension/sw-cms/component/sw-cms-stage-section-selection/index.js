@@ -7,6 +7,6 @@ Shopware.Component.override('sw-cms-stage-section-selection', {
     computed: {
         moorlIsUnlocked() {
             return Shopware.Store.get('moorlFoundationState').unlocked;
-        }
+        },
     },
 });

@@ -3,9 +3,7 @@ import template from './index.html.twig';
 Shopware.Component.register('sw-cms-el-config-moorl-table-registration', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     created() {
         this.createdComponent();
@@ -14,6 +12,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-table-registration', {
     methods: {
         createdComponent() {
             this.initElementConfig('moorl-table-registration');
-        }
-    }
+        },
+    },
 });

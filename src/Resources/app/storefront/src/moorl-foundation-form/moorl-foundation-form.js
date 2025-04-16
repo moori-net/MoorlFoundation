@@ -4,7 +4,6 @@ import DomAccess from 'src/helper/dom-access.helper';
 import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlFoundationForm extends Plugin {
-
     static options = {};
 
     init() {
@@ -21,15 +20,17 @@ export default class MoorlFoundationForm extends Plugin {
     }
 
     _formSubmit(event) {
-
         if (typeof event != 'undefined') {
             event.preventDefault();
         }
 
-        const requestUrl = DomAccess.getAttribute(this._form, 'action').toLowerCase();
+        const requestUrl = DomAccess.getAttribute(
+            this._form,
+            'action'
+        ).toLowerCase();
         const formData = FormSerializeUtil.serialize(this._form);
 
-        this._client.post(requestUrl, formData, this._onLoaded.bind(this))
+        this._client.post(requestUrl, formData, this._onLoaded.bind(this));
     }
 
     _onLoaded(response) {

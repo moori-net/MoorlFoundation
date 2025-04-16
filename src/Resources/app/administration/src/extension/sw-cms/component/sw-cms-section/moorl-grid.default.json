@@ -1,121 +1,121 @@
 {
-  "customFields": {
-    "moorl_section_grid_config": [
-      {
-        "value": {
-          "lg": {
-            "show": true,
-            "order": 0,
-            "width": "3",
-            "inherit": false
-          },
-          "md": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          },
-          "sm": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          },
-          "xl": {
-            "show": true,
-            "order": 0,
-            "width": "3",
-            "inherit": false
-          },
-          "xs": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          }
-        },
-        "isSticky": true,
-        "offsetTop": "30px",
-        "alignItems": "normal",
-        "justifyContent": "normal"
-      },
-      {
-        "value": {
-          "lg": {
-            "show": true,
-            "order": 0,
-            "width": "6",
-            "inherit": false
-          },
-          "md": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          },
-          "sm": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          },
-          "xl": {
-            "show": true,
-            "order": 0,
-            "width": "6",
-            "inherit": false
-          },
-          "xs": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          }
-        },
-        "isSticky": false,
-        "offsetTop": "30px",
-        "alignItems": "normal",
-        "justifyContent": "normal"
-      },
-      {
-        "value": {
-          "lg": {
-            "show": true,
-            "order": 0,
-            "width": "3",
-            "inherit": false
-          },
-          "md": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          },
-          "sm": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          },
-          "xl": {
-            "show": true,
-            "order": 0,
-            "width": "3",
-            "inherit": false
-          },
-          "xs": {
-            "show": true,
-            "order": 0,
-            "width": 12,
-            "inherit": true
-          }
-        },
-        "isSticky": false,
-        "offsetTop": "30px",
-        "alignItems": "normal",
-        "justifyContent": "normal"
-      }
-    ],
-    "moorl_section_column_count": 3
-  }
+    "customFields": {
+        "moorl_section_grid_config": [
+            {
+                "value": {
+                    "lg": {
+                        "show": true,
+                        "order": 0,
+                        "width": "3",
+                        "inherit": false
+                    },
+                    "md": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    },
+                    "sm": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    },
+                    "xl": {
+                        "show": true,
+                        "order": 0,
+                        "width": "3",
+                        "inherit": false
+                    },
+                    "xs": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    }
+                },
+                "isSticky": true,
+                "offsetTop": "30px",
+                "alignItems": "normal",
+                "justifyContent": "normal"
+            },
+            {
+                "value": {
+                    "lg": {
+                        "show": true,
+                        "order": 0,
+                        "width": "6",
+                        "inherit": false
+                    },
+                    "md": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    },
+                    "sm": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    },
+                    "xl": {
+                        "show": true,
+                        "order": 0,
+                        "width": "6",
+                        "inherit": false
+                    },
+                    "xs": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    }
+                },
+                "isSticky": false,
+                "offsetTop": "30px",
+                "alignItems": "normal",
+                "justifyContent": "normal"
+            },
+            {
+                "value": {
+                    "lg": {
+                        "show": true,
+                        "order": 0,
+                        "width": "3",
+                        "inherit": false
+                    },
+                    "md": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    },
+                    "sm": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    },
+                    "xl": {
+                        "show": true,
+                        "order": 0,
+                        "width": "3",
+                        "inherit": false
+                    },
+                    "xs": {
+                        "show": true,
+                        "order": 0,
+                        "width": 12,
+                        "inherit": true
+                    }
+                },
+                "isSticky": false,
+                "offsetTop": "30px",
+                "alignItems": "normal",
+                "justifyContent": "normal"
+            }
+        ],
+        "moorl_section_column_count": 3
+    }
 }

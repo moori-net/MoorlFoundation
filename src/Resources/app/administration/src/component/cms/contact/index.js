@@ -12,22 +12,22 @@ Shopware.Service('cmsService').registerCmsElement({
         email: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         phoneNumber: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         shopUrl: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         merchantUrl: {
             source: 'static',
             value: null,
-            required: false
-        }
-    }
+            required: false,
+        },
+    },
 });

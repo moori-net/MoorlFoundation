@@ -6,9 +6,7 @@ Shopware.Component.register('sw-cms-el-moorl-table-registration', {
 
     components: {},
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     computed: {},
 
@@ -19,6 +17,6 @@ Shopware.Component.register('sw-cms-el-moorl-table-registration', {
     methods: {
         createdComponent() {
             this.initElementConfig('moorl-table-registration');
-        }
-    }
+        },
+    },
 });

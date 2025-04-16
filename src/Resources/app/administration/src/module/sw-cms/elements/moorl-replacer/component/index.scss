@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .sw-cms-el-moorl-replacer {
     position: relative;
@@ -11,8 +11,8 @@
     overflow: hidden;
     display: grid;
     grid-template:
-            "a a" auto
-            "b c" 46px / 1fr 40px;
+        'a a' auto
+        'b c' 46px / 1fr 40px;
     grid-gap: 0;
     text-align: center;
 
@@ -21,17 +21,20 @@
         margin-bottom: 10px;
     }
 
-    .sw-field, .mt-field {
+    .sw-field,
+    .mt-field {
         margin-bottom: 0;
     }
 
     .sw-block-field .sw-block-field__block,
-    .sw-button, .mt-button {
+    .sw-button,
+    .mt-button {
         border: 0 !important;
         border-radius: 0 !important;
     }
 
-    .sw-button, .mt-button {
+    .sw-button,
+    .mt-button {
         display: block;
         height: 46px;
         width: 100%;
@@ -48,7 +51,7 @@
 
         &:nth-child(1) {
             grid-area: a;
-            background: rgba(255,255,255,.85);
+            background: rgba(255, 255, 255, 0.85);
             padding: 10px;
             border-bottom: 2px solid $color-gray-900;
         }

@@ -1,29 +1,29 @@
 [
-  {
-    "id": "{ID:CATEGORY_LEGALS}",
-    "parentId": "{NAVIGATION_CATEGORY_ID}",
-    "active": true,
-    "name": "Legals"
-  },
-  {
-    "id": "{ID:CATEGORY_LEGALS_PRIVACY}",
-    "parentId": "{ID:CATEGORY_LEGALS}",
-    "cmsPageId": "{ID:CMS_PAGE_PRIVACY}",
-    "active": true,
-    "name": "Datenschutz"
-  },
-  {
-    "id": "{ID:CATEGORY_LEGALS_TOS}",
-    "parentId": "{ID:CATEGORY_LEGALS}",
-    "cmsPageId": "{ID:CMS_PAGE_TOS}",
-    "active": true,
-    "name": "AGBs"
-  },
-  {
-    "id": "{ID:CATEGORY_LEGALS_IMPRINT}",
-    "parentId": "{ID:CATEGORY_LEGALS}",
-    "cmsPageId": "{ID:CMS_PAGE_IMPRINT}",
-    "active": true,
-    "name": "Impressum"
-  }
+    {
+        "id": "{ID:CATEGORY_LEGALS}",
+        "parentId": "{NAVIGATION_CATEGORY_ID}",
+        "active": true,
+        "name": "Legals"
+    },
+    {
+        "id": "{ID:CATEGORY_LEGALS_PRIVACY}",
+        "parentId": "{ID:CATEGORY_LEGALS}",
+        "cmsPageId": "{ID:CMS_PAGE_PRIVACY}",
+        "active": true,
+        "name": "Datenschutz"
+    },
+    {
+        "id": "{ID:CATEGORY_LEGALS_TOS}",
+        "parentId": "{ID:CATEGORY_LEGALS}",
+        "cmsPageId": "{ID:CMS_PAGE_TOS}",
+        "active": true,
+        "name": "AGBs"
+    },
+    {
+        "id": "{ID:CATEGORY_LEGALS_IMPRINT}",
+        "parentId": "{ID:CATEGORY_LEGALS}",
+        "cmsPageId": "{ID:CMS_PAGE_IMPRINT}",
+        "active": true,
+        "name": "Impressum"
+    }
 ]

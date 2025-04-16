@@ -1,7 +1,7 @@
 $light: #f9f9f9 !default;
 $sw-border-color: #bcc1c7 !default;
 $border-radius: 10px;
-$sw-background-color: #FFFFFF;
+$sw-background-color: #ffffff;
 $sw-headline-color: #4a545b !default;
 
 .sw-cms-el-moorl-foundation-listing {
@@ -26,7 +26,7 @@ $sw-headline-color: #4a545b !default;
             display: none;
         }
 
-        li:not(.navigation):nth-child(-n+4) {
+        li:not(.navigation):nth-child(-n + 4) {
             display: list-item;
         }
     }
@@ -120,7 +120,7 @@ $sw-headline-color: #4a545b !default;
         .moorl-listing-item-content {
             position: absolute;
             bottom: 0;
-            background-color: rgba($sw-background-color, .7);
+            background-color: rgba($sw-background-color, 0.7);
         }
     }
 
@@ -170,7 +170,7 @@ $sw-headline-color: #4a545b !default;
 
     .moorl-listing-item-meta {
         height: 16px;
-        font-size: .8em;
+        font-size: 0.8em;
     }
 
     .moorl-listing-item-description {

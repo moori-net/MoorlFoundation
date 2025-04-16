@@ -8,23 +8,20 @@ Shopware.Component.register('moorl-properties-card', {
 
     compatConfig: Shopware.compatConfig,
 
-    inject: [
-        'repositoryFactory',
-        'acl',
-    ],
+    inject: ['repositoryFactory', 'acl'],
 
     emits: ['update:entityCollection'],
 
     props: {
         entityCollection: {
             type: Array,
-            required: true
+            required: true,
         },
         label: {
             type: String,
             required: false,
-            default: "",
-        }
+            default: '',
+        },
     },
 
     data() {
@@ -60,7 +57,9 @@ Shopware.Component.register('moorl-properties-card', {
 
             const optionIds = this.itemProperties.getIds();
 
-            criteria.getAssociation('options').addFilter(Criteria.equalsAny('id', optionIds));
+            criteria
+                .getAssociation('options')
+                .addFilter(Criteria.equalsAny('id', optionIds));
             criteria.addFilter(Criteria.equalsAny('options.id', optionIds));
 
             return criteria;
@@ -118,13 +117,16 @@ Shopware.Component.register('moorl-properties-card', {
         },
 
         getGroupIds() {
-            this.groupIds = this.itemProperties.reduce((accumulator, { groupId }) => {
-                if (accumulator.indexOf(groupId) < 0) {
-                    accumulator.push(groupId);
-                }
+            this.groupIds = this.itemProperties.reduce(
+                (accumulator, { groupId }) => {
+                    if (accumulator.indexOf(groupId) < 0) {
+                        accumulator.push(groupId);
+                    }
 
-                return accumulator;
-            }, []);
+                    return accumulator;
+                },
+                []
+            );
         },
 
         getProperties() {
@@ -210,7 +212,7 @@ Shopware.Component.register('moorl-properties-card', {
                 Criteria.fromCriteria(this.itemProperties.criteria),
                 this.itemProperties,
                 this.itemProperties.total,
-                this.itemProperties.aggregations,
+                this.itemProperties.aggregations
             );
 
             this.$emit('update:entityCollection', this.newProperties);
@@ -233,9 +235,11 @@ Shopware.Component.register('moorl-properties-card', {
         },
 
         checkIfPropertiesExists() {
-            this.propertyOptionRepository.search(new Criteria(1, 1)).then((res) => {
-                this.propertiesAvailable = res.total > 0;
-            });
+            this.propertyOptionRepository
+                .search(new Criteria(1, 1))
+                .then((res) => {
+                    this.propertiesAvailable = res.total > 0;
+                });
         },
     },
 });

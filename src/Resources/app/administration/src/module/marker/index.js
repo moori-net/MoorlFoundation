@@ -13,23 +13,23 @@ Shopware.Module.register('moorl-marker', {
             component: 'moorl-marker-list',
             path: 'list',
             meta: {
-                parentPath: 'sw.settings.index.plugins'
-            }
+                parentPath: 'sw.settings.index.plugins',
+            },
         },
         detail: {
             component: 'moorl-marker-detail',
             path: 'detail/:id',
             meta: {
                 parentPath: 'moorl.marker.list',
-            }
+            },
         },
         create: {
             component: 'moorl-marker-create',
             path: 'create',
             meta: {
-                parentPath: 'moorl.marker.list'
-            }
-        }
+                parentPath: 'moorl.marker.list',
+            },
+        },
     },
     settingsItem: [
         {
@@ -37,7 +37,7 @@ Shopware.Module.register('moorl-marker', {
             to: 'moorl.marker.list',
             group: 'plugins',
             icon: 'regular-map-marker',
-            label: 'moorl-marker.title'
-        }
-    ]
+            label: 'moorl-marker.title',
+        },
+    ],
 });

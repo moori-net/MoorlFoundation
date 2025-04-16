@@ -1,9 +1,9 @@
 [
-  {
-    "id": "{ID:CATEGORY_CMS_TOOLS}",
-    "parentId": "{NAVIGATION_CATEGORY_ID}",
-    "cmsPageId": "{ID:CMS_PAGE_CMS_TOOLS}",
-    "active": true,
-    "name": "Foundation CMS Tools"
-  }
+    {
+        "id": "{ID:CATEGORY_CMS_TOOLS}",
+        "parentId": "{NAVIGATION_CATEGORY_ID}",
+        "cmsPageId": "{ID:CMS_PAGE_CMS_TOOLS}",
+        "active": true,
+        "name": "Foundation CMS Tools"
+    }
 ]

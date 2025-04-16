@@ -4,17 +4,17 @@
     padding: 15px;
     width: 100%;
 
-    .moorl-newsletter-input-button-container{
+    .moorl-newsletter-input-button-container {
         display: grid;
         width: 100%;
-        grid-template-columns:2fr 1fr;
+        grid-template-columns: 2fr 1fr;
 
-        .moorl-newsletter-input{
+        .moorl-newsletter-input {
             background-color: #fff;
             padding: 10px 15px;
         }
 
-        .moorl-newsletter-button{
+        .moorl-newsletter-button {
             display: flex;
             align-items: center;
             padding: 10px 15px;
@@ -22,12 +22,12 @@
         }
     }
 
-    .moorl-newsletter-optin-container{
+    .moorl-newsletter-optin-container {
         display: flex;
         align-items: center;
         margin-top: 10px;
 
-        span.checkbox{
+        span.checkbox {
             width: 15px;
             height: 15px;
             margin-right: 10px;

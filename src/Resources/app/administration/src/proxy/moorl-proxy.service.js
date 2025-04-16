@@ -1,11 +1,13 @@
-const CustomFieldDataProviderService = Shopware.Service('customFieldDataProviderService');
+const CustomFieldDataProviderService = Shopware.Service(
+    'customFieldDataProviderService'
+);
 const CmsPageTypeService = Shopware.Service('cmsPageTypeService');
 const SearchTypeService = Shopware.Service('searchTypeService');
 
 class MoorlProxyService {
     registerPlugin(pluginConfig) {
         if (pluginConfig.entity === undefined) {
-            console.log("You need at least an entity name");
+            console.log('You need at least an entity name');
         }
 
         CustomFieldDataProviderService.addEntityName(pluginConfig.entity);
@@ -18,7 +20,7 @@ class MoorlProxyService {
             CmsPageTypeService.register({
                 name: pluginConfig.name,
                 icon: pluginConfig.icon,
-                title: pluginConfig.title
+                title: pluginConfig.title,
             });
         }
 
@@ -29,7 +31,7 @@ class MoorlProxyService {
             SearchTypeService.upsertType(pluginConfig.entity, {
                 entityName: pluginConfig.entity,
                 placeholderSnippet: pluginConfig.placeholderSnippet,
-                listingRoute: pluginConfig.listingRoute
+                listingRoute: pluginConfig.listingRoute,
             });
         }
 
@@ -37,6 +39,9 @@ class MoorlProxyService {
     }
 }
 
-Shopware.Application.addServiceProvider('moorlProxyService', () => new MoorlProxyService());
+Shopware.Application.addServiceProvider(
+    'moorlProxyService',
+    () => new MoorlProxyService()
+);
 
-export {MoorlProxyService};
+export { MoorlProxyService };

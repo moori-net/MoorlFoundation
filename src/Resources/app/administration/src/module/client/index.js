@@ -13,23 +13,23 @@ Shopware.Module.register('moorl-client', {
             component: 'moorl-client-list',
             path: 'list',
             meta: {
-                parentPath: 'sw.settings.index.plugins'
-            }
+                parentPath: 'sw.settings.index.plugins',
+            },
         },
         detail: {
             component: 'moorl-client-detail',
             path: 'detail/:id',
             meta: {
-                parentPath: 'moorl.client.list'
-            }
+                parentPath: 'moorl.client.list',
+            },
         },
         create: {
             component: 'moorl-client-create',
             path: 'create',
             meta: {
-                parentPath: 'moorl.client.list'
-            }
-        }
+                parentPath: 'moorl.client.list',
+            },
+        },
     },
     settingsItem: [
         {
@@ -37,7 +37,7 @@ Shopware.Module.register('moorl-client', {
             to: 'moorl.client.list',
             group: 'plugins',
             icon: 'regular-sign-in',
-            label: 'moorl-client.title'
-        }
-    ]
+            label: 'moorl-client.title',
+        },
+    ],
 });

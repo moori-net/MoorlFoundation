@@ -10,7 +10,7 @@ Shopware.Module.register('moorl-demo-data', {
             component: 'moorl-demo-data-index',
             path: 'index',
             meta: {
-                parentPath: 'sw.settings.index.plugins'
+                parentPath: 'sw.settings.index.plugins',
             },
         },
     },
@@ -21,7 +21,7 @@ Shopware.Module.register('moorl-demo-data', {
             to: 'moorl.demo.data.index',
             group: 'plugins',
             icon: 'regular-database',
-            label: 'moorl-foundation.label.settingsDemoData'
-        }
-    ]
+            label: 'moorl-foundation.label.settingsDemoData',
+        },
+    ],
 });

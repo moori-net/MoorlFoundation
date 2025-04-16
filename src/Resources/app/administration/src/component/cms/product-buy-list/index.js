@@ -2,7 +2,7 @@ import './component';
 import './config';
 import './preview';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 const criteria = new Criteria();
 criteria.addAssociation('options.group');
 criteria.addAssociation('cover');
@@ -18,7 +18,7 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         layout: {
             source: 'static',
-            value: 'default'
+            value: 'default',
         },
         products: {
             source: 'static',
@@ -26,44 +26,42 @@ Shopware.Service('cmsService').registerCmsElement({
             required: true,
             entity: {
                 name: 'product',
-                criteria: criteria
-            }
+                criteria: criteria,
+            },
         },
         productQuantities: {
             source: 'static',
-            value: {}
+            value: {},
         },
         enablePrices: {
             source: 'static',
-            value: true
+            value: true,
         },
         enableVariantSwitch: {
             source: 'static',
-            value: true
+            value: true,
         },
         enableAddToCartAll: {
             source: 'static',
-            value: true
+            value: true,
         },
         enableAddToCartSingle: {
             source: 'static',
-            value: true
+            value: true,
         },
         enableDirectUrl: {
             source: 'static',
-            value: false
+            value: false,
         },
         emptyText: {
             source: 'static',
-            value: 'No products available'
+            value: 'No products available',
         },
     },
     collect: function collect(elem) {
-        const context = Object.assign(
-            {},
-            Shopware.Context.api,
-            { inheritance: true },
-        );
+        const context = Object.assign({}, Shopware.Context.api, {
+            inheritance: true,
+        });
 
         const criteriaList = {};
 
@@ -83,7 +81,9 @@ Shopware.Service('cmsService').registerCmsElement({
                 const entityData = {
                     value: [...elem.config[configKey].value],
                     key: configKey,
-                    searchCriteria: entity.criteria ? entity.criteria : new Criteria(),
+                    searchCriteria: entity.criteria
+                        ? entity.criteria
+                        : new Criteria(),
                     ...entity,
                 };
 

@@ -1,17 +1,17 @@
 {
-  "moorl-feature-unlocker": {
-    "notifications": {
-      "welcome": "Hit ALT+M (Win/Linux) or CONTROL+M (Mac) to unlock Premium features",
-      "unlocked": "Premium features has been unlocked",
-      "locked": "Premium features has been locked"
-    },
-    "modal": {
-      "title": "Foundation premium features",
-      "message1": "The premium features are now no longer available. Follow the link to get the add-on.",
-      "actions": {
-        "cancel": "Cancel",
-        "close": "Close"
-      }
+    "moorl-feature-unlocker": {
+        "notifications": {
+            "welcome": "Hit ALT+M (Win/Linux) or CONTROL+M (Mac) to unlock Premium features",
+            "unlocked": "Premium features has been unlocked",
+            "locked": "Premium features has been locked"
+        },
+        "modal": {
+            "title": "Foundation premium features",
+            "message1": "The premium features are now no longer available. Follow the link to get the add-on.",
+            "actions": {
+                "cancel": "Cancel",
+                "close": "Close"
+            }
+        }
     }
-  }
 }

@@ -1,5 +1,5 @@
 [
-  { "value": "fa", "label": "moorl-select.iconType.fa" },
-  { "value": "svg", "label": "moorl-select.iconType.svg" },
-  { "value": "media", "label": "moorl-select.iconType.media" }
+    { "value": "fa", "label": "moorl-select.iconType.fa" },
+    { "value": "svg", "label": "moorl-select.iconType.svg" },
+    { "value": "media", "label": "moorl-select.iconType.media" }
 ]

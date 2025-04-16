@@ -7,6 +7,6 @@ Shopware.Component.register('moorl-listing-slider-fieldset', {
         item: {
             type: Object,
             required: true,
-        }
-    }
+        },
+    },
 });

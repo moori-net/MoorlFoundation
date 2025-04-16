@@ -4,7 +4,7 @@ Shopware.Store.register({
     state: () => ({
         unlocked: false,
         unlockInfoSeen: false,
-        plugins: []
+        plugins: [],
     }),
 
     actions: {
@@ -20,6 +20,6 @@ Shopware.Store.register({
         setUnlockModalSeen() {
             this.unlockInfoSeen = true;
         },
-        reset() {}
+        reset() {},
     },
 });

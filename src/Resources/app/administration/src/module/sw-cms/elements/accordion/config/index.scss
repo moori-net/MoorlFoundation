@@ -1,55 +1,55 @@
 .sw-cms-el-config-moorl-accordion {
-  .sw-collapse {
-    .sw-collapse__header {
-      .collapse-header {
-        display: grid;
-        grid-template-columns: 24px minmax(0, 1fr) 24px;
-        grid-gap: 15px;
-        cursor: pointer;
-        padding: 15px;
-        color: #607182;
-        border-bottom: 1px solid #D1D9E0;
+    .sw-collapse {
+        .sw-collapse__header {
+            .collapse-header {
+                display: grid;
+                grid-template-columns: 24px minmax(0, 1fr) 24px;
+                grid-gap: 15px;
+                cursor: pointer;
+                padding: 15px;
+                color: #607182;
+                border-bottom: 1px solid #d1d9e0;
 
-        h4 {
-          margin: 0;
+                h4 {
+                    margin: 0;
+                }
+
+                &.expanded {
+                    background: #e3f3ff;
+                    border: 1px solid #189eff;
+                    border-bottom: none;
+                }
+
+                .drag-indicator,
+                .collapse-indicator {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .drag-indicator {
+                    cursor: grab;
+                }
+            }
         }
 
-        &.expanded {
-          background: #E3F3FF;
-          border: 1px solid #189eff;
-          border-bottom: none;
+        .sw-collapse__content {
+            .collapse-content {
+                padding: 15px 20px;
+                border: 1px solid #189eff;
+                border-top: none;
+            }
         }
 
-        .drag-indicator,
-        .collapse-indicator {
-          display: flex;
-          align-items: center;
+        &:last-child {
+            .sw-collapse__header {
+                .collapse-header {
+                    border-bottom: none;
+                }
+            }
         }
 
-        .drag-indicator {
-          cursor: grab;
+        &.sortable-chosen {
+            background: #e3f3ff;
         }
-      }
     }
-
-    .sw-collapse__content {
-      .collapse-content  {
-        padding: 15px 20px;
-        border: 1px solid #189eff;
-        border-top: none;
-      }
-    }
-
-    &:last-child {
-      .sw-collapse__header {
-        .collapse-header {
-          border-bottom: none;
-        }
-      }
-    }
-
-    &.sortable-chosen {
-      background: #E3F3FF;
-    }
-  }
 }

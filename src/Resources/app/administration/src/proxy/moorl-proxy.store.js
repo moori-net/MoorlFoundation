@@ -2,7 +2,7 @@ Shopware.Store.register({
     id: 'moorlProxy',
 
     state: () => ({
-        pluginConfigs: []
+        pluginConfigs: [],
     }),
 
     actions: {
@@ -18,6 +18,6 @@ Shopware.Store.register({
             return this.pluginConfigs.find(
                 (pluginConfig) => pluginConfig.entity === entity
             );
-        }
+        },
     },
 });

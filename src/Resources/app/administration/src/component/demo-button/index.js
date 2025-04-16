@@ -8,30 +8,25 @@ Shopware.Component.register('moorl-demo-button', {
         pluginName: {
             type: String,
             required: true,
-            default: "MoorlFoundation"
+            default: 'MoorlFoundation',
         },
         name: {
             type: String,
             required: true,
-            default: "standard"
-        }
+            default: 'standard',
+        },
     },
 
-    inject: [
-        'acl',
-        'foundationApiService'
-    ],
+    inject: ['acl', 'foundationApiService'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     data() {
         return {
             salesChannelId: null,
             open: false,
             isLoading: false,
-            processSuccess: false
+            processSuccess: false,
         };
     },
 
@@ -51,29 +46,34 @@ Shopware.Component.register('moorl-demo-button', {
         install() {
             this.isLoading = true;
 
-            this.foundationApiService.post(`/moorl-foundation/settings/demo-data/install`, {
-                salesChannelId: this.salesChannelId,
-                pluginName: this.pluginName,
-                name: this.name
-            }).then(response => {
-                this.createNotificationSuccess({
-                    message: this.$tc('moorl-foundation-settings-demo-data.installed')
+            this.foundationApiService
+                .post(`/moorl-foundation/settings/demo-data/install`, {
+                    salesChannelId: this.salesChannelId,
+                    pluginName: this.pluginName,
+                    name: this.name,
+                })
+                .then((response) => {
+                    this.createNotificationSuccess({
+                        message: this.$tc(
+                            'moorl-foundation-settings-demo-data.installed'
+                        ),
+                    });
+
+                    this.isLoading = false;
+
+                    this.open = false;
+
+                    this.$emit('on-finish');
+                })
+                .catch((exception) => {
+                    this.createNotificationError({
+                        title: this.$tc('global.default.error'),
+                        message: exception,
+                    });
+
+                    this.isLoading = false;
+                    this.$emit('on-error');
                 });
-
-                this.isLoading = false;
-
-                this.open = false;
-
-                this.$emit('on-finish');
-            }).catch((exception) => {
-                this.createNotificationError({
-                    title: this.$tc('global.default.error'),
-                    message: exception,
-                });
-
-                this.isLoading = false;
-                this.$emit('on-error');
-            });
         },
     },
 });

@@ -1,9 +1,11 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.override('sw-cms-detail', {
     computed: {
         cmsPageTypeSettings() {
-            const pluginConfig = Shopware.Store.get('moorlProxy').getByPageType(this.page.type);
+            const pluginConfig = Shopware.Store.get('moorlProxy').getByPageType(
+                this.page.type
+            );
 
             if (pluginConfig === undefined) {
                 return this.$super('cmsPageTypeSettings');
@@ -11,7 +13,7 @@ Shopware.Component.override('sw-cms-detail', {
 
             return {
                 entity: pluginConfig.entity,
-                mode: 'single'
+                mode: 'single',
             };
         },
     },
@@ -19,7 +21,8 @@ Shopware.Component.override('sw-cms-detail', {
     methods: {
         onDemoEntityChange(demoEntityId) {
             const demoMappingType = this.cmsPageTypeSettings?.entity;
-            const pluginConfig = Shopware.Store.get('moorlProxy').getByEntity(demoMappingType);
+            const pluginConfig =
+                Shopware.Store.get('moorlProxy').getByEntity(demoMappingType);
 
             if (pluginConfig === undefined) {
                 return this.$super('onDemoEntityChange');
@@ -40,11 +43,13 @@ Shopware.Component.override('sw-cms-detail', {
                 criteria.setIds([demoEntityId]);
             }
 
-            const response = await this.repositoryFactory.create(entity).search(criteria);
+            const response = await this.repositoryFactory
+                .create(entity)
+                .search(criteria);
             const demoEntity = response[0];
 
             this.demoEntityId = demoEntity.id;
             this.cmsPageState.setCurrentDemoEntity(demoEntity);
-        }
-    }
+        },
+    },
 });

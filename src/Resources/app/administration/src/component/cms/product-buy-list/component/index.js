@@ -1,4 +1,4 @@
-const {Criteria, EntityCollection} = Shopware.Data;
+const { Criteria, EntityCollection } = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
@@ -11,22 +11,18 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
             items: [],
             productCollection: null,
-            criteria: new Criteria(1, 12)
+            criteria: new Criteria(1, 12),
         };
     },
 
@@ -36,7 +32,11 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
         },
 
         products() {
-            if (this.element.data && this.element.data.products && this.element.data.products.length > 0) {
+            if (
+                this.element.data &&
+                this.element.data.products &&
+                this.element.data.products.length > 0
+            ) {
                 return this.element.data.products;
             }
 
@@ -59,13 +59,13 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
         },
 
         itemClass() {
-            let className = "enable-add-to-cart";
+            let className = 'enable-add-to-cart';
 
             if (this.element.config.enableAddToCartAll.value) {
-                className += "-all";
+                className += '-all';
             }
             if (this.element.config.enableAddToCartSingle.value) {
-                className += "-single";
+                className += '-single';
             }
 
             return className;
@@ -93,7 +93,7 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
             }
 
             return selectedItems;
-        }
+        },
     },
 
     watch: {
@@ -101,8 +101,8 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
-        }
+            },
+        },
     },
 
     created() {
@@ -116,7 +116,11 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
                 this.initElementData('moorl-product-buy-list');
             }
 
-            this.productCollection = new EntityCollection('/product', 'product', Shopware.Context.api);
+            this.productCollection = new EntityCollection(
+                '/product',
+                'product',
+                Shopware.Context.api
+            );
 
             if (!Array.isArray(this.element.config.products.value)) {
                 return;
@@ -127,8 +131,9 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
             criteria.addAssociation('cover');
             criteria.setIds(this.element.config.products.value);
 
-            this.productRepository.search(criteria, this.productSearchContext)
-                .then(result => {
+            this.productRepository
+                .search(criteria, this.productSearchContext)
+                .then((result) => {
                     this.productCollection = result;
                     this.onProductsChange();
                 });
@@ -142,14 +147,18 @@ Shopware.Component.register('sw-cms-el-moorl-product-buy-list', {
                 this.initElementData('moorl-product-buy-list');
             }
 
-            this.element.config.products.value = this.productCollection.getIds();
+            this.element.config.products.value =
+                this.productCollection.getIds();
             this.element.data.products = this.productCollection;
-        }
+        },
     },
 
     filters: {
         numberFormat: function (value) {
-            return new Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR'}).format(value)
-        }
-    }
+            return new Intl.NumberFormat('de-DE', {
+                style: 'currency',
+                currency: 'EUR',
+            }).format(value);
+        },
+    },
 });

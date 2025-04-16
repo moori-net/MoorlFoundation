@@ -6,18 +6,18 @@ Shopware.Component.register('moorl-router-link', {
     props: {
         path: {
             type: String,
-            required: true
+            required: true,
         },
         snippet: {
             type: String,
             required: false,
-            default: "moorl-router-link.label"
-        }
+            default: 'moorl-router-link.label',
+        },
     },
 
     computed: {
         routerLink() {
             return this.$tc('moorl-router-link.routerLink') + this.path;
-        }
-    }
+        },
+    },
 });

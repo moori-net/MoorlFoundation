@@ -1,32 +1,36 @@
-.moorl-separator-toothed-both, .moorl-separator-toothed-top, .moorl-separator-toothed-bottom{
+.moorl-separator-toothed-both,
+.moorl-separator-toothed-top,
+.moorl-separator-toothed-bottom {
     position: relative;
 }
 
-.moorl-separator-toothed-both, .moorl-separator-toothed-top{
+.moorl-separator-toothed-both,
+.moorl-separator-toothed-top {
     padding-top: 60px;
 
-    &:before{
-        top:0;
+    &:before {
+        top: 0;
         position: absolute;
-        content: "";
+        content: '';
         height: 7px;
         width: 100%;
         z-index: 10;
-        background-image: url("/bundles/moorlfoundation/assets/feature/toothed.png");
+        background-image: url('/bundles/moorlfoundation/assets/feature/toothed.png');
     }
 }
 
-.moorl-separator-toothed-both, .moorl-separator-toothed-bottom{
+.moorl-separator-toothed-both,
+.moorl-separator-toothed-bottom {
     padding-bottom: 60px;
 
-    &:after{
+    &:after {
         bottom: 0;
         transform: rotate(180deg);
         position: absolute;
-        content: "";
+        content: '';
         height: 7px;
         width: 100%;
         z-index: 10;
-        background-image: url("/bundles/moorlfoundation/assets/feature/toothed.png");
+        background-image: url('/bundles/moorlfoundation/assets/feature/toothed.png');
     }
 }

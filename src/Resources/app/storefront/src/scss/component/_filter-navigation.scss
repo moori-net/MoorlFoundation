@@ -1,13 +1,13 @@
 .filter-navigation-container {
-  .category-navigation {
-    padding-left: 12px;
+    .category-navigation {
+        padding-left: 12px;
 
-    &.level-0 {
-      padding-left: 0;
+        &.level-0 {
+            padding-left: 0;
+        }
     }
-  }
 
-  .category-navigation-link {
-    padding: 4px 12px;
-  }
+    .category-navigation-link {
+        padding: 4px 12px;
+    }
 }

@@ -1,65 +1,61 @@
-.cms-element-moorl-newsletter{
-
-    form{
-        .form-group{
-            .form-label{
+.cms-element-moorl-newsletter {
+    form {
+        .form-group {
+            .form-label {
                 display: none;
             }
         }
 
-        .moorl-newsletter-privacy{
+        .moorl-newsletter-privacy {
             margin-top: 15px;
 
-            div{
-                &:first-child{
-                    display:none;
+            div {
+                &:first-child {
+                    display: none;
                 }
             }
 
-            .custom-control-label{
-
-                &:before{
+            .custom-control-label {
+                &:before {
                     top: 4px;
                 }
             }
         }
 
-        .moorl-input-container{
+        .moorl-input-container {
             display: grid;
             grid-template-columns: 2fr 1fr;
             height: 50px;
 
-            .form-group{
+            .form-group {
                 margin-bottom: 0;
             }
 
-            input{
+            input {
                 height: 50px;
                 font-size: 1em;
             }
 
-            button{
+            button {
                 font-size: 1em;
-                transition: ease all .2s;
+                transition: ease all 0.2s;
 
-                &:hover{
-                    opacity: .9;
+                &:hover {
+                    opacity: 0.9;
                 }
             }
         }
     }
 }
 
-.cms-block-studygood-newsletter{
-
-    .cms-block-container-row{
+.cms-block-studygood-newsletter {
+    .cms-block-container-row {
         align-items: center;
 
-        .cms-element-text{
-
-            p{
-                &:last-child{
-                    margin-bottom:0;
+        .cms-element-text {
+            p {
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
         }

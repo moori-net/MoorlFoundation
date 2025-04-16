@@ -1,7 +1,7 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
-
-.mt-field__hint, .sw-field__hint {
+.mt-field__hint,
+.sw-field__hint {
     a {
         font-size: inherit !important;
     }
@@ -17,13 +17,15 @@
         border-collapse: collapse;
         background-color: #fff;
 
-        td, th {
+        td,
+        th {
             padding: 10px;
             border: 3px solid #d1d9e0;
         }
     }
 
-    .sw-field, .mt-field {
+    .sw-field,
+    .mt-field {
         margin-bottom: 0;
     }
 
@@ -35,7 +37,8 @@
 .moorl-link-field {
     margin-bottom: 20px;
 
-    > .sw-field, .mt-field {
+    > .sw-field,
+    .mt-field {
         margin-bottom: 0;
     }
 
@@ -45,14 +48,17 @@
 }
 
 .moorl-collapse {
-    .sw-field, .mt-field {
+    .sw-field,
+    .mt-field {
         margin-bottom: 0;
     }
 
-    .mt-field--switch, .sw-field--switch {
+    .mt-field--switch,
+    .sw-field--switch {
         margin-bottom: 0;
 
-        .mt-field__label, .sw-field__label label {
+        .mt-field__label,
+        .sw-field__label label {
             padding-right: 0;
         }
     }

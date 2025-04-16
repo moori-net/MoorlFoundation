@@ -1,37 +1,37 @@
 .moorl-opening-hours {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(7, minmax(320px, 1fr));
-  overflow-x: scroll;
-
-  > li {
-    list-style: none;
-  }
-
-  .moorl-opening-hours-title {
-    margin-bottom: 20px;
-  }
-
-  .moorl-opening-hours-actions {
-    margin-bottom: 20px;
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .moorl-opening-hours-times {
     list-style: none;
     margin: 0;
     padding: 0;
-    margin-bottom: 20px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(7, minmax(320px, 1fr));
+    overflow-x: scroll;
 
     > li {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-gap: 5px;
+        list-style: none;
     }
-  }
+
+    .moorl-opening-hours-title {
+        margin-bottom: 20px;
+    }
+
+    .moorl-opening-hours-actions {
+        margin-bottom: 20px;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .moorl-opening-hours-times {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 20px;
+
+        > li {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 5px;
+        }
+    }
 }

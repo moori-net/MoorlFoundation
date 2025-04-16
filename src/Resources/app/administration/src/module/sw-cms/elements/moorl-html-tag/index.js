@@ -24,7 +24,7 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         style: {
             source: 'static',
-            value: 'color:#333;'
+            value: 'color:#333;',
         },
-    }
+    },
 });

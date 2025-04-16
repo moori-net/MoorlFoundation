@@ -3,16 +3,14 @@ import template from './index.html.twig';
 Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     inject: ['repositoryFactory'],
 
     data() {
         return {
             mediaModalIsOpen: false,
-            initialFolderId: null
+            initialFolderId: null,
         };
     },
 
@@ -26,11 +24,15 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
         },
 
         uploadTag() {
-            return this.element.id
+            return this.element.id;
         },
 
         previewSource() {
-            if (this.element.data && this.element.data.media && this.element.data.media.id) {
+            if (
+                this.element.data &&
+                this.element.data.media &&
+                this.element.data.media.id
+            ) {
                 return this.element.data.media;
             }
 
@@ -41,16 +43,16 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
             return [
                 {
                     value: 'flex-start',
-                    label: `sw-cms.elements.moorl-cta-banner.label.start`
+                    label: `sw-cms.elements.moorl-cta-banner.label.start`,
                 },
                 {
                     value: 'center',
-                    label: `sw-cms.elements.moorl-cta-banner.label.center`
+                    label: `sw-cms.elements.moorl-cta-banner.label.center`,
                 },
                 {
                     value: 'flex-end',
-                    label: `sw-cms.elements.moorl-cta-banner.label.end`
-                }
+                    label: `sw-cms.elements.moorl-cta-banner.label.end`,
+                },
             ];
         },
 
@@ -58,16 +60,16 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
             return [
                 {
                     value: 'left',
-                    label: `sw-cms.elements.moorl-cta-banner.label.left`
+                    label: `sw-cms.elements.moorl-cta-banner.label.left`,
                 },
                 {
                     value: 'center',
-                    label: `sw-cms.elements.moorl-cta-banner.label.center`
+                    label: `sw-cms.elements.moorl-cta-banner.label.center`,
                 },
                 {
                     value: 'right',
-                    label: `sw-cms.elements.moorl-cta-banner.label.right`
-                }
+                    label: `sw-cms.elements.moorl-cta-banner.label.right`,
+                },
             ];
         },
 
@@ -75,16 +77,16 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
             return [
                 {
                     value: 'top',
-                    label: `sw-cms.elements.moorl-cta-banner.label.top`
+                    label: `sw-cms.elements.moorl-cta-banner.label.top`,
                 },
                 {
                     value: 'center',
-                    label: `sw-cms.elements.moorl-cta-banner.label.center`
+                    label: `sw-cms.elements.moorl-cta-banner.label.center`,
                 },
                 {
                     value: 'bottom',
-                    label: `sw-cms.elements.moorl-cta-banner.label.bottom`
-                }
+                    label: `sw-cms.elements.moorl-cta-banner.label.bottom`,
+                },
             ];
         },
 
@@ -92,16 +94,16 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
             return [
                 {
                     value: 'cover',
-                    label: `sw-cms.elements.moorl-cta-banner.label.cover`
+                    label: `sw-cms.elements.moorl-cta-banner.label.cover`,
                 },
                 {
                     value: 'contain',
-                    label: `sw-cms.elements.moorl-cta-banner.label.contain`
+                    label: `sw-cms.elements.moorl-cta-banner.label.contain`,
                 },
                 {
                     value: 'custom',
-                    label: `sw-cms.elements.moorl-cta-banner.label.custom`
-                }
+                    label: `sw-cms.elements.moorl-cta-banner.label.custom`,
+                },
             ];
         },
     },
@@ -120,7 +122,10 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
         },
 
         async onImageUpload({ targetId }) {
-            const mediaEntity = await this.mediaRepository.get(targetId, Shopware.Context.api);
+            const mediaEntity = await this.mediaRepository.get(
+                targetId,
+                Shopware.Context.api
+            );
 
             this.element.config.media.value = mediaEntity.id;
 
@@ -157,6 +162,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
 
         onOpenMediaModal() {
             this.mediaModalIsOpen = true;
-        }
-    }
+        },
+    },
 });

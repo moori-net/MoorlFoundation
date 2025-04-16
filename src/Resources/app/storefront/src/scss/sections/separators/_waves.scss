@@ -1,38 +1,40 @@
 .moorl-separator-waves-both,
 .moorl-separator-waves-top,
 .moorl-separator-waves-bottom {
-  position: relative;
+    position: relative;
 }
 
-.moorl-separator-waves-both, .moorl-separator-waves-top {
-  &:before {
-    top: -1px;
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    bottom: -1px;
-    -webkit-mask-image: url("/bundles/moorlfoundation/assets/feature/waves.svg");
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: 100%;
-    -webkit-mask-position: bottom;
+.moorl-separator-waves-both,
+.moorl-separator-waves-top {
+    &:before {
+        top: -1px;
+        position: absolute;
+        content: '';
+        height: 100%;
+        width: 100%;
+        z-index: 10;
+        bottom: -1px;
+        -webkit-mask-image: url('/bundles/moorlfoundation/assets/feature/waves.svg');
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100%;
+        -webkit-mask-position: bottom;
 
-    transform: rotate(180deg);
-  }
+        transform: rotate(180deg);
+    }
 }
 
-.moorl-separator-waves-both, .moorl-separator-waves-bottom {
-  &:after {
-    bottom: -1px;
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    z-index: 10;
-    -webkit-mask-image: url("/bundles/moorlfoundation/assets/feature/waves.svg");
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: 100%;
-    -webkit-mask-position: bottom;
-  }
+.moorl-separator-waves-both,
+.moorl-separator-waves-bottom {
+    &:after {
+        bottom: -1px;
+        position: absolute;
+        content: '';
+        height: 100%;
+        width: 100%;
+        z-index: 10;
+        -webkit-mask-image: url('/bundles/moorlfoundation/assets/feature/waves.svg');
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100%;
+        -webkit-mask-position: bottom;
+    }
 }

@@ -17,18 +17,27 @@ Shopware.Component.extend('moorl-sorting-create', 'moorl-sorting-detail', {
                 .save(this.item, Shopware.Context.api)
                 .then(() => {
                     this.isLoading = false;
-                    this.$router.push({name: 'moorl.sorting.detail', params: {id: this.item.id}});
-                }).catch((exception) => {
-                this.isLoading = false;
-                if (exception.response.data && exception.response.data.errors) {
-                    exception.response.data.errors.forEach((error) => {
-                        this.createNotificationWarning({
-                            title: this.$tc('moorl-foundation.notification.errorTitle'),
-                            message: error.detail
-                        });
+                    this.$router.push({
+                        name: 'moorl.sorting.detail',
+                        params: { id: this.item.id },
                     });
-                }
-            });
-        }
-    }
+                })
+                .catch((exception) => {
+                    this.isLoading = false;
+                    if (
+                        exception.response.data &&
+                        exception.response.data.errors
+                    ) {
+                        exception.response.data.errors.forEach((error) => {
+                            this.createNotificationWarning({
+                                title: this.$tc(
+                                    'moorl-foundation.notification.errorTitle'
+                                ),
+                                message: error.detail,
+                            });
+                        });
+                    }
+                });
+        },
+    },
 });

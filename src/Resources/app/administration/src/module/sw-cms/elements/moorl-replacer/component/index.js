@@ -1,4 +1,4 @@
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
@@ -6,15 +6,13 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-moorl-replacer', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     inject: ['repositoryFactory'],
 
     data() {
         return {
-            cmsElementConfigId: null
+            cmsElementConfigId: null,
         };
     },
 
@@ -31,9 +29,9 @@ Shopware.Component.register('sw-cms-el-moorl-replacer', {
         },
         elementCss() {
             return {
-                'background-image': 'url("' + this.mediaUrl + '")'
-            }
-        }
+                'background-image': 'url("' + this.mediaUrl + '")',
+            };
+        },
     },
 
     watch: {
@@ -41,8 +39,8 @@ Shopware.Component.register('sw-cms-el-moorl-replacer', {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
-        }
+            },
+        },
     },
 
     created() {
@@ -56,13 +54,17 @@ Shopware.Component.register('sw-cms-el-moorl-replacer', {
 
         onLoadCmsElementConfig() {
             this.cmsElementConfigRepository
-                .get(this.cmsElementConfigId, Shopware.Context.api, this.cmsElementConfigCriteria)
+                .get(
+                    this.cmsElementConfigId,
+                    Shopware.Context.api,
+                    this.cmsElementConfigCriteria
+                )
                 .then((entity) => {
                     this.element.config = entity.config;
                     this.element.data = entity.data;
                     this.element.type = entity.type;
                     this.$emit('element-update', this.element);
                 });
-        }
-    }
+        },
+    },
 });

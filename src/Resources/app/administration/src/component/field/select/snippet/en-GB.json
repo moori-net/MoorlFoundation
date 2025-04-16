@@ -1,122 +1,122 @@
 {
-  "moorl-select": {
-    "label": {
-      "none": "None",
-      "horizontalAlign": "Horizontal alignment",
-      "textHorizontalAlign": "Horizontal alignment",
-      "flexHorizontalAlign": "Horizontal alignment",
-      "verticalAlign": "Vertical alignment",
-      "textVerticalAlign": "Vertical alignment",
-      "flexVerticalAlign": "Vertical alignment",
-      "sliderMode": "Slider mode",
-      "navigationArrows": "Navigation arrows",
-      "navigationDots": "Navigation dots",
-      "listingSorting": "Sorting",
-      "listingItemIds": "Select items",
-      "listingSource": "Listing Source",
-      "listingLayout": "Listing layout",
-      "itemLayout": "Item layout",
-      "displayMode": "Display mode",
-      "cssJustifyContent": "Justify content",
-      "animateIn": "Animate in",
-      "animateOut": "Animate out",
-      "animateHover": "Animate hover",
-      "animateCss": "Animate",
-      "bsButton": "Button type",
-      "bsColorScheme": "Color scheme",
-      "bsGridWidth": "Grid width",
-      "bsGridOrder": "Grid order",
-      "cssDisplay": "Display",
-      "cssFlexDirection": "Flex direction",
-      "cssFlexWrap": "Flex wrap",
-      "operator": "Operator"
-    },
-    "cssFlexWrap": {
-      "wrap": "Wrap",
-      "nowrap": "No wrap"
-    },
-    "cssDisplay": {
-      "block": "Block",
-      "flex": "Flex",
-      "inline": "Inline",
-      "none": "None",
-      "inline-block": "Inline-block",
-      "inline-flex": "Inline-flex"
-    },
-    "cssFlexDirection": {
-      "row": "Row",
-      "column": "Column"
-    },
-    "customSet": {
-      "top": "Top",
-      "left": "Left"
-    },
-    "bsColor": {},
-    "domElementState": {
-      "isLoaded": "Load",
-      "isOverBottom": "Over bottom",
-      "isInViewport": "In viewport"
-    },
-    "displayMode": {
-      "cover": "Cover",
-      "contain": "Contain",
-      "standard": "Standard",
-      "custom": "Custom"
-    },
-    "listingSource": {
-      "static": "Static items",
-      "select": "Select items",
-      "auto": "Automatic items (with pagination)"
-    },
-    "listingLayout": {
-      "standard": "Shopware standard",
-      "grid": "Responsive Grid",
-      "list": "List",
-      "slider": "Slider",
-      "search-suggest": "Suggest search list (minimal)"
-    },
-    "cssJustifyContent": {
-      "normal": "Normal",
-      "flex-start": "Start",
-      "flex-end": "End",
-      "center": "Center",
-      "space-between": "Space between",
-      "space-around": "Space around",
-      "stretch": "Stretch"
-    },
-    "itemLayout": {
-      "avatar": "Avatar (Round image)",
-      "custom": "Custom template",
-      "standard": "Standard",
-      "overlay": "Overlay",
-      "image-or-title": "Image (if not set use title)",
-      "image-content": "1st Image - 2nd Content",
-      "content-image": "1st Content - 2nd Image"
-    },
-    "horizontalAlign": {
-      "left": "Left",
-      "center": "Center",
-      "right": "Right",
-      "stretch": "Stretch"
-    },
-    "verticalAlign": {
-      "top": "Top",
-      "center": "Center",
-      "bottom": "Bottom",
-      "stretch": "Stretch"
-    },
-    "sliderMode": {
-      "carousel": "Carousel",
-      "gallery": "Gallery"
-    },
-    "navigationArrows": {
-      "inside": "Inside",
-      "outside": "Outside"
-    },
-    "navigationDots": {
-      "inside": "Inside",
-      "outside": "Outside",
-      "thumbnails": "Thumbnails"
+    "moorl-select": {
+        "label": {
+            "none": "None",
+            "horizontalAlign": "Horizontal alignment",
+            "textHorizontalAlign": "Horizontal alignment",
+            "flexHorizontalAlign": "Horizontal alignment",
+            "verticalAlign": "Vertical alignment",
+            "textVerticalAlign": "Vertical alignment",
+            "flexVerticalAlign": "Vertical alignment",
+            "sliderMode": "Slider mode",
+            "navigationArrows": "Navigation arrows",
+            "navigationDots": "Navigation dots",
+            "listingSorting": "Sorting",
+            "listingItemIds": "Select items",
+            "listingSource": "Listing Source",
+            "listingLayout": "Listing layout",
+            "itemLayout": "Item layout",
+            "displayMode": "Display mode",
+            "cssJustifyContent": "Justify content",
+            "animateIn": "Animate in",
+            "animateOut": "Animate out",
+            "animateHover": "Animate hover",
+            "animateCss": "Animate",
+            "bsButton": "Button type",
+            "bsColorScheme": "Color scheme",
+            "bsGridWidth": "Grid width",
+            "bsGridOrder": "Grid order",
+            "cssDisplay": "Display",
+            "cssFlexDirection": "Flex direction",
+            "cssFlexWrap": "Flex wrap",
+            "operator": "Operator"
+        },
+        "cssFlexWrap": {
+            "wrap": "Wrap",
+            "nowrap": "No wrap"
+        },
+        "cssDisplay": {
+            "block": "Block",
+            "flex": "Flex",
+            "inline": "Inline",
+            "none": "None",
+            "inline-block": "Inline-block",
+            "inline-flex": "Inline-flex"
+        },
+        "cssFlexDirection": {
+            "row": "Row",
+            "column": "Column"
+        },
+        "customSet": {
+            "top": "Top",
+            "left": "Left"
+        },
+        "bsColor": {},
+        "domElementState": {
+            "isLoaded": "Load",
+            "isOverBottom": "Over bottom",
+            "isInViewport": "In viewport"
+        },
+        "displayMode": {
+            "cover": "Cover",
+            "contain": "Contain",
+            "standard": "Standard",
+            "custom": "Custom"
+        },
+        "listingSource": {
+            "static": "Static items",
+            "select": "Select items",
+            "auto": "Automatic items (with pagination)"
+        },
+        "listingLayout": {
+            "standard": "Shopware standard",
+            "grid": "Responsive Grid",
+            "list": "List",
+            "slider": "Slider",
+            "search-suggest": "Suggest search list (minimal)"
+        },
+        "cssJustifyContent": {
+            "normal": "Normal",
+            "flex-start": "Start",
+            "flex-end": "End",
+            "center": "Center",
+            "space-between": "Space between",
+            "space-around": "Space around",
+            "stretch": "Stretch"
+        },
+        "itemLayout": {
+            "avatar": "Avatar (Round image)",
+            "custom": "Custom template",
+            "standard": "Standard",
+            "overlay": "Overlay",
+            "image-or-title": "Image (if not set use title)",
+            "image-content": "1st Image - 2nd Content",
+            "content-image": "1st Content - 2nd Image"
+        },
+        "horizontalAlign": {
+            "left": "Left",
+            "center": "Center",
+            "right": "Right",
+            "stretch": "Stretch"
+        },
+        "verticalAlign": {
+            "top": "Top",
+            "center": "Center",
+            "bottom": "Bottom",
+            "stretch": "Stretch"
+        },
+        "sliderMode": {
+            "carousel": "Carousel",
+            "gallery": "Gallery"
+        },
+        "navigationArrows": {
+            "inside": "Inside",
+            "outside": "Outside"
+        },
+        "navigationDots": {
+            "inside": "Inside",
+            "outside": "Outside",
+            "thumbnails": "Thumbnails"
+        }
     }
-  }
 }

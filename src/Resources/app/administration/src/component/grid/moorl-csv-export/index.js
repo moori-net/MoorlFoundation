@@ -2,59 +2,53 @@ import template from './index.html.twig';
 import './index.scss';
 import Papa from 'papaparse';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-csv-export', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'context',
-        'mediaService'
-    ],
+    inject: ['repositoryFactory', 'context', 'mediaService'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     props: {
         entity: {
             type: String,
-            required: true
+            required: true,
         },
         onCloseModal: {
             type: Function,
             required: true,
-            default: null
+            default: null,
         },
         criteria: {
             type: Object,
             required: false,
             default() {
                 return new Criteria();
-            }
+            },
         },
         selectedItems: {
             type: Object,
             required: false,
             default() {
                 return {};
-            }
+            },
         },
         defaultItem: {
             type: Object,
             required: false,
             default() {
                 return {};
-            }
-        }
+            },
+        },
     },
 
     data() {
         return {
             step: 1,
             options: {
-                localTable: true
+                localTable: true,
             },
             items: [],
             exportItems: [],
@@ -72,7 +66,7 @@ Shopware.Component.register('moorl-csv-export', {
             statusMessage: null,
             total: 0,
             page: 1,
-            limit: 50
+            limit: 50,
         };
     },
 
@@ -107,19 +101,22 @@ Shopware.Component.register('moorl-csv-export', {
             criteria.setLimit(this.limit);
             criteria.setPage(this.page);
 
-            await this.repository.search(criteria, Shopware.Context.api).then(async (items) => {
-                //
+            await this.repository
+                .search(criteria, Shopware.Context.api)
+                .then(async (items) => {
+                    //
 
-                this.items = [...this.items, ...items];
-                this.total = items.total;
-                if (this.total > this.items.length) {
-                    this.page++;
+                    this.items = [...this.items, ...items];
+                    this.total = items.total;
+                    if (this.total > this.items.length) {
+                        this.page++;
 
-                    await this.getItems();
-                }
-            }).catch(() => {
-                this.isLoading = false;
-            });
+                        await this.getItems();
+                    }
+                })
+                .catch(() => {
+                    this.isLoading = false;
+                });
         },
 
         sanitizeItems() {
@@ -138,34 +135,53 @@ Shopware.Component.register('moorl-csv-export', {
             const exportItem = {};
 
             for (let column of this.columns) {
-                if (column.relation === 'many_to_many' || column.relation === 'one_to_many') {
-                    if (item[column.property] && item[column.property].length > 0) {
+                if (
+                    column.relation === 'many_to_many' ||
+                    column.relation === 'one_to_many'
+                ) {
+                    if (
+                        item[column.property] &&
+                        item[column.property].length > 0
+                    ) {
                         /*
 
                         */
 
                         if (column.entity === 'tag') {
-                            exportItem[column.property] = item[column.property].map((item) => {
-                                return item.name
-                            }).join("|");
+                            exportItem[column.property] = item[column.property]
+                                .map((item) => {
+                                    return item.name;
+                                })
+                                .join('|');
                         } else {
-                            exportItem[column.property] = item[column.property].map((item) => {
-                                return item.id
-                            }).join("|");
+                            exportItem[column.property] = item[column.property]
+                                .map((item) => {
+                                    return item.id;
+                                })
+                                .join('|');
                         }
                     } else {
                         exportItem[column.property] = null;
                     }
-                } else if (column.relation === 'one_to_one' || column.relation === 'many_to_one') {
+                } else if (
+                    column.relation === 'one_to_one' ||
+                    column.relation === 'many_to_one'
+                ) {
                     exportItem[column.localField] = item[column.localField];
 
                     if (item[column.property]) {
-                        if (column.entity === 'media' && item[column.property].url) {
-                            exportItem[column.property] = item[column.property].url;
+                        if (
+                            column.entity === 'media' &&
+                            item[column.property].url
+                        ) {
+                            exportItem[column.property] =
+                                item[column.property].url;
                         }
                     }
                 } else if (column.type === 'json_object') {
-                    exportItem[column.property] = JSON.stringify(item[column.property]);
+                    exportItem[column.property] = JSON.stringify(
+                        item[column.property]
+                    );
                 } else {
                     exportItem[column.property] = item[column.property];
                 }
@@ -206,10 +222,15 @@ Shopware.Component.register('moorl-csv-export', {
 
         initExportColumns() {
             let columns = [];
-            let properties = Shopware.EntityDefinition.get(this.entity).properties
+            let properties = Shopware.EntityDefinition.get(
+                this.entity
+            ).properties;
 
             for (const [property, column] of Object.entries(properties)) {
-                if (!column.flags.moorl_edit_field && !column.flags.primary_key) {
+                if (
+                    !column.flags.moorl_edit_field &&
+                    !column.flags.primary_key
+                ) {
                     continue;
                 }
 
@@ -220,7 +241,9 @@ Shopware.Component.register('moorl-csv-export', {
                 }
 
                 column.property = property;
-                column.label = this.$tc(`moorl-foundation.properties.${property}`);
+                column.label = this.$tc(
+                    `moorl-foundation.properties.${property}`
+                );
                 columns.push(column);
             }
 
@@ -241,21 +264,23 @@ Shopware.Component.register('moorl-csv-export', {
             //
             //
 
-            let csv = Papa.unparse(this.exportItems, {delimiter: ";"});
+            let csv = Papa.unparse(this.exportItems, { delimiter: ';' });
             const blob = new Blob([csv]);
 
             if (window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveBlob(blob, this.entity + ".csv");
+                window.navigator.msSaveBlob(blob, this.entity + '.csv');
             } else {
-                let a = window.document.createElement("a");
-                a.href = window.URL.createObjectURL(blob, {type: "text/plain"});
-                a.download = this.entity + ".csv";
+                let a = window.document.createElement('a');
+                a.href = window.URL.createObjectURL(blob, {
+                    type: 'text/plain',
+                });
+                a.download = this.entity + '.csv';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
             }
 
             this.step = 3;
-        }
-    }
+        },
+    },
 });

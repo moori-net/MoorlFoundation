@@ -16,14 +16,14 @@ Shopware.Component.register('moorl-animation', {
 
     data() {
         return {
-            currentValue: null
+            currentValue: null,
         };
     },
 
     watch: {
         value(value) {
             this.$emit('change', this.value);
-        }
+        },
     },
 
     created() {
@@ -54,7 +54,7 @@ Shopware.Component.register('moorl-animation', {
                     condition: 'isInViewport',
                     duration: 1000,
                     delay: 0,
-                }
+                },
             });
 
             this.$emit('update:value', this.value);
@@ -68,6 +68,6 @@ Shopware.Component.register('moorl-animation', {
             this.$emit('update:value', this.value);
 
             this.$forceUpdate();
-        }
-    }
+        },
+    },
 });

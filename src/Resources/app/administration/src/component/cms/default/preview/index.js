@@ -7,17 +7,17 @@ Shopware.Component.register('sw-cms-el-preview-moorl-default', {
     props: {
         element: {
             type: Object,
-            required: true
+            required: true,
         },
         plugin: {
             type: Object,
-            required: true
-        }
+            required: true,
+        },
     },
 
     computed: {
         style() {
             return null;
-        }
-    }
+        },
+    },
 });

@@ -6,5 +6,6 @@ Shopware.Service('cmsService').registerCmsElement({
     component: 'sw-cms-el-sidebar-filter',
     configComponent: 'sw-cms-el-config-sidebar-filter',
     previewComponent: true,
-    disabledConfigInfoTextKey: 'sw-cms.elements.sidebarFilter.infoText.filterElement',
+    disabledConfigInfoTextKey:
+        'sw-cms.elements.sidebarFilter.infoText.filterElement',
 });

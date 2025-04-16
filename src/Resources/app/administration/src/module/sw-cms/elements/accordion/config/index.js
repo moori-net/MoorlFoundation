@@ -6,21 +6,19 @@ Shopware.Component.register('sw-cms-el-config-moorl-accordion', {
 
     inject: ['repositoryFactory'],
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     data() {
         return {
             sortable: null,
-            drag: false
+            drag: false,
         };
     },
 
     computed: {
         mediaRepository() {
             return this.repositoryFactory.create('media');
-        }
+        },
     },
 
     created() {
@@ -36,7 +34,8 @@ Shopware.Component.register('sw-cms-el-config-moorl-accordion', {
             this.element.config.entries.value.push({
                 id: Date.now(),
                 name: 'This is my entry',
-                content: '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>'
+                content:
+                    '<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua</p>',
             });
         },
 
@@ -63,5 +62,5 @@ Shopware.Component.register('sw-cms-el-config-moorl-accordion', {
         dragEnd(e) {
             this.drag = false;
         },
-    }
+    },
 });

@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-layout-card-v2 {
     .moorl-layout-card__base-layout {
@@ -35,7 +35,8 @@
         }
 
         .moorl-layout-card__desc-actions {
-            .sw-button, .mt-button {
+            .sw-button,
+            .mt-button {
                 margin-bottom: 8px;
                 margin-right: 8px;
             }

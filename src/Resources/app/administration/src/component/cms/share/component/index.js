@@ -9,12 +9,10 @@ Shopware.Component.register('sw-cms-el-moorl-share', {
             type: Object,
             required: false,
             default: null,
-        }
+        },
     },
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     created() {
         this.createdComponent();
@@ -27,6 +25,6 @@ Shopware.Component.register('sw-cms-el-moorl-share', {
             }
 
             this.initElementConfig('moorl-share');
-        }
-    }
+        },
+    },
 });

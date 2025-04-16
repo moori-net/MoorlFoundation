@@ -10,13 +10,13 @@ Shopware.Component.register('moorl-listing-config', {
         value: {
             type: Object,
             required: false,
-            default: null
-        }
+            default: null,
+        },
     },
 
     data() {
         return {
-            isLoading: true
+            isLoading: true,
         };
     },
 

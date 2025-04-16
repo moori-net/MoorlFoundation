@@ -4,9 +4,7 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     computed: {
         assetFilter() {
@@ -14,10 +12,10 @@ Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
         },
 
         captionCss() {
-            const css = {color:this.element.config.boxColor.value}
+            const css = { color: this.element.config.boxColor.value };
 
-            if(this.element.config.textShadowActive.value){
-                css.textShadow = '2px 2px 15px #000'
+            if (this.element.config.textShadowActive.value) {
+                css.textShadow = '2px 2px 15px #000';
             }
 
             return css;
@@ -28,13 +26,17 @@ Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
             const mediaSource = this.element.config.media.source;
 
             if (mediaSource === 'mapped') {
-                const demoMedia = this.getDemoValue(this.element.config.media.value);
+                const demoMedia = this.getDemoValue(
+                    this.element.config.media.value
+                );
 
                 if (demoMedia && demoMedia.url) {
                     return demoMedia.url;
                 }
 
-                return this.assetFilter('administration/administration/static/img/cms/preview_mountain_large.jpg');
+                return this.assetFilter(
+                    'administration/administration/static/img/cms/preview_mountain_large.jpg'
+                );
             }
 
             if (elemData && elemData.id) {
@@ -45,8 +47,10 @@ Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
                 return this.assetFilter(elemData.url);
             }
 
-            return this.assetFilter('administration/administration/static/img/cms/preview_mountain_large.jpg');
-        }
+            return this.assetFilter(
+                'administration/administration/static/img/cms/preview_mountain_large.jpg'
+            );
+        },
     },
 
     watch: {
@@ -54,17 +58,18 @@ Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
+            },
         },
 
         mediaConfigValue(value) {
             const mediaId = Utils.get(this.element, 'data.media.id');
-            const isSourceStatic = Utils.get(this.element, 'config.media.source') === 'static';
+            const isSourceStatic =
+                Utils.get(this.element, 'config.media.source') === 'static';
 
             if (isSourceStatic && mediaId && value !== mediaId) {
                 this.element.config.media.value = mediaId;
             }
-        }
+        },
     },
 
     created() {
@@ -75,6 +80,6 @@ Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
         createdComponent() {
             this.initElementConfig('moorl-hero-banner');
             this.initElementData('moorl-hero-banner');
-        }
-    }
+        },
+    },
 });

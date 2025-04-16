@@ -7,7 +7,7 @@ Shopware.Component.register('sw-cms-el-moorl-default', {
     props: {
         element: {
             type: Object,
-            required: true
+            required: true,
         },
     },
 

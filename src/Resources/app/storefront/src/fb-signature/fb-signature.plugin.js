@@ -1,5 +1,5 @@
 import Plugin from 'src/plugin-system/plugin.class';
-import SignaturePad from "signature_pad";
+import SignaturePad from 'signature_pad';
 
 export default class MoorlFbSignaturePlugin extends Plugin {
     static options = {
@@ -10,7 +10,7 @@ export default class MoorlFbSignaturePlugin extends Plugin {
         minDistance: null,
         backgroundColor: null,
         penColor: null,
-        velocityFilterWeight: 0.7
+        velocityFilterWeight: 0.7,
     };
 
     init() {
@@ -20,13 +20,13 @@ export default class MoorlFbSignaturePlugin extends Plugin {
 
         this.signaturePad = new SignaturePad(this._canvas);
 
-        this.signaturePad.addEventListener("endStroke", () => {
+        this.signaturePad.addEventListener('endStroke', () => {
             this._input.value = this.signaturePad.toDataURL();
         });
 
         this._button.addEventListener('click', () => {
             this.signaturePad.clear();
-            this._input.value = "";
+            this._input.value = '';
         });
 
         if (this._input.value) {

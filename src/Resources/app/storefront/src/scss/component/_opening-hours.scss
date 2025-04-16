@@ -1,33 +1,33 @@
 .moorl-opening-hours {
-  margin: 10px 0;
+    margin: 10px 0;
 
-  .row {
-    margin-left: 0;
-    margin-right: 0;
+    .row {
+        margin-left: 0;
+        margin-right: 0;
 
-    &:nth-child(odd) {
-      background-color: rgba(0,0,0,0.1);
+        &:nth-child(odd) {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .moorl-opening-hours-range {
+            &.closed {
+                background-color: $sw-color-danger;
+                color: color-contrast($sw-color-danger);
+                font-weight: 700;
+                padding: 0 10px;
+                border-radius: $border-radius;
+                font-size: 0.7em;
+            }
+        }
     }
 
-    .moorl-opening-hours-range {
-      &.closed {
-        background-color: $sw-color-danger;
-        color:color-contrast($sw-color-danger);
-        font-weight: 700;
-        padding: 0 10px;
-        border-radius: $border-radius;
-        font-size: .7em;
-      }
-    }
-  }
+    span {
+        &:after {
+            content: ',';
+        }
 
-  span {
-    &:after {
-      content: ",";
+        &:last-child:after {
+            content: none;
+        }
     }
-
-    &:last-child:after {
-      content: none;
-    }
-  }
 }

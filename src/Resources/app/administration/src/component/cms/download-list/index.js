@@ -15,16 +15,16 @@ Shopware.Service('cmsService').registerCmsElement({
             value: [],
             required: true,
             entity: {
-                name: 'media'
-            }
+                name: 'media',
+            },
         },
         layout: {
             source: 'static',
-            value: 'default'
+            value: 'default',
         },
         emptyText: {
             source: 'static',
-            value: 'No downloads available'
-        }
-    }
+            value: 'No downloads available',
+        },
+    },
 });

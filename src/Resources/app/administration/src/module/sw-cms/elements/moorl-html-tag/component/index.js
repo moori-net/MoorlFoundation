@@ -20,7 +20,7 @@ Shopware.Component.register('sw-cms-el-moorl-html-tag', {
             let style = this.element.config.style.value;
 
             return `<${t} class="${css}" style="${style}">${c}</${t}>`;
-        }
+        },
     },
 
     watch: {
@@ -28,8 +28,8 @@ Shopware.Component.register('sw-cms-el-moorl-html-tag', {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
-        }
+            },
+        },
     },
 
     created() {
@@ -39,6 +39,6 @@ Shopware.Component.register('sw-cms-el-moorl-html-tag', {
     methods: {
         createdComponent() {
             this.initElementConfig('moorl-html-tag');
-        }
-    }
+        },
+    },
 });

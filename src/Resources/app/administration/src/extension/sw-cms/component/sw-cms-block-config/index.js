@@ -6,6 +6,6 @@ Shopware.Component.override('sw-cms-block-config', {
     computed: {
         moorlIsUnlocked() {
             return Shopware.Store.get('moorlFoundationState').unlocked;
-        }
-    }
+        },
+    },
 });

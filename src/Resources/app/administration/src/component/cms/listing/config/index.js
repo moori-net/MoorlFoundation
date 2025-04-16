@@ -1,4 +1,4 @@
-const {Criteria, EntityCollection} = Shopware.Data;
+const { Criteria, EntityCollection } = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
@@ -6,9 +6,7 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-config-moorl-foundation-listing', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     inject: ['repositoryFactory'],
 
@@ -19,13 +17,13 @@ Shopware.Component.register('sw-cms-el-config-moorl-foundation-listing', {
             entityCollection: [],
             elementName: null,
             configWhitelist: null,
-            contentRoute: null
+            contentRoute: null,
         };
     },
 
     computed: {
         sortingCriteria() {
-            const criteria = new Criteria
+            const criteria = new Criteria();
             criteria.addFilter(Criteria.equals('entity', this.entity));
             criteria.addFilter(Criteria.equals('active', 1));
             return criteria;
@@ -46,7 +44,7 @@ Shopware.Component.register('sw-cms-el-config-moorl-foundation-listing', {
             }
 
             return this.criteria;
-        }
+        },
     },
 
     created() {
@@ -55,7 +53,10 @@ Shopware.Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
     methods: {
         getSelectFilter(key) {
-            if (this.configWhitelist && this.configWhitelist[key] !== undefined) {
+            if (
+                this.configWhitelist &&
+                this.configWhitelist[key] !== undefined
+            ) {
                 return this.configWhitelist[key];
             }
             return [];
@@ -72,7 +73,7 @@ Shopware.Component.register('sw-cms-el-config-moorl-foundation-listing', {
 
         initEntityCollection() {
             this.entityCollection = new EntityCollection(
-                '/' + this.entity.replace(/_/g,'-'),
+                '/' + this.entity.replace(/_/g, '-'),
                 this.entity,
                 Shopware.Context.api
             );
@@ -101,8 +102,9 @@ Shopware.Component.register('sw-cms-el-config-moorl-foundation-listing', {
         },
 
         onSelectionChange() {
-            this.element.config.listingItemIds.value = this.entityCollection.getIds();
+            this.element.config.listingItemIds.value =
+                this.entityCollection.getIds();
             this.getList();
         },
-    }
+    },
 });

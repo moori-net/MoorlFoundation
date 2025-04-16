@@ -1,7 +1,7 @@
 import './component';
 import './config';
 
-const {Criteria} = Shopware.Data;
+const { Criteria } = Shopware.Data;
 const criteria = new Criteria();
 criteria.addAssociation('media');
 
@@ -51,24 +51,24 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
             value: null,
             entity: {
                 name: 'category',
-                criteria: criteria
-            }
+                criteria: criteria,
+            },
         },
         product: {
             source: 'static',
             value: null,
             entity: {
                 name: 'product',
-                criteria: productCriteria
-            }
+                criteria: productCriteria,
+            },
         },
         title: {
             source: 'static',
-            value: 'Lorem ipsum dolor'
+            value: 'Lorem ipsum dolor',
         },
         titleTag: {
             source: 'static',
-            value: 'h3'
+            value: 'h3',
         },
         content: {
             source: 'static',
@@ -79,7 +79,7 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
 <p><a class="btn btn-primary sw-button sw-button--primary" href="/">Contact</a></p>
 <h3>Opening Hours</h3>
 <p>Monday to Friday: 10:00 - 20:00<br>Saturday: 09:30 - 20:00</p>
-<p><a class="btn btn-primary sw-button sw-button--primary" href="/">More Information</a></p>`.trim()
+<p><a class="btn btn-primary sw-button sw-button--primary" href="/">More Information</a></p>`.trim(),
         },
         enableScss: {
             source: 'static',
@@ -91,15 +91,15 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         contentLength: {
             source: 'static',
-            value: 300
+            value: 300,
         },
         quote: {
             source: 'static',
-            value: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt'
+            value: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt',
         },
         height: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         btnActive: {
             source: 'static',
@@ -107,19 +107,19 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         btnClass: {
             source: 'static',
-            value: 'btn-primary'
+            value: 'btn-primary',
         },
         btnText: {
             source: 'static',
-            value: 'Shop now'
+            value: 'Shop now',
         },
         btnUrl: {
             source: 'static',
-            value: null
+            value: null,
         },
         btnNewTab: {
             source: 'static',
-            value: null
+            value: null,
         },
         iconType: {
             source: 'static',
@@ -145,8 +145,8 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
             source: 'static',
             value: null,
             entity: {
-                name: 'media'
-            }
+                name: 'media',
+            },
         },
         iconMarginRight: {
             source: 'static',
@@ -170,126 +170,128 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         backgroundVerticalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         backgroundHorizontalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         backgroundDisplayMode: {
             source: 'static',
-            value: 'cover'
+            value: 'cover',
         },
         backgroundSizeX: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         backgroundSizeY: {
             source: 'static',
-            value: '300px'
+            value: '300px',
         },
         mediaActive: {
             source: 'static',
-            value: true
+            value: true,
         },
         mediaHover: {
             source: 'static',
-            value: 'zoom'
+            value: 'zoom',
         },
         media: {
             source: 'static',
             value: null,
             entity: {
-                name: 'media'
-            }
+                name: 'media',
+            },
         },
         videoActive: {
             source: 'static',
-            value: false
+            value: false,
         },
         videoDisplayMode: {
             source: 'static',
-            value: 'cover'
+            value: 'cover',
         },
         videoAutoplay: {
             source: 'static',
-            value: true
+            value: true,
         },
         videoMute: {
             source: 'static',
-            value: true
+            value: true,
         },
         videoLoop: {
             source: 'static',
-            value: true
+            value: true,
         },
         boxVerticalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         boxHorizontalAlign: {
             source: 'static',
-            value: 'center'
+            value: 'center',
         },
         boxTextAlign: {
             source: 'static',
-            value: 'left'
+            value: 'left',
         },
         boxWidth: {
             source: 'static',
-            value: 'auto'
+            value: 'auto',
         },
         boxHeight: {
             source: 'static',
-            value: 'auto'
+            value: 'auto',
         },
         boxMargin: {
             source: 'static',
-            value: '20px'
+            value: '20px',
         },
         boxPadding: {
             source: 'static',
-            value: '15px'
+            value: '15px',
         },
         boxColor: {
             source: 'static',
-            value: '#000000'
+            value: '#000000',
         },
         boxBackground: {
             source: 'static',
-            value: 'rgba(255,255,255,0.7)'
+            value: 'rgba(255,255,255,0.7)',
         },
         boxMaxWidth: {
             source: 'static',
-            value: false
+            value: false,
         },
         boxBorderRadius: {
             source: 'static',
-            value: '0px'
+            value: '0px',
         },
     },
     defaultData: {
         category: {
             name: 'Lorem Ipsum dolor',
-            description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+            description:
+                `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                           sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
                           sed diam voluptua.`.trim(),
             media: {
                 url: 'administration/administration/static/img/cms/preview_glasses_large.jpg',
-                alt: 'Lorem Ipsum dolor'
-            }
+                alt: 'Lorem Ipsum dolor',
+            },
         },
         product: {
             name: 'Demo Product',
-            description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+            description:
+                `Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
                           sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
                           sed diam voluptua.`.trim(),
             cover: {
                 media: {
                     url: 'administration/administration/static/img/cms/preview_glasses_large.jpg',
-                    alt: 'Add to cart'
-                }
-            }
-        }
-    }
+                    alt: 'Add to cart',
+                },
+            },
+        },
+    },
 });

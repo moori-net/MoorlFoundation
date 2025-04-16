@@ -4,13 +4,9 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-config-moorl-toc', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     computed: {},
 
@@ -21,6 +17,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-toc', {
     methods: {
         createdComponent() {
             this.initElementConfig('moorl-toc');
-        }
-    }
+        },
+    },
 });

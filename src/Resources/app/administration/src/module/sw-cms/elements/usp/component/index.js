@@ -4,31 +4,28 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-moorl-usp', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     computed: {
         uspContainerCss() {
             if (this.element.config.alignment.value === 'center') {
                 return {
                     'flex-direction': 'column',
-                    'text-align':'center'
-                }
+                    'text-align': 'center',
+                };
             }
         },
 
-        uspIconCss(){
-            const css = {color:this.element.config.iconColor.value}
+        uspIconCss() {
+            const css = { color: this.element.config.iconColor.value };
 
             if (this.element.config.alignment.value === 'center') {
                 css.marginRight = '0';
-                css.marginBototm = '5px'
+                css.marginBototm = '5px';
             }
 
             return css;
-        }
-
+        },
     },
 
     watch: {
@@ -36,8 +33,8 @@ Shopware.Component.register('sw-cms-el-moorl-usp', {
             deep: true,
             handler() {
                 this.$forceUpdate();
-            }
-        }
+            },
+        },
     },
 
     created() {
@@ -48,6 +45,6 @@ Shopware.Component.register('sw-cms-el-moorl-usp', {
         createdComponent() {
             this.initElementConfig('moorl-usp');
             this.initElementData('moorl-usp');
-        }
-    }
+        },
+    },
 });

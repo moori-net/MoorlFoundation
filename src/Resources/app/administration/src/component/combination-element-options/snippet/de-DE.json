@@ -1,39 +1,39 @@
 {
-  "moorl-combination-element-options": {
-    "title": {
-      "productBuyList": "Einkaufsliste",
-      "hotspots": "Hotspots",
-      "layout": "Layout",
-      "stock": "Lager",
-      "countdown": "Countdown"
-    },
-    "label": {
-      "loadHoverCards": "Hover Cards laden",
-      "classAttribute": "Class Attribut",
-      "idAttribute": "ID Attribut",
-      "addToCartSingleIcon": "Icon",
-      "addToCartAllIcon": "Icon",
-      "hotspotAnimation": "Hotspot Animation",
-      "showBanner": "Zeige Banner",
-      "showTitleDescription": "Zeige Titel & Beschreibung",
-      "showProductBuyList": "Zeige Einkaufsliste",
-      "minWidth": "Mindestbreite um nebeneinander dargestellt zu werden",
-      "showHotspots": "Zeige Hotspots",
-      "showStock": "Zeige Lagerbestand als Balken",
-      "showCountdown": "Zeige Countdown",
-      "enableSelection": "Selektion durch Auswahlfeld aktivieren",
-      "discountActive": "Rabatt aktivieren",
-      "discountPercentage": "Rabatt (%)",
-      "discountName": "Rabattbezeichnung",
-      "productQuantity": "Menge",
-      "products": "Produkte",
-      "enablePrices": "Preise anzeigen",
-      "enableVariantSwitch": "Variantenwechsel anzeigen",
-      "enableAddToCartAll": "Alle in den Warenkorb",
-      "enableAddToCartSingle": "Einzeln in den Warenkorb",
-      "enableDirectUrl": "Links führen zu den Produktseiten",
-      "notAvailable": "Not available",
-      "emptyText": "Text wenn keine Ergebnisse"
+    "moorl-combination-element-options": {
+        "title": {
+            "productBuyList": "Einkaufsliste",
+            "hotspots": "Hotspots",
+            "layout": "Layout",
+            "stock": "Lager",
+            "countdown": "Countdown"
+        },
+        "label": {
+            "loadHoverCards": "Hover Cards laden",
+            "classAttribute": "Class Attribut",
+            "idAttribute": "ID Attribut",
+            "addToCartSingleIcon": "Icon",
+            "addToCartAllIcon": "Icon",
+            "hotspotAnimation": "Hotspot Animation",
+            "showBanner": "Zeige Banner",
+            "showTitleDescription": "Zeige Titel & Beschreibung",
+            "showProductBuyList": "Zeige Einkaufsliste",
+            "minWidth": "Mindestbreite um nebeneinander dargestellt zu werden",
+            "showHotspots": "Zeige Hotspots",
+            "showStock": "Zeige Lagerbestand als Balken",
+            "showCountdown": "Zeige Countdown",
+            "enableSelection": "Selektion durch Auswahlfeld aktivieren",
+            "discountActive": "Rabatt aktivieren",
+            "discountPercentage": "Rabatt (%)",
+            "discountName": "Rabattbezeichnung",
+            "productQuantity": "Menge",
+            "products": "Produkte",
+            "enablePrices": "Preise anzeigen",
+            "enableVariantSwitch": "Variantenwechsel anzeigen",
+            "enableAddToCartAll": "Alle in den Warenkorb",
+            "enableAddToCartSingle": "Einzeln in den Warenkorb",
+            "enableDirectUrl": "Links führen zu den Produktseiten",
+            "notAvailable": "Not available",
+            "emptyText": "Text wenn keine Ergebnisse"
+        }
     }
-  }
 }

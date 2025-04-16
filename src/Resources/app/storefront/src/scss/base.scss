@@ -1,97 +1,97 @@
-@import "default-variables";
+@import 'default-variables';
 
-@import "lib/leaflet";
-@import "lib/leaflet-gesture-handling";
-@import "lib/tom-select/src/scss/tom-select.bootstrap5";
+@import 'lib/leaflet';
+@import 'lib/leaflet-gesture-handling';
+@import 'lib/tom-select/src/scss/tom-select.bootstrap5';
 
-@import "appflix/base";
+@import 'appflix/base';
 
-@import "sections/moorl-grid";
-@import "sections/separator";
-@import "sections/boxed";
-@import "sections/offset";
+@import 'sections/moorl-grid';
+@import 'sections/separator';
+@import 'sections/boxed';
+@import 'sections/offset';
 
-@import "blocks/moorl-grid-layout";
-@import "blocks/moorl-column-layout";
+@import 'blocks/moorl-grid-layout';
+@import 'blocks/moorl-column-layout';
 
-@import "cms/share";
-@import "cms/toc";
-@import "cms/replacer";
-@import "cms/accordion";
-@import "cms/hero-banner";
-@import "cms/newsletter";
-@import "cms/table-registration";
-@import "cms/usps";
-@import "cms/cta-banner";
-@import "cms/location";
-@import "cms/listing";
-@import "cms/meta";
-@import "cms/nearby-filter";
+@import 'cms/share';
+@import 'cms/toc';
+@import 'cms/replacer';
+@import 'cms/accordion';
+@import 'cms/hero-banner';
+@import 'cms/newsletter';
+@import 'cms/table-registration';
+@import 'cms/usps';
+@import 'cms/cta-banner';
+@import 'cms/location';
+@import 'cms/listing';
+@import 'cms/meta';
+@import 'cms/nearby-filter';
 
-@import "component/opening-hours";
-@import "component/foundation-listing";
-@import "component/search-suggest";
-@import "component/search-page";
-@import "component/countdown";
-@import "component/base-slider";
-@import "component/product-buy-list";
-@import "component/parts-list";
-@import "component/download-list";
-@import "component/paint";
-@import "component/cookie-box";
-@import "component/copy";
-@import "component/filter-navigation";
-@import "component/multi-banner";
-@import "component/combination-element";
+@import 'component/opening-hours';
+@import 'component/foundation-listing';
+@import 'component/search-suggest';
+@import 'component/search-page';
+@import 'component/countdown';
+@import 'component/base-slider';
+@import 'component/product-buy-list';
+@import 'component/parts-list';
+@import 'component/download-list';
+@import 'component/paint';
+@import 'component/cookie-box';
+@import 'component/copy';
+@import 'component/filter-navigation';
+@import 'component/multi-banner';
+@import 'component/combination-element';
 
-@import "helpers/cms-helpers";
-@import "helpers/foundation-demo-html";
-@import "helpers/icon";
+@import 'helpers/cms-helpers';
+@import 'helpers/foundation-demo-html';
+@import 'helpers/icon';
 
 .bg-fixed {
-  background-attachment: fixed;
+    background-attachment: fixed;
 }
 
 .cms-section.overflow-visible {
-  overflow: visible !important;
-
-  .cms-block {
     overflow: visible !important;
-  }
+
+    .cms-block {
+        overflow: visible !important;
+    }
 }
 
 .moorl-foundation-hide,
 .moorl-animation-hidden {
-  opacity: 0;
+    opacity: 0;
 }
 
 .moorl-animation-processing {
-  z-index: 9000;
+    z-index: 9000;
 }
 
 .modal {
-  z-index: 1060;
+    z-index: 1060;
 }
 
 $foundation-colors: (
-        "moorl": $light,
-        "facebook": #3C5A99,
-        "azure": #00A4EF,
-        "amazon": #FF9900,
-        "office365": #00A4EF,
-        "paypal": #0173b9,
-        "generic": #efc34a,
-        "discord": #7289DA,
-        "twitter": #55acee,
-        "instagram": #EEEEEE,
-        "pinterest": #bd081c,
-        "whatsapp": #25d366,
-        "youtube": #ff0000,
-        "xing": #126567
+    'moorl': $light,
+    'facebook': #3c5a99,
+    'azure': #00a4ef,
+    'amazon': #ff9900,
+    'office365': #00a4ef,
+    'paypal': #0173b9,
+    'generic': #efc34a,
+    'discord': #7289da,
+    'twitter': #55acee,
+    'instagram': #eeeeee,
+    'pinterest': #bd081c,
+    'whatsapp': #25d366,
+    'youtube': #ff0000,
+    'xing': #126567,
 );
 
 @each $color, $value in $foundation-colors {
-  .btn-#{$color} {
-    @include button-variant($value, $value);
-  }
+    .btn-#{$color} {
+        @include button-variant($value, $value);
+    }
 }

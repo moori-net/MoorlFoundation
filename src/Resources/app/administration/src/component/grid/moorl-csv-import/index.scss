@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-csv-import {
     .moorl-csv-import__top-bar {
@@ -6,8 +6,11 @@
         border-bottom: 1px solid $color-gray-100;
         padding: 25px;
 
-        .mt-field--default,, .sw-field--default,
-        .sw-field, .mt-field {
+        .mt-field--default,
+        ,
+        .sw-field--default,
+        .sw-field,
+        .mt-field {
             margin-bottom: 0;
             margin-top: 0;
         }
@@ -24,20 +27,26 @@
             color: red;
         }
 
-        .mt-field__label, .sw-field__label {
+        .mt-field__label,
+        .sw-field__label {
             display: none;
         }
 
-        .mt-field--switch,, .sw-field--switch,
-        .mt-field--switch__content, .sw-field--switch__content {
+        .mt-field--switch,
+        ,
+        .sw-field--switch,
+        .mt-field--switch__content,
+        .sw-field--switch__content {
             background: transparent;
 
-            .mt-field__label, .sw-field__label {
+            .mt-field__label,
+            .sw-field__label {
                 display: flex;
             }
         }
 
-        .mt-field--textarea, .sw-field--textarea textarea {
+        .mt-field--textarea,
+        .sw-field--textarea textarea {
             min-height: auto;
             max-height: 50px;
         }

@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-media-gallery {
     height: 100%;
@@ -47,7 +47,7 @@
         margin-bottom: 10px;
 
         &::after {
-            content: "";
+            content: '';
             padding-top: 50%;
         }
 
@@ -70,7 +70,8 @@
     }
 
     &.is--disabled {
-        .sw-button, .mt-button {
+        .sw-button,
+        .mt-button {
             background-color: $color-gray-100;
             color: lighten($color-darkgray-200, 25%);
         }

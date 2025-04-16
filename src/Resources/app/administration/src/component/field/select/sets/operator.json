@@ -1,8 +1,8 @@
 [
-  { "value": "is", "label": "==" },
-  { "value": "not", "label": "!=" },
-  { "value": "lt", "label": "&lt;" },
-  { "value": "gt", "label": "&gt;" },
-  { "value": "contains", "label": "in" },
-  { "value": "isset", "label": "isset" }
+    { "value": "is", "label": "==" },
+    { "value": "not", "label": "!=" },
+    { "value": "lt", "label": "&lt;" },
+    { "value": "gt", "label": "&gt;" },
+    { "value": "contains", "label": "in" },
+    { "value": "isset", "label": "isset" }
 ]

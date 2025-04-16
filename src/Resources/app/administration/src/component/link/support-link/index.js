@@ -6,18 +6,18 @@ Shopware.Component.register('moorl-support-link', {
     props: {
         path: {
             type: String,
-            required: true
+            required: true,
         },
         snippet: {
             type: String,
             required: false,
-            default: "moorl-support-link.label"
-        }
+            default: 'moorl-support-link.label',
+        },
     },
 
     computed: {
         supportLink() {
             return this.$tc('moorl-support-link.supportLink') + this.path;
-        }
-    }
+        },
+    },
 });

@@ -1,128 +1,128 @@
 [
-  {
-    "name": "Impressum",
-    "type": "page",
-    "id": "{ID:CMS_PAGE_IMPRINT}",
-    "sections": [
-      {
-        "position": 0,
-        "type": "default",
-        "name": null,
-        "sizingMode": "boxed",
-        "backgroundColor": null,
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_IMPRINT_SECTION_1}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "main",
-            "backgroundMediaMode": "cover",
-            "id": "{ID:CMS_PAGE_IMPRINT_BLOCK_1}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "slot-a",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "{IMPRINT_HTML}"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_IMPRINT_SLOT_1}"
-              }
-            ]
-          }
+    {
+        "name": "Impressum",
+        "type": "page",
+        "id": "{ID:CMS_PAGE_IMPRINT}",
+        "sections": [
+            {
+                "position": 0,
+                "type": "default",
+                "name": null,
+                "sizingMode": "boxed",
+                "backgroundColor": null,
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_IMPRINT_SECTION_1}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "main",
+                        "backgroundMediaMode": "cover",
+                        "id": "{ID:CMS_PAGE_IMPRINT_BLOCK_1}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "slot-a",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "{IMPRINT_HTML}"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_IMPRINT_SLOT_1}"
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "AGBs",
-    "type": "page",
-    "id": "{ID:CMS_PAGE_TOS}",
-    "sections": [
-      {
-        "position": 0,
-        "type": "default",
-        "name": null,
-        "sizingMode": "boxed",
-        "backgroundColor": null,
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_TOS_SECTION_1}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "main",
-            "backgroundMediaMode": "cover",
-            "id": "{ID:CMS_PAGE_TOS_BLOCK_1}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "slot-a",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "{TOS_HTML}"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_TOS_SLOT_1}"
-              }
-            ]
-          }
+    },
+    {
+        "name": "AGBs",
+        "type": "page",
+        "id": "{ID:CMS_PAGE_TOS}",
+        "sections": [
+            {
+                "position": 0,
+                "type": "default",
+                "name": null,
+                "sizingMode": "boxed",
+                "backgroundColor": null,
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_TOS_SECTION_1}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "main",
+                        "backgroundMediaMode": "cover",
+                        "id": "{ID:CMS_PAGE_TOS_BLOCK_1}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "slot-a",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "{TOS_HTML}"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_TOS_SLOT_1}"
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  },
-  {
-    "name": "Datenschutz",
-    "type": "page",
-    "id": "{ID:CMS_PAGE_PRIVACY}",
-    "sections": [
-      {
-        "position": 0,
-        "type": "default",
-        "name": null,
-        "sizingMode": "boxed",
-        "backgroundColor": null,
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_PRIVACY_SECTION_1}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "main",
-            "backgroundMediaMode": "cover",
-            "id": "{ID:CMS_PAGE_PRIVACY_BLOCK_1}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "slot-a",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "{PRIVACY_HTML}"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_PRIVACY_SLOT_1}"
-              }
-            ]
-          }
+    },
+    {
+        "name": "Datenschutz",
+        "type": "page",
+        "id": "{ID:CMS_PAGE_PRIVACY}",
+        "sections": [
+            {
+                "position": 0,
+                "type": "default",
+                "name": null,
+                "sizingMode": "boxed",
+                "backgroundColor": null,
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_PRIVACY_SECTION_1}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "main",
+                        "backgroundMediaMode": "cover",
+                        "id": "{ID:CMS_PAGE_PRIVACY_BLOCK_1}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "slot-a",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "{PRIVACY_HTML}"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_PRIVACY_SLOT_1}"
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
-      }
-    ]
-  }
+    }
 ]

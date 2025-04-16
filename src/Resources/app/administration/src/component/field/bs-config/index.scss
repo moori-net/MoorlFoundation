@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-bs-config {
     .moorl-bs-config-items {
@@ -20,8 +20,11 @@
             color: $color-darkgray-200;
         }
 
-        .mt-field,, .sw-field,
-        .mt-field--switch, .sw-field--switch {
+        .mt-field,
+        ,
+        .sw-field,
+        .mt-field--switch,
+        .sw-field--switch {
             margin-top: 0 !important;
             margin-bottom: 0 !important;
 
@@ -35,7 +38,9 @@
             }
         }
 
-        .mt-field--switch, .sw-field--switch .mt-field__label, .sw-field__label label {
+        .mt-field--switch,
+        .sw-field--switch .mt-field__label,
+        .sw-field__label label {
             padding: 15px 3px;
         }
     }

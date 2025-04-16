@@ -1,76 +1,79 @@
 .cms-element-moorl-location {
-  .leaflet-popup-content-wrapper,
-  .leaflet-popup-tip {
-    background: $body-bg;
-    color: $body-color;
-  }
-  .legend {
-    padding: 6px 8px;
-    font: 14px Arial, Helvetica, sans-serif;
-    background: $body-bg;
-    background: transparentize($body-bg, .3);;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    line-height: 24px;
-    color: $body-color;
-  }
-  .legend h4 {
-    text-align: center;
-    font-size: 16px;
-    margin: 2px 12px 8px;
-    color: $body-color;
-  }
-  .legend span {
-    position: relative;
-    bottom: 3px;
-  }
-  .legend i {
-    width: 18px;
-    height: 18px;
-    float: left;
-    margin: 0 8px 0 0;
-  }
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+        background: $body-bg;
+        color: $body-color;
+    }
+    .legend {
+        padding: 6px 8px;
+        font:
+            14px Arial,
+            Helvetica,
+            sans-serif;
+        background: $body-bg;
+        background: transparentize($body-bg, 0.3);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        line-height: 24px;
+        color: $body-color;
+    }
+    .legend h4 {
+        text-align: center;
+        font-size: 16px;
+        margin: 2px 12px 8px;
+        color: $body-color;
+    }
+    .legend span {
+        position: relative;
+        bottom: 3px;
+    }
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin: 0 8px 0 0;
+    }
 }
 
 .leaflet-control-container {
-  .leaflet-top,
-  .leaflet-bottom {
-    z-index: 400;
-  }
+    .leaflet-top,
+    .leaflet-bottom {
+        z-index: 400;
+    }
 }
 
 .leaflet-marker-icon {
-  .marker-pin {
-    background: $primary;
-    width: 40px;
-    height: 40px;
-    border-radius: 50% 50% 50% 0;
-    position: absolute;
-    transform: rotate(-45deg);
-    left: 50%;
-    top: 50%;
-    margin: -20px 0 0 -20px;
+    .marker-pin {
+        background: $primary;
+        width: 40px;
+        height: 40px;
+        border-radius: 50% 50% 50% 0;
+        position: absolute;
+        transform: rotate(-45deg);
+        left: 50%;
+        top: 50%;
+        margin: -20px 0 0 -20px;
 
-    &::after {
-      content: '';
-      width: 34px;
-      height: 34px;
-      margin: 3px 0 0 3px;
-      background: #fff;
-      position: absolute;
-      border-radius: 50%;
+        &::after {
+            content: '';
+            width: 34px;
+            height: 34px;
+            margin: 3px 0 0 3px;
+            background: #fff;
+            position: absolute;
+            border-radius: 50%;
+        }
     }
-  }
 
-  svg {
-    position: absolute;
-    width: 32px;
-    left: 0;
-    right: 0;
-    margin: 12px auto;
+    svg {
+        position: absolute;
+        width: 32px;
+        left: 0;
+        right: 0;
+        margin: 12px auto;
 
-    path {
-      fill: #222222;
+        path {
+            fill: #222222;
+        }
     }
-  }
 }

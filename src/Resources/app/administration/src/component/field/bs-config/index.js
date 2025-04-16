@@ -8,42 +8,42 @@ Shopware.Component.register('moorl-bs-config', {
         value: {
             type: Object,
             required: true,
-            default: {}
+            default: {},
         },
-        showInherit: {type: Boolean, required: false, default: true},
-        showShow: {type: Boolean, required: false, default: true},
-        showWidth: {type: Boolean, required: false, default: true},
-        showOrder: {type: Boolean, required: false, default: true},
-        label: {type: String, required: false, default: null},
-        name: {type: String, required: false, default: null},
+        showInherit: { type: Boolean, required: false, default: true },
+        showShow: { type: Boolean, required: false, default: true },
+        showWidth: { type: Boolean, required: false, default: true },
+        showOrder: { type: Boolean, required: false, default: true },
+        label: { type: String, required: false, default: null },
+        name: { type: String, required: false, default: null },
     },
 
     computed: {
         defaultBehaviour() {
             return [
                 {
-                    'icon': 'regular-mobile',
-                    'breakpoint': 'xs'
+                    icon: 'regular-mobile',
+                    breakpoint: 'xs',
                 },
                 {
-                    'icon': 'regular-mobile',
-                    'breakpoint': 'sm'
+                    icon: 'regular-mobile',
+                    breakpoint: 'sm',
                 },
                 {
-                    'icon': 'regular-tablet',
-                    'breakpoint': 'md'
+                    icon: 'regular-tablet',
+                    breakpoint: 'md',
                 },
                 {
-                    'icon': 'regular-tablet',
-                    'breakpoint': 'lg'
+                    icon: 'regular-tablet',
+                    breakpoint: 'lg',
                 },
                 {
-                    'icon': 'regular-desktop',
-                    'breakpoint': 'xl'
+                    icon: 'regular-desktop',
+                    breakpoint: 'xl',
                 },
                 {
-                    'icon': 'regular-desktop',
-                    'breakpoint': 'xxl'
+                    icon: 'regular-desktop',
+                    breakpoint: 'xxl',
                 },
             ];
         },
@@ -53,7 +53,7 @@ Shopware.Component.register('moorl-bs-config', {
                 return this.name;
             }
             return this.$tc('moorl-bs-config.label.elementName');
-        }
+        },
     },
 
     created() {
@@ -65,10 +65,10 @@ Shopware.Component.register('moorl-bs-config', {
             for (let behaviour of this.defaultBehaviour) {
                 if (!this.value[behaviour.breakpoint]) {
                     this.value[behaviour.breakpoint] = {
-                        'inherit': true,
-                        'show': true,
-                        'width': 12,
-                        'order': 0
+                        inherit: true,
+                        show: true,
+                        width: 12,
+                        order: 0,
                     };
                 }
             }
@@ -82,8 +82,8 @@ Shopware.Component.register('moorl-bs-config', {
                 message: this.$tc(`moorl-bs-config.helpText.${property}`, 0, {
                     breakpoint,
                     elementName: this.elementName,
-                })
-            }
-        }
-    }
+                }),
+            };
+        },
+    },
 });

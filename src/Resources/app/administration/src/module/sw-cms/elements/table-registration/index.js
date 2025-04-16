@@ -12,19 +12,19 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         type: {
             source: 'static',
-            value: 'contact'
+            value: 'contact',
         },
         content: {
             source: 'static',
-            value: ''
+            value: '',
         },
         privacyActive: {
             source: 'static',
-            value: true
+            value: true,
         },
         verticalAlign: {
             source: 'static',
-            value: null
-        }
-    }
+            value: null,
+        },
+    },
 });

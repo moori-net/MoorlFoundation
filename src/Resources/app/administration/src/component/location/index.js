@@ -10,42 +10,39 @@ Shopware.Component.register('moorl-location', {
         locations: {
             type: Array,
             required: false,
-            default: []
+            default: [],
         },
         tileLayer: {
             type: String,
             required: false,
-            default: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+            default: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
         },
         attribution: {
             type: String,
             required: false,
-            default: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+            default:
+                'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         },
         options: {
             type: Array,
             required: false,
-            default: [
-                'scrollWheelZoom',
-                'dragging',
-                'tap',
-            ]
+            default: ['scrollWheelZoom', 'dragging', 'tap'],
         },
-        showOrder: {type: Boolean, required: false, default: true},
-        label: {type: String, required: false, default: null},
-        name: {type: String, required: false, default: null},
+        showOrder: { type: Boolean, required: false, default: true },
+        label: { type: String, required: false, default: null },
+        name: { type: String, required: false, default: null },
     },
 
     watch: {
         locations: function () {
             this.initLocations(this.locations);
-        }
+        },
     },
 
     data() {
         return {
             _mapInstance: null,
-            _mapElement: null
+            _mapElement: null,
         };
     },
 
@@ -53,9 +50,9 @@ Shopware.Component.register('moorl-location', {
         mainLocation() {
             return [
                 this.item.locationLat ? this.item.locationLat : 52.5173,
-                this.item.locationLon ? this.item.locationLon : 13.4020
+                this.item.locationLon ? this.item.locationLon : 13.402,
             ];
-        }
+        },
     },
 
     mounted() {
@@ -80,17 +77,21 @@ Shopware.Component.register('moorl-location', {
 
             const mapOptions = {};
             if (this.options) {
-                mapOptions.scrollWheelZoom = this.options.includes('scrollWheelZoom');
+                mapOptions.scrollWheelZoom =
+                    this.options.includes('scrollWheelZoom');
                 mapOptions.dragging = this.options.includes('dragging');
                 mapOptions.tap = this.options.includes('tap');
             }
 
             this._mapInstance = {};
             this._mapInstance.layerGroup = L.layerGroup([]);
-            this._mapInstance.map = L.map(this.$refs['moorlLocation'], mapOptions);
+            this._mapInstance.map = L.map(
+                this.$refs['moorlLocation'],
+                mapOptions
+            );
 
             L.tileLayer(this.tileLayer, {
-                attribution: this.attribution
+                attribution: this.attribution,
             }).addTo(this._mapInstance.map);
 
             this.initLocations(this.locations);
@@ -113,11 +114,12 @@ Shopware.Component.register('moorl-location', {
                 if (location.popup) {
                     const popupOptions = {
                         autoPan: false,
-                        autoClose: true
+                        autoClose: true,
                     };
                     if (this.options) {
                         popupOptions.autoPan = this.options.includes('autoPan');
-                        popupOptions.autoClose = this.options.includes('autoClose');
+                        popupOptions.autoClose =
+                            this.options.includes('autoClose');
                     }
 
                     marker
@@ -136,15 +138,20 @@ Shopware.Component.register('moorl-location', {
             if (this._mapInstance.layerGroup) {
                 this._mapInstance.layerGroup.clearLayers();
             }
-            this._mapInstance.layerGroup = L.featureGroup(featureMarker).addTo(this._mapInstance.map);
+            this._mapInstance.layerGroup = L.featureGroup(featureMarker).addTo(
+                this._mapInstance.map
+            );
 
             this.fitBounds();
         },
 
         fitBounds() {
-            this._mapInstance.map.fitBounds(this._mapInstance.layerGroup.getBounds(), {
-                padding: [5, 5]
-            });
+            this._mapInstance.map.fitBounds(
+                this._mapInstance.layerGroup.getBounds(),
+                {
+                    padding: [5, 5],
+                }
+            );
         },
 
         focusItem(entityId) {
@@ -154,7 +161,10 @@ Shopware.Component.register('moorl-location', {
                         layer.openPopup();
                     }
 
-                    this._mapInstance.map.flyTo(layer.getLatLng(), 16, {animate: true, duration: 1});
+                    this._mapInstance.map.flyTo(layer.getLatLng(), 16, {
+                        animate: true,
+                        duration: 1,
+                    });
                 }
             });
         },
@@ -164,15 +174,15 @@ Shopware.Component.register('moorl-location', {
                 const size = 40;
                 const iconOptions = {
                     iconSize: [size, size + size / 2],
-                    iconAnchor: [size/2, size + size / 2],
+                    iconAnchor: [size / 2, size + size / 2],
                     popupAnchor: [0, -size],
                     className: icon.className,
-                    html: `<div class="marker-pin"></div>${icon.svg}`
-                }
+                    html: `<div class="marker-pin"></div>${icon.svg}`,
+                };
                 return L.divIcon(iconOptions);
             } else {
                 return L.icon(icon);
             }
-        }
-    }
+        },
+    },
 });

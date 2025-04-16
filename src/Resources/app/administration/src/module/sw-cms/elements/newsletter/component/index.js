@@ -4,17 +4,15 @@ import './index.scss';
 Shopware.Component.register('sw-cms-el-moorl-newsletter', {
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     computed: {
-        newsletterButtonCss(){
-            return{
-                'color': this.element.config.buttonTextColor.value,
-                'background-color': this.element.config.buttonBackground.value
-            }
-        }
+        newsletterButtonCss() {
+            return {
+                color: this.element.config.buttonTextColor.value,
+                'background-color': this.element.config.buttonBackground.value,
+            };
+        },
     },
 
     created() {
@@ -25,6 +23,6 @@ Shopware.Component.register('sw-cms-el-moorl-newsletter', {
         createdComponent() {
             this.initElementConfig('moorl-newsletter');
             this.initElementData('moorl-newsletter');
-        }
-    }
+        },
+    },
 });

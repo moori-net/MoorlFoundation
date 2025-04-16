@@ -1,6 +1,6 @@
 .sw-cms-block-moorl-grid-layout-seven {
-  grid-template:
-            "a a b c" auto
-            "a a b c" auto
-            "d d d c" auto / 1fr 1fr 1fr 1fr;
+    grid-template:
+        'a a b c' auto
+        'a a b c' auto
+        'd d d c' auto / 1fr 1fr 1fr 1fr;
 }

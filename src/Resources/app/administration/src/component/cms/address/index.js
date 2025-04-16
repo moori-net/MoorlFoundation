@@ -12,62 +12,62 @@ Shopware.Service('cmsService').registerCmsElement({
         zipcode: {
             source: 'static',
             value: null,
-            required: true
+            required: true,
         },
         city: {
             source: 'static',
             value: null,
-            required: true
+            required: true,
         },
         street: {
             source: 'static',
             value: null,
-            required: true
+            required: true,
         },
         streetNumber: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         additionalAddressLine1: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         additionalAddressLine2: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         countryCode: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         countryId: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         countryStateId: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         country: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         countryState: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
         locationPlaceId: {
             source: 'static',
             value: null,
-            required: false
+            required: false,
         },
-    }
+    },
 });
