@@ -48,25 +48,6 @@
                         @media-upload-remove-image="onUnlinkMedia"
                 />
             </div>
-
-            <sw-text-field
-                    v-if="item.seoUrl !== undefined"
-                    :label="$tc('moorl-foundation.properties.seoUrl')"
-                    v-model:value="item.seoUrl"
-            >
-                <template #hint>
-                    <div>
-                        <router-link
-                                target="_blank"
-                                rel="noopener"
-                                :to="{name: 'sw.settings.seo.index'}"
-                        >
-                            {{ $tc('moorl-foundation.helpText.seoUrl') }}
-                        </router-link>
-                        <span v-pre>{&percnt; if item.translated.seoUrl &percnt;}{{ item.translated.seoUrl }}{&percnt; else &percnt;}item/{{ item.translated.name }}{&percnt; endif &percnt;}</span>
-                    </div>
-                </template>
-            </sw-text-field>
         {% endblock %}
     </sw-card>
 

@@ -1,21 +1,5 @@
 {
     "moorl-foundation": {
-        "pluginBetaInfo": "This part is a BETA feature for the upcoming plugin {plugin}. If you like to test this plugin, drop me an email to info@moorleiche.com.",
-        "days": {
-            "today": "Today",
-            "monday": "Monday",
-            "tuesday": "Tuesday",
-            "wednesday": "Wednesday",
-            "thursday": "Thursday",
-            "friday": "Friday",
-            "saturday": "Saturday",
-            "sunday": "Sunday"
-        },
-        "getLocation": {
-            "title": "Location assistant",
-            "overwrite": "Overwrite all locations",
-            "skipError": "Skip on error"
-        },
         "export": {
             "localTable": "Just export local table",
             "title": "Export assistant",
@@ -89,13 +73,11 @@
             "overwriteText": "Overwrite existing datarows (originId need to be set).",
             "mediaFolder": "Save images in this folder"
         },
-        "helpText": {
-            "seoUrl": "Edit the SEO url:"
-        },
         "properties": {
+            "metaKeywords": "Meta keywords",
+            "metaImage": "Meta image (BETA)",
             "breadcrumbPlain": "Breadcrumb",
             "availabilityRule": "Availability rule",
-            "seoUrl": "Custom SEO Url",
             "showOpeningHours": "Öffnungszeiten zeigen",
             "showCmsPage": "CMS Seite zeigen",
             "deliveryActive": "Lieferung aktiv",
@@ -294,18 +276,14 @@
         },
         "label": {
             "baseData": "Base configuration / Reset",
-            "settingsMarker": "moori Map Marker",
-            "settingsTitle": "moori Tools",
             "standardDemo": "Standard Demo",
             "settingsDemoData": "moori Demo Assistant",
             "settingsCmsElementConfig": "moori CMS Element",
             "customCard": "Static custom fields",
             "search": "Search",
-            "codeCard": "Codes",
-            "esdCard": "ESD",
             "contactPersonCard": "Contact person",
-            "promotionCard": "Discount",
-            "countdownCard": "Countdown",
+
+
             "stockCard": "Stock",
             "accountCard": "Account",
             "generalCard": "General",
@@ -315,13 +293,6 @@
             "relationsCard": "Relations and Filters",
             "visibilityCard": "Visibility",
             "metaCard": "Meta"
-        },
-        "option": {
-            "vimeo": "Vimeo",
-            "youtube": "Youtube",
-            "media": "Media",
-            "iframe": "Iframe",
-            "embedded": "Embedded"
         },
         "cms": {
             "tab": {
@@ -510,24 +481,7 @@
             }
         }
     },
-    "moorl-foundation-article": {
-        "general": {
-            "news": "Foundation News Feed",
-            "openUrl": "Open",
-            "truncate": "Truncate"
-        },
-        "properties": {
-            "date": "Date",
-            "author": "Author",
-            "teaser": "Teaser",
-            "title": "Title",
-            "content": "Content"
-        }
-    },
     "moorl-cms": {
-        "general": {
-            "news": "News Feed by moori"
-        },
         "detail": {
             "label": {
                 "blockProCms": "moori CMS Elements",
@@ -721,88 +675,6 @@
                         "topPosition": "Enter top position",
                         "igUsername": "Profile needs to be public"
                     }
-                }
-            }
-        },
-        "blocks": {
-            "general": {
-                "categoryListing": {
-                    "label": "Category listing"
-                },
-                "moorlFormBuilder": {
-                    "label": "Form builder"
-                },
-                "moorlCmsInstagram": {
-                    "label": "Instagram, grid"
-                },
-                "dealCounter": {
-                    "label": "Deal Counter"
-                },
-                "shopTheLook": {
-                    "label": "Shop the Look"
-                },
-                "merchantFinderBasic": {
-                    "label": "Merchant Finder"
-                },
-                "wordpressConnectorbasic": {
-                    "label": "Wordpress connector"
-                },
-                "ctaBannerVideo": {
-                    "label": "Call to action banner, video"
-                },
-                "ctaBannerServiceArea": {
-                    "label": "Service area"
-                },
-                "ctaBannerCategoryThreeColumns": {
-                    "label": "Three columns, category"
-                },
-                "ctaBannerCategoryTwoColumns": {
-                    "label": "Two columns, category"
-                },
-                "ctaBannerbasic": {
-                    "label": "Basic call to action banner"
-                },
-                "multiSliderTwo": {
-                    "label": "Slider block, two CMS elements"
-                },
-                "multiSliderThree": {
-                    "label": "Slider block, three CMS elements"
-                },
-                "multiSliderFour": {
-                    "label": "Slider block, four CMS elements"
-                },
-                "multiSliderFive": {
-                    "label": "Slider block, five CMS elements"
-                },
-                "brandSlider": {
-                    "label": "Brand Slider"
-                },
-                "categoryBannerThreeColumn": {
-                    "label": "Three columns, category"
-                },
-                "serviceAreaFourColumn": {
-                    "label": "Four columns, service area"
-                },
-                "testimonialThreeColumn": {
-                    "label": "Three columns, testimonial"
-                },
-                "flipBoxThreeColumn": {
-                    "label": "Three columns, flip box"
-                },
-                "flipBoxFourColumn": {
-                    "label": "Four columns, flip box"
-                },
-                "moorlFancyboxGallery": {
-                    "label": "Image gallery"
-                },
-                "moorlFancyboxGalleryMasonry": {
-                    "label": "Image gallery, masonry"
-                },
-                "moorlFancyboxGalleryTiles": {
-                    "label": "Image gallery, tiles"
-                },
-                "moorlFancyboxGalleryGrid": {
-                    "label": "Image gallery, grid"
                 }
             }
         }

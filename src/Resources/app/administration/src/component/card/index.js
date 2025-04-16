@@ -10,3 +10,4 @@ import './opening-hours-card';
 import './custom-card';
 import './person-card';
 import './layout-card-v2';
+import './entity-grid-card';
