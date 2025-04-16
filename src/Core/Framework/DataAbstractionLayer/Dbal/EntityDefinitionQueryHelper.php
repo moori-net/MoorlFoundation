@@ -34,7 +34,6 @@ class EntityDefinitionQueryHelper
     ): void
     {
         if (!$table) {
-            // Extrahiere den Tabellennamen anhand gängiger SQL-Befehle
             $pattern = '/\b(?:ALTER\s+TABLE|CREATE\s+TABLE|INSERT\s+INTO|UPDATE|DELETE\s+FROM|DROP\s+TABLE)\s+`?(?<table>[a-zA-Z0-9_]+)`?/i';
             if (preg_match($pattern, $sql, $matches)) {
                 $table = $matches['table'] ?? null;
@@ -46,43 +45,55 @@ class EntityDefinitionQueryHelper
         }
 
         if ($exception instanceof NotNullConstraintViolationException) {
-            // Falls eine Spalte auf NOT NULL gesetzt ist und NULL-Werte enthält,
             self::updateNotNullTableData($connection, $sql, $table, $column);
-        } elseif ($exception->getCode() === 1170) {
-            // Falls ein Unique-Key hinzugefügt wird, aber bereits ein Index mit gleichem Namen existiert
-            if (!$column) {
-                if (preg_match("/BLOB\/TEXT column '([^']+)'/", $exception->getMessage(), $matches)) {
+            return;
+        }
+
+        switch ($exception->getCode()) {
+            case 1170:
+                // Error number: 1170; Symbol: ER_BLOB_KEY_WITHOUT_LENGTH; SQLSTATE: 42000
+                // Message: BLOB/TEXT column '%s' used in key specification without a key length
+                if (!$column && preg_match("/BLOB\/TEXT column '([^']+)'/", $exception->getMessage(), $matches)) {
                     $column = $matches[1];
                 }
-            }
-            self::dropIndexIfExists($connection, $table, $column);
-        } elseif ($exception->getCode() === 1061) {
-            // Wenn der index eines gelöschten constraints nicht automatisch gelöscht wurde,
-            // muss der index nochmal explizit gelöscht werden, damit ein neuer constraint erstellt werden kann
-            if (!$column) {
-                if (preg_match("/Duplicate key name '([^']+)'/", $exception->getMessage(), $matches)) {
+                self::dropIndexIfExists($connection, $table, $column);
+                break;
+
+            case 1061:
+                // Error number: 1061; Symbol: ER_DUP_KEYNAME; SQLSTATE: 42000
+                // Message: Duplicate key name '%s'
+                if (!$column && preg_match("/Duplicate key name '([^']+)'/", $exception->getMessage(), $matches)) {
                     $column = $matches[1];
                 }
-            }
-            self::dropIndexIfExists($connection, $table, $column);
-        } elseif ($exception->getCode() === 1822) {
-            // Fehler in der SQL-Abfrage (1822): Failed to add the foreign key constraint. Missing index for constraint
-            if (preg_match("/in the referenced table '([^']+)'/", $exception->getMessage(), $matches)) {
-                self::makeVersionPrimaryKey($connection, $matches[1]);
-            }
-        } elseif ($exception->getCode() === 1005) {
-            // Fehler in der SQL-Abfrage (1005): Fehler: 150 "Foreign key constraint is incorrectly formed"
-            if (preg_match("/REFERENCES (\S+)/", $sql, $matches)) {
-                self::makeVersionPrimaryKeyV2($connection, $matches[1]);
-            }
-        } elseif ($exception->getCode() === 1452) {
-            // ER_NO_REFERENCED_ROW_2
-            // Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails
-            self::removeInvalidForeignKeys($connection, $sql, $table);
-        } elseif ($exception->getCode() === 1216) {
-            // ER_NO_REFERENCED_ROW
-            // Integrity constraint violation: 1216 Cannot add or update a child row: a foreign key constraint fails
-            self::removeInvalidForeignKeys($connection, $sql, $table);
+                self::dropIndexIfExists($connection, $table, $column);
+                break;
+
+            case 1822:
+                // Error number: 1822; Symbol: ER_FK_NO_INDEX_PARENT; SQLSTATE: HY000
+                // Message: Failed to add the foreign key constraint. Missing index for constraint '%s' in the referenced table '%s'
+                if (preg_match("/in the referenced table '([^']+)'/", $exception->getMessage(), $matches)) {
+                    self::addPrimaryKeys($connection, $matches[1]);
+                }
+                break;
+
+            case 1005:
+                // Error number: 1005; Symbol: ER_CANT_CREATE_TABLE; SQLSTATE: HY000
+                // Message: Can't create table '%s' (errno: %d - %s)
+                // InnoDB reports this error when a table cannot be created. If the error message refers to error 150, table creation failed because a foreign key constraint was not correctly formed.
+                // If the error message refers to error −1, table creation probably failed because the table includes a column name that matched the name of an internal InnoDB table.
+                if (preg_match("/REFERENCES (\S+)/", $sql, $matches)) {
+                    self::dropAndAddPrimaryKeys($connection, $matches[1]);
+                }
+                break;
+
+            case 1452:
+            case 1216:
+                // Error number: 1452; Symbol: ER_NO_REFERENCED_ROW_2; SQLSTATE: 23000
+                // Error number: 1216; Symbol: ER_NO_REFERENCED_ROW; SQLSTATE: 23000
+                // Message: Cannot add or update a child row: a foreign key constraint fails (%s)
+                // InnoDB reports this error when you try to add a row but there is no parent row, and a foreign key constraint fails. Add the parent row first.
+                self::removeInvalidForeignKeys($connection, $sql, $table);
+                break;
         }
     }
 
@@ -104,20 +115,30 @@ class EntityDefinitionQueryHelper
         $connection->executeStatement($sql);
     }
 
-    public static function makeVersionPrimaryKey(Connection $connection, string $table)
+    public static function addPrimaryKeys(
+        Connection $connection,
+        string $table,
+        array $pks = ['id', 'version_id']
+    ): void
     {
         $sql = sprintf(
-            "ALTER TABLE %s ADD PRIMARY KEY `PRIMARY` (`id`, `version_id`), DROP INDEX `PRIMARY`;",
-            self::quote($table)
+            "ALTER TABLE %s ADD PRIMARY KEY `PRIMARY` (%s), DROP INDEX `PRIMARY`;",
+            self::quote($table),
+            implode(', ', array_map(self::quote(...), $pks))
         );
         $connection->executeStatement($sql);
     }
 
-    public static function makeVersionPrimaryKeyV2(Connection $connection, string $table)
+    public static function dropAndAddPrimaryKeys(
+        Connection $connection,
+        string $table,
+        array $pks = ['id', 'version_id']
+    ): void
     {
         $sql = sprintf(
-            "ALTER TABLE %s DROP PRIMARY KEY, ADD PRIMARY KEY (`id`, `version_id`) USING BTREE;",
-            self::quote($table)
+            "ALTER TABLE %s DROP PRIMARY KEY, ADD PRIMARY KEY (%s) USING BTREE;",
+            self::quote($table),
+            implode(', ', array_map(self::quote(...), $pks))
         );
         $connection->executeStatement($sql);
     }
