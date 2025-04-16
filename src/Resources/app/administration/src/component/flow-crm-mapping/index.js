@@ -70,7 +70,6 @@ Shopware.Component.register('moorl-flow-crm-mapping', {
 
             if (!this.triggerEvent) {
                 return [];
-            } else {
             }
 
             return this.getEntityProperty(this.triggerEvent.data).concat(

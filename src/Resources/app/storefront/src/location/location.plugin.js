@@ -1,5 +1,5 @@
-import Plugin from 'src/plugin-system/plugin.class';
-import DomAccess from 'src/helper/dom-access.helper';
+const Plugin = window.PluginBaseClass;
+
 import L from 'leaflet';
 import { GestureHandling } from 'leaflet-gesture-handling';
 import CookieStorageHelper from 'src/helper/storage/cookie-storage.helper';
@@ -36,11 +36,7 @@ export default class MoorlLocationPlugin extends Plugin {
     _registerEvents() {
         /*document.$emitter.subscribe(COOKIE_CONFIGURATION_UPDATE, (updatedCookies) => {});*/
 
-        const listingEl = DomAccess.querySelector(
-            document,
-            '.cms-element-product-listing-wrapper',
-            false
-        );
+        const listingEl = document.querySelector('.cms-element-product-listing-wrapper');
 
         if (listingEl) {
             const listingPlugin =

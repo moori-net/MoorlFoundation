@@ -1,5 +1,5 @@
-import Plugin from 'src/plugin-system/plugin.class';
-import DomAccess from 'src/helper/dom-access.helper';
+const Plugin = window.PluginBaseClass;
+
 
 export default class MoorlInputLocationPlugin extends Plugin {
     static options = {
@@ -8,14 +8,8 @@ export default class MoorlInputLocationPlugin extends Plugin {
     };
 
     init() {
-        this._inputLocation = DomAccess.querySelector(
-            this.el,
-            this.options.inputLocationSelector
-        );
-        this._buttonMyLocation = DomAccess.querySelector(
-            this.el,
-            this.options.buttonMyLocationSelector
-        );
+        this._inputLocation = this.el.querySelector(this.options.inputLocationSelector);
+        this._buttonMyLocation = this.el.querySelector(this.options.buttonMyLocationSelector);
 
         this._registerEvents();
     }

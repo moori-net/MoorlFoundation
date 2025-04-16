@@ -1,4 +1,4 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 import SignaturePad from 'signature_pad';
 
 export default class MoorlFbSignaturePlugin extends Plugin {

@@ -244,8 +244,6 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         validateItem() {
-            const that = this;
-
             this.properties = Object.keys(this.data[0]);
             this.matches = 0;
 
@@ -258,19 +256,19 @@ Shopware.Component.register('moorl-csv-import', {
 
             for (let column of this.columns) {
                 if (column.localField) {
-                    let result = indexOf(that.properties, column.localField);
+                    let result = indexOf(this.properties, column.localField);
 
-                    if (result != -1) {
-                        that.mapping[column.localField] =
-                            that.properties[result];
-                        that.matches++;
+                    if (result !== -1) {
+                        this.mapping[column.localField] =
+                            this.properties[result];
+                        this.matches++;
                     }
                 } else {
-                    let result = indexOf(that.properties, column.property);
+                    let result = indexOf(this.properties, column.property);
 
-                    if (result != -1) {
-                        that.mapping[column.property] = that.properties[result];
-                        that.matches++;
+                    if (result !== -1) {
+                        this.mapping[column.property] = this.properties[result];
+                        this.matches++;
                     }
                 }
             }
@@ -281,35 +279,30 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         onFileInputChange() {
-            const that = this;
             Papa.parse(this.$refs.fileInput.files[0], {
                 header: true,
                 skipEmptyLines: true,
-                complete: function (results, file) {
+                complete: (results) => {
                     if (results.errors && results.errors.length > 0) {
-                        that.createSystemNotificationError({
-                            title: that.$t(
-                                'moorl-foundation.notification.errorTitle'
-                            ),
-                            message: that.$t(
-                                'moorl-foundation.notification.errorFileText'
-                            ),
+                        this.createSystemNotificationError({
+                            title: this.$t('moorl-foundation.notification.errorTitle'),
+                            message: this.$t('moorl-foundation.notification.errorFileText'),
                         });
 
-                        that.onCloseModal();
+                        this.onCloseModal();
 
                         return;
                     }
 
-                    that.data = results.data;
-                    that.validateItem();
-                    that.$refs.fileForm.reset();
+                    this.data = results.data;
+                    this.validateItem();
+                    this.$refs.fileForm.reset();
 
-                    that.rowCount = that.data.length;
-                    that.rowsDone = 0;
-                    that.step = 2;
+                    this.rowCount = this.data.length;
+                    this.rowsDone = 0;
+                    this.step = 2;
 
-                    that.initSelectedItem();
+                    this.initSelectedItem();
                 },
             });
         },
@@ -447,15 +440,13 @@ Shopware.Component.register('moorl-csv-import', {
             let url;
             try {
                 url = new URL(string);
-            } catch (_) {
+            } catch {
                 return false;
             }
             return url.protocol === 'http:' || url.protocol === 'https:';
         },
 
         async sanitizeItem(item) {
-            const that = this;
-
             const newItem = {};
             const isBool = /^\s*(true|1|on|yes|y|j|ja|an|si|x|check)\s*$/i; // boolean check
             const isUuid = /^[a-f0-9]{32}$/i; // uuid check
@@ -500,7 +491,7 @@ Shopware.Component.register('moorl-csv-import', {
                                         );
                                     let file, mediaUrl;
 
-                                    if (that.isValidHttpUrl(currentValue)) {
+                                    if (this.isValidHttpUrl(currentValue)) {
                                         mediaUrl = new URL(currentValue);
                                         file = mediaUrl.pathname
                                             .split('/')
@@ -535,7 +526,7 @@ Shopware.Component.register('moorl-csv-import', {
                                     if (mediaId) {
                                         newItem[column.localField] = mediaId;
                                     } else if (
-                                        that.isValidHttpUrl(currentValue)
+                                        this.isValidHttpUrl(currentValue)
                                     ) {
                                         newItem[column.localField] =
                                             newMediaItem.id;
@@ -585,7 +576,7 @@ Shopware.Component.register('moorl-csv-import', {
                                         const isValidId =
                                             isUuid.test(uuid) &&
                                             (!this.options.validateIds ||
-                                                (await that.getItemById(
+                                                (await this.getItemById(
                                                     column.entity,
                                                     uuid
                                                 )));
@@ -598,7 +589,7 @@ Shopware.Component.register('moorl-csv-import', {
                                             // search for tags, if not found create new
                                             let tagMatch = false;
 
-                                            for (let tag of that.tags) {
+                                            for (let tag of this.tags) {
                                                 if (tag.name === uuid) {
                                                     newItem[newProperty].push(
                                                         tag
@@ -609,21 +600,21 @@ Shopware.Component.register('moorl-csv-import', {
 
                                             if (tagMatch === false) {
                                                 const tag =
-                                                    that.tagRepository.create(
+                                                    this.tagRepository.create(
                                                         Shopware.Context.api
                                                     );
                                                 tag.name = uuid;
                                                 tag.id =
                                                     Shopware.Utils.createId();
-                                                await that.tagRepository.save(
+                                                await this.tagRepository.save(
                                                     tag,
                                                     Shopware.Context.api
                                                 );
-                                                that.tags.add(tag);
+                                                this.tags.add(tag);
                                                 newItem[newProperty].push(tag);
                                             }
                                         } else {
-                                            return that.onError(
+                                            return this.onError(
                                                 newProperty +
                                                     ' - import validation error: unknown/invalid ID (' +
                                                     uuid +
@@ -660,7 +651,7 @@ Shopware.Component.register('moorl-csv-import', {
                         case 'json_object':
                             try {
                                 newItem[newProperty] = JSON.parse(currentValue);
-                            } catch (e) {
+                            } catch {
                                 newItem[newProperty] = null;
                             }
                             break;

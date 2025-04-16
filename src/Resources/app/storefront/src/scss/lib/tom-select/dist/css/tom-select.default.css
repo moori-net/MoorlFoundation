@@ -240,7 +240,6 @@
     position: relative;
     padding: 10px 8px;
     border-bottom: 1px solid #d0d0d0;
-    background: color-mix(#fff, #d0d0d0, 85%);
     border-radius: 3px 3px 0 0;
 }
 .ts-wrapper .dropdown-header-close {
@@ -465,12 +464,10 @@
 }
 .ts-wrapper.multi.has-items .ts-control {
     padding-left: 5px;
-    --ts-pr-min: $padding-x;
 }
 .ts-wrapper.multi .ts-control [data-value] {
     text-shadow: 0 1px 0 rgba(0, 51, 83, 0.3);
     border-radius: 3px;
-    background-color: color-mix(#1da7ee, #178ee9, 60%);
     background-image: linear-gradient(to bottom, #1da7ee, #178ee9);
     background-repeat: repeat-x;
     box-shadow:
@@ -478,7 +475,6 @@
         inset 0 1px rgba(255, 255, 255, 0.03);
 }
 .ts-wrapper.multi .ts-control [data-value].active {
-    background-color: color-mix(#008fd8, #0075cf, 60%);
     background-image: linear-gradient(to bottom, #008fd8, #0075cf);
     background-repeat: repeat-x;
 }
@@ -499,7 +495,6 @@
     box-shadow:
         0 1px 0 rgba(0, 0, 0, 0.05),
         inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    background-color: color-mix(#fefefe, #f2f2f2, 60%);
     background-image: linear-gradient(to bottom, #fefefe, #f2f2f2);
     background-repeat: repeat-x;
 }

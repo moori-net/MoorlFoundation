@@ -47,8 +47,7 @@ class FoundationApiService extends ApiService {
                     link.download = filename;
                     link.dispatchEvent(new MouseEvent('click'));
                     link.remove();
-                })
-                .catch((error) => {});
+                });
         } else {
             this.httpClient({
                 method: 'get',
@@ -69,8 +68,7 @@ class FoundationApiService extends ApiService {
                         link.dispatchEvent(new MouseEvent('click'));
                         link.remove();
                     }
-                })
-                .catch((error) => {});
+                });
         }
     }
 }

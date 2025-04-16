@@ -50,7 +50,7 @@ Shopware.Component.register('moorl-file-explorer', {
                     path: path,
                     content: content,
                 })
-                .then((response) => {
+                .then(() => {
                     this.isLoading = false;
                 })
                 .catch((exception) => {
@@ -84,7 +84,7 @@ Shopware.Component.register('moorl-file-explorer', {
                     clientId: this.clientId,
                     path: path,
                 })
-                .then((response) => {
+                .then(() => {
                     this.listContents();
                     this.isLoading = false;
                 })
@@ -111,7 +111,7 @@ Shopware.Component.register('moorl-file-explorer', {
                     clientId: this.clientId,
                     dirname: dirname,
                 })
-                .then((response) => {
+                .then(() => {
                     this.value = dirname;
                     this.dirname = null;
 
@@ -140,7 +140,7 @@ Shopware.Component.register('moorl-file-explorer', {
                     clientId: this.clientId,
                     directory: directory,
                 })
-                .then((response) => {
+                .then(() => {
                     this.listContents();
                     this.isLoading = false;
                 })

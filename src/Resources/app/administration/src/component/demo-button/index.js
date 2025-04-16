@@ -52,7 +52,7 @@ Shopware.Component.register('moorl-demo-button', {
                     pluginName: this.pluginName,
                     name: this.name,
                 })
-                .then((response) => {
+                .then(() => {
                     this.createNotificationSuccess({
                         message: this.$tc(
                             'moorl-foundation-settings-demo-data.installed'

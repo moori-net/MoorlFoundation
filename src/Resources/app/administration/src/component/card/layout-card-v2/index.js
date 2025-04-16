@@ -235,7 +235,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
                             if (configField.entity) {
                                 delete configField.entity;
                             }
-                            if (configField.hasOwnProperty('required')) {
+                            if (configField.required !== undefined) {
                                 delete configField.required;
                             }
                             if (configField.type) {

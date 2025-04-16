@@ -84,7 +84,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                     `/moorl-foundation/settings/demo-data/install`,
                     this.currentOption
                 )
-                .then((response) => {
+                .then(() => {
                     this.createNotificationSuccess({
                         message: this.$tc(
                             'moorl-foundation-settings-demo-data.installed'
@@ -111,7 +111,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                     `/moorl-foundation/settings/demo-data/remove`,
                     this.currentOption
                 )
-                .then((response) => {
+                .then(() => {
                     this.createNotificationSuccess({
                         message: this.$tc(
                             'moorl-foundation-settings-demo-data.removed'

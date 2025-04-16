@@ -1,4 +1,4 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 import Dropzone from 'dropzone';
 
 export default class MoorlCustomerUploadPlugin extends Plugin {

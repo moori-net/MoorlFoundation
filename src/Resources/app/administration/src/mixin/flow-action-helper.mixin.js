@@ -1,4 +1,3 @@
-const { ShopwareError } = Shopware.Classes;
 const { isEmpty } = Shopware.Utils.types;
 const { snakeCase } = Shopware.Utils.string;
 

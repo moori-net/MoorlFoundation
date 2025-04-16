@@ -7,7 +7,7 @@ const SearchTypeService = Shopware.Service('searchTypeService');
 class MoorlProxyService {
     registerPlugin(pluginConfig) {
         if (pluginConfig.entity === undefined) {
-            console.log('You need at least an entity name');
+            console.warn('You need at least an entity name');
         }
 
         CustomFieldDataProviderService.addEntityName(pluginConfig.entity);

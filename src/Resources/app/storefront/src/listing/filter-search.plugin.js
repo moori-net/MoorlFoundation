@@ -1,5 +1,5 @@
 import FilterBasePlugin from 'src/plugin/listing/filter-base.plugin';
-import DomAccess from 'src/helper/dom-access.helper';
+
 import deepmerge from 'deepmerge';
 
 export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin {
@@ -12,14 +12,8 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
     });
 
     init() {
-        this._container = DomAccess.querySelector(
-            this.el,
-            this.options.containerSelector
-        );
-        this._inputSearch = DomAccess.querySelector(
-            this.el,
-            this.options.inputSearchSelector
-        );
+        this._container = this.el.querySelector(this.options.containerSelector);
+        this._inputSearch = this.el.querySelector(this.options.inputSearchSelector);
         this._timeout = null;
         this._hasError = false;
 
@@ -105,11 +99,7 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
     _removeError() {
         this._inputSearch.classList.remove(this.options.inputInvalidCLass);
 
-        const error = DomAccess.querySelector(
-            this.el,
-            `.${this.options.errorContainerClass}`,
-            false
-        );
+        const error = this.el.querySelector(`.${this.options.errorContainerClass}`);
 
         if (error) {
             error.remove();

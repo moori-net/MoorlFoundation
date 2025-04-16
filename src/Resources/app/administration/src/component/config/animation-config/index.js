@@ -21,7 +21,7 @@ Shopware.Component.register('moorl-animation', {
     },
 
     watch: {
-        value(value) {
+        value() {
             this.$emit('change', this.value);
         },
     },

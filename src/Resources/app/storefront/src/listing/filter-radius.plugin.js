@@ -1,5 +1,5 @@
 import FilterBasePlugin from 'src/plugin/listing/filter-base.plugin';
-import DomAccess from 'src/helper/dom-access.helper';
+
 import deepmerge from 'deepmerge';
 import CookieStorageHelper from 'src/helper/storage/cookie-storage.helper';
 
@@ -25,23 +25,11 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
     });
 
     init() {
-        this._container = DomAccess.querySelector(
-            this.el,
-            this.options.containerSelector
-        );
-        this._inputLocation = DomAccess.querySelector(
-            this.el,
-            this.options.inputLocationSelector
-        );
-        this._inputDistance = DomAccess.querySelector(
-            this.el,
-            this.options.inputDistanceSelector
-        );
+        this._container = this.el.querySelector(this.options.containerSelector);
+        this._inputLocation = this.el.querySelector(this.options.inputLocationSelector);
+        this._inputDistance = this.el.querySelector(this.options.inputDistanceSelector);
         if (this.options.filterRadiusPersist) {
-            this._inputPersist = DomAccess.querySelector(
-                this.el,
-                this.options.inputPersistSelector
-            );
+            this._inputPersist = this.el.querySelector(this.options.inputPersistSelector);
         }
         this._timeout = null;
         this._hasError = false;
@@ -151,11 +139,7 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
         this._inputLocation.classList.remove(this.options.inputInvalidCLass);
         this._inputDistance.classList.remove(this.options.inputInvalidCLass);
 
-        const error = DomAccess.querySelector(
-            this.el,
-            `.${this.options.errorContainerClass}`,
-            false
-        );
+        const error = this.el.querySelector(`.${this.options.errorContainerClass}`);
 
         if (error) {
             error.remove();

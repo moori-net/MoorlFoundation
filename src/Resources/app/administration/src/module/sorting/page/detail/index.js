@@ -42,7 +42,7 @@ Shopware.Component.register('moorl-sorting-detail', {
             const definitionRegistry =
                 Shopware.EntityDefinition.getDefinitionRegistry();
 
-            definitionRegistry.forEach(function (value, key, map) {
+            definitionRegistry.forEach(function (value, key) {
                 storeOptions.push({
                     name: `${key}`,
                 });

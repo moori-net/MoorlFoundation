@@ -40,10 +40,8 @@ Shopware.Component.register('moorl-map', {
     },
 
     mounted() {
-        const that = this;
-
-        setTimeout(function () {
-            that.drawMap();
+        setTimeout(() => {
+            this.drawMap();
         }, 1500);
     },
 
@@ -51,8 +49,6 @@ Shopware.Component.register('moorl-map', {
 
     methods: {
         drawMap() {
-            const that = this;
-
             this.leaflet.map = L.map(this.$refs['moorlMap'], {
                 center: this.mainLocation,
                 zoom: 16,
@@ -64,8 +60,8 @@ Shopware.Component.register('moorl-map', {
 
             this.updateMap();
 
-            setInterval(function () {
-                that.updateMap();
+            setInterval(() => {
+                this.updateMap();
             }, this.interval);
         },
 
@@ -76,23 +72,22 @@ Shopware.Component.register('moorl-map', {
 
             this.leaflet.map.invalidateSize();
 
-            const that = this;
             const featureMarker = [];
             const markerOptions = {
-                icon: that._getSvgIcon('location', 'location'),
+                icon: this._getSvgIcon('location', 'location'),
             };
 
             featureMarker.push(L.marker(this.mainLocation, markerOptions));
 
             if (this.item.deliverers) {
-                this.item.deliverers.forEach(function (item) {
+                this.item.deliverers.forEach((item) => {
                     if (!item.locationLat) {
                         return;
                     }
 
                     const markerOptions = {
                         data: item,
-                        icon: that._getSvgIcon('deliverer', 'deliverer'),
+                        icon: this._getSvgIcon('deliverer', 'deliverer'),
                     };
 
                     featureMarker.push(
@@ -105,11 +100,11 @@ Shopware.Component.register('moorl-map', {
                                 autoClose: true,
                             })
                             .on('click', function () {
-                                that.value = item.id;
+                                this.value = item.id;
                             })
                             .on('popupclose', function () {
-                                that.value = that.isFocusing
-                                    ? that.value
+                                this.value = this.isFocusing
+                                    ? this.value
                                     : null;
                             })
                     );
@@ -117,16 +112,16 @@ Shopware.Component.register('moorl-map', {
             }
 
             if (this.item.shopOrders) {
-                this.item.shopOrders.forEach(function (item) {
+                this.item.shopOrders.forEach((item) => {
                     if (!item.locationLat) {
                         return;
                     }
 
                     const markerOptions = {
                         data: item,
-                        icon: that._getSvgIcon(
-                            item.shippingMethod,
-                            item.className
+                        icon: this._getSvgIcon(
+                            this.shippingMethod,
+                            this.className
                         ),
                     };
 
@@ -140,11 +135,11 @@ Shopware.Component.register('moorl-map', {
                                 autoClose: true,
                             })
                             .on('click', function () {
-                                that.value = item.id;
+                                this.value = item.id;
                             })
                             .on('popupclose', function () {
-                                that.value = that.isFocusing
-                                    ? that.value
+                                this.value = this.isFocusing
+                                    ? this.value
                                     : null;
                             })
                     );
@@ -155,7 +150,7 @@ Shopware.Component.register('moorl-map', {
                 this.leaflet.marker.clearLayers();
             }
             this.leaflet.marker = L.featureGroup(featureMarker).addTo(
-                that.leaflet.map
+                this.leaflet.map
             );
 
             this.leaflet.map.fitBounds(this.leaflet.marker.getBounds());
@@ -168,21 +163,19 @@ Shopware.Component.register('moorl-map', {
 
             this.isFocusing = true;
 
-            const that = this;
-
-            this.leaflet.marker.eachLayer(function (layer) {
+            this.leaflet.marker.eachLayer((layer) => {
                 if (!layer || !layer.options || !layer.options.data) {
                     return;
                 }
 
-                if (layer.options.data.id === that.value) {
+                if (layer.options.data.id === this.value) {
                     let position = layer.getLatLng();
 
                     if (!layer.getPopup().isOpen()) {
                         layer.openPopup();
                     }
 
-                    that.leaflet.map.setView(position, 17);
+                    this.leaflet.map.setView(position, 17);
                     layer.setZIndexOffset(500);
                 } else {
                     layer.setZIndexOffset(0);

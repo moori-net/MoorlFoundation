@@ -1,7 +1,7 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 import FormSerializeUtil from 'src/utility/form/form-serialize.util';
-import DomAccess from 'src/helper/dom-access.helper';
-import HttpClient from 'src/service/http-client.service';
+
+
 
 export default class MoorlFoundationForm extends Plugin {
     static options = {};
@@ -24,10 +24,7 @@ export default class MoorlFoundationForm extends Plugin {
             event.preventDefault();
         }
 
-        const requestUrl = DomAccess.getAttribute(
-            this._form,
-            'action'
-        ).toLowerCase();
+        const requestUrl = this._form.getAttribute('action').toLowerCase();
         const formData = FormSerializeUtil.serialize(this._form);
 
         this._client.post(requestUrl, formData, this._onLoaded.bind(this));
