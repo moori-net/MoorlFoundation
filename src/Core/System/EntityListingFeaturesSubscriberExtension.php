@@ -268,9 +268,9 @@ class EntityListingFeaturesSubscriberExtension
         return new FilterCollection();
     }
 
-    protected function getTagFilter(Request $request): Filter
+    protected function getTagFilter(Request $request, ?array $defaultIds = null): Filter
     {
-        $ids = $this->getPropIds($request, "tag");
+        $ids = $this->getPropIds($request, "tag", $defaultIds);
 
         return new Filter(
             'tag',
