@@ -1,8 +1,6 @@
 import template from './index.html.twig';
 
-const {Component} = Shopware;
-
-Component.register('moorl-listing-layout-fieldset', {
+Shopware.Component.register('moorl-listing-layout-fieldset', {
     template,
 
     props: {

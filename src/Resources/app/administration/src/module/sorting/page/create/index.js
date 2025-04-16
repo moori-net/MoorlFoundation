@@ -1,8 +1,6 @@
 import template from '../detail/index.html.twig';
 
-const {Component} = Shopware;
-
-Component.extend('moorl-sorting-create', 'moorl-sorting-detail', {
+Shopware.Component.extend('moorl-sorting-create', 'moorl-sorting-detail', {
     template,
     methods: {
         getItem() {

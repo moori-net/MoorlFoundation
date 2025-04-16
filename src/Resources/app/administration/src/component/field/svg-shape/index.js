@@ -1,8 +1,6 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 
-Component.register('moorl-svg-shape', {
+Shopware.Component.register('moorl-svg-shape', {
     template,
 
     emits: [

@@ -1,12 +1,11 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component} = Shopware;
 const {Criteria, ChangesetGenerator} = Shopware.Data;
 const type = Shopware.Utils.types;
 const {cloneDeep, merge} = Shopware.Utils.object;
 
-Component.register('moorl-layout-card-v2', {
+Shopware.Component.register('moorl-layout-card-v2', {
     template,
 
     inject: [

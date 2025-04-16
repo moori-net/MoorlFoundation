@@ -59,7 +59,6 @@ export default class MoorlFoundationFilterRadiusPlugin extends FilterBasePlugin 
      */
     _onChangeInput() {
 
-
         clearTimeout(this._timeout);
 
         this._timeout = setTimeout(() => {

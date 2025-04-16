@@ -1,9 +1,8 @@
 import template from './index.html.twig';
 
-const {Component, Mixin} = Shopware;
 const {Criteria} = Shopware.Data;
 
-Component.register('moorl-client-detail', {
+Shopware.Component.register('moorl-client-detail', {
     template,
 
     inject: [
@@ -13,7 +12,7 @@ Component.register('moorl-client-detail', {
     ],
 
     mixins: [
-        Mixin.getByName('notification')
+        Shopware.Mixin.getByName('notification')
     ],
 
     metaInfo() {

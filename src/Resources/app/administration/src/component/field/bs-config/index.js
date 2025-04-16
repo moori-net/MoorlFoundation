@@ -1,9 +1,7 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('moorl-bs-config', {
+Shopware.Component.register('moorl-bs-config', {
     template,
 
     props: {

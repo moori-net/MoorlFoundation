@@ -1,8 +1,6 @@
-const {Component, Mixin} = Shopware;
-
 import template from './sw-category-layout-card.html.twig';
 
-Component.override('sw-category-layout-card', {
+Shopware.Component.override('sw-category-layout-card', {
     template,
 
     inject: [
@@ -10,7 +8,7 @@ Component.override('sw-category-layout-card', {
     ],
 
     mixins: [
-        Mixin.getByName('notification')
+        Shopware.Mixin.getByName('notification')
     ],
 
     data() {

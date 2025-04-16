@@ -1,10 +1,9 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component, Context} = Shopware;
 const {Criteria} = Shopware.Data;
 
-Component.register('moorl-entity-form-element', {
+Shopware.Component.register('moorl-entity-form-element', {
     inject: ['repositoryFactory'],
 
     template,
@@ -79,7 +78,7 @@ Component.register('moorl-entity-form-element', {
 
         productSearchContext() {
             return {
-                ...Context.api,
+                ...Shopware.Context.api,
                 inheritance: true
             };
         }

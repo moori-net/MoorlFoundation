@@ -1,9 +1,7 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('moorl-animation', {
+Shopware.Component.register('moorl-animation', {
     template,
 
     emits: ['update:value'],

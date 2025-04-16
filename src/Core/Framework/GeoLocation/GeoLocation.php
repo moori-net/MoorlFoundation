@@ -136,7 +136,6 @@ class GeoLocation implements \Stringable {
 				$this->radLat . " rad, " . $this->radLon . " rad";
 	}
 
-
   /**
    * <p>Computes the bounding coordinates of all points on the surface
    * of a sphere that have a great circle distance to the point represented

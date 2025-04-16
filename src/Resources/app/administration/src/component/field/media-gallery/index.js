@@ -1,16 +1,15 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component, Mixin} = Shopware;
 const {isEmpty} = Shopware.Utils.types;
 
-Component.register('moorl-media-gallery', {
+Shopware.Component.register('moorl-media-gallery', {
     template,
 
     inject: ['repositoryFactory', 'acl'],
 
     mixins: [
-        Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('notification'),
     ],
 
     props: {

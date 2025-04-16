@@ -1,8 +1,7 @@
-const Application = Shopware.Application;
 import './component';
 import './config';
 
-Application.getContainer('service').cmsService.registerCmsElement({
+Shopware.Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
     icon: 'regular-code',
     name: 'moorl-html-tag',

@@ -1,9 +1,7 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('moorl-section-grid-config', {
+Shopware.Component.register('moorl-section-grid-config', {
     template,
 
     props: {

@@ -12,7 +12,6 @@ class BoundingBox {
   protected $maxLat;
   protected $GeoPoints = [];
 
-
   public function __construct($minLat, $minLon, $maxLat, $maxLon, $inRadians=false)
   {
     if (!$minLat||!$minLon||!$maxLat||!$maxLon) {
@@ -27,7 +26,6 @@ class BoundingBox {
     $this->GeoPoints[] = new GeoPoint($maxLat, $minLon, $inRadians);
     $this->GeoPoints[] = new GeoPoint($maxLat, $maxLon, $inRadians);
   }
-
 
   /**
    * <p>Computes the bounding coordinates of all points on the surface

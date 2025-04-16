@@ -3,9 +3,7 @@ import './page/list';
 import './page/detail';
 import './page/create';
 
-const {Module} = Shopware;
-
-Module.register('moorl-sorting', {
+Shopware.Module.register('moorl-sorting', {
     type: 'plugin',
     name: 'settings-listing',
     title: 'moorl-sorting.general.mainMenuItemGeneral',

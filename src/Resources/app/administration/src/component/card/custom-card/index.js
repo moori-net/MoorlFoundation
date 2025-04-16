@@ -1,8 +1,6 @@
 import template from './index.html.twig';
 
-const {Component} = Shopware;
-
-Component.register('moorl-custom-card', {
+Shopware.Component.register('moorl-custom-card', {
     template,
 
     props: {

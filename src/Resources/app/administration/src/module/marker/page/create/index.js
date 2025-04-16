@@ -1,8 +1,6 @@
-const {Component} = Shopware;
-
 import template from '../detail/index.html.twig';
 
-Component.extend('moorl-marker-create', 'moorl-marker-detail', {
+Shopware.Component.extend('moorl-marker-create', 'moorl-marker-detail', {
     template,
 
     methods: {

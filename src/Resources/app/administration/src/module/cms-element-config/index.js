@@ -1,8 +1,6 @@
-const {Module} = Shopware;
-
 import './page/index';
 
-Module.register('moorl-cms-element-config', {
+Shopware.Module.register('moorl-cms-element-config', {
     type: 'plugin',
     name: 'moorl-cms-element-config',
     title: 'moorl-foundation.label.settingsCmsElementConfig',

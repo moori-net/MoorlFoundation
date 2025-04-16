@@ -1,9 +1,7 @@
-const {Component, Mixin} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-moorl-share', {
+Shopware.Component.register('sw-cms-el-moorl-share', {
     template,
 
     props: {
@@ -15,7 +13,7 @@ Component.register('sw-cms-el-moorl-share', {
     },
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Shopware.Mixin.getByName('cms-element')
     ],
 
     created() {

@@ -1,14 +1,13 @@
-const {Component, Mixin} = Shopware;
-const Criteria = Shopware.Data.Criteria;
+const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-moorl-replacer', {
+Shopware.Component.register('sw-cms-el-moorl-replacer', {
     template,
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Shopware.Mixin.getByName('cms-element')
     ],
 
     inject: ['repositoryFactory'],

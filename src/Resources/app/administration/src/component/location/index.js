@@ -3,9 +3,7 @@ import './index.scss';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
-const {Component} = Shopware;
-
-Component.register('moorl-location', {
+Shopware.Component.register('moorl-location', {
     template,
 
     props: {

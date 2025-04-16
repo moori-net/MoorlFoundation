@@ -1,8 +1,6 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 
-Component.override('sw-cms-el-config-image-slider', {
+Shopware.Component.override('sw-cms-el-config-image-slider', {
     template,
 
     created() {

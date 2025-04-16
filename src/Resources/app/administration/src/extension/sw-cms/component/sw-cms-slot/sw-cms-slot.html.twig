@@ -30,15 +30,19 @@
     {% parent %}
 
     <template v-if="moorlIsUnlocked">
-        <div class="sw-cms-slot__settings-action"
-             @click="onCmsElementConfigSaverButtonClick"
-             v-tooltip.bottom="tooltipDisabled">
+        <div
+                class="sw-cms-slot__settings-action"
+                @click="onCmsElementConfigSaverButtonClick"
+                v-tooltip.bottom="tooltipDisabled"
+        >
             <sw-icon name="regular-save" size="16"/>
         </div>
 
-        <div class="sw-cms-slot__settings-action"
-             @click="showCmsElementAnimationModal = true"
-             v-tooltip.bottom="tooltipDisabled">
+        <div
+                class="sw-cms-slot__settings-action"
+                @click="showCmsElementAnimationModal = true"
+                v-tooltip.bottom="tooltipDisabled"
+        >
             <sw-icon name="regular-spinner-star" size="16"/>
         </div>
     </template>
@@ -47,9 +51,11 @@
 {% block sw_cms_slot_content_settings_modal %}
     {% parent %}
 
-    <sw-modal v-if="showCmsElementAnimationModal"
-              :title="$tc('sw-cms.component.sw-cms-slot.cmsElementAnimation')"
-              @modal-close="showCmsElementAnimationModal = false">
+    <sw-modal
+            v-if="showCmsElementAnimationModal"
+            :title="$tc('sw-cms.component.sw-cms-slot.cmsElementAnimation')"
+            @modal-close="showCmsElementAnimationModal = false"
+    >
         <moorl-element-animation v-model:element="element"/>
 
         <template #modal-footer>
@@ -59,10 +65,11 @@
         </template>
     </sw-modal>
 
-    <sw-modal class="sw-cms-slot__config-modal"
-              v-if="showCmsElementConfigSaver"
-              :title="$tc('sw-cms.component.sw-cms-slot.cmsElementConfigSaver')"
-              @modal-close="showCmsElementConfigSaver = false">
+    <sw-modal
+            v-if="showCmsElementConfigSaver"
+            :title="$tc('sw-cms.component.sw-cms-slot.cmsElementConfigSaver')"
+            @modal-close="showCmsElementConfigSaver = false"
+    >
         <sw-text-field
                 v-model:value="cmsElementConfig.name"
                 :label="$tc('sw-cms.component.sw-cms-slot.label.name')"
@@ -79,7 +86,8 @@
                     :label="$tc('sw-cms.component.sw-cms-slot.label.selectConfig')"
                     :criteria="cmsElementConfigCriteria"
                     entity="moorl_cms_element_config"
-                    v-model:value="cmsElementConfigId">
+                    v-model:value="cmsElementConfigId"
+            >
                 <template #result-item="{ item, index }">
                     <slot name="result-item" v-bind="{ item, index }">
                         <li is="sw-select-result" v-bind="{ item, index }">
@@ -89,9 +97,11 @@
                 </template>
             </sw-entity-single-select>
 
-            <router-link target="_blank"
-                         rel="noopener"
-                         :to="{ name: 'moorl.foundation.settings.cmselementconfig' }">
+            <router-link
+                    target="_blank"
+                    rel="noopener"
+                    :to="{ name: 'moorl.foundation.settings.cmselementconfig' }"
+            >
                 {{ $tc('sw-cms.component.sw-cms-slot.label.manageConfigs') }}
             </router-link>
         </div>

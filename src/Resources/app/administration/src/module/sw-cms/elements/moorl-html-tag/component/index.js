@@ -1,14 +1,12 @@
-const {Component, Mixin} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-moorl-html-tag', {
+Shopware.Component.register('sw-cms-el-moorl-html-tag', {
     template,
 
     mixins: [
-        Mixin.getByName('cms-element'),
-        Mixin.getByName('placeholder'),
+        Shopware.Mixin.getByName('cms-element'),
+        Shopware.Mixin.getByName('placeholder'),
     ],
 
     computed: {

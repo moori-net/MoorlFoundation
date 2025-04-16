@@ -1,9 +1,8 @@
-const {Component, Mixin} = Shopware;
 const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 
-Component.register('moorl-sorting-list', {
+Shopware.Component.register('moorl-sorting-list', {
     template,
 
     inject: [
@@ -11,7 +10,7 @@ Component.register('moorl-sorting-list', {
     ],
 
     mixins: [
-        Mixin.getByName('listing')
+        Shopware.Mixin.getByName('listing')
     ],
 
     data() {

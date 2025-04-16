@@ -2,10 +2,9 @@ import template from './index.html.twig';
 import './index.scss';
 import Papa from 'papaparse';
 
-const { Component, Mixin } = Shopware;
-const Criteria = Shopware.Data.Criteria;
+const {Criteria} = Shopware.Data;
 
-Component.register('moorl-csv-export', {
+Shopware.Component.register('moorl-csv-export', {
     template,
 
     inject: [
@@ -15,7 +14,7 @@ Component.register('moorl-csv-export', {
     ],
 
     mixins: [
-        Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('notification'),
     ],
 
     props: {

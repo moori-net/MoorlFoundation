@@ -1,9 +1,8 @@
-const {Component, Mixin} = Shopware;
 const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 
-Component.register('moorl-cms-element-config-index', {
+Shopware.Component.register('moorl-cms-element-config-index', {
     template,
 
     inject: [
@@ -13,9 +12,9 @@ Component.register('moorl-cms-element-config-index', {
     ],
 
     mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('listing'),
-        Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('listing'),
+        Shopware.Mixin.getByName('placeholder')
     ],
 
     data() {

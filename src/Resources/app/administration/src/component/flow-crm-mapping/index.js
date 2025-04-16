@@ -1,9 +1,8 @@
 import template from './index.html.twig';
 
-const {Component, EntityDefinition, State} = Shopware;
 const {snakeCase} = Shopware.Utils.string;
 
-Component.register('moorl-flow-crm-mapping', {
+Shopware.Component.register('moorl-flow-crm-mapping', {
     template,
 
     props: {
@@ -58,7 +57,6 @@ Component.register('moorl-flow-crm-mapping', {
 
                 return [];
             } else {
-
 
             }
 
@@ -161,8 +159,8 @@ Component.register('moorl-flow-crm-mapping', {
 
             return entities.reduce((result, entity) => {
                 const entityName = snakeCase(entity);
-                const properties = EntityDefinition.get(entityName).filterProperties(property => {
-                    return EntityDefinition.getScalarTypes().includes(property.type);
+                const properties = Shopware.EntityDefinition.get(entityName).filterProperties(property => {
+                    return Shopware.EntityDefinition.getScalarTypes().includes(property.type);
                 });
 
                 return result.concat(Object.keys(properties).map(property => {

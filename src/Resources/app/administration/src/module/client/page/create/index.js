@@ -1,8 +1,6 @@
-const {Component} = Shopware;
-
 import template from '../detail/index.html.twig';
 
-Component.extend('moorl-client-create', 'moorl-client-detail', {
+Shopware.Component.extend('moorl-client-create', 'moorl-client-detail', {
     template,
 
     methods: {

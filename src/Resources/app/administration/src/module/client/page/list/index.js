@@ -1,9 +1,8 @@
-const {Component, Mixin, Context} = Shopware;
 const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 
-Component.register('moorl-client-list', {
+Shopware.Component.register('moorl-client-list', {
     template,
 
     inject: [
@@ -13,8 +12,8 @@ Component.register('moorl-client-list', {
     ],
 
     mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('listing'),
+        Shopware.Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('listing'),
     ],
 
     data() {
@@ -37,7 +36,7 @@ Component.register('moorl-client-list', {
 
         searchContext() {
             return {
-                ...Context.api,
+                ...Shopware.Context.api,
                 inheritance: true
             };
         },

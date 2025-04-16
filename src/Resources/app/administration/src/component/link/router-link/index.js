@@ -1,8 +1,6 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 
-Component.register('moorl-router-link', {
+Shopware.Component.register('moorl-router-link', {
     template,
 
     props: {

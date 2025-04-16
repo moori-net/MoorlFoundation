@@ -1,9 +1,8 @@
 import template from './index.html.twig';
 
-const {Component} = Shopware;
 const {mapPropertyErrors} = Shopware.Component.getComponentHelper();
 
-Component.register('moorl-thing-card', {
+Shopware.Component.register('moorl-thing-card', {
     template,
 
     inject: [

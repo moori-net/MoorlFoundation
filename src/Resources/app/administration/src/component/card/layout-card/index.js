@@ -1,9 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component} = Shopware;
-
-Component.register('moorl-layout-card', {
+Shopware.Component.register('moorl-layout-card', {
     template,
 
     inject: ['acl', 'feature'],

@@ -1,9 +1,8 @@
-const {Component, Mixin} = Shopware;
 const {Criteria, EntityCollection} = Shopware.Data;
 
 import template from './index.html.twig';
 
-Component.register('sw-cms-el-config-moorl-download-list', {
+Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
     template,
 
     props: {
@@ -15,7 +14,7 @@ Component.register('sw-cms-el-config-moorl-download-list', {
     },
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Shopware.Mixin.getByName('cms-element')
     ],
 
     inject: [

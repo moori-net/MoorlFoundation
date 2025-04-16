@@ -1,12 +1,10 @@
-const { Component, Mixin } = Shopware;
-
 import template from './index.html.twig';
 
-Component.register('sw-cms-el-config-moorl-hero-banner', {
+Shopware.Component.register('sw-cms-el-config-moorl-hero-banner', {
     template,
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Shopware.Mixin.getByName('cms-element')
     ],
 
     inject: ['repositoryFactory'],

@@ -1,8 +1,6 @@
-const {Module} = Shopware;
-
 import './page/index';
 
-Module.register('moorl-demo-data', {
+Shopware.Module.register('moorl-demo-data', {
     type: 'plugin',
     name: 'moorl-demo-data',
     title: 'moorl-foundation.label.settingsDemoData',

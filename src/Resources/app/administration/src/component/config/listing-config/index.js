@@ -1,9 +1,7 @@
 import template from './index.html.twig';
 import defaultValue from './default.json';
 
-const {Component} = Shopware;
-
-Component.register('moorl-listing-config', {
+Shopware.Component.register('moorl-listing-config', {
     template,
 
     emits: ['update:value'],

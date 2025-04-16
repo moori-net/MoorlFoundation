@@ -1,5 +1,3 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 
 import animateCss from './sets/animate-css.json';
@@ -110,7 +108,7 @@ const defaults = {
     }
 };
 
-Component.register('moorl-select-field', {
+Shopware.Component.register('moorl-select-field', {
     template,
 
     emits: ['update:value'],

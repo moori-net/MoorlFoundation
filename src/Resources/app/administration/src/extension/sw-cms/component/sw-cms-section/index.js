@@ -4,10 +4,9 @@ import './sw-cms-section.scss';
 /*import './sw-cms-section-config';*/
 import './sw-cms-section-actions';
 
-const {Component} = Shopware;
 const {cloneDeep} = Shopware.Utils.object;
 
-Component.override('sw-cms-section', {
+Shopware.Component.override('sw-cms-section', {
     template,
 
     computed: {

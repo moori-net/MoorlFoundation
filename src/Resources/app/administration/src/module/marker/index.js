@@ -1,9 +1,8 @@
-const { Module } = Shopware;
 import './page/list';
 import './page/detail';
 import './page/create';
 
-Module.register('moorl-marker', {
+Shopware.Module.register('moorl-marker', {
     type: 'plugin',
     name: 'MerchantFinder',
     title: 'moorl-marker.title',

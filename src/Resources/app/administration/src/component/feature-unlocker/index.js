@@ -1,9 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component, Mixin} = Shopware;
-
-Component.register('moorl-feature-unlocker', {
+Shopware.Component.register('moorl-feature-unlocker', {
     template,
 
     shortcuts: {
@@ -13,7 +11,7 @@ Component.register('moorl-feature-unlocker', {
     inject: ['acl'],
 
     mixins: [
-        Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('notification'),
     ],
 
     data() {

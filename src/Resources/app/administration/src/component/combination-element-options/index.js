@@ -1,8 +1,6 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 
-Component.register('moorl-combination-element-options', {
+Shopware.Component.register('moorl-combination-element-options', {
     template,
 
     emits: [

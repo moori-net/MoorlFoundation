@@ -1,6 +1,4 @@
-const { Component } = Shopware;
-
-Component.override('sw-cms-page-form', {
+Shopware.Component.override('sw-cms-page-form', {
     computed: {
         slotPositions() {
             const slotPositions = this.$super('slotPositions');

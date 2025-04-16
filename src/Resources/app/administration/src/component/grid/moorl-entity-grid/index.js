@@ -1,8 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const { Component, Mixin } = Shopware;
-const Criteria = Shopware.Data.Criteria;
+const {Criteria} = Shopware.Data;
 
 /**
  * Standard variable names
@@ -33,14 +32,14 @@ const Criteria = Shopware.Data.Criteria;
  * @searchTerm: String
  *
  */
-Component.register('moorl-entity-grid', {
+Shopware.Component.register('moorl-entity-grid', {
     inject: ['repositoryFactory', 'acl'],
 
     template,
 
     mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('placeholder')
     ],
 
     props: {
@@ -325,7 +324,6 @@ Component.register('moorl-entity-grid', {
             }
 
             this.editColumns = columns;
-
 
         },
 

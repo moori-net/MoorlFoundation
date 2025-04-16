@@ -1,9 +1,7 @@
-const {Component} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('moorl-block-behaviour', {
+Shopware.Component.register('moorl-block-behaviour', {
     template,
 
     props: {

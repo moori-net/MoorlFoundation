@@ -1,10 +1,9 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const { Component, Context } = Shopware;
 const { Criteria, EntityCollection } = Shopware.Data;
 
-Component.register('moorl-properties-card', {
+Shopware.Component.register('moorl-properties-card', {
     template,
 
     compatConfig: Shopware.compatConfig,
@@ -137,7 +136,7 @@ Component.register('moorl-properties-card', {
 
             this.isPropertiesLoading = true;
             return this.propertyGroupRepository
-                .search(this.propertyGroupCriteria, Context.api)
+                .search(this.propertyGroupCriteria, Shopware.Context.api)
                 .then((properties) => {
                     this.properties = properties;
                 })

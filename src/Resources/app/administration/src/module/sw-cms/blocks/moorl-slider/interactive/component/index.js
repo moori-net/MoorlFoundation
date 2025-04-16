@@ -1,9 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component} = Shopware;
-
-Component.register('sw-cms-block-moorl-interactive-slider', {
+Shopware.Component.register('sw-cms-block-moorl-interactive-slider', {
     template,
 
     inject: [

@@ -1,8 +1,6 @@
-const {Component, Mixin} = Shopware;
-
 import template from './index.html.twig';
 
-Component.register('moorl-demo-data-index', {
+Shopware.Component.register('moorl-demo-data-index', {
     template,
 
     inject: [
@@ -12,8 +10,8 @@ Component.register('moorl-demo-data-index', {
     ],
 
     mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('placeholder')
     ],
 
     data() {

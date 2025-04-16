@@ -1,9 +1,7 @@
-const {Component, Mixin} = Shopware;
-
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('moorl-file-explorer', {
+Shopware.Component.register('moorl-file-explorer', {
     template,
 
     inject: [
@@ -13,7 +11,7 @@ Component.register('moorl-file-explorer', {
     ],
 
     mixins: [
-        Mixin.getByName('notification')
+        Shopware.Mixin.getByName('notification')
     ],
 
     emits: [

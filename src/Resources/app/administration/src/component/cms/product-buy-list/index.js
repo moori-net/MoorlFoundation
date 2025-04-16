@@ -2,7 +2,7 @@ import './component';
 import './config';
 import './preview';
 
-const Criteria = Shopware.Data.Criteria;
+const {Criteria} = Shopware.Data;
 const criteria = new Criteria();
 criteria.addAssociation('options.group');
 criteria.addAssociation('cover');

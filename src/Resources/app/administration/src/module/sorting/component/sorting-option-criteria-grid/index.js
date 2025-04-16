@@ -1,7 +1,6 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Mixin} = Shopware;
 const {Criteria} = Shopware.Data;
 
 Shopware.Component.register('moorl-sorting-option-criteria-grid', {
@@ -10,8 +9,8 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
     inject: ['repositoryFactory'],
 
     mixins: [
-        Mixin.getByName('notification'),
-        Mixin.getByName('sw-inline-snippet'),
+        Shopware.Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('sw-inline-snippet'),
     ],
 
     props: {

@@ -1,12 +1,11 @@
-const { Component, Mixin, Utils } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-moorl-hero-banner', {
+Shopware.Component.register('sw-cms-el-moorl-hero-banner', {
     template,
 
     mixins: [
-        Mixin.getByName('cms-element')
+        Shopware.Mixin.getByName('cms-element')
     ],
 
     computed: {

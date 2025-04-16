@@ -1,15 +1,14 @@
-const Application = Shopware.Application;
 import './component';
 import './config';
 
-const Criteria = Shopware.Data.Criteria;
+const {Criteria} = Shopware.Data;
 const criteria = new Criteria();
 criteria.addAssociation('media');
 
 const productCriteria = new Criteria();
 productCriteria.addAssociation('cover.media');
 
-Application.getContainer('service').cmsService.registerCmsElement({
+Shopware.Application.getContainer('service').cmsService.registerCmsElement({
     hidden: true,
     plugin: 'MoorlFoundation',
     icon: 'regular-marketing',

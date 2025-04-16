@@ -1,10 +1,9 @@
 import template from './index.html.twig';
 
-const {Component, Mixin, Context} = Shopware;
 const {Criteria} = Shopware.Data;
 const utils = Shopware.Utils;
 
-Component.register('moorl-marker-detail', {
+Shopware.Component.register('moorl-marker-detail', {
     template,
 
     inject: [
@@ -14,7 +13,7 @@ Component.register('moorl-marker-detail', {
     ],
 
     mixins: [
-        Mixin.getByName('notification')
+        Shopware.Mixin.getByName('notification')
     ],
 
     metaInfo() {
@@ -78,7 +77,7 @@ Component.register('moorl-marker-detail', {
     methods: {
         getItem() {
             this.repository
-                .get(this.$route.params.id, Context.api, this.defaultCriteria)
+                .get(this.$route.params.id, Shopware.Context.api, this.defaultCriteria)
                 .then((entity) => {
                     this.item = entity;
 

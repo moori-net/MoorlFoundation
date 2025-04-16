@@ -1,9 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component, Mixin} = Shopware;
-
-Component.register('moorl-demo-button', {
+Shopware.Component.register('moorl-demo-button', {
     template,
 
     props: {
@@ -25,7 +23,7 @@ Component.register('moorl-demo-button', {
     ],
 
     mixins: [
-        Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('notification'),
     ],
 
     data() {

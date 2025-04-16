@@ -1,9 +1,8 @@
-const {Component, Mixin, EntityDefinition, State} = Shopware;
 const {ShopwareError} = Shopware.Classes;
 const {isEmpty} = Shopware.Utils.types;
 const {snakeCase} = Shopware.Utils.string;
 
-Mixin.register('moorl-flow-action-helper', {
+Shopware.Mixin.register('moorl-flow-action-helper', {
     computed: {
         triggerEvent() {
             return Store.get('swFlowState').triggerEvent;
@@ -70,8 +69,8 @@ Mixin.register('moorl-flow-action-helper', {
 
             return entities.reduce((result, entity) => {
                 const entityName = this.convertCamelCaseToSnakeCase(entity);
-                const properties = EntityDefinition.get(entityName).filterProperties(property => {
-                    return EntityDefinition.getScalarTypes().includes(property.type);
+                const properties = Shopware.EntityDefinition.get(entityName).filterProperties(property => {
+                    return Shopware.EntityDefinition.getScalarTypes().includes(property.type);
                 });
 
                 return result.concat(Object.keys(properties).map(property => {
