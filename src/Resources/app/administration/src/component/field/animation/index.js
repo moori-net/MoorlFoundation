@@ -2,9 +2,7 @@ import template from './index.html.twig';
 import './index.scss';
 import defaultValue from './default.json';
 
-const {Component} = Shopware;
-
-Component.register('moorl-animation-fieldset', {
+Shopware.Component.register('moorl-animation-field', {
     template,
 
     emits: ['update:item'],
@@ -18,7 +16,7 @@ Component.register('moorl-animation-fieldset', {
 
     created() {
         if (!this.item) {
-            this.$emit('item:item', defaultValue);
+            this.$emit('update:item', defaultValue);
         }
     },
 });
