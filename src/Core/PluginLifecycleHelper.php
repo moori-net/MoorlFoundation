@@ -28,31 +28,6 @@ class PluginLifecycleHelper
         }
     }
 
-    /**
-     * @param ContainerBuilder $container
-     * @param string $path
-     * @return void
-     * @throws \Exception
-     *
-     * Copy from: https://developer.shopware.com/docs/guides/plugins/plugins/plugin-fundamentals/logging.html
-     */
-    public static function loadYaml(ContainerBuilder $container, string $path): void
-    {
-        $locator = new FileLocator('Resources/config');
-
-        $resolver = new LoaderResolver([
-            new YamlFileLoader($container, $locator),
-            new GlobFileLoader($container, $locator),
-            new DirectoryLoader($container, $locator),
-        ]);
-
-        $configLoader = new DelegatingLoader($resolver);
-
-        $confDir = \rtrim($path, '/') . '/Resources/config';
-
-        $configLoader->load($confDir . '/{packages}/*.yaml', 'glob');
-    }
-
     public static function update(string $plugin, ContainerInterface $container): void
     {
         $connection = $container->get(Connection::class);
