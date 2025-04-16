@@ -1,5 +1,5 @@
 const Plugin = window.PluginBaseClass;
-
+import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlFoundation extends Plugin {
     init() {

@@ -1,5 +1,5 @@
 const Plugin = window.PluginBaseClass;
-
+import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlRelativeTimePlugin extends Plugin {
     static options = {
@@ -10,9 +10,6 @@ export default class MoorlRelativeTimePlugin extends Plugin {
     };
 
     init() {
-        if (this.options.actionUrl) {
-        }
-
         const actionUrl = this.options.actionUrl;
         const time = new Intl.RelativeTimeFormat(this.options.locale);
         const from = new Date(this.options.from);
