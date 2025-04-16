@@ -13,7 +13,7 @@
         <template #content="{ active }">
             <sw-container v-if="active === 'content'">
                 <sw-text-field
-                        :label="$tc(snippetPrefix + 'label.name')"
+                        :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
                         v-model:value="element.config.name.value"
                 />
 
@@ -45,19 +45,19 @@
                             <template #content>
                                 <div class="collapse-content">
                                     <sw-text-field
-                                            :label="$tc(snippetPrefix + 'label.name')"
+                                            :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
                                             v-model:value="entry.name"
                                     />
 
                                     <sw-code-editor
                                             v-model:value="entry.content"
                                             mode="twig"
-                                            :label="$tc(snippetPrefix + 'label.content')"
+                                            :label="$tc('sw-cms.elements.moorl-accordion.label.content')"
                                             :softWraps="true"
                                     />
 
                                     <sw-button variant="danger" @click.prevent="removeEntry($event, index)">
-                                        {{ $tc(snippetPrefix + 'label.remove') }}
+                                        {{ $tc('sw-cms.elements.moorl-accordion.label.remove') }}
                                     </sw-button>
                                 </div>
                             </template>
@@ -68,7 +68,7 @@
                         <sw-button :block="true" @click="addEntry" variant="ghost">
                             <span>
                                 <sw-icon name="regular-plus" :small="true"/>
-                                {{ $tc(snippetPrefix + 'label.add') }}
+                                {{ $tc('sw-cms.elements.moorl-accordion.label.add') }}
                             </span>
                         </sw-button>
                     </div>

@@ -12,12 +12,6 @@ Component.register('sw-cms-el-moorl-table-registration', {
         Mixin.getByName('cms-element')
     ],
 
-    data() {
-        return {
-            snippetPrefix: 'sw-cms.elements.moorl-table-registration.'
-        };
-    },
-
     computed: {},
 
     created() {

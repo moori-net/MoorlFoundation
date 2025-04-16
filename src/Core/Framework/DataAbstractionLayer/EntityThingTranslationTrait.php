@@ -11,7 +11,6 @@ trait EntityThingTranslationTrait
     protected ?string $metaTitle = null;
     protected ?string $metaDescription = null;
     protected ?string $metaKeywords = null;
-    protected ?string $seoUrl = null;
     protected ?array $slotConfig = null;
 
     public function getMetaKeywords(): ?string
@@ -22,16 +21,6 @@ trait EntityThingTranslationTrait
     public function setMetaKeywords(?string $metaKeywords): void
     {
         $this->metaKeywords = $metaKeywords;
-    }
-
-    public function getSeoUrl(): ?string
-    {
-        return $this->seoUrl;
-    }
-
-    public function setSeoUrl(?string $seoUrl): void
-    {
-        $this->seoUrl = $seoUrl;
     }
 
     public function getKeywords(): ?string

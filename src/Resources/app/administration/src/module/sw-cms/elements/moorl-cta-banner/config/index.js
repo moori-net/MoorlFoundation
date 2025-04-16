@@ -16,8 +16,7 @@ Component.register('sw-cms-el-config-moorl-cta-banner', {
         return {
             mediaModalIsOpen: false,
             mediaModalIndex: 'media',
-            initialFolderId: null,
-            snippetPrefix: 'sw-cms.elements.moorl-cta-banner.',
+            initialFolderId: null
         };
     },
 

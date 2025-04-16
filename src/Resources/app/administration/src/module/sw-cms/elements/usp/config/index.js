@@ -9,12 +9,6 @@ Component.register('sw-cms-el-config-moorl-usp', {
         Mixin.getByName('cms-element')
     ],
 
-    data() {
-        return {
-            snippetPrefix: 'sw-cms.elements.moorl-usp.',
-        };
-    },
-
     created() {
         this.createdComponent();
     },

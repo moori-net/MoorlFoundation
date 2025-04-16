@@ -18,8 +18,7 @@ Component.register('moorl-animation', {
 
     data() {
         return {
-            currentValue: null,
-            snippetPrefix: 'moorl-animation.',
+            currentValue: null
         };
     },
 

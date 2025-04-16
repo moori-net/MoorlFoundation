@@ -5,11 +5,11 @@
             class="moorl-collapse"
     >
         <template #header="{ expanded }">
-            <h4>{{ $tc(snippetPrefix + 'label.cssSelector') }}</h4>
+            <h4>{{ $tc('moorl-animation.label.cssSelector') }}</h4>
 
             <sw-text-field
                     v-model:value="currentConfig.cssSelector"
-                    :placeholder="$tc(snippetPrefix + 'placeholder.cssSelector')"
+                    :placeholder="$tc('moorl-animation.placeholder.cssSelector')"
             />
 
             <div>
@@ -38,7 +38,7 @@
     <sw-button :block="true" @click="addEntry" variant="ghost">
         <span>
             <sw-icon name="regular-plus-s" :small="true"/>
-            {{ $tc(snippetPrefix + 'label.add') }}
+            {{ $tc('moorl-animation.label.add') }}
         </span>
     </sw-button>
 </div>

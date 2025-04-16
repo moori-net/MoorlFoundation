@@ -14,11 +14,11 @@
             <sw-container v-if="active === 'content'">
                 <sw-text-editor
                     v-model:value="element.config.content.value"
-                    :label="$tc(snippetPrefix + 'label.content')"
+                    :label="$tc('sw-cms.elements.moorl-table-registration.label.content')"
                 />
 
                 <sw-switch-field
-                    :label="$tc(snippetPrefix + 'label.privacyActive')"
+                    :label="$tc('sw-cms.elements.moorl-table-registration.label.privacyActive')"
                     v-model:value="element.config.privacyActive.value"
                     bordered
                 />

@@ -5,12 +5,6 @@ import template from './index.html.twig';
 Component.override('sw-cms-el-config-image-slider', {
     template,
 
-    data() {
-        return {
-            snippetPrefix: 'sw-cms.elements.image-slider.',
-        };
-    },
-
     created() {
         this.createdComponentExtra();
     },

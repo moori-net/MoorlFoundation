@@ -1,30 +1,6 @@
 {% block moorl_thing_seo_card %}
     <sw-card class="moorl-thing-seo-card" :title="$tc('moorl-foundation.card.seo')">
         {% block moorl_thing_seo_card_inner %}
-            <div v-if="item.metaMediaId !== undefined" class="sw-field">
-                <sw-upload-listener
-                        :upload-tag="item.id"
-                        auto-upload
-                        @media-upload-finish="setMediaItem"
-                />
-                <sw-media-upload-v2
-                        :upload-tag="item.id"
-                        :source="item.metaMediaId"
-                        :allowMultiSelect="false"
-                        :label="$tc('moorl-foundation.properties.logo')"
-                        @sw-media-upload-media-upload-success="setMediaItem"
-                        @media-drop="onDropMedia"
-                        @media-upload-sidebar-open="onOpenMediaModal"
-                        @media-upload-remove-image="onUnlinkMedia"
-                />
-            </div>
-
-            <sw-textarea-field
-                    v-if="item.keywords !== undefined"
-                    :label="$tc('moorl-foundation.properties.keywords')"
-                    v-model:value="item.keywords"
-            />
-
             <sw-text-field
                     v-if="item.metaTitle !== undefined"
                     :label="$tc('moorl-foundation.properties.metaTitle')"
@@ -48,6 +24,30 @@
                     :label="$tc('moorl-foundation.properties.metaKeywords')"
                     v-model:value="item.metaKeywords"
             />
+
+            <sw-textarea-field
+                    v-if="item.keywords !== undefined"
+                    :label="$tc('moorl-foundation.properties.keywords')"
+                    v-model:value="item.keywords"
+            />
+
+            <div v-if="item.metaMediaId !== undefined" class="sw-field">
+                <sw-upload-listener
+                        :upload-tag="item.id"
+                        auto-upload
+                        @media-upload-finish="setMediaItem"
+                />
+                <sw-media-upload-v2
+                        :upload-tag="item.id"
+                        :source="item.metaMediaId"
+                        :allowMultiSelect="false"
+                        :label="$tc('moorl-foundation.properties.metaImage')"
+                        @sw-media-upload-media-upload-success="setMediaItem"
+                        @media-drop="onDropMedia"
+                        @media-upload-sidebar-open="onOpenMediaModal"
+                        @media-upload-remove-image="onUnlinkMedia"
+                />
+            </div>
 
             <sw-text-field
                     v-if="item.seoUrl !== undefined"

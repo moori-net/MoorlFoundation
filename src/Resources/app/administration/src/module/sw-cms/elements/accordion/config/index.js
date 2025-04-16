@@ -14,7 +14,6 @@ Component.register('sw-cms-el-config-moorl-accordion', {
 
     data() {
         return {
-            snippetPrefix: 'sw-cms.elements.moorl-accordion.',
             sortable: null,
             drag: false
         };

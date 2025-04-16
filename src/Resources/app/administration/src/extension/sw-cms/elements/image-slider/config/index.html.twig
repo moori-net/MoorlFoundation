@@ -2,7 +2,7 @@
     {% parent %}
 
     <sw-tabs-item name="extra" :activeTab="active">
-        {{ $tc(snippetPrefix + 'tab.extra') }}
+        {{ $tc('sw-cms.elements.image-slider.tab.extra') }}
     </sw-tabs-item>
 {% endblock %}
 
@@ -13,29 +13,29 @@
         <sw-switch-field
                 v-model:value="element.config.enableFeature.value"
                 bordered
-                :label="$tc(snippetPrefix + 'label.enableFeature')"
+                :label="$tc('sw-cms.elements.image-slider.label.enableFeature')"
         />
 
         <sw-number-field
                 v-model:value="element.config.speed.value"
-                :label="$tc(snippetPrefix + 'label.speed')"
+                :label="$tc('sw-cms.elements.image-slider.label.speed')"
         />
 
         <sw-number-field
                 v-model:value="element.config.autoplayTimeout.value"
-                :label="$tc(snippetPrefix + 'label.autoplayTimeout')"
+                :label="$tc('sw-cms.elements.image-slider.label.autoplayTimeout')"
         />
 
         <sw-switch-field
                 v-model:value="element.config.autoplay.value"
                 bordered
-                :label="$tc(snippetPrefix + 'label.autoplay')"
+                :label="$tc('sw-cms.elements.image-slider.label.autoplay')"
         />
 
         <sw-switch-field
                 v-model:value="element.config.autoplayHoverPause.value"
                 bordered
-                :label="$tc(snippetPrefix + 'label.autoplayHoverPause')"
+                :label="$tc('sw-cms.elements.image-slider.label.autoplayHoverPause')"
         />
 
         <moorl-select-field

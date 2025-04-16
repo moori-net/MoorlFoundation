@@ -1,11 +1,11 @@
 <sw-tabs default-item="general">
     <template #default="{ active }">
         <sw-tabs-item name="general" :activeTab="active">
-            {{ $tc(snippetPrefix + 'tab.general') }}
+            {{ $tc('sw-cms.elements.moorl-usp.tab.general') }}
         </sw-tabs-item>
 
         <sw-tabs-item name="textColor" :activeTab="active">
-            {{ $tc(snippetPrefix + 'tab.textColor') }}
+            {{ $tc('sw-cms.elements.moorl-usp.tab.textColor') }}
         </sw-tabs-item>
     </template>
 
@@ -14,29 +14,29 @@
             <sw-switch-field
                     v-model:value="element.config.iconActive.value"
                     bordered
-                    :label="$tc(snippetPrefix + 'config.iconActive')"
+                    :label="$tc('sw-cms.elements.moorl-usp.config.iconActive')"
             />
 
             <sw-text-field
                     v-if="element.config.iconActive.value"
                     v-model:value="element.config.iconClass.value"
                     placeholder="fab|shopware"
-                    :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
-                    :label="$tc(snippetPrefix + 'config.iconClass')"
+                    :helpText="$tc('sw-cms.elements.moorl-usp.config.iconClassHelpText')"
+                    :label="$tc('sw-cms.elements.moorl-usp.config.iconClass')"
             />
 
             <sw-text-field
                     v-model:value="element.config.title.value"
-                    :label="$tc(snippetPrefix + 'config.headline')"
+                    :label="$tc('sw-cms.elements.moorl-usp.config.headline')"
             />
 
             <sw-text-field
                     v-model:value="element.config.text.value"
-                    :label="$tc(snippetPrefix + 'config.subHeadline')"
+                    :label="$tc('sw-cms.elements.moorl-usp.config.subHeadline')"
             />
 
             <moorl-select-field
-                    :label="$tc(snippetPrefix + 'config.alignment')"
+                    :label="$tc('sw-cms.elements.moorl-usp.config.alignment')"
                     v-model:value="element.config.alignment.value"
                     set="textHorizontalAlign"
                     :filter="['left','center']"
@@ -47,21 +47,21 @@
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
-                :label="$tc(snippetPrefix + 'config.iconColor')"
+                :label="$tc('sw-cms.elements.moorl-usp.config.iconColor')"
                 v-model:value="element.config.iconColor.value"
             />
 
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
-                :label="$tc(snippetPrefix + 'config.headlineColor')"
+                :label="$tc('sw-cms.elements.moorl-usp.config.headlineColor')"
                 v-model:value="element.config.headlineColor.value"
             />
 
             <sw-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
-                :label="$tc(snippetPrefix + 'config.subHeadlineColor')"
+                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadlineColor')"
                 v-model:value="element.config.subHeadlineColor.value"
             />
         </sw-container>

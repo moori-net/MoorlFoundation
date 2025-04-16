@@ -9,11 +9,5 @@ Component.register('sw-cms-el-config-moorl-newsletter', {
 
     mixins: [
         Mixin.getByName('cms-element')
-    ],
-
-    data() {
-        return{
-            snippetPrefix: 'sw-cms.elements.moorl-newsletter.',
-        }
-    }
+    ]
 });
