@@ -43,6 +43,14 @@
                     </sw-context-menu-item>
                 </sw-context-button>
             </sw-button-group>
+
+            <mt-button
+                    variant="critical"
+                    size="default"
+                    @click="showConfirmDeleteModal = true"
+            >
+                {{ $tc('global.default.delete') }}
+            </mt-button>
         {% endblock %}
     </template>
 
@@ -63,5 +71,13 @@
                 <pre>block moorl_page_detail_content not extended</pre>
             {% endblock %}
         </template>
+
+        <sw-confirm-modal
+                v-if="showConfirmDeleteModal"
+                type="delete"
+                @confirm="onConfirmDeleteItem"
+                @close="showConfirmDeleteModal = false"
+                @cancel="showConfirmDeleteModal = false"
+        />
     </template>
 </sw-page>

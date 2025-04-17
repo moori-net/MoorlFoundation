@@ -25,7 +25,8 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             entity: null,
             item: {},
             isLoading: true,
-            isSaveSuccessful: false
+            isSaveSuccessful: false,
+            showConfirmDeleteModal: false
         };
     },
 
@@ -163,6 +164,14 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             await this.loadItem();
 
             return Promise.resolve();
+        },
+
+        onConfirmDeleteItem() {
+            this.isLoading = true;
+
+            this.itemRepository.delete(this.itemId).then(() => {
+                this.onCancel();
+            });
         },
 
         async updateSeoUrls() {
