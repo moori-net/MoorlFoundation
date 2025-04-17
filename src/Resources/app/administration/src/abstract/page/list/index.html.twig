@@ -1,0 +1,85 @@
+<sw-page class="moorl-merchant-finder-list">
+    <template #search-bar>
+        <sw-search-bar
+                initial-search-type="moorl_merchant"
+                :initial-search="term"
+                @search="onSearch"
+        />
+    </template>
+
+    <template #smart-bar-actions>
+        <sw-button variant="primary" :routerLink="{ name: 'moorl.merchant.finder.create' }">
+            {{ $tc('moorl-merchant-finder.action.newShop') }}
+        </sw-button>
+
+        <moorl-demo-button pluginName="MoorlMerchantFinder" @on-finish="getList"/>
+    </template>
+
+    <template #language-switch>
+        <sw-language-switch @on-change="getList"/>
+    </template>
+
+    <template #sidebar>
+        <sw-sidebar>
+            <sw-sidebar-item
+                    icon="regular-redo"
+                    :title="$tc('moorl-foundation.buttons.refreshButtonText')"
+                    @click="getList"
+            />
+
+            <sw-sidebar-item
+                    icon="regular-cloud-upload"
+                    :title="$tc('moorl-foundation.buttons.importButtonText')"
+                    @click="onImportModal"
+            />
+
+            <sw-sidebar-item
+                    icon="regular-cloud-download"
+                    :title="$tc('moorl-foundation.buttons.exportButtonText')"
+                    @click="onExportModal"
+            />
+        </sw-sidebar>
+    </template>
+
+    <template #content>
+        <sw-entity-listing
+                v-if="entitySearchable"
+                detailRoute="moorl.merchant.finder.detail"
+                :items="items"
+                :repository="repository"
+                :showSelection="true"
+                :columns="columns"
+                :is-loading="isLoading"
+                :criteria-limit="limit"
+                :sort-by="currentSortBy"
+                :sort-direction="sortDirection"
+                :disable-data-fetching="true"
+                @select-item="updateSelection"
+                @page-change="onPageChange"
+                @column-sort="onSortColumn"
+                @update-records="updateTotal"
+        >
+            <template #column-countryCode="{ item }">
+                <span>{{ item.countryCode }}-{{ item.zipcode }}</span>
+            </template>
+
+            <template #column-locationLon="{ item }">
+                <span>{{ item.locationLon }}|{{ item.locationLat }}</span>
+            </template>
+        </sw-entity-listing>
+
+        <moorl-csv-import
+                v-if="showImportModal"
+                entity="moorl_merchant"
+                :onCloseModal="onCloseModal"
+                :onFinishImport="getList"
+        />
+
+        <moorl-csv-export
+                v-if="showExportModal"
+                entity="moorl_merchant"
+                :onCloseModal="onCloseModal"
+                :selectedItems="selectedItems"
+        />
+    </template>
+</sw-page>

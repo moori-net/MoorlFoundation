@@ -26,7 +26,7 @@
                     {{ $tc('global.default.save') }}
                 </sw-button-process>
 
-                <sw-context-button v-if="!isNewItem" >
+                <sw-context-button v-if="!isNewItem">
                     <template #button>
                         <mt-button
                                 square
@@ -48,7 +48,7 @@
 
     <template #language-switch>
         {% block moorl_page_detail_language_switch %}
-            <sw-language-switch :disabled="!translatable" @on-change="onChangeLanguage"/>
+            <sw-language-switch v-if="translatable" @on-change="onChangeLanguage"/>
         {% endblock %}
     </template>
 

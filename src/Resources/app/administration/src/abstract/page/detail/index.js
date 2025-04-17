@@ -75,20 +75,6 @@ Shopware.Component.register('moorl-abstract-page-detail', {
     },
 
     methods: {
-        goToRoute(target, id) {
-            let name = this.$route.name;
-            let parts = name.split(".");
-            parts.pop();
-            parts.push(target);
-            name = parts.join(".");
-
-            if (id === undefined) {
-                this.$router.push({name});
-            } else {
-                this.$router.push({name, params: {id}});
-            }
-        },
-
         createdComponent() {
             if (!this.entity) {
                 console.error(`${this.currentComponentName} has no entity`);
@@ -96,6 +82,22 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             }
 
             this.loadItem();
+        },
+
+        async goToRoute(target, id) {
+            let name = this.$route.name;
+            let parts = name.split(".");
+            parts.pop();
+            parts.push(target);
+            name = parts.join(".");
+
+            if (id === undefined) {
+                await this.$router.push({name});
+            } else {
+                await this.$router.push({name, params: {id}});
+            }
+
+            return Promise.resolve();
         },
 
         onChangeLanguage() {
@@ -114,19 +116,13 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             try {
                 this.item = await this.itemRepository.get(this.itemId, Shopware.Context.api, this.itemCriteria);
             } catch (error) {
-                this.createNotificationError({
-                    message: this.$tc(error.message),
-                });
+                this.createNotificationError({ message: error.message });
             } finally {
                 this.isLoading = false;
             }
         },
 
         async onSaveItem() {
-            if (this.item === null) {
-                return;
-            }
-
             this.isSaveSuccessful = false;
             this.isLoading = true;
 
@@ -135,23 +131,24 @@ Shopware.Component.register('moorl-abstract-page-detail', {
                 await this.itemRepository.save(this.item);
 
                 if (this.isNewItem) {
-                    this.goToRoute('detail', this.item.id);
-                    return;
+                    await this.goToRoute('detail', this.item.id);
+                    return Promise.resolve();
                 }
 
-                await this.loadItem();
-
                 this.isSaveSuccessful = true;
-            } catch {
-                this.createNotificationError({
-                    message: this.$tc('sw-settings-state-machine.notification.errorMessage'),
-                });
-            } finally {
-                this.isLoading = false;
+            } catch(error) {
+                this.createNotificationError({ message: error.message });
             }
+
+            this.isLoading = false;
+            return Promise.resolve();
         },
 
         async onDuplicateItem() {
+            await this.onSaveItem();
+
+            this.isLoading = true;
+
             const behavior = {
                 cloneChildren: true,
                 overwrites: {
@@ -160,12 +157,15 @@ Shopware.Component.register('moorl-abstract-page-detail', {
                 }
             };
 
-            this.itemRepository.clone(this.itemId, behavior, Shopware.Context.api).then(
-                (duplicate) => {this.goToRoute('detail', duplicate.id);}
-            );
+            const duplicate = await this.itemRepository.clone(this.itemId, behavior, Shopware.Context.api);
+
+            await this.goToRoute('detail', duplicate.id);
+            await this.loadItem();
+
+            return Promise.resolve();
         },
 
-        updateSeoUrls() {
+        async updateSeoUrls() {
             if (!Shopware.Store.list().includes('swSeoUrl')) {
                 return Promise.resolve();
             }
