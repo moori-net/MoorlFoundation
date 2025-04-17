@@ -139,7 +139,9 @@ Shopware.Component.register('moorl-abstract-page-list', {
 
             let name = this.$route.name;
             let parts = name.split(".");
+            parts.pop();
             parts.push(target ?? 'detail');
+
             return parts.join(".");
         },
 
