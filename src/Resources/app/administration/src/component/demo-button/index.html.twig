@@ -1,10 +1,12 @@
 <div class="moorl-demo-button">
-    <sw-button
+    <mt-button
+            variant="secondary"
+            size="default"
             :disabled="!acl.can('system.system_config')"
             @click="openModal"
     >
         {{ $tc('moorl-demo-button.label') }}
-    </sw-button>
+    </mt-button>
 
     <sw-modal
             v-if="open"
@@ -32,13 +34,13 @@
         </router-link>
 
         <template #modal-footer>
-            <sw-button variant="primary" @click="install" :disabled="salesChannelId === null || isLoading">
+            <mt-button variant="primary" @click="install" :disabled="salesChannelId === null || isLoading">
                 {{ $tc('moorl-foundation.buttons.startButtonText') }}
-            </sw-button>
+            </mt-button>
 
-            <sw-button @click="closeModal">
+            <mt-button @click="closeModal">
                 {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
-            </sw-button>
+            </mt-button>
         </template>
     </sw-modal>
 </div>

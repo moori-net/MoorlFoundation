@@ -1,22 +1,30 @@
-<sw-page class="moorl-merchant-finder-list">
+<sw-page :class="identifier">
     <template #search-bar>
         <sw-search-bar
-                initial-search-type="moorl_merchant"
+                :initial-search-type="entity"
                 :initial-search="term"
                 @search="onSearch"
         />
     </template>
 
     <template #smart-bar-actions>
-        <sw-button variant="primary" :routerLink="{ name: 'moorl.merchant.finder.create' }">
-            {{ $tc('moorl-merchant-finder.action.newShop') }}
-        </sw-button>
+        <mt-button
+                variant="primary"
+                size="default"
+                @click="onCreateItem"
+        >
+            {{ $tc('global.default.add') }}
+        </mt-button>
 
-        <moorl-demo-button pluginName="MoorlMerchantFinder" @on-finish="getList"/>
+        <moorl-demo-button
+                v-if="plugin"
+                :pluginName="plugin"
+                @on-finish="getList"
+        />
     </template>
 
     <template #language-switch>
-        <sw-language-switch @on-change="getList"/>
+        <sw-language-switch @on-change="onChangeLanguage"/>
     </template>
 
     <template #sidebar>
@@ -44,14 +52,15 @@
     <template #content>
         <sw-entity-listing
                 v-if="entitySearchable"
-                detailRoute="moorl.merchant.finder.detail"
+                :identifier="identifier"
+                :detailRoute="getItemRoute('detail')"
                 :items="items"
-                :repository="repository"
+                :repository="itemRepository"
                 :showSelection="true"
                 :columns="columns"
                 :is-loading="isLoading"
                 :criteria-limit="limit"
-                :sort-by="currentSortBy"
+                :sort-by="sortBy"
                 :sort-direction="sortDirection"
                 :disable-data-fetching="true"
                 @select-item="updateSelection"
@@ -59,27 +68,44 @@
                 @column-sort="onSortColumn"
                 @update-records="updateTotal"
         >
-            <template #column-countryCode="{ item }">
-                <span>{{ item.countryCode }}-{{ item.zipcode }}</span>
+            <template #preview-name="{ item }">
+                <sw-media-preview-v2
+                        v-if="mediaProperty"
+                        :source="item[mediaProperty]"
+                />
             </template>
 
-            <template #column-locationLon="{ item }">
-                <span>{{ item.locationLon }}|{{ item.locationLat }}</span>
+            <template #column-date="{ item }">
+                {{ dateFilter(item.date, { hour: '2-digit', minute: '2-digit' }) }}
+            </template>
+
+            <template #column-showFrom="{ item }">
+                {{ dateFilter(item.showFrom, { hour: '2-digit', minute: '2-digit' }) }}
+            </template>
+
+            <template #column-showUntil="{ item }">
+                {{ dateFilter(item.showUntil, { hour: '2-digit', minute: '2-digit' }) }}
+            </template>
+
+            <template #more-actions="{ item }">
+                <sw-context-menu-item @click="onDuplicate(item)">
+                    {{ $tc('sw-product.list.buttonDuplicate') }}
+                </sw-context-menu-item>
             </template>
         </sw-entity-listing>
 
         <moorl-csv-import
                 v-if="showImportModal"
-                entity="moorl_merchant"
+                :entity="entity"
                 :onCloseModal="onCloseModal"
                 :onFinishImport="getList"
         />
 
         <moorl-csv-export
                 v-if="showExportModal"
-                entity="moorl_merchant"
+                :entity="entity"
                 :onCloseModal="onCloseModal"
-                :selectedItems="selectedItems"
+                :selectedItems="selection"
         />
     </template>
 </sw-page>

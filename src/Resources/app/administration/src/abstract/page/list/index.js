@@ -2,7 +2,7 @@ const {Criteria} = Shopware.Data;
 
 import template from './index.html.twig';
 
-Shopware.Component.register('moorl-abstract-page--list', {
+Shopware.Component.register('moorl-abstract-page-list', {
     template,
 
     inject: [
@@ -12,24 +12,23 @@ Shopware.Component.register('moorl-abstract-page--list', {
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('listing'),
-        Shopware.Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('listing')
     ],
 
     data() {
         return {
+            entity: null,
+            properties: ['active', 'name'],
+            mediaProperty: null,
+            plugin: null, // Demo button
+            snippetSrc: 'moorl-foundation',
+
             items: null,
-            selectedItems: null,
-            sortBy: 'name',
-            sortDirection: 'ASC',
-            filterCriteria: [],
-            naturalSorting: false,
             showImportModal: false,
             showExportModal: false,
             isLoading: true,
-            storeKey: 'grid.filter.moorl_merchant',
             activeFilterNumber: 0,
-            searchConfigEntity: 'moorl_merchant',
+            sortBy: 'name',
         };
     },
 
@@ -40,133 +39,124 @@ Shopware.Component.register('moorl-abstract-page--list', {
     },
 
     computed: {
-        repository() {
-            return this.repositoryFactory.create('moorl_merchant');
+        identifier() {
+            return this.$options.name;
         },
 
-        defaultCriteria() {
-            const defaultCriteria  = new Criteria(this.page, this.limit);
+        dateFilter() {
+            return Shopware.Filter.getByName('date');
+        },
+
+        itemRepository() {
+            return this.repositoryFactory.create(this.entity);
+        },
+
+        generatedAssociations() {
+            const associations = [];
+
+            if (this.mediaProperty) {
+                associations.push(this.mediaProperty);
+            }
+
+            this.properties.forEach((property) => {
+                let parts = property.split(".");
+                parts.pop();
+
+                if (parts.length > 0) {
+                    const association = parts.join(".");
+                    if (associations.indexOf(association) !== -1) {
+                        associations.push(association);
+                    }
+                }
+            });
+
+            return associations;
+        },
+
+        itemCriteria() {
+            const itemCriteria  = new Criteria(this.page, this.limit);
             this.naturalSorting = this.sortBy === 'priority';
 
-            defaultCriteria.setTerm(this.term);
+            itemCriteria.setTerm(this.term);
 
             this.sortBy.split(',').forEach(sortBy => {
-                defaultCriteria.addSorting(Criteria.sort(sortBy, this.sortDirection, this.naturalSorting));
+                itemCriteria.addSorting(Criteria.sort(sortBy, this.sortDirection, this.naturalSorting));
             });
 
-            this.filterCriteria.forEach(filter => {
-                defaultCriteria.addFilter(filter);
+            this.generatedAssociations.forEach(association => {
+                itemCriteria.addAssociation(association);
             });
 
-            return defaultCriteria ;
+            return itemCriteria ;
         },
 
-        mediaRepository() {
-            return this.repositoryFactory.create('media');
-        },
+        generatedColumns() {
+            const columns = [];
+            const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
-        productManufacturerRepository() {
-            return this.repositoryFactory.create('product_manufacturer');
-        },
+            console.log(Shopware.EntityDefinition.get(this.entity));
 
-        categoryRepository() {
-            return this.repositoryFactory.create('category');
-        },
+            this.properties.forEach((property) => {
+                if (fields[property] === undefined) {
+                    console.error(`Property ${property} of ${this.identifier} not found in ${this.entity}`);
+                    return;
+                }
 
-        customerGroupRepository() {
-            return this.repositoryFactory.create('customer_group');
-        },
+                const field = fields[property];
+                const column = {
+                    property: property,
+                    dataIndex: property,
+                    label: `${this.snippetSrc}.properties.${property}`,
+                    allowResize: true,
+                };
 
-        countryRepository() {
-            return this.repositoryFactory.create('country');
-        },
+                if (['string'].indexOf(field.type) !== -1) {
+                    column.inlineEdit = 'string';
+                    column.align = 'left';
+                    column.routerLink = this.getItemRoute('detail');
+                }
 
-        tagRepository() {
-            return this.repositoryFactory.create('tag');
-        },
+                if (['int', 'float'].indexOf(field.type) !== -1) {
+                    column.inlineEdit = 'number';
+                    column.align = 'right';
+                }
 
-        salesChannelRepository() {
-            return this.repositoryFactory.create('sales_channel');
-        },
+                if (['boolean'].indexOf(field.type) !== -1) {
+                    column.inlineEdit = 'boolean';
+                    column.align = 'center';
+                }
 
-        customFieldSetRepository() {
-            return this.repositoryFactory.create('custom_field_set');
+                columns.push(column);
+            });
+
+            return columns;
         },
 
         columns() {
-            return [{
-                property: 'active',
-                dataIndex: 'active',
-                label: this.$tc('moorl-foundation.properties.active'),
-                inlineEdit: 'boolean',
-                allowResize: true,
-                align: 'center'
-            }, {
-                property: 'name',
-                dataIndex: 'name',
-                label: this.$tc('moorl-foundation.properties.name'),
-                routerLink: 'moorl.merchant.finder.detail',
-                inlineEdit: 'string',
-                allowResize: true,
-                primary: true
-            }, {
-                property: 'type',
-                dataIndex: 'type',
-                label: this.$tc('moorl-foundation.properties.type'),
-                inlineEdit: 'string',
-                align: 'center',
-                allowResize: true
-            },{
-                property: 'company',
-                dataIndex: 'company',
-                label: this.$tc('moorl-foundation.properties.company'),
-                routerLink: 'moorl.merchant.finder.detail',
-                inlineEdit: 'string',
-                allowResize: true
-            }, {
-                property: 'countryCode',
-                dataIndex: 'countryCode',
-                label: this.$tc('moorl-foundation.properties.zipcode'),
-                inlineEdit: 'string',
-                allowResize: true
-            }, {
-                property: 'city',
-                dataIndex: 'city',
-                label: this.$tc('moorl-foundation.properties.city'),
-                inlineEdit: 'string',
-                allowResize: true
-            }, {
-                property: 'email',
-                dataIndex: 'email',
-                label: this.$tc('moorl-foundation.properties.email'),
-                inlineEdit: 'string',
-                allowResize: true
-            }, {
-                property: 'locationLon',
-                dataIndex: 'locationLon',
-                label: this.$tc('moorl-foundation.properties.location'),
-                allowResize: true,
-                align: 'center'
-            }, {
-                property: 'priority',
-                dataIndex: 'priority',
-                label: this.$tc('moorl-foundation.properties.priority'),
-                inlineEdit: 'number',
-                allowResize: true,
-                align: 'right'
-            }];
+            return this.generatedColumns;
         }
     },
 
     methods: {
         async getList() {
+            // This method is called by $route watcher of the listing mixin before created() is called!
+            if (!this.entity) {
+                console.error(`${this.identifier} has no entity`);
+                return;
+            }
+            // Copies for listing mixin
+            this.searchConfigEntity = this.entity;
+            this.storeKey = `grid.filter.${this.entity}`;
+
             this.isLoading = true;
 
-            const criteria = await this.addQueryScores(this.term, this.defaultCriteria);
+            let criteria = await Shopware.Service('filterService').mergeWithStoredFilters(this.storeKey, this.itemCriteria);
+
+            criteria = await this.addQueryScores(this.term, criteria);
 
             if (!this.entitySearchable) {
-                this.isLoading = false;
                 this.total = 0;
+                this.isLoading = false;
 
                 return false;
             }
@@ -175,17 +165,52 @@ Shopware.Component.register('moorl-abstract-page--list', {
                 criteria.resetSorting();
             }
 
-            return this.repository.search(criteria)
-                .then(searchResult => {
-                    this.items = searchResult;
-                    this.total = searchResult.total;
-                    this.isLoading = false;
-                });
+            try {
+                const response = await this.itemRepository.search(criteria);
+
+                this.total = response.total;
+                this.items = response
+                this.isLoading = false;
+            } catch {
+                this.isLoading = false;
+            }
+        },
+
+        getItemRoute(target) {
+            let name = this.$route.name;
+            let parts = name.split(".");
+            parts.pop();
+            parts.push(target ?? 'detail');
+            return parts.join(".");
+        },
+
+        onCreateItem() {
+            this.$router.push({
+                name: this.getItemRoute('create')
+            });
+        },
+
+        async onDuplicate(reference) {
+            const behavior = {
+                cloneChildren: true,
+                overwrites: {
+                    name: `${reference.name} [${this.$tc('global.default.duplicate')}]`,
+                    locked: false
+                }
+            };
+
+            const duplicate = await this.itemRepository.clone(reference.id, behavior, Shopware.Context.api);
+
+            await this.$router.push({
+                name: this.getItemRoute('detail'),
+                params:{id: duplicate.id}
+            });
+
+            return Promise.resolve();
         },
 
         updateSelection(selection) {
-
-            this.selectedItems = selection;
+            this.selection = selection;
         },
 
         updateTotal({total}) {

@@ -1,7 +1,7 @@
-<sw-page :class="currentComponentName">
+<sw-page :class="identifier">
     <template #smart-bar-header>
         {% block moorl_page_detail_smart_bar_header %}
-            <h2>{{ identifier }}</h2>
+            <h2>{{ itemName }}</h2>
         {% endblock %}
     </template>
 

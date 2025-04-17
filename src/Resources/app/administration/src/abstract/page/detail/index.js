@@ -32,13 +32,21 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
     metaInfo() {
         return {
-            title: this.$createTitle(this.identifier),
+            title: this.$createTitle(this.itenName),
         };
     },
 
     computed: {
-        currentComponentName() {
+        identifier() {
             return this.$options.name;
+        },
+
+        itemName() {
+            if (this.item?.name) {
+                return this.item.name;
+            }
+
+            return this.$tc('global.default.add');
         },
 
         itemRepository() {
@@ -46,16 +54,8 @@ Shopware.Component.register('moorl-abstract-page-detail', {
         },
 
         itemCriteria() {
-            console.warn(`${this.currentComponentName} missing computed itemCriteria`);
+            console.warn(`${this.identifier} missing computed itemCriteria`);
             return new Criteria();
-        },
-
-        identifier() {
-            if (this.item?.name) {
-                return this.item.name;
-            }
-
-            return this.$tc('global.default.add');
         },
 
         translatable() {
@@ -78,7 +78,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
     methods: {
         createdComponent() {
             if (!this.entity) {
-                console.error(`${this.currentComponentName} has no entity`);
+                console.error(`${this.identifier} has no entity`);
                 return;
             }
 
@@ -153,7 +153,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             const behavior = {
                 cloneChildren: true,
                 overwrites: {
-                    name: `${this.identifier} [${this.$tc('global.default.duplicate')}]`,
+                    name: `${this.itenName} [${this.$tc('global.default.duplicate')}]`,
                     locked: false
                 }
             };
