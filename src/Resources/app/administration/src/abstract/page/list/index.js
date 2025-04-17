@@ -20,7 +20,8 @@ Shopware.Component.register('moorl-abstract-page-list', {
             entity: null,
             properties: ['active', 'name'],
             mediaProperty: null,
-            plugin: null, // Demo button
+            pluginName: null, // Demo button
+            demoName: 'standard',
             snippetSrc: 'moorl-foundation',
 
             items: null,
@@ -53,6 +54,13 @@ Shopware.Component.register('moorl-abstract-page-list', {
 
         identifier() {
             return this.$options.name;
+        },
+
+        indexPage() {
+            let name = this.$route.name;
+            let parts = name.split(".");
+            let currentPath = parts.pop();
+            return currentPath === 'index';
         },
 
         dateFilter() {
@@ -125,9 +133,12 @@ Shopware.Component.register('moorl-abstract-page-list', {
         },
 
         getItemRoute(target) {
+            if (this.indexPage) {
+                return undefined;
+            }
+
             let name = this.$route.name;
             let parts = name.split(".");
-            parts.pop();
             parts.push(target ?? 'detail');
             return parts.join(".");
         },
@@ -148,6 +159,12 @@ Shopware.Component.register('moorl-abstract-page-list', {
             };
 
             const duplicate = await this.itemRepository.clone(reference.id, behavior, Shopware.Context.api);
+
+            if (this.indexPage) {
+                this.getList();
+
+                return Promise.resolve();
+            }
 
             await this.$router.push({
                 name: this.getItemRoute('detail'),

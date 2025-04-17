@@ -1,56 +1,23 @@
 import template from './index.html.twig';
 
-const { Criteria } = Shopware.Data;
-
-Shopware.Component.register('moorl-client-detail', {
+Shopware.Component.extend('moorl-client-detail', 'moorl-abstract-page-detail', {
     template,
 
-    inject: ['repositoryFactory', 'context', 'foundationApiService'],
-
-    mixins: [Shopware.Mixin.getByName('notification')],
-
-    metaInfo() {
-        return {
-            title: this.$createTitle(),
-        };
-    },
+    inject: ['foundationApiService'],
 
     data() {
         return {
-            item: null,
-            isLoading: false,
-            processSuccess: false,
-            isEdit: false,
+            entity: 'moorl_client',
             options: [],
         };
     },
 
-    computed: {
-        repository() {
-            return this.repositoryFactory.create('moorl_client');
-        },
-
-        defaultCriteria() {
-            return new Criteria();
-        },
-    },
-
-    watch: {
-        options: {
-            deep: true,
-            handler() {
-                this.isEdit = true;
-            },
-        },
-    },
-
     created() {
         this.getOptions();
-        this.getItem();
     },
 
     methods: {
-        onClickTest() {
+        async onClickTest() {
             this.isLoading = true;
 
             this.foundationApiService
@@ -83,6 +50,7 @@ Shopware.Component.register('moorl-client-detail', {
                         title: this.$tc('global.default.error'),
                         message: errorDetail,
                     });
+
                     this.isLoading = false;
                 });
         },
@@ -95,7 +63,6 @@ Shopware.Component.register('moorl-client-detail', {
                 .then((response) => {
                     this.options = response;
                     this.isLoading = false;
-                    this.isEdit = false;
                 })
                 .catch((exception) => {
                     const errorDetail = Shopware.Utils.get(
@@ -107,7 +74,6 @@ Shopware.Component.register('moorl-client-detail', {
                         message: errorDetail,
                     });
                     this.isLoading = false;
-                    this.isEdit = false;
                 });
         },
 
@@ -121,44 +87,6 @@ Shopware.Component.register('moorl-client-detail', {
                     }
                 }
             }
-        },
-
-        getItem() {
-            this.repository
-                .get(
-                    this.$route.params.id,
-                    Shopware.Context.api,
-                    this.defaultCriteria
-                )
-                .then((entity) => {
-                    this.item = entity;
-                });
-        },
-
-        onClickSave() {
-            this.isLoading = true;
-            this.repository
-                .save(this.item, Shopware.Context.api)
-                .then(() => {
-                    this.getItem();
-                    this.isLoading = false;
-                    this.processSuccess = true;
-                    this.isEdit = false;
-                })
-                .catch((exception) => {
-                    this.isLoading = false;
-                    this.isEdit = false;
-                    this.createNotificationError({
-                        title: this.$tc(
-                            'moorl-foundation.notification.errorTitle'
-                        ),
-                        message: exception,
-                    });
-                });
-        },
-
-        saveFinish() {
-            this.processSuccess = false;
-        },
-    },
+        }
+    }
 });

@@ -1,26 +1,13 @@
 import template from './index.html.twig';
 
-const { Criteria } = Shopware.Data;
 const utils = Shopware.Utils;
 
-Shopware.Component.register('moorl-marker-detail', {
+Shopware.Component.extend('moorl-marker-detail', 'moorl-abstract-page-detail', {
     template,
-
-    inject: ['repositoryFactory', 'context', 'foundationApiService'],
-
-    mixins: [Shopware.Mixin.getByName('notification')],
-
-    metaInfo() {
-        return {
-            title: this.$createTitle(),
-        };
-    },
 
     data() {
         return {
-            item: null,
-            isLoading: false,
-            processSuccess: false,
+            entity: 'moorl_marker',
             uploadTagMarker: utils.createId(),
             uploadTagMarkerRetina: utils.createId(),
             uploadTagMarkerShadow: utils.createId(),
@@ -50,65 +37,9 @@ Shopware.Component.register('moorl-marker-detail', {
                 },
             ];
         },
-
-        repository() {
-            return this.repositoryFactory.create('moorl_marker');
-        },
-
-        mediaRepository() {
-            return this.repositoryFactory.create('media');
-        },
-
-        defaultCriteria() {
-            return new Criteria();
-        },
-    },
-
-    created() {
-        this.getItem();
     },
 
     methods: {
-        getItem() {
-            this.repository
-                .get(
-                    this.$route.params.id,
-                    Shopware.Context.api,
-                    this.defaultCriteria
-                )
-                .then((entity) => {
-                    this.item = entity;
-
-                    if (!this.item.markerSettings) {
-                        this.item.markerSettings = {};
-                    }
-                });
-        },
-
-        onClickSave() {
-            this.isLoading = true;
-            this.repository
-                .save(this.item, Shopware.Context.api)
-                .then(() => {
-                    this.getItem();
-                    this.isLoading = false;
-                    this.processSuccess = true;
-                })
-                .catch((exception) => {
-                    this.isLoading = false;
-                    this.createNotificationError({
-                        title: this.$tc(
-                            'moorl-foundation.notification.errorTitle'
-                        ),
-                        message: exception,
-                    });
-                });
-        },
-
-        saveFinish() {
-            this.processSuccess = false;
-        },
-
         openMediaSidebar() {
             this.$refs.mediaSidebarItem.openContent();
         },
@@ -169,5 +100,5 @@ Shopware.Component.register('moorl-marker-detail', {
         onUnlinkMarkerShadow() {
             this.item.markerShadowId = null;
         },
-    },
+    }
 });

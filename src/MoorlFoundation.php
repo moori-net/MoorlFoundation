@@ -37,10 +37,12 @@ class MoorlFoundation extends Plugin
 
     public function install(InstallContext $installContext): void
     {
-        $installContext->setAutoMigrate(false); //??
+        //$installContext->setAutoMigrate(false); //??
 
         // Migrations are done before install() is called :(
-        PluginLifecycleHelper::migrationSkipper($this, 1744278006, $this->container);
+        //PluginLifecycleHelper::migrationSkipper($this, 1744278006, $this->container);
+
+        parent::install($installContext);
     }
 
     public function build(ContainerBuilder $container): void

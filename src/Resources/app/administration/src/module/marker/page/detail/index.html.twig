@@ -1,141 +1,122 @@
-<sw-page class="moorl-marker-detail">
-    <template #smart-bar-actions>
-        <sw-button :routerLink="{ name: 'moorl.marker.list' }">
-            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
-        </sw-button>
+{% block moorl_page_detail_content %}
+    <sw-card-view>
+        <sw-card :title="$tc('moorl-marker.card.general')">
+            <sw-text-field
+                    :label="$tc('moorl-marker.properties.name')"
+                    v-model:value="item.name"
+                    required
+                    validation="required"
+            />
 
-        <sw-button-process
-                :isLoading="isLoading"
-                :processSuccess="processSuccess"
-                variant="primary"
-                @update:process-success="saveFinish"
-                @click="onClickSave">
-            {{ $tc('moorl-foundation.buttons.saveButtonText') }}
-        </sw-button-process>
-    </template>
+            <sw-text-field
+                    :label="$tc('moorl-marker.properties.type')"
+                    v-model:value="item.type"
+            />
 
-    <template #content>
-        <sw-card-view>
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-marker.card.general')">
-                <sw-text-field
-                        :label="$tc('moorl-marker.properties.name')"
-                        v-model:value="item.name"
-                        required
-                        validation="required"
+            <sw-text-field
+                    :label="$tc('moorl-marker.properties.cssClass')"
+                    v-model:value="item.className"
+            />
+
+            <sw-textarea-field
+                    :label="$tc('moorl-marker.properties.svg')"
+                    :helpText="$tc('moorl-marker.helpText.svg')"
+                    v-model:value="item.svg"
+            />
+        </sw-card>
+
+        <sw-card :title="$tc('moorl-foundation.label.markerCard')">
+            <div class="sw-field">
+                <sw-upload-listener
+                        :uploadTag="uploadTagMarker"
+                        autoUpload
+                        @media-upload-finish="setMarkerItem"
                 />
 
-                <sw-text-field
-                        :label="$tc('moorl-marker.properties.type')"
-                        v-model:value="item.type"
+                <sw-media-upload-v2
+                        :uploadTag="uploadTagMarker"
+                        :source="item.markerId"
+                        :allowMultiSelect="false"
+                        :label="$tc('moorl-marker.properties.marker')"
+                        @sw-media-upload-media-upload-success="setMarkerItem"
+                        @media-drop="onDropMarker"
+                        @media-upload-remove-image="onUnlinkMarker"
+                />
+            </div>
+
+            <div class="sw-field">
+                <sw-upload-listener
+                        :uploadTag="uploadTagMarkerRetina"
+                        autoUpload
+                        @media-upload-finish="setMarkerRetinaItem"
                 />
 
-                <sw-text-field
-                        :label="$tc('moorl-marker.properties.cssClass')"
-                        v-model:value="item.className"
+                <sw-media-upload-v2
+                        :uploadTag="uploadTagMarkerRetina"
+                        :source="item.markerRetinaId"
+                        :allowMultiSelect="false"
+                        :label="$tc('moorl-marker.properties.markerRetina')"
+                        @sw-media-upload-media-upload-success="setMarkerRetinaItem"
+                        @media-drop="onDropMarkerRetina"
+                        @media-upload-remove-image="onUnlinkMarkerRetina"
+                />
+            </div>
+
+            <div class="sw-field">
+                <sw-upload-listener
+                        :uploadTag="uploadTagMarkerShadow"
+                        autoUpload
+                        @media-upload-finish="setMarkerShadowItem"
                 />
 
-                <sw-textarea-field
-                        :label="$tc('moorl-marker.properties.svg')"
-                        :helpText="$tc('moorl-marker.helpText.svg')"
-                        v-model:value="item.svg"
+                <sw-media-upload-v2
+                        :uploadTag="uploadTagMarkerShadow"
+                        :source="item.markerShadowId"
+                        :allowMultiSelect="false"
+                        :label="$tc('moorl-marker.properties.markerShadow')"
+                        @sw-media-upload-media-upload-success="setMarkerShadowItem"
+                        @media-drop="onDropMarkerShadow"
+                        @media-upload-remove-image="onUnlinkMarkerShadow"
                 />
-            </sw-card>
+            </div>
+        </sw-card>
 
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-foundation.label.markerCard')">
-                <div class="sw-field">
-                    <sw-upload-listener
-                            :uploadTag="uploadTagMarker"
-                            autoUpload
-                            @media-upload-finish="setMarkerItem"
-                    />
+        <sw-card :title="$tc('moorl-foundation.properties.markerSettings')">
+            <div class="sw-field">
+                <label>
+                    {{ $tc('moorl-marker.helpText.markerSettings') }}<br>
+                    <a href="https://leafletjs.com/examples/custom-icons/" target="_blank" rel="noopener">
+                        https://leafletjs.com/examples/custom-icons/
+                    </a>
+                </label>
+            </div>
 
-                    <sw-media-upload-v2
-                            :uploadTag="uploadTagMarker"
-                            :source="item.markerId"
-                            :allowMultiSelect="false"
-                            :label="$tc('moorl-marker.properties.marker')"
-                            @sw-media-upload-media-upload-success="setMarkerItem"
-                            @media-drop="onDropMarker"
-                            @media-upload-remove-image="onUnlinkMarker"
-                    />
-                </div>
+            <sw-container columns="1fr 1fr" gap="0 20px">
+                <sw-number-field label="iconSizeX" v-model:value="item.markerSettings.iconSizeX"/>
+                <sw-number-field label="iconSizeY" v-model:value="item.markerSettings.iconSizeY"/>
+                <sw-number-field label="shadowSizeX" v-model:value="item.markerSettings.shadowSizeX"/>
+                <sw-number-field label="shadowSizeY" v-model:value="item.markerSettings.shadowSizeY"/>
+                <sw-number-field label="iconAnchorX" v-model:value="item.markerSettings.iconAnchorX"/>
+                <sw-number-field label="iconAnchorY" v-model:value="item.markerSettings.iconAnchorY"/>
+                <sw-number-field label="shadowAnchorX" v-model:value="item.markerSettings.shadowAnchorX"/>
+                <sw-number-field label="shadowAnchorY" v-model:value="item.markerSettings.shadowAnchorY"/>
+                <sw-number-field label="popupAnchorX" v-model:value="item.markerSettings.popupAnchorX"/>
+                <sw-number-field label="popupAnchorY" v-model:value="item.markerSettings.popupAnchorY"/>
+            </sw-container>
+        </sw-card>
 
-                <div class="sw-field">
-                    <sw-upload-listener
-                            :uploadTag="uploadTagMarkerRetina"
-                            autoUpload
-                            @media-upload-finish="setMarkerRetinaItem"
-                    />
+        <sw-card :title="$tc('moorl-marker.card.preview')">
+            <moorl-location :locations="locations" :options="['dragging']"/>
+        </sw-card>
+    </sw-card-view>
+{% endblock %}
 
-                    <sw-media-upload-v2
-                            :uploadTag="uploadTagMarkerRetina"
-                            :source="item.markerRetinaId"
-                            :allowMultiSelect="false"
-                            :label="$tc('moorl-marker.properties.markerRetina')"
-                            @sw-media-upload-media-upload-success="setMarkerRetinaItem"
-                            @media-drop="onDropMarkerRetina"
-                            @media-upload-remove-image="onUnlinkMarkerRetina"
-                    />
-                </div>
-
-                <div class="sw-field">
-                    <sw-upload-listener
-                            :uploadTag="uploadTagMarkerShadow"
-                            autoUpload
-                            @media-upload-finish="setMarkerShadowItem"
-                    />
-
-                    <sw-media-upload-v2
-                            :uploadTag="uploadTagMarkerShadow"
-                            :source="item.markerShadowId"
-                            :allowMultiSelect="false"
-                            :label="$tc('moorl-marker.properties.markerShadow')"
-                            @sw-media-upload-media-upload-success="setMarkerShadowItem"
-                            @media-drop="onDropMarkerShadow"
-                            @media-upload-remove-image="onUnlinkMarkerShadow"
-                    />
-                </div>
-            </sw-card>
-
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-foundation.properties.markerSettings')">
-                <div class="sw-field">
-                    <label>
-                        {{ $tc('moorl-marker.helpText.markerSettings') }}<br>
-                        <a href="https://leafletjs.com/examples/custom-icons/" target="_blank" rel="noopener">
-                            https://leafletjs.com/examples/custom-icons/
-                        </a>
-                    </label>
-                </div>
-
-                <sw-container columns="1fr 1fr" gap="0 20px">
-                    <sw-number-field label="iconSizeX" v-model:value="item.markerSettings.iconSizeX"/>
-                    <sw-number-field label="iconSizeY" v-model:value="item.markerSettings.iconSizeY"/>
-                    <sw-number-field label="shadowSizeX" v-model:value="item.markerSettings.shadowSizeX"/>
-                    <sw-number-field label="shadowSizeY" v-model:value="item.markerSettings.shadowSizeY"/>
-                    <sw-number-field label="iconAnchorX" v-model:value="item.markerSettings.iconAnchorX"/>
-                    <sw-number-field label="iconAnchorY" v-model:value="item.markerSettings.iconAnchorY"/>
-                    <sw-number-field label="shadowAnchorX" v-model:value="item.markerSettings.shadowAnchorX"/>
-                    <sw-number-field label="shadowAnchorY" v-model:value="item.markerSettings.shadowAnchorY"/>
-                    <sw-number-field label="popupAnchorX" v-model:value="item.markerSettings.popupAnchorX"/>
-                    <sw-number-field label="popupAnchorY" v-model:value="item.markerSettings.popupAnchorY"/>
-                </sw-container>
-            </sw-card>
-
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-marker.card.preview')">
-                <moorl-location :locations="locations" :options="['dragging']"/>
-            </sw-card>
-        </sw-card-view>
-    </template>
-
-    <template #sidebar>
-        <sw-sidebar :propagateWidth="true">
-            <sw-sidebar-media-item ref="mediaSidebarItem">
-                <template #context-menu-items="media">
-                    <sw-context-menu-item
-                            @click="setMediaFromSidebar(media.mediaItem)"
-                    />
-                </template>
-            </sw-sidebar-media-item>
-        </sw-sidebar>
-    </template>
-</sw-page>
+{% block moorl_page_detail_sidebar %}
+    <sw-sidebar :propagateWidth="true">
+        <sw-sidebar-media-item ref="mediaSidebarItem">
+            <template #context-menu-items="media">
+                <sw-context-menu-item @click="setMediaFromSidebar(media.mediaItem)"/>
+            </template>
+        </sw-sidebar-media-item>
+    </sw-sidebar>
+{% endblock %}

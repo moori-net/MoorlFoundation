@@ -1,46 +1,19 @@
 import template from './index.html.twig';
 
-const { Criteria } = Shopware.Data;
-
-Shopware.Component.register('moorl-sorting-detail', {
+Shopware.Component.extend('moorl-sorting-detail', 'moorl-abstract-page-detail', {
     template,
-
-    inject: ['repositoryFactory'],
-
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder'),
-    ],
-
-    metaInfo() {
-        return {
-            title: this.$createTitle(this.identifier),
-        };
-    },
 
     data() {
         return {
-            item: null,
-            isLoading: true,
-            processSuccess: false,
-            productSortingEntity: null,
+            entity: 'moorl_sorting',
             toBeDeletedCriteria: null,
         };
     },
 
     computed: {
-        repository() {
-            return this.repositoryFactory.create('moorl_sorting');
-        },
-
-        defaultCriteria() {
-            return new Criteria();
-        },
-
         entityOptions() {
             const storeOptions = [];
-            const definitionRegistry =
-                Shopware.EntityDefinition.getDefinitionRegistry();
+            const definitionRegistry = Shopware.EntityDefinition.getDefinitionRegistry();
 
             definitionRegistry.forEach(function (value, key) {
                 storeOptions.push({
@@ -50,49 +23,9 @@ Shopware.Component.register('moorl-sorting-detail', {
 
             return storeOptions;
         },
-
-        identifier() {
-            return this.placeholder(this.item, 'label');
-        },
-    },
-
-    created() {
-        this.createdComponent();
     },
 
     methods: {
-        createdComponent() {
-            this.getItem();
-        },
-
-        saveProductSorting() {
-            return this.repository.save(this.item);
-        },
-
-        onSave() {
-            return this.saveProductSorting()
-                .then(() => {
-                    const sortingOptionName = this.item.label;
-
-                    this.createNotificationSuccess({
-                        message: this.$t(
-                            'sw-settings-listing.base.notification.saveSuccess',
-                            { sortingOptionName }
-                        ),
-                    });
-                })
-                .catch(() => {
-                    const sortingOptionName = this.item.label;
-
-                    this.createNotificationError({
-                        message: this.$t(
-                            'sw-settings-listing.base.notification.saveError',
-                            { sortingOptionName }
-                        ),
-                    });
-                });
-        },
-
         getCriteriaTemplate(fieldName) {
             return {
                 field: fieldName,
@@ -138,60 +71,6 @@ Shopware.Component.register('moorl-sorting-detail', {
             this.item.fields = this.item.fields.filter((currentCriteria) => {
                 return currentCriteria.field !== item.field;
             });
-        },
-
-        getItem() {
-            this.repository
-                .get(
-                    this.$route.params.id,
-                    Shopware.Context.api,
-                    this.defaultCriteria
-                )
-                .then((response) => {
-                    if (!Array.isArray(response.fields)) {
-                        response.fields = [];
-                    }
-
-                    this.item = response;
-
-                    this.isLoading = false;
-                });
-        },
-
-        onChangeLanguage() {
-            this.getItem();
-        },
-
-        onClickSave() {
-            this.isLoading = true;
-
-            this.repository
-                .save(this.item, Shopware.Context.api)
-                .then(() => {
-                    this.getItem();
-                    this.isLoading = false;
-                    this.processSuccess = true;
-                })
-                .catch((exception) => {
-                    this.isLoading = false;
-                    if (
-                        exception.response.data &&
-                        exception.response.data.errors
-                    ) {
-                        exception.response.data.errors.forEach((error) => {
-                            this.createNotificationWarning({
-                                title: this.$tc(
-                                    'moorl-foundation.notification.errorTitle'
-                                ),
-                                message: error.detail,
-                            });
-                        });
-                    }
-                });
-        },
-
-        saveFinish() {
-            this.processSuccess = false;
-        },
+        }
     },
 });

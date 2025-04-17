@@ -80,4 +80,8 @@
                 @cancel="showConfirmDeleteModal = false"
         />
     </template>
+
+    <template #sidebar>
+        {% block moorl_page_detail_sidebar %}{% endblock %}
+    </template>
 </sw-page>

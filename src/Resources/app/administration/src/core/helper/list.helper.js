@@ -1,12 +1,5 @@
-class List {
-    constructor({
-                    identifier,
-                    entity,
-                    properties = [],
-                    mediaProperty = null,
-                    snippetSrc = 'moorl-foundation',
-                    routerLink = null
-    }) {
+class ListHelper {
+    constructor({identifier, entity, properties = [], mediaProperty = null, snippetSrc = 'moorl-foundation', routerLink = null}) {
         this._identifier = identifier;
         this._entity = entity;
         this._properties = properties;
@@ -82,4 +75,4 @@ class List {
     }
 }
 
-export default List;
+export default ListHelper;

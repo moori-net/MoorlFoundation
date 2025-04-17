@@ -42,8 +42,10 @@ Shopware.Component.register('moorl-abstract-page-detail', {
         },
 
         itemName() {
-            if (this.item?.name) {
-                return this.item.name;
+            for (const property of ['name', 'label', 'key', 'technicalName']) {
+                if (this.item[property] !== undefined) {
+                    return this.item[property];
+                }
             }
 
             return this.$tc('global.default.add');
@@ -51,6 +53,10 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
         itemRepository() {
             return this.repositoryFactory.create(this.entity);
+        },
+
+        mediaRepository() {
+            return this.repositoryFactory.create('media');
         },
 
         itemCriteria() {

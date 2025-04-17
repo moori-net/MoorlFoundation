@@ -9,6 +9,7 @@
 
     <template #smart-bar-actions>
         <mt-button
+                v-if="!indexPage"
                 variant="primary"
                 size="default"
                 @click="onCreateItem"
@@ -17,8 +18,9 @@
         </mt-button>
 
         <moorl-demo-button
-                v-if="plugin"
-                :pluginName="plugin"
+                v-if="pluginName"
+                :pluginName="pluginName"
+                :name="demoName"
                 @on-finish="getList"
         />
     </template>
