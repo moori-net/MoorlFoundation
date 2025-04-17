@@ -1,0 +1,67 @@
+<sw-page :class="currentComponentName">
+    <template #smart-bar-header>
+        {% block moorl_page_detail_smart_bar_header %}
+            <h2>{{ identifier }}</h2>
+        {% endblock %}
+    </template>
+
+    <template #smart-bar-actions>
+        {% block moorl_page_detail_smart_bar_actions %}
+            <mt-button
+                    variant="secondary"
+                    size="default"
+                    @click="onCancel"
+            >
+                {{ $tc('global.default.cancel') }}
+            </mt-button>
+
+            <sw-button-group :split-button="true">
+                <sw-button-process
+                        v-model:process-success="isSaveSuccessful"
+                        variant="primary"
+                        :is-loading="isLoading"
+                        :disabled="isLoading"
+                        @click="onSaveItem"
+                >
+                    {{ $tc('global.default.save') }}
+                </sw-button-process>
+
+                <sw-context-button v-if="!isNewItem" >
+                    <template #button>
+                        <mt-button
+                                square
+                                variant="primary"
+                                :disabled="isLoading"
+                                size="default"
+                        >
+                            <mt-icon name="regular-chevron-down-xs" size="16"/>
+                        </mt-button>
+                    </template>
+
+                    <sw-context-menu-item @click="onDuplicateItem">
+                        {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
+                    </sw-context-menu-item>
+                </sw-context-button>
+            </sw-button-group>
+        {% endblock %}
+    </template>
+
+    <template #language-switch>
+        {% block moorl_page_detail_language_switch %}
+            <sw-language-switch :disabled="!translatable" @on-change="onChangeLanguage"/>
+        {% endblock %}
+    </template>
+
+    <template #content>
+        <div v-if="isLoading">
+            <sw-skeleton />
+            <sw-skeleton />
+        </div>
+
+        <template v-if="!isLoading">
+            {% block moorl_page_detail_content %}
+                <pre>block moorl_page_detail_content not extended</pre>
+            {% endblock %}
+        </template>
+    </template>
+</sw-page>

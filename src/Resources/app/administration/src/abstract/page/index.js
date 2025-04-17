@@ -1,0 +1,2 @@
+import './detail';
+import './create';

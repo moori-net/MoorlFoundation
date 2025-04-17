@@ -1,5 +1,4 @@
-import './main.scss';
-
+import './abstract';
 import './proxy';
 
 import './core/moorl-foundation';
@@ -11,3 +10,5 @@ import './mixin/flow-action-helper.mixin';
 import './component';
 import './extension';
 import './module';
+
+import './main.scss';
