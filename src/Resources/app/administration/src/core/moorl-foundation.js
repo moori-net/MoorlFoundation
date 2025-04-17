@@ -1,24 +1,11 @@
-const MoorlFoundation = function MoorlFoundation() {
-    this.listingLayout = [];
-    this.itemLayout = [];
-    this.displayMode = [];
-    this.mode = [];
-    this.navigationArrows = [];
-    this.navigationDots = [];
-    this.colorScheme = [];
-    this.btnClass = [];
-    this.verticalAlign = [];
-    this.horizontalAlign = [];
-    this.textAlign = [];
-    this.verticalTextAlign = [];
-    this.animateCss = [];
-    this.iconClass = [];
+import ListHelper from './helper/list.helper';
+
+const MoorlFoundation = {
+    ListHelper
 };
 
 MoorlFoundation.prototype = {};
 
-const MoorlFoundationInstance = new MoorlFoundation();
-
-window.MoorlFoundation = MoorlFoundationInstance;
-exports.default = MoorlFoundationInstance;
+window.MoorlFoundation = MoorlFoundation;
+exports.default = MoorlFoundation;
 module.exports = exports.default;

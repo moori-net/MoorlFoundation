@@ -159,6 +159,13 @@ Shopware.Component.register('moorl-entity-grid', {
     },
 
     computed: {
+        listHelper() {
+            return new MoorlFoundation.ListHelper({
+                entity: this.entity,
+                properties: this.filterColumns
+            });
+        },
+
         defaultCriteria() {
             //const criteria = Object.assign({}, this.criteria);
             const criteria = new Criteria();
@@ -167,6 +174,10 @@ Shopware.Component.register('moorl-entity-grid', {
                 criteria.associations = this.criteria.associations;
                 criteria.aggregations = this.criteria.aggregations;
                 criteria.grouping = this.criteria.grouping;
+            } else {
+                this.listHelper.getAssociations().forEach(association => {
+                    criteria.addAssociation(association);
+                });
             }
 
             for (const [field, value] of Object.entries(this.defaultItem)) {

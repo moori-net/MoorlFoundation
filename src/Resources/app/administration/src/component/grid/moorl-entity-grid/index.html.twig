@@ -185,15 +185,21 @@
             />
 
             <template #modal-footer>
-                <sw-button @click="onCloseModal" size="small">
-                    {{ $t('moorl-foundation.buttons.cancelButtonText') }}
-                </sw-button>
+                <mt-button
+                        @click="onCloseModal"
+                        variant="secondary"
+                        size="small"
+                >
+                    {{ $tc('global.default.cancel') }}
+                </mt-button>
 
-                <sw-button @click="onSaveItem"
-                           variant="primary"
-                           size="small">
-                    {{ $t('moorl-foundation.buttons.saveButtonText') }}
-                </sw-button>
+                <mt-button
+                        @click="onSaveItem"
+                        variant="primary"
+                        size="small"
+                >
+                    {{ $tc('global.default.save') }}
+                </mt-button>
             </template>
         </sw-modal>
     </slot>

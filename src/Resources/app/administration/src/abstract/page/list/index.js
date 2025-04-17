@@ -29,6 +29,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
             isLoading: true,
             activeFilterNumber: 0,
             sortBy: 'name',
+            filterCriteria: []
         };
     },
 
@@ -39,6 +40,17 @@ Shopware.Component.register('moorl-abstract-page-list', {
     },
 
     computed: {
+        listHelper() {
+            return new MoorlFoundation.ListHelper({
+                identifier: this.identifier,
+                entity: this.entity,
+                properties: this.properties,
+                mediaProperty: this.mediaProperty,
+                snippetSrc: this.snippetSrc,
+                routerLink: this.getItemRoute('detail')
+            });
+        },
+
         identifier() {
             return this.$options.name;
         },
@@ -51,28 +63,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
             return this.repositoryFactory.create(this.entity);
         },
 
-        generatedAssociations() {
-            const associations = [];
-
-            if (this.mediaProperty) {
-                associations.push(this.mediaProperty);
-            }
-
-            this.properties.forEach((property) => {
-                let parts = property.split(".");
-                parts.pop();
-
-                if (parts.length > 0) {
-                    const association = parts.join(".");
-                    if (associations.indexOf(association) !== -1) {
-                        associations.push(association);
-                    }
-                }
-            });
-
-            return associations;
-        },
-
         itemCriteria() {
             const itemCriteria  = new Criteria(this.page, this.limit);
             this.naturalSorting = this.sortBy === 'priority';
@@ -83,57 +73,15 @@ Shopware.Component.register('moorl-abstract-page-list', {
                 itemCriteria.addSorting(Criteria.sort(sortBy, this.sortDirection, this.naturalSorting));
             });
 
-            this.generatedAssociations.forEach(association => {
+            this.listHelper.getAssociations().forEach(association => {
                 itemCriteria.addAssociation(association);
             });
 
             return itemCriteria ;
         },
 
-        generatedColumns() {
-            const columns = [];
-            const fields = Shopware.EntityDefinition.get(this.entity).properties;
-
-            console.log(Shopware.EntityDefinition.get(this.entity));
-
-            this.properties.forEach((property) => {
-                if (fields[property] === undefined) {
-                    console.error(`Property ${property} of ${this.identifier} not found in ${this.entity}`);
-                    return;
-                }
-
-                const field = fields[property];
-                const column = {
-                    property: property,
-                    dataIndex: property,
-                    label: `${this.snippetSrc}.properties.${property}`,
-                    allowResize: true,
-                };
-
-                if (['string'].indexOf(field.type) !== -1) {
-                    column.inlineEdit = 'string';
-                    column.align = 'left';
-                    column.routerLink = this.getItemRoute('detail');
-                }
-
-                if (['int', 'float'].indexOf(field.type) !== -1) {
-                    column.inlineEdit = 'number';
-                    column.align = 'right';
-                }
-
-                if (['boolean'].indexOf(field.type) !== -1) {
-                    column.inlineEdit = 'boolean';
-                    column.align = 'center';
-                }
-
-                columns.push(column);
-            });
-
-            return columns;
-        },
-
         columns() {
-            return this.generatedColumns;
+            return this.listHelper.getColumns();
         }
     },
 
