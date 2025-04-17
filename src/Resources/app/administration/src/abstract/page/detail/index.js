@@ -8,6 +8,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
     inject: [
         'repositoryFactory',
         'customFieldDataProviderService',
+        'seoUrlService'
     ],
 
     mixins: [
@@ -26,7 +27,8 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             item: {},
             isLoading: true,
             isSaveSuccessful: false,
-            showConfirmDeleteModal: false
+            showConfirmDeleteModal: false,
+            customFieldSets: null
         };
     },
 
@@ -109,6 +111,10 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
         onChangeLanguage() {
             this.loadItem();
+        },
+
+        async loadCustomFieldSets() {
+            this.customFieldSets = await this.customFieldDataProviderService.getCustomFieldSets(this.entity);
         },
 
         async loadItem() {

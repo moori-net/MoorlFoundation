@@ -45,6 +45,7 @@
             </sw-button-group>
 
             <mt-button
+                    v-if="!isNewItem"
                     variant="critical"
                     size="default"
                     @click="showConfirmDeleteModal = true"
