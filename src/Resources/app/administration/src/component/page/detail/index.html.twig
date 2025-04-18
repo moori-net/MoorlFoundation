@@ -3,8 +3,9 @@
         <sw-tabs default-item="general">
             <template #default="{ active }">
                 <sw-tabs-item
-                        v-for="(tab, tabKey) in pageStruct"
-                        :name="tabKey"
+                        v-for="tab in pageStruct.tabs"
+                        :key="tab.id"
+                        :name="tab.id"
                         :activeTab="active"
                 >
                     {{ tab.label }}
@@ -12,11 +13,11 @@
             </template>
 
             <template #content="{ active }">
-                <template v-for="(tab, tabKey) in pageStruct">
-                    <template v-if="active === tabKey">
-                        <template v-for="(card, cardKey) in tab.cards">
-                            <template v-if="cardKey === 'self'">
-                                <template v-for="(field, fieldKey) in card.fields">
+                <template v-for="tab in pageStruct.tabs" :key="tab.id">
+                    <template v-if="active === tab.id">
+                        <template v-for="card in tab.cards" :key="card.id">
+                            <template v-if="card.id === 'self'">
+                                <template v-for="field in card.fields" :key="field.name">
                                     <component
                                             :is="field.componentName"
                                             v-bind="field.attributes"
@@ -25,19 +26,17 @@
                             </template>
 
                             <sw-card v-else :title="card.label">
-                                <template v-for="(field, fieldKey) in card.fields">
-                                    <!--pre>{{ field }}</pre-->
-
+                                <template v-for="field in card.fields" :key="field.name">
                                     <component
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"
-                                            v-model:entityCollection="item[fieldKey]"
+                                            v-model:entityCollection="item[field.name]"
                                             v-bind="field.attributes"
                                     />
 
                                     <sw-form-field-renderer
                                             v-else
-                                            v-model:value="item[fieldKey]"
+                                            v-model:value="item[field.name]"
                                             :type="field.type"
                                             :label="field.label"
                                             :config="field.attributes"
