@@ -15,38 +15,38 @@ const order = [
 ];
 
 const mapping = {
+    // Contact
+    title: {tab: 'general', card: 'contact'},
+    firstName: {tab: 'general', card: 'contact'},
+    lastName: {tab: 'general', card: 'contact'},
+    salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}},
+    phoneNumber: {tab: 'general', card: 'contact',},
+    shopUrl: {tab: 'general', card: 'contact',},
+    merchantUrl: {tab: 'general', card: 'contact',},
+    email: {tab: 'general', card: 'contact',},
+
     name: {tab: 'general', card: 'general',},
     teaser: {tab: 'general', card: 'general',},
     description: {tab: 'general', card: 'general'},
     descriptionHtml: {tab: 'general', card: 'general'},
     keywords: {tab: 'general', card: 'general',},
     type: {tab: 'general', card: 'general',},
-
+    // Seo / Meta
+    metaTitle: {tab: 'seo', card: 'general'},
+    metaDescription: {tab: 'seo', card: 'general'},
+    metaKeywords: {tab: 'seo', card: 'general'},
     seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
+    // CMS Page
     cmsPage: {tab: 'cmsPage', card: 'cmsPage',},
-
+    fieldConfig: {tab: 'cmsPage', card: 'cmsPage',},
+    // visibility
     active: {tab: 'general', card: 'visibility',},
     priority: {tab: 'general', card: 'visibility',},
     category: {tab: 'general', card: 'visibility',},
     categories: {tab: 'general', card: 'visibility',},
     salesChannel: {tab: 'general', card: 'visibility',},
     salesChannels: {tab: 'general', card: 'visibility',},
-
-    salutation: {
-        tab: 'general',
-        card: 'contact',
-        attributes: {
-            labelProperty: 'displayName',
-        }
-    },
-    title: {tab: 'general', card: 'contact',},
-    firstName: {tab: 'general', card: 'contact',},
-    lastName: {tab: 'general', card: 'contact',},
-    email: {tab: 'general', card: 'contact',},
-    phoneNumber: {tab: 'general', card: 'contact',},
-    shopUrl: {tab: 'general', card: 'contact',},
-    merchantUrl: {tab: 'general', card: 'contact',},
-
+    // address
     street: {tab: 'address', card: 'general',},
     streetNumber: {tab: 'address', card: 'general',},
     zipcode: {tab: 'address', card: 'general',},
@@ -57,7 +57,7 @@ const mapping = {
     additionalAddressLine1: {tab: 'address', card: 'general',},
     additionalAddressLine2: {tab: 'address', card: 'general',},
     locationPlaceId: {tab: 'address', card: 'general',},
-
+    // company
     company: {tab: 'general', card: 'company',},
     department: {tab: 'general', card: 'company',},
     executiveDirector: {tab: 'general', card: 'company',},
@@ -69,12 +69,12 @@ const mapping = {
     taxOffice: {tab: 'general', card: 'company',},
     taxNumber: {tab: 'general', card: 'company',},
     vatId: {tab: 'general', card: 'company',},
-
+    // location
     locationLat: {tab: 'address', card: 'location',},
     locationLon: {tab: 'address', card: 'location',},
     autoLocation: {tab: 'address', card: 'location',},
     marker: {tab: 'address', card: 'location',},
-
+    // time
     timeZone: {
         tab: 'time',
         card: 'general',
@@ -83,7 +83,6 @@ const mapping = {
             set: 'timeZone'
         }
     },
-
     openingHours: {tab: 'time', card: 'general', componentName: 'moorl-opening-hours'},
     showOpeningHours: {tab: 'time', card: 'general'},
 };
