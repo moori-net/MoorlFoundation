@@ -1,31 +1,53 @@
 class ListHelper {
-    constructor({identifier, entity, properties = [], mediaProperty = null, snippetSrc = 'moorl-foundation', routerLink = null}) {
+    constructor({identifier, entity, properties = [], snippetSrc = 'moorl-foundation', routerLink = null}) {
         this._identifier = identifier;
         this._entity = entity;
         this._properties = properties;
-        this._mediaProperty = mediaProperty;
         this._snippetSrc = snippetSrc;
         this._routerLink = routerLink;
 
         this._columns = [];
         this._associations = [];
+        this._mediaProperty = undefined;
 
         this._init();
     }
 
     getColumns() {
+        console.log("this._columns");
+        console.log(this._columns);
         return this._columns;
     }
 
     getAssociations() {
+        console.log("this._associations");
+        console.log(this._associations);
         return this._associations;
+    }
+
+    getMediaProperty() {
+        console.log("this._mediaProperty");
+        console.log(this._mediaProperty);
+        return this._mediaProperty;
     }
 
     _init() {
         const fields = Shopware.EntityDefinition.get(this._entity).properties;
 
-        if (this._mediaProperty) {
-            this._associations.push(this._mediaProperty);
+        console.log("fields");
+        console.log(fields);
+
+        // Init media Property
+        for (const [property, field] of Object.entries(fields)) {
+            if (
+                field.type === 'association' &&
+                field.relation === 'many_to_one' &&
+                field.entity === 'media'
+            ) {
+                this._mediaProperty = property;
+                this._associations.push(property);
+                break;
+            }
         }
 
         this._properties.forEach((property) => {

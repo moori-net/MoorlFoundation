@@ -19,7 +19,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
         return {
             entity: null,
             properties: ['active', 'name'],
-            mediaProperty: null,
             pluginName: null, // Demo button
             demoName: 'standard',
             snippetSrc: 'moorl-foundation',
@@ -46,10 +45,13 @@ Shopware.Component.register('moorl-abstract-page-list', {
                 identifier: this.identifier,
                 entity: this.entity,
                 properties: this.properties,
-                mediaProperty: this.mediaProperty,
                 snippetSrc: this.snippetSrc,
                 routerLink: this.getItemRoute('detail')
             });
+        },
+
+        mediaProperty() {
+            return this.listHelper.getMediaProperty();
         },
 
         identifier() {

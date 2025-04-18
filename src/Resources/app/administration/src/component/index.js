@@ -4,6 +4,7 @@ import './moorl-element-animation';
 import './moorl-block-behaviour';
 import './moorl-collapse';
 
+import './page';
 import './grid';
 import './config';
 import './location';

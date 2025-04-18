@@ -7,7 +7,6 @@ Shopware.Component.extend('moorl-marker-list', 'moorl-abstract-page-list', {
                 'type',
                 'className'
             ],
-            mediaProperty: 'marker',
             pluginName: 'MoorlFoundation',
             demoName: 'marker'
         };

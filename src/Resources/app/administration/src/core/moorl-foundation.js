@@ -1,7 +1,9 @@
 import ListHelper from './helper/list.helper';
+import ItemHelper from './helper/item.helper';
 
 const MoorlFoundation = {
-    ListHelper
+    ListHelper,
+    ItemHelper
 };
 
 MoorlFoundation.prototype = {};
