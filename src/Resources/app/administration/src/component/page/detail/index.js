@@ -262,6 +262,10 @@ Shopware.Component.register('moorl-page-detail', {
                     }
                 }
 
+                if (column.hidden !== undefined) {
+                    continue;
+                }
+
                 if (column.componentName !== undefined) {
                     attributes.componentName = column.componentName;
                 }
