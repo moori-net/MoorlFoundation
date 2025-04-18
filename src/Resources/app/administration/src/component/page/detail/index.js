@@ -29,7 +29,13 @@ const mapping = {
     salesChannel: {tab: 'general', card: 'visibility',},
     salesChannels: {tab: 'general', card: 'visibility',},
 
-    salutation: {tab: 'general', card: 'contact', labelProperty: 'displayName',},
+    salutation: {
+        tab: 'general',
+        card: 'contact',
+        attributes: {
+            labelProperty: 'displayName',
+        }
+    },
     title: {tab: 'general', card: 'contact',},
     firstName: {tab: 'general', card: 'contact',},
     lastName: {tab: 'general', card: 'contact',},
@@ -70,17 +76,20 @@ const mapping = {
     openingHours: {tab: 'time', card: 'general',},
 };
 
+// Test
 const customMapping = {
     merchantAreas: {
         tab: 'relations',
         componentName: 'moorl-entity-grid-card',
-        filterColumns: [
-            'zipcode',
-            'deliveryTime',
-            'deliveryPrice',
-            'minOrderValue',
-            'merchant.name'
-        ]
+        attributes: {
+            filterColumns: [
+                'zipcode',
+                'deliveryTime',
+                'deliveryPrice',
+                'minOrderValue',
+                'merchant.name'
+            ]
+        }
     }
 };
 
@@ -106,6 +115,16 @@ Shopware.Component.register('moorl-page-detail', {
             type: Object,
             required: true,
         },
+        useTabs: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
+        customMapping: {
+            type: Object,
+            required: false,
+            default: {}
+        }
     },
 
     data() {
@@ -138,60 +157,61 @@ Shopware.Component.register('moorl-page-detail', {
                 }
 
                 const column = {
-                    name: property,
-                    label: this.$tc(`${this.snippetSrc}.field.${property}`),
                     tab: 'undefined',
                     card: 'undefined',
-                    model: 'value', // v-model value or entityCollection
-                    componentName: undefined,
-                    attrs: {}
+                    name: property,
+                    model: 'value',
+                    label: this.$tc(`${this.snippetSrc}.field.${property}`)
                 };
+
+                const attributes = {};
 
                 if (['string'].indexOf(field.type) !== -1) {
                     column.type = 'text';
+                    attributes.type = 'text';
                 }
 
                 if (['text'].indexOf(field.type) !== -1) {
                     if (field.flags.allow_html === undefined) {
                         column.type = 'textarea';
+                        attributes.type = 'text';
                     } else {
                         column.componentName = 'sw-text-editor';
+                        attributes.type = 'text';
                     }
                 }
 
                 if (['int', 'float'].indexOf(field.type) !== -1) {
                     column.type = 'number';
+                    attributes.type = field.type;
                 }
 
                 if (['boolean', 'bool'].indexOf(field.type) !== -1) {
                     column.type = 'bool';
-                    column.bordered = true;
+                    attributes.bordered = true;
                 }
 
                 if (field.type === 'association') {
-                    column.attrs.entity = field.entity;
+                    attributes.entity = field.entity;
 
                     if (field.relation === 'many_to_one') {
                         if (field.entity === 'media') {
                             column.tab = 'general';
                             column.card = 'media';
-
                             column.name = field.localField;
-                            column.componentName = 'sw-media-field';
+
+                            attributes.componentName = 'sw-media-field';
                         } else {
                             column.name = field.localField;
-                            column.componentName = 'sw-entity-single-select';
 
-                            column.attrs.showClearableButton = field.flags.required === undefined;
+                            attributes.componentName = 'sw-entity-single-select';
+                            attributes.showClearableButton = field.flags.required === undefined;
                         }
                     } else if (field.relation === 'many_to_many') {
                         column.model = 'entityCollection';
                         column.componentName = 'sw-entity-many-to-many-select';
 
-                        column.attrs.labelProperty = field.flags.moorl_label_property ?? 'name';
-
-                        console.log('sw-entity-many-to-many-select');
-                        console.log(column);
+                        attributes.labelProperty = field.flags.moorl_label_property ?? 'name';
                     }
                 }
 
@@ -202,30 +222,43 @@ Shopware.Component.register('moorl-page-detail', {
 
                 if (mapping[property] !== undefined) {
                     Object.assign(column, mapping[property]);
+
+                    if (mapping[property].attributes !== undefined) {
+                        Object.assign(attributes, mapping[property].attributes );
+                    }
                 }
 
-                if (customMapping[property]) {
+                if (customMapping[property] !== undefined) {
                     Object.assign(column, customMapping[property]);
+
+                    if (customMapping[property].attributes !== undefined) {
+                        Object.assign(attributes, customMapping[property].attributes );
+                    }
                 }
 
                 if (column.componentName === 'moorl-entity-grid-card') {
                     column.card = 'self';
                     column.model = undefined;
-                    column.attrs.title = column.label;
-                    column.attrs.filterColumns = column.filterColumns;
-                    column.attrs.defaultItem = {};
-                    column.attrs.defaultItem[field.referenceField] = this.item[field.localField];
+
+                    attributes.title = column.label;
+                    attributes.defaultItem = {};
+                    attributes.defaultItem[field.referenceField] = this.item[field.localField];
                 }
 
                 if (column.componentName === 'sw-seo-url') {
                     column.card = 'self';
                     column.model = undefined;
-                    column.attrs.hasDefaultTemplate = false;
-                    column.attrs.urls = this.item[property];
+
+                    attributes.hasDefaultTemplate = false;
+                    attributes.urls = this.item[property];
                 }
 
-                column.attrs.label = column.label;
-                column.attrs.componentName = column.componentName;
+                attributes.label = column.label;
+
+                Object.assign(column, {attributes});
+
+                console.log(field)
+                console.log(column)
 
                 this.addColumnToPageStruct(column);
             }

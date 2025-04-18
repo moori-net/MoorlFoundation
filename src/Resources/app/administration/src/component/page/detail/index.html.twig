@@ -19,7 +19,7 @@
                                 <template v-for="(field, fieldKey) in card.fields">
                                     <component
                                             :is="field.componentName"
-                                            v-bind="field.attrs"
+                                            v-bind="field.attributes"
                                     />
                                 </template>
                             </template>
@@ -33,7 +33,7 @@
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"
                                             v-model:entityCollection="item[fieldKey]"
-                                            v-bind="field.attrs"
+                                            v-bind="field.attributes"
                                     />
 
                                     <sw-form-field-renderer
@@ -41,7 +41,7 @@
                                             v-model:value="item[fieldKey]"
                                             :type="field.type"
                                             :label="field.label"
-                                            :config="field.attrs"
+                                            :config="field.attributes"
                                     />
                                 </template>
                             </sw-card>
