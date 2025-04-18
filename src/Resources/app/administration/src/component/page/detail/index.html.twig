@@ -7,7 +7,7 @@
                         :name="tabKey"
                         :activeTab="active"
                 >
-                    {{ tab.name }}
+                    {{ tab.label }}
                 </sw-tabs-item>
             </template>
 
@@ -26,7 +26,7 @@
 
                             <sw-card
                                     v-else
-                                    :title="card.name"
+                                    :title="card.label"
                             >
                                 <template v-for="(field, fieldKey) in card.fields">
                                     <component

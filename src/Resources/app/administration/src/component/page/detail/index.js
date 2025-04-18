@@ -2,13 +2,16 @@ import template from './index.html.twig';
 
 const order = [
     'general', // first
+    'media',
     'contact',
     'address',
     'company',
     'seo',
     'cmsPage',
+    'time',
     'stock',
-    'undefined', // last
+    'relations',
+    'undefined' // last
 ];
 
 const mapping = {
@@ -129,7 +132,8 @@ Shopware.Component.register('moorl-page-detail', {
 
     data() {
         return {
-            pageStruct: {}
+            pageStruct: {},
+            snippetStruct: {}
         };
     },
 
@@ -142,6 +146,32 @@ Shopware.Component.register('moorl-page-detail', {
     },
 
     methods: {
+        getLabel(group, property) {
+            const snippetSets = [
+                this.snippetSrc
+            ];
+
+            for (const set of snippetSets) {
+                if (this.snippetStruct[set] === undefined) {
+                    this.snippetStruct[set] = {};
+                }
+                if (this.snippetStruct[set][group] === undefined) {
+                    this.snippetStruct[set][group] = {};
+                }
+                if (this.snippetStruct[set][group][property] === undefined) {
+                    this.snippetStruct[set][group][property] = property;
+                }
+
+                const snippet = `${set}.${group}.${property}`;
+
+                if (this.$tc(snippet) !== snippet) {
+                    return this.$tc(snippet);
+                }
+            }
+
+            return `${group}.${property}`;
+        },
+
         createdComponent() {
             const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
@@ -161,7 +191,7 @@ Shopware.Component.register('moorl-page-detail', {
                     card: 'undefined',
                     name: property,
                     model: 'value',
-                    label: this.$tc(`${this.snippetSrc}.field.${property}`)
+                    label: this.getLabel('field', property)
                 };
 
                 const attributes = {};
@@ -174,9 +204,12 @@ Shopware.Component.register('moorl-page-detail', {
                 if (['text'].indexOf(field.type) !== -1) {
                     if (field.flags.allow_html === undefined) {
                         column.type = 'textarea';
+
                         attributes.type = 'text';
                     } else {
-                        column.componentName = 'sw-text-editor';
+                        column.type = 'text';
+
+                        attributes.componentName = 'sw-text-editor';
                         attributes.type = 'text';
                     }
                 }
@@ -257,17 +290,18 @@ Shopware.Component.register('moorl-page-detail', {
 
                 Object.assign(column, {attributes});
 
-                console.log(field)
-                console.log(column)
-
                 this.addColumnToPageStruct(column);
             }
+
+            this.sortPageStruct();
+
+            console.log(this.snippetStruct);
         },
 
         addColumnToPageStruct(column) {
             if (this.pageStruct[column.tab] === undefined) {
                 this.pageStruct[column.tab] = {
-                    name: this.$tc(`${this.snippetSrc}.tab.${column.tab}`),
+                    label: this.getLabel('tab', column.tab),
                     conditions: [],
                     cards: {}
                 };
@@ -275,13 +309,76 @@ Shopware.Component.register('moorl-page-detail', {
 
             if (this.pageStruct[column.tab].cards[column.card] === undefined) {
                 this.pageStruct[column.tab].cards[column.card] = {
-                    name: this.$tc(`${this.snippetSrc}.card.${column.card}`),
+                    label: this.getLabel('card', column.card),
                     conditions: [],
                     fields: {}
                 };
             }
 
             this.pageStruct[column.tab].cards[column.card].fields[column.name] = column;
+        },
+
+        sortPageStruct() {
+            const sortedStruct = {};
+
+            const tabOrder = [...order, ...Object.keys(this.pageStruct).filter(t => !order.includes(t))];
+
+            const byOrder = (a, b) => {
+                const aIndex = order.indexOf(a);
+                const bIndex = order.indexOf(b);
+                if (aIndex === -1 && bIndex === -1) return a.localeCompare(b);
+                if (aIndex === -1) return 1;
+                if (bIndex === -1) return -1;
+                return aIndex - bIndex;
+            };
+
+            const sortFields = (fieldKeys, currentCard, currentTab) => {
+                return fieldKeys.sort((a, b) => {
+                    const aInMap = mapping[a];
+                    const bInMap = mapping[b];
+
+                    const aValid = aInMap && aInMap.card === currentCard && aInMap.tab === currentTab;
+                    const bValid = bInMap && bInMap.card === currentCard && bInMap.tab === currentTab;
+
+                    if (aValid && bValid) {
+                        return Object.keys(mapping).indexOf(a) - Object.keys(mapping).indexOf(b);
+                    }
+
+                    return a.localeCompare(b);
+                });
+            };
+
+            tabOrder.forEach(tabKey => {
+                const tab = this.pageStruct[tabKey];
+                if (!tab) return;
+
+                const cardKeys = Object.keys(tab.cards).sort(byOrder);
+                const sortedCards = {};
+
+                cardKeys.forEach(cardKey => {
+                    const card = tab.cards[cardKey];
+
+                    const fieldKeys = Object.keys(card.fields);
+                    const sortedFieldKeys = sortFields(fieldKeys, cardKey, tabKey);
+
+                    const sortedFields = {};
+                    sortedFieldKeys.forEach(fieldKey => {
+                        sortedFields[fieldKey] = card.fields[fieldKey];
+                    });
+
+                    sortedCards[cardKey] = {
+                        ...card,
+                        fields: sortedFields
+                    };
+                });
+
+                sortedStruct[tabKey] = {
+                    ...tab,
+                    cards: sortedCards
+                };
+            });
+
+            this.pageStruct = sortedStruct;
         }
     }
 });
