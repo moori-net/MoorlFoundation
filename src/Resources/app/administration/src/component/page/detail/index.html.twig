@@ -24,11 +24,10 @@
                                 </template>
                             </template>
 
-                            <sw-card
-                                    v-else
-                                    :title="card.label"
-                            >
+                            <sw-card v-else :title="card.label">
                                 <template v-for="(field, fieldKey) in card.fields">
+                                    <!--pre>{{ field }}</pre-->
+
                                     <component
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"

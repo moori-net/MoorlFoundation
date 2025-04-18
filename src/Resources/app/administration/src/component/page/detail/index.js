@@ -75,25 +75,17 @@ const mapping = {
     autoLocation: {tab: 'address', card: 'location',},
     marker: {tab: 'address', card: 'location',},
 
-    timeZone: {tab: 'time', card: 'general',},
-    openingHours: {tab: 'time', card: 'general',},
-};
-
-// Test
-const customMapping = {
-    merchantAreas: {
-        tab: 'relations',
-        componentName: 'moorl-entity-grid-card',
+    timeZone: {
+        tab: 'time',
+        card: 'general',
+        componentName: 'moorl-select-field',
         attributes: {
-            filterColumns: [
-                'zipcode',
-                'deliveryTime',
-                'deliveryPrice',
-                'minOrderValue',
-                'merchant.name'
-            ]
+            set: 'timeZone'
         }
-    }
+    },
+
+    openingHours: {tab: 'time', card: 'general', componentName: 'moorl-opening-hours'},
+    showOpeningHours: {tab: 'time', card: 'general'},
 };
 
 Shopware.Component.register('moorl-page-detail', {
@@ -122,11 +114,6 @@ Shopware.Component.register('moorl-page-detail', {
             type: Boolean,
             required: false,
             default: true
-        },
-        customMapping: {
-            type: Object,
-            required: false,
-            default: {}
         }
     },
 
@@ -138,7 +125,9 @@ Shopware.Component.register('moorl-page-detail', {
     },
 
     computed: {
-        cards() {}
+        customMapping() {
+            return Shopware.Store.get('moorlFoundationState').getCustomEntityMapping(this.entity) ?? {};
+        }
     },
 
     created() {
@@ -173,6 +162,8 @@ Shopware.Component.register('moorl-page-detail', {
         },
 
         createdComponent() {
+
+
             const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
             console.log(fields);
@@ -224,6 +215,10 @@ Shopware.Component.register('moorl-page-detail', {
                     attributes.bordered = true;
                 }
 
+                if (['json_object'].indexOf(field.type) !== -1) {
+                    column.type = 'json';
+                }
+
                 if (field.type === 'association') {
                     attributes.entity = field.entity;
 
@@ -255,18 +250,20 @@ Shopware.Component.register('moorl-page-detail', {
 
                 if (mapping[property] !== undefined) {
                     Object.assign(column, mapping[property]);
-
                     if (mapping[property].attributes !== undefined) {
                         Object.assign(attributes, mapping[property].attributes );
                     }
                 }
 
-                if (customMapping[property] !== undefined) {
-                    Object.assign(column, customMapping[property]);
-
-                    if (customMapping[property].attributes !== undefined) {
-                        Object.assign(attributes, customMapping[property].attributes );
+                if (this.customMapping[property] !== undefined) {
+                    Object.assign(column, this.customMapping[property]);
+                    if (this.customMapping[property].attributes !== undefined) {
+                        Object.assign(attributes, this.customMapping[property].attributes );
                     }
+                }
+
+                if (column.componentName !== undefined) {
+                    attributes.componentName = column.componentName;
                 }
 
                 if (column.componentName === 'moorl-entity-grid-card') {
@@ -295,6 +292,9 @@ Shopware.Component.register('moorl-page-detail', {
 
             this.sortPageStruct();
 
+            console.log("this.pageStruct");
+            console.log(this.pageStruct);
+            console.log("this.snippetStruct");
             console.log(this.snippetStruct);
         },
 

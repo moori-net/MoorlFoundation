@@ -1,0 +1,21 @@
+[
+    { "value": "UTC", "label": "UTC" },
+    { "value": "Europe/Berlin", "label": "Europa/Berlin (MEZ)" },
+    { "value": "Europe/London", "label": "Europa/London (GMT)" },
+    { "value": "Europe/Paris", "label": "Europa/Paris" },
+    { "value": "Europe/Moscow", "label": "Europa/Moskau" },
+    { "value": "America/New_York", "label": "Amerika/New York (EST)" },
+    { "value": "America/Chicago", "label": "Amerika/Chicago (CST)" },
+    { "value": "America/Denver", "label": "Amerika/Denver (MST)" },
+    { "value": "America/Los_Angeles", "label": "Amerika/Los Angeles (PST)" },
+    { "value": "America/Sao_Paulo", "label": "Amerika/São Paulo" },
+    { "value": "Asia/Dubai", "label": "Asien/Dubai" },
+    { "value": "Asia/Tokyo", "label": "Asien/Tokio" },
+    { "value": "Asia/Shanghai", "label": "Asien/Shanghai" },
+    { "value": "Asia/Singapore", "label": "Asien/Singapur" },
+    { "value": "Asia/Kolkata", "label": "Asien/Kalkutta" },
+    { "value": "Australia/Sydney", "label": "Australien/Sydney" },
+    { "value": "Pacific/Auckland", "label": "Pazifik/Auckland" },
+    { "value": "Africa/Johannesburg", "label": "Afrika/Johannesburg" },
+    { "value": "Africa/Cairo", "label": "Afrika/Kairo" }
+]
