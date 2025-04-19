@@ -2,9 +2,9 @@ class TranslationHelper {
     constructor({componentName, snippetSrc, tc}) {
         this._componentName = componentName;
         this._snippetSrc = snippetSrc;
+        this._tc = tc;
         this._snippetSets = [];
         this._snippetStruct = {};
-        this._tc = tc;
 
         this._init();
     }
@@ -33,6 +33,8 @@ class TranslationHelper {
             const translated = this._tc(snippet);
 
             if (translated !== snippet) {
+                this._snippetStruct[set][group][property] = translated;
+
                 return translated;
             }
         }
