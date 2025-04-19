@@ -1,4 +1,4 @@
-{% block moorl_page_detail_content %}
+{% block moorl_page_detail %}
     <sw-card-view class="moorl-page-detail">
         <sw-tabs default-item="general">
             <template #default="{ active }">
@@ -10,6 +10,12 @@
                 >
                     {{ tab.label }}
                 </sw-tabs-item>
+
+                {% block moorl_page_detail_tabs %}
+                    <!--template v-if="componentName === '...'">
+                        Add custom tabs here
+                    </template-->
+                {% endblock %}
             </template>
 
             <template #content="{ active }">
@@ -59,6 +65,12 @@
                         </template>
                     </template>
                 </template>
+
+                {% block moorl_page_detail_content %}
+                    <!--template v-if="componentName === '...' && active === '...'">
+                        Add custom content here
+                    </template-->
+                {% endblock %}
             </template>
         </sw-tabs>
     </sw-card-view>
