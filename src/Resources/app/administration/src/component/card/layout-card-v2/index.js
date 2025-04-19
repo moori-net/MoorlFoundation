@@ -18,10 +18,12 @@ Shopware.Component.register('moorl-layout-card-v2', {
         entity: {
             type: String,
             required: true,
+            default: undefined,
         },
         pageType: {
             type: String,
             required: true,
+            default: undefined,
         },
         isLoading: {
             type: Boolean,
@@ -49,13 +51,6 @@ Shopware.Component.register('moorl-layout-card-v2', {
     },
 
     computed: {
-        pageTypeCriteria() {
-            const criteria = new Criteria(1, 25);
-
-            criteria.addFilter(Criteria.equals('type', this.pageType));
-
-            return criteria;
-        },
         cmsPageRepository() {
             return this.repositoryFactory.create('cms_page');
         },
@@ -65,26 +60,12 @@ Shopware.Component.register('moorl-layout-card-v2', {
         cmsPage() {
             return Shopware.Store.get('cmsPage').currentPage;
         },
-        cmsPageTypes() {
-            return {
-                page: this.$tc('sw-cms.detail.label.pageTypeShopPage'),
-                landingpage: this.$tc(
-                    'sw-cms.detail.label.pageTypeLandingpage'
-                ),
-                product_list: this.$tc('sw-cms.detail.label.pageTypeCategory'),
-                product_detail: this.$tc('sw-cms.detail.label.pageTypeProduct'),
-                creator_detail: this.$tc('moorl-creator.general.creator'),
-                magazine_article_detail: this.$tc(
-                    'moorl-magazine.general.article'
-                ),
-                merchant_detail: this.$tc(
-                    'moorl-merchant-finder.general.mainMenuItemGeneral'
-                ),
-                lexicon_detail: this.$tc(
-                    'sw-seo-url-template-card.routeNames.moorl-lexicon-lexicon-page'
-                ),
-            };
+        cmsPageType() {
+            return this.pageType ?? Shopware.Store.get('moorlProxy')?.getByEntity(this.entity)?.name;
         },
+        cmsPageTypes() {
+            return [];
+        }
     },
 
     watch: {
@@ -98,7 +79,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
         Shopware.Store.get('cmsPage').resetCmsPageState();
 
         if (this.pageTypes.length === 0) {
-            this.pageTypes.push(this.pageType);
+            this.pageTypes.push(this.cmsPageType);
         }
 
         this.getAssignedCmsPage();
@@ -185,7 +166,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
         updateCmsPageDataMapping() {
             Shopware.Store.get('cmsPage').setCurrentMappingEntity(this.entity);
             Shopware.Store.get('cmsPage').setCurrentMappingTypes(
-                this.cmsService.getEntityMappingTypes(this.pageType)
+                this.cmsService.getEntityMappingTypes(this.cmsPageType)
             );
             Shopware.Store.get('cmsPage').setCurrentDemoEntity(this.item);
         },

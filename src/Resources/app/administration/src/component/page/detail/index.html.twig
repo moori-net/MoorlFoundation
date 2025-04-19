@@ -1,5 +1,5 @@
 {% block moorl_page_detail_content %}
-    <sw-card-view>
+    <sw-card-view class="moorl-page-detail">
         <sw-tabs default-item="general">
             <template #default="{ active }">
                 <sw-tabs-item
@@ -25,13 +25,18 @@
                                 </template>
                             </template>
 
-                            <sw-card v-else :title="card.label">
+                            <sw-card
+                                    v-else
+                                    :title="card.label"
+                                    :class="card.id + '-card moorl-page-detail__card'"
+                            >
                                 <template v-for="field in card.fields" :key="field.name">
                                     <component
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"
                                             v-model:entityCollection="item[field.name]"
                                             v-bind="field.attributes"
+                                            :class="field.name + '-field'"
                                     />
 
                                     <sw-form-field-renderer
@@ -40,6 +45,7 @@
                                             :type="field.type"
                                             :label="field.label"
                                             :config="field.attributes"
+                                            :class="field.name + '-field'"
                                     />
                                 </template>
                             </sw-card>

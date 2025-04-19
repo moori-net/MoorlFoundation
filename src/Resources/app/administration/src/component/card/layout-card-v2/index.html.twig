@@ -2,10 +2,7 @@
     <sw-card :title="$tc('moorl-layout-card.title')" :is-loading="isLoading">
         <div class="moorl-layout-card__base-layout">
             <div v-if="cmsPage" class="moorl-layout-card__preview" @click="openLayoutModal">
-                <sw-cms-list-item
-                        :page="cmsPage"
-                        active
-                />
+                <sw-cms-list-item :page="cmsPage" active/>
             </div>
 
             <sw-cms-layout-modal
@@ -21,10 +18,6 @@
                 <div class="moorl-layout-card__desc-info">
                     <div class="moorl-layout-card__desc-headline" :class="{ 'is--empty': !cmsPage }">
                         {{ cmsPage ? cmsPage.name : $tc('moorl-layout-card.defaultTitle') }}
-                    </div>
-
-                    <div class="moorl-layout-card__desc-subheadline" :class="{ 'is--empty': !cmsPage }">
-                        {{ cmsPage ? cmsPageTypes[cmsPage.type] : $tc('moorl-layout-card.defaultDesc') }}
                     </div>
                 </div>
 
