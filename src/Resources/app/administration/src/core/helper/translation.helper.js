@@ -38,9 +38,13 @@ class TranslationHelper {
         }
 
         if (showConsoleError) {
-            console.error(`${this._componentName}: No translation found for ${group}.${property}`);
+            const snippet = `${group}.${property}`;
+
+            console.error(`${this._componentName}: No translation found for ${snippet}`);
             console.error(this._snippetSets);
             console.error(this._snippetStruct);
+
+            return snippet;
         }
 
         return undefined;

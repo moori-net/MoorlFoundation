@@ -69,7 +69,11 @@
 
         <template v-if="!isLoading">
             {% block moorl_page_detail_content %}
-                <pre>block moorl_page_detail_content not extended</pre>
+                <moorl-page-detail
+                        v-model:item="item"
+                        :entity="entity"
+                        :componentName="componentName"
+                />
             {% endblock %}
         </template>
 
