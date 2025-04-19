@@ -30,6 +30,13 @@
                                     :title="card.label"
                                     :class="card.id + '-card moorl-page-detail__card'"
                             >
+                                <sw-alert
+                                        v-if="getNotification(card.id)"
+                                        variant="warning"
+                                >
+                                    {{ getNotification(card.id) }}
+                                </sw-alert>
+
                                 <template v-for="field in card.fields" :key="field.name">
                                     <component
                                             v-if="field.model === 'entityCollection'"

@@ -81,6 +81,7 @@
       "custom4": "Benutzerdefiniert 4"
     },
     "tab": {
+      "customFields": "Benutzerdefiniert",
       "undefined": "Nicht zugewiesen",
       "general": "Allgemein",
       "relations": "Verknüpfungen",
@@ -90,6 +91,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "customFields": "Benutzerdefinierte Felder",
       "undefined": "Nicht zugewiesen",
       "visibility": "Sichtbarkeit",
       "general": "Allgemeine Angaben",
@@ -99,6 +101,9 @@
       "media": "Medien",
       "contact": "Kontakt",
       "location": "Standort"
+    },
+    "notification": {
+      "undefined": "Die hier aufgeführten Felder wurden nicht zugewiesen, können jedoch bei Bedarf verwendet werden. Es besteht die Möglichkeit, dass diese Felder in zukünftigen Updates entfernt werden."
     }
   }
 }

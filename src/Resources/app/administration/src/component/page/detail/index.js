@@ -32,7 +32,6 @@ const mapping = {
     seoUrls: {order: 180, tab: 'seo', componentName: 'sw-seo-url'},
     // CMS Page
     cmsPage: {order: 190, tab: 'cmsPage', card: 'cmsPage', componentName: 'moorl-layout-card-v2'},
-    slotConfig: {hidden: true},
     // visibility
     active: {order: 210, tab: 'general', card: 'visibility',},
     priority: {order: 220, tab: 'general', card: 'visibility',},
@@ -148,6 +147,14 @@ Shopware.Component.register('moorl-page-detail', {
             console.log(this.customFieldSets);
         },
 
+        getNotification(property) {
+            let notification = this.getLabel('notification', property);
+            if (notification === `notification.${property}`) {
+                return undefined;
+            }
+            return notification;
+        },
+
         getLabel(group, property) {
             const snippetSets = [
                 this.snippetSrc
@@ -200,6 +207,25 @@ Shopware.Component.register('moorl-page-detail', {
 
                 const attributes = {};
 
+                if (this.mergedMapping[property] !== undefined) {
+                    Object.assign(column, this.mergedMapping[property]);
+                    if (this.mergedMapping[property].attributes !== undefined) {
+                        Object.assign(attributes, this.mergedMapping[property].attributes );
+                    }
+                }
+
+                if (column.hidden !== undefined) {
+                    continue;
+                }
+
+                if (['json_object'].indexOf(field.type) !== -1) {
+                    if (column.componentName === undefined) {
+                        continue;
+                    }
+
+                    column.type = 'json';
+                }
+
                 if (['string'].indexOf(field.type) !== -1) {
                     column.type = 'text';
                     attributes.type = 'text';
@@ -232,10 +258,6 @@ Shopware.Component.register('moorl-page-detail', {
                     attributes.bordered = true;
                 }
 
-                if (['json_object'].indexOf(field.type) !== -1) {
-                    column.type = 'json';
-                }
-
                 if (field.type === 'association') {
                     attributes.entity = field.entity;
 
@@ -258,23 +280,9 @@ Shopware.Component.register('moorl-page-detail', {
 
                         attributes.labelProperty = field.flags.moorl_label_property ?? 'name';
                         attributes.localMode = true;
+                    } else if (column.componentName === undefined) {
+                        continue;
                     }
-                }
-
-                if (property.includes("meta")) {
-                    column.tab = 'seo';
-                    column.card = 'general';
-                }
-
-                if (this.mergedMapping[property] !== undefined) {
-                    Object.assign(column, this.mergedMapping[property]);
-                    if (this.mergedMapping[property].attributes !== undefined) {
-                        Object.assign(attributes, this.mergedMapping[property].attributes );
-                    }
-                }
-
-                if (column.hidden !== undefined) {
-                    continue;
                 }
 
                 if (column.componentName !== undefined) {
@@ -312,7 +320,6 @@ Shopware.Component.register('moorl-page-detail', {
                 }
 
                 if (column.componentName === 'sw-custom-field-set-renderer') {
-
                     column.model = undefined;
 
                     attributes.entity = this.item;
