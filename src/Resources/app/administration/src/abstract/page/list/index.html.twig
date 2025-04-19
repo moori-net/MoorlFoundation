@@ -1,4 +1,4 @@
-<sw-page :class="identifier">
+<sw-page :class="componentName">
     <template #search-bar>
         <sw-search-bar
                 :initial-search-type="entity"
@@ -54,7 +54,7 @@
     <template #content>
         <sw-entity-listing
                 v-if="entitySearchable"
-                :identifier="identifier"
+                :identifier="componentName"
                 :detailRoute="getItemRoute('detail')"
                 :items="items"
                 :repository="itemRepository"

@@ -31,10 +31,10 @@
                                     :class="card.id + '-card moorl-page-detail__card'"
                             >
                                 <sw-alert
-                                        v-if="getNotification(card.id)"
+                                        v-if="translationHelper.getNotification(card.id)"
                                         variant="warning"
                                 >
-                                    {{ getNotification(card.id) }}
+                                    {{ translationHelper.getNotification(card.id) }}
                                 </sw-alert>
 
                                 <template v-for="field in card.fields" :key="field.name">

@@ -1,6 +1,6 @@
 class ListHelper {
-    constructor({identifier, entity, properties = [], snippetSrc = 'moorl-foundation', routerLink = null}) {
-        this._identifier = identifier;
+    constructor({componentName, entity, properties = [], snippetSrc = 'moorl-foundation', routerLink = null}) {
+        this._componentName = componentName;
         this._entity = entity;
         this._properties = properties;
         this._snippetSrc = snippetSrc;
@@ -64,7 +64,7 @@ class ListHelper {
 
             // Init columns for listing
             if (fields[property] === undefined) {
-                console.error(`Property ${property} of ${this._identifier} not found in ${this._entity}`);
+                console.error(`Property ${property} of ${this._componentName} not found in ${this._entity}`);
                 return;
             }
 

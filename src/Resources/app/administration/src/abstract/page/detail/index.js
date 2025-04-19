@@ -41,12 +41,12 @@ Shopware.Component.register('moorl-abstract-page-detail', {
     computed: {
         itemHelper() {
             return new MoorlFoundation.ItemHelper({
-                identifier: this.identifier,
+                componentName: this.componentName,
                 entity: this.entity
             });
         },
 
-        identifier() {
+        componentName() {
             return this.$options.name;
         },
 
@@ -69,7 +69,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
         },
 
         itemCriteria() {
-            console.warn(`${this.identifier} missing computed itemCriteria`);
+            console.warn(`${this.componentName} missing computed itemCriteria`);
             const itemCriteria = new Criteria();
 
             this.itemHelper.getAssociations().forEach(association => {
@@ -104,7 +104,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
     methods: {
         createdComponent() {
             if (!this.entity) {
-                console.error(`${this.identifier} has no entity`);
+                console.error(`${this.componentName} has no entity`);
                 return;
             }
 

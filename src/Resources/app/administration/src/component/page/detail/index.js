@@ -101,10 +101,9 @@ Shopware.Component.register('moorl-page-detail', {
             type: String,
             required: true,
         },
-        snippetSrc: {
+        componentName: {
             type: String,
-            required: true,
-            default: 'moorl-foundation'
+            required: true
         },
         item: {
             type: Object,
@@ -115,12 +114,18 @@ Shopware.Component.register('moorl-page-detail', {
     data() {
         return {
             customFieldSets: null,
-            pageStruct: {tabs: []},
-            snippetStruct: {}
+            pageStruct: {tabs: []}
         };
     },
 
     computed: {
+        translationHelper() {
+            return new MoorlFoundation.TranslationHelper({
+                tc: this.$tc,
+                componentName: this.componentName
+            });
+        },
+
         customMapping() {
             return Shopware.Store.get('moorlFoundationState').getCustomEntityMapping(this.entity) ?? {};
         },
@@ -147,41 +152,6 @@ Shopware.Component.register('moorl-page-detail', {
             console.log(this.customFieldSets);
         },
 
-        getNotification(property) {
-            let notification = this.getLabel('notification', property);
-            if (notification === `notification.${property}`) {
-                return undefined;
-            }
-            return notification;
-        },
-
-        getLabel(group, property) {
-            const snippetSets = [
-                this.snippetSrc
-            ];
-
-            for (const set of snippetSets) {
-                if (this.snippetStruct[set] === undefined) {
-                    this.snippetStruct[set] = {};
-                }
-                if (this.snippetStruct[set][group] === undefined) {
-                    this.snippetStruct[set][group] = {};
-                }
-                if (this.snippetStruct[set][group][property] === undefined) {
-                    this.snippetStruct[set][group][property] = property;
-                }
-
-                const snippet = `${set}.${group}.${property}`;
-                const translated = this.$tc(snippet);
-
-                if (translated !== snippet) {
-                    return translated;
-                }
-            }
-
-            return `${group}.${property}`;
-        },
-
         async createdComponent() {
             await this.loadCustomFieldSets();
 
@@ -202,7 +172,7 @@ Shopware.Component.register('moorl-page-detail', {
                     card: 'undefined',
                     name: property,
                     model: 'value',
-                    label: this.getLabel('field', property)
+                    label: this.translationHelper.getLabel('field', property)
                 };
 
                 const attributes = {};
@@ -348,7 +318,7 @@ Shopware.Component.register('moorl-page-detail', {
             if (!tab) {
                 tab = {
                     id: column.tab,
-                    label: this.getLabel('tab', column.tab),
+                    label: this.translationHelper.getLabel('tab', column.tab),
                     cards: []
                 };
                 this.pageStruct.tabs.push(tab);
@@ -358,7 +328,7 @@ Shopware.Component.register('moorl-page-detail', {
             if (!card) {
                 card = {
                     id: column.card,
-                    label: this.getLabel('card', column.card),
+                    label: this.translationHelper.getLabel('card', column.card),
                     fields: []
                 };
                 tab.cards.push(card);

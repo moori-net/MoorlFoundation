@@ -1,6 +1,6 @@
 class ItemHelper {
-    constructor({identifier, entity, snippetSrc = 'moorl-foundation'}) {
-        this._identifier = identifier;
+    constructor({componentName, entity, snippetSrc = 'moorl-foundation'}) {
+        this._componentName = componentName;
         this._entity = entity;
         this._snippetSrc = snippetSrc;
 

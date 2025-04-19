@@ -42,7 +42,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
     computed: {
         listHelper() {
             return new MoorlFoundation.ListHelper({
-                identifier: this.identifier,
+                componentName: this.componentName,
                 entity: this.entity,
                 properties: this.properties,
                 snippetSrc: this.snippetSrc,
@@ -54,7 +54,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
             return this.listHelper.getMediaProperty();
         },
 
-        identifier() {
+        componentName() {
             return this.$options.name;
         },
 
@@ -99,7 +99,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
         async getList() {
             // This method is called by $route watcher of the listing mixin before created() is called!
             if (!this.entity) {
-                console.error(`${this.identifier} has no entity`);
+                console.error(`${this.componentName} has no entity`);
                 return;
             }
             // Copies for listing mixin
