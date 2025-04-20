@@ -1,0 +1,13 @@
+{% block sw_data_grid_columns_render_router_link %}
+    <router-link
+            v-if="column.routerLink && column.routerLinkIdProperty && item[column.routerLinkIdProperty] !== null"
+            class="sw-data-grid__cell-value"
+            :to="{ name: column.routerLink, params: { id: item[column.routerLinkIdProperty] } }"
+    >
+        {{ renderColumn(item, column) }}
+    </router-link>
+
+    <template v-else>
+        {% parent %}
+    </template>
+{% endblock %}

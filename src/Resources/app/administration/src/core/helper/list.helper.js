@@ -102,8 +102,11 @@ class ListHelper {
                 allowResize: true,
             };
 
-            if (['association'].indexOf(field.type) !== -1) {
-
+            if (field.type === 'association') {
+                if (field.relation === 'many_to_one') {
+                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(field.entity, 'detail');
+                    column.routerLinkIdProperty = field.localField;
+                }
             }
 
             if (['string'].indexOf(field.type) !== -1) {

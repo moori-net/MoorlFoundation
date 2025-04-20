@@ -1,8 +1,7 @@
 class ItemHelper {
-    constructor({componentName, entity, snippetSrc = 'moorl-foundation'}) {
+    constructor({componentName, entity}) {
         this._componentName = componentName;
         this._entity = entity;
-        this._snippetSrc = snippetSrc;
 
         this._columns = [];
         this._associations = [];
@@ -25,13 +24,8 @@ class ItemHelper {
     _init() {
         const fields = Shopware.EntityDefinition.get(this._entity).properties;
 
-        console.log(fields);
-
         for (const [property, field] of Object.entries(fields)) {
-            if (
-                field.type === 'association' &&
-                field.relation !== 'many_to_one'
-            ) {
+            if (field.type === 'association' && field.relation !== 'many_to_one') {
                 this._associations.push(property);
             }
         }
