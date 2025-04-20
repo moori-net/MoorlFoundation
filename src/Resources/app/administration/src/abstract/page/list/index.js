@@ -45,7 +45,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
                 componentName: this.componentName,
                 entity: this.entity,
                 properties: this.properties,
-                snippetSrc: this.snippetSrc,
+                tc: this.$tc,
                 routerLink: this.getItemRoute('detail')
             });
         },
@@ -206,6 +206,14 @@ Shopware.Component.register('moorl-abstract-page-list', {
 
         onExportModal() {
             this.showExportModal = true;
-        }
+        },
+
+        previewMediaSource(item) {
+            if (item[this.mediaProperty].media !== undefined) {
+                return item[this.mediaProperty].media
+            }
+
+            return item[mediaProperty];
+        },
     }
 });

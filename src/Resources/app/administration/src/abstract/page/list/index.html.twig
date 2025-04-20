@@ -73,7 +73,7 @@
             <template #preview-name="{ item }">
                 <sw-media-preview-v2
                         v-if="mediaProperty"
-                        :source="item[mediaProperty]"
+                        :source="previewMediaSource(item)"
                 />
             </template>
 

@@ -118,7 +118,6 @@ const mapping = {
     custom4: {tab: 'customFields', card: 'customFields'},
 
     // media
-    //media: {tab: 'general', card: 'media', componentName: 'moorl-media-gallery'},
     bannerColor: {tab: 'general', card: 'media', componentName: 'sw-colorpicker'},
 
     // Comments
@@ -289,9 +288,7 @@ Shopware.Component.register('moorl-page-detail', {
 
                     if (field.relation === 'many_to_one') {
                         if (field.entity === 'media') {
-                            mediaOrder = mediaOrder + 10;
-
-                            column.order = mediaOrder;
+                            column.order = mediaOrder += 10;
                             column.tab = 'general';
                             column.card = 'media';
                             column.name = field.localField;
@@ -327,6 +324,9 @@ Shopware.Component.register('moorl-page-detail', {
                     } else if (field.entity === `${this.entity}_media`) {
                         column.componentName = 'moorl-media-gallery';
                         column.model = undefined;
+                        column.order = mediaOrder += 10;
+                        column.tab = 'general';
+                        column.card = 'media';
 
                         attributes.item = this.item;
                         attributes.entity = this.entity;
@@ -356,6 +356,7 @@ Shopware.Component.register('moorl-page-detail', {
                     column.card = 'self';
                     column.model = undefined;
 
+                    attributes.componentName = this.componentName;
                     attributes.title = column.label;
                     attributes.defaultItem = {};
                     attributes.defaultItem[field.referenceField] = this.item[field.localField];
@@ -382,6 +383,7 @@ Shopware.Component.register('moorl-page-detail', {
                 attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? 'name';
                 attributes.required = field.flags.required === undefined;
                 attributes.disabled = field.flags.write_protected !== undefined;
+                attributes.helpText = this.translationHelper.getLabel('helpText', property, false);
 
                 if (this.item.translated && this.item.translated[property] !== undefined) {
                     attributes.placeholder = this.item.translated[property];

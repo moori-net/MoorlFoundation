@@ -43,6 +43,11 @@ Shopware.Component.register('moorl-entity-grid', {
     ],
 
     props: {
+        componentName: {
+            type: String,
+            required: false,
+            default: 'moorl-foundation',
+        },
         entity: {
             type: String,
             required: true,
@@ -161,8 +166,10 @@ Shopware.Component.register('moorl-entity-grid', {
     computed: {
         listHelper() {
             return new MoorlFoundation.ListHelper({
+                componentName: this.componentName,
                 entity: this.entity,
-                properties: this.filterColumns
+                properties: this.filterColumns,
+                tc: this.$tc,
             });
         },
 

@@ -59,7 +59,7 @@
       "customers": "Kunden",
       "merchantAreas": "Liefergebiete",
       "active": "Aktiv",
-      "teaser": "Teaser",
+      "teaser": "Einleitungstext",
       "seoUrls": "SEO-URLs",
       "name": "Name",
       "keywords": "Schlüsselwörter",
@@ -133,6 +133,9 @@
       "media": "Medien",
       "contact": "Kontakt",
       "location": "Standort"
+    },
+    "helpText": {
+      "contentCmsPage": "Verwende eine CMS Seite anstatt Inhalt. Nicht empfohlen, da HTML-Inhalte für Migrationen in andere Systeme besser geeignet sind."
     },
     "notification": {
       "visibility": "Hier kann die Sichtbarkeit angepasst werden. Zuweisungen (z.B. Verkaufskanäle) können frei gelassen werden, damit dieses Objekt generell Sichtbar ist.",

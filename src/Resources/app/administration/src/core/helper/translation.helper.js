@@ -30,7 +30,7 @@ class TranslationHelper {
             const translated = this._tc(snippet);
 
             if (translated !== snippet) {
-                return `${translated} ${property}`;
+                return translated;
             } else {
                 this._snippetStruct[set][group][property] = property;
             }

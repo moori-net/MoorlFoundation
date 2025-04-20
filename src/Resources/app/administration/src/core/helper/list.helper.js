@@ -1,9 +1,15 @@
 class ListHelper {
-    constructor({componentName, entity, properties = [], snippetSrc = 'moorl-foundation', routerLink = null}) {
+    constructor({
+                    componentName,
+                    entity,
+                    tc,
+                    properties = [],
+                    routerLink = null
+    }) {
         this._componentName = componentName;
         this._entity = entity;
         this._properties = properties;
-        this._snippetSrc = snippetSrc;
+        this._tc = tc;
         this._routerLink = routerLink;
 
         this._columns = [];
@@ -32,20 +38,32 @@ class ListHelper {
     }
 
     _init() {
+        const translationHelper = new MoorlFoundation.TranslationHelper({
+            tc: this._tc,
+            componentName: this._componentName
+        });
+
         const fields = Shopware.EntityDefinition.get(this._entity).properties;
 
         console.log("fields");
         console.log(fields);
+        console.log(`${this._entity}_media`);
 
         // Init media Property
         for (const [property, field] of Object.entries(fields)) {
             if (
                 field.type === 'association' &&
                 field.relation === 'many_to_one' &&
-                field.entity === 'media'
+                field.entity === 'media' || field.entity === `${this._entity}_media`
             ) {
                 this._mediaProperty = property;
-                this._associations.push(property);
+
+                if (field.entity === 'media') {
+                    this._associations.push(property);
+                } else {
+                    this._associations.push(`${property}.media`);
+                }
+
                 break;
             }
         }
@@ -72,7 +90,7 @@ class ListHelper {
             const column = {
                 property: property,
                 dataIndex: property,
-                label: `${this._snippetSrc}.properties.${property}`,
+                label: translationHelper.getLabel('field', property),
                 allowResize: true,
             };
 
