@@ -1,7 +1,7 @@
 {
   "moorl-foundation": {
     "field": {
-      "autoIncrement": "Automatische Nummerierung",
+      "autoIncrement": "Nummer",
       "sticky": "Angeheftet",
       "invisible": "Unsichtbar",
       "enableComments": "Kommentare erlauben",
@@ -48,13 +48,13 @@
       "data": "Daten",
       "deliveryPrice": "Lieferpreis",
       "minOrderValue": "Mindestbestellwert",
-      "salesChannel": "Vertriebskanal",
+      "salesChannel": "Verkaufskanal",
       "customerGroup": "Kundengruppe",
       "categories": "Kategorien",
       "tags": "Tags",
       "productManufacturers": "Hersteller",
       "products": "Produkte",
-      "salesChannels": "Vertriebskanäle",
+      "salesChannels": "Verkaufskanäle",
       "merchantStocks": "Händlerbestände",
       "customers": "Kunden",
       "merchantAreas": "Liefergebiete",

@@ -16,6 +16,11 @@ class ListHelper {
         this._associations = [];
         this._mediaProperty = undefined;
 
+        this._translationHelper = new MoorlFoundation.TranslationHelper({
+            tc: this._tc,
+            componentName: this._componentName
+        });
+
         this._init();
     }
 
@@ -38,18 +43,14 @@ class ListHelper {
     }
 
     _init() {
-        const translationHelper = new MoorlFoundation.TranslationHelper({
-            tc: this._tc,
-            componentName: this._componentName
-        });
+        this._initMediaProperty();
+        this._initAssociations();
+        this._initProperties();
+    }
 
+    _initMediaProperty() {
         const fields = Shopware.EntityDefinition.get(this._entity).properties;
 
-        console.log("fields");
-        console.log(fields);
-        console.log(`${this._entity}_media`);
-
-        // Init media Property
         for (const [property, field] of Object.entries(fields)) {
             if (
                 field.type === 'association' &&
@@ -64,12 +65,13 @@ class ListHelper {
                     this._associations.push(`${property}.media`);
                 }
 
-                break;
+                return;
             }
         }
+    }
 
+    _initAssociations() {
         this._properties.forEach((property) => {
-            // Init associations for listing
             let parts = property.split(".");
             parts.pop();
             if (parts.length > 0) {
@@ -77,22 +79,32 @@ class ListHelper {
                 if (this._associations.indexOf(association) === -1) {
                     this._associations.push(association);
                 }
-                return;
             }
+        });
+    }
 
-            // Init columns for listing
-            if (fields[property] === undefined) {
+    _initProperties() {
+        const fields = Shopware.EntityDefinition.get(this._entity).properties;
+
+        this._properties.forEach((property) => {
+            const key = property.split(".")[0];
+
+            if (fields[key] === undefined) {
                 console.error(`Property ${property} of ${this._componentName} not found in ${this._entity}`);
                 return;
             }
 
-            const field = fields[property];
+            const field = fields[key];
             const column = {
                 property: property,
                 dataIndex: property,
-                label: translationHelper.getLabel('field', property),
+                label: this._translationHelper.getLabel('field', property),
                 allowResize: true,
             };
+
+            if (['association'].indexOf(field.type) !== -1) {
+
+            }
 
             if (['string'].indexOf(field.type) !== -1) {
                 column.inlineEdit = 'string';

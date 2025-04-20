@@ -213,7 +213,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
                 return item[this.mediaProperty].media
             }
 
-            return item[mediaProperty];
+            return item[this.mediaProperty];
         },
     }
 });

@@ -18,22 +18,32 @@ class TranslationHelper {
     }
 
     getLabel(group, property, showConsoleError = true) {
-        for (const set of this._snippetSets) {
-            if (this._snippetStruct[set] === undefined) {
-                this._snippetStruct[set] = {};
-            }
-            if (this._snippetStruct[set][group] === undefined) {
-                this._snippetStruct[set][group] = {};
-            }
+        const parts = property.split(".");
+        const translatedParts = [];
 
-            const snippet = `${set}.${group}.${property}`;
-            const translated = this._tc(snippet);
+        for (const part of parts) {
+            for (const set of this._snippetSets) {
+                if (this._snippetStruct[set] === undefined) {
+                    this._snippetStruct[set] = {};
+                }
+                if (this._snippetStruct[set][group] === undefined) {
+                    this._snippetStruct[set][group] = {};
+                }
 
-            if (translated !== snippet) {
-                return translated;
-            } else {
-                this._snippetStruct[set][group][property] = property;
+                const snippet = `${set}.${group}.${part}`;
+                const translated = this._tc(snippet);
+
+                if (translated !== snippet) {
+                    translatedParts.push(translated);
+                    break;
+                } else {
+                    this._snippetStruct[set][group][part] = part;
+                }
             }
+        }
+
+        if (translatedParts.length > 0) {
+            return translatedParts.join("-");
         }
 
         if (showConsoleError) {
