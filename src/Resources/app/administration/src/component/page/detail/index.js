@@ -17,6 +17,13 @@ const mapping = {
     shopUrl: {order: 60, tab: 'general', card: 'contact', componentName: 'sw-url-field'},
     merchantUrl: {order: 70, tab: 'general', card: 'contact', componentName: 'sw-url-field'},
     email: {order: 80, tab: 'general', card: 'contact', componentName: 'sw-email-field'},
+    // profile
+    creatorType: {order: 10, tab: 'general', card: 'profile'},
+    followers: {order: 10, tab: 'general', card: 'profile', attributes: {labelProperty: 'customerNumber'}},
+    role: {order: 10, tab: 'general', card: 'profile'},
+    link: {order: 10, tab: 'general', card: 'profile', componentName: 'sw-url-field'},
+    imprint: {order: 10, tab: 'general', card: 'profile'},
+    customer: {order: 10, tab: 'general', card: 'profile'},
     // things
     name: {order: 90, tab: 'general', card: 'general',},
     teaser: {order: 100, tab: 'general', card: 'general',},
@@ -25,7 +32,10 @@ const mapping = {
     keywords: {order: 130, tab: 'general', card: 'general',},
     type: {order: 140, tab: 'general', card: 'general',},
     highlight: {order: 140, tab: 'general', card: 'general',},
+    creator: {order: 140, tab: 'general', card: 'general',},
     // Seo / Meta
+    schemaOrgType: {order: 10, tab: 'seo', card: 'general'},
+    schemaOrgProperty: {order: 10, tab: 'seo', card: 'general'},
     metaTitle: {order: 150, tab: 'seo', card: 'general'},
     metaDescription: {order: 160, tab: 'seo', card: 'general'},
     metaKeywords: {order: 170, tab: 'seo', card: 'general'},
@@ -39,6 +49,7 @@ const mapping = {
     categories: {order: 240, tab: 'general', card: 'visibility',},
     salesChannel: {order: 250, tab: 'general', card: 'visibility',},
     salesChannels: {order: 260, tab: 'general', card: 'visibility',},
+    customers: {order: 260, tab: 'general', card: 'visibility', attributes: {labelProperty: 'customerNumber'}},
     customerGroup: {order: 261, tab: 'general', card: 'visibility'},
     customerGroups: {order: 262, tab: 'general', card: 'visibility'},
     // address
@@ -74,6 +85,7 @@ const mapping = {
     openingHours: {order: 530, tab: 'time', card: 'general', componentName: 'moorl-opening-hours'},
     showOpeningHours: {order: 540, tab: 'time', card: 'general'},
     // relations
+    products: {order: 550, tab: 'relations', card: 'general', attributes: {labelProperty: 'productNumber'}},
     productManufacturers: {order: 550, tab: 'relations', card: 'general'},
     tags: {order: 560, tab: 'relations', card: 'general'},
     // customFields
@@ -82,6 +94,9 @@ const mapping = {
     custom2: {order: 590, tab: 'customFields', card: 'customFields'},
     custom3: {order: 600, tab: 'customFields', card: 'customFields'},
     custom4: {order: 610, tab: 'customFields', card: 'customFields'},
+    // media
+    media: {order: 9999, tab: 'general', card: 'media', componentName: 'moorl-media-gallery'},
+    bannerColor: {order: 9999, tab: 'general', card: 'media', componentName: 'sw-colorpicker'},
 };
 
 Shopware.Component.register('moorl-page-detail', {
@@ -156,6 +171,7 @@ Shopware.Component.register('moorl-page-detail', {
             await this.loadCustomFieldSets();
 
             const fields = Shopware.EntityDefinition.get(this.entity).properties;
+            let mediaOrder = 4999;
             console.log(fields);
 
             for (const [property, field] of Object.entries(fields)) {
@@ -233,11 +249,17 @@ Shopware.Component.register('moorl-page-detail', {
 
                     if (field.relation === 'many_to_one') {
                         if (field.entity === 'media') {
+                            mediaOrder = mediaOrder + 10;
+
+                            column.order = mediaOrder;
                             column.tab = 'general';
                             column.card = 'media';
                             column.name = field.localField;
 
                             attributes.componentName = 'sw-media-field';
+                        } else if (field.entity.includes('media')) {
+                            // z.B. cover
+                            continue;
                         } else {
                             column.name = field.localField;
 
@@ -248,7 +270,6 @@ Shopware.Component.register('moorl-page-detail', {
                         column.model = 'entityCollection';
                         column.componentName = 'sw-entity-many-to-many-select';
 
-                        attributes.labelProperty = field.flags.moorl_label_property ?? 'name';
                         attributes.localMode = true;
                     } else if (column.componentName === undefined) {
                         continue;
@@ -266,6 +287,13 @@ Shopware.Component.register('moorl-page-detail', {
 
                 if (column.componentName === 'moorl-layout-card-v2') {
                     column.card = 'self';
+                    column.model = undefined;
+
+                    attributes.item = this.item;
+                    attributes.entity = this.entity;
+                }
+
+                if (column.componentName === 'moorl-media-gallery') {
                     column.model = undefined;
 
                     attributes.item = this.item;
@@ -299,6 +327,12 @@ Shopware.Component.register('moorl-page-detail', {
                 column.order = column.order ?? 9999;
 
                 attributes.label = column.label;
+                attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? 'name';
+                attributes.required = field.flags.required === undefined;
+
+                if (this.item.translated && this.item.translated[property] !== undefined) {
+                    attributes.placeholder = this.item.translated[property];
+                }
 
                 Object.assign(column, {attributes});
 

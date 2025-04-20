@@ -25,17 +25,14 @@ class TranslationHelper {
             if (this._snippetStruct[set][group] === undefined) {
                 this._snippetStruct[set][group] = {};
             }
-            if (this._snippetStruct[set][group][property] === undefined) {
-                this._snippetStruct[set][group][property] = property;
-            }
 
             const snippet = `${set}.${group}.${property}`;
             const translated = this._tc(snippet);
 
             if (translated !== snippet) {
-                this._snippetStruct[set][group][property] = translated;
-
-                return translated;
+                return `${translated} ${property}`;
+            } else {
+                this._snippetStruct[set][group][property] = property;
             }
         }
 

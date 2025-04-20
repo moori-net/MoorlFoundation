@@ -1,6 +1,21 @@
 {
   "moorl-foundation": {
     "field": {
+      "lookProducts": "Look-Produkte",
+      "cover": "Cover Bild",
+      "creator": "Ersteller",
+      "schemaOrgProperty": "Schema.org-Eigenschaft",
+      "schemaOrgType": "Schema.org-Typ",
+      "link": "Link",
+      "bannerColor": "Bannerfarbe",
+      "imprint": "Impressum",
+      "role": "Rolle",
+      "creatorType": "Erstellertyp",
+      "customer": "Kunde",
+      "avatar": "Avatar",
+      "banner": "Banner",
+      "followers": "Follower",
+      "looks": "Looks",
       "isDefault": "Standardmäßig aktiv",
       "showOpeningHours": "Öffnungszeiten anzeigen",
       "showCmsPage": "CMS-Seite anzeigen",
@@ -91,6 +106,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "profile": "Profil",
       "customFields": "Benutzerdefinierte Felder",
       "undefined": "Nicht zugewiesen",
       "visibility": "Sichtbarkeit",
@@ -103,6 +119,7 @@
       "location": "Standort"
     },
     "notification": {
+      "visibility": "Hier kann die Sichtbarkeit angepasst werden. Zuweisungen (z.B. Verkaufskanäle) können frei gelassen werden, damit dieses Objekt generell Sichtbar ist.",
       "undefined": "Die hier aufgeführten Felder wurden nicht zugewiesen, können jedoch bei Bedarf verwendet werden. Es besteht die Möglichkeit, dass diese Felder in zukünftigen Updates entfernt werden."
     }
   }
