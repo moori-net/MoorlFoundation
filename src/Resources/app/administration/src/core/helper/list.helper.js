@@ -1,16 +1,10 @@
 class ListHelper {
-    constructor({
-                    componentName,
-                    entity,
-                    tc,
-                    properties = [],
-                    routerLink = null
-    }) {
+    constructor({componentName, entity, tc, minVisibility = 0}) {
         this._componentName = componentName;
         this._entity = entity;
-        this._properties = properties;
+        this._minVisibility = minVisibility;
+        this._properties = [];
         this._tc = tc;
-        this._routerLink = routerLink;
 
         this._columns = [];
         this._associations = [];
@@ -21,52 +15,79 @@ class ListHelper {
             componentName: this._componentName
         });
 
-        this._init();
+        this.ready = this._init();
     }
 
     getColumns() {
-        console.log("this._columns");
-        console.log(this._columns);
         return this._columns;
     }
 
     getAssociations() {
-        console.log("this._associations");
-        console.log(this._associations);
         return this._associations;
     }
 
     getMediaProperty() {
-        console.log("this._mediaProperty");
-        console.log(this._mediaProperty);
         return this._mediaProperty;
     }
 
-    _init() {
+    async _init() {
+        await this._loadProperties();
+
         this._initMediaProperty();
         this._initAssociations();
         this._initProperties();
+    }
+
+    async _loadProperties() {
+        let trys = 0;
+
+        return new Promise((resolve, reject) => {
+            const retry = async () => {
+                const pluginConfig = Shopware.Store.get('moorlProxy').getByEntity(this._entity);
+                if (!pluginConfig) {
+                    if (trys++ > 50) {
+                        console.error(`[${this._componentName}] Properties not loaded in time (${this._entity})`);
+                        return reject(new Error('Timeout: PluginConfig not found'));
+                    }
+
+                    return setTimeout(retry, 25);
+                }
+
+                const properties = pluginConfig.properties ?? [];
+
+                this._properties = properties
+                    .filter(prop => prop.visibility >= this._minVisibility)
+                    .map(prop => prop.name);
+
+                resolve();
+            };
+
+            retry();
+        });
     }
 
     _initMediaProperty() {
         const fields = Shopware.EntityDefinition.get(this._entity).properties;
 
         for (const [property, field] of Object.entries(fields)) {
-            if (
+            const isMediaAssociation =
                 field.type === 'association' &&
                 field.relation === 'many_to_one' &&
-                field.entity === 'media' || field.entity === `${this._entity}_media`
-            ) {
-                this._mediaProperty = property;
+                (
+                    field.entity === 'media' ||
+                    field.entity === `${this._entity}_media`
+                );
 
-                if (field.entity === 'media') {
-                    this._associations.push(property);
-                } else {
-                    this._associations.push(`${property}.media`);
-                }
-
-                return;
+            if (!isMediaAssociation) {
+                continue;
             }
+
+            this._mediaProperty = property;
+
+            const isDirectMedia = field.entity === 'media';
+            this._associations.push(isDirectMedia ? property : `${property}.media`);
+
+            return;
         }
     }
 
@@ -95,6 +116,7 @@ class ListHelper {
             }
 
             const field = fields[key];
+
             const column = {
                 property: property,
                 dataIndex: property,
@@ -102,27 +124,30 @@ class ListHelper {
                 allowResize: true,
             };
 
-            if (field.type === 'association') {
-                if (field.relation === 'many_to_one') {
-                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(field.entity, 'detail');
-                    column.routerLinkIdProperty = field.localField;
-                }
-            }
+            switch (field.type) {
+                case 'association':
+                    if (field.relation === 'many_to_one') {
+                        column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(field.entity, 'detail');
+                        column.routerLinkIdProperty = field.localField;
+                    }
+                    break;
 
-            if (['string'].indexOf(field.type) !== -1) {
-                column.inlineEdit = 'string';
-                column.align = 'left';
-                column.routerLink = this._routerLink;
-            }
+                case 'string':
+                    column.inlineEdit = 'string';
+                    column.align = 'left';
+                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(this._entity, 'detail');
+                    break;
 
-            if (['int', 'float'].indexOf(field.type) !== -1) {
-                column.inlineEdit = 'number';
-                column.align = 'right';
-            }
+                case 'int':
+                case 'float':
+                    column.inlineEdit = 'number';
+                    column.align = 'right';
+                    break;
 
-            if (['boolean'].indexOf(field.type) !== -1) {
-                column.inlineEdit = 'boolean';
-                column.align = 'center';
+                case 'boolean':
+                    column.inlineEdit = 'boolean';
+                    column.align = 'center';
+                    break;
             }
 
             this._columns.push(column);

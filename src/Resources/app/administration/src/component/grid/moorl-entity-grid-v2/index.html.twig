@@ -1,0 +1,182 @@
+<div v-if="items" class="moorl-entity-grid">
+    <sw-container
+            v-if="topBarOptions.length > 0"
+            :columns="topBarColumns"
+            gap="0 10px"
+            class="moorl-entity-grid__top-bar"
+    >
+        <sw-text-field
+                v-if="topBarOptions.includes('search')"
+                :placeholder="$tc('moorl-foundation.label.search')"
+                v-model:value="searchTerm"
+                @update:value="onSearch"
+        />
+
+        <sw-button
+                v-if="topBarOptions.includes('new')"
+                variant="primary"
+                :block="true"
+                size="small"
+                @click="onEditItem(null)"
+        >
+            <span>
+                <sw-icon name="regular-plus" size="12"/>
+                {{ $tc('moorl-foundation.buttons.newButtonText') }}
+            </span>
+        </sw-button>
+
+        <sw-button
+                v-if="topBarOptions.includes('import')"
+                variant="primary"
+                :block="true"
+                size="small"
+                @click="onImportModal"
+        >
+            <span>
+                <sw-icon name="regular-cloud-upload" size="12"/>
+                {{ $tc('moorl-foundation.buttons.importButtonText') }}
+            </span>
+        </sw-button>
+
+        <sw-button
+                v-if="topBarOptions.includes('export')"
+                variant="primary"
+                :block="true"
+                :disabled="items.length === 0"
+                size="small"
+                @click="onExportModal"
+        >
+            <span>
+                <sw-icon name="regular-cloud-download" size="12"/>
+                {{ $tc('moorl-foundation.buttons.exportButtonText') }}
+            </span>
+        </sw-button>
+    </sw-container>
+
+    <sw-data-grid
+            v-if="ready && totalCount > 0"
+            :dataSource="items"
+            :columns="gridColumns"
+            :showSelection="true"
+            :showSettings="false"
+            :isLoading="isLoading"
+            :sortBy="sortBy"
+            :sortDirection="sortDirection"
+            :allowColumnEdit="false"
+            @column-sort="onSortColumn"
+            @select-all-items="onSelectionChanged"
+            @selection-change="onSelectionChanged"
+    >
+        {% block moorl_entity_grid_templates %}{% endblock %}
+
+        <template
+                v-for="priceProperty in priceProperties"
+                v-slot:[`column-${priceProperty}`]="{item}"
+        >
+            <sw-price-preview
+                    :value="getItemPrice(item)"
+                    :default-price="{}"
+                    :tax-rate="getItemTax(item)"
+                    :currency="currentDefaultCurrency"
+            />
+        </template>
+
+        <template #actions="{ item }">
+            {% block moorl_entity_grid_actions %}{% endblock %}
+
+            <sw-context-menu-item v-if="path" :routerLink="{ name: path, params: {id: item.id} }">
+                {{ $tc('global.default.edit') }}
+            </sw-context-menu-item>
+
+            <sw-context-menu-item v-else @click="onEditItem(item)">
+                {{ $tc('global.default.edit') }}
+            </sw-context-menu-item>
+
+            <sw-context-menu-item variant="danger" @click="onDeleteItem(item)">
+                {{ $tc('global.default.delete') }}
+            </sw-context-menu-item>
+        </template>
+
+        <template #bulk>
+            <a class="link link-danger" @click="onEditSelectedItems">
+                {{ $tc('global.default.edit') }}
+            </a>
+
+            <a class="link link-danger" @click="onDeleteSelectedItems">
+                {{ $tc('global.default.delete') }}
+            </a>
+        </template>
+
+        <template #pagination>
+            <sw-pagination
+                    :total="totalCount"
+                    :limit="limit"
+                    :page="page"
+                    :total-visible="gridPagesVisible"
+                    :steps="gridSteps"
+                    @page-change="onPageChange"
+            />
+        </template>
+    </sw-data-grid>
+
+    <slot name="edit-modal" v-bind="{ showEditModal, selectedItem, onCloseModal }">
+        <sw-modal
+                v-if="showEditModal"
+                :title="$tc('global.default.edit')"
+                :closable="false"
+                variant="large"
+                @modal-close="onCloseModal"
+        >
+            <moorl-entity-form-element
+                    v-for="column in editColumns"
+                    :value="selectedItem"
+                    :column="column"
+                    :snippetSrc="snippetSrc"
+                    :tax="currentTax"
+                    :defaultCurrency="currentDefaultCurrency"
+            />
+
+            <template #modal-footer>
+                <mt-button
+                        @click="onCloseModal"
+                        variant="secondary"
+                        size="small"
+                >
+                    {{ $tc('global.default.cancel') }}
+                </mt-button>
+
+                <mt-button
+                        @click="onSaveItem"
+                        variant="primary"
+                        size="small"
+                >
+                    {{ $tc('global.default.save') }}
+                </mt-button>
+            </template>
+        </sw-modal>
+    </slot>
+
+    <sw-confirm-modal
+            v-if="deleteId"
+            type="yesno"
+            @close="deleteId = null"
+            @cancel="deleteId = null"
+            @confirm="onDeleteItemId"
+    />
+
+    <moorl-csv-import
+            v-if="showImportModal"
+            :entity="entity"
+            :onCloseModal="onCloseModal"
+            :onFinishImport="getItems"
+            :default-item="defaultItem"
+    />
+
+    <moorl-csv-export
+            v-if="showExportModal"
+            :entity="entity"
+            :onCloseModal="onCloseModal"
+            :selectedItems="selectedItems"
+            :default-item="defaultItem"
+    />
+</div>

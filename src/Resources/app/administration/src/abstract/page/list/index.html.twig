@@ -53,7 +53,7 @@
 
     <template #content>
         <sw-entity-listing
-                v-if="entitySearchable"
+                v-if="ready && entitySearchable"
                 :identifier="componentName"
                 :detailRoute="getItemRoute('detail')"
                 :items="items"

@@ -11,4 +11,5 @@ import './custom-card';
 import './person-card';
 import './layout-card-v2';
 import './entity-grid-card';
+import './entity-grid-card-v2';
 import './custom-field-set-card';

@@ -1,0 +1,16 @@
+{% block moorl_entity_grid_card %}
+    <sw-card class="moorl-entity-grid">
+        <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
+            <slot :name="name" v-bind="slotData" />
+        </template>
+
+        <moorl-entity-grid-v2
+                :key="$attrs.entity"
+                v-bind="$attrs"
+        >
+            <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
+                <slot :name="name" v-bind="slotData" />
+            </template>
+        </moorl-entity-grid-v2>
+    </sw-card>
+{% endblock %}

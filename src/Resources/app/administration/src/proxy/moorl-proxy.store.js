@@ -2,6 +2,7 @@ Shopware.Store.register({
     id: 'moorlProxy',
 
     state: () => ({
+        isLoading: true,
         pluginConfigs: [],
     }),
 

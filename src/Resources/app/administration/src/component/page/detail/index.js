@@ -344,6 +344,11 @@ Shopware.Component.register('moorl-page-detail', {
                     attributes.defaultItem[field.referenceField] = this.item[field.localField];
                 }
 
+                if (column.componentName === 'moorl-entity-grid-v2') {
+                    attributes.defaultItem = {};
+                    attributes.defaultItem[field.referenceField] = this.item[field.localField];
+                }
+
                 if (column.componentName === 'moorl-layout-card-v2') {
                     column.card = 'self';
                     column.model = undefined;
@@ -353,6 +358,16 @@ Shopware.Component.register('moorl-page-detail', {
                 }
 
                 if (column.componentName === 'moorl-entity-grid-card') {
+                    column.card = 'self';
+                    column.model = undefined;
+
+                    attributes.componentName = this.componentName;
+                    attributes.title = column.label;
+                    attributes.defaultItem = {};
+                    attributes.defaultItem[field.referenceField] = this.item[field.localField];
+                }
+
+                if (column.componentName === 'moorl-entity-grid-card-v2') {
                     column.card = 'self';
                     column.model = undefined;
 

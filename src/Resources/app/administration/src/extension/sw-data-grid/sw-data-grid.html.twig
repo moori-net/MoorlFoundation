@@ -7,7 +7,11 @@
         {{ renderColumn(item, column) }}
     </router-link>
 
-    <template v-else>
-        {% parent %}
-    </template>
+    <router-link
+            v-else-if="column.routerLink"
+            class="sw-data-grid__cell-value"
+            :to="{ name: column.routerLink, params: { id: item.id } }"
+    >
+        {{ renderColumn(item, column) }}
+    </router-link>
 {% endblock %}

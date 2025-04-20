@@ -18,7 +18,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
     data() {
         return {
             entity: null,
-            properties: ['active', 'name'],
             pluginName: null, // Demo button
             demoName: 'standard',
             snippetSrc: 'moorl-foundation',
@@ -29,7 +28,9 @@ Shopware.Component.register('moorl-abstract-page-list', {
             isLoading: true,
             activeFilterNumber: 0,
             sortBy: 'name',
-            filterCriteria: []
+            filterCriteria: [],
+            listHelper: null,
+            ready: false
         };
     },
 
@@ -40,16 +41,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
     },
 
     computed: {
-        listHelper() {
-            return new MoorlFoundation.ListHelper({
-                componentName: this.componentName,
-                entity: this.entity,
-                properties: this.properties,
-                tc: this.$tc,
-                routerLink: this.getItemRoute('detail')
-            });
-        },
-
         mediaProperty() {
             return this.listHelper.getMediaProperty();
         },
@@ -96,12 +87,23 @@ Shopware.Component.register('moorl-abstract-page-list', {
     },
 
     methods: {
-        async getList() {
-            // This method is called by $route watcher of the listing mixin before created() is called!
-            if (!this.entity) {
-                console.error(`${this.componentName} has no entity`);
-                return;
+        async initListHelper() {
+            if (!this.listHelper) {
+                this.listHelper = new MoorlFoundation.ListHelper({
+                    componentName: this.componentName,
+                    entity: this.entity,
+                    tc: this.$tc
+                });
+
+                await this.listHelper.ready;
+
+                this.ready = true;
             }
+        },
+
+        async getList() {
+            await this.initListHelper();
+
             // Copies for listing mixin
             this.searchConfigEntity = this.entity;
             this.storeKey = `grid.filter.${this.entity}`;
@@ -209,7 +211,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
         },
 
         previewMediaSource(item) {
-            if (item[this.mediaProperty].media !== undefined) {
+            if (item[this.mediaProperty]?.media !== undefined) {
                 return item[this.mediaProperty].media
             }
 
