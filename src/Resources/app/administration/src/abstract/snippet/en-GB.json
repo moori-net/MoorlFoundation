@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "createdAt": "Erstellt",
+      "article": "Artikel",
       "autoIncrement": "Nummer",
       "sticky": "Angeheftet",
       "invisible": "Unsichtbar",

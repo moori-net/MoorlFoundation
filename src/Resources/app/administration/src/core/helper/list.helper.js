@@ -50,7 +50,7 @@ class ListHelper {
                         return reject(new Error('Timeout: PluginConfig not found'));
                     }
 
-                    return setTimeout(retry, 25);
+                    return setTimeout(retry, 50);
                 }
 
                 const properties = pluginConfig.properties ?? [];

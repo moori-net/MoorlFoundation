@@ -89,6 +89,10 @@
                 {{ dateFilter(item.showUntil, { hour: '2-digit', minute: '2-digit' }) }}
             </template>
 
+            <template #column-createdAt="{ item }">
+                {{ dateFilter(item.createdAt, { hour: '2-digit', minute: '2-digit' }) }}
+            </template>
+
             <template #more-actions="{ item }">
                 <sw-context-menu-item @click="onDuplicate(item)">
                     {{ $tc('sw-product.list.buttonDuplicate') }}
