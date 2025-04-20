@@ -1,6 +1,21 @@
 {
   "moorl-foundation": {
     "field": {
+      "autoIncrement": "Automatische Nummerierung",
+      "sticky": "Angeheftet",
+      "invisible": "Unsichtbar",
+      "enableComments": "Kommentare erlauben",
+      "date": "Datum",
+      "showFrom": "Anzeigen ab",
+      "showUntil": "Anzeigen bis",
+      "author": "Autor",
+      "content": "Inhalt",
+      "comments": "Kommentare",
+      "user": "Benutzer",
+      "contentCmsPage": "CMS-Inhaltsseite",
+      "swCategories": "Shopware-Kategorien",
+      "medias": "Medien",
+      "customerGroups": "Kundengruppen",
       "lookProducts": "Look-Produkte",
       "cover": "Cover Bild",
       "creator": "Ersteller",
@@ -93,9 +108,10 @@
       "custom1": "Benutzerdefiniert 1",
       "custom2": "Benutzerdefiniert 2",
       "custom3": "Benutzerdefiniert 3",
-      "customd4": "Benutzerdefiniert 4"
+      "custom4": "Benutzerdefiniert 4"
     },
     "tab": {
+      "comments": "Kommentare",
       "customFields": "Benutzerdefiniert",
       "undefined": "Nicht zugewiesen",
       "general": "Allgemein",

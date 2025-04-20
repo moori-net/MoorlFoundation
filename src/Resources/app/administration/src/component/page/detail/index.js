@@ -2,101 +2,127 @@ import template from './index.html.twig';
 import './index.scss';
 
 const order = [
-    'general', 'visibility', 'media', 'contact', 'address',
+    'general', 'visibility', 'media', 'contact', 'address', 'comments',
     'company', 'seo', 'cmsPage', 'time', 'stock', 'relations',
     'customFields', 'undefined'
 ];
 
 const mapping = {
     // Contact
-    salutation: {order: 0, tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}},
-    title: {order: 10, tab: 'general', card: 'contact'},
-    firstName: {order: 20, tab: 'general', card: 'contact'},
-    lastName: {order: 30, tab: 'general', card: 'contact'},
-    phoneNumber: {order: 50, tab: 'general', card: 'contact',},
-    shopUrl: {order: 60, tab: 'general', card: 'contact', componentName: 'sw-url-field'},
-    merchantUrl: {order: 70, tab: 'general', card: 'contact', componentName: 'sw-url-field'},
-    email: {order: 80, tab: 'general', card: 'contact', componentName: 'sw-email-field'},
+    salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}},
+    title: {tab: 'general', card: 'contact'},
+    firstName: {tab: 'general', card: 'contact'},
+    lastName: {tab: 'general', card: 'contact'},
+    email: {tab: 'general', card: 'contact', componentName: 'sw-email-field'},
+    phoneNumber: {tab: 'general', card: 'contact'},
+    shopUrl: {tab: 'general', card: 'contact', componentName: 'sw-url-field'},
+    merchantUrl: {tab: 'general', card: 'contact', componentName: 'sw-url-field'},
+
     // profile
-    creatorType: {order: 10, tab: 'general', card: 'profile'},
-    followers: {order: 10, tab: 'general', card: 'profile', attributes: {labelProperty: 'customerNumber'}},
-    role: {order: 10, tab: 'general', card: 'profile'},
-    link: {order: 10, tab: 'general', card: 'profile', componentName: 'sw-url-field'},
-    imprint: {order: 10, tab: 'general', card: 'profile'},
-    customer: {order: 10, tab: 'general', card: 'profile'},
+    creatorType: {tab: 'general', card: 'profile'},
+    followers: {tab: 'general', card: 'profile', attributes: {labelProperty: 'customerNumber'}},
+    role: {tab: 'general', card: 'profile'},
+    link: {tab: 'general', card: 'profile', componentName: 'sw-url-field'},
+    imprint: {tab: 'general', card: 'profile'},
+    customer: {tab: 'general', card: 'profile'},
+
     // things
-    name: {order: 90, tab: 'general', card: 'general',},
-    teaser: {order: 100, tab: 'general', card: 'general',},
-    description: {order: 110, tab: 'general', card: 'general'},
-    descriptionHtml: {order: 120, tab: 'general', card: 'general'},
-    keywords: {order: 130, tab: 'general', card: 'general',},
-    type: {order: 140, tab: 'general', card: 'general',},
-    highlight: {order: 140, tab: 'general', card: 'general',},
-    creator: {order: 140, tab: 'general', card: 'general',},
+    autoIncrement: {tab: 'general', card: 'general'},
+    date: {tab: 'general', card: 'general'},
+    name: {tab: 'general', card: 'general'},
+    teaser: {tab: 'general', card: 'general'},
+    description: {tab: 'general', card: 'general'},
+    content: {tab: 'general', card: 'general'},
+    contentCmsPage: {tab: 'general', card: 'general'},
+    descriptionHtml: {tab: 'general', card: 'general'},
+    keywords: {tab: 'general', card: 'general'},
+    type: {tab: 'general', card: 'general'},
+    highlight: {tab: 'general', card: 'general'},
+    creator: {tab: 'general', card: 'general'},
+
     // Seo / Meta
-    schemaOrgType: {order: 10, tab: 'seo', card: 'general'},
-    schemaOrgProperty: {order: 10, tab: 'seo', card: 'general'},
-    metaTitle: {order: 150, tab: 'seo', card: 'general'},
-    metaDescription: {order: 160, tab: 'seo', card: 'general'},
-    metaKeywords: {order: 170, tab: 'seo', card: 'general'},
-    seoUrls: {order: 180, tab: 'seo', componentName: 'sw-seo-url'},
+    schemaOrgType: {tab: 'seo', card: 'general'},
+    schemaOrgProperty: {tab: 'seo', card: 'general'},
+    metaTitle: {tab: 'seo', card: 'general'},
+    metaDescription: {tab: 'seo', card: 'general'},
+    metaKeywords: {tab: 'seo', card: 'general'},
+    seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
+
     // CMS Page
-    cmsPage: {order: 190, tab: 'cmsPage', card: 'cmsPage', componentName: 'moorl-layout-card-v2'},
+    cmsPage: {tab: 'cmsPage', card: 'cmsPage', componentName: 'moorl-layout-card-v2'},
+
     // visibility
-    active: {order: 210, tab: 'general', card: 'visibility',},
-    priority: {order: 220, tab: 'general', card: 'visibility',},
-    category: {order: 230, tab: 'general', card: 'visibility',},
-    categories: {order: 240, tab: 'general', card: 'visibility',},
-    salesChannel: {order: 250, tab: 'general', card: 'visibility',},
-    salesChannels: {order: 260, tab: 'general', card: 'visibility',},
-    customers: {order: 260, tab: 'general', card: 'visibility', attributes: {labelProperty: 'customerNumber'}},
-    customerGroup: {order: 261, tab: 'general', card: 'visibility'},
-    customerGroups: {order: 262, tab: 'general', card: 'visibility'},
+    active: {tab: 'general', card: 'visibility'},
+    priority: {tab: 'general', card: 'visibility'},
+    sticky: {tab: 'general', card: 'visibility'},
+    invisible: {tab: 'general', card: 'visibility'},
+    showFrom: {tab: 'general', card: 'visibility'},
+    showUntil: {tab: 'general', card: 'visibility'},
+    category: {tab: 'general', card: 'visibility'},
+    categories: {tab: 'general', card: 'visibility'},
+    swCategories: {tab: 'general', card: 'visibility'},
+    salesChannel: {tab: 'general', card: 'visibility'},
+    salesChannels: {tab: 'general', card: 'visibility'},
+    customers: {tab: 'general', card: 'visibility', attributes: {labelProperty: 'customerNumber'}},
+    customerGroup: {tab: 'general', card: 'visibility'},
+    customerGroups: {tab: 'general', card: 'visibility'},
+
     // address
-    street: {order: 270, tab: 'address', card: 'general',},
-    streetNumber: {order: 280, tab: 'address', card: 'general',},
-    zipcode: {order: 290, tab: 'address', card: 'general',},
-    city: {order: 300, tab: 'address', card: 'general',},
-    countryCode: {order: 310, tab: 'address', card: 'general',},
-    country: {order: 320, tab: 'address', card: 'general',},
-    countryState: {order: 330, tab: 'address', card: 'general',},
-    additionalAddressLine1: {order: 340, tab: 'address', card: 'general',},
-    additionalAddressLine2: {order: 350, tab: 'address', card: 'general',},
-    locationPlaceId: {order: 360, tab: 'address', card: 'general',},
+    street: {tab: 'address', card: 'general'},
+    streetNumber: {tab: 'address', card: 'general'},
+    zipcode: {tab: 'address', card: 'general'},
+    city: {tab: 'address', card: 'general'},
+    countryCode: {tab: 'address', card: 'general'},
+    country: {tab: 'address', card: 'general'},
+    countryState: {tab: 'address', card: 'general'},
+    additionalAddressLine1: {tab: 'address', card: 'general'},
+    additionalAddressLine2: {tab: 'address', card: 'general'},
+    locationPlaceId: {tab: 'address', card: 'general'},
+
     // company
-    company: {order: 370, tab: 'general', card: 'company',},
-    department: {order: 380, tab: 'general', card: 'company',},
-    executiveDirector: {order: 390, tab: 'general', card: 'company',},
-    placeOfFulfillment: {order: 400, tab: 'general', card: 'company',},
-    placeOfJurisdiction: {order: 410, tab: 'general', card: 'company',},
-    bankBic: {order: 420, tab: 'general', card: 'company',},
-    bankIban: {order: 430, tab: 'general', card: 'company',},
-    bankName: {order: 440, tab: 'general', card: 'company',},
-    taxOffice: {order: 450, tab: 'general', card: 'company',},
-    taxNumber: {order: 460, tab: 'general', card: 'company',},
-    vatId: {order: 470, tab: 'general', card: 'company',},
+    company: {tab: 'general', card: 'company'},
+    department: {tab: 'general', card: 'company'},
+    executiveDirector: {tab: 'general', card: 'company'},
+    placeOfFulfillment: {tab: 'general', card: 'company'},
+    placeOfJurisdiction: {tab: 'general', card: 'company'},
+    bankBic: {tab: 'general', card: 'company'},
+    bankIban: {tab: 'general', card: 'company'},
+    bankName: {tab: 'general', card: 'company'},
+    taxOffice: {tab: 'general', card: 'company'},
+    taxNumber: {tab: 'general', card: 'company'},
+    vatId: {tab: 'general', card: 'company'},
+
     // location
-    locationLat: {order: 480, tab: 'address', card: 'location',},
-    locationLon: {order: 490, tab: 'address', card: 'location',},
-    autoLocation: {order: 500, tab: 'address', card: 'location',},
-    marker: {order: 510, tab: 'address', card: 'location',},
+    locationLat: {tab: 'address', card: 'location'},
+    locationLon: {tab: 'address', card: 'location'},
+    autoLocation: {tab: 'address', card: 'location'},
+    marker: {tab: 'address', card: 'location'},
+
     // time
-    timeZone: {order: 520, tab: 'time', card: 'general', componentName: 'moorl-select-field', attributes: {set: 'timeZone'}},
-    openingHours: {order: 530, tab: 'time', card: 'general', componentName: 'moorl-opening-hours'},
-    showOpeningHours: {order: 540, tab: 'time', card: 'general'},
+    timeZone: {tab: 'time', card: 'general', componentName: 'moorl-select-field', attributes: {set: 'timeZone'}},
+    openingHours: {tab: 'time', card: 'general', componentName: 'moorl-opening-hours'},
+    showOpeningHours: {tab: 'time', card: 'general'},
+
     // relations
-    products: {order: 550, tab: 'relations', card: 'general', attributes: {labelProperty: 'productNumber'}},
-    productManufacturers: {order: 550, tab: 'relations', card: 'general'},
-    tags: {order: 560, tab: 'relations', card: 'general'},
+    products: {tab: 'relations', card: 'general', attributes: {labelProperty: 'productNumber'}},
+    productManufacturers: {tab: 'relations', card: 'general'},
+    tags: {tab: 'relations', card: 'general'},
+    medias: {tab: 'relations', card: 'general'},
+    downloads: {tab: 'relations', card: 'general'},
+
     // customFields
-    customFields: {order: 570, tab: 'customFields', card: 'customFields', componentName: 'sw-custom-field-set-renderer'},
-    custom1: {order: 580, tab: 'customFields', card: 'customFields'},
-    custom2: {order: 590, tab: 'customFields', card: 'customFields'},
-    custom3: {order: 600, tab: 'customFields', card: 'customFields'},
-    custom4: {order: 610, tab: 'customFields', card: 'customFields'},
+    customFields: {tab: 'customFields', card: 'customFields', componentName: 'sw-custom-field-set-renderer'},
+    custom1: {tab: 'customFields', card: 'customFields'},
+    custom2: {tab: 'customFields', card: 'customFields'},
+    custom3: {tab: 'customFields', card: 'customFields'},
+    custom4: {tab: 'customFields', card: 'customFields'},
+
     // media
-    media: {order: 9999, tab: 'general', card: 'media', componentName: 'moorl-media-gallery'},
-    bannerColor: {order: 9999, tab: 'general', card: 'media', componentName: 'sw-colorpicker'},
+    //media: {tab: 'general', card: 'media', componentName: 'moorl-media-gallery'},
+    bannerColor: {tab: 'general', card: 'media', componentName: 'sw-colorpicker'},
+
+    // Comments
+    enableComments: {tab: 'comments', card: 'general'}
 };
 
 Shopware.Component.register('moorl-page-detail', {
@@ -146,6 +172,12 @@ Shopware.Component.register('moorl-page-detail', {
         },
 
         mergedMapping() {
+            let currentOrder = 0;
+            for (const [key, config] of Object.entries(mapping)) {
+                config.order = currentOrder;
+                currentOrder += 10;
+            }
+
             return Object.assign({}, mapping, this.customMapping);
         }
     },
@@ -244,6 +276,14 @@ Shopware.Component.register('moorl-page-detail', {
                     attributes.bordered = true;
                 }
 
+                if (['date'].indexOf(field.type) !== -1) {
+                    column.type = field.type;
+
+                    attributes.dateType = 'date';
+                    attributes.size = 'default';
+                    attributes.componentName = 'sw-datepicker';
+                }
+
                 if (field.type === 'association') {
                     attributes.entity = field.entity;
 
@@ -257,7 +297,10 @@ Shopware.Component.register('moorl-page-detail', {
                             column.name = field.localField;
 
                             attributes.componentName = 'sw-media-field';
-                        } else if (field.entity.includes('media')) {
+                        } else if (
+                            field.entity === 'user' ||
+                            field.entity.includes('media')
+                        ) {
                             // z.B. cover
                             continue;
                         } else {
@@ -267,10 +310,26 @@ Shopware.Component.register('moorl-page-detail', {
                             attributes.showClearableButton = field.flags.required === undefined;
                         }
                     } else if (field.relation === 'many_to_many') {
-                        column.model = 'entityCollection';
-                        column.componentName = 'sw-entity-many-to-many-select';
+                        if (field.entity === 'category') {
+                            column.componentName = 'sw-category-tree-field';
 
-                        attributes.localMode = true;
+                            attributes.categoriesCollection = this.item[property];
+                        } else {
+                            column.model = 'entityCollection';
+                            column.componentName = 'sw-entity-many-to-many-select';
+
+                            attributes.localMode = true;
+
+                            if (field.entity === 'media') {
+                                attributes.labelProperty = 'fileName';
+                            }
+                        }
+                    } else if (field.entity === `${this.entity}_media`) {
+                        column.componentName = 'moorl-media-gallery';
+                        column.model = undefined;
+
+                        attributes.item = this.item;
+                        attributes.entity = this.entity;
                     } else if (column.componentName === undefined) {
                         continue;
                     }
@@ -287,13 +346,6 @@ Shopware.Component.register('moorl-page-detail', {
 
                 if (column.componentName === 'moorl-layout-card-v2') {
                     column.card = 'self';
-                    column.model = undefined;
-
-                    attributes.item = this.item;
-                    attributes.entity = this.entity;
-                }
-
-                if (column.componentName === 'moorl-media-gallery') {
                     column.model = undefined;
 
                     attributes.item = this.item;
@@ -329,6 +381,7 @@ Shopware.Component.register('moorl-page-detail', {
                 attributes.label = column.label;
                 attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? 'name';
                 attributes.required = field.flags.required === undefined;
+                attributes.disabled = field.flags.write_protected !== undefined;
 
                 if (this.item.translated && this.item.translated[property] !== undefined) {
                     attributes.placeholder = this.item.translated[property];
