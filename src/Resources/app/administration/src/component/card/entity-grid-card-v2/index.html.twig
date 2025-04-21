@@ -1,5 +1,5 @@
 {% block moorl_entity_grid_card %}
-    <sw-card class="moorl-entity-grid">
+    <sw-card class="moorl-entity-grid-v2">
         <template v-for="(_, name) in $slots" v-slot:[name]="slotData">
             <slot :name="name" v-bind="slotData" />
         </template>

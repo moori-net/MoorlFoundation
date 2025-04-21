@@ -1,6 +1,6 @@
 @import '~scss/variables';
 
-.moorl-entity-grid {
+.moorl-entity-grid-v2 {
     .moorl-entity-grid__top-bar {
         background-color: $color-gray-100;
         border-bottom: 1px solid $color-gray-100;
@@ -54,6 +54,7 @@
         top: 155px;
     }
 
+    .mt-card__content,
     .sw-card__content {
         padding: 0;
     }

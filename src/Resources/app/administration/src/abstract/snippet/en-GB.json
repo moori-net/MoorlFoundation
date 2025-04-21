@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "levelCount": "Anzahl Ebenen",
+      "productCount": "Anzahl Produkte",
       "redirectFix": "Weiterleitung",
       "templates": "Templates",
       "prepend": "Voranstellen",
