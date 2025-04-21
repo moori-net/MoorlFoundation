@@ -34,3 +34,8 @@ MoorlProxyService.registerPlugin({
     entity: 'product_stream',
     listingRoute: 'sw.product.stream.index'
 });
+
+MoorlProxyService.registerPlugin({
+    entity: 'cms_page',
+    listingRoute: 'sw.cms.index'
+});
