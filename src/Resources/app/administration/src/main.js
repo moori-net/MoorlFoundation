@@ -12,3 +12,25 @@ import './extension';
 import './module';
 
 import './main.scss';
+
+const MoorlProxyService = Shopware.Service('moorlProxyService');
+
+MoorlProxyService.registerPlugin({
+    entity: 'product',
+    listingRoute: 'sw.product.index'
+});
+
+MoorlProxyService.registerPlugin({
+    entity: 'category',
+    listingRoute: 'sw.category.index'
+});
+
+MoorlProxyService.registerPlugin({
+    entity: 'customer',
+    listingRoute: 'sw.customer.index'
+});
+
+MoorlProxyService.registerPlugin({
+    entity: 'product_stream',
+    listingRoute: 'sw.product.stream.index'
+});
