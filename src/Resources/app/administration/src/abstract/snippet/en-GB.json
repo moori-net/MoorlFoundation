@@ -152,6 +152,7 @@
       "location": "Standort"
     },
     "helpText": {
+      "autoLocation": "Die Standortermittlung dauert 1-3 Sekunden pro Eintrag. Wenn die Adresse nicht richtig ausgefüllt ist, kann es zu Fehlern kommen.",
       "contentCmsPage": "Verwende eine CMS Seite anstatt Inhalt. Nicht empfohlen, da HTML-Inhalte für Migrationen in andere Systeme besser geeignet sind."
     },
     "notification": {
