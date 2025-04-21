@@ -1,6 +1,15 @@
 {
   "moorl-foundation": {
     "field": {
+      "redirectFix": "Weiterleitung",
+      "templates": "Templates",
+      "prepend": "Voranstellen",
+      "filterGroup": "Filtergruppe",
+      "deepLoad": "Vollständig laden",
+      "level": "Ebene",
+      "technicalName": "Tech. Name",
+      "sorting": "Sortierung",
+      "label": "Beschriftung",
       "steps": "Schritte",
       "category": "Kategorie",
       "price": "Preis",
@@ -32,6 +41,7 @@
       "user": "Benutzer",
       "contentCmsPage": "CMS-Inhaltsseite",
       "swCategories": "Shopware-Kategorien",
+      "shopwareCategories": "Shopware-Kategorien",
       "medias": "Medien",
       "customerGroups": "Kundengruppen",
       "lookProducts": "Look-Produkte",

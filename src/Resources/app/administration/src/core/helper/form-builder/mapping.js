@@ -26,6 +26,8 @@ const mapping = {
   tax: { tab: 'stock', card: 'general' },
 
   // Things
+  technicalName: { tab: 'general', card: 'general' },
+  levelCount: { tab: 'general', card: 'general' },
   autoIncrement: { tab: 'general', card: 'general' },
   date: { tab: 'general', card: 'general' },
   name: { tab: 'general', card: 'general' },
@@ -50,7 +52,7 @@ const mapping = {
   seoUrls: { tab: 'seo', componentName: 'sw-seo-url' },
 
   // CMS Page
-  cmsPage: { tab: 'cmsPage', card: 'cmsPage', componentName: 'moorl-layout-card-v2' },
+  cmsPage: { tab: 'cmsPage', card: 'cmsPage' },
 
   // Visibility
   active: { tab: 'general', card: 'visibility' },
@@ -62,11 +64,13 @@ const mapping = {
   category: { tab: 'general', card: 'visibility' },
   categories: { tab: 'general', card: 'visibility' },
   swCategories: { tab: 'general', card: 'visibility' },
+  shopwareCategories: { tab: 'general', card: 'visibility' },
   salesChannel: { tab: 'general', card: 'visibility' },
   salesChannels: { tab: 'general', card: 'visibility' },
   customers: { tab: 'general', card: 'visibility', attributes: { labelProperty: 'customerNumber' } },
   customerGroup: { tab: 'general', card: 'visibility' },
   customerGroups: { tab: 'general', card: 'visibility' },
+  redirectFix: { tab: 'general', card: 'visibility' },
 
   // Address
   street: { tab: 'address', card: 'general' },

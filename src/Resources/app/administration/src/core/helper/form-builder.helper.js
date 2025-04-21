@@ -117,7 +117,7 @@ export default class FormBuilderHelper {
                 column.type = 'json';
                 break;
             case 'association':
-                this._buildAssociationField(field, column, attributes);
+                this._buildAssociationField(field, column, attributes, property);
         }
 
         this._handleSpecialComponents(column, attributes, field, property);
@@ -127,7 +127,7 @@ export default class FormBuilderHelper {
         return column;
     }
 
-    _buildAssociationField(field, column, attributes) {
+    _buildAssociationField(field, column, attributes, property) {
         attributes.entity = field.entity;
 
         if (field.relation === 'many_to_one') {
@@ -137,6 +137,14 @@ export default class FormBuilderHelper {
                 column.card = 'media';
                 column.name = field.localField;
                 attributes.componentName = 'sw-media-field';
+            } else if (field.entity === 'cms_page') {
+                if (this.item['slotConfig'] !== undefined) {
+                    column.componentName = 'moorl-layout-card-v2';
+                } else {
+                    column.name = field.localField;
+                    column.componentName = 'sw-entity-single-select';
+                    attributes.showClearableButton = true;
+                }
             } else if (field.entity === 'user' || field.entity.includes('media')) {
                 return null;
             } else {
@@ -145,11 +153,16 @@ export default class FormBuilderHelper {
                 attributes.showClearableButton = field.flags.required === undefined;
             }
         } else if (field.relation === 'many_to_many') {
-            column.model = 'entityCollection';
-            column.componentName = 'sw-entity-many-to-many-select';
-            attributes.localMode = true;
-            if (field.entity === 'media') {
-                attributes.labelProperty = 'fileName';
+            if (field.entity === 'category') {
+                column.componentName = 'sw-category-tree-field';
+                attributes.categoriesCollection = this.item[property];
+            } else {
+                column.model = 'entityCollection';
+                column.componentName = 'sw-entity-many-to-many-select';
+                attributes.localMode = true;
+                if (field.entity === 'media') {
+                    attributes.labelProperty = 'fileName';
+                }
             }
         } else if (field.entity === `${this.entity}_media`) {
             column.componentName = 'moorl-media-gallery';
@@ -184,6 +197,9 @@ export default class FormBuilderHelper {
             case 'moorl-entity-grid':
             case 'moorl-entity-grid-v2':
                 attributes.defaultItem = { [refField]: this.item[localField] };
+                if (column.root) {
+                    attributes.defaultItem.parentId = null;
+                }
                 break;
 
             case 'moorl-entity-grid-card':
@@ -193,6 +209,9 @@ export default class FormBuilderHelper {
                 attributes.title = column.label;
                 attributes.componentName = this.componentName;
                 attributes.defaultItem = { [refField]: this.item[localField] };
+                if (column.root) {
+                    attributes.defaultItem.parentId = null;
+                }
                 break;
 
             case 'sw-seo-url':
