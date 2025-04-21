@@ -1,4 +1,6 @@
 const mapping = {
+  children: { tab: 'general', card: 'general' },
+
   // Contact
   salutation: { tab: 'general', card: 'contact', attributes: { labelProperty: 'displayName' } },
   title: { tab: 'general', card: 'contact' },

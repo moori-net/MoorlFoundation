@@ -28,6 +28,7 @@
                         <template v-if="card.id === 'self'">
                             <template v-for="field in card.fields" :key="field.name">
                                 <component
+                                        v-if="isVisible(field)"
                                         :is="field.componentName"
                                         v-bind="field.attributes"
                                 />

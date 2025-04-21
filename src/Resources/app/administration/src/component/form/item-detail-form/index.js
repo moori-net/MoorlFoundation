@@ -83,6 +83,48 @@ Shopware.Component.register('moorl-item-detail-form', {
     },
 
     methods: {
+        isVisible(field) {
+            if (!field.conditions || field.conditions.length === 0) {
+                return true;
+            }
+
+            const compare = (a, b, operator) => {
+                switch (operator) {
+                    case 'eq':
+                    case '==': return a == b;
+                    case '===': return a === b;
+                    case '!=': return a != b;
+                    case '!==': return a !== b;
+                    case 'gt':
+                    case '>': return a > b;
+                    case 'lt':
+                    case '<': return a < b;
+                    case 'gte':
+                    case '>=': return a >= b;
+                    case 'lte':
+                    case '<=': return a <= b;
+                    case 'in': return Array.isArray(b) && b.includes(a);
+                    case 'nin': return Array.isArray(b) && !b.includes(a);
+                    case 'includes': return typeof a === 'string' && a.includes(b);
+                    case 'notIncludes': return typeof a === 'string' && !a.includes(b);
+                    default: return false;
+                }
+            };
+
+            let fulfilled = 0;
+
+            for (let condition of field.conditions) {
+                const operator = condition.operator || '==';
+                const value = this.item[condition.property];
+
+                if (compare(value, condition.value, operator)) {
+                    fulfilled++;
+                }
+            }
+
+            return fulfilled === field.conditions.length;
+        },
+
         async loadCustomFieldSets() {
             if (this.item.customFields === undefined) {
                 return Promise.resolve();
