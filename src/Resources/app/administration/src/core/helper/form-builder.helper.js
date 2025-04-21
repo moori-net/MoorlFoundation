@@ -20,6 +20,11 @@ export default class FormBuilderHelper {
     }
 
     buildFormStruct() {
+        if (this.pageStruct.tabs.length > 0) {
+            console.warn(`[${this.entity}][${this.componentName}] TODO: prevent calling buildFormStruct() multiple times`);
+            return this.pageStruct;
+        }
+
         const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
         for (const [property, field] of Object.entries(fields)) {

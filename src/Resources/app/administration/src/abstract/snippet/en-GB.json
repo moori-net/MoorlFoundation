@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "steps": "Schritte",
+      "category": "Kategorie",
       "price": "Preis",
       "sales": "Verkäufe",
       "merchant": "Händler",

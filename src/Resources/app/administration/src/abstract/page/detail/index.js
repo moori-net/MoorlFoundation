@@ -70,7 +70,6 @@ Shopware.Component.register('moorl-abstract-page-detail', {
         },
 
         itemCriteria() {
-            console.warn(`${this.componentName} missing computed itemCriteria`);
             const itemCriteria = new Criteria();
 
             this.itemHelper.getAssociations().forEach(association => {
@@ -78,7 +77,6 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             });
 
             if (this.itemHelper.hasSeoUrls()) {
-                console.log("this.itemHelper.hasSeoUrls()");
                 itemCriteria.getAssociation('seoUrls').addFilter(Criteria.equals('isCanonical', true));
             }
 
