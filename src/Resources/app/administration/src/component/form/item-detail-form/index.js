@@ -115,9 +115,22 @@ Shopware.Component.register('moorl-item-detail-form', {
 
             for (let condition of field.conditions) {
                 const operator = condition.operator || '==';
-                const value = this.item[condition.property];
 
-                if (compare(value, condition.value, operator)) {
+                let a, b;
+
+                if (!Array.isArray(condition.property)) {
+                    // property vs value
+                    a = this.item[condition.property];
+                    b = condition.value;
+                } else if (Array.isArray(condition.property) && condition.property.length === 2) {
+                    // property[0] vs property[1]
+                    a = this.item[condition.property[0]];
+                    b = this.item[condition.property[1]];
+                } else {
+                    continue;
+                }
+
+                if (compare(a, b, operator)) {
                     fulfilled++;
                 }
             }
