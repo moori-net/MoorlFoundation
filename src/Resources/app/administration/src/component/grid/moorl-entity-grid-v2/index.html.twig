@@ -17,7 +17,7 @@
                 variant="primary"
                 :block="true"
                 size="small"
-                @click="onEditItem(null)"
+                @click="onEditItem()"
         >
             <span>
                 <sw-icon name="regular-plus" size="12"/>
@@ -98,10 +98,6 @@
         </template>
 
         <template #bulk>
-            <a class="link link-danger" @click="onEditSelectedItems">
-                {{ $tc('global.default.edit') }}
-            </a>
-
             <a class="link link-danger" @click="onDeleteSelectedItems">
                 {{ $tc('global.default.delete') }}
             </a>
@@ -119,42 +115,14 @@
         </template>
     </sw-data-grid>
 
-    <slot name="edit-modal" v-bind="{ showEditModal, selectedItem, onCloseModal }">
-        <sw-modal
-                v-if="showEditModal"
-                :title="$tc('global.default.edit')"
-                :closable="false"
-                variant="large"
-                @modal-close="onCloseModal"
-        >
-            <moorl-entity-form-element
-                    v-for="column in editColumns"
-                    :value="selectedItem"
-                    :column="column"
-                    :snippetSrc="snippetSrc"
-                    :tax="currentTax"
-                    :defaultCurrency="currentDefaultCurrency"
-            />
-
-            <template #modal-footer>
-                <mt-button
-                        @click="onCloseModal"
-                        variant="secondary"
-                        size="small"
-                >
-                    {{ $tc('global.default.cancel') }}
-                </mt-button>
-
-                <mt-button
-                        @click="onSaveItem"
-                        variant="primary"
-                        size="small"
-                >
-                    {{ $tc('global.default.save') }}
-                </mt-button>
-            </template>
-        </sw-modal>
-    </slot>
+    <moorl-modal-detail
+            v-if="showEditModal"
+            :item="selectedItem"
+            :entity="entity"
+            :componentName="componentName"
+            @save="onSaveItem"
+            @cancel="onCloseModal"
+    />
 
     <sw-confirm-modal
             v-if="deleteId"

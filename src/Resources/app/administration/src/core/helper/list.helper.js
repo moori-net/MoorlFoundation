@@ -1,4 +1,4 @@
-class ListHelper {
+export default class ListHelper {
     constructor({componentName, entity, tc, minVisibility = 0}) {
         this.componentName = componentName;
         this.entity = entity;
@@ -154,5 +154,3 @@ class ListHelper {
         });
     }
 }
-
-export default ListHelper;

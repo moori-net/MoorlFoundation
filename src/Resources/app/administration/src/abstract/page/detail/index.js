@@ -34,7 +34,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
     metaInfo() {
         return {
-            title: this.$createTitle(this.itenName),
+            title: this.$createTitle(this.itemName),
         };
     },
 
@@ -184,7 +184,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             const behavior = {
                 cloneChildren: true,
                 overwrites: {
-                    name: `${this.itenName} [${this.$tc('global.default.duplicate')}]`,
+                    name: `${this.itemName} [${this.$tc('global.default.duplicate')}]`,
                     locked: false
                 }
             };

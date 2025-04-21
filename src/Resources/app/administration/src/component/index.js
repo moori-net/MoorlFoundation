@@ -5,6 +5,7 @@ import './moorl-block-behaviour';
 import './moorl-collapse';
 
 import './page';
+import './modal';
 import './grid';
 import './config';
 import './location';

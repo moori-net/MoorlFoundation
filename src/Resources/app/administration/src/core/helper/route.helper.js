@@ -1,4 +1,4 @@
-class RouteHelper {
+export default class RouteHelper {
     constructor({entity, router}) {
         this.entity = entity;
         this.router = router;
@@ -21,5 +21,3 @@ class RouteHelper {
 
     _init() {}
 }
-
-export default RouteHelper;

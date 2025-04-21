@@ -1,4 +1,4 @@
-class ItemHelper {
+export default class ItemHelper {
     constructor({componentName, entity}) {
         this.componentName = componentName;
         this.entity = entity;
@@ -31,5 +31,3 @@ class ItemHelper {
         }
     }
 }
-
-export default ItemHelper;

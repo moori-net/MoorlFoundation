@@ -1,4 +1,4 @@
-class TranslationHelper {
+export default class TranslationHelper {
     constructor({componentName, snippetSrc, tc}) {
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
@@ -79,5 +79,3 @@ class TranslationHelper {
         }
     }
 }
-
-export default TranslationHelper;

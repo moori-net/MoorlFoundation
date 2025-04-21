@@ -6,18 +6,9 @@ const { Criteria } = Shopware.Data;
 /**
  * Standard variable names
  * @items = All data of table: Array
- * @item = One data row of table: Object
  * @selectedItems: Array
  * @selectedItem: Data row currently editing: Object
- * @columns = All columns of table: Array
- * @column = One column of table: Object
- * @mapping = import to export relation: Object
- * @field = Name of data field: String
- * @property = dot separated field names: String
- * @value = Value of data field: Mixed
  * @entity = Storage name of table
- *
- * New
  * @defaultItem = Override of item, Usage: Criteria
  *
  *
@@ -51,25 +42,6 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             type: String,
             required: true,
         },
-        columns: {
-            type: Array,
-            required: false,
-        },
-        filterColumns: {
-            type: Array,
-            required: false,
-            default: [],
-        },
-        snippetSrc: {
-            type: String,
-            required: false,
-            default: 'moorl-foundation',
-        },
-        excludeInput: {
-            type: Array,
-            required: false,
-            default: [],
-        },
         sortBy: {
             type: String,
             required: false,
@@ -79,11 +51,6 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             type: String,
             required: false,
             default: 'DESC',
-        },
-        depth: {
-            type: Number,
-            required: false,
-            default: 1,
         },
         defaultItem: {
             type: Object,
@@ -123,23 +90,8 @@ Shopware.Component.register('moorl-entity-grid-v2', {
     data() {
         return {
             items: null,
-            item: null,
             selectedItems: null,
             selectedItem: null,
-
-
-
-            editColumns: null,
-
-
-            column: null,
-
-
-            mapping: null,
-            field: null,
-
-            value: null,
-
             totalCount: 0,
             page: 1,
             limit: 10,
@@ -147,18 +99,12 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             isLoading: false,
             sortBy: 'createdAt',
             sortDirection: 'DESC',
-
             showEditModal: false,
             showImportModal: false,
             showExportModal: false,
             deleteId: null,
-
             currentDefaultCurrency: null,
             currentTax: null,
-
-
-
-
             listHelper: null,
             ready: false
         };
@@ -375,97 +321,32 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             });
         },
 
-        onUpdateSelectedItems() {
-            const promises = [];
-
-            Object.values(this.selectedItems).forEach((item) => {
-                Object.assign(item, this.selectedItem);
-
-                promises.push(this.repository.save(item, Shopware.Context.api));
-            });
-
-            this.selectedItems = {};
-            this.selectedItem = {};
-
-            Promise.all(promises).then(() => {
-                this.getItems();
-                this.showEditModal = false;
-            });
-        },
-
         onSaveItem() {
             this.isLoading = true;
-
-            if (!this.selectedItem.id) {
-                this.onUpdateSelectedItems();
-                return;
-            }
 
             this.repository
                 .save(this.selectedItem, Shopware.Context.api)
                 .then(() => {
                     this.getItems();
+
                     this.showEditModal = false;
                 })
-                .catch((exception) => {
-                    this.isLoading = false;
-
-                    const errorCode = Shopware.Utils.get(
-                        exception,
-                        'response.data.errors[0].code'
-                    );
-
-                    if (errorCode === 'MOORL__DUPLICATE_ENTRY') {
-                        const parameters = Shopware.Utils.get(
-                            exception,
-                            'response.data.errors[0].meta.parameters'
-                        );
-                        const titleSaveError = this.$tc(
-                            'moorl-foundation.notification.errorTitle'
-                        );
-                        const messageSaveError = this.$tc(
-                            'moorl-foundation.notification.errorDuplicateEntryText',
-                            0,
-                            parameters
-                        );
-                        this.createNotificationError({
-                            title: titleSaveError,
-                            message: messageSaveError,
-                        });
-                        return;
-                    }
-
-                    const titleSaveError = this.$tc(
-                        'moorl-foundation.notification.errorTitle'
-                    );
-                    const messageSaveError = this.$tc(
-                        'moorl-foundation.notification.errorRequiredText'
-                    );
-                    this.createNotificationError({
-                        title: titleSaveError,
-                        message: messageSaveError,
-                    });
+                .catch((error) => {
+                    this.createNotificationError({ message: error.message });
                 });
         },
 
         onEditItem(item) {
             this.selectedItems = null;
 
-            if (item) {
+            if (item !== undefined) {
                 this.selectedItem = item;
-
-                this.showEditModal = true;
             } else {
                 this.selectedItem = this.repository.create(Shopware.Context.api);
 
                 Object.assign(this.selectedItem, this.defaultItem);
-
-                this.showEditModal = true;
             }
-        },
 
-        onEditSelectedItems() {
-            this.selectedItem = Object.assign({}, this.defaultItem);
             this.showEditModal = true;
         },
 
