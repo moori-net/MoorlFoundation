@@ -64,3 +64,5 @@ MoorlProxyService.registerPlugin({entity: 'category', listingRoute: 'sw.category
 MoorlProxyService.registerPlugin({entity: 'customer', listingRoute: 'sw.customer.index'});
 MoorlProxyService.registerPlugin({entity: 'product_stream', listingRoute: 'sw.product.stream.index'});
 MoorlProxyService.registerPlugin({entity: 'cms_page', listingRoute: 'sw.cms.index'});
+MoorlProxyService.registerPlugin({entity: 'country', listingRoute: 'sw.country.index'});
+MoorlProxyService.registerPlugin({entity: 'mail_template', listingRoute: 'sw.mail.template.index'});

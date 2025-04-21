@@ -1,6 +1,11 @@
 {
   "moorl-foundation": {
     "field": {
+      "info": "Info",
+      "customerNumber": "Nummer",
+      "look": "Look",
+      "product": "Produkt",
+      "productNumber": "Nummer",
       "createdAt": "Erstellt",
       "article": "Artikel",
       "autoIncrement": "Nummer",

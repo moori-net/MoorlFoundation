@@ -15,7 +15,6 @@ const mapping = {
   role: { tab: 'general', card: 'profile' },
   link: { tab: 'general', card: 'profile', componentName: 'sw-url-field' },
   imprint: { tab: 'general', card: 'profile' },
-  customer: { tab: 'general', card: 'profile', attributes: { labelProperty: 'customerNumber' } },
 
   // Things
   autoIncrement: { tab: 'general', card: 'general' },
@@ -57,7 +56,11 @@ const mapping = {
   customers: { tab: 'general', card: 'visibility', attributes: { labelProperty: 'customerNumber' } },
   customerGroup: { tab: 'general', card: 'visibility' },
   customerGroups: { tab: 'general', card: 'visibility' },
+
+  customer: { tab: 'general', card: 'profile', attributes: { labelProperty: 'customerNumber' } },
   article: { tab: 'general', card: 'visibility' },
+  look: { tab: 'relations', card: 'general' },
+  product: { tab: 'relations', card: 'general' },
 
   // Address
   street: { tab: 'address', card: 'general' },
@@ -101,8 +104,6 @@ const mapping = {
   tags: { tab: 'relations', card: 'general' },
   medias: { tab: 'relations', card: 'general' },
   downloads: { tab: 'relations', card: 'general' },
-  look: { tab: 'relations', card: 'general' },
-  product: { tab: 'relations', card: 'general' },
 
   // Custom Fields
   customFields: { tab: 'customFields', card: 'customFields', componentName: 'sw-custom-field-set-renderer' },
