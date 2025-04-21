@@ -1,4 +1,4 @@
-import mapping from './form-builder/mapping.json';
+import mapping from './form-builder/mapping.js';
 import order from './form-builder/order.json';
 
 export default class FormBuilderHelper {
@@ -9,7 +9,7 @@ export default class FormBuilderHelper {
         this.snippetSrc = snippetSrc;
         this.customFieldSets = customFieldSets;
 
-        this.mapping = {};
+        this.mapping = mapping;
         this.order = order;
         this.pageStruct = { tabs: [] };
         this.mediaOrder = 4999;
@@ -43,12 +43,12 @@ export default class FormBuilderHelper {
         const customMapping = Shopware.Store.get('moorlFoundationState').getCustomEntityMapping(this.entity) ?? {};
 
         let currentOrder = 0;
-        for (const config of Object.entries(mapping)) {
+        for (const [key, config] of Object.entries(this.mapping)) {
             config.order = currentOrder;
             currentOrder += 10;
         }
 
-        Object.assign(this.mapping, mapping, customMapping);
+        Object.assign(this.mapping, customMapping);
     }
 
     _buildColumn(field, property) {
