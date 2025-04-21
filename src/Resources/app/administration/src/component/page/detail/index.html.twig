@@ -1,6 +1,6 @@
 {% block moorl_page_detail %}
     <sw-card-view class="moorl-page-detail">
-        <sw-tabs default-item="general">
+        <sw-tabs :default-item="defaultTab">
             <template #default="{ active }">
                 <sw-tabs-item
                         v-for="tab in pageStruct.tabs"

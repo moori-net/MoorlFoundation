@@ -168,6 +168,14 @@ export default class FormBuilderHelper {
                 attributes.entity = this.entity;
                 break;
 
+
+            case 'moorl-layout-card-v2':
+                column.card = 'self';
+                column.model = undefined;
+                attributes.item = this.item;
+                attributes.entity = this.entity;
+                break;
+
             case 'moorl-entity-grid':
             case 'moorl-entity-grid-v2':
                 attributes.defaultItem = { [refField]: this.item[localField] };
@@ -200,9 +208,10 @@ export default class FormBuilderHelper {
     _finalizeAttributes(column, attributes, field, property) {
         attributes.label = column.label;
         attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? 'name';
-        attributes.required = field.flags.required === undefined;
-        attributes.disabled = field.flags.write_protected !== undefined;
+        attributes.required = field.flags.required;
+        attributes.disabled = field.flags.write_protected;
         attributes.helpText = this.translationHelper.getLabel('helpText', property, false);
+        attributes.componentName = attributes.componentName ?? column.componentName;
 
         if (this.item.translated?.[property] !== undefined) {
             attributes.placeholder = this.item.translated[property];

@@ -50,7 +50,11 @@ Shopware.Component.register('moorl-page-detail', {
 
         pageStruct() {
             return this.formBuilderHelper.buildPageStruct();
-        }
+        },
+
+        defaultTab() {
+            return this.pageStruct.tabs[0].id;
+        },
     },
 
     created() {

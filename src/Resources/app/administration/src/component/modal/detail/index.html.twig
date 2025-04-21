@@ -5,7 +5,7 @@
         class="moorl-modal-detail"
 >
     {% block moorl_modal_detail %}
-        <sw-tabs default-item="general">
+        <sw-tabs :default-item="defaultTab">
             <template #default="{ active }">
                 <sw-tabs-item
                         v-for="tab in modalStruct.tabs"

@@ -35,6 +35,16 @@ Shopware.Component.register('moorl-modal-detail', {
     },
 
     computed: {
+        itemName() {
+            for (const property of ['name', 'label', 'key', 'technicalName']) {
+                if (this.item[property] !== undefined) {
+                    return this.item[property];
+                }
+            }
+
+            return this.$tc('global.default.add');
+        },
+
         formBuilderHelper() {
             return new MoorlFoundation.FormBuilderHelper({
                 item: this.item,
@@ -52,14 +62,8 @@ Shopware.Component.register('moorl-modal-detail', {
             return this.formBuilderHelper.buildPageStruct();
         },
 
-        itemName() {
-            for (const property of ['name', 'label', 'key', 'technicalName']) {
-                if (this.item[property] !== undefined) {
-                    return this.item[property];
-                }
-            }
-
-            return this.$tc('global.default.add');
+        defaultTab() {
+            return this.modalStruct.tabs[0].id;
         },
     },
 
