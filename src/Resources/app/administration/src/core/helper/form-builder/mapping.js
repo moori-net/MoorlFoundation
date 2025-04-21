@@ -101,6 +101,8 @@ const mapping = {
   tags: { tab: 'relations', card: 'general' },
   medias: { tab: 'relations', card: 'general' },
   downloads: { tab: 'relations', card: 'general' },
+  look: { tab: 'relations', card: 'general' },
+  product: { tab: 'relations', card: 'general' },
 
   // Custom Fields
   customFields: { tab: 'customFields', card: 'customFields', componentName: 'sw-custom-field-set-renderer' },

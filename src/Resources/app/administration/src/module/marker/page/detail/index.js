@@ -40,6 +40,10 @@ Shopware.Component.extend('moorl-marker-detail', 'moorl-abstract-page-detail', {
     },
 
     methods: {
+        onItemLoaded() {
+            this.item.markerSettings ??= {};
+        },
+
         openMediaSidebar() {
             this.$refs.mediaSidebarItem.openContent();
         },

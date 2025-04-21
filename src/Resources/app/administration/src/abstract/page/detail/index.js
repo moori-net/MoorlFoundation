@@ -141,18 +141,23 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
             if (this.isNewItem) {
                 this.item = await this.itemRepository.create(Shopware.Context.api);
+                this.onItemLoaded();
+
                 this.isLoading = false;
                 return;
             }
 
             try {
                 this.item = await this.itemRepository.get(this.itemId, Shopware.Context.api, this.itemCriteria);
+                this.onItemLoaded();
             } catch (error) {
                 this.createNotificationError({ message: error.message });
             } finally {
                 this.isLoading = false;
             }
         },
+
+        onItemLoaded() {},
 
         async onSaveItem() {
             this.isSaveSuccessful = false;

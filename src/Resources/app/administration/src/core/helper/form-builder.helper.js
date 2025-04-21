@@ -139,13 +139,6 @@ export default class FormBuilderHelper {
                 attributes.componentName = 'sw-entity-single-select';
                 attributes.showClearableButton = field.flags.required === undefined;
             }
-        } else if (field.relation === 'one_to_many') {
-            column.model = 'entityCollection';
-            column.componentName = 'sw-entity-multi-select';
-            attributes.localMode = true;
-            if (field.entity === 'media') {
-                attributes.labelProperty = 'fileName';
-            }
         } else if (field.relation === 'many_to_many') {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-many-to-many-select';
@@ -161,6 +154,13 @@ export default class FormBuilderHelper {
             column.card = 'media';
             attributes.item = this.item;
             attributes.entity = this.entity;
+        } else if (column.componentName === undefined && field.relation === 'one_to_many') {
+            column.model = 'entityCollection';
+            column.componentName = 'sw-entity-multi-select';
+            attributes.localMode = true;
+            if (field.entity === 'media') {
+                attributes.labelProperty = 'fileName';
+            }
         }
     }
 

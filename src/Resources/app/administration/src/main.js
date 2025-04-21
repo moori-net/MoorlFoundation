@@ -16,26 +16,51 @@ import './main.scss';
 const MoorlProxyService = Shopware.Service('moorlProxyService');
 
 MoorlProxyService.registerPlugin({
-    entity: 'product',
-    listingRoute: 'sw.product.index'
+    entity: 'moorl_client',
+    listingRoute: 'moorl.client.list',
+    properties: [
+        {name: 'active', visibility: 100},
+        {name: 'name', visibility: 100},
+        {name: 'type', visibility: 100},
+    ]
 });
 
 MoorlProxyService.registerPlugin({
-    entity: 'category',
-    listingRoute: 'sw.category.index'
+    entity: 'moorl_cms_element_config',
+    listingRoute: 'moorl.cms.element.config.index',
+    properties: [
+        {name: 'name', visibility: 100},
+        {name: 'type', visibility: 100},
+    ]
 });
 
 MoorlProxyService.registerPlugin({
-    entity: 'customer',
-    listingRoute: 'sw.customer.index'
+    entity: 'moorl_marker',
+    listingRoute: 'moorl.marker.list',
+    properties: [
+        {name: 'name', visibility: 100},
+        {name: 'type', visibility: 100},
+        {name: 'className', visibility: 100},
+    ],
+    pluginName: 'MoorlFoundation',
+    demoName: 'marker'
 });
 
 MoorlProxyService.registerPlugin({
-    entity: 'product_stream',
-    listingRoute: 'sw.product.stream.index'
+    entity: 'moorl_sorting',
+    listingRoute: 'moorl.sorting.list',
+    properties: [
+        {name: 'active', visibility: 100},
+        {name: 'entity', visibility: 100},
+        {name: 'label', visibility: 100},
+        {name: 'priority', visibility: 100},
+    ],
+    pluginName: 'MoorlFoundation',
+    demoName: 'marker'
 });
 
-MoorlProxyService.registerPlugin({
-    entity: 'cms_page',
-    listingRoute: 'sw.cms.index'
-});
+MoorlProxyService.registerPlugin({entity: 'product', listingRoute: 'sw.product.index'});
+MoorlProxyService.registerPlugin({entity: 'category', listingRoute: 'sw.category.index'});
+MoorlProxyService.registerPlugin({entity: 'customer', listingRoute: 'sw.customer.index'});
+MoorlProxyService.registerPlugin({entity: 'product_stream', listingRoute: 'sw.product.stream.index'});
+MoorlProxyService.registerPlugin({entity: 'cms_page', listingRoute: 'sw.cms.index'});

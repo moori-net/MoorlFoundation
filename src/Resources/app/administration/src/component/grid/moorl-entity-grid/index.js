@@ -235,6 +235,8 @@ Shopware.Component.register('moorl-entity-grid', {
     },
     methods: {
         createdComponent() {
+            console.warn(`[${this.entity}] Component moorl-entity-grid is deprecated, use moorl-entity-grid-v2 instead`);
+
             this.loadTax();
             this.loadDefaultCurrency();
             this.initGridColumns();
