@@ -19,7 +19,7 @@ export default class FormBuilderHelper {
         this._init();
     }
 
-    buildPageStruct() {
+    buildFormStruct() {
         const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
         for (const [property, field] of Object.entries(fields)) {

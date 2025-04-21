@@ -1,17 +1,7 @@
 import template from './index.html.twig';
-import './index.scss';
 
 Shopware.Component.register('moorl-page-detail', {
     template,
-
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder')
-    ],
-
-    inject: [
-        'customFieldDataProviderService',
-    ],
 
     props: {
         entity: {
@@ -25,74 +15,6 @@ Shopware.Component.register('moorl-page-detail', {
         item: {
             type: Object,
             required: true,
-        }
-    },
-
-    data() {
-        return {
-            customFieldSets: null,
-        };
-    },
-
-    computed: {
-        formBuilderHelper() {
-            return new MoorlFoundation.FormBuilderHelper({
-                item: this.item,
-                entity: this.entity,
-                tc: this.$tc,
-                componentName: this.componentName
-            });
-        },
-
-        translationHelper() {
-            return this.formBuilderHelper.translationHelper;
-        },
-
-        pageStruct() {
-            return this.formBuilderHelper.buildPageStruct();
-        },
-
-        defaultTab() {
-            return this.pageStruct.tabs[0].id;
-        },
-
-        fieldModels() {
-            return new Proxy({}, {
-                get: (_, prop) => {
-                    return this.item.extensions?.[prop] ?? this.item?.[prop];
-                },
-                set: (_, prop, value) => {
-                    if (this.item.extensions?.hasOwnProperty(prop)) {
-                        this.item.extensions[prop] = value;
-                    } else {
-                        this.item[prop] = value;
-                    }
-                    return true;
-                }
-            });
-        }
-    },
-
-    created() {
-        this.createdComponent();
-    },
-
-    methods: {
-        async loadCustomFieldSets() {
-            if (this.item.customFields === undefined) {
-                return Promise.resolve();
-            }
-
-            this.customFieldSets = await this.customFieldDataProviderService
-                .getCustomFieldSets(this.entity);
-        },
-
-        async createdComponent() {
-            await this.loadCustomFieldSets();
-
-            this.formBuilderHelper.customFieldSets = this.customFieldSets;
-
-            console.log(this.item);
         }
     }
 });

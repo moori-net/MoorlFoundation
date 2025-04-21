@@ -1,7 +1,5 @@
-@import '~scss/variables';
-
-.moorl-modal-detail {
-    .moorl-modal-detail__card > .mt-card__content {
+.moorl-item-detail-form {
+    .moorl-item-detail-form__card > .mt-card__content {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-gap: 20px;
@@ -35,11 +33,11 @@
         }
     }
 
-    .sw-cms-modal-form {
+    .sw-cms-item-detail-form-form {
         margin: 0;
     }
 
-    .sw-cms-modal-form__section {
+    .sw-cms-item-detail-form-form__section {
         padding: 50px 0 70px 0;
     }
 }
