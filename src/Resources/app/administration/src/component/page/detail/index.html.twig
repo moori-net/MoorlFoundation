@@ -47,14 +47,14 @@
                                     <component
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"
-                                            v-model:entityCollection="item[field.name]"
+                                            v-model:entityCollection="fieldModels[field.name]"
                                             v-bind="field.attributes"
                                             :class="field.name + '-field'"
                                     />
 
                                     <sw-form-field-renderer
                                             v-else
-                                            v-model:value="item[field.name]"
+                                            v-model:value="fieldModels[field.name]"
                                             :type="field.type"
                                             :label="field.label"
                                             :config="field.attributes"

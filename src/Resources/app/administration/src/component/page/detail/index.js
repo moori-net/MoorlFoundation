@@ -55,6 +55,22 @@ Shopware.Component.register('moorl-page-detail', {
         defaultTab() {
             return this.pageStruct.tabs[0].id;
         },
+
+        fieldModels() {
+            return new Proxy({}, {
+                get: (_, prop) => {
+                    return this.item.extensions?.[prop] ?? this.item?.[prop];
+                },
+                set: (_, prop, value) => {
+                    if (this.item.extensions?.hasOwnProperty(prop)) {
+                        this.item.extensions[prop] = value;
+                    } else {
+                        this.item[prop] = value;
+                    }
+                    return true;
+                }
+            });
+        }
     },
 
     created() {
@@ -75,6 +91,8 @@ Shopware.Component.register('moorl-page-detail', {
             await this.loadCustomFieldSets();
 
             this.formBuilderHelper.customFieldSets = this.customFieldSets;
+
+            console.log(this.item);
         }
     }
 });

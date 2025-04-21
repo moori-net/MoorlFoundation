@@ -65,6 +65,22 @@ Shopware.Component.register('moorl-modal-detail', {
         defaultTab() {
             return this.modalStruct.tabs[0].id;
         },
+
+        fieldModels() {
+            return new Proxy({}, {
+                get: (_, prop) => {
+                    return this.item.extensions?.[prop] ?? this.item?.[prop];
+                },
+                set: (_, prop, value) => {
+                    if (this.item.extensions?.hasOwnProperty(prop)) {
+                        this.item.extensions[prop] = value;
+                    } else {
+                        this.item[prop] = value;
+                    }
+                    return true;
+                }
+            });
+        }
     },
 
     created() {

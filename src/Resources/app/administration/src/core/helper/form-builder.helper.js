@@ -26,7 +26,8 @@ export default class FormBuilderHelper {
             if (
                 field.type === 'uuid' ||
                 ['createdAt', 'updatedAt', 'translations'].includes(property) ||
-                field.flags.runtime !== undefined
+                field.flags.runtime !== undefined ||
+                field.flags.computed !== undefined
             ) continue;
 
             const column = this._buildColumn(field, property);
@@ -138,6 +139,13 @@ export default class FormBuilderHelper {
                 attributes.componentName = 'sw-entity-single-select';
                 attributes.showClearableButton = field.flags.required === undefined;
             }
+        } else if (field.relation === 'one_to_many') {
+            column.model = 'entityCollection';
+            column.componentName = 'sw-entity-multi-select';
+            attributes.localMode = true;
+            if (field.entity === 'media') {
+                attributes.labelProperty = 'fileName';
+            }
         } else if (field.relation === 'many_to_many') {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-many-to-many-select';
@@ -161,14 +169,6 @@ export default class FormBuilderHelper {
         const localField = field.localField;
 
         switch (column.componentName) {
-            case 'moorl-layout-card-v2':
-                column.card = 'self';
-                column.model = undefined;
-                attributes.item = this.item;
-                attributes.entity = this.entity;
-                break;
-
-
             case 'moorl-layout-card-v2':
                 column.card = 'self';
                 column.model = undefined;

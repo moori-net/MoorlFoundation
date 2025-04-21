@@ -15,7 +15,7 @@ const mapping = {
   role: { tab: 'general', card: 'profile' },
   link: { tab: 'general', card: 'profile', componentName: 'sw-url-field' },
   imprint: { tab: 'general', card: 'profile' },
-  customer: { tab: 'general', card: 'profile' },
+  customer: { tab: 'general', card: 'profile', attributes: { labelProperty: 'customerNumber' } },
 
   // Things
   autoIncrement: { tab: 'general', card: 'general' },
