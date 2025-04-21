@@ -10,8 +10,6 @@ const { Criteria } = Shopware.Data;
  * @selectedItem: Data row currently editing: Object
  * @entity = Storage name of table
  * @defaultItem = Override of item, Usage: Criteria
- *
- *
  * Shopware Standard
  * @sortBy: String
  * @sortDirection
@@ -20,7 +18,6 @@ const { Criteria } = Shopware.Data;
  * @page: Int
  * @limit: Int
  * @searchTerm: String
- *
  */
 Shopware.Component.register('moorl-entity-grid-v2', {
     inject: ['repositoryFactory', 'acl'],

@@ -38,6 +38,8 @@ const mapping = {
   type: { tab: 'general', card: 'general' },
   highlight: { tab: 'general', card: 'general' },
   creator: { tab: 'general', card: 'general' },
+  customerNumber: { tab: 'general', card: 'general' },
+  info: { tab: 'general', card: 'general' },
 
   // SEO / Meta
   schemaOrgType: { tab: 'seo', card: 'general' },
