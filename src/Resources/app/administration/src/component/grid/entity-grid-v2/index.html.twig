@@ -1,9 +1,9 @@
-<div v-if="items" class="moorl-entity-grid">
+<div v-if="items" class="moorl-entity-grid-v2">
     <sw-container
             v-if="topBarOptions.length > 0"
             :columns="topBarColumns"
             gap="0 10px"
-            class="moorl-entity-grid__top-bar"
+            class="moorl-entity-grid-v2__top-bar"
     >
         <sw-text-field
                 v-if="topBarOptions.includes('search')"
