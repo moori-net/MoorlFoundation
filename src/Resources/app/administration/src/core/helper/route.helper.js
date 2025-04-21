@@ -1,7 +1,7 @@
 class RouteHelper {
     constructor({entity, router}) {
-        this._entity = entity;
-        this._router = router;
+        this.entity = entity;
+        this.router = router;
 
         this._init();
     }

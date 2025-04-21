@@ -1,33 +1,33 @@
 class ListHelper {
     constructor({componentName, entity, tc, minVisibility = 0}) {
-        this._componentName = componentName;
-        this._entity = entity;
-        this._minVisibility = minVisibility;
-        this._properties = [];
-        this._tc = tc;
+        this.componentName = componentName;
+        this.entity = entity;
+        this.minVisibility = minVisibility;
+        this.properties = [];
+        this.tc = tc;
 
-        this._columns = [];
-        this._associations = [];
-        this._mediaProperty = undefined;
+        this.columns = [];
+        this.associations = [];
+        this.mediaProperty = undefined;
 
-        this._translationHelper = new MoorlFoundation.TranslationHelper({
-            tc: this._tc,
-            componentName: this._componentName
+        this.translationHelper = new MoorlFoundation.TranslationHelper({
+            tc: this.tc,
+            componentName: this.componentName
         });
 
         this.ready = this._init();
     }
 
     getColumns() {
-        return this._columns;
+        return this.columns;
     }
 
     getAssociations() {
-        return this._associations;
+        return this.associations;
     }
 
     getMediaProperty() {
-        return this._mediaProperty;
+        return this.mediaProperty;
     }
 
     async _init() {
@@ -43,10 +43,10 @@ class ListHelper {
 
         return new Promise((resolve, reject) => {
             const retry = async () => {
-                const pluginConfig = Shopware.Store.get('moorlProxy').getByEntity(this._entity);
+                const pluginConfig = Shopware.Store.get('moorlProxy').getByEntity(this.entity);
                 if (!pluginConfig) {
                     if (trys++ > 50) {
-                        console.error(`[${this._componentName}] Properties not loaded in time (${this._entity})`);
+                        console.error(`[${this.componentName}] Properties not loaded in time (${this.entity})`);
                         return reject(new Error('Timeout: PluginConfig not found'));
                     }
 
@@ -55,8 +55,8 @@ class ListHelper {
 
                 const properties = pluginConfig.properties ?? [];
 
-                this._properties = properties
-                    .filter(prop => prop.visibility >= this._minVisibility)
+                this.properties = properties
+                    .filter(prop => prop.visibility >= this.minVisibility)
                     .map(prop => prop.name);
 
                 resolve();
@@ -67,7 +67,7 @@ class ListHelper {
     }
 
     _initMediaProperty() {
-        const fields = Shopware.EntityDefinition.get(this._entity).properties;
+        const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
         for (const [property, field] of Object.entries(fields)) {
             const isMediaAssociation =
@@ -75,43 +75,43 @@ class ListHelper {
                 field.relation === 'many_to_one' &&
                 (
                     field.entity === 'media' ||
-                    field.entity === `${this._entity}_media`
+                    field.entity === `${this.entity}_media`
                 );
 
             if (!isMediaAssociation) {
                 continue;
             }
 
-            this._mediaProperty = property;
+            this.mediaProperty = property;
 
             const isDirectMedia = field.entity === 'media';
-            this._associations.push(isDirectMedia ? property : `${property}.media`);
+            this.associations.push(isDirectMedia ? property : `${property}.media`);
 
             return;
         }
     }
 
     _initAssociations() {
-        this._properties.forEach((property) => {
+        this.properties.forEach((property) => {
             let parts = property.split(".");
             parts.pop();
             if (parts.length > 0) {
                 const association = parts.join(".");
-                if (this._associations.indexOf(association) === -1) {
-                    this._associations.push(association);
+                if (this.associations.indexOf(association) === -1) {
+                    this.associations.push(association);
                 }
             }
         });
     }
 
     _initProperties() {
-        const fields = Shopware.EntityDefinition.get(this._entity).properties;
+        const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
-        this._properties.forEach((property) => {
+        this.properties.forEach((property) => {
             const key = property.split(".")[0];
 
             if (fields[key] === undefined) {
-                console.error(`Property ${property} of ${this._componentName} not found in ${this._entity}`);
+                console.error(`Property ${property} of ${this.componentName} not found in ${this.entity}`);
                 return;
             }
 
@@ -120,7 +120,7 @@ class ListHelper {
             const column = {
                 property: property,
                 dataIndex: property,
-                label: this._translationHelper.getLabel('field', property),
+                label: this.translationHelper.getLabel('field', property),
                 allowResize: true,
             };
 
@@ -135,7 +135,7 @@ class ListHelper {
                 case 'string':
                     column.inlineEdit = 'string';
                     column.align = 'left';
-                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(this._entity, 'detail');
+                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'detail');
                     break;
 
                 case 'int':
@@ -150,7 +150,7 @@ class ListHelper {
                     break;
             }
 
-            this._columns.push(column);
+            this.columns.push(column);
         });
     }
 }

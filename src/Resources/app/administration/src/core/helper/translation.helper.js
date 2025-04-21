@@ -1,16 +1,16 @@
 class TranslationHelper {
     constructor({componentName, snippetSrc, tc}) {
-        this._componentName = componentName;
-        this._snippetSrc = snippetSrc;
-        this._tc = tc;
-        this._snippetSets = [];
-        this._snippetStruct = {};
+        this.componentName = componentName;
+        this.snippetSrc = snippetSrc;
+        this.tc = tc;
+        this.snippetSets = [];
+        this.snippetStruct = {};
 
         this._init();
     }
 
     getSnippetSets() {
-        return this._snippetSets;
+        return this.snippetSets;
     }
 
     getNotification(property) {
@@ -22,22 +22,22 @@ class TranslationHelper {
         const translatedParts = [];
 
         for (const part of parts) {
-            for (const set of this._snippetSets) {
-                if (this._snippetStruct[set] === undefined) {
-                    this._snippetStruct[set] = {};
+            for (const set of this.snippetSets) {
+                if (this.snippetStruct[set] === undefined) {
+                    this.snippetStruct[set] = {};
                 }
-                if (this._snippetStruct[set][group] === undefined) {
-                    this._snippetStruct[set][group] = {};
+                if (this.snippetStruct[set][group] === undefined) {
+                    this.snippetStruct[set][group] = {};
                 }
 
                 const snippet = `${set}.${group}.${part}`;
-                const translated = this._tc(snippet);
+                const translated = this.tc(snippet);
 
                 if (translated !== snippet) {
                     translatedParts.push(translated);
                     break;
                 } else {
-                    this._snippetStruct[set][group][part] = part;
+                    this.snippetStruct[set][group][part] = part;
                 }
             }
         }
@@ -49,9 +49,9 @@ class TranslationHelper {
         if (showConsoleError) {
             const snippet = `${group}.${property}`;
 
-            console.error(`${this._componentName}: No translation found for ${snippet}`);
-            console.error(this._snippetSets);
-            console.error(this._snippetStruct);
+            console.error(`${this.componentName}: No translation found for ${snippet}`);
+            console.error(this.snippetSets);
+            console.error(this.snippetStruct);
 
             return snippet;
         }
@@ -60,18 +60,18 @@ class TranslationHelper {
     }
 
     _init() {
-        if (this._snippetSrc !== undefined) {
-            this._snippetSets.push(this._snippetSrc);
+        if (this.snippetSrc !== undefined) {
+            this.snippetSets.push(this.snippetSrc);
         }
-        let parts = this._componentName.split("-");
+        let parts = this.componentName.split("-");
 
         this._addSnippetSourceByComponentName(parts);
 
-        this._snippetSets.push("moorl-foundation"); // Fallback
+        this.snippetSets.push("moorl-foundation"); // Fallback
     }
 
     _addSnippetSourceByComponentName(parts) {
-        this._snippetSets.push(parts.join("-"));
+        this.snippetSets.push(parts.join("-"));
         parts.pop();
         // ignore moorl prefix
         if (parts.length > 1) {
