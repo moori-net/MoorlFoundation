@@ -48,22 +48,24 @@
                             </sw-alert>
 
                             <template v-for="field in card.fields" :key="field.name">
-                                <component
-                                        v-if="field.model === 'entityCollection'"
-                                        :is="field.componentName"
-                                        v-model:entityCollection="fieldModels[field.name]"
-                                        v-bind="field.attributes"
-                                        :class="field.name + '-field'"
-                                />
+                                <template v-if="isVisible(field)">
+                                    <component
+                                            v-if="field.model === 'entityCollection'"
+                                            :is="field.componentName"
+                                            v-model:entityCollection="fieldModels[field.name]"
+                                            v-bind="field.attributes"
+                                            :class="field.name + '-field'"
+                                    />
 
-                                <sw-form-field-renderer
-                                        v-else
-                                        v-model:value="fieldModels[field.name]"
-                                        :type="field.type"
-                                        :label="field.label"
-                                        :config="field.attributes"
-                                        :class="field.name + '-field'"
-                                />
+                                    <sw-form-field-renderer
+                                            v-else
+                                            v-model:value="fieldModels[field.name]"
+                                            :type="field.type"
+                                            :label="field.label"
+                                            :config="field.attributes"
+                                            :class="field.name + '-field'"
+                                    />
+                                </template>
                             </template>
                         </sw-card>
                     </template>

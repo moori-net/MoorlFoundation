@@ -231,7 +231,7 @@ export default class FormBuilderHelper {
 
     _finalizeAttributes(column, attributes, field, property) {
         attributes.label = column.label;
-        attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? 'name';
+        attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? undefined;
         attributes.required = field.flags.required;
         attributes.disabled = field.flags.write_protected;
         attributes.helpText = this.translationHelper.getLabel('helpText', property, false);

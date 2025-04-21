@@ -84,58 +84,7 @@ Shopware.Component.register('moorl-item-detail-form', {
 
     methods: {
         isVisible(field) {
-            if (!field.conditions || field.conditions.length === 0) {
-                return true;
-            }
-
-            const compare = (a, b, operator) => {
-                switch (operator) {
-                    case 'eq':
-                    case '==': return a == b;
-                    case '===': return a === b;
-                    case '!=': return a != b;
-                    case '!==': return a !== b;
-                    case 'gt':
-                    case '>': return a > b;
-                    case 'lt':
-                    case '<': return a < b;
-                    case 'gte':
-                    case '>=': return a >= b;
-                    case 'lte':
-                    case '<=': return a <= b;
-                    case 'in': return Array.isArray(b) && b.includes(a);
-                    case 'nin': return Array.isArray(b) && !b.includes(a);
-                    case 'includes': return typeof a === 'string' && a.includes(b);
-                    case 'notIncludes': return typeof a === 'string' && !a.includes(b);
-                    default: return false;
-                }
-            };
-
-            let fulfilled = 0;
-
-            for (let condition of field.conditions) {
-                const operator = condition.operator || '==';
-
-                let a, b;
-
-                if (!Array.isArray(condition.property)) {
-                    // property vs value
-                    a = this.item[condition.property];
-                    b = condition.value;
-                } else if (Array.isArray(condition.property) && condition.property.length === 2) {
-                    // property[0] vs property[1]
-                    a = this.item[condition.property[0]];
-                    b = this.item[condition.property[1]];
-                } else {
-                    continue;
-                }
-
-                if (compare(a, b, operator)) {
-                    fulfilled++;
-                }
-            }
-
-            return fulfilled === field.conditions.length;
+            return MoorlFoundation.ConditionHelper.isVisible(field, this.item);
         },
 
         async loadCustomFieldSets() {
