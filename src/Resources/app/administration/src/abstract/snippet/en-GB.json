@@ -1,6 +1,22 @@
 {
   "moorl-foundation": {
     "field": {
+      "site": "Einbaustelle",
+      "childCount": "Anzahl Kinder",
+      "path": "Pfad",
+      "children": "Kinder",
+      "parent": "Eltern",
+      "parentOriginId": "Eltern-Ursprungs-ID",
+      "autoBreadcrumbPlain": "Automatischer Breadcrumb",
+      "kbaNumbers": "KBA-Nummern",
+      "filterTemplate": "Filter-Template",
+      "categoryProducts": "Produkte",
+      "breadcrumb": "Breadcrumb",
+      "breadcrumbPlain": "Breadcrumb",
+      "kbaNumber": "KBA-Nummer",
+      "hsn": "HSN",
+      "tsn": "TSN",
+      "moorlAfCategory": "Zubehör-Finder-Kategorie",
       "levelCount": "Anzahl Ebenen",
       "productCount": "Anzahl Produkte",
       "redirectFix": "Weiterleitung",
