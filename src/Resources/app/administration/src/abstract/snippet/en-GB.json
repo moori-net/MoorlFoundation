@@ -1,6 +1,15 @@
 {
   "moorl-foundation": {
     "field": {
+      "price": "Preis",
+      "sales": "Verkäufe",
+      "merchant": "Händler",
+      "availableStock": "Verfügbarer Lagerbestand",
+      "customPrice": "Individueller Preis",
+      "deliveryTime": "Lieferzeit",
+      "isStock": "Ist Lagerbestand",
+      "stock": "Lagerbestand",
+      "tax": "Umsatzsteuer",
       "info": "Info",
       "customerNumber": "Nummer",
       "look": "Look",
@@ -118,6 +127,7 @@
       "custom4": "Benutzerdefiniert 4"
     },
     "tab": {
+      "stock": "Lagerbestand",
       "comments": "Kommentare",
       "customFields": "Benutzerdefiniert",
       "undefined": "Nicht zugewiesen",

@@ -16,6 +16,15 @@ const mapping = {
   link: { tab: 'general', card: 'profile', componentName: 'sw-url-field' },
   imprint: { tab: 'general', card: 'profile' },
 
+  // Stock
+  isStock: { tab: 'stock', card: 'general' },
+  stock: { tab: 'stock', card: 'general' },
+  sales: { tab: 'stock', card: 'general' },
+  availableStock: { tab: 'stock', card: 'general' },
+  customPrice: { tab: 'stock', card: 'general' },
+  deliveryTime: { tab: 'stock', card: 'general' },
+  tax: { tab: 'stock', card: 'general' },
+
   // Things
   autoIncrement: { tab: 'general', card: 'general' },
   date: { tab: 'general', card: 'general' },
@@ -56,11 +65,6 @@ const mapping = {
   customers: { tab: 'general', card: 'visibility', attributes: { labelProperty: 'customerNumber' } },
   customerGroup: { tab: 'general', card: 'visibility' },
   customerGroups: { tab: 'general', card: 'visibility' },
-
-  customer: { tab: 'general', card: 'profile', attributes: { labelProperty: 'customerNumber' } },
-  article: { tab: 'general', card: 'visibility' },
-  look: { tab: 'relations', card: 'general' },
-  product: { tab: 'relations', card: 'general' },
 
   // Address
   street: { tab: 'address', card: 'general' },
@@ -104,6 +108,11 @@ const mapping = {
   tags: { tab: 'relations', card: 'general' },
   medias: { tab: 'relations', card: 'general' },
   downloads: { tab: 'relations', card: 'general' },
+  customer: { tab: 'relations', card: 'profile', attributes: { labelProperty: 'customerNumber' } },
+  article: { tab: 'relations', card: 'visibility' },
+  look: { tab: 'relations', card: 'general' },
+  product: { tab: 'relations', card: 'general' },
+  merchant: { tab: 'relations', card: 'general' },
 
   // Custom Fields
   customFields: { tab: 'customFields', card: 'customFields', componentName: 'sw-custom-field-set-renderer' },
