@@ -1,6 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "cssClass": "CSS Klasse(n)",
+      "minResults": "Minimale Ergebnisse",
+      "page": "Seite",
       "redemptions": "Einlösungen",
       "redeemed": "Bisher eingelöst",
       "isRedeemed": "Vollständig eingelöst",

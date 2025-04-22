@@ -254,6 +254,19 @@ export default class FormBuilderHelper {
         if (this.item.translated?.[property] !== undefined) {
             attributes.placeholder = this.item.translated[property];
         }
+
+        for (const [key, value] of Object.entries(attributes)) {
+            if (typeof value === 'function') {
+                attributes[key] = value({
+                    item: this.item,
+                    entity: this.entity,
+                    customFieldSets: this.customFieldSets,
+                    column,
+                    field,
+                    property
+                });
+            }
+        }
     }
 
     _addColumnToStruct(column) {

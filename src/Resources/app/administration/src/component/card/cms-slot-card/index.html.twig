@@ -1,0 +1,10 @@
+{% block moorl_cms_slot_card %}
+    <sw-card class="moorl-cms-slot-card" :title="$tc('moorl-cms-slot-card.name')">
+        <sw-cms-slot
+                :key="item.id"
+                :element="item"
+                :disabled="false"
+                :active="true"
+        />
+    </sw-card>
+{% endblock %}

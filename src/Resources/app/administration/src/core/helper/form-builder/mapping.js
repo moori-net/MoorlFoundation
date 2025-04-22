@@ -38,6 +38,9 @@ const mapping = {
     deliveryTime: {tab: 'stock', card: 'general', cols: 12},
     tax: {tab: 'stock', card: 'general', cols: 12},
 
+    // General
+
+
     // Things
     name: {tab: 'general', card: 'general', cols: 12},
     technicalName: {tab: 'general', card: 'general', cols: 6},
@@ -89,6 +92,9 @@ const mapping = {
     customerGroups: {tab: 'general', card: 'visibility', cols: 12},
     redirectFix: {tab: 'general', card: 'visibility', cols: 12},
     language: {tab: 'general', card: 'visibility', cols: 12},
+    cssClass: {tab: 'general', card: 'visibility', cols: 6},
+    minResults: {tab: 'general', card: 'visibility', cols: 6},
+    page: {tab: 'general', card: 'visibility', cols: 6},
 
     // Address
     street: {tab: 'address', card: 'general', cols: 8},

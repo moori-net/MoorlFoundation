@@ -13,3 +13,5 @@ import './layout-card-v2';
 import './entity-grid-card';
 import './entity-grid-card-v2';
 import './custom-field-set-card';
+import './behaviour-card';
+import './cms-slot-card';
