@@ -12,7 +12,7 @@
                 @update:value="onSearch"
         />
 
-        <sw-button
+        <mt-button
                 v-if="topBarOptions.includes('new')"
                 variant="primary"
                 :block="true"
@@ -20,12 +20,12 @@
                 @click="onEditItem()"
         >
             <span>
-                <sw-icon name="regular-plus" size="12"/>
+                <mt-icon name="regular-plus" size="12"/>
                 {{ $tc('moorl-foundation.buttons.newButtonText') }}
             </span>
-        </sw-button>
+        </mt-button>
 
-        <sw-button
+        <mt-button
                 v-if="topBarOptions.includes('import')"
                 variant="primary"
                 :block="true"
@@ -33,12 +33,12 @@
                 @click="onImportModal"
         >
             <span>
-                <sw-icon name="regular-cloud-upload" size="12"/>
+                <mt-icon name="regular-cloud-upload" size="12"/>
                 {{ $tc('moorl-foundation.buttons.importButtonText') }}
             </span>
-        </sw-button>
+        </mt-button>
 
-        <sw-button
+        <mt-button
                 v-if="topBarOptions.includes('export')"
                 variant="primary"
                 :block="true"
@@ -47,10 +47,10 @@
                 @click="onExportModal"
         >
             <span>
-                <sw-icon name="regular-cloud-download" size="12"/>
+                <mt-icon name="regular-cloud-download" size="12"/>
                 {{ $tc('moorl-foundation.buttons.exportButtonText') }}
             </span>
-        </sw-button>
+        </mt-button>
     </sw-container>
 
     <sw-data-grid

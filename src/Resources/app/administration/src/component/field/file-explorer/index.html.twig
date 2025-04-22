@@ -5,10 +5,10 @@
     />
 
     <div v-if="showActions" class="moorl-file-explorer-actions">
-        <sw-button @click="showCreateDirModal = true">
-            <sw-icon name="regular-save" small/>
+        <mt-button @click="showCreateDirModal = true">
+            <mt-icon name="regular-save" small/>
             {{ $tc('moorl-file-explorer.actions.createDir') }}
-        </sw-button>
+        </mt-button>
     </div>
 
     <ul class="moorl-file-explorer-items">
@@ -16,7 +16,7 @@
                 v-if="value"
                 class="moorl-file-explorer-item"
         >
-            <sw-icon name="regular-long-arrow-left"/>
+            <mt-icon name="regular-long-arrow-left"/>
             <div
                     class="link"
                     @click="changeDirectory('..')"
@@ -31,7 +31,7 @@
                     v-if="item.type == 'dir'"
                     class="moorl-file-explorer-item"
             >
-                <sw-icon name="regular-folder"/>
+                <mt-icon name="regular-folder"/>
                 <div
                         class="link"
                         @click="changeDirectory(item.path)"
@@ -39,14 +39,14 @@
                     {{ getBasename(item.path) }}
                 </div>
                 <div>
-                    <sw-button
+                    <mt-button
                             v-if="showActions"
                             size="small"
                             square
                             @click="deleteDir(item.path)"
                     >
-                        <sw-icon name="regular-trash" small/>
-                    </sw-button>
+                        <mt-icon name="regular-trash" small/>
+                    </mt-button>
                 </div>
             </li>
 
@@ -54,7 +54,7 @@
                     v-else
                     class="moorl-file-explorer-item"
             >
-                <sw-icon name="regular-file"/>
+                <mt-icon name="regular-file"/>
                 <div
                         class="link"
                         @click="read(item.path)"
@@ -62,14 +62,14 @@
                     {{ getBasename(item.path) }}
                 </div>
                 <div>
-                    <sw-button
+                    <mt-button
                             v-if="showActions"
                             size="small"
                             square
                             @click="delete(item.path)"
                     >
-                        <sw-icon name="regular-trash" small/>
-                    </sw-button>
+                        <mt-icon name="regular-trash" small/>
+                    </mt-button>
                 </div>
             </li>
         </template>
@@ -85,13 +85,13 @@
         />
 
         <template #modal-footer>
-            <sw-button @click="showCreateDirModal = false" size="small">
+            <mt-button @click="showCreateDirModal = false" size="small">
                 {{ $tc('global.default.cancel') }}
-            </sw-button>
+            </mt-button>
 
-            <sw-button variant="primary" @click="createDir" size="small">
+            <mt-button variant="primary" @click="createDir" size="small">
                 {{ $tc('global.default.save') }}
-            </sw-button>
+            </mt-button>
         </template>
     </sw-modal>
 </div>

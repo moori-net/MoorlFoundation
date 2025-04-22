@@ -25,21 +25,21 @@
                             v-model:value="confirmed"
                     />
 
-                    <sw-button
+                    <mt-button
                             variant="primary"
                             :disabled="!acl.can('system.system_config') || !confirmed"
                             @click="install()"
                     >
                         {{ $tc('moorl-foundation.buttons.startButtonText') }}
-                    </sw-button>
+                    </mt-button>
 
-                    <sw-button
+                    <mt-button
                             variant="primary"
                             :disabled="!acl.can('system.system_config')"
                             @click="remove()"
                     >
                         {{ $tc('moorl-foundation.buttons.removeButtonText') }}
-                    </sw-button>
+                    </mt-button>
                 </template>
 
                 <template v-else>

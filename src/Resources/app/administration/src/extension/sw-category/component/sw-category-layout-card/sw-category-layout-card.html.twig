@@ -1,23 +1,23 @@
 {% block sw_category_detail_layout_desc_actions_remove %}
     {% parent %}
 
-    <sw-button
+    <mt-button
             v-if="cmsPage"
             size="small"
             :disabled="!acl.can('category.editor')"
             @click="showLayoutAdoptChildrenModal = true"
     >
         {{ $tc('sw-category.component.sw-category-layout-card.adoptChildren') }}
-    </sw-button>
+    </mt-button>
 
-    <sw-button
+    <mt-button
             v-if="cmsPage"
             size="small"
             :disabled="!acl.can('category.editor')"
             @click="showLayoutAdoptSiblingsModal = true"
     >
         {{ $tc('sw-category.component.sw-category-layout-card.adoptSiblings') }}
-    </sw-button>
+    </mt-button>
 
     <sw-confirm-modal
             v-if="showLayoutAdoptChildrenModal"

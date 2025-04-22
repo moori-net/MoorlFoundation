@@ -26,15 +26,15 @@
     </sw-container>
 
     <template #modal-footer>
-        <sw-button @click="onCancel" size="small">
+        <mt-button @click="onCancel" size="small">
             {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
-        </sw-button>
+        </mt-button>
 
-        <sw-button v-if="step == 1"
+        <mt-button v-if="step == 1"
                    @click="onClickExport"
                    variant="primary"
                    size="small">
             {{ $tc('moorl-foundation.buttons.startExportButtonText') }}
-        </sw-button>
+        </mt-button>
     </template>
 </sw-modal>

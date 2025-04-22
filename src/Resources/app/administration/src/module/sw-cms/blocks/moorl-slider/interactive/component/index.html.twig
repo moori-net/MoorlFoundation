@@ -1,16 +1,16 @@
 <div class="sw-cms-block-moorl-interactive-slider">
     <div class="sw-cms-block-moorl-interactive-slider-config">
-        <sw-button variant="light" @click="showConfigurationModal = true">
+        <mt-button variant="light" @click="showConfigurationModal = true">
             {{ $tc('moorl-foundation.buttons.configuration') }}
-        </sw-button>
+        </mt-button>
 
-        <sw-button variant="light" @click="addSlot()">
+        <mt-button variant="light" @click="addSlot()">
             {{ $tc('moorl-foundation.buttons.add') }}
-        </sw-button>
+        </mt-button>
 
-        <sw-button variant="light" @click="removeSlot()">
+        <mt-button variant="light" @click="removeSlot()">
             {{ $tc('moorl-foundation.buttons.remove') }}
-        </sw-button>
+        </mt-button>
 
         <moorl-select-field
                 v-model:value="activeSlot"

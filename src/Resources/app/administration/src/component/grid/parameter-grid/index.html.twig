@@ -66,10 +66,10 @@
         </template>
     </sw-data-grid>
 
-    <sw-button v-if="!fixed" :block="true" @click="addItem" variant="ghost">
+    <mt-button v-if="!fixed" :block="true" @click="addItem" variant="ghost">
         <span>
-            <sw-icon name="regular-plus-s" :small="true"/>
+            <mt-icon name="regular-plus-s" :small="true"/>
             {{ $tc('moorl-parameter-grid.addItem') }}
         </span>
-    </sw-button>
+    </mt-button>
 </div>

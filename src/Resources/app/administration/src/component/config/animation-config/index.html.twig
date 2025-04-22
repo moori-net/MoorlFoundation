@@ -13,16 +13,16 @@
             />
 
             <div>
-                <sw-icon @click="deleteEntry(index)" name="regular-trash" small/>
+                <mt-icon @click="deleteEntry(index)" name="regular-trash" small/>
             </div>
 
             <div>
-                <sw-icon
+                <mt-icon
                         v-if="expanded"
                         small
                         name="regular-chevron-down-s"
                 />
-                <sw-icon
+                <mt-icon
                         v-else
                         small
                         name="regular-chevron-right-s"
@@ -35,10 +35,10 @@
         </template>
     </sw-collapse>
 
-    <sw-button :block="true" @click="addEntry" variant="ghost">
+    <mt-button :block="true" @click="addEntry" variant="ghost">
         <span>
-            <sw-icon name="regular-plus-s" :small="true"/>
+            <mt-icon name="regular-plus-s" :small="true"/>
             {{ $tc('moorl-animation.label.add') }}
         </span>
-    </sw-button>
+    </mt-button>
 </div>

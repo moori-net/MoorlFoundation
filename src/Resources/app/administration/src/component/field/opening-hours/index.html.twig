@@ -5,14 +5,14 @@
         </div>
 
         <div class="moorl-opening-hours-actions">
-            <sw-button @click="removeTimes(dayIndex)">
-                <sw-icon name="regular-trash" size="16px"/>
+            <mt-button @click="removeTimes(dayIndex)">
+                <mt-icon name="regular-trash" size="16px"/>
                 {{ $tc('moorl-opening-hours.action.remove') }}
-            </sw-button>
-            <sw-button @click="addTimes(dayIndex)">
-                <sw-icon name="regular-plus" size="16px"/>
+            </mt-button>
+            <mt-button @click="addTimes(dayIndex)">
+                <mt-icon name="regular-plus" size="16px"/>
                 {{ $tc('moorl-opening-hours.action.add') }}
-            </sw-button>
+            </mt-button>
         </div>
 
         <template v-if="dayItem.times.length > 0">

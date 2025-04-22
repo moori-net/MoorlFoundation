@@ -35,7 +35,7 @@
                 @click="onCmsElementConfigSaverButtonClick"
                 v-tooltip.bottom="tooltipDisabled"
         >
-            <sw-icon name="regular-save" size="16"/>
+            <mt-icon name="regular-save" size="16"/>
         </div>
 
         <div
@@ -43,7 +43,7 @@
                 @click="showCmsElementAnimationModal = true"
                 v-tooltip.bottom="tooltipDisabled"
         >
-            <sw-icon name="regular-spinner-star" size="16"/>
+            <mt-icon name="regular-spinner-star" size="16"/>
         </div>
     </template>
 {% endblock %}
@@ -59,9 +59,9 @@
         <moorl-element-animation v-model:element="element"/>
 
         <template #modal-footer>
-            <sw-button variant="primary" @click="showCmsElementAnimationModal = false">
+            <mt-button variant="primary" @click="showCmsElementAnimationModal = false">
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
-            </sw-button>
+            </mt-button>
         </template>
     </sw-modal>
 
@@ -76,9 +76,9 @@
         />
 
         <div class="sw-field">
-            <sw-button variant="primary" @click="onSaveCmsElementConfig">
+            <mt-button variant="primary" @click="onSaveCmsElementConfig">
                 {{ $tc('sw-cms.component.sw-cms-slot.label.save') }}
-            </sw-button>
+            </mt-button>
         </div>
 
         <div class="moorl-link-field">
@@ -106,14 +106,14 @@
             </router-link>
         </div>
 
-        <sw-button variant="primary" @click="onLoadCmsElementConfig">
+        <mt-button variant="primary" @click="onLoadCmsElementConfig">
             {{ $tc('sw-cms.component.sw-cms-slot.label.load') }}
-        </sw-button>
+        </mt-button>
 
         <template #modal-footer>
-            <sw-button variant="primary" @click="showCmsElementConfigSaver = false">
+            <mt-button variant="primary" @click="showCmsElementConfigSaver = false">
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
-            </sw-button>
+            </mt-button>
         </template>
     </sw-modal>
 {% endblock %}

@@ -23,18 +23,18 @@
                             <template #header="{ expanded }">
                                 <div class="collapse-header" :class="expanded ? 'expanded' : ''">
                                     <div class="drag-indicator">
-                                        <sw-icon name="regular-grip-lines"/>
+                                        <mt-icon name="regular-grip-lines"/>
                                     </div>
 
                                     <h4>{{ entry.name ?? 'New entry' }}</h4>
 
                                     <div class="collapse-indicator">
-                                        <sw-icon
+                                        <mt-icon
                                                 v-if="expanded"
                                                 class="sw-media-collapse__button"
                                                 name="regular-chevron-down-s"
                                         />
-                                        <sw-icon
+                                        <mt-icon
                                                 v-else
                                                 class="sw-media-collapse__button"
                                                 name="regular-chevron-right-s"
@@ -56,21 +56,21 @@
                                             :softWraps="true"
                                     />
 
-                                    <sw-button variant="danger" @click.prevent="removeEntry($event, index)">
+                                    <mt-button variant="danger" @click.prevent="removeEntry($event, index)">
                                         {{ $tc('sw-cms.elements.moorl-accordion.label.remove') }}
-                                    </sw-button>
+                                    </mt-button>
                                 </div>
                             </template>
                         </sw-collapse>
                     </div>
 
                     <div class="config-moorl_faq_actions">
-                        <sw-button :block="true" @click="addEntry" variant="ghost">
+                        <mt-button :block="true" @click="addEntry" variant="ghost">
                             <span>
-                                <sw-icon name="regular-plus" :small="true"/>
+                                <mt-icon name="regular-plus" :small="true"/>
                                 {{ $tc('sw-cms.elements.moorl-accordion.label.add') }}
                             </span>
-                        </sw-button>
+                        </mt-button>
                     </div>
                 </div>
             </sw-container>

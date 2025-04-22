@@ -1,6 +1,6 @@
 <div class="moorl-section-config">
     <div class="sw-cms-section__action" @click="show = true">
-        <sw-icon
+        <mt-icon
                 name="regular-cog"
                 size="20"
                 :color="iconColor"
@@ -142,9 +142,9 @@
         </sw-tabs>
 
         <template #modal-footer>
-            <sw-button variant="primary" @click="show = false">
+            <mt-button variant="primary" @click="show = false">
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
-            </sw-button>
+            </mt-button>
         </template>
     </sw-modal>
 </div>
