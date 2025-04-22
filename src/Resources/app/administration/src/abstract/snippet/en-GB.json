@@ -1,6 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "optionPercentage": "Prozentangabe",
+      "productStream": "Dynamische Produktgruppe",
+      "showDiscount": "Als Streichpreis anzeigen",
       "site": "Einbaustelle",
       "childCount": "Anzahl Kinder",
       "path": "Pfad",
@@ -169,6 +172,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "relations": "Verknüpfungen",
       "profile": "Profil",
       "customFields": "Benutzerdefinierte Felder",
       "undefined": "Nicht zugewiesen",
