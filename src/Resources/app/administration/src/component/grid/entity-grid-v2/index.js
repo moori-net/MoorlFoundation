@@ -95,7 +95,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             searchTerm: null,
             isLoading: false,
             sortBy: 'createdAt',
-            sortDirection: 'DESC',
+            sortDirection: 'ASC',
             showEditModal: false,
             showImportModal: false,
             showExportModal: false,
@@ -174,6 +174,9 @@ Shopware.Component.register('moorl-entity-grid-v2', {
 
         async createdComponent() {
             await this.initListHelper();
+
+            this.sortBy = this.listHelper.getSortBy();
+
             this.loadTax();
             this.loadTax();
             this.loadDefaultCurrency();

@@ -18,6 +18,10 @@ export default class ListHelper {
         this.ready = this._init();
     }
 
+    getSortBy() {
+        return this.properties[0];
+    }
+
     getColumns() {
         return this.columns;
     }
