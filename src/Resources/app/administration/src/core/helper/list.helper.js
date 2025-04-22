@@ -3,6 +3,8 @@ export default class ListHelper {
         this.componentName = componentName;
         this.entity = entity;
         this.minVisibility = minVisibility;
+        this.pluginName = null;
+        this.demoName = null;
         this.properties = [];
         this.tc = tc;
 
@@ -62,6 +64,9 @@ export default class ListHelper {
                 this.properties = properties
                     .filter(prop => prop.visibility >= this.minVisibility)
                     .map(prop => prop.name);
+
+                this.pluginName = pluginConfig.pluginName ?? null;
+                this.demoName = pluginConfig.demoName ?? 'standard';
 
                 resolve();
             };

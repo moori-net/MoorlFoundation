@@ -39,22 +39,17 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             type: String,
             required: true,
         },
-        sortBy: {
-            type: String,
-            required: false,
-            default: 'createdAt',
-        },
-        sortDirection: {
-            type: String,
-            required: false,
-            default: 'DESC',
-        },
         defaultItem: {
             type: Object,
             required: false,
             default() {
                 return {};
             },
+        },
+        criteria: {
+            type: Object,
+            required: false,
+            default: undefined,
         },
         topBarOptions: {
             type: Array,
@@ -109,7 +104,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
 
     computed: {
         defaultCriteria() {
-            const criteria = new Criteria();
+            const criteria = this.criteria || new Criteria();
 
             this.listHelper.getAssociations().forEach(association => {
                 criteria.addAssociation(association);
