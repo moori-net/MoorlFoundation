@@ -42,6 +42,10 @@ export default class FormBuilderHelper {
         }
 
         this._sortStruct();
+
+        console.log("this.pageStruct");
+        console.log(this.pageStruct);
+
         return this.pageStruct;
     }
 
@@ -55,6 +59,8 @@ export default class FormBuilderHelper {
         }
 
         Object.assign(this.mapping, customMapping);
+
+        console.log(this.mapping);
     }
 
     _buildColumn(field, property) {
