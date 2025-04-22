@@ -12,6 +12,9 @@ const mapping = {
     },
     deeplink: {tab: 'customFields', card: 'deeplink', cols: 12},
 
+    // Promotion
+    discountValue: {tab: 'promotion', card: 'promotion', cols: 12},
+
     // Contact
     salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}, cols: 2},
     title: {tab: 'general', card: 'contact', cols: 2},

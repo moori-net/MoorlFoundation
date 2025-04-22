@@ -1,7 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "pseudoSales": "Pseudo-Verkäufe",
       "payload": "Payload",
+      "maxPurchase": "Maximale Abnahmemenge",
       "download": "Download",
       "newTab": "Im neuen Tab öffnen",
       "countdownType": "Countdown Typ",
@@ -10,7 +12,7 @@
       "internalName": "Interner Name",
       "isGamble": "Ist Gamble-Intervall",
       "stockType": "Lagerbestandsanzeige",
-      "ppStocks": "Promotion-Produkte",
+      "ppStocks": "Rabattaktion-Produkte",
       "isCountdown": "Ist Countdown",
       "options": "Optionen",
       "behaviour": "Verhalten",
@@ -198,6 +200,7 @@
       "custom4": "Benutzerdefiniert 4"
     },
     "tab": {
+      "promotion": "Rabattaktion",
       "directory": "Verzeichnis",
       "stock": "Lagerbestand",
       "comments": "Kommentare",
@@ -211,6 +214,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "promotion": "Rabattaktion",
       "options": "Optionen",
       "deeplink": "Deeplink-Token",
       "directory": "Verzeichnispfad",
