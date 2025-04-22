@@ -176,7 +176,7 @@ export default class FormBuilderHelper {
                 column.name = field.localField;
                 attributes.componentName = 'sw-media-field';
             } else if (field.entity === 'cms_page') {
-                if (this.item['slotConfig'] !== undefined) {
+                if (property === 'cmsPage' && this.item['slotConfig'] !== undefined) {
                     column.componentName = 'moorl-layout-card-v2';
                 } else {
                     column.name = field.localField;

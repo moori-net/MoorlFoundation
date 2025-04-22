@@ -16,10 +16,10 @@ const mapping = {
     discountValue: {tab: 'promotion', card: 'promotion', cols: 12},
 
     // Contact
-    salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}, cols: 2},
-    title: {tab: 'general', card: 'contact', cols: 2},
-    firstName: {tab: 'general', card: 'contact', cols: 4},
-    lastName: {tab: 'general', card: 'contact', cols: 4},
+    salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}, cols: 3},
+    title: {tab: 'general', card: 'contact', cols: 3},
+    firstName: {tab: 'general', card: 'contact', cols: 3},
+    lastName: {tab: 'general', card: 'contact', cols: 3},
     email: {tab: 'general', card: 'contact', componentName: 'sw-email-field', cols: 6},
     phoneNumber: {tab: 'general', card: 'contact', cols: 6},
     shopUrl: {tab: 'general', card: 'contact', componentName: 'sw-url-field', cols: 6},
