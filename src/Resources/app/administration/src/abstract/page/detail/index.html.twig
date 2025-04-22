@@ -1,4 +1,8 @@
 <sw-page :class="componentName">
+    {% block moorl_page_detail_smart_bar_back %}
+        <!--template #smart-bar-back></template-->
+    {% endblock %}
+
     <template #smart-bar-header>
         {% block moorl_page_detail_smart_bar_header %}
             <h2>{{ itemName }}</h2>
