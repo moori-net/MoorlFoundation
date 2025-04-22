@@ -6,7 +6,10 @@ Shopware.Component.register('moorl-opening-hours', {
 
     emits: ['update:value'],
 
-    props: ['value'],
+    props: [
+        'value',
+        'disabled'
+    ],
 
     watch: {
         value: function () {

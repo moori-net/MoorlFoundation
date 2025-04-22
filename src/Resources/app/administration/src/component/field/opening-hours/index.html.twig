@@ -5,11 +5,20 @@
         </div>
 
         <div class="moorl-opening-hours-actions">
-            <mt-button @click="removeTimes(dayIndex)">
+            <mt-button
+                    @click="removeTimes(dayIndex)"
+                    :disabled="disabled"
+                    variant="secondary"
+            >
                 <mt-icon name="regular-trash" size="16px"/>
                 {{ $tc('moorl-opening-hours.action.remove') }}
             </mt-button>
-            <mt-button @click="addTimes(dayIndex)">
+
+            <mt-button
+                    @click="addTimes(dayIndex)"
+                    :disabled="disabled"
+                    variant="secondary"
+            >
                 <mt-icon name="regular-plus" size="16px"/>
                 {{ $tc('moorl-opening-hours.action.add') }}
             </mt-button>
@@ -18,8 +27,19 @@
         <template v-if="dayItem.times.length > 0">
             <ul class="moorl-opening-hours-times">
                 <li v-for="time in dayItem.times">
-                    <sw-datepicker dateType="time" size="small" v-model:value="time.from"/>
-                    <sw-datepicker dateType="time" size="small" v-model:value="time.until"/>
+                    <sw-datepicker
+                            dateType="time"
+                            size="small"
+                            v-model:value="time.from"
+                            :disabled="disabled"
+                    />
+
+                    <sw-datepicker
+                            dateType="time"
+                            size="small"
+                            v-model:value="time.until"
+                            :disabled="disabled"
+                    />
                 </li>
             </ul>
         </template>
@@ -28,6 +48,7 @@
             <sw-text-field
                     :placeholder="$tc('moorl-opening-hours.action.enterClosedHint')"
                     v-model:value="dayItem.info"
+                    :disabled="disabled"
             />
         </template>
     </li>
