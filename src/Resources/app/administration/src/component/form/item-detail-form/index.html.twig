@@ -23,11 +23,20 @@
         </template>
 
         <template #content="{ active }">
-            <template v-for="tab in formStruct.tabs" :key="tab.id">
+            <template
+                    v-for="tab in formStruct.tabs"
+                    :key="tab.id"
+            >
                 <template v-if="active === tab.id">
-                    <template v-for="card in tab.cards" :key="card.id">
-                        <template v-if="card.id === 'self'">
-                            <template v-for="field in card.fields" :key="field.name">
+                    <template
+                            v-for="card in tab.cards"
+                            :key="card.id"
+                    >
+                        <template v-if="card.standalone">
+                            <template
+                                    v-for="field in card.fields"
+                                    :key="field.name"
+                            >
                                 <component
                                         v-if="isVisible(field)"
                                         :is="field.componentName"
@@ -49,7 +58,10 @@
                                 {{ translationHelper.getNotification(card.id) }}
                             </sw-alert>
 
-                            <template v-for="field in card.fields" :key="field.name">
+                            <template
+                                    v-for="field in card.fields"
+                                    :key="field.name"
+                            >
                                 <div
                                         v-if="isVisible(field)"
                                         :style="getStyle(field)"

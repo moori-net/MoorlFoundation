@@ -40,7 +40,7 @@ export default class FormBuilderHelper {
             const column = this._buildColumn(field, property);
             if (!column) continue;
 
-            this._addColumnToStruct(column);
+            this._addColumnToStruct(column, property);
         }
 
         this._sortStruct();
@@ -202,7 +202,7 @@ export default class FormBuilderHelper {
                 break;
 
             case 'moorl-layout-card-v2':
-                column.card = 'self';
+                column.card = null;
                 column.model = undefined;
                 attributes.item = this.item;
                 attributes.entity = this.entity;
@@ -218,7 +218,7 @@ export default class FormBuilderHelper {
 
             case 'moorl-entity-grid-card':
             case 'moorl-entity-grid-card-v2':
-                column.card = 'self';
+                column.card = null;
                 column.model = undefined;
                 attributes.title = column.label;
                 attributes.componentName = this.componentName;
@@ -229,7 +229,7 @@ export default class FormBuilderHelper {
                 break;
 
             case 'sw-seo-url':
-                column.card = 'self';
+                column.card = null;
                 column.model = undefined;
                 attributes.hasDefaultTemplate = false;
                 attributes.urls = this.item[property];
@@ -269,7 +269,7 @@ export default class FormBuilderHelper {
         }
     }
 
-    _addColumnToStruct(column) {
+    _addColumnToStruct(column, property) {
         let tab = this.pageStruct.tabs.find(t => t.id === column.tab);
         if (!tab) {
             tab = {
@@ -280,12 +280,19 @@ export default class FormBuilderHelper {
             this.pageStruct.tabs.push(tab);
         }
 
-        let card = tab.cards.find(c => c.id === column.card);
+        const cardStandalone = !column.card;
+        const cardId = cardStandalone ? property : column.card;
+        const cardOrder = cardStandalone ? column.order : undefined;
+        const cardLabel = cardStandalone ? undefined : this.translationHelper.getLabel('card', cardId);
+
+        let card = tab.cards.find(c => c.id === cardId);
         if (!card) {
             card = {
-                id: column.card,
-                label: this.translationHelper.getLabel('card', column.card),
-                fields: []
+                id: cardId,
+                label: cardLabel,
+                order: cardOrder,
+                standalone: cardStandalone,
+                fields: [],
             };
             tab.cards.push(card);
         }
@@ -299,11 +306,20 @@ export default class FormBuilderHelper {
             return index === -1 ? 9999 : index;
         };
 
+        // Tabs sortieren (nach ID in der order-Liste)
         this.pageStruct.tabs.sort((a, b) => getOrderIndex(a.id) - getOrderIndex(b.id));
 
         this.pageStruct.tabs.forEach(tab => {
-            tab.cards.sort((a, b) => getOrderIndex(a.id) - getOrderIndex(b.id));
+            // Cards sortieren – zuerst nach explizitem card.order, dann fallback auf ID-Reihenfolge
+            tab.cards.sort((a, b) => {
+                const aOrder = a.order ?? getOrderIndex(a.id);
+                const bOrder = b.order ?? getOrderIndex(b.id);
 
+                if (aOrder !== bOrder) return aOrder - bOrder;
+                return a.id.localeCompare(b.id);
+            });
+
+            // Fields sortieren – wie gehabt
             tab.cards.forEach(card => {
                 card.fields.sort((a, b) => {
                     const aOrder = a.order ?? 9999;

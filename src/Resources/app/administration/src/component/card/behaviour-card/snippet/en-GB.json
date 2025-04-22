@@ -2,6 +2,7 @@
   "moorl-behaviour-card": {
     "name": "Behaviour",
     "helpText": {
+      "autoSize": "Always keep the size of each box element in the listing.",
       "width": "What width (x/12) should the element have in the viewport `{viewport}`?",
       "order": "Which arrangement (1-48) should the element for the viewport `{viewport}` have in the listing?"
     },
