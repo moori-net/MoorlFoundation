@@ -125,7 +125,7 @@ Shopware.Component.register('moorl-item-detail-form', {
         getStyle(field) {
             return {
                 'grid-column': `span ${field.cols}`,
-                order: field.order
+                /*order: field.order*/
             }
         },
 

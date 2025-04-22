@@ -3,7 +3,11 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-gap: 20px;
-        grid-auto-flow: dense;
+        grid-auto-flow: row;
+
+        > .newline {
+            grid-column: 1 / -1;
+        }
 
         > .mt-banner {
             grid-column: span 12;

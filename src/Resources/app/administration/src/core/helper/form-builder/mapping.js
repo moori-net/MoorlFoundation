@@ -107,7 +107,7 @@ const mapping = {
     priority: {tab: 'general', card: 'visibility', cols: 6},
     sticky: {tab: 'general', card: 'visibility', cols: 6},
     invisible: {tab: 'general', card: 'visibility', cols: 6},
-    showFrom: {tab: 'general', card: 'visibility', cols: 6},
+    showFrom: {tab: 'general', card: 'visibility', cols: 6, newline: true},
     showUntil: {tab: 'general', card: 'visibility', cols: 6},
     categories: {tab: 'general', card: 'visibility', cols: 12},
     swCategories: {tab: 'general', card: 'visibility', cols: 12},

@@ -62,6 +62,8 @@
                                     v-for="field in card.fields"
                                     :key="field.name"
                             >
+                                <div v-if="field.newline" class="newline"></div>
+
                                 <div :style="getStyle(field)">
                                     <component
                                             v-if="field.model === 'entityCollection'"

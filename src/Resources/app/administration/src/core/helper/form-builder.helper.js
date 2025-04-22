@@ -1,7 +1,7 @@
 import mapping from './form-builder/mapping.js';
 import order from './form-builder/order.json';
 
-const {merge} = Shopware.Utils.object;
+const {merge, cloneDeep} = Shopware.Utils.object;
 
 export default class FormBuilderHelper {
     constructor({entity, item, componentName, tc, snippetSrc = 'moorl-foundation', customFieldSets = [] }) {
@@ -11,7 +11,7 @@ export default class FormBuilderHelper {
         this.snippetSrc = snippetSrc;
         this.customFieldSets = customFieldSets;
 
-        this.mapping = mapping;
+        this.mapping = cloneDeep(mapping);
         this.order = order;
         this.pageStruct = { tabs: [] };
         this.mediaOrder = 4999;
