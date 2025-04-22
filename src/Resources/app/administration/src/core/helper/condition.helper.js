@@ -18,38 +18,34 @@ export default class ConditionHelper {
         let fulfilled = 0;
 
         for (const condition of conditions) {
-            const { property, value, operator = '==' } = condition;
+            const { property, value, operator = '==', callback } = condition;
+            let result = false;
 
-            // Support callback functions as value
             if (typeof value === 'function') {
-                if (value(item)) {
-                    fulfilled++;
-                }
-                continue;
-            }
-
-            let a, b;
-
-            if (!Array.isArray(property)) {
-                // Compare property with fixed value
-                a = item[property];
-                b = value;
-            } else if (property.length === 2) {
-                // Compare two properties from item
-                a = item[property[0]];
-                b = item[property[1]];
+                result = value(item);
             } else {
-                continue;
+                let a, b;
+
+                if (!Array.isArray(property)) {
+                    a = item[property];
+                    b = value;
+                } else if (property.length === 2) {
+                    a = item[property[0]];
+                    b = item[property[1]];
+                }
+
+                if (a === undefined) {
+                    result = true;
+                } else {
+                    result = ConditionHelper._compare(a, b, operator);
+                }
             }
 
-            if (a === undefined) {
-                fulfilled++;
-                continue;
+            if (typeof callback === 'function') {
+                callback({ result, item });
             }
 
-            if (ConditionHelper._compare(a, b, operator)) {
-                fulfilled++;
-            }
+            if (result) fulfilled++;
         }
 
         return fulfilled === conditions.length;
