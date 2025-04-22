@@ -225,11 +225,6 @@ export default class FormBuilderHelper {
         const localField = field.localField;
 
         switch (column.componentName) {
-            case 'moorl-file-explorer':
-                attributes.clientId = this.item.clientId;
-                attributes.showActions = false;
-                break;
-
             case 'moorl-layout-card-v2':
                 column.card = null;
                 column.model = undefined;

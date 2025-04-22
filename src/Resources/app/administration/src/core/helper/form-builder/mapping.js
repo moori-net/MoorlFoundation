@@ -2,12 +2,9 @@ const mapping = {
     // Other
     children: {tab: 'general', card: 'general', cols: 12},
     directory: {
-        tab: 'directory',
-        card: 'directory',
-        componentName: 'moorl-file-explorer',
-        conditions: [
-            {property: 'clientId', value: null, operator: '!=='}
-        ],
+        tab: 'directory', card: 'directory', componentName: 'moorl-file-explorer',
+        conditions: [{property: 'clientId', value: null, operator: '!=='}],
+        attributes: {clientId: ({item}) => item.clientId, showActions: false},
         cols: 12
     },
     deeplink: {tab: 'customFields', card: 'deeplink', cols: 12},
