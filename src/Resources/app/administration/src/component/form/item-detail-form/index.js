@@ -75,6 +75,15 @@ Shopware.Component.register('moorl-item-detail-form', {
         }
     },
 
+    watch: {
+        item: {
+            handler() {
+                this.formStruct = this.formBuilderHelper.buildFormStruct();
+            },
+            deep: false
+        }
+    },
+
     created() {
         this.createdComponent();
     },

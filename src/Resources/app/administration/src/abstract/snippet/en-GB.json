@@ -1,6 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "finishedAt": "Beendet am",
+      "discountType": "Rabattaktion-Typ",
+      "ppPromotion": "Rabattaktion",
       "pseudoSales": "Pseudo-Verkäufe",
       "payload": "Payload",
       "maxPurchase": "Maximale Abnahmemenge",
