@@ -29,7 +29,12 @@
             "cssDisplay": "Display",
             "cssFlexDirection": "Flex direction",
             "cssFlexWrap": "Flex wrap",
-            "operator": "Operator"
+            "operator": "Operator",
+            "visibility": "Visibility"
+        },
+        "visibility": {
+            "public": "Public",
+            "private": "Private"
         },
         "cssFlexWrap": {
             "wrap": "Wrap",

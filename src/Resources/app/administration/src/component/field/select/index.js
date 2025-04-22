@@ -26,6 +26,7 @@ import cssFlexDirection from './sets/css-flex-direction.json';
 import cssObjectFit from './sets/css-object-fit.json';
 import cssDisplay from './sets/css-display.json';
 import timeZone from './sets/time-zone.json';
+import visibility from './sets/visibility.json';
 
 import bsGridWidth from './sets/bs-grid-width';
 import bsGridOrder from './sets/bs-grid-order';
@@ -58,6 +59,7 @@ const sets = {
     cssObjectFit,
     cssDisplay,
     timeZone,
+    visibility,
     bsGridWidth,
     bsGridOrder,
     bsGridColumns,

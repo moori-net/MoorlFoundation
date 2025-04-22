@@ -1,0 +1,4 @@
+[
+    { "value": "public", "label": "moorl-select.visibility.public" },
+    { "value": "private", "label": "moorl-select.visibility.private" }
+]

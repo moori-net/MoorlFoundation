@@ -191,6 +191,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "deeplink": "Deeplink-Token",
       "directory": "Verzeichnispfad",
       "relations": "Verknüpfungen",
       "profile": "Profil",

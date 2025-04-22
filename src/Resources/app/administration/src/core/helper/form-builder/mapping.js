@@ -10,6 +10,7 @@ const mapping = {
         ],
         cols: 12
     },
+    deeplink: {tab: 'customFields', card: 'deeplink', cols: 12},
 
     // Contact
     salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}, cols: 2},
