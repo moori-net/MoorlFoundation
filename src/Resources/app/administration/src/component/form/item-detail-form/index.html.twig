@@ -62,15 +62,12 @@
                                     v-for="field in card.fields"
                                     :key="field.name"
                             >
-                                <div
-                                        v-if="isVisible(field)"
-                                        :style="getStyle(field)"
-                                >
+                                <div :style="getStyle(field)">
                                     <component
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"
                                             v-model:entityCollection="fieldModels[field.name]"
-                                            v-bind="field.attributes"
+                                            v-bind="fieldAttributes(field)"
                                     />
 
                                     <sw-form-field-renderer
@@ -78,7 +75,7 @@
                                             v-model:value="fieldModels[field.name]"
                                             :type="field.type"
                                             :label="field.label"
-                                            :config="field.attributes"
+                                            :config="fieldAttributes(field)"
                                     />
                                 </div>
                             </template>

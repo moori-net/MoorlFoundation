@@ -60,6 +60,34 @@ export default class FormBuilderHelper {
             currentOrder += 10;
         }
 
+        for (const [key, config] of Object.entries(customMapping)) {
+            if (typeof config.order === 'string') {
+                const orderStr = config.order;
+
+                if (orderStr === 'first') {
+                    config.order = 0;
+                } else if (orderStr === 'last') {
+                    config.order = 9999;
+                } else {
+                    const match = orderStr.match(/^(before|after):?(.*)$/);
+                    if (match) {
+                        const [, position, targetKey] = match;
+                        const target = this.mapping[targetKey];
+
+                        const baseOrder = target?.order ?? 9999;
+                        config.order = position === 'before' ? baseOrder - 1 : baseOrder + 1;
+
+                        if (target) {
+                            config.tab ??= target.tab;
+                            config.card ??= target.card;
+                        }
+                    } else {
+                        console.error(`[FormBuilderHelper] Invalid string in order:"${orderStr}". Use "first", "last", "before:targetKey" or "after:targetKey"`);
+                    }
+                }
+            }
+        }
+
         merge(this.mapping, customMapping);
 
         console.log(this.mapping);
@@ -307,11 +335,9 @@ export default class FormBuilderHelper {
             return index === -1 ? 9999 : index;
         };
 
-        // Tabs sortieren (nach ID in der order-Liste)
         this.pageStruct.tabs.sort((a, b) => getOrderIndex(a.id) - getOrderIndex(b.id));
 
         this.pageStruct.tabs.forEach(tab => {
-            // Cards sortieren – zuerst nach explizitem card.order, dann fallback auf ID-Reihenfolge
             tab.cards.sort((a, b) => {
                 const aOrder = a.order ?? getOrderIndex(a.id);
                 const bOrder = b.order ?? getOrderIndex(b.id);
@@ -320,7 +346,6 @@ export default class FormBuilderHelper {
                 return a.id.localeCompare(b.id);
             });
 
-            // Fields sortieren – wie gehabt
             tab.cards.forEach(card => {
                 card.fields.sort((a, b) => {
                     const aOrder = a.order ?? 9999;

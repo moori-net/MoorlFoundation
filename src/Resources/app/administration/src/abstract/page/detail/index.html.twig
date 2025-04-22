@@ -19,7 +19,7 @@
                 {{ $tc('global.default.cancel') }}
             </mt-button>
 
-            <mt-button-group :split-button="true">
+            <sw-button-group :split-button="true">
                 <sw-button-process
                         v-model:process-success="isSaveSuccessful"
                         variant="primary"
@@ -46,7 +46,7 @@
                         {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
                     </sw-context-menu-item>
                 </sw-context-button>
-            </mt-button-group>
+            </sw-button-group>
 
             <mt-button
                     v-if="!isNewItem"

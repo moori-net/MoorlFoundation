@@ -1,6 +1,18 @@
 {
   "moorl-foundation": {
     "field": {
+      "payload": "Payload",
+      "download": "Download",
+      "newTab": "Im neuen Tab öffnen",
+      "countdownType": "Countdown Typ",
+      "discountValue": "Rabattwert",
+      "gambleType": "Gamble-Intervall",
+      "internalName": "Interner Name",
+      "isGamble": "Ist Gamble-Intervall",
+      "stockType": "Lagerbestandsanzeige",
+      "ppStocks": "Promotion-Produkte",
+      "isCountdown": "Ist Countdown",
+      "options": "Optionen",
       "behaviour": "Verhalten",
       "config": "Konfiguration",
       "cssClass": "CSS Klasse(n)",
@@ -199,6 +211,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "options": "Optionen",
       "deeplink": "Deeplink-Token",
       "directory": "Verzeichnispfad",
       "relations": "Verknüpfungen",

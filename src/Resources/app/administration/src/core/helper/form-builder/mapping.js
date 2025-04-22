@@ -29,8 +29,33 @@ const mapping = {
     link: {tab: 'general', card: 'profile', componentName: 'sw-url-field', cols: 12},
     imprint: {tab: 'general', card: 'profile', cols: 12},
 
+    // Options
+    isStock: {tab: 'general', card: 'options', cols: 6},
+    stockType: {
+        tab: 'general', card: 'options', cols: 6,
+        conditions: [{property: 'isStock', value: true, operator: 'eq'}],
+        componentName: 'moorl-select-field',
+        attributes: {set: 'stockType'}
+    },
+    isCountdown: {tab: 'general', card: 'options', cols: 6},
+    countdownType: {
+        tab: 'general', card: 'options', cols: 6,
+        conditions: [{property: 'isCountdown', value: true, operator: 'eq'}],
+        componentName: 'moorl-select-field',
+        attributes: {set: 'countdownType'}
+    },
+    isGamble: {tab: 'general', card: 'options', cols: 6},
+    gambleType: {
+        tab: 'general', card: 'options', cols: 6,
+        conditions: [{property: 'isGamble', value: true, operator: 'eq'}],
+        componentName: 'moorl-select-field',
+        attributes: {set: 'interval'}
+    },
+    hasFiles: {tab: 'general', card: 'options', cols: 6},
+    hasCodes: {tab: 'general', card: 'options', cols: 6},
+    hasLinks: {tab: 'general', card: 'options', cols: 6},
+
     // Stock
-    isStock: {tab: 'stock', card: 'general', cols: 12},
     stock: {tab: 'stock', card: 'general', cols: 12},
     sales: {tab: 'stock', card: 'general', cols: 12},
     availableStock: {tab: 'stock', card: 'general', cols: 12},
@@ -44,18 +69,15 @@ const mapping = {
     // Things
     name: {tab: 'general', card: 'general', cols: 12},
     technicalName: {tab: 'general', card: 'general', cols: 6},
+    internalName: {tab: 'general', card: 'general', cols: 6},
     highlight: {tab: 'general', card: 'general', cols: 6},
     type: {tab: 'general', card: 'general', cols: 6},
     levelCount: {tab: 'general', card: 'general', cols: 6},
     autoIncrement: {tab: 'general', card: 'general', cols: 6},
     date: {tab: 'general', card: 'general', cols: 6},
     optionPercentage: {tab: 'general', card: 'general', cols: 6},
-    showDiscount: {tab: 'general', card: 'general', cols: 6},
-    hasCodes: {tab: 'general', card: 'general', cols: 6},
-    hasFiles: {tab: 'general', card: 'general', cols: 6},
-    hasLinks: {tab: 'general', card: 'general', cols: 6},
     redeemCode: {tab: 'general', card: 'general', cols: 6},
-
+    showDiscount: {tab: 'general', card: 'general', cols: 6},
     subscriptionTime: {tab: 'general', card: 'general', cols: 6},
     teaser: {tab: 'general', card: 'general', cols: 12},
     description: {tab: 'general', card: 'general', cols: 12},

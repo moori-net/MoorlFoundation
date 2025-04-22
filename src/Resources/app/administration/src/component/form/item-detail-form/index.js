@@ -36,6 +36,7 @@ Shopware.Component.register('moorl-item-detail-form', {
     data() {
         return {
             customFieldSets: null,
+            formStruct: null
         };
     },
 
@@ -53,12 +54,8 @@ Shopware.Component.register('moorl-item-detail-form', {
             return this.formBuilderHelper.translationHelper;
         },
 
-        formStruct() {
-            return this.formBuilderHelper.buildFormStruct();
-        },
-
         defaultTab() {
-            return this.formStruct.tabs[0].id;
+            return this.formStruct?.tabs?.[0]?.id ?? null;
         },
 
         fieldModels() {
@@ -83,8 +80,19 @@ Shopware.Component.register('moorl-item-detail-form', {
     },
 
     methods: {
+        fieldAttributes(field) {
+            return {
+                ...field.attributes,
+                disabled: this.isDisabled(field)
+            };
+        },
+
         isVisible(field) {
             return MoorlFoundation.ConditionHelper.isVisible(field, this.item);
+        },
+
+        isDisabled(field) {
+            return !this.isVisible(field);
         },
 
         isDisabledTab(tab) {
@@ -107,7 +115,8 @@ Shopware.Component.register('moorl-item-detail-form', {
 
         getStyle(field) {
             return {
-                'grid-column': `span ${field.cols}`
+                'grid-column': `span ${field.cols}`,
+                order: field.order
             }
         },
 
@@ -121,6 +130,8 @@ Shopware.Component.register('moorl-item-detail-form', {
         },
 
         async createdComponent() {
+            this.formStruct = this.formBuilderHelper.buildFormStruct();
+
             await this.loadCustomFieldSets();
 
             this.formBuilderHelper.customFieldSets = this.customFieldSets;

@@ -27,6 +27,9 @@ import cssObjectFit from './sets/css-object-fit.json';
 import cssDisplay from './sets/css-display.json';
 import timeZone from './sets/time-zone.json';
 import visibility from './sets/visibility.json';
+import stockType from './sets/stock-type.json';
+import countdownType from './sets/countdown-type.json';
+import interval from './sets/interval.json';
 
 import bsGridWidth from './sets/bs-grid-width';
 import bsGridOrder from './sets/bs-grid-order';
@@ -60,6 +63,9 @@ const sets = {
     cssDisplay,
     timeZone,
     visibility,
+    stockType,
+    countdownType,
+    interval,
     bsGridWidth,
     bsGridOrder,
     bsGridColumns,
