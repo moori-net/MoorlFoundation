@@ -1,6 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "redemptions": "Einlösungen",
+      "redeemed": "Bisher eingelöst",
+      "isRedeemed": "Vollständig eingelöst",
       "order": "Bestellung",
       "orderNumber": "Nummer",
       "validUntil": "Gültig bis",

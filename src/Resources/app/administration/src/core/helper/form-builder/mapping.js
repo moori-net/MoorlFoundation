@@ -88,6 +88,7 @@ const mapping = {
     customers: {tab: 'general', card: 'visibility', attributes: {labelProperty: 'customerNumber'}, cols: 12},
     customerGroups: {tab: 'general', card: 'visibility', cols: 12},
     redirectFix: {tab: 'general', card: 'visibility', cols: 12},
+    language: {tab: 'general', card: 'visibility', cols: 12},
 
     // Address
     street: {tab: 'address', card: 'general', cols: 8},
@@ -152,7 +153,6 @@ const mapping = {
     category: {tab: 'relations', card: 'relations', cols: 12},
     site: {tab: 'relations', card: 'relations', cols: 12},
     client: {tab: 'relations', card: 'relations', cols: 12},
-    language: {tab: 'relations', card: 'relations', cols: 12},
     creator: {tab: 'general', card: 'general', cols: 12},
 
     // Custom Fields
