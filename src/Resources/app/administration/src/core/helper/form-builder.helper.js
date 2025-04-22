@@ -1,6 +1,8 @@
 import mapping from './form-builder/mapping.js';
 import order from './form-builder/order.json';
 
+const {merge} = Shopware.Utils.object;
+
 export default class FormBuilderHelper {
     constructor({entity, item, componentName, tc, snippetSrc = 'moorl-foundation', customFieldSets = [] }) {
         this.entity = entity;
@@ -58,7 +60,7 @@ export default class FormBuilderHelper {
             currentOrder += 10;
         }
 
-        Object.assign(this.mapping, customMapping);
+        merge(this.mapping, customMapping);
 
         console.log(this.mapping);
     }
@@ -70,7 +72,8 @@ export default class FormBuilderHelper {
             name: property,
             model: 'value',
             label: this.translationHelper.getLabel('field', property),
-            order: this.mapping[property]?.order ?? 9999
+            order: this.mapping[property]?.order ?? 9999,
+            cols: 12
         };
 
         const attributes = {};
@@ -193,6 +196,11 @@ export default class FormBuilderHelper {
         const localField = field.localField;
 
         switch (column.componentName) {
+            case 'moorl-file-explorer':
+                attributes.clientId = this.item.clientId;
+                attributes.showActions = false;
+                break;
+
             case 'moorl-layout-card-v2':
                 column.card = 'self';
                 column.model = undefined;

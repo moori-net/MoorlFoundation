@@ -87,6 +87,30 @@ Shopware.Component.register('moorl-item-detail-form', {
             return MoorlFoundation.ConditionHelper.isVisible(field, this.item);
         },
 
+        isDisabledTab(tab) {
+            for (const card of tab.cards) {
+                if (!this.isDisabledCard(card)) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        isDisabledCard(card) {
+            for (const field of card.fields) {
+                if (this.isVisible(field)) {
+                    return false;
+                }
+            }
+            return true;
+        },
+
+        getStyle(field) {
+            return {
+                'grid-column': `span ${field.cols}`
+            }
+        },
+
         async loadCustomFieldSets() {
             if (this.item.customFields === undefined) {
                 return Promise.resolve();

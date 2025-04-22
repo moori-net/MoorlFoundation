@@ -1,37 +1,12 @@
 .moorl-item-detail-form {
     .moorl-item-detail-form__card > .mt-card__content {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(12, 1fr);
         grid-gap: 20px;
         grid-auto-flow: dense;
 
-        > div {
-            grid-column: span 2;
-        }
-
-        > .moorl-entity-grid,
-        > .moorl-entity-grid-v2,
-        > .moorl-opening-hours,
-        > .moorl-media-gallery,
-        > .name-field,
-        > .mt-banner,
-        > .sw-inherit-wrapper,
-        > .sw-media-field,
-        > .sw-category-tree-field,
-        > .sw-field--textarea,
-        > .sw-entity-multi-select,
-        > .sw-entity-many-to-many-select,
-        > .sw-text-editor {
-            grid-column: span 6;
-        }
-    }
-
-    .customFields-card > .mt-card__content,
-    .location-card > .mt-card__content {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-
-        > .sw-custom-field-set-renderer {
-            grid-column: span 4;
+        > .mt-banner {
+            grid-column: span 12;
         }
     }
 

@@ -10,6 +10,7 @@
                     :key="tab.id"
                     :name="tab.id"
                     :activeTab="active"
+                    :disabled="isDisabledTab(tab)"
             >
                 {{ tab.label }}
             </sw-tabs-item>
@@ -31,6 +32,7 @@
                                         v-if="isVisible(field)"
                                         :is="field.componentName"
                                         v-bind="field.attributes"
+                                        :style="getStyle(field)"
                                 />
                             </template>
                         </template>
@@ -48,13 +50,15 @@
                             </sw-alert>
 
                             <template v-for="field in card.fields" :key="field.name">
-                                <template v-if="isVisible(field)">
+                                <div
+                                        v-if="isVisible(field)"
+                                        :style="getStyle(field)"
+                                >
                                     <component
                                             v-if="field.model === 'entityCollection'"
                                             :is="field.componentName"
                                             v-model:entityCollection="fieldModels[field.name]"
                                             v-bind="field.attributes"
-                                            :class="field.name + '-field'"
                                     />
 
                                     <sw-form-field-renderer
@@ -63,9 +67,8 @@
                                             :type="field.type"
                                             :label="field.label"
                                             :config="field.attributes"
-                                            :class="field.name + '-field'"
                                     />
-                                </template>
+                                </div>
                             </template>
                         </sw-card>
                     </template>

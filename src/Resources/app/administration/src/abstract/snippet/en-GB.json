@@ -1,6 +1,24 @@
 {
   "moorl-foundation": {
     "field": {
+      "order": "Bestellung",
+      "orderNumber": "Nummer",
+      "validUntil": "Gültig bis",
+      "downloadCenter": "Downloadcenter",
+      "code": "Code",
+      "downloadCenterCode": "Downloadcenter-Code",
+      "deeplink": "Deeplink",
+      "redeemCode": "Code/Key zum einlösen verwenden",
+      "directory": "Verzeichnispfad",
+      "client": "Client",
+      "language": "Sprache",
+      "links": "Links",
+      "subscriptions": "Abos",
+      "codes": "Codes/Keys",
+      "subscriptionTime": "Abo-Zeit",
+      "hasCodes": "Hat Codes/Keys",
+      "hasFiles": "Hat Dateien",
+      "hasLinks": "Hat Links",
       "optionPercentage": "Prozentangabe",
       "productStream": "Dynamische Produktgruppe",
       "showDiscount": "Als Streichpreis anzeigen",
@@ -160,6 +178,7 @@
       "custom4": "Benutzerdefiniert 4"
     },
     "tab": {
+      "directory": "Verzeichnis",
       "stock": "Lagerbestand",
       "comments": "Kommentare",
       "customFields": "Benutzerdefiniert",
@@ -172,6 +191,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "directory": "Verzeichnispfad",
       "relations": "Verknüpfungen",
       "profile": "Profil",
       "customFields": "Benutzerdefinierte Felder",
