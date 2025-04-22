@@ -71,7 +71,6 @@ export default class FormBuilderHelper {
             card: 'undefined',
             name: property,
             model: 'value',
-            label: this.translationHelper.getLabel('field', property),
             order: this.mapping[property]?.order ?? 9999,
             cols: 12
         };
@@ -86,6 +85,8 @@ export default class FormBuilderHelper {
         }
 
         if (column.hidden) return null;
+
+        column.label = this.translationHelper.getLabel('field', property);
 
         // Typbasierte Logik
         switch (field.type) {

@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "behaviour": "Verhalten",
+      "config": "Konfiguration",
       "cssClass": "CSS Klasse(n)",
       "minResults": "Minimale Ergebnisse",
       "page": "Seite",
