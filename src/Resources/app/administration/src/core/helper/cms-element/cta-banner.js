@@ -234,7 +234,7 @@ const ctaBanner = {
         card: 'button',
         cols: 6,
         componentName: 'moorl-select-field',
-        attributes: { set: 'bsColorScheme' },
+        attributes: { set: 'bsButton' },
         conditions: [{ property: 'btnActive', value: true }]
     },
     btnUrl: {
@@ -258,7 +258,10 @@ const ctaBanner = {
         card: 'icon',
         cols: 6,
         componentName: 'moorl-select-field',
-        attributes: { set: 'iconType' }
+        attributes: {
+            set: 'iconType',
+            showClearableButton: true
+        }
     },
     iconClass: {
         value: '',

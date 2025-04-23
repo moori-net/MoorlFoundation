@@ -44,11 +44,12 @@
                 <!-- Dynamic content -->
                 <template v-else>
                     <div v-html="bannerTitle"></div>
+
                     <p v-html="bannerDescription"></p>
 
                     <mt-button
                             v-if="getValue('btnActive')"
-                            :variant="getValue('btnClass') || 'primary'"
+                            variant="primary"
                     >
                         {{ getValue('btnText') }}
                     </mt-button>
