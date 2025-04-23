@@ -3,21 +3,27 @@ const {merge, cloneDeep} = Shopware.Utils.object;
 
 import ctaBanner from './cms-element/cta-banner';
 
-const defaultConfigs = {
+const defaultCmsElementMappings = {
     'cta-banner': ctaBanner
 };
 
 export default class CmsElementHelper {
-    static enrichCmsDefaultConfig(defaultConfig) {
-        for (const [property, field] of Object.entries(defaultConfig)) {
+    static enrichCmsElementMapping(cmsElementMapping) {
+        const defaultConfig = {};
+
+        for (const [property, field] of Object.entries(cmsElementMapping)) {
             field.source = field.source ?? 'static';
             field.flags = field.flags ?? {};
 
-            if (field.entity?.name) {
+            defaultConfig[property] = {
+                source: field.source,
+            };
+
+            if (field.entity) {
                 field.type = 'association';
 
                 if (field.value === undefined) {
-                    if (field.entity.name.slice(-1) === "s") {
+                    if (field.entity.slice(-1) === "s") {
                         field.value = [];
                     } else {
                         field.value = null;
@@ -25,19 +31,20 @@ export default class CmsElementHelper {
                 }
 
                 if (Array.isArray([field.value])) {
-                    field.relation = 'one_to_many';
-                } else {
                     field.relation = 'many_to_one';
+                    field.localField = property;
+                } else {
+                    field.relation = 'one_to_many';
                 }
 
-                if (!Array.isArray(field.entity.associations)) {
-                    field.entity.associations = [];
-                    switch (field.entity.name) {
+                if (!Array.isArray(field.associations)) {
+                    field.associations = [];
+                    switch (field.entity) {
                         case 'product':
-                            field.entity.associations.push('cover.media');
+                            field.associations.push('cover.media');
                             break;
                         case 'category':
-                            field.entity.associations.push('media');
+                            field.associations.push('media');
                             break;
                         default:
                     }
@@ -45,11 +52,14 @@ export default class CmsElementHelper {
 
                 const criteria = new Criteria();
 
-                for (const association of field.entity.associations) {
+                for (const association of field.associations) {
                     criteria.addAssociation(association);
                 }
 
-                field.entity.criteria = criteria;
+                defaultConfig[property].entity = {
+                    name: field.entity,
+                    criteria: criteria
+                };
             } else if (field.value === undefined) {
                 field.type = 'string';
                 field.value = null;
@@ -66,19 +76,27 @@ export default class CmsElementHelper {
                     field.type = 'string';
                 }
             }
+
+            defaultConfig[property].value = field.value;
         }
+
+        return defaultConfig;
     }
 
-    static getCmsElementConfig({icon, plugin, name, parent, defaultConfig = {}}) {
-        if (defaultConfigs[parent] !== undefined) {
-            merge(defaultConfig, defaultConfigs[parent]);
+    static getCmsElementConfig({icon, plugin, name, parent, cmsElementMapping = {}}) {
+        if (defaultCmsElementMappings[parent] !== undefined) {
+            cmsElementMapping = merge(
+                {},
+                defaultCmsElementMappings[parent],
+                cmsElementMapping,
+            );
         }
 
-        CmsElementHelper.enrichCmsDefaultConfig(defaultConfig);
-
+        const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
         const abstractComponent = `moorl-abstract-cms-${parent}`;
 
         return {
+            cmsElementMapping,
             defaultConfig,
             defaultData: CmsElementHelper.getDefaultData(),
             plugin: plugin ?? 'MoorlFoundation',
@@ -108,7 +126,48 @@ export default class CmsElementHelper {
         }
     }
 
+    static getBaseData(element, configProperty, dataProperty, type) {
+        const config = element.config;
+        let data = element.data;
+
+        if (typeof data[configProperty] === 'object') {
+            return data[configProperty];
+        }
+
+        if (config[configProperty].value) {
+            return config[configProperty].value;
+        }
+
+        if (data[dataProperty] === undefined) {
+            data = CmsElementHelper.getDefaultData();
+        }
+
+        let item = data[dataProperty];
+
+        if (item === undefined) {
+            item = data['product'];
+        }
+
+        if (item.translated && item.translated[type]) {
+            return item.translated[type];
+        }
+
+        if (item[type]) {
+            return item[type];
+        }
+
+        for (const [key, prop] of Object.entries(item)) {
+            if (typeof prop[type] === 'object') {
+                return prop[type];
+            }
+        }
+
+        return null;
+    }
+
     static getPlaceholderMedia() {
+        const assetFilter = Shopware.Filter.getByName('asset');
+
         const imagePool = [
             'preview_glasses_large',
             'preview_mountain_large',
@@ -119,7 +178,7 @@ export default class CmsElementHelper {
         const index = Math.floor(Math.random()*imagePool.length);
 
         return {
-            url: `administration/administration/static/img/cms/${imagePool[index]}.jpg`,
+            url: assetFilter(`administration/administration/static/img/cms/${imagePool[index]}.jpg`),
             alt: 'Lorem Ipsum dolor'
         }
     }

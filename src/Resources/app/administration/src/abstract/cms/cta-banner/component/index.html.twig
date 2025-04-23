@@ -1,47 +1,58 @@
-<div class="sw-cms-el-moorl-cta-banner" :style="elementCss">
+<div class="moorl-abstract-cms-cta-banner" :style="elementCss">
+    <!-- Video background -->
     <video
-            v-if="element.config.mediaActive.value && element.config.videoActive.value"
+            v-if="getValue('mediaActive') && getValue('videoActive')"
             autoplay
             muted
             loop
             class="video"
     >
-        <source :src="mediaUrl" type="video/mp4">
+        <source :src="bannerMediaUrl" type="video/mp4">
     </video>
 
+    <!-- Image background -->
     <div
-            v-else-if="element.config.mediaActive.value || element.config.elementType.value === 'category' || element.config.elementType.value === 'product'"
+            v-else-if="getValue('mediaActive') || currentType === 'category' || currentType === 'product'"
             class="background"
-            :class="element.config.mediaHover.value"
+            :class="getValue('mediaHover')"
             :style="backgroundCss"
     ></div>
 
+    <!-- Banner content layer -->
     <div class="banner-layer" :style="overlayCss">
         <div class="container" :class="boxClass" :style="boxCss">
-            <div v-if="element.config.iconType.value !== 'none'" class="container-icon" :style="iconCss">
-                <template v-if="element.config.iconType.value === 'fa'">
-                    <mt-icon name="regular-checkmark"/>
+            <!-- Icon logic -->
+            <div v-if="getValue('iconType') !== 'none'" class="container-icon" :style="iconCss">
+                <template v-if="getValue('iconType') === 'fa'">
+                    <mt-icon name="regular-checkmark" />
                 </template>
 
-                <template v-if="element.config.iconType.value === 'svg'">
-                    <span v-html="element.config.iconSvg.value"></span>
+                <template v-else-if="getValue('iconType') === 'svg'">
+                    <span v-html="getValue('iconSvg')"></span>
                 </template>
 
-                <template v-if="element.config.iconType.value === 'media'">
-                    <img :src="iconMediaUrl">
+                <template v-else-if="getValue('iconType') === 'media'">
+                    <img :src="iconMediaUrl" />
                 </template>
             </div>
 
-            <div v-if="element.config.elementType.value == 'custom'" class="container-content"
-                 v-html="$sanitize(element.config.content.value)">
-            </div>
+            <!-- Content -->
+            <div class="container-content">
+                <!-- Custom HTML -->
+                <div v-if="currentType === 'custom'" v-html="$sanitize(getValue('content'))"></div>
 
-            <div v-else class="container-content">
-                <div v-html="bannerTitle"></div>
+                <!-- Dynamic content -->
+                <template v-else>
+                    <div v-html="bannerTitle"></div>
+                    <p v-html="bannerDescription"></p>
 
-                <p v-html="bannerDescription"></p>
-
-                <a v-if="element.config.btnActive.value" class="mt-button mt-button--primary" href="#">{{ element.config.btnText.value }}</a>
+                    <mt-button
+                            v-if="getValue('btnActive')"
+                            :variant="getValue('btnClass') || 'primary'"
+                    >
+                        {{ getValue('btnText') }}
+                    </mt-button>
+                </template>
             </div>
         </div>
     </div>

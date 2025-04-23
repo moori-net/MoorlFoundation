@@ -1,5 +1,4 @@
 import template from './index.html.twig';
-import './index.scss';
 
 Shopware.Component.register('moorl-abstract-cms-cta-banner-config', {
     template,
@@ -8,7 +7,7 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner-config', {
 
     data() {
         return {
-            defaultConfig: null,
+            cmsElementMapping: null,
             isLoading: true,
         };
     },
@@ -19,11 +18,10 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner-config', {
 
     methods: {
         async createdComponent() {
-            await this.initElementConfig(this.element.type);
-            await this.initElementData(this.element.type);
-
-            this.defaultConfig = this.cmsElements[this.element.type].defaultConfig;
-
+            const elementType = this.element.type;
+            await this.initElementConfig(elementType);
+            await this.initElementData(elementType);
+            this.cmsElementMapping = this.cmsElements[elementType].cmsElementMapping;
             this.isLoading = false;
         }
     },

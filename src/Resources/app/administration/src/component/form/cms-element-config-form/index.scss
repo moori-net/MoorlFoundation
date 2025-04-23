@@ -1,16 +1,33 @@
 .moorl-cms-element-config-form {
-    .moorl-cms-element-config-form__card > .mt-card__content {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-gap: 10px;
-        grid-auto-flow: row;
+    .moorl-cms-element-config-form__card {
+        border: 0;
 
-        > .newline {
-            grid-column: 1 / -1;
+        > .mt-card__header {
+            padding: 0;
         }
 
-        > .mt-banner {
-            grid-column: span 12;
+        > .mt-card__content {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 20px;
+            grid-auto-flow: row;
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 0;
+
+            > .newline {
+                grid-column: 1 / -1;
+            }
+
+            > .mt-banner {
+                grid-column: span 12;
+            }
+        }
+
+        .sw-field,
+        .mt-field,
+        .sw-field--switch {
+            margin-bottom: 0;
         }
     }
 

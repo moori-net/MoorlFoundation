@@ -43,7 +43,7 @@ const ctaBanner = {
         tab: 'general',
         card: 'general',
         cols: 12,
-        entity: {name: 'category'},
+        entity: 'category',
         conditions: [{ property: 'elementType', value: 'category' }]
     },
     product: {
@@ -51,7 +51,7 @@ const ctaBanner = {
         tab: 'general',
         card: 'general',
         cols: 12,
-        entity: {name: 'product'},
+        entity: 'product',
         conditions: [{ property: 'elementType', value: 'product' }]
     },
     contentLength: {
@@ -150,7 +150,7 @@ const ctaBanner = {
         tab: 'media',
         card: 'media',
         cols: 12,
-        entity: {name: 'media'},
+        entity: 'media',
         conditions: [{ property: 'mediaActive', value: true }]
     },
     videoActive: {
@@ -229,12 +229,12 @@ const ctaBanner = {
         conditions: [{ property: 'btnActive', value: true }]
     },
     btnClass: {
-        value: 'btn-primary',
+        value: 'primary',
         tab: 'content',
         card: 'button',
         cols: 6,
         componentName: 'moorl-select-field',
-        attributes: { set: 'bsButton' },
+        attributes: { set: 'bsColorScheme' },
         conditions: [{ property: 'btnActive', value: true }]
     },
     btnUrl: {
@@ -282,7 +282,7 @@ const ctaBanner = {
         tab: 'content',
         card: 'icon',
         cols: 12,
-        entity: {name: 'media'},
+        entity: 'media',
         conditions: [{ property: 'iconType', value: 'media' }]
     },
     iconPosition: {
@@ -403,7 +403,8 @@ const ctaBanner = {
         value: '',
         tab: 'scss',
         card: 'scss',
-        cols: 12
+        cols: 12,
+        conditions: [{ property: 'enableScss', value: true }]
     }
 };
 

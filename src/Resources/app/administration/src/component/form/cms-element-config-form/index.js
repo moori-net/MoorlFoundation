@@ -18,7 +18,7 @@ Shopware.Component.register('moorl-cms-element-config-form', {
             type: Object,
             required: true,
         },
-        defaultConfig: {
+        cmsElementMapping: {
             type: Object,
             required: true,
         }
@@ -36,7 +36,7 @@ Shopware.Component.register('moorl-cms-element-config-form', {
                 item: this.item,
                 tc: this.$tc,
                 componentName: this.componentName,
-                defaultConfig: this.defaultConfig
+                cmsElementMapping: this.cmsElementMapping
             });
         },
 

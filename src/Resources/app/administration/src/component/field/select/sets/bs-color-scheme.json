@@ -1,5 +1,6 @@
 [
     { "value": "primary", "label": "moorl-select.bsColor.primary" },
+    { "value": "secondary", "label": "moorl-select.bsColor.secondary" },
     { "value": "danger", "label": "moorl-select.bsColor.danger" },
     { "value": "success", "label": "moorl-select.bsColor.success" },
     { "value": "warning", "label": "moorl-select.bsColor.warning" },

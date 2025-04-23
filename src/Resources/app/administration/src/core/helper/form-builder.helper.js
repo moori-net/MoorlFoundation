@@ -11,16 +11,16 @@ export default class FormBuilderHelper {
                     tc,
                     snippetSrc = 'moorl-foundation',
                     customFieldSets = [],
-                    defaultConfig = undefined
+                    cmsElementMapping = undefined
     }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
         this.customFieldSets = customFieldSets;
-        this.defaultConfig = defaultConfig;
+        this.cmsElementMapping = cmsElementMapping;
 
-        this.mapping = cloneDeep(defaultConfig ?? mapping);
+        this.mapping = cloneDeep(cmsElementMapping ?? mapping);
         this.order = order;
         this.pageStruct = { tabs: [] };
         this.mediaOrder = 4999;
@@ -31,15 +31,12 @@ export default class FormBuilderHelper {
     }
 
     buildFormStruct() {
-        const fields = this.defaultConfig ?? Shopware.EntityDefinition.get(this.entity).properties;
+        const fields = this.cmsElementMapping ?? Shopware.EntityDefinition.get(this.entity).properties;
 
         return this._build(fields);
     }
 
     _build(fields) {
-        console.log("_build");
-        console.log(fields);
-
         if (this.pageStruct.tabs.length > 0) {
             console.warn(`[${this.entity}][${this.componentName}] TODO: prevent calling buildFormStruct() multiple times`);
             return this.pageStruct;
@@ -71,7 +68,7 @@ export default class FormBuilderHelper {
             currentOrder += 10;
         }
 
-        if (this.defaultConfig) {
+        if (this.cmsElementMapping) {
             return;
         }
 
@@ -109,10 +106,6 @@ export default class FormBuilderHelper {
     }
 
     _buildColumn(field, property) {
-        console.log("_buildColumn");
-        console.log(field);
-        console.log(property);
-
         const column = {
             tab: 'undefined',
             card: 'undefined',
@@ -182,7 +175,7 @@ export default class FormBuilderHelper {
             case 'code':
                 column.type = 'text';
                 attributes.type = 'text';
-                attributes.componentName = 'sw-codeeditor';
+                attributes.componentName = 'sw-code-editor';
                 break;
             case 'object':
             case 'json_object':
@@ -202,30 +195,27 @@ export default class FormBuilderHelper {
     }
 
     _buildAssociationField(field, column, attributes, property) {
-        // Entity name from cms defaultConfig or from entity definition?
-        const entity = field.entity?.name ?? field.entity;
+        const entity = field.entity;
+        const localField = field.localField;
 
         attributes.entity = entity;
 
         if (field.relation === 'many_to_one') {
             if (entity === 'media') {
-                column.order = this.mediaOrder += 10;
-                column.tab = 'general';
-                column.card = 'media';
-                column.name = field.localField;
+                column.name = localField;
                 attributes.componentName = 'sw-media-field';
             } else if (entity === 'cms_page') {
                 if (property === 'cmsPage' && this.item['slotConfig'] !== undefined) {
                     column.componentName = 'moorl-layout-card-v2';
                 } else {
-                    column.name = field.localField;
+                    column.name = localField;
                     column.componentName = 'sw-entity-single-select';
                     attributes.showClearableButton = true;
                 }
             } else if (entity === 'user' || entity.includes('media')) {
                 return null;
             } else {
-                column.name = field.localField;
+                column.name = localField;
                 attributes.componentName = 'sw-entity-single-select';
                 attributes.showClearableButton = field.flags.required === undefined;
             }

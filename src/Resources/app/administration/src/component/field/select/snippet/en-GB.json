@@ -72,7 +72,14 @@
             "top": "Top",
             "left": "Left"
         },
-        "bsColor": {},
+        "bsColor": {
+            "primary": "Primary",
+            "primaryOutline": "Primary outline",
+            "secondary": "Secondary",
+            "secondaryOutline": "Secondary outline",
+            "danger": "Danger",
+            "dangerOutline": "Danger outline"
+        },
         "domElementState": {
             "isLoaded": "Load",
             "isOverBottom": "Over bottom",
