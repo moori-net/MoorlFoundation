@@ -14,6 +14,10 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
     },
 
     computed: {
+        elementType() {
+            return this.element.type;
+        },
+
         titleTag() {
             return this.getValue('titleTag');
         },
@@ -114,11 +118,9 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
     },
 
     methods: {
-        async createdComponent() {
-            const type = this.element.type;
-            await this.initElementConfig(type);
-            await this.initElementData(type);
-            this.cmsElementMapping = this.cmsElements[type]?.cmsElementMapping ?? {};
+        createdComponent() {
+            this.cmsElementMapping = this.cmsElements[this.elementType]?.cmsElementMapping ?? {};
+
             this.isLoading = false;
         },
 

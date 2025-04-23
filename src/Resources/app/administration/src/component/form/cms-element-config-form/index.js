@@ -4,6 +4,8 @@ import './index.scss';
 Shopware.Component.register('moorl-cms-element-config-form', {
     template,
 
+    emits: ['update'],
+
     mixins: [
         Shopware.Mixin.getByName('notification'),
         Shopware.Mixin.getByName('placeholder')
