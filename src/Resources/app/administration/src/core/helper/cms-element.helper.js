@@ -135,8 +135,11 @@ export default class CmsElementHelper {
         }
 
         if (config[configProperty].value) {
-            return config[configProperty].value;
+            if (!config[configProperty].entity) {
+                return config[configProperty].value;
+            }
         }
+
 
         if (data[dataProperty] === undefined) {
             data = CmsElementHelper.getDefaultData();
@@ -152,11 +155,19 @@ export default class CmsElementHelper {
             return item.translated[type];
         }
 
+        if (item.cover && item.cover[type]) {
+            return item.cover[type];
+        }
+
         if (item[type]) {
             return item[type];
         }
 
         for (const [key, prop] of Object.entries(item)) {
+            if (!prop) {
+                continue;
+            }
+
             if (typeof prop[type] === 'object') {
                 return prop[type];
             }

@@ -203,6 +203,8 @@ export default class FormBuilderHelper {
         if (field.relation === 'many_to_one') {
             if (entity === 'media') {
                 column.name = localField;
+                column.tab = field.tab ?? 'general';
+                column.card = field.card ?? 'media';
                 attributes.componentName = 'sw-media-field';
             } else if (entity === 'cms_page') {
                 if (property === 'cmsPage' && this.item['slotConfig'] !== undefined) {
