@@ -1,6 +1,7 @@
 {
   "moorl-foundation": {
     "field": {
+      "productCountdown": "Produkt-Countdown",
       "ppPromotionAutoHide": "Automatisch ausblenden",
       "elementType": "Elementtyp",
       "height": "Höhe",
