@@ -55,6 +55,10 @@ export default class ConditionHelper {
      * Internal comparison logic for supported operators.
      */
     static _compare(a, b, operator) {
+        if (typeof a == 'object') {
+            a = a.value; // Handle CMS element config
+        }
+
         switch (operator) {
             case 'eq':
             case '==': return a == b;

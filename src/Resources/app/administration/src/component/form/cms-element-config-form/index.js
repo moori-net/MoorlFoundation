@@ -1,7 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-Shopware.Component.register('moorl-item-detail-form', {
+Shopware.Component.register('moorl-cms-element-config-form', {
     template,
 
     mixins: [
@@ -9,15 +9,7 @@ Shopware.Component.register('moorl-item-detail-form', {
         Shopware.Mixin.getByName('placeholder')
     ],
 
-    inject: [
-        'customFieldDataProviderService',
-    ],
-
     props: {
-        entity: {
-            type: String,
-            required: true,
-        },
         componentName: {
             type: String,
             required: true
@@ -25,12 +17,15 @@ Shopware.Component.register('moorl-item-detail-form', {
         item: {
             type: Object,
             required: true,
+        },
+        defaultConfig: {
+            type: Object,
+            required: true,
         }
     },
 
     data() {
         return {
-            customFieldSets: null,
             formStruct: null
         };
     },
@@ -39,9 +34,9 @@ Shopware.Component.register('moorl-item-detail-form', {
         formBuilderHelper() {
             return new MoorlFoundation.FormBuilderHelper({
                 item: this.item,
-                entity: this.entity,
                 tc: this.$tc,
-                componentName: this.componentName
+                componentName: this.componentName,
+                defaultConfig: this.defaultConfig
             });
         },
 
@@ -56,14 +51,10 @@ Shopware.Component.register('moorl-item-detail-form', {
         fieldModels() {
             return new Proxy({}, {
                 get: (_, prop) => {
-                    return this.item.extensions?.[prop] ?? this.item?.[prop];
+                    return this.item?.[prop].value;
                 },
                 set: (_, prop, value) => {
-                    if (this.item.extensions?.hasOwnProperty(prop)) {
-                        this.item.extensions[prop] = value;
-                    } else {
-                        this.item[prop] = value;
-                    }
+                    this.item[prop].value = value;
                     return true;
                 }
             });
@@ -85,10 +76,7 @@ Shopware.Component.register('moorl-item-detail-form', {
 
     methods: {
         fieldAttributes(field) {
-            return {
-                ...field.attributes,
-                disabled: this.isDisabled(field)
-            };
+            return field.attributes;
         },
 
         isVisible(field) {
@@ -124,21 +112,8 @@ Shopware.Component.register('moorl-item-detail-form', {
             }
         },
 
-        async loadCustomFieldSets() {
-            if (this.item.customFields === undefined) {
-                return Promise.resolve();
-            }
-
-            this.customFieldSets = await this.customFieldDataProviderService
-                .getCustomFieldSets(this.entity);
-        },
-
         async createdComponent() {
             this.formStruct = this.formBuilderHelper.buildFormStruct();
-
-            await this.loadCustomFieldSets();
-
-            this.formBuilderHelper.customFieldSets = this.customFieldSets;
         }
     }
 });

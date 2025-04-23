@@ -32,6 +32,22 @@
             "operator": "Operator",
             "visibility": "Visibility"
         },
+        "interval": {
+            "hour": "Stündlich",
+            "day": "Täglich",
+            "minute": "Minütlich"
+        },
+        "countdownType": {
+            "relative": "Relative Zeitangabe",
+            "countdown": "Countdown",
+            "time": "Datum & Uhrzeit",
+            "hidden": "Im Hintergrund"
+        },
+        "stockType": {
+            "progressBarAbs": "Absoluter Fortschrittsbalken",
+            "progressBarPc": "Prozentualer Fortschrittsbalken",
+            "text": "Nur Text"
+        },
         "visibility": {
             "public": "Public",
             "private": "Private"

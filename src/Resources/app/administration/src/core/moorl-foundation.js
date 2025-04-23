@@ -4,6 +4,7 @@ import TranslationHelper from './helper/translation.helper';
 import RouteHelper from './helper/route.helper';
 import FormBuilderHelper from './helper/form-builder.helper';
 import ConditionHelper from './helper/condition.helper';
+import CmsElementHelper from './helper/cms-element.helper';
 
 const MoorlFoundation = {
     ListHelper,
@@ -11,7 +12,8 @@ const MoorlFoundation = {
     TranslationHelper,
     RouteHelper,
     FormBuilderHelper,
-    ConditionHelper
+    ConditionHelper,
+    CmsElementHelper
 };
 
 MoorlFoundation.prototype = {};

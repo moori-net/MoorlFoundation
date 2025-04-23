@@ -1,0 +1,99 @@
+{% block moorl_cms_element_config_form_detail %}
+    <sw-tabs
+            :key="entity"
+            :default-item="defaultTab"
+            class="moorl-cms-element-config-form"
+    >
+        <template #default="{ active }">
+            <sw-tabs-item
+                    v-for="tab in formStruct.tabs"
+                    :key="tab.id"
+                    :name="tab.id"
+                    :activeTab="active"
+                    :disabled="isDisabledTab(tab)"
+            >
+                {{ tab.label }}
+            </sw-tabs-item>
+
+            {% block moorl_cms_element_config_form_detail_tabs %}
+                <!--template v-if="componentName === '...'">
+                    Add custom tabs here
+                </template-->
+            {% endblock %}
+        </template>
+
+        <template #content="{ active }">
+            <template
+                    v-for="tab in formStruct.tabs"
+                    :key="tab.id"
+            >
+                <template v-if="active === tab.id">
+                    <template
+                            v-for="card in tab.cards"
+                            :key="card.id"
+                    >
+                        <template v-if="card.standalone">
+                            <template
+                                    v-for="field in card.fields"
+                                    :key="field.name"
+                            >
+                                <component
+                                        v-if="isVisible(field)"
+                                        :is="field.componentName"
+                                        v-bind="field.attributes"
+                                        :style="getStyle(field)"
+                                />
+                            </template>
+                        </template>
+
+                        <sw-card
+                                v-else
+                                :title="card.label"
+                                :class="card.id + '-card moorl-cms-element-config-form__card'"
+                        >
+                            <sw-alert
+                                    v-if="translationHelper.getNotification(card.id)"
+                                    variant="warning"
+                            >
+                                {{ translationHelper.getNotification(card.id) }}
+                            </sw-alert>
+
+                            <template
+                                    v-for="field in card.fields"
+                                    :key="field.name"
+                            >
+                                <div v-if="field.newline" class="newline"></div>
+
+                                <div
+                                        v-if="isVisible(field)"
+                                        :style="getStyle(field)"
+                                >
+                                    <component
+                                            v-if="field.model === 'entityCollection'"
+                                            :is="field.componentName"
+                                            v-model:entityCollection="fieldModels[field.name]"
+                                            v-bind="fieldAttributes(field)"
+                                    />
+
+                                    <sw-form-field-renderer
+                                            v-else
+                                            v-model:value="fieldModels[field.name]"
+                                            :type="field.type"
+                                            :label="field.label"
+                                            :config="fieldAttributes(field)"
+                                    />
+                                </div>
+                            </template>
+                        </sw-card>
+                    </template>
+                </template>
+            </template>
+
+            {% block moorl_cms_element_config_form_detail_content %}
+                <!--template v-if="componentName === '...' && active === '...'">
+                    Add custom content here
+                </template-->
+            {% endblock %}
+        </template>
+    </sw-tabs>
+{% endblock %}

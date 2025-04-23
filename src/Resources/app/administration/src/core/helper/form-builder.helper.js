@@ -4,14 +4,23 @@ import order from './form-builder/order.json';
 const {merge, cloneDeep} = Shopware.Utils.object;
 
 export default class FormBuilderHelper {
-    constructor({entity, item, componentName, tc, snippetSrc = 'moorl-foundation', customFieldSets = [] }) {
-        this.entity = entity;
+    constructor({
+                    entity,
+                    item,
+                    componentName,
+                    tc,
+                    snippetSrc = 'moorl-foundation',
+                    customFieldSets = [],
+                    defaultConfig = undefined
+    }) {
+        this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
         this.customFieldSets = customFieldSets;
+        this.defaultConfig = defaultConfig;
 
-        this.mapping = cloneDeep(mapping);
+        this.mapping = cloneDeep(defaultConfig ?? mapping);
         this.order = order;
         this.pageStruct = { tabs: [] };
         this.mediaOrder = 4999;
@@ -22,12 +31,19 @@ export default class FormBuilderHelper {
     }
 
     buildFormStruct() {
+        const fields = this.defaultConfig ?? Shopware.EntityDefinition.get(this.entity).properties;
+
+        return this._build(fields);
+    }
+
+    _build(fields) {
+        console.log("_build");
+        console.log(fields);
+
         if (this.pageStruct.tabs.length > 0) {
             console.warn(`[${this.entity}][${this.componentName}] TODO: prevent calling buildFormStruct() multiple times`);
             return this.pageStruct;
         }
-
-        const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
         for (const [property, field] of Object.entries(fields)) {
             if (
@@ -45,20 +61,21 @@ export default class FormBuilderHelper {
 
         this._sortStruct();
 
-        console.log("this.pageStruct");
-        console.log(this.pageStruct);
-
         return this.pageStruct;
     }
 
     _init() {
-        const customMapping = Shopware.Store.get('moorlFoundationState').getCustomEntityMapping(this.entity) ?? {};
-
         let currentOrder = 0;
         for (const [key, config] of Object.entries(this.mapping)) {
             config.order = currentOrder;
             currentOrder += 10;
         }
+
+        if (this.defaultConfig) {
+            return;
+        }
+
+        const customMapping = Shopware.Store.get('moorlFoundationState').getCustomEntityMapping(this.entity) ?? {};
 
         for (const [key, config] of Object.entries(customMapping)) {
             if (typeof config.order === 'string') {
@@ -89,11 +106,13 @@ export default class FormBuilderHelper {
         }
 
         merge(this.mapping, customMapping);
-
-        console.log(this.mapping);
     }
 
     _buildColumn(field, property) {
+        console.log("_buildColumn");
+        console.log(field);
+        console.log(property);
+
         const column = {
             tab: 'undefined',
             card: 'undefined',
@@ -124,16 +143,21 @@ export default class FormBuilderHelper {
                 break;
             case 'text':
                 column.type = 'text';
+                attributes.type = 'text';
                 if (!field.flags.allow_html) {
                     column.type = 'textarea';
-                    attributes.type = 'text';
                 } else {
                     attributes.componentName = 'sw-text-editor';
-                    attributes.type = 'text';
                 }
+                break;
+            case 'html':
+                column.type = 'text';
+                attributes.type = 'text';
+                attributes.componentName = 'sw-text-editor';
                 break;
             case 'int':
             case 'float':
+            case 'number':
                 column.type = field.type;
                 attributes.type = 'number';
                 attributes.numberType = field.type;
@@ -150,7 +174,19 @@ export default class FormBuilderHelper {
                 attributes.size = 'default';
                 attributes.componentName = 'sw-datepicker';
                 break;
+            case 'color':
+                column.type = 'text';
+                attributes.type = 'text';
+                attributes.componentName = 'sw-colorpicker';
+                break;
+            case 'code':
+                column.type = 'text';
+                attributes.type = 'text';
+                attributes.componentName = 'sw-codeeditor';
+                break;
+            case 'object':
             case 'json_object':
+            case 'list':
                 if (!column.componentName) return null;
                 column.type = 'json';
                 break;
@@ -166,16 +202,19 @@ export default class FormBuilderHelper {
     }
 
     _buildAssociationField(field, column, attributes, property) {
-        attributes.entity = field.entity;
+        // Entity name from cms defaultConfig or from entity definition?
+        const entity = field.entity?.name ?? field.entity;
+
+        attributes.entity = entity;
 
         if (field.relation === 'many_to_one') {
-            if (field.entity === 'media') {
+            if (entity === 'media') {
                 column.order = this.mediaOrder += 10;
                 column.tab = 'general';
                 column.card = 'media';
                 column.name = field.localField;
                 attributes.componentName = 'sw-media-field';
-            } else if (field.entity === 'cms_page') {
+            } else if (entity === 'cms_page') {
                 if (property === 'cmsPage' && this.item['slotConfig'] !== undefined) {
                     column.componentName = 'moorl-layout-card-v2';
                 } else {
@@ -183,7 +222,7 @@ export default class FormBuilderHelper {
                     column.componentName = 'sw-entity-single-select';
                     attributes.showClearableButton = true;
                 }
-            } else if (field.entity === 'user' || field.entity.includes('media')) {
+            } else if (entity === 'user' || entity.includes('media')) {
                 return null;
             } else {
                 column.name = field.localField;
@@ -191,18 +230,18 @@ export default class FormBuilderHelper {
                 attributes.showClearableButton = field.flags.required === undefined;
             }
         } else if (field.relation === 'many_to_many') {
-            if (field.entity === 'category') {
+            if (entity === 'category') {
                 column.componentName = 'sw-category-tree-field';
                 attributes.categoriesCollection = this.item[property];
             } else {
                 column.model = 'entityCollection';
                 column.componentName = 'sw-entity-many-to-many-select';
                 attributes.localMode = true;
-                if (field.entity === 'media') {
+                if (entity === 'media') {
                     attributes.labelProperty = 'fileName';
                 }
             }
-        } else if (field.entity === `${this.entity}_media`) {
+        } else if (entity === `${this.entity}_media`) {
             column.componentName = 'moorl-media-gallery';
             column.model = undefined;
             column.order = this.mediaOrder += 10;
@@ -214,7 +253,7 @@ export default class FormBuilderHelper {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-multi-select';
             attributes.localMode = true;
-            if (field.entity === 'media') {
+            if (entity === 'media') {
                 attributes.labelProperty = 'fileName';
             }
         }

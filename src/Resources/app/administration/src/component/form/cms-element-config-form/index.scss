@@ -1,0 +1,24 @@
+.moorl-cms-element-config-form {
+    .moorl-cms-element-config-form__card > .mt-card__content {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-gap: 10px;
+        grid-auto-flow: row;
+
+        > .newline {
+            grid-column: 1 / -1;
+        }
+
+        > .mt-banner {
+            grid-column: span 12;
+        }
+    }
+
+    .sw-cms-page-form {
+        margin: 0;
+    }
+
+    .sw-cms-page-form__section {
+        padding: 50px 0 70px 0;
+    }
+}

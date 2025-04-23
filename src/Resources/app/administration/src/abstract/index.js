@@ -1,1 +1,2 @@
+import './cms';
 import './page';

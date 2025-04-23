@@ -1,7 +1,7 @@
 import template from './index.html.twig';
 import './index.scss';
 
-Shopware.Component.register('moorl-abstract-cms-cta-banner-component', {
+Shopware.Component.register('moorl-abstract-cms-cta-banner', {
     template,
 
     mixins: [Shopware.Mixin.getByName('cms-element')],

@@ -7,10 +7,10 @@ Shopware.Service('cmsService').registerCmsElement({
     plugin: 'MoorlFoundation',
     icon: 'regular-view-grid',
     name: 'moorl-foundation-listing',
-    label: 'sw-cms.elements.moorl-foundation-listing.name',
-    component: 'sw-cms-el-moorl-foundation-listing',
-    previewComponent: 'sw-cms-el-preview-moorl-foundation-listing',
-    configComponent: 'sw-cms-el-config-moorl-foundation-listing',
+    label: 'moorl-abstract-cms-listing.name',
+    component: 'moorl-abstract-cms-listing',
+    previewComponent: 'moorl-abstract-cms-listing-preview',
+    configComponent: 'moorl-abstract-cms-listing-config',
     defaultConfig: {
         listingSource: {
             source: 'static',

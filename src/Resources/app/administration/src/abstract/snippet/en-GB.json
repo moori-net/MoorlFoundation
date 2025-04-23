@@ -10,7 +10,7 @@
       "download": "Download",
       "newTab": "Im neuen Tab öffnen",
       "countdownType": "Countdown Typ",
-      "discountValue": "Rabattwert",
+      "discountValue": "Prozentualer Rabattwert",
       "gambleType": "Gamble-Intervall",
       "internalName": "Interner Name",
       "isGamble": "Ist Gamble-Intervall",
@@ -235,11 +235,12 @@
       "location": "Standort"
     },
     "helpText": {
+      "priority": "Umso höher der Wert, desto mehr Priorität hat dieses Element. Das dient z.B. der Gewichtung, wenn dieses Element zu mehreren Produkten zugewiesen wurde.",
       "autoLocation": "Die Standortermittlung dauert 1-3 Sekunden pro Eintrag. Wenn die Adresse nicht richtig ausgefüllt ist, kann es zu Fehlern kommen.",
       "contentCmsPage": "Verwende eine CMS Seite anstatt Inhalt. Nicht empfohlen, da HTML-Inhalte für Migrationen in andere Systeme besser geeignet sind."
     },
     "notification": {
-      "visibility": "Hier kann die Sichtbarkeit angepasst werden. Zuweisungen (z.B. Verkaufskanäle) können frei gelassen werden, damit dieses Objekt generell Sichtbar ist.",
+      "visibility": "Hier kann die Sichtbarkeit angepasst werden. Zuweisungen (z.B. Verkaufskanäle) können frei gelassen werden, damit dieses Element generell Sichtbar ist.",
       "undefined": "Die hier aufgeführten Felder wurden nicht zugewiesen, können jedoch bei Bedarf verwendet werden. Es besteht die Möglichkeit, dass diese Felder in zukünftigen Updates entfernt werden."
     }
   }

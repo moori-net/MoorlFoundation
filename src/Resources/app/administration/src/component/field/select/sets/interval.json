@@ -1,5 +1,5 @@
 [
-    { "value": "minute", "label": "moorl-select.interval.countdown" },
+    { "value": "minute", "label": "moorl-select.interval.minute" },
     { "value": "hour", "label": "moorl-select.interval.hour" },
     { "value": "day", "label": "moorl-select.interval.day" }
 ]
