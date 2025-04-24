@@ -1,9 +1,11 @@
 const {Criteria} = Shopware.Data;
-const {merge, cloneDeep} = Shopware.Utils.object;
+const {merge, cloneDeep, mergeWith} = Shopware.Utils.object;
 
 import ctaBanner from './cms-element/cta-banner';
+import listing from './cms-element/listing';
 
 const defaultCmsElementMappings = {
+    listing,
     'cta-banner': ctaBanner
 };
 
@@ -37,28 +39,11 @@ export default class CmsElementHelper {
                     field.relation = 'one_to_many';
                 }
 
-                if (!Array.isArray(field.associations)) {
-                    field.associations = [];
-                    switch (field.entity) {
-                        case 'product':
-                            field.associations.push('cover.media');
-                            break;
-                        case 'category':
-                            field.associations.push('media');
-                            break;
-                        default:
-                    }
-                }
 
-                const criteria = new Criteria();
-
-                for (const association of field.associations) {
-                    criteria.addAssociation(association);
-                }
 
                 defaultConfig[property].entity = {
                     name: field.entity,
-                    criteria: criteria
+                    criteria: CmsElementHelper.getEntityCriteria(field)
                 };
             } else if (field.value === undefined) {
                 field.type = 'string';
@@ -83,12 +68,46 @@ export default class CmsElementHelper {
         return defaultConfig;
     }
 
-    static getCmsElementConfig({icon, plugin, name, parent, cmsElementMapping = {}}) {
+    static getEntityCriteria(field) {
+        if (!Array.isArray(field.associations)) {
+            field.associations = [];
+            switch (field.entity) {
+                case 'product':
+                    field.associations.push('cover.media');
+                    break;
+                case 'category':
+                    field.associations.push('media');
+                    break;
+                default:
+            }
+        }
+
+        const criteria = new Criteria();
+
+        for (const association of field.associations) {
+            criteria.addAssociation(association);
+        }
+
+        return criteria;
+    }
+
+    static getCmsElementConfig({icon, plugin, name, parent, cmsElementEntity, cmsElementMapping = {}}) {
+        if (cmsElementEntity !== undefined) {
+            cmsElementEntity.criteria = CmsElementHelper.getEntityCriteria(cmsElementEntity);
+        }
+
         if (defaultCmsElementMappings[parent] !== undefined) {
-            cmsElementMapping = merge(
+            const customMerge = (objValue, srcValue) => {
+                if (Array.isArray(objValue)) {
+                    return srcValue;
+                }
+            };
+
+            cmsElementMapping = mergeWith(
                 {},
                 defaultCmsElementMappings[parent],
                 cmsElementMapping,
+                customMerge
             );
         }
 
@@ -96,6 +115,7 @@ export default class CmsElementHelper {
         const abstractComponent = `moorl-abstract-cms-${parent}`;
 
         return {
+            cmsElementEntity,
             cmsElementMapping,
             defaultConfig,
             defaultData: CmsElementHelper.getDefaultData(),

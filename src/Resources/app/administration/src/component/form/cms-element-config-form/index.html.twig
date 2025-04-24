@@ -47,7 +47,7 @@
                         </template>
 
                         <sw-card
-                                v-else
+                                v-else-if="!isDisabledCard(card)"
                                 :title="card.label"
                                 :class="card.id + '-card moorl-cms-element-config-form__card'"
                         >

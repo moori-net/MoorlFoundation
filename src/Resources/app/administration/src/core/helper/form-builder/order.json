@@ -16,8 +16,15 @@
   "relations",
   "customFields",
   "content",
+  "text",
+  "button",
+  "icon",
   "media",
   "position",
   "scss",
+  "layout",
+  "slider",
+  "navigation",
+  "animation",
   "undefined"
 ]

@@ -12,6 +12,11 @@ Shopware.Component.register('moorl-cms-element-config-form', {
     ],
 
     props: {
+        entity: {
+            type: String,
+            required: false,
+            default: undefined
+        },
         componentName: {
             type: String,
             required: true
@@ -35,6 +40,7 @@ Shopware.Component.register('moorl-cms-element-config-form', {
     computed: {
         formBuilderHelper() {
             return new MoorlFoundation.FormBuilderHelper({
+                entity: this.entity,
                 item: this.item,
                 tc: this.$tc,
                 componentName: this.componentName,

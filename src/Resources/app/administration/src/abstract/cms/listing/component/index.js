@@ -3,7 +3,7 @@ const { Criteria } = Shopware.Data;
 import template from './index.html.twig';
 import './index.scss';
 
-Shopware.Component.register('moorl-abstract-cms-listing-component', {
+Shopware.Component.register('moorl-abstract-cms-listing', {
     template,
 
     mixins: [Shopware.Mixin.getByName('cms-element')],
@@ -12,7 +12,9 @@ Shopware.Component.register('moorl-abstract-cms-listing-component', {
 
     data() {
         return {
-            entity: null,
+            cmsElementMapping: null,
+            cmsElementEntity: null,
+            isLoading: true,
             items: [],
             criteria: new Criteria(1, 12),
             elementName: null,
@@ -20,6 +22,10 @@ Shopware.Component.register('moorl-abstract-cms-listing-component', {
     },
 
     computed: {
+        elementType() {
+            return this.element.type;
+        },
+
         listingCss() {
             if (
                 this.element.config.listingLayout.value === 'grid' ||
@@ -96,20 +102,20 @@ Shopware.Component.register('moorl-abstract-cms-listing-component', {
         },
 
         repository() {
-            return this.repositoryFactory.create(this.entity);
+            return this.repositoryFactory.create(this.cmsElementEntity.entity);
         },
 
         defaultCriteria() {
-            this.criteria.setLimit(this.element.config.limit.value);
-            if (this.element.config.limit.value > 23) {
-                this.criteria.setLimit(24);
-            }
-            this.criteria.setIds([]);
-            if (this.element.config.listingSource.value === 'select') {
-                this.criteria.setIds(this.element.config.listingItemIds.value);
+            const criteria = this.cmsElementEntity.criteria;
+
+            criteria.setLimit(this.getValue('limit'));
+            criteria.setIds([]);
+
+            if (this.getValue('listingSource') === 'select') {
+                criteria.setIds(this.getValue('listingItemIds'));
             }
 
-            return this.criteria;
+            return criteria;
         },
     },
 
@@ -128,12 +134,12 @@ Shopware.Component.register('moorl-abstract-cms-listing-component', {
 
     methods: {
         createdComponent() {
-            if (this.elementName) {
-                this.initElementConfig(this.elementName);
-                this.initElementData(this.elementName);
-            }
+            this.cmsElementEntity = this.cmsElements[this.elementType].cmsElementEntity;
+            this.cmsElementMapping = this.cmsElements[this.elementType].cmsElementMapping;
 
-            this.initElementConfig('moorl-foundation-listing');
+            console.log(this.cmsElementEntity);
+            console.log(this.cmsElementMapping);
+
             this.getList();
         },
 
@@ -142,9 +148,9 @@ Shopware.Component.register('moorl-abstract-cms-listing-component', {
                 .search(this.defaultCriteria, Shopware.Context.api)
                 .then((result) => {
                     this.items = result;
-
                     this.element.data.listingItems = result;
-                    //this.element.data.listingItems = result;
+
+                    this.isLoading = false;
                 });
         },
 
@@ -159,5 +165,9 @@ Shopware.Component.register('moorl-abstract-cms-listing-component', {
         itemDescription(item) {
             return item.teaser;
         },
+
+        getValue(key) {
+            return this.element.config?.[key]?.value ?? null;
+        }
     },
 });
