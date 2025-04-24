@@ -12,7 +12,7 @@
 
     <!-- Image background -->
     <div
-            v-else-if="getValue('mediaActive') || currentType === 'category' || currentType === 'product'"
+            v-else-if="getValue('mediaActive')"
             class="background"
             :class="getValue('mediaHover')"
             :style="backgroundCss"
