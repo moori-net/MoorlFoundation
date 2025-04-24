@@ -18,12 +18,16 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
             return this.element.type;
         },
 
-        titleTag() {
-            return this.getValue('titleTag');
-        },
-
         currentType() {
             return this.getValue('elementType');
+        },
+
+        currentEntity() {
+            return this.element.config[this.currentType]?.entity;
+        },
+
+        titleTag() {
+            return this.getValue('titleTag');
         },
 
         name() {
@@ -101,15 +105,10 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
 
         boxClass() {
             return this.getValue('boxMaxWidth') ? null : ['reset'];
-        }
-    },
+        },
 
-    watch: {
-        cmsPageState: {
-            deep: true,
-            handler() {
-                this.$forceUpdate();
-            }
+        repository() {
+            return this.repositoryFactory.create(this.currentEntity.name);
         }
     },
 
@@ -121,7 +120,28 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
         createdComponent() {
             this.cmsElementMapping = this.cmsElements[this.elementType]?.cmsElementMapping ?? {};
 
+            this.$watch(() => this.getValue(this.currentType), () => {
+                this.getItem();
+            });
+
             this.isLoading = false;
+        },
+
+        getItem() {
+            if (
+                !this.currentType ||
+                !this.getValue(this.currentType) ||
+                !this.currentEntity?.criteria
+            ) {
+                return;
+            }
+
+            this.repository
+                .get(this.getValue(this.currentType), Shopware.Context.api, this.currentEntity.criteria)
+                .then(item => {
+                    this.element.data[this.currentType] = item;
+                    this.isLoading = false;
+                });
         },
 
         getValue(key) {

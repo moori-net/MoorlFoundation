@@ -3,7 +3,7 @@
             v-if="!isLoading"
             :item="element.config"
             :componentName="element.type"
+            :entity="currentEntity.name"
             :cmsElementMapping="cmsElementMapping"
-            @update="elementUpdate"
     />
 </div>

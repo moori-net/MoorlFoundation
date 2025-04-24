@@ -146,31 +146,7 @@ export default class CmsElementHelper {
         }
     }
 
-    static getBaseData(element, configProperty, dataProperty, type) {
-        const config = element.config;
-        let data = element.data;
-
-        if (typeof data[configProperty] === 'object') {
-            return data[configProperty];
-        }
-
-        if (config[configProperty].value) {
-            if (!config[configProperty].entity) {
-                return config[configProperty].value;
-            }
-        }
-
-
-        if (data[dataProperty] === undefined) {
-            data = CmsElementHelper.getDefaultData();
-        }
-
-        let item = data[dataProperty];
-
-        if (item === undefined) {
-            item = data['product'];
-        }
-
+    static getItemData(item, type) {
         if (item.translated && item.translated[type]) {
             return item.translated[type];
         }
@@ -194,6 +170,33 @@ export default class CmsElementHelper {
         }
 
         return null;
+    }
+
+    static getBaseData(element, configProperty, dataProperty, type) {
+        const config = element.config;
+        let data = element.data;
+
+        if (typeof data[configProperty] === 'object') {
+            return data[configProperty];
+        }
+
+        if (config[configProperty].value) {
+            if (!config[configProperty].entity) {
+                return config[configProperty].value;
+            }
+        }
+
+        if (data[dataProperty] === undefined) {
+            data = CmsElementHelper.getDefaultData();
+        }
+
+        let item = data[dataProperty];
+
+        if (item === undefined) {
+            item = data['product'];
+        }
+
+        return CmsElementHelper.getItemData(item, type);
     }
 
     static getPlaceholderMedia() {

@@ -43,6 +43,12 @@ const listing = {
         },
     },
     // Layout
+    listingHeaderTitle: {
+        value: null,
+        tab: 'layout',
+        card: 'general',
+        cols: 12
+    },
     listingLayout: {
         value: 'grid',
         tab: 'layout',
@@ -82,36 +88,29 @@ const listing = {
         value: '@Storefront/storefront/component/product/card/box.html.twig',
         conditions: [{ property: 'itemLayout', value: 'custom' }]
     },
-
-    listingHeaderTitle: {
-        value: null,
-        tab: 'layout',
-        card: 'header',
-        cols: 12
-    },
     gapSize: {
         value: '20px',
         tab: 'layout',
-        card: 'main',
-        cols: 4
+        card: 'item',
+        cols: 6
     },
     itemWidth: {
         value: '300px',
         tab: 'layout',
         card: 'item',
-        cols: 4
+        cols: 6
     },
     itemHeight: {
         value: '400px',
         tab: 'layout',
         card: 'item',
-        cols: 4
+        cols: 6
     },
     itemPadding: {
         value: '0px',
         tab: 'layout',
         card: 'item',
-        cols: 4
+        cols: 6
     },
     hasButton: {
         value: true,
@@ -158,28 +157,28 @@ const listing = {
         value: '20px',
         tab: 'layout',
         card: 'content',
-        cols: 4
+        cols: 6
     },
     contentColor: {
         type: 'color',
         value: null,
         tab: 'layout',
         card: 'content',
-        cols: 4
+        cols: 6
     },
     contentBackgroundColor: {
         type: 'color',
         value: null,
         tab: 'layout',
         card: 'content',
-        cols: 4
+        cols: 6
     },
     contentHighlightColor: {
         type: 'color',
         value: null,
         tab: 'layout',
         card: 'content',
-        cols: 4
+        cols: 6
     },
     itemBackgroundColor: {
         type: 'color',

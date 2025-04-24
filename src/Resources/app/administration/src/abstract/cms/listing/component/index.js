@@ -27,77 +27,77 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
         },
 
         listingCss() {
-            if (
-                this.element.config.listingLayout.value === 'grid' ||
-                this.element.config.listingLayout.value === 'standard'
-            ) {
+            const layout = this.getValue('listingLayout');
+
+            const common = {
+                'grid-gap': this.getValue('gapSize'),
+            };
+
+            if (layout === 'grid' || layout === 'standard') {
                 return {
-                    'grid-template-columns': `repeat(auto-fit, minmax(${this.element.config.itemWidth.value}, 1fr))`,
-                    'grid-auto-rows': this.element.config.itemHeight.value,
-                    'grid-gap': this.element.config.gapSize.value,
+                    ...common,
+                    'grid-template-columns': `repeat(auto-fit, minmax(${this.getValue('itemWidth')}, 1fr))`,
+                    'grid-auto-rows': this.getValue('itemHeight'),
                 };
             }
-            if (this.element.config.listingLayout.value === 'list') {
+
+            if (layout === 'list') {
                 return {
-                    'grid-gap': this.element.config.gapSize.value,
-                    'grid-auto-rows': this.element.config.itemHeight.value,
+                    ...common,
+                    'grid-auto-rows': this.getValue('itemHeight'),
                 };
             }
-            if (this.element.config.listingLayout.value === 'slider') {
+
+            if (layout === 'slider') {
                 return {
-                    'grid-gap': this.element.config.gapSize.value,
-                    height: this.element.config.itemHeight.value,
+                    ...common,
+                    height: this.getValue('itemHeight'),
                 };
             }
+
+            return {};
         },
 
         listingClass() {
-            return `moorl-listing-${this.element.config.listingLayout.value}`;
+            return `moorl-listing-${this.getValue('listingLayout')}`;
         },
 
         imageClass() {
-            return `is-${this.element.config.displayMode.value}`;
+            return `is-${this.getValue('displayMode')}`;
         },
 
         imageCss() {
-            if (this.element.config.itemLayout.value === 'avatar') {
+            if (this.getValue('itemLayout') === 'avatar') {
                 return {
-                    width: this.element.config.itemWidth.value,
-                    height: this.element.config.itemWidth.value,
+                    width: this.getValue('itemWidth'),
+                    height: this.getValue('itemWidth'),
                 };
             }
+            return {};
         },
 
         itemCss() {
             return {
-                padding: this.element.config.itemPadding.value,
-                'background-color':
-                    this.element.config.itemBackgroundColor.value,
-                border: this.element.config.itemHasBorder.value
-                    ? '1px solid #333'
-                    : null,
-                'border-radius': this.element.config.itemHasBorder.value
-                    ? '6px'
-                    : null,
-                '--content-color': this.element.config.contentColor.value,
-                '--content-background-color':
-                    this.element.config.contentBackgroundColor.value,
-                '--content-highlight-color':
-                    this.element.config.contentHighlightColor.value,
+                padding: this.getValue('itemPadding'),
+                'background-color': this.getValue('itemBackgroundColor'),
+                border: this.getValue('itemHasBorder') ? '1px solid #333' : null,
+                'border-radius': this.getValue('itemHasBorder') ? '6px' : null,
+                '--content-color': this.getValue('contentColor'),
+                '--content-background-color': this.getValue('contentBackgroundColor'),
+                '--content-highlight-color': this.getValue('contentHighlightColor'),
             };
         },
 
         itemClass() {
-            return `moorl-listing-item-${this.element.config.itemLayout.value}`;
+            return `moorl-listing-item-${this.getValue('itemLayout')}`;
         },
 
         contentCss() {
             return {
-                padding: this.element.config.contentPadding.value,
-                'background-color':
-                    this.element.config.contentBackgroundColor.value,
-                color: this.element.config.contentColor.value,
-                'text-align': this.element.config.textAlign.value,
+                padding: this.getValue('contentPadding'),
+                'background-color': this.getValue('contentBackgroundColor'),
+                color: this.getValue('contentColor'),
+                'text-align': this.getValue('textAlign'),
             };
         },
 
@@ -107,7 +107,6 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
 
         defaultCriteria() {
             const criteria = this.cmsElementEntity.criteria;
-
             criteria.setLimit(this.getValue('limit'));
             criteria.setIds([]);
 
@@ -120,12 +119,8 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
     },
 
     watch: {
-        cmsPageState: {
-            deep: true,
-            handler() {
-                this.$forceUpdate();
-            },
-        },
+        'element.config.listingSource.value': 'getList',
+        'element.config.listingItemIds.value': 'getList',
     },
 
     created() {
@@ -134,11 +129,9 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
 
     methods: {
         createdComponent() {
-            this.cmsElementEntity = this.cmsElements[this.elementType].cmsElementEntity;
-            this.cmsElementMapping = this.cmsElements[this.elementType].cmsElementMapping;
-
-            console.log(this.cmsElementEntity);
-            console.log(this.cmsElementMapping);
+            const elementType = this.elementType;
+            this.cmsElementEntity = this.cmsElements[elementType].cmsElementEntity;
+            this.cmsElementMapping = this.cmsElements[elementType].cmsElementMapping;
 
             this.getList();
         },
@@ -146,28 +139,26 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
         getList() {
             this.repository
                 .search(this.defaultCriteria, Shopware.Context.api)
-                .then((result) => {
-                    this.items = result;
+                .then(result => {
                     this.element.data.listingItems = result;
-
                     this.isLoading = false;
                 });
         },
 
         itemTitle(item) {
-            return item.title;
+            return MoorlFoundation.CmsElementHelper.getItemData(item, 'name');
         },
 
         itemMedia(item) {
-            return item.media;
+            return MoorlFoundation.CmsElementHelper.getItemData(item, 'media');
         },
 
         itemDescription(item) {
-            return item.teaser;
+            return MoorlFoundation.CmsElementHelper.getItemData(item, 'description');
         },
 
         getValue(key) {
             return this.element.config?.[key]?.value ?? null;
         }
-    },
+    }
 });

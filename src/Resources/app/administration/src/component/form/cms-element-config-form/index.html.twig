@@ -78,7 +78,6 @@
                                     <sw-form-field-renderer
                                             v-else
                                             v-model:value="fieldModels[field.name]"
-                                            @update:value="$emit('update')"
                                             :type="field.type"
                                             :label="field.label"
                                             :config="fieldAttributes(field)"

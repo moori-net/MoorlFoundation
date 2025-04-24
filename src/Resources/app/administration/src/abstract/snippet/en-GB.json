@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "custom": "Benutzerdefiniert",
+      "cta": "Call-To-Action",
       "displayMode": "Darstellungsmodus",
       "itemLayoutTemplate": "Element-Layout-Template",
       "mode": "Modus",

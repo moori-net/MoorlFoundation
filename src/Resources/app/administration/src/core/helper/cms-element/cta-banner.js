@@ -7,7 +7,7 @@ const ctaBanner = {
         componentName: 'moorl-select-field',
         attributes: {
             customSet: ['custom', 'category', 'cta', 'product'],
-            snippetPath: 'sw-cms.elements.moorl-cta-banner.label'
+            snippetPath: 'moorl-foundation.field'
         }
     },
     height: {
@@ -96,8 +96,7 @@ const ctaBanner = {
                 'zoom', 'rotate', 'rotate-zoom',
                 'colorize', 'colorize-zoom',
                 'colorize-blur', 'blur', 'blur-zoom'
-            ],
-            snippetPath: 'sw-cms.elements.moorl-cta-banner.label'
+            ]
         }
     },
     backgroundFixed: {
