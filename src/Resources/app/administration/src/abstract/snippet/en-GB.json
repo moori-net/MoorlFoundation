@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "showQuotes": "Zitat-Zeichen einblenden",
+      "creatorId": "Ersteller",
       "isGlobal": "Globale Sichtbarkeit",
       "typeId": "Typ",
       "boostType": "Upgrade-Typ",

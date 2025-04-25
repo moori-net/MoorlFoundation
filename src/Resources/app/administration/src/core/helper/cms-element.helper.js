@@ -94,6 +94,7 @@ export default class CmsElementHelper {
                     field.associations.push('cover.media');
                     break;
                 case 'category':
+                case 'product_manufacturer':
                     field.associations.push('media');
                     break;
                 default:
@@ -158,7 +159,7 @@ export default class CmsElementHelper {
             label: label ?? `${abstractComponent}.name`,
             component: abstractComponent,
             configComponent: `${abstractComponent}-config`,
-            previewComponent: true
+            previewComponent: true // TODO: Remove the hack from core template
         }
     }
 
