@@ -1,8 +1,5 @@
 Shopware.Mixin.register('moorl-abstract-cms-element', {
-    mixins: [
-        Shopware.Mixin.getByName('cms-element')
-    ],
-
+    mixins: [Shopware.Mixin.getByName('cms-element')],
     inject: ['repositoryFactory'],
 
     data() {

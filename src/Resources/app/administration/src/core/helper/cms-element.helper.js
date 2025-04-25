@@ -271,7 +271,9 @@ export default class CmsElementHelper {
                 }
             }
 
-            baseData[id] = null;
+            if (baseData[id] === undefined) {
+                baseData[id] = null;
+            }
         }
 
         return baseData;
