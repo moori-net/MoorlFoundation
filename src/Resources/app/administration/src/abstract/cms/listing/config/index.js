@@ -27,10 +27,6 @@ Shopware.Component.register('moorl-abstract-cms-listing-config', {
     },
 
     methods: {
-        elementUpdate() {
-            this.$emit('element-update', this.element);
-        },
-
         createdComponent() {
             this.cmsElementEntity = this.cmsElements[this.elementType].cmsElementEntity;
             this.cmsElementMapping = this.cmsElements[this.elementType].cmsElementMapping;

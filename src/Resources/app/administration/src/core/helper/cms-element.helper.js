@@ -10,6 +10,26 @@ const defaultCmsElementMappings = {
 };
 
 export default class CmsElementHelper {
+    static propertyMapping = {
+        category: {
+            name: ['translated.name', 'name'],
+            description: ['translated.description', 'description'],
+            media: 'media',
+        },
+        product: {
+            name: ['translated.name', 'name'],
+            description: ['translated.description', 'description'],
+            media: 'cover.media',
+        },
+        default: {
+            name: ['translated.name', 'name'],
+            description: ['translated.description', 'description'],
+            media: 'media',
+        },
+    };
+
+    static cmsElementMappings = {};
+
     static enrichCmsElementMapping(cmsElementMapping) {
         const defaultConfig = {};
 
@@ -38,8 +58,6 @@ export default class CmsElementHelper {
                 } else {
                     field.relation = 'one_to_many';
                 }
-
-
 
                 defaultConfig[property].entity = {
                     name: field.entity,
@@ -91,28 +109,27 @@ export default class CmsElementHelper {
         return criteria;
     }
 
-    static getCmsElementConfig({icon, plugin, name, parent, cmsElementEntity, cmsElementMapping = {}}) {
+    static getCmsElementConfig({icon, plugin, name, label, parent, cmsElementEntity, cmsElementMapping = {}}) {
         if (cmsElementEntity !== undefined) {
             cmsElementEntity.criteria = CmsElementHelper.getEntityCriteria(cmsElementEntity);
+
+            if (cmsElementEntity.propertyMapping !== undefined) {
+                this.propertyMapping[cmsElementEntity.entity] = cmsElementEntity.propertyMapping;
+            }
         }
 
         if (defaultCmsElementMappings[parent] !== undefined) {
             const customMerge = (objValue, srcValue) => {
-                if (Array.isArray(objValue)) {
-                    return srcValue;
-                }
+                if (Array.isArray(objValue)) {return srcValue;}
             };
 
-            cmsElementMapping = mergeWith(
-                {},
-                defaultCmsElementMappings[parent],
-                cmsElementMapping,
-                customMerge
-            );
+            cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
         }
 
         const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
         const abstractComponent = `moorl-abstract-cms-${parent}`;
+
+        this.cmsElementMappings[name] = cmsElementMapping;
 
         return {
             cmsElementEntity,
@@ -122,7 +139,7 @@ export default class CmsElementHelper {
             plugin: plugin ?? 'MoorlFoundation',
             icon: icon ?? 'regular-marketing',
             name: name,
-            label: `${abstractComponent}.name`,
+            label: label ?? `${abstractComponent}.name`,
             component: abstractComponent,
             configComponent: `${abstractComponent}-config`,
             previewComponent: true
@@ -143,60 +160,99 @@ export default class CmsElementHelper {
                     media: CmsElementHelper.getPlaceholderMedia(),
                 },
             },
+            default: {
+                name: 'Default Item',
+                description: CmsElementHelper.getPlaceholderText(),
+                media: CmsElementHelper.getPlaceholderMedia(),
+            }
         }
     }
 
-    static getItemData(item, type) {
-        if (item.translated && item.translated[type]) {
-            return item.translated[type];
+    static getItemData({item, entity}) {
+        const data = CmsElementHelper.getDefaultData()['default'];
+
+        if (item === undefined || entity === undefined) {
+            MoorlFoundation.Logger.warn('CmsElementHelper.getItemData', 'item or entity not defined');
+            return data;
         }
 
-        if (item.cover && item.cover[type]) {
-            return item.cover[type];
+        let propertyMapping = this.propertyMapping[entity];
+        if (propertyMapping === undefined) {
+            MoorlFoundation.Logger.warn(
+                'CmsElementHelper.getItemData',
+                'property mapping not defined, loading default',
+                {entity}
+            );
+
+            propertyMapping = this.propertyMapping['default'];
         }
 
-        if (item[type]) {
-            return item[type];
-        }
+        const types = ['name', 'description', 'media'];
 
-        for (const [key, prop] of Object.entries(item)) {
-            if (!prop) {
+        for(const type of types) {
+            if (propertyMapping[type] === undefined) {
+
                 continue;
             }
 
-            if (typeof prop[type] === 'object') {
-                return prop[type];
-            }
+            data[type] = CmsElementHelper.getItemPropertyData(item, propertyMapping[type], data[type]);
         }
 
-        return null;
+        return data;
+    }
+    static getDeepValue(obj, path, fallback = null) {
+        return path.split('.').reduce((acc, key) => acc?.[key], obj) ?? fallback;
     }
 
-    static getBaseData(element, configProperty, dataProperty, type) {
-        const config = element.config;
-        let data = element.data;
+    static getItemPropertyData(item, paths, fallback = null) {
+        if (!Array.isArray(paths)) {paths = [paths];}
 
-        if (typeof data[configProperty] === 'object') {
-            return data[configProperty];
-        }
-
-        if (config[configProperty].value) {
-            if (!config[configProperty].entity) {
-                return config[configProperty].value;
+        for (const path of paths) {
+            const value = CmsElementHelper.getDeepValue(item, path);
+            if (value) {
+                return value;
             }
         }
 
-        if (data[dataProperty] === undefined) {
-            data = CmsElementHelper.getDefaultData();
+        MoorlFoundation.Logger.warn(
+            'CmsElementHelper.getItemPropertyData',
+            'item property not defined, returning fallback',
+            {item, paths, fallback}
+        );
+
+        return fallback;
+    }
+
+    static getBaseData({element, entity, properties, dataSource}) {
+        const baseData = CmsElementHelper.getItemData({
+            item: element.data[dataSource],
+            entity
+        });
+
+        if (properties === undefined) {
+            return baseData;
         }
 
-        let item = data[dataProperty];
+        for (const property of properties) {
+            if (property.config === undefined) {
+                continue;
+            }
 
-        if (item === undefined) {
-            item = data['product'];
+            const id = property.data ?? property.config;
+
+            if (typeof element.data[property.config] === 'object') {
+                baseData[id] = element.data[property.config];
+                continue;
+            }
+
+            if (element.config[property.config].value) {
+                if (!element.config[property.config].entity) {
+                    baseData[id] = element.config[property.config].value;
+                }
+            }
         }
 
-        return CmsElementHelper.getItemData(item, type);
+        return baseData;
     }
 
     static getPlaceholderMedia() {

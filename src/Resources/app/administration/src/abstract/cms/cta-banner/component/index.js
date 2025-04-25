@@ -9,7 +9,8 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
 
     data() {
         return {
-            isLoading: true
+            isLoading: true,
+            cache: {}
         };
     },
 
@@ -30,8 +31,22 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
             return this.getValue('titleTag');
         },
 
+        baseData() {
+            return MoorlFoundation.CmsElementHelper.getBaseData({
+                entity: this.currentEntity.name,
+                element: this.element,
+                dataSource: this.currentType,
+                properties: [
+                    {config: 'title', data: 'name'},
+                    {config: 'quote', data: 'description'},
+                    {config: 'media', data: 'media'},
+                    {config: 'iconMedia', data: undefined},
+                ]
+            });
+        },
+
         name() {
-            return MoorlFoundation.CmsElementHelper.getBaseData(this.element, 'title', this.currentType, 'name');
+            return this.baseData.name
         },
 
         bannerTitle() {
@@ -39,15 +54,15 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
         },
 
         bannerDescription() {
-            return MoorlFoundation.CmsElementHelper.getBaseData(this.element, 'quote', this.currentType, 'description');
+            return this.baseData.description
         },
 
         bannerMediaUrl() {
-            return MoorlFoundation.CmsElementHelper.getBaseData(this.element, 'media', this.currentType, 'media')?.url;
+            return this.baseData.media?.url;
         },
 
         iconMediaUrl() {
-            return MoorlFoundation.CmsElementHelper.getBaseData(this.element, 'iconMedia', this.currentType, 'media')?.url;
+            return this.baseData.iconMedia?.url;
         },
 
         elementCss() {

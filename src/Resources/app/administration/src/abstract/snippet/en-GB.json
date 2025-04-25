@@ -1,6 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "isGlobal": "Globale Sichtbarkeit",
+      "typeId": "Typ",
+      "boostType": "Upgrade-Typ",
       "custom": "Benutzerdefiniert",
       "cta": "Call-To-Action",
       "displayMode": "Darstellungsmodus",

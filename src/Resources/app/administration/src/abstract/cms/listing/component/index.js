@@ -1,5 +1,3 @@
-const { Criteria } = Shopware.Data;
-
 import template from './index.html.twig';
 import './index.scss';
 
@@ -15,9 +13,7 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
             cmsElementMapping: null,
             cmsElementEntity: null,
             isLoading: true,
-            items: [],
-            criteria: new Criteria(1, 12),
-            elementName: null,
+            cache: {}
         };
     },
 
@@ -129,14 +125,16 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
 
     methods: {
         createdComponent() {
-            const elementType = this.elementType;
-            this.cmsElementEntity = this.cmsElements[elementType].cmsElementEntity;
-            this.cmsElementMapping = this.cmsElements[elementType].cmsElementMapping;
-
             this.getList();
         },
 
         getList() {
+            this.isLoading = true;
+
+            const elementType = this.elementType;
+            this.cmsElementEntity = this.cmsElements[elementType].cmsElementEntity;
+            this.cmsElementMapping = this.cmsElements[elementType].cmsElementMapping;
+
             this.repository
                 .search(this.defaultCriteria, Shopware.Context.api)
                 .then(result => {
@@ -145,16 +143,17 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
                 });
         },
 
-        itemTitle(item) {
-            return MoorlFoundation.CmsElementHelper.getItemData(item, 'name');
-        },
+        getData(item) {
+            if (this.cache[item.id] !== undefined) {
+                return this.cache[item.id];
+            }
 
-        itemMedia(item) {
-            return MoorlFoundation.CmsElementHelper.getItemData(item, 'media');
-        },
+            this.cache[item.id] = MoorlFoundation.CmsElementHelper.getItemData({
+                item,
+                entity: this.cmsElementEntity.entity
+            });
 
-        itemDescription(item) {
-            return MoorlFoundation.CmsElementHelper.getItemData(item, 'description');
+            return this.cache[item.id];
         },
 
         getValue(key) {

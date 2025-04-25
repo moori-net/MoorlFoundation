@@ -19,36 +19,27 @@
                 <div :class="itemClass">
                     <div class="moorl-listing-item-image">
                         <img
-                                v-if="itemMedia(item)"
-                                :src="itemMedia(item).url"
+                                v-if="getData(item).media"
+                                :src="getData(item).media.url"
                                 :class="imageClass"
                                 :style="imageCss"
                         />
-
-                        <div
-                                v-else-if="getValue('itemLayout') === 'image-or-title'"
-                                class="moorl-listing-item-title"
-                                :title="itemTitle(item)"
-                        >
-                            {{ itemTitle(item) }}
-                        </div>
                     </div>
 
                     <div
-                            v-if="getValue('itemLayout') !== 'image-or-title'"
                             class="moorl-listing-item-content"
                             :style="contentCss"
                     >
                         <div>
                             <div class="moorl-listing-item-title">
-                                {{ itemTitle(item) }}
+                                {{ getData(item).name }}
                             </div>
 
                             <div
-                                    v-if="itemDescription(item)"
+                                    v-if="getData(item).description"
                                     class="moorl-listing-item-description"
                             >
-                                {{ itemDescription(item) }}
+                                {{ getData(item).description }}
                             </div>
 
                             <mt-button
