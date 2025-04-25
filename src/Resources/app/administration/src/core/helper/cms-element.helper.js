@@ -118,7 +118,7 @@ export default class CmsElementHelper {
         return config;
     }
 
-    static getCmsElementConfig({icon, plugin, name, label, parent, cmsElementEntity, cmsElementMapping = {}}) {
+    static registerCmsElement({icon, plugin, name, label, parent, cmsElementEntity, cmsElementMapping = {}}) {
         if (cmsElementEntity !== undefined) {
             cmsElementEntity.criteria = CmsElementHelper.getEntityCriteria(cmsElementEntity);
 
@@ -148,7 +148,7 @@ export default class CmsElementHelper {
             icon
         };
 
-        return {
+        const cmsElementConfig = {
             cmsElementEntity,
             cmsElementMapping,
             defaultConfig,
@@ -160,7 +160,9 @@ export default class CmsElementHelper {
             component: abstractComponent,
             configComponent: `${abstractComponent}-config`,
             previewComponent: true // TODO: Remove the hack from core template
-        }
+        };
+
+        Shopware.Application.getContainer('service').cmsService.registerCmsElement(cmsElementConfig);
     }
 
     static getDefaultData() {

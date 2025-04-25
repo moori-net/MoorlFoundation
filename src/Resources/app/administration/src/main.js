@@ -60,10 +60,10 @@ MoorlProxyService.registerPlugin({
     demoName: 'marker'
 });
 
-MoorlProxyService.registerPlugin({entity: 'product', listingRoute: 'sw.product.index'});
-MoorlProxyService.registerPlugin({entity: 'category', listingRoute: 'sw.category.index'});
-MoorlProxyService.registerPlugin({entity: 'customer', listingRoute: 'sw.customer.index'});
-MoorlProxyService.registerPlugin({entity: 'product_stream', listingRoute: 'sw.product.stream.index'});
-MoorlProxyService.registerPlugin({entity: 'cms_page', listingRoute: 'sw.cms.index'});
-MoorlProxyService.registerPlugin({entity: 'country', listingRoute: 'sw.country.index'});
-MoorlProxyService.registerPlugin({entity: 'mail_template', listingRoute: 'sw.mail.template.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
+MoorlProxyService.registerPlugin({entity: 'category', listPath: 'sw.category.index'});
+MoorlProxyService.registerPlugin({entity: 'customer', listPath: 'sw.customer.index'});
+MoorlProxyService.registerPlugin({entity: 'product_stream', listPath: 'sw.product.stream.index'});
+MoorlProxyService.registerPlugin({entity: 'cms_page', listPath: 'sw.cms.index'});
+MoorlProxyService.registerPlugin({entity: 'country', listPath: 'sw.country.index'});
+MoorlProxyService.registerPlugin({entity: 'mail_template', listPath: 'sw.mail.template.index'});

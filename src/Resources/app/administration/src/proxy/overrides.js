@@ -1,9 +1,11 @@
+import AsyncModuleHelper from "../core/helper/async-module.helper";
+
 const { Criteria } = Shopware.Data;
 
 Shopware.Component.override('sw-cms-detail', {
     computed: {
         cmsPageTypeSettings() {
-            const pluginConfig = Shopware.Store.get('moorlProxy').getByPageType(
+            const pluginConfig = MoorlFoundation.AsyncModuleHelper.getByPageType(
                 this.page.type
             );
 
@@ -22,7 +24,7 @@ Shopware.Component.override('sw-cms-detail', {
         onDemoEntityChange(demoEntityId) {
             const demoMappingType = this.cmsPageTypeSettings?.entity;
             const pluginConfig =
-                Shopware.Store.get('moorlProxy').getByEntity(demoMappingType);
+                MoorlFoundation.AsyncModuleHelper.getByEntity(demoMappingType);
 
             if (pluginConfig === undefined) {
                 return this.$super('onDemoEntityChange');

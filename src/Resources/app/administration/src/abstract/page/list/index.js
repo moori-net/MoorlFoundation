@@ -20,8 +20,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
             entity: null,
             pluginName: null, // Demo button
             demoName: 'standard',
-            snippetSrc: 'moorl-foundation',
-
             items: null,
             showImportModal: false,
             showExportModal: false,

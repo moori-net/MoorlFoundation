@@ -7,17 +7,15 @@ export default class RouteHelper {
     }
 
     static getRouterLinkByEntity(entity, target = 'detail') {
-        const listingRoute = Shopware.Store.get('moorlProxy').getByEntity(entity)?.listingRoute;
-        if (listingRoute === undefined) {
+        const listPath = MoorlFoundation.AsyncModuleHelper.getByEntity(entity)?.listPath;
+        if (listPath === undefined) {
             return null;
         }
 
-        let parts = listingRoute.split(".");
+        let parts = listPath.split(".");
         parts.pop();
         parts.push(target);
 
         return parts.join(".");
     }
-
-    _init() {}
 }

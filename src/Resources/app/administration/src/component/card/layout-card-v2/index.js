@@ -1,5 +1,6 @@
 import template from './index.html.twig';
 import './index.scss';
+import AsyncModuleHelper from "../../../core/helper/async-module.helper";
 
 const { Criteria, ChangesetGenerator } = Shopware.Data;
 const type = Shopware.Utils.types;
@@ -61,7 +62,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
             return Shopware.Store.get('cmsPage').currentPage;
         },
         cmsPageType() {
-            return this.pageType ?? Shopware.Store.get('moorlProxy')?.getByEntity(this.entity)?.name;
+            return this.pageType ?? MoorlFoundation.AsyncModuleHelper.getByEntity(this.entity)?.name;
         },
         cmsPageTypes() {
             return [];
