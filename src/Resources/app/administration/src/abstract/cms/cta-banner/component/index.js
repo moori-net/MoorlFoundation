@@ -4,21 +4,9 @@ import './index.scss';
 Shopware.Component.register('moorl-abstract-cms-cta-banner', {
     template,
 
-    mixins: [Shopware.Mixin.getByName('cms-element')],
-    inject: ['repositoryFactory'],
-
-    data() {
-        return {
-            isLoading: true,
-            cache: {}
-        };
-    },
+    mixins: [Shopware.Mixin.getByName('moorl-abstract-cms-element')],
 
     computed: {
-        elementType() {
-            return this.element.type;
-        },
-
         currentType() {
             return this.getValue('elementType');
         },
@@ -45,12 +33,8 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
             });
         },
 
-        name() {
-            return this.baseData.name
-        },
-
         bannerTitle() {
-            return `<${this.titleTag}>${this.name}</${this.titleTag}>`;
+            return `<${this.titleTag}>${this.baseData.name}</${this.titleTag}>`;
         },
 
         bannerDescription() {
@@ -120,47 +104,10 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
 
         boxClass() {
             return this.getValue('boxMaxWidth') ? null : ['reset'];
-        },
-
-        repository() {
-            return this.repositoryFactory.create(this.currentEntity.name);
         }
     },
 
     created() {
-        this.createdComponent();
-    },
-
-    methods: {
-        createdComponent() {
-            this.cmsElementMapping = this.cmsElements[this.elementType]?.cmsElementMapping ?? {};
-
-            this.$watch(() => this.getValue(this.currentType), () => {
-                this.getItem();
-            });
-
-            this.isLoading = false;
-        },
-
-        getItem() {
-            if (
-                !this.currentType ||
-                !this.getValue(this.currentType) ||
-                !this.currentEntity?.criteria
-            ) {
-                return;
-            }
-
-            this.repository
-                .get(this.getValue(this.currentType), Shopware.Context.api, this.currentEntity.criteria)
-                .then(item => {
-                    this.element.data[this.currentType] = item;
-                    this.isLoading = false;
-                });
-        },
-
-        getValue(key) {
-            return this.element.config?.[key]?.value ?? null;
-        }
+        this.initCmsComponent();
     }
 });

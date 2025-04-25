@@ -1,5 +1,5 @@
 const {Criteria} = Shopware.Data;
-const {merge, cloneDeep, mergeWith} = Shopware.Utils.object;
+const {mergeWith} = Shopware.Utils.object;
 
 import ctaBanner from './cms-element/cta-banner';
 import listing from './cms-element/listing';
@@ -28,7 +28,7 @@ export default class CmsElementHelper {
         },
     };
 
-    static cmsElementMappings = {};
+    static cmsElementConfigCache = {};
 
     static enrichCmsElementMapping(cmsElementMapping) {
         const defaultConfig = {};
@@ -109,6 +109,14 @@ export default class CmsElementHelper {
         return criteria;
     }
 
+    static getConfig(name, key) {
+        const config = this.cmsElementConfigCache[name] ?? {};
+        if (key !== undefined) {
+            return config[key] ?? null;
+        }
+        return config;
+    }
+
     static getCmsElementConfig({icon, plugin, name, label, parent, cmsElementEntity, cmsElementMapping = {}}) {
         if (cmsElementEntity !== undefined) {
             cmsElementEntity.criteria = CmsElementHelper.getEntityCriteria(cmsElementEntity);
@@ -129,16 +137,24 @@ export default class CmsElementHelper {
         const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
         const abstractComponent = `moorl-abstract-cms-${parent}`;
 
-        this.cmsElementMappings[name] = cmsElementMapping;
+        plugin = plugin ?? 'MoorlFoundation';
+        icon = icon ?? 'regular-marketing';
+
+        this.cmsElementConfigCache[name] = {
+            cmsElementEntity,
+            cmsElementMapping,
+            plugin,
+            icon
+        };
 
         return {
             cmsElementEntity,
             cmsElementMapping,
             defaultConfig,
             defaultData: CmsElementHelper.getDefaultData(),
-            plugin: plugin ?? 'MoorlFoundation',
-            icon: icon ?? 'regular-marketing',
-            name: name,
+            plugin,
+            icon,
+            name,
             label: label ?? `${abstractComponent}.name`,
             component: abstractComponent,
             configComponent: `${abstractComponent}-config`,
@@ -240,7 +256,10 @@ export default class CmsElementHelper {
 
             const id = property.data ?? property.config;
 
-            if (typeof element.data[property.config] === 'object') {
+            if (
+                typeof element.data[property.config] === 'object' &&
+                element.data[property.config] !== null
+            ) {
                 baseData[id] = element.data[property.config];
                 continue;
             }
@@ -248,8 +267,11 @@ export default class CmsElementHelper {
             if (element.config[property.config].value) {
                 if (!element.config[property.config].entity) {
                     baseData[id] = element.config[property.config].value;
+                    continue;
                 }
             }
+
+            baseData[id] = null;
         }
 
         return baseData;

@@ -3,20 +3,9 @@ import template from './index.html.twig';
 Shopware.Component.register('moorl-abstract-cms-cta-banner-config', {
     template,
 
-    mixins: [Shopware.Mixin.getByName('cms-element')],
-
-    data() {
-        return {
-            cmsElementMapping: null,
-            isLoading: true,
-        };
-    },
+    mixins: [Shopware.Mixin.getByName('moorl-abstract-cms-element')],
 
     computed: {
-        elementType() {
-            return this.element.type;
-        },
-
         currentType() {
             return this.getValue('elementType');
         },
@@ -27,18 +16,6 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner-config', {
     },
 
     created() {
-        this.createdComponent();
-    },
-
-    methods: {
-        createdComponent() {
-            this.cmsElementMapping = this.cmsElements[this.elementType].cmsElementMapping;
-
-            this.isLoading = false;
-        },
-
-        getValue(key) {
-            return this.element.config?.[key]?.value ?? null;
-        }
-    },
+        this.initCmsConfig();
+    }
 });

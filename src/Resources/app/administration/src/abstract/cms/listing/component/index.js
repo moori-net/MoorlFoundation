@@ -4,24 +4,9 @@ import './index.scss';
 Shopware.Component.register('moorl-abstract-cms-listing', {
     template,
 
-    mixins: [Shopware.Mixin.getByName('cms-element')],
-
-    inject: ['repositoryFactory'],
-
-    data() {
-        return {
-            cmsElementMapping: null,
-            cmsElementEntity: null,
-            isLoading: true,
-            cache: {}
-        };
-    },
+    mixins: [Shopware.Mixin.getByName('moorl-abstract-cms-element')],
 
     computed: {
-        elementType() {
-            return this.element.type;
-        },
-
         listingCss() {
             const layout = this.getValue('listingLayout');
 
@@ -120,44 +105,18 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
     },
 
     created() {
-        this.createdComponent();
+        this.initBase();
+        this.getList();
     },
 
     methods: {
-        createdComponent() {
-            this.getList();
-        },
-
         getList() {
-            this.isLoading = true;
-
-            const elementType = this.elementType;
-            this.cmsElementEntity = this.cmsElements[elementType].cmsElementEntity;
-            this.cmsElementMapping = this.cmsElements[elementType].cmsElementMapping;
-
             this.repository
                 .search(this.defaultCriteria, Shopware.Context.api)
                 .then(result => {
                     this.element.data.listingItems = result;
                     this.isLoading = false;
                 });
-        },
-
-        getData(item) {
-            if (this.cache[item.id] !== undefined) {
-                return this.cache[item.id];
-            }
-
-            this.cache[item.id] = MoorlFoundation.CmsElementHelper.getItemData({
-                item,
-                entity: this.cmsElementEntity.entity
-            });
-
-            return this.cache[item.id];
-        },
-
-        getValue(key) {
-            return this.element.config?.[key]?.value ?? null;
         }
     }
 });
