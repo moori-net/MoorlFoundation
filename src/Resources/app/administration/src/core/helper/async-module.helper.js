@@ -1,6 +1,6 @@
 export default class AsyncModuleHelper {
     static pluginConfigCache = [];
-    static entityMappingsCache = {};
+    static entityMappingCache = {};
 
     static registerModule({
                               icon,
@@ -21,13 +21,13 @@ export default class AsyncModuleHelper {
                               color
                           }) {
         if (entityMapping) {
-            if (!this.entityMappingsCache[entity]) {
-                this.entityMappingsCache[entity] = {};
+            if (!this.entityMappingCache[entity]) {
+                this.entityMappingCache[entity] = {};
             }
 
             Object.entries(entityMapping).forEach(([fieldKey, fieldConfig]) => {
-                if (!this.entityMappingsCache[entity][fieldKey]) {
-                    this.entityMappingsCache[entity][fieldKey] = fieldConfig;
+                if (!this.entityMappingCache[entity][fieldKey]) {
+                    this.entityMappingCache[entity][fieldKey] = fieldConfig;
                 } else {
                     console.warn(`[CustomEntityMapping] Feld "${fieldKey}" für Entity "${entity}" wurde bereits registriert und wird ignoriert.`);
                 }
@@ -52,6 +52,10 @@ export default class AsyncModuleHelper {
             }
             MoorlFoundation.CmsElementHelper.registerCmsElement(cmsElement);
         }
+    }
+
+    static getEntityMapping(entity) {
+        return this.entityMappingCache[entity];
     }
 
     static addPluginConfig(pluginConfig) {

@@ -72,7 +72,7 @@ export default class FormBuilderHelper {
             return;
         }
 
-        const customMapping = Shopware.Store.get('moorlFoundationState').getCustomEntityMapping(this.entity) ?? {};
+        const customMapping = MoorlFoundation.AsyncModuleHelper.getEntityMapping(this.entity) ?? {};
 
         for (const [key, config] of Object.entries(customMapping)) {
             if (typeof config.order === 'string') {
