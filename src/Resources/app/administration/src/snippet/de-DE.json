@@ -1,4 +1,12 @@
 {
+    "global": {
+        "entities": {
+            "moorl_client": "[moori] Clients",
+            "moorl_marker": "[moori] Map marker",
+            "moorl_cms_element_config": "[moori] CMS configs",
+            "moorl_sorting": "[moori] Sortings"
+        }
+    },
     "moorl-foundation": {
         "pluginBetaInfo": "Dieser Teil ist ein BETA Funktion des Plugins {plugin}. Wenn Sie das neue Plugin testen möchten, hinterlassen Sie mir eine E-Mail an info@moorleiche.com.",
         "days": {

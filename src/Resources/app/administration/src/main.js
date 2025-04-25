@@ -10,15 +10,16 @@ import './proxy';
 
 import './component';
 import './extension';
+
+
 import './module';
 
 import './main.scss';
 
-const MoorlProxyService = Shopware.Service('moorlProxyService');
-
-MoorlProxyService.registerPlugin({
+MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_client',
-    listingRoute: 'moorl.client.list',
+    name: 'moorl-client',
+    icon: 'regular-sign-in',
     properties: [
         {name: 'active', visibility: 100},
         {name: 'name', visibility: 100},
@@ -26,18 +27,35 @@ MoorlProxyService.registerPlugin({
     ]
 });
 
-MoorlProxyService.registerPlugin({
+import './module/client/page/detail'; // Override!
+
+MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_cms_element_config',
-    listingRoute: 'moorl.cms.element.config.index',
+    name: 'moorl-cms-element-config',
+    icon: 'regular-layout',
     properties: [
         {name: 'name', visibility: 100},
         {name: 'type', visibility: 100},
-    ]
+    ],
+    entityMapping: {
+        autoSize: {hidden: true},
+        type: {hidden: true},
+        config: {
+            componentName: 'moorl-cms-slot-card',
+            tab: 'general',
+            card: undefined,
+            attributes: {
+                item: ({item}) => item,
+            },
+            order: 500
+        }
+    }
 });
 
-MoorlProxyService.registerPlugin({
+MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_marker',
-    listingRoute: 'moorl.marker.list',
+    name: 'moorl-marker',
+    icon: 'regular-map-marker',
     properties: [
         {name: 'name', visibility: 100},
         {name: 'type', visibility: 100},
@@ -47,23 +65,22 @@ MoorlProxyService.registerPlugin({
     demoName: 'marker'
 });
 
-MoorlProxyService.registerPlugin({
+MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_sorting',
-    listingRoute: 'moorl.sorting.list',
+    name: 'moorl-sorting',
+    icon: 'regular-sort',
     properties: [
         {name: 'active', visibility: 100},
         {name: 'entity', visibility: 100},
         {name: 'label', visibility: 100},
         {name: 'priority', visibility: 100},
-    ],
-    pluginName: 'MoorlFoundation',
-    demoName: 'marker'
+    ]
 });
 
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
-MoorlProxyService.registerPlugin({entity: 'category', listPath: 'sw.category.index'});
-MoorlProxyService.registerPlugin({entity: 'customer', listPath: 'sw.customer.index'});
-MoorlProxyService.registerPlugin({entity: 'product_stream', listPath: 'sw.product.stream.index'});
-MoorlProxyService.registerPlugin({entity: 'cms_page', listPath: 'sw.cms.index'});
-MoorlProxyService.registerPlugin({entity: 'country', listPath: 'sw.country.index'});
-MoorlProxyService.registerPlugin({entity: 'mail_template', listPath: 'sw.mail.template.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.country.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'mail_template', listPath: 'sw.mail.template.index'});

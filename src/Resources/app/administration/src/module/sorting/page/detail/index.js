@@ -1,6 +1,6 @@
 import template from './index.html.twig';
 
-Shopware.Component.extend('moorl-sorting-detail', 'moorl-abstract-page-detail', {
+Shopware.Component.override('moorl-sorting-detail', {
     template,
 
     data() {

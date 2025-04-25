@@ -1,6 +1,7 @@
 {
   "moorl-foundation": {
     "field": {
+      "entity": "Entity",
       "showQuotes": "Zitat-Zeichen einblenden",
       "creatorId": "Ersteller",
       "isGlobal": "Globale Sichtbarkeit",

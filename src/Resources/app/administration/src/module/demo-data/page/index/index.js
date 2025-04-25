@@ -50,9 +50,9 @@ Shopware.Component.register('moorl-demo-data-index', {
                     response.forEach((option) => {
                         let label;
                         if (option.type === 'data') {
-                            label = `${this.$tc('moorl-foundation.label.baseData')} | ${option.pluginName}`;
+                            label = `${this.$tc('moorl-demo-data.baseData')} | ${option.pluginName}`;
                         } else {
-                            label = `${this.$tc('moorl-foundation.label.standardDemo')} | ${option.pluginName} | ${option.name}`;
+                            label = `${this.$tc('moorl-demo-data.standardDemo')} | ${option.pluginName} | ${option.name}`;
                         }
 
                         this.options.push({
@@ -87,7 +87,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 .then(() => {
                     this.createNotificationSuccess({
                         message: this.$tc(
-                            'moorl-foundation-settings-demo-data.installed'
+                            'moorl-demo-data.installed'
                         ),
                     });
 
@@ -114,7 +114,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 .then(() => {
                     this.createNotificationSuccess({
                         message: this.$tc(
-                            'moorl-foundation-settings-demo-data.removed'
+                            'moorl-demo-data.removed'
                         ),
                     });
 

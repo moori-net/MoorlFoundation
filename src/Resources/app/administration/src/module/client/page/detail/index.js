@@ -1,6 +1,6 @@
 import template from './index.html.twig';
 
-Shopware.Component.extend('moorl-client-detail', 'moorl-abstract-page-detail', {
+Shopware.Component.override('moorl-client-detail', {
     template,
 
     inject: ['foundationApiService'],

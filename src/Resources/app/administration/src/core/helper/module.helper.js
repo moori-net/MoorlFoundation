@@ -10,7 +10,7 @@ export default class ModuleHelper {
                               title = `global.entities.${entity}`,
                               position,
                               defaultSearchConfiguration,
-                              placeholderSnippet,
+                              placeholderSnippet = 'global.sw-search-bar.placeholderSearchField',
                               demoName,
                               pageType,
                               pluginName,
@@ -19,7 +19,7 @@ export default class ModuleHelper {
                               listPath,
                               cmsElements = [],
                               navigationParent = 'sw-settings',
-                              color = '#ff3d58'
+                              color
                           }) {
         if (name) {
             listPath = listPath ?? name.replace(/-/g, '.') + '.list';
@@ -31,9 +31,9 @@ export default class ModuleHelper {
                 const defaultColors = {
                     'sw-catalogue': '#57d9a3',
                     'sw-content': '#ff3d58',
-                    'sw-asda': '#57d9a3',
-                    'sw-sadfas': '#57d9a3',
-                    'sw-savasdv': '#57d9a3',
+                    'sw-customer': '#F88962',
+                    'sw-marketing': '#ffd700',
+                    'sw-orders': '#a092f0',
                 }
 
                 color = defaultColors[navigationParent] ?? '#000000';
@@ -100,7 +100,7 @@ export default class ModuleHelper {
 
             CustomFieldDataProviderService.addEntityName(entity);
 
-            if (placeholderSnippet) {
+            if (defaultSearchConfiguration) {
                 SearchTypeService.upsertType(entity, { entityName: entity, placeholderSnippet, listPath });
             }
         }

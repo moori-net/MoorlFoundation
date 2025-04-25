@@ -7,6 +7,7 @@ export default class ListHelper {
         this.demoName = null;
         this.properties = [];
         this.tc = tc;
+        this.sortBy = null;
 
         this.columns = [];
         this.associations = [];
@@ -21,7 +22,7 @@ export default class ListHelper {
     }
 
     getSortBy() {
-        return this.properties[0];
+        return this.sortBy ?? 'name';
     }
 
     getColumns() {
@@ -142,6 +143,10 @@ export default class ListHelper {
                     break;
 
                 case 'string':
+                    if (!this.sortBy) {
+                        this.sortBy = property;
+                    }
+
                     column.inlineEdit = 'string';
                     column.align = 'left';
                     column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'detail');

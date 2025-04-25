@@ -1,4 +1,12 @@
 {
+    "global": {
+        "entities": {
+            "moorl_client": "[moori] Clients",
+            "moorl_marker": "[moori] Map marker",
+            "moorl_cms_element_config": "[moori] CMS configs",
+            "moorl_sorting": "[moori] Sortings"
+        }
+    },
     "moorl-foundation": {
         "export": {
             "localTable": "Just export local table",

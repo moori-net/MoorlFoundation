@@ -3,14 +3,16 @@ import './page/index';
 Shopware.Module.register('moorl-demo-data', {
     type: 'plugin',
     name: 'moorl-demo-data',
-    title: 'moorl-foundation.label.settingsDemoData',
+    title: 'moorl-demo-data.name',
     icon: 'regular-database',
+    color: '#000000',
     routes: {
         index: {
             component: 'moorl-demo-data-index',
             path: 'index',
             meta: {
                 parentPath: 'sw.settings.index.plugins',
+                privilege: 'system.system_config'
             },
         },
     },
@@ -21,7 +23,7 @@ Shopware.Module.register('moorl-demo-data', {
             to: 'moorl.demo.data.index',
             group: 'plugins',
             icon: 'regular-database',
-            label: 'moorl-foundation.label.settingsDemoData',
+            label: 'moorl-demo-data.name',
         },
     ],
 });

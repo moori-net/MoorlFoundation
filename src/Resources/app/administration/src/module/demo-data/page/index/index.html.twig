@@ -1,7 +1,10 @@
 <sw-page class="moorl-demo-data-index">
     <template #content>
         <sw-card-view>
-            <sw-card :isLoading="isLoading" :title="$tc('moorl-foundation.label.settingsDemoData')">
+            <sw-card
+                    :isLoading="isLoading"
+                    :title="$tc('moorl-demo-data.name')"
+            >
                 <template v-if="options.length">
                     <sw-single-select
                             :label="$tc('moorl-foundation.properties.type')"
@@ -17,11 +20,11 @@
                     />
 
                     <sw-alert variant="warning">
-                        {{ $tc('moorl-foundation-settings-demo-data.notification') }}
+                        {{ $tc('moorl-demo-data.notification') }}
                     </sw-alert>
 
                     <sw-switch-field
-                            :label="$tc('moorl-foundation-settings-demo-data.confirm')"
+                            :label="$tc('moorl-demo-data.confirm')"
                             v-model:value="confirmed"
                     />
 

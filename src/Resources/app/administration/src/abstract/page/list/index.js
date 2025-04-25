@@ -97,6 +97,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
 
                 this.pluginName = this.listHelper.pluginName;
                 this.demoName = this.listHelper.demoName;
+                this.sortBy = this.listHelper.getSortBy();
 
                 this.ready = true;
             }
