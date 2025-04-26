@@ -22,8 +22,10 @@ const MoorlFoundation = {
     AsyncModuleHelper
 };
 
-MoorlFoundation.prototype = {};
-
 window.MoorlFoundation = MoorlFoundation;
+
 exports.default = MoorlFoundation;
+
 module.exports = exports.default;
+
+window.dispatchEvent(new Event('MoorlFoundationReady'));

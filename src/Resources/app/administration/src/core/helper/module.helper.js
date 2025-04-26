@@ -19,7 +19,8 @@ export default class ModuleHelper {
                               listPath,
                               cmsElements = [],
                               navigationParent = 'sw-settings',
-                              color
+                              color,
+                              registerModule = true
                           }) {
         if (name) {
             listPath = listPath ?? name.replace(/-/g, '.') + '.list';
@@ -109,25 +110,78 @@ export default class ModuleHelper {
             CmsPageTypeService.register({ name: pageType, icon, title });
         }
 
-        setTimeout(() => {
-            MoorlFoundation.AsyncModuleHelper.registerModule({
-                icon,
-                name,
-                entity,
-                title,
-                position,
-                defaultSearchConfiguration,
-                placeholderSnippet,
-                demoName,
-                pageType,
-                pluginName,
-                entityMapping,
-                properties,
-                cmsElements,
-                navigationParent,
-                color,
-                listPath
-            });
-        }, 100);
+        MoorlFoundation.AsyncModuleHelper.registerModule({
+            icon,
+            name,
+            entity,
+            title,
+            position,
+            defaultSearchConfiguration,
+            placeholderSnippet,
+            demoName,
+            pageType,
+            pluginName,
+            entityMapping,
+            properties,
+            cmsElements,
+            navigationParent,
+            color,
+            listPath
+        });
+    }
+
+    static buildStaticModule({
+                                 icon,
+                                 name,
+                                 entity,
+                                 title = `global.entities.${entity}`,
+                                 position,
+                                 defaultSearchConfiguration,
+                                 navigationParent = 'sw-settings',
+                                 color = '#ff3d58',
+                             }) {
+        const privilege = `${entity}:read`;
+        const listPath = name.replace(/-/g, '.') + '.list';
+        const parentPath = navigationParent === 'sw-settings' ? 'sw.settings.index' : listPath;
+
+        const routes = {
+            list: {
+                component: `${name}-list`,
+                path: 'list',
+                meta: { privilege, parentPath }
+            },
+            detail: {
+                component: `${name}-detail`,
+                path: 'detail/:id',
+                meta: { privilege, parentPath: listPath }
+            },
+            create: {
+                component: `${name}-detail`,
+                path: 'create',
+                meta: { privilege, parentPath: listPath }
+            }
+        };
+
+        const navigation = navigationParent === 'sw-settings'
+            ? {
+                settingsItem: {
+                    privilege,
+                    to: listPath,
+                    group: 'plugins',
+                    icon
+                }
+            }
+            : {
+                navigation: [{
+                    label: title,
+                    icon,
+                    path: listPath,
+                    position,
+                    parent: navigationParent
+                }]
+            };
+
+        // => Jetzt generieren wir direkt das fertige JS:
+
     }
 }
