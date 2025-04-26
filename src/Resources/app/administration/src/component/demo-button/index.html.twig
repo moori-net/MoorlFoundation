@@ -15,11 +15,11 @@
             :isLoading="isLoading"
     >
         <sw-alert variant="warning">
-            {{ $tc('moorl-foundation-settings-demo-data.notification') }}
+            {{ $tc('moorl-demo-data.notification') }}
         </sw-alert>
 
         <sw-entity-single-select
-                :label="$tc('moorl-foundation.properties.salesChannel')"
+                :label="$tc('moorl-foundation.field.salesChannel')"
                 v-model:value="salesChannelId"
                 labelProperty="name"
                 entity="sales_channel"
