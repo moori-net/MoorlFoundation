@@ -8,7 +8,6 @@ export default class ListHelper {
         this.properties = [];
         this.tc = tc;
         this.sortBy = null;
-
         this.columns = [];
         this.associations = [];
         this.mediaProperty = undefined;
@@ -22,7 +21,7 @@ export default class ListHelper {
     }
 
     getSortBy() {
-        return this.sortBy ?? 'name';
+        return this.sortBy;
     }
 
     getColumns() {
@@ -66,6 +65,11 @@ export default class ListHelper {
                     .filter(prop => prop.visibility >= this.minVisibility)
                     .map(prop => prop.name);
 
+                const highestVisibilityProp = properties.reduce((best, current) => {
+                    return (!best || current.visibility > best.visibility) ? current : best;
+                }, null);
+
+                this.sortBy = highestVisibilityProp?.name ?? null;
                 this.pluginName = pluginConfig.pluginName ?? null;
                 this.demoName = pluginConfig.demoName ?? 'standard';
 
@@ -143,10 +147,6 @@ export default class ListHelper {
                     break;
 
                 case 'string':
-                    if (!this.sortBy) {
-                        this.sortBy = property;
-                    }
-
                     column.inlineEdit = 'string';
                     column.align = 'left';
                     column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'detail');

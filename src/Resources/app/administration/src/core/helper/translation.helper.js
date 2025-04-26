@@ -17,6 +17,10 @@ export default class TranslationHelper {
         return this.getLabel('notification', property, false);
     }
 
+    get(group, property) {
+        return this.getLabel(group, property, false);
+    }
+
     getLabel(group, property, showConsoleError = true) {
         const parts = property.split(".");
         const translatedParts = [];
@@ -49,9 +53,11 @@ export default class TranslationHelper {
         if (showConsoleError) {
             const snippet = `${group}.${property}`;
 
-            console.error(`${this.componentName}: No translation found for ${snippet}`);
-            console.error(this.snippetSets);
-            console.error(this.snippetStruct);
+            MoorlFoundation.Logger.error(
+                this.componentName,
+                `No translation found for ${snippet}`,
+                this.snippetStruct
+            );
 
             return snippet;
         }

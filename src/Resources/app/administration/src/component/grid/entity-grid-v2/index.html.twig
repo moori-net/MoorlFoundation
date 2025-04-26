@@ -84,7 +84,7 @@
         <template #actions="{ item }">
             {% block moorl_entity_grid_actions %}{% endblock %}
 
-            <sw-context-menu-item v-if="path" :routerLink="{ name: path, params: {id: item.id} }">
+            <sw-context-menu-item v-if="path" @click="$router.push({ name: path, params: {id: item.id} })">
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
 
