@@ -53,7 +53,11 @@ Shopware.Component.register('moorl-price-field', {
         },
     },
 
-
+    created() {
+        if (!Array.isArray(this.value)) {
+            this.$emit('update:value', []);
+        }
+    },
 
     methods: {
         priceChanged(price) {
