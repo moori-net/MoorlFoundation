@@ -61,22 +61,6 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             required: false,
             default: true,
         },
-        /* Handling for prices */
-        tax: {
-            type: Object,
-            required: false,
-            default: null,
-        },
-        defaultCurrency: {
-            type: Object,
-            required: false,
-            default: null,
-        },
-        priceProperties: {
-            type: Array,
-            required: false,
-            default: ['price'],
-        },
     },
 
     data() {
@@ -125,12 +109,6 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         repository() {
             return this.repositoryFactory.create(this.entity);
         },
-        taxRepository() {
-            return this.repositoryFactory.create('tax');
-        },
-        currencyRepository() {
-            return this.repositoryFactory.create('currency');
-        },
         topBarColumns() {
             if (this.topBarOptions.length === 4) {
                 return '4fr 1fr 1fr 1fr';
@@ -172,56 +150,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
 
             this.sortBy = this.listHelper.getSortBy();
 
-            this.loadTax();
-            this.loadTax();
-            this.loadDefaultCurrency();
             this.getItems();
-        },
-
-        loadTax() {
-            if (this.tax) {
-                this.currentTax = this.tax;
-                return;
-            }
-            return this.taxRepository
-                .search(new Criteria(1, 500))
-                .then((taxes) => {
-                    this.currentTax = taxes[0];
-                });
-        },
-
-        loadDefaultCurrency() {
-            if (this.defaultCurrency) {
-                this.currentDefaultCurrency = this.defaultCurrency;
-                return;
-            }
-            this.currencyRepository
-                .search(new Criteria(1, 500))
-                .then((currencies) => {
-                    this.currentDefaultCurrency = currencies.find(
-                        (currency) => currency.isSystemDefault
-                    );
-                });
-        },
-
-        getItemPrice(item) {
-            if (item.customPrice) {
-                return item.price ? item.price : [];
-            } else if (item.accessory) {
-                return item.accessory ? item.accessory.price : [];
-            } else if (item.product) {
-                return item.product ? item.product.price : [];
-            } else {
-                return item.price ? item.price : [];
-            }
-        },
-
-        getItemTax(item) {
-            if (item.tax) {
-                return item.tax;
-            } else {
-                return this.currentTax;
-            }
         },
 
         onPageChange(data) {
@@ -332,8 +261,6 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         onEditItem(item) {
-            this.selectedItems = null;
-
             if (item !== undefined) {
                 this.selectedItem = item;
             } else {

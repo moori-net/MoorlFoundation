@@ -49,7 +49,7 @@ export default class ListHelper {
 
         return new Promise((resolve, reject) => {
             const retry = async () => {
-                const pluginConfig = MoorlFoundation.AsyncModuleHelper.getByEntity(this.entity);
+                const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(this.entity);
                 if (!pluginConfig) {
                     if (trys++ > 50) {
                         console.error(`[${this.componentName}] Properties not loaded in time (${this.entity})`);

@@ -1,6 +1,12 @@
 {
   "moorl-foundation": {
     "field": {
+      "swCategory": "Shopware-Kategorie",
+      "rawPrice": "Preis (Veraltet)",
+      "accessory": "Zubehör-Produkt",
+      "disableAddToCart": "In den Warenkorb deaktivieren",
+      "showBundleBadge": "Bundle-Badge anzeigen",
+      "sortOrder": "Sortierung",
       "activateHighlight": "Hervorheben",
       "highlightColor": "Hervorheben Farbe",
       "highlightTextColor": "Hervorheben Textfarbe",
@@ -339,6 +345,7 @@
       "custom4": "Benutzerdefiniert 4"
     },
     "tab": {
+      "price": "Preis",
       "navigation": "Slider",
       "slider": "Slider",
       "data": "Daten",
@@ -363,6 +370,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "price": "Preis",
       "animation": "Animation",
       "navigation": "Navigation",
       "slider": "Slider",

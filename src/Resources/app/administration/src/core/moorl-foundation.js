@@ -6,7 +6,6 @@ import RouteHelper from './helper/route.helper';
 import FormBuilderHelper from './helper/form-builder.helper';
 import ConditionHelper from './helper/condition.helper';
 import CmsElementHelper from './helper/cms-element.helper';
-import AsyncModuleHelper from './helper/async-module.helper';
 import ModuleHelper from './helper/module.helper';
 
 const MoorlFoundation = {
@@ -18,8 +17,7 @@ const MoorlFoundation = {
     FormBuilderHelper,
     ConditionHelper,
     CmsElementHelper,
-    ModuleHelper,
-    AsyncModuleHelper
+    ModuleHelper
 };
 
 window.MoorlFoundation = MoorlFoundation;

@@ -9,29 +9,31 @@ export default class FormBuilderHelper {
                     item,
                     componentName,
                     tc,
-                    snippetSrc = 'moorl-foundation',
-                    customFieldSets = [],
-                    cmsElementMapping = undefined
+                    snippetSrc = 'moorl-foundation'
     }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
-        this.customFieldSets = customFieldSets;
-        this.cmsElementMapping = cmsElementMapping;
 
-        this.mapping = cloneDeep(cmsElementMapping ?? mapping);
         this.order = order;
         this.pageStruct = { tabs: [] };
         this.mediaOrder = 4999;
 
+        this.masterMapping = undefined;
+        this.currency = null;
+        this.tax = null;
+        this.customFieldSets = [];
+
         this.translationHelper = new MoorlFoundation.TranslationHelper({componentName, snippetSrc, tc});
 
-        this._init();
+        this.initialized = false;
     }
 
     buildFormStruct() {
-        const fields = this.cmsElementMapping ?? Shopware.EntityDefinition.get(this.entity).properties;
+        this._init();
+
+        const fields = this.masterMapping ?? Shopware.EntityDefinition.get(this.entity).properties;
 
         return this._build(fields);
     }
@@ -62,17 +64,23 @@ export default class FormBuilderHelper {
     }
 
     _init() {
+        if (this.initialized) {
+            return;
+        }
+
+        this.mapping = cloneDeep(this.masterMapping ?? mapping);
+
         let currentOrder = 0;
         for (const [key, config] of Object.entries(this.mapping)) {
             config.order = currentOrder;
             currentOrder += 10;
         }
 
-        if (this.cmsElementMapping) {
+        if (!this.entity) {
             return;
         }
 
-        const customMapping = MoorlFoundation.AsyncModuleHelper.getEntityMapping(this.entity) ?? {};
+        const customMapping = MoorlFoundation.ModuleHelper.getEntityMapping(this.entity) ?? {};
 
         for (const [key, config] of Object.entries(customMapping)) {
             if (typeof config.order === 'string') {
@@ -103,6 +111,8 @@ export default class FormBuilderHelper {
         }
 
         merge(this.mapping, customMapping);
+
+        this.initialized = true;
     }
 
     _buildColumn(field, property) {
@@ -310,17 +320,28 @@ export default class FormBuilderHelper {
             attributes.placeholder = this.item.translated[property];
         }
 
+        const parameters = {
+            column,
+            field,
+            property,
+            ...this.getInstanceParameters()
+        };
+
         for (const [key, value] of Object.entries(attributes)) {
             if (typeof value === 'function') {
-                attributes[key] = value({
-                    item: this.item,
-                    entity: this.entity,
-                    customFieldSets: this.customFieldSets,
-                    column,
-                    field,
-                    property
-                });
+                attributes[key] = value(parameters);
             }
+        }
+    }
+
+    getInstanceParameters() {
+        return {
+            entity: this.entity,
+            componentName: this.componentName,
+            item: this.item,
+            currency: this.currency,
+            tax: this.tax,
+            customFieldSets: this.customFieldSets,
         }
     }
 

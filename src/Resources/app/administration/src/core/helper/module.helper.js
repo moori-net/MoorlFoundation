@@ -3,6 +3,23 @@ const CmsPageTypeService = Shopware.Service('cmsPageTypeService');
 const SearchTypeService = Shopware.Service('searchTypeService');
 
 export default class ModuleHelper {
+    static pluginConfigCache = [];
+    static entityMappingCache = {};
+    static defaultColors = {
+        'sw-catalogue': '#57d9a3',
+        'sw-content': '#ff3d58',
+        'sw-customer': '#F88962',
+        'sw-marketing': '#ffd700',
+        'sw-orders': '#a092f0',
+    };
+    static defaultIcons = {
+        'sw-catalogue': 'regular-products',
+        'sw-content': 'regular-content',
+        'sw-customer': 'regular-users',
+        'sw-marketing': 'regular-megaphone',
+        'sw-orders': 'shopping-bag',
+    };
+
     static registerModule({
                               icon,
                               name,
@@ -19,26 +36,16 @@ export default class ModuleHelper {
                               listPath,
                               cmsElements = [],
                               navigationParent = 'sw-settings',
-                              color,
-                              registerModule = true
+                              color
                           }) {
+        color = color ?? this.defaultColors[navigationParent] ?? '#9aa8b5';
+        icon = icon ?? this.defaultIcons[navigationParent] ?? 'regular-cog';
+
         if (name) {
             listPath = listPath ?? name.replace(/-/g, '.') + '.list';
             const privilege = `${entity}:read`;
             let parentPath;
             let navItem;
-
-            if (color === undefined) {
-                const defaultColors = {
-                    'sw-catalogue': '#57d9a3',
-                    'sw-content': '#ff3d58',
-                    'sw-customer': '#F88962',
-                    'sw-marketing': '#ffd700',
-                    'sw-orders': '#a092f0',
-                }
-
-                color = defaultColors[navigationParent] ?? '#000000';
-            }
 
             if (navigationParent === 'sw-settings') {
                 parentPath = 'sw.settings.index';
@@ -110,78 +117,57 @@ export default class ModuleHelper {
             CmsPageTypeService.register({ name: pageType, icon, title });
         }
 
-        MoorlFoundation.AsyncModuleHelper.registerModule({
-            icon,
-            name,
-            entity,
-            title,
-            position,
-            defaultSearchConfiguration,
-            placeholderSnippet,
-            demoName,
+        if (entityMapping) {
+            if (!this.entityMappingCache[entity]) {
+                this.entityMappingCache[entity] = {};
+            }
+
+            Object.entries(entityMapping).forEach(([fieldKey, fieldConfig]) => {
+                if (!this.entityMappingCache[entity][fieldKey]) {
+                    this.entityMappingCache[entity][fieldKey] = fieldConfig;
+                } else {
+                    console.warn(`[CustomEntityMapping] Feld "${fieldKey}" für Entity "${entity}" wurde bereits registriert und wird ignoriert.`);
+                }
+            });
+        }
+
+        listPath = listPath ?? (name ? name.replace(/-/g, '.') + '.list' : undefined);
+
+        this.pluginConfigCache.push({
             pageType,
-            pluginName,
-            entityMapping,
+            entity,
             properties,
-            cmsElements,
-            navigationParent,
-            color,
+            pluginName,
+            demoName,
             listPath
         });
+
+        for (const cmsElement of cmsElements) {
+            cmsElement.plugin = pluginName;
+            if (cmsElement.cmsElementEntity) {
+                cmsElement.cmsElementEntity.entity = entity;
+            }
+            MoorlFoundation.CmsElementHelper.registerCmsElement(cmsElement);
+        }
     }
 
-    static buildStaticModule({
-                                 icon,
-                                 name,
-                                 entity,
-                                 title = `global.entities.${entity}`,
-                                 position,
-                                 defaultSearchConfiguration,
-                                 navigationParent = 'sw-settings',
-                                 color = '#ff3d58',
-                             }) {
-        const privilege = `${entity}:read`;
-        const listPath = name.replace(/-/g, '.') + '.list';
-        const parentPath = navigationParent === 'sw-settings' ? 'sw.settings.index' : listPath;
+    static getEntityMapping(entity) {
+        return this.entityMappingCache[entity];
+    }
 
-        const routes = {
-            list: {
-                component: `${name}-list`,
-                path: 'list',
-                meta: { privilege, parentPath }
-            },
-            detail: {
-                component: `${name}-detail`,
-                path: 'detail/:id',
-                meta: { privilege, parentPath: listPath }
-            },
-            create: {
-                component: `${name}-detail`,
-                path: 'create',
-                meta: { privilege, parentPath: listPath }
-            }
-        };
+    static addPluginConfig(pluginConfig) {
+        this.pluginConfigCache.push(pluginConfig);
+    }
 
-        const navigation = navigationParent === 'sw-settings'
-            ? {
-                settingsItem: {
-                    privilege,
-                    to: listPath,
-                    group: 'plugins',
-                    icon
-                }
-            }
-            : {
-                navigation: [{
-                    label: title,
-                    icon,
-                    path: listPath,
-                    position,
-                    parent: navigationParent
-                }]
-            };
+    static getByPageType(pageType) {
+        return this.pluginConfigCache.find(
+            (pluginConfig) => pluginConfig.pageType === pageType
+        );
+    }
 
-        // => Jetzt generieren wir direkt das fertige JS:
-
+    static getByEntity(entity) {
+        return this.pluginConfigCache.find(
+            (pluginConfig) => pluginConfig.entity === entity
+        );
     }
 }

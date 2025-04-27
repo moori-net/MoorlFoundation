@@ -1,5 +1,6 @@
 {% block moorl_item_detail_form_detail %}
     <sw-tabs
+            v-if="!isLoading"
             :key="entity"
             :default-item="defaultTab"
             class="moorl-item-detail-form"

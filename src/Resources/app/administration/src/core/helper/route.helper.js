@@ -7,7 +7,7 @@ export default class RouteHelper {
     }
 
     static getRouterLinkByEntity(entity, target = 'detail') {
-        const listPath = MoorlFoundation.AsyncModuleHelper.getByEntity(entity)?.listPath;
+        const listPath = MoorlFoundation.ModuleHelper.getByEntity(entity)?.listPath;
         if (listPath === undefined) {
             return null;
         }

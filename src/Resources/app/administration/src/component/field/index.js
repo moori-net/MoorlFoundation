@@ -7,3 +7,4 @@ import './svg-shape';
 import './animation';
 import './properties';
 import './file-explorer';
+import './price';

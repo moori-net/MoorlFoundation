@@ -55,16 +55,27 @@ const mapping = {
     hasCodes: {tab: 'general', card: 'options', cols: 6},
     hasLinks: {tab: 'general', card: 'options', cols: 6},
 
+    // Price
+    tax: {tab: 'price', card: 'price', cols: 12},
+    customPrice: {tab: 'price', card: 'price', cols: 12},
+    price: {
+        tab: 'price',
+        card: 'price',
+        componentName: 'moorl-price-field',
+        attributes: {
+            tax: ({tax}) => tax,
+            currency: ({currency}) => currency,
+        },
+        cols: 12
+    },
+
     // Stock
     stock: {tab: 'stock', card: 'general', cols: 12},
     sales: {tab: 'stock', card: 'general', cols: 12},
     availableStock: {tab: 'stock', card: 'general', cols: 12},
-    customPrice: {tab: 'stock', card: 'general', cols: 12},
     deliveryTime: {tab: 'stock', card: 'general', cols: 12},
-    tax: {tab: 'stock', card: 'general', cols: 12},
 
     // General
-
 
     // Things
     name: {tab: 'general', card: 'general', cols: 12},
@@ -164,6 +175,7 @@ const mapping = {
 
     // Relations
     products: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}, cols: 12},
+    accessories: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}, cols: 12},
     productManufacturers: {tab: 'relations', card: 'relations', cols: 12},
     tags: {tab: 'relations', card: 'relations', cols: 12},
     medias: {tab: 'relations', card: 'relations', cols: 12},
@@ -175,6 +187,7 @@ const mapping = {
     article: {tab: 'relations', card: 'relations', cols: 12},
     look: {tab: 'relations', card: 'relations', cols: 12},
     product: {tab: 'relations', card: 'relations', cols: 12},
+    accessory: {tab: 'relations', card: 'relations', cols: 12},
     productStream: {tab: 'relations', card: 'relations', cols: 12},
     order: {tab: 'relations', card: 'relations', cols: 12},
     merchant: {tab: 'relations', card: 'relations', cols: 12},
