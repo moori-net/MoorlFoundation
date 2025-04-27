@@ -1,5 +1,11 @@
 export default class ListHelper {
-    constructor({componentName, entity, tc, minVisibility = 0}) {
+    constructor({
+                    componentName,
+                    entity,
+                    currencies = [],
+                    tc,
+                    minVisibility = 0
+    }) {
         this.componentName = componentName;
         this.entity = entity;
         this.minVisibility = minVisibility;
@@ -10,7 +16,11 @@ export default class ListHelper {
         this.sortBy = null;
         this.columns = [];
         this.associations = [];
+
         this.mediaProperty = undefined;
+        this.priceProperties = [];
+        this.dateProperties = [];
+        this.currencies = currencies;
 
         this.translationHelper = new MoorlFoundation.TranslationHelper({
             tc: this.tc,
@@ -110,16 +120,21 @@ export default class ListHelper {
             let parts = property.split(".");
             parts.pop();
             if (parts.length > 0) {
-                const association = parts.join(".");
-                if (this.associations.indexOf(association) === -1) {
-                    this.associations.push(association);
-                }
+                this._addAssociation(parts.join("."));
             }
         });
     }
 
+    _addAssociation(association) {
+        if (this.associations.indexOf(association) === -1) {
+            this.associations.push(association);
+        }
+    }
+
     _initProperties() {
         const fields = Shopware.EntityDefinition.get(this.entity).properties;
+
+        console.log(fields);
 
         this.properties.forEach((property) => {
             const key = property.split(".")[0];
@@ -162,9 +177,56 @@ export default class ListHelper {
                     column.inlineEdit = 'boolean';
                     column.align = 'center';
                     break;
+
+                case 'date':
+                    column.align = 'right';
+                    this.dateProperties.push(property);
+                    break;
+
+                case 'json_object':
+                    if (property.toLowerCase().includes("price")) {
+                        this.priceProperties.push(property);
+                        this.columns.push(...this._getCurrenciesColumns(property, column));
+                        this._addAssociation('tax');
+                        return;
+                    }
+                    break;
             }
 
             this.columns.push(column);
         });
+
+        console.log(this.columns);
+    }
+
+    getCurrenciesAndPriceProperties() {
+        const props = [];
+
+        for(const priceProperty of this.priceProperties) {
+            for(const currency of this.currencies) {
+                props.push({priceProperty, currency});
+            }
+        }
+
+        return props;
+    }
+
+    _getCurrenciesColumns(property, column) {
+        return this.currencies
+            .toSorted((a, b) => {
+                return b.isSystemDefault ? 1 : -1;
+            })
+            .map((item) => {
+                return {
+                    property: `${property}-${item.isoCode}`,
+                    dataIndex: `${property}.${item.id}`,
+                    label: column.label,
+                    allowResize: true,
+                    currencyId: item.id,
+                    visible: item.isSystemDefault,
+                    align: 'right',
+                    useCustomSort: true,
+                };
+            });
     }
 }

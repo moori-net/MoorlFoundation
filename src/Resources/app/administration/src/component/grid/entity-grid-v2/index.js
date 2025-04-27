@@ -1,52 +1,24 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const { Criteria } = Shopware.Data;
-
-/**
- * Standard variable names
- * @items = All data of table: Array
- * @selectedItems: Array
- * @selectedItem: Data row currently editing: Object
- * @entity = Storage name of table
- * @defaultItem = Override of item, Usage: Criteria
- * Shopware Standard
- * @sortBy: String
- * @sortDirection
- * @totalCount: Int
- * @isLoading: bool
- * @page: Int
- * @limit: Int
- * @searchTerm: String
- */
 Shopware.Component.register('moorl-entity-grid-v2', {
-    inject: ['repositoryFactory', 'acl'],
+    inject: ['acl'],
 
     template,
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder'),
-    ],
+    mixins: [Shopware.Mixin.getByName('moorl-listing')],
 
     props: {
+        entity: {
+            type: String,
+            required: true,
+        },
         componentName: {
             type: String,
             required: false,
             default: 'moorl-foundation',
         },
-        entity: {
-            type: String,
-            required: true,
-        },
         defaultItem: {
-            type: Object,
-            required: false,
-            default() {
-                return {};
-            },
-        },
-        criteria: {
             type: Object,
             required: false,
             default: undefined,
@@ -65,50 +37,30 @@ Shopware.Component.register('moorl-entity-grid-v2', {
 
     data() {
         return {
-            items: null,
             selectedItems: null,
             selectedItem: null,
-            totalCount: 0,
             page: 1,
             limit: 10,
-            searchTerm: null,
+            term: null,
             isLoading: false,
             sortBy: 'createdAt',
             sortDirection: 'ASC',
             showEditModal: false,
             showImportModal: false,
             showExportModal: false,
-            deleteId: null,
-            currentDefaultCurrency: null,
-            currentTax: null,
-            listHelper: null,
-            ready: false
+            deleteId: null
         };
     },
 
     computed: {
-        defaultCriteria() {
-            const criteria = this.criteria || new Criteria();
-
-            this.listHelper.getAssociations().forEach(association => {
-                criteria.addAssociation(association);
-            });
-
-            for (const [field, value] of Object.entries(this.defaultItem)) {
-                criteria.addFilter(Criteria.equals(field, value));
-            }
-
-            return criteria;
-        },
         gridPagesVisible() {
             return 7;
         },
+
         gridSteps() {
             return [10, 25, 50, 100, 500];
         },
-        repository() {
-            return this.repositoryFactory.create(this.entity);
-        },
+
         topBarColumns() {
             if (this.topBarOptions.length === 4) {
                 return '4fr 1fr 1fr 1fr';
@@ -122,29 +74,14 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             if (this.topBarOptions.length === 1) {
                 return '1fr';
             }
-        },
-        gridColumns() {
-            return this.listHelper.getColumns();
         }
     },
+
     created() {
         this.createdComponent();
     },
+
     methods: {
-        async initListHelper() {
-            if (!this.listHelper) {
-                this.listHelper = new MoorlFoundation.ListHelper({
-                    componentName: this.componentName,
-                    entity: this.entity,
-                    tc: this.$tc
-                });
-
-                await this.listHelper.ready;
-
-                this.ready = true;
-            }
-        },
-
         async createdComponent() {
             await this.initListHelper();
 
@@ -153,38 +90,15 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             this.getItems();
         },
 
+        async getItems() {
+            await this.loadItems(this.itemCriteria);
+        },
+
         onPageChange(data) {
             this.page = data.page;
             this.limit = data.limit;
 
             this.getItems();
-        },
-
-        getItems() {
-            this.isLoading = true;
-            const criteria = this.defaultCriteria;
-
-            criteria.resetSorting();
-            criteria.addSorting(Criteria.sort(this.sortBy, this.sortDirection));
-            criteria.setPage(this.page);
-            criteria.setLimit(this.limit);
-            criteria.setTotalCountMode(1);
-            if (this.searchTerm) {
-                criteria.setTerm(this.searchTerm);
-            }
-
-            this.repository
-                .search(criteria, Shopware.Context.api)
-                .then((items) => {
-                    this.totalCount = items.total;
-                    this.items = items;
-                    this.isLoading = false;
-
-                    if (this.totalCount > 0 && this.items.length <= 0) {
-                        this.page = this.page === 1 ? 1 : (this.page -= 1);
-                        this.getItems();
-                    }
-                });
         },
 
         onSelectionChanged(selection) {
@@ -222,7 +136,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         onDeleteItemId() {
-            this.repository
+            this.itemRepository
                 .delete(this.deleteId, Shopware.Context.api)
                 .then(() => {
                     this.deleteId = null;
@@ -235,7 +149,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             const promises = [];
 
             Object.keys(this.selectedItems).forEach((id) => {
-                promises.push(this.repository.delete(id, Shopware.Context.api));
+                promises.push(this.itemRepository.delete(id, Shopware.Context.api));
             });
 
             this.selectedItems = {};
@@ -248,7 +162,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         onSaveItem() {
             this.isLoading = true;
 
-            this.repository
+            this.itemRepository
                 .save(this.selectedItem, Shopware.Context.api)
                 .then(() => {
                     this.getItems();
@@ -264,7 +178,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             if (item !== undefined) {
                 this.selectedItem = item;
             } else {
-                this.selectedItem = this.repository.create(Shopware.Context.api);
+                this.selectedItem = this.itemRepository.create(Shopware.Context.api);
 
                 Object.assign(this.selectedItem, this.defaultItem);
             }

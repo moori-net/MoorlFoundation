@@ -5,6 +5,7 @@ import './init/foundation-api-service.init';
 import './mixin/flow-action-helper.mixin';
 import './mixin/abstract-cms-element.mixin';
 import './mixin/form.mixin';
+import './mixin/listing.mixin';
 
 import './abstract';
 import './proxy';

@@ -1,4 +1,4 @@
-<div v-if="items" class="moorl-entity-grid-v2">
+<div class="moorl-entity-grid-v2">
     <sw-container
             v-if="topBarOptions.length > 0"
             :columns="topBarColumns"
@@ -8,7 +8,7 @@
         <sw-text-field
                 v-if="topBarOptions.includes('search')"
                 :placeholder="$tc('moorl-foundation.label.search')"
-                v-model:value="searchTerm"
+                v-model:value="term"
                 @update:value="onSearch"
         />
 
@@ -54,9 +54,9 @@
     </sw-container>
 
     <sw-data-grid
-            v-if="ready && totalCount > 0"
+            v-if="ready && total > 0"
             :dataSource="items"
-            :columns="gridColumns"
+            :columns="columns"
             :showSelection="true"
             :showSettings="false"
             :isLoading="isLoading"
@@ -70,15 +70,19 @@
         {% block moorl_entity_grid_templates %}{% endblock %}
 
         <template
-                v-for="priceProperty in priceProperties"
-                v-slot:[`column-${priceProperty}`]="{item}"
+                v-for="dateProperty in listHelper.dateProperties"
+                #[`column-${dateProperty}`]="{ item }"
         >
-            <sw-price-preview
-                    :value="getItemPrice(item)"
-                    :default-price="{}"
-                    :tax-rate="getItemTax(item)"
-                    :currency="currentDefaultCurrency"
-            />
+            {{ dateFilter(item[dateProperty], { hour: '2-digit', minute: '2-digit' }) }}
+        </template>
+
+        <template
+                v-for="props in listHelper.getCurrenciesAndPriceProperties()"
+                #[`column-${props.priceProperty}-${props.currency.isoCode}`]="{ item }"
+        >
+            {{ currencyFilter(
+                getCurrencyPriceByCurrencyId(props.currency.id,item[props.priceProperty]).gross,props.currency.isoCode
+            ) }}
         </template>
 
         <template #actions="{ item }">
@@ -105,7 +109,7 @@
 
         <template #pagination>
             <sw-pagination
-                    :total="totalCount"
+                    :total="total"
                     :limit="limit"
                     :page="page"
                     :total-visible="gridPagesVisible"

@@ -1,18 +1,13 @@
-const {Criteria} = Shopware.Data;
-
 import template from './index.html.twig';
 
 Shopware.Component.register('moorl-abstract-page-list', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'filterFactory'
-    ],
+    inject: ['filterFactory'],
 
     mixins: [
-        Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('listing')
+        Shopware.Mixin.getByName('listing'),
+        Shopware.Mixin.getByName('moorl-listing'),
     ],
 
     data() {
@@ -26,9 +21,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
             isLoading: true,
             activeFilterNumber: 0,
             sortBy: 'name',
-            filterCriteria: [],
-            listHelper: null,
-            ready: false
+            filterCriteria: []
         };
     },
 
@@ -39,78 +32,23 @@ Shopware.Component.register('moorl-abstract-page-list', {
     },
 
     computed: {
-        mediaProperty() {
-            return this.listHelper.getMediaProperty();
-        },
-
-        componentName() {
-            return this.$options.name;
-        },
-
         indexPage() {
             let name = this.$route.name;
             let parts = name.split(".");
             let currentPath = parts.pop();
             return currentPath === 'index';
-        },
-
-        dateFilter() {
-            return Shopware.Filter.getByName('date');
-        },
-
-        itemRepository() {
-            return this.repositoryFactory.create(this.entity);
-        },
-
-        itemCriteria() {
-            const itemCriteria  = new Criteria(this.page, this.limit);
-            this.naturalSorting = this.sortBy === 'priority';
-
-            itemCriteria.setTerm(this.term);
-
-            this.sortBy.split(',').forEach(sortBy => {
-                itemCriteria.addSorting(Criteria.sort(sortBy, this.sortDirection, this.naturalSorting));
-            });
-
-            this.listHelper.getAssociations().forEach(association => {
-                itemCriteria.addAssociation(association);
-            });
-
-            return itemCriteria ;
-        },
-
-        columns() {
-            return this.listHelper.getColumns();
         }
     },
 
     methods: {
-        async initListHelper() {
-            if (!this.listHelper) {
-                this.listHelper = new MoorlFoundation.ListHelper({
-                    componentName: this.componentName,
-                    entity: this.entity,
-                    tc: this.$tc
-                });
-
-                await this.listHelper.ready;
-
-                this.pluginName = this.listHelper.pluginName;
-                this.demoName = this.listHelper.demoName;
-                this.sortBy = this.listHelper.getSortBy();
-
-                this.ready = true;
-            }
-        },
-
         async getList() {
+            this.isLoading = true;
+
             await this.initListHelper();
 
             // Copies for listing mixin
             this.searchConfigEntity = this.entity;
             this.storeKey = `grid.filter.${this.entity}`;
-
-            this.isLoading = true;
 
             let criteria = await Shopware.Service('filterService').mergeWithStoredFilters(this.storeKey, this.itemCriteria);
 
@@ -127,15 +65,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
                 criteria.resetSorting();
             }
 
-            try {
-                const response = await this.itemRepository.search(criteria);
-
-                this.total = response.total;
-                this.items = response
-                this.isLoading = false;
-            } catch {
-                this.isLoading = false;
-            }
+            await this.loadItems(criteria);
         },
 
         getItemRoute(target) {

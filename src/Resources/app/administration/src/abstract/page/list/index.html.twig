@@ -77,20 +77,20 @@
                 />
             </template>
 
-            <template #column-date="{ item }">
-                {{ dateFilter(item.date, { hour: '2-digit', minute: '2-digit' }) }}
+            <template
+                    v-for="dateProperty in listHelper.dateProperties"
+                    #[`column-${dateProperty}`]="{ item }"
+            >
+                {{ dateFilter(item[dateProperty], { hour: '2-digit', minute: '2-digit' }) }}
             </template>
 
-            <template #column-showFrom="{ item }">
-                {{ dateFilter(item.showFrom, { hour: '2-digit', minute: '2-digit' }) }}
-            </template>
-
-            <template #column-showUntil="{ item }">
-                {{ dateFilter(item.showUntil, { hour: '2-digit', minute: '2-digit' }) }}
-            </template>
-
-            <template #column-createdAt="{ item }">
-                {{ dateFilter(item.createdAt, { hour: '2-digit', minute: '2-digit' }) }}
+            <template
+                    v-for="props in listHelper.getCurrenciesAndPriceProperties()"
+                    #[`column-${props.priceProperty}-${props.currency.isoCode}`]="{ item }"
+            >
+                {{ currencyFilter(
+                    getCurrencyPriceByCurrencyId(props.currency.id,item[props.priceProperty]).gross,props.currency.isoCode
+                ) }}
             </template>
 
             <template #more-actions="{ item }">
