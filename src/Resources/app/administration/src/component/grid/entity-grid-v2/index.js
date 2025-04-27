@@ -42,7 +42,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             page: 1,
             limit: 10,
             term: null,
-            isLoading: false,
+            isLoading: true,
             sortBy: 'createdAt',
             sortDirection: 'ASC',
             showEditModal: false,

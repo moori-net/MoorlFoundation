@@ -46,6 +46,11 @@ Shopware.Mixin.register('moorl-listing', {
 
             if (this.defaultItem !== undefined) {
                 for (const [field, value] of Object.entries(this.defaultItem)) {
+                    if (field === 'taxId') {
+                        MoorlFoundation.Logger.log('moorl-listing.itemCriteria', 'taxId filter ignored', this.defaultItem);
+                        continue;
+                    }
+
                     criteria.addFilter(Criteria.equals(field, value));
                 }
             }
@@ -121,10 +126,11 @@ Shopware.Mixin.register('moorl-listing', {
         },
 
         getCurrencyPriceByCurrencyId(currencyId, prices) {
-            const priceForItem = prices.find((price) => price.currencyId === currencyId);
-
-            if (priceForItem) {
-                return priceForItem;
+            if (Array.isArray(prices)) {
+                const priceForItem = prices.find((price) => price.currencyId === currencyId);
+                if (priceForItem) {
+                    return priceForItem;
+                }
             }
 
             return {
