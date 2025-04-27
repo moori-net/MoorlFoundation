@@ -1,6 +1,7 @@
 {
   "moorl-foundation": {
     "field": {
+      "creatorTypeId": "Profil-Typ",
       "swCategory": "Shopware-Kategorie",
       "rawPrice": "Preis (Veraltet)",
       "accessory": "Zubehör-Produkt",

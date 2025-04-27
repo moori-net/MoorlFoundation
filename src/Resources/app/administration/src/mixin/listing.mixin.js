@@ -3,10 +3,7 @@ const {Criteria} = Shopware.Data;
 Shopware.Mixin.register('moorl-listing', {
     inject: ['repositoryFactory'],
 
-    mixins: [
-        Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder'),
-    ],
+    mixins: [Shopware.Mixin.getByName('notification')],
 
     data() {
         return {

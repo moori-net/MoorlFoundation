@@ -1,5 +1,6 @@
 {% block moorl_cms_element_config_form_detail %}
     <sw-tabs
+            v-if="!isLoading"
             :key="entity"
             :default-item="defaultTab"
             class="moorl-cms-element-config-form"

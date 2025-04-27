@@ -54,15 +54,19 @@ Shopware.Component.register('moorl-layout-card-v2', {
         cmsPageRepository() {
             return this.repositoryFactory.create('cms_page');
         },
+
         cmsPageId() {
             return this.item ? this.item.cmsPageId : null;
         },
+
         cmsPage() {
             return Shopware.Store.get('cmsPage').currentPage;
         },
+
         cmsPageType() {
             return this.pageType ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.name;
         },
+
         cmsPageTypes() {
             return [];
         }
@@ -71,6 +75,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
     watch: {
         cmsPageId() {
             Shopware.Store.get('cmsPage').resetCmsPageState();
+
             this.getAssignedCmsPage();
         },
     },
@@ -95,12 +100,15 @@ Shopware.Component.register('moorl-layout-card-v2', {
 
             this.$emit('save-cms-config');
         },
+
         onLayoutSelect(selectedLayout) {
             this.item.cmsPageId = selectedLayout;
         },
+
         onLayoutReset() {
             this.onLayoutSelect(null);
         },
+
         openInPagebuilder() {
             if (!this.cmsPage) {
                 this.$router.push({ name: 'sw.cms.create' });
@@ -111,12 +119,15 @@ Shopware.Component.register('moorl-layout-card-v2', {
                 });
             }
         },
+
         openLayoutModal() {
             this.showLayoutSelectionModal = true;
         },
+
         closeLayoutModal() {
             this.showLayoutSelectionModal = false;
         },
+
         getAssignedCmsPage() {
             if (this.cmsPageId === null) {
                 return Promise.resolve(null);
@@ -163,6 +174,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
                 return this.cmsPage;
             });
         },
+
         updateCmsPageDataMapping() {
             Shopware.Store.get('cmsPage').setCurrentMappingEntity(this.entity);
             Shopware.Store.get('cmsPage').setCurrentMappingTypes(
@@ -170,6 +182,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
             );
             Shopware.Store.get('cmsPage').setCurrentDemoEntity(this.item);
         },
+
         getCmsPageOverrides() {
             if (this.cmsPage === null) {
                 return null;
@@ -196,6 +209,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
             }
             return slotOverrides;
         },
+
         deleteSpecifcKeys(sections) {
             if (!sections) {
                 return;

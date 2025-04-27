@@ -62,7 +62,7 @@ export default class ListHelper {
                 const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(this.entity);
                 if (!pluginConfig) {
                     if (trys++ > 50) {
-                        console.error(`[${this.componentName}] Properties not loaded in time (${this.entity})`);
+                        MoorlFoundation.Logger.error('ListHelper._loadProperties', this.componentName, {entity: this.entity});
                         return reject(new Error('Timeout: PluginConfig not found'));
                     }
 
@@ -134,13 +134,13 @@ export default class ListHelper {
     _initProperties() {
         const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
-        console.log(fields);
+        MoorlFoundation.Logger.log('ListHelper._initProperties', this.componentName, fields);
 
         this.properties.forEach((property) => {
             const key = property.split(".")[0];
 
             if (fields[key] === undefined) {
-                console.error(`Property ${property} of ${this.componentName} not found in ${this.entity}`);
+                MoorlFoundation.Logger.error('ListHelper._initProperties', this.componentName, {property, entity: this.entity});
                 return;
             }
 
@@ -196,7 +196,7 @@ export default class ListHelper {
             this.columns.push(column);
         });
 
-        console.log(this.columns);
+        MoorlFoundation.Logger.log('ListHelper._initProperties', this.componentName, this.columns);
     }
 
     getCurrenciesAndPriceProperties() {

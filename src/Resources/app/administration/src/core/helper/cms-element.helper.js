@@ -162,6 +162,8 @@ export default class CmsElementHelper {
             previewComponent: true // TODO: Remove the hack from core template
         };
 
+        MoorlFoundation.Logger.log('CmsElementHelper.registerCmsElement', name, cmsElementConfig);
+
         Shopware.Application.getContainer('service').cmsService.registerCmsElement(cmsElementConfig);
     }
 

@@ -46,6 +46,9 @@ Shopware.Mixin.register('moorl-abstract-cms-element', {
         initCmsConfig() {
             this.initBase();
 
+            // Mandatory for entity CMS page config
+            this.initElementConfig(this.elementType);
+
             this.isLoading = false;
         },
 
