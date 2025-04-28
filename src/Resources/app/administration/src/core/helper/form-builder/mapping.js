@@ -137,6 +137,7 @@ const mapping = {
     published: {tab: 'general', card: 'visibility', cols: 6},
     priority: {tab: 'general', card: 'visibility', cols: 6},
     position: {tab: 'general', card: 'visibility', cols: 6},
+    isPreview: {tab: 'general', card: 'visibility', cols: 6},
     showFrom: {tab: 'general', card: 'visibility', cols: 6, newline: true},
     showUntil: {tab: 'general', card: 'visibility', cols: 6},
     boostTopUntil: {tab: 'general', card: 'visibility', cols: 6, newline: true},
