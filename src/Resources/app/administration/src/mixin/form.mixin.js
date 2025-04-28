@@ -125,7 +125,7 @@ Shopware.Mixin.register('moorl-form', {
         },
 
         isDisabled(field) {
-            return !this.isVisible(field);
+            return !this.isVisible(field) || field.attributes?.disabled;
         },
 
         isDisabledTab(tab) {

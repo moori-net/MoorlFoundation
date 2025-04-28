@@ -6,6 +6,10 @@ Shopware.Component.register('moorl-price-field', {
     emits: ['update:value'],
 
     props: {
+        label: {
+            type: String,
+            required: false
+        },
         value: {
             type: Array,
             required: true,

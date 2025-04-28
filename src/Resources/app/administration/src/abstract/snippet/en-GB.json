@@ -1,6 +1,17 @@
 {
   "moorl-foundation": {
     "field": {
+      "priceBoostHome": "Boost-Home-Preis",
+      "priceBoostSlot": "Boost-Slot-Preis",
+      "priceBoostTop": "Boost-Top-Preis",
+      "priceOffer": "Angebotspreis",
+      "pricePublish": "Veröffentlichungspreis",
+      "expiryTime": "Ablaufzeit",
+      "ean": "EAN",
+      "manufacturerNumber": "Herstellernummer",
+      "mediaFolder": "Medien-Ordner",
+      "offerCount": "Angebote",
+      "available": "Verfügbar",
       "creatorTypeId": "Profil-Typ",
       "swCategory": "Shopware-Kategorie",
       "rawPrice": "Preis (Veraltet)",

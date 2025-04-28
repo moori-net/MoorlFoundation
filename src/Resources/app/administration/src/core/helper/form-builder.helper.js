@@ -44,6 +44,8 @@ export default class FormBuilderHelper {
             return this.pageStruct;
         }
 
+        MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
+
         for (const [property, field] of Object.entries(fields)) {
             if (
                 field.type === 'uuid' ||
@@ -59,6 +61,8 @@ export default class FormBuilderHelper {
         }
 
         this._sortStruct();
+
+        MoorlFoundation.Logger.log('FormBuilderHelper._build', 'pageStruct', this.pageStruct);
 
         return this.pageStruct;
     }
@@ -138,7 +142,6 @@ export default class FormBuilderHelper {
 
         column.label = this.translationHelper.getLabel('field', property);
 
-        // Typbasierte Logik
         switch (field.type) {
             case 'string':
                 column.type = 'text';
@@ -190,6 +193,14 @@ export default class FormBuilderHelper {
             case 'object':
             case 'json_object':
             case 'list':
+                if (property.toLowerCase().includes("price")) {
+                    column.tab = 'price';
+                    column.card = 'price';
+                    column.componentName = 'moorl-price-field';
+                    attributes.tax = ({tax}) => tax;
+                    attributes.currency = ({currency}) => currency;
+                }
+
                 if (!column.componentName) return null;
                 column.type = 'json';
                 break;
@@ -224,7 +235,7 @@ export default class FormBuilderHelper {
                     column.componentName = 'sw-entity-single-select';
                     attributes.showClearableButton = true;
                 }
-            } else if (entity === 'user' || entity.includes('media')) {
+            } else if (entity === 'user' || entity.includes('_media')) {
                 return null;
             } else {
                 column.name = localField;
