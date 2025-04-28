@@ -27,6 +27,7 @@ const mapping = {
     followers: {tab: 'general', card: 'profile', attributes: {labelProperty: 'customerNumber'}, cols: 12},
     role: {tab: 'general', card: 'profile', cols: 12},
     link: {tab: 'general', card: 'profile', componentName: 'sw-url-field', cols: 12},
+    isBusiness: {tab: 'general', card: 'profile', cols: 12},
     imprint: {tab: 'general', card: 'profile', cols: 12},
 
     // Options
@@ -204,6 +205,7 @@ const mapping = {
     custom4: {tab: 'customFields', card: 'customFields', cols: 6},
 
     // Media
+    cover: {hidden: true},
     bannerColor: {tab: 'general', card: 'media', componentName: 'sw-colorpicker', cols: 12},
 
     // Comments

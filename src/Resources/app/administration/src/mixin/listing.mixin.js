@@ -107,7 +107,10 @@ Shopware.Mixin.register('moorl-listing', {
 
             await this.listHelper.ready;
 
-            this.sortBy = this.sortBy ?? this.listHelper.getSortBy();
+            this.pluginName = this.listHelper.pluginName;
+            this.sortBy = this.sortBy ?? this.listHelper.sortBy;
+            this.sortDirection = this.sortDirection ?? this.listHelper.sortDirection;
+
             this.ready = true;
         },
 

@@ -85,7 +85,8 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         async createdComponent() {
             await this.initListHelper();
 
-            this.sortBy = this.listHelper.getSortBy();
+            this.sortBy = this.listHelper.sortBy;
+            this.sortDirection = this.listHelper.sortDirection;
 
             this.getItems();
         },

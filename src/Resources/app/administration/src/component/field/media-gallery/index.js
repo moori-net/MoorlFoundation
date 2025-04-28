@@ -24,6 +24,21 @@ Shopware.Component.register('moorl-media-gallery', {
             required: false,
             default: 'product',
         },
+        mediaProperty: {
+            type: String,
+            required: false,
+            default: 'media',
+        },
+        coverProperty: {
+            type: String,
+            required: false,
+            default: 'cover',
+        },
+        coverIdProperty: {
+            type: String,
+            required: false,
+            default: 'coverId',
+        },
     },
 
     data() {
@@ -74,14 +89,19 @@ Shopware.Component.register('moorl-media-gallery', {
         },
 
         itemMedia() {
-            if (!this.currentItem?.media) {
-                return [];
-            }
-            return this.currentItem.media;
+            return this.item[this.mediaProperty] ?? [];
+        },
+
+        itemCover() {
+            return this.item[this.coverProperty];
+        },
+
+        itemCoverId() {
+            return this.item[this.coverIdProperty];
         },
 
         itemMediaStore() {
-            return this.currentItem.getAssociation('media');
+            return this.item.getAssociation('media');
         },
 
         gridAutoRows() {

@@ -14,6 +14,7 @@ export default class ListHelper {
         this.properties = [];
         this.tc = tc;
         this.sortBy = null;
+        this.sortDirection = 'ASC';
         this.columns = [];
         this.associations = [];
 
@@ -80,6 +81,8 @@ export default class ListHelper {
                 }, null);
 
                 this.sortBy = highestVisibilityProp?.name ?? null;
+                this.sortDirection = this.sortBy === 'autoIncrement' ? 'DESC' : 'ASC';
+
                 this.pluginName = pluginConfig.pluginName ?? null;
                 this.demoName = pluginConfig.demoName ?? 'standard';
 

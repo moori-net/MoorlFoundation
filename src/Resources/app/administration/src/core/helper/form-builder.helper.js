@@ -250,7 +250,7 @@ export default class FormBuilderHelper {
             column.tab = 'general';
             column.card = 'media';
             attributes.item = this.item;
-            attributes.entity = this.entity;
+            attributes.entity = entity;
         } else if (column.componentName === undefined && field.relation === 'one_to_many') {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-multi-select';
