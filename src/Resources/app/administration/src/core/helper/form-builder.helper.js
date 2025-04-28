@@ -298,7 +298,7 @@ export default class FormBuilderHelper {
                 column.model = undefined;
                 attributes.title = column.label;
                 attributes.componentName = this.componentName;
-                attributes.defaultItem = { [refField]: this.item[localField] };
+                attributes.defaultItem = attributes.defaultItem ?? { [refField]: this.item[localField] };
                 if (column.root) {
                     attributes.defaultItem.parentId = null;
                 }

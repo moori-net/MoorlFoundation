@@ -69,6 +69,9 @@ const mapping = {
     // General
 
     // Things
+    question: {tab: 'general', card: 'general'},
+    solution: {tab: 'general', card: 'general'},
+    isTrue: {tab: 'general', card: 'general'},
     name: {tab: 'general', card: 'general'},
     alias: {tab: 'general', card: 'general', cols: 6},
     expiryTime: {tab: 'general', card: 'general', cols: 6},
@@ -94,6 +97,7 @@ const mapping = {
     customerNumber: {tab: 'general', card: 'general', cols: 6},
     manufacturerNumber: {tab: 'general', card: 'general', cols: 6},
     ean: {tab: 'general', card: 'general', cols: 6},
+    useChapters: {tab: 'general', card: 'general', cols: 6},
 
     // SEO / Meta
     schemaOrgType: {tab: 'seo', card: 'general'},
@@ -103,8 +107,25 @@ const mapping = {
     metaKeywords: {tab: 'seo', card: 'general'},
     seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
 
+    duration: {tab: 'seo', card: 'meta', cols: 6},
+    fileCount: {tab: 'seo', card: 'meta', cols: 6},
+    lessonCount: {tab: 'seo', card: 'meta', cols: 6},
+    chapterCount: {tab: 'seo', card: 'meta', cols: 6},
+    boardCount: {tab: 'seo', card: 'meta', cols: 6},
+    points: {tab: 'seo', card: 'meta', cols: 6},
+    ratings: {tab: 'seo', card: 'meta', cols: 6},
+    subscriptionCount: {tab: 'seo', card: 'meta', cols: 6},
+    testCount: {tab: 'seo', card: 'meta', cols: 6},
+    ratingCount: {tab: 'seo', card: 'meta', cols: 6},
+    courseCount: {tab: 'seo', card: 'meta', cols: 6},
+
     // CMS Page
     cmsPage: {tab: 'cmsPage', card: 'cmsPage'},
+
+    // Event
+    eventDate: {tab: 'event', card: 'event', cols: 6},
+    eventDuration: {tab: 'event', card: 'event', cols: 6},
+    eventLocation: {tab: 'event', card: 'event', cols: 6},
 
     // Visibility
     active: {tab: 'general', card: 'visibility', cols: 6},
@@ -115,6 +136,7 @@ const mapping = {
     released: {tab: 'general', card: 'visibility', cols: 6},
     published: {tab: 'general', card: 'visibility', cols: 6},
     priority: {tab: 'general', card: 'visibility', cols: 6},
+    position: {tab: 'general', card: 'visibility', cols: 6},
     showFrom: {tab: 'general', card: 'visibility', cols: 6, newline: true},
     showUntil: {tab: 'general', card: 'visibility', cols: 6},
     boostTopUntil: {tab: 'general', card: 'visibility', cols: 6, newline: true},
@@ -191,6 +213,10 @@ const mapping = {
     tags: {tab: 'relations', card: 'relations'},
     medias: {tab: 'relations', card: 'relations'},
     downloads: {tab: 'relations', card: 'relations'},
+    lessons: {tab: 'relations', card: 'relations'},
+    courses: {tab: 'relations', card: 'relations'},
+    chapters: {tab: 'relations', card: 'relations'},
+    files: {tab: 'relations', card: 'relations'},
 
     salesChannel: {tab: 'relations', card: 'relations'},
     customer: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'customerNumber'}},
@@ -206,7 +232,13 @@ const mapping = {
     category: {tab: 'relations', card: 'relations'},
     site: {tab: 'relations', card: 'relations'},
     client: {tab: 'relations', card: 'relations'},
+    lesson: {tab: 'relations', card: 'relations'},
+    course: {tab: 'relations', card: 'relations'},
+    chapter: {tab: 'relations', card: 'relations'},
+    board: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'content'}},
+
     creator: {tab: 'general', card: 'general'},
+    tutor: {tab: 'general', card: 'general'},
 
     categoriesRo: {hidden: true},
     categoryIds: {hidden: true},
@@ -225,6 +257,7 @@ const mapping = {
     bannerColor: {tab: 'general', card: 'media', componentName: 'sw-colorpicker', cols: 6},
     mediaFolder: {tab: 'general', card: 'media', cols: 6},
     icon: {tab: 'general', card: 'media', cols: 6},
+    sgMedia: {tab: 'general', card: 'media', cols: 6},
 
     // Comments
     enableComments: {tab: 'comments', card: 'general'}
