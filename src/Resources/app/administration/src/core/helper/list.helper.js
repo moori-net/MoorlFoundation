@@ -131,23 +131,25 @@ export default class ListHelper {
         }
     }
 
-    _initProperties() {
-        const fields = Shopware.EntityDefinition.get(this.entity).properties;
+    _initProperties(entity, properties, localField, parentPath = []) {
+        entity = entity ?? this.entity;
+        properties = properties ?? this.createNestedObject(this.properties);
 
-        MoorlFoundation.Logger.log('ListHelper._initProperties', this.componentName, fields);
+        const fields = Shopware.EntityDefinition.get(entity).properties;
 
-        this.properties.forEach((property) => {
-            const key = property.split(".")[0];
+        for (const [key, childProperties] of Object.entries(properties)) {
+            const propertyPath = [...parentPath, key];
+            const property = propertyPath.join(".");
 
             if (fields[key] === undefined) {
-                MoorlFoundation.Logger.error('ListHelper._initProperties', this.componentName, {property, entity: this.entity});
+                MoorlFoundation.Logger.error('ListHelper._initProperties', this.componentName, {key, entity});
                 return;
             }
 
             const field = fields[key];
 
             const column = {
-                property: property,
+                property,
                 dataIndex: property,
                 label: this.translationHelper.getLabel('field', property),
                 allowResize: true,
@@ -155,16 +157,22 @@ export default class ListHelper {
 
             switch (field.type) {
                 case 'association':
-                    if (field.relation === 'many_to_one') {
-                        column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(field.entity, 'detail');
-                        column.routerLinkIdProperty = field.localField;
+                    if (childProperties && field.relation === 'many_to_one') {
+                        this._initProperties(
+                            field.entity,
+                            childProperties,
+                            field.localField,
+                            propertyPath
+                        );
+                        continue;
                     }
                     break;
 
                 case 'string':
                     column.inlineEdit = 'string';
                     column.align = 'left';
-                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'detail');
+                    column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(entity, 'detail');
+                    column.routerLinkIdProperty = localField;
                     break;
 
                 case 'int':
@@ -188,15 +196,30 @@ export default class ListHelper {
                         this.priceProperties.push(property);
                         this.columns.push(...this._getCurrenciesColumns(property, column));
                         this._addAssociation('tax');
-                        return;
                     }
-                    break;
+                    continue;
             }
 
             this.columns.push(column);
+        }
+    }
+
+    createNestedObject(keys) {
+        const result = {};
+
+        keys.forEach(key => {
+            const parts = key.split('.');
+            let current = result;
+
+            parts.forEach((part, index) => {
+                if (!current[part]) {
+                    current[part] = (index === parts.length - 1) ? null : {};
+                }
+                current = current[part];
+            });
         });
 
-        MoorlFoundation.Logger.log('ListHelper._initProperties', this.componentName, this.columns);
+        return result;
     }
 
     getCurrenciesAndPriceProperties() {
