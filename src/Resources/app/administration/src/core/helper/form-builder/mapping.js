@@ -251,6 +251,7 @@ const mapping = {
     mediaFolder: {tab: 'general', card: 'media', cols: 6},
     icon: {tab: 'general', card: 'media', cols: 6},
     sgMedia: {tab: 'general', card: 'media', cols: 6},
+    embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field'},
 
     // Comments
     enableComments: {tab: 'comments', card: 'general'}

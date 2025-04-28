@@ -1,0 +1,12 @@
+{
+    "moorl-embedded-url-field": {
+        "actions": {
+            "createDir": "Verzeichnis erstellen"
+        },
+        "title": "Datei Explorer",
+        "helpText": {},
+        "label": {
+            "parentDirectory": "Übergeordnetes Verzeichnis"
+        }
+    }
+}

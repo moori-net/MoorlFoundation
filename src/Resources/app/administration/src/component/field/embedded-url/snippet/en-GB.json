@@ -1,0 +1,12 @@
+{
+    "moorl-embedded-url-field": {
+        "actions": {
+            "createDir": "Create directory"
+        },
+        "title": "File explorer",
+        "helpText": {},
+        "label": {
+            "parentDirectory": "Parent directory"
+        }
+    }
+}
