@@ -20,7 +20,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
             showExportModal: false,
             isLoading: true,
             activeFilterNumber: 0,
-            sortBy: 'name',
             filterCriteria: []
         };
     },

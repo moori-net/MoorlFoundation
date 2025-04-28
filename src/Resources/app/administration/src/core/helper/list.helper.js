@@ -39,6 +39,14 @@ export default class ListHelper {
         return this.columns;
     }
 
+    getPreviewColumn() {
+        if (this.properties.indexOf('name') === -1) {
+            return this.sortBy;
+        }
+
+        return 'name';
+    }
+
     getAssociations() {
         return this.associations;
     }
@@ -172,6 +180,7 @@ export default class ListHelper {
                     break;
 
                 case 'string':
+                case 'text':
                     column.inlineEdit = 'string';
                     column.align = 'left';
                     column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(entity, 'detail');

@@ -185,15 +185,7 @@ const mapping = {
     locationLon: {tab: 'address', card: 'location', cols: 6},
     autoLocation: {tab: 'address', card: 'location', cols: 6},
     marker: {tab: 'address', card: 'location', cols: 6},
-    locationCache: {
-        hidden: true,
-        tab: 'address',
-        card: 'location',
-        componentName: 'moorl-entity-grid-card-v2',
-        attributes: {
-            defaultItem: ({item}) => ({entityId: item.id})
-        },
-    },
+    locationCache: {hidden: true},
 
     // Time
     timeZone: {tab: 'time', card: 'general', componentName: 'moorl-select-field', attributes: {set: 'timeZone'}, cols: 6},

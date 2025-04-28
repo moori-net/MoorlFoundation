@@ -70,7 +70,7 @@
                 @column-sort="onSortColumn"
                 @update-records="updateTotal"
         >
-            <template #preview-name="{ item }">
+            <template #[`preview-${listHelper.getPreviewColumn()}`]="{ item }">
                 <sw-media-preview-v2
                         v-if="mediaProperty"
                         :source="previewMediaSource(item)"
