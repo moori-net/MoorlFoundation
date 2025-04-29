@@ -69,9 +69,12 @@ export default class TranslationHelper {
         if (this.snippetSrc !== undefined) {
             this.snippetSets.push(this.snippetSrc);
         }
-        let parts = this.componentName.split("-");
 
-        this._addSnippetSourceByComponentName(parts);
+        if (this.componentName !== undefined) {
+            this._addSnippetSourceByComponentName(
+                this.componentName.split("-")
+            );
+        }
 
         this.snippetSets.push("moorl-foundation"); // Fallback
     }

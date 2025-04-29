@@ -250,7 +250,11 @@ const mapping = {
     bannerColor: {tab: 'general', card: 'media', componentName: 'sw-colorpicker', cols: 6},
     mediaFolder: {tab: 'general', card: 'media', cols: 6},
     icon: {tab: 'general', card: 'media', cols: 6},
-    sgMedia: {tab: 'general', card: 'media', cols: 6},
+    sgMedia: {
+        tab: 'general',
+        card: 'media',
+        componentName: 'moorl-entity-select-field'
+    },
     embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field'},
 
     // Comments

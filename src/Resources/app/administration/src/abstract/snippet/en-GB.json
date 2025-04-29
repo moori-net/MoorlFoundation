@@ -1,6 +1,7 @@
 {
   "moorl-foundation": {
     "field": {
+      "progress": "Fortschritt",
       "courses": "Kurse",
       "ratingCount": "Anzahl Bewertungen",
       "courseCount": "Anzahl Kurse",
@@ -468,6 +469,10 @@
     "notification": {
       "visibility": "Hier kann die Sichtbarkeit angepasst werden. Zuweisungen (z.B. Verkaufskanäle) können frei gelassen werden, damit dieses Element generell Sichtbar ist.",
       "undefined": "Die hier aufgeführten Felder wurden nicht zugewiesen, können jedoch bei Bedarf verwendet werden. Es besteht die Möglichkeit, dass diese Felder in zukünftigen Updates entfernt werden."
+    },
+    "button": {
+      "import": "Import",
+      "export": "Export"
     }
   }
 }

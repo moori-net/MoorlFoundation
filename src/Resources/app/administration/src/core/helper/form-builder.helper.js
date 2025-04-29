@@ -54,7 +54,7 @@ export default class FormBuilderHelper {
                 field.flags.computed !== undefined
             ) continue;
 
-            const column = this._buildColumn(field, property);
+            const column = this._buildColumn(field, property, fields);
             if (!column) continue;
 
             this._addColumnToStruct(column, property);
@@ -119,7 +119,7 @@ export default class FormBuilderHelper {
         this.initialized = true;
     }
 
-    _buildColumn(field, property) {
+    _buildColumn(field, property, fields) {
         const column = {
             tab: 'undefined',
             card: 'undefined',
@@ -205,7 +205,7 @@ export default class FormBuilderHelper {
                 column.type = 'json';
                 break;
             case 'association':
-                this._buildAssociationField(field, column, attributes, property);
+                this._buildAssociationField(field, column, attributes, property, fields);
         }
 
         this._handleSpecialComponents(column, attributes, field, property);
@@ -215,32 +215,29 @@ export default class FormBuilderHelper {
         return column;
     }
 
-    _buildAssociationField(field, column, attributes, property) {
+    _buildAssociationField(field, column, attributes, property, fields) {
         const entity = field.entity;
         const localField = field.localField;
+        const required = fields[localField].flags.required;
 
         attributes.entity = entity;
 
         if (field.relation === 'many_to_one') {
+            attributes.required = required;
+
             if (entity === 'media') {
                 column.name = localField;
                 column.tab = field.tab ?? 'general';
                 column.card = field.card ?? 'media';
-                attributes.componentName = 'sw-media-field';
-            } else if (entity === 'cms_page') {
-                if (property === 'cmsPage' && this.item['slotConfig'] !== undefined) {
-                    column.componentName = 'moorl-layout-card-v2';
-                } else {
-                    column.name = localField;
-                    column.componentName = 'sw-entity-single-select';
-                    attributes.showClearableButton = true;
-                }
-            } else if (entity === 'user' || entity.includes('_media')) {
+                column.componentName = 'sw-media-field';
+            } else if (entity === 'cms_page' && property === 'cmsPage' && this.item.slotConfig !== undefined) {
+                column.componentName = 'moorl-layout-card-v2';
+            } else if (entity === 'user' || entity === `${this.entity}_media`) {
                 return null;
             } else {
                 column.name = localField;
-                attributes.componentName = 'sw-entity-single-select';
-                attributes.showClearableButton = field.flags.required === undefined;
+                column.componentName = 'sw-entity-single-select';
+                attributes.showClearableButton = required === undefined;
             }
         } else if (field.relation === 'many_to_many') {
             if (entity === 'category') {
@@ -321,8 +318,7 @@ export default class FormBuilderHelper {
 
     _finalizeAttributes(column, attributes, field, property) {
         attributes.label = column.label;
-        attributes.labelProperty = attributes.labelProperty ?? field.flags.moorl_label_property ?? undefined;
-        attributes.required = field.flags.required;
+        attributes.required = attributes.required ?? field.flags.required;
         attributes.disabled = field.flags.write_protected;
         attributes.helpText = this.translationHelper.getLabel('helpText', property, false);
         attributes.componentName = attributes.componentName ?? column.componentName;
