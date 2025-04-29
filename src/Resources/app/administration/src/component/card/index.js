@@ -1,5 +1,7 @@
 import './layout-card-v2';
 import './entity-grid-card-v2';
+import './behaviour-card';
+import './cms-slot-card';
 
 /* Deprecated
 import './address-card';
@@ -14,6 +16,4 @@ import './custom-card';
 import './person-card';
 import './entity-grid-card';
 import './custom-field-set-card';
-import './behaviour-card';
-import './cms-slot-card';
 */
