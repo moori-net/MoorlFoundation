@@ -1,22 +1,13 @@
-import './core/moorl-foundation';
-import './store/moorl-foundation.store';
-import './init/foundation-api-service.init';
+import './main.scss';
 
-import './mixin/flow-action-helper.mixin';
-import './mixin/abstract-cms-element.mixin';
-import './mixin/form.mixin';
-import './mixin/listing.mixin';
-
+import './core';
+import './store';
+import './init';
+import './mixin';
 import './abstract';
-import './proxy';
-
 import './component';
 import './extension';
-
-
 import './module';
-
-import './main.scss';
 
 MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_client',

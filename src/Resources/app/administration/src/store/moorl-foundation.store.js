@@ -5,7 +5,6 @@ Shopware.Store.register({
         unlocked: false,
         unlockInfoSeen: false,
         plugins: [],
-        customEntityMappings: {}
     }),
 
     actions: {
@@ -17,26 +16,6 @@ Shopware.Store.register({
         },
         toggleUnlocked() {
             this.unlocked = !state.unlocked;
-        },
-        setUnlockModalSeen() {
-            this.unlockInfoSeen = true;
-        },
-        addCustomEntityMapping(customEntityMapping) {
-            for (const [entity, newFields] of Object.entries(customEntityMapping)) {
-                if (!this.customEntityMappings[entity]) {
-                    this.customEntityMappings[entity] = {};
-                }
-                Object.entries(newFields).forEach(([fieldKey, fieldConfig]) => {
-                    if (!this.customEntityMappings[entity][fieldKey]) {
-                        this.customEntityMappings[entity][fieldKey] = fieldConfig;
-                    } else {
-                        console.warn(`[CustomEntityMapping] Feld "${fieldKey}" für Entity "${entity}" wurde bereits registriert und wird ignoriert.`);
-                    }
-                });
-            }
-        },
-        getCustomEntityMapping(entity) {
-            return this.customEntityMappings[entity];
         },
         reset() {},
     },

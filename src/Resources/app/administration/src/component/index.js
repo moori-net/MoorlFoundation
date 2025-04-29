@@ -1,5 +1,3 @@
-/* TODO: Remove moorl from file names */
-
 import './moorl-element-animation';
 import './moorl-block-behaviour';
 import './moorl-collapse';
@@ -25,3 +23,8 @@ import './template-mapping-info';
 import './combination-element-options';
 import './field/svg-shape';
 import './fieldset';
+
+/* Deprecated
+
+
+*/

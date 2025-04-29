@@ -1,4 +1,7 @@
-// Cards - Components for items with multiple properties
+import './layout-card-v2';
+import './entity-grid-card-v2';
+
+/* Deprecated
 import './address-card';
 import './company-card';
 import './contact-card';
@@ -9,9 +12,8 @@ import './layout-card';
 import './opening-hours-card';
 import './custom-card';
 import './person-card';
-import './layout-card-v2';
 import './entity-grid-card';
-import './entity-grid-card-v2';
 import './custom-field-set-card';
 import './behaviour-card';
 import './cms-slot-card';
+*/
