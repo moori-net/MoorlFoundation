@@ -66,8 +66,6 @@ const mapping = {
     availableStock: {tab: 'stock', card: 'general'},
     deliveryTime: {tab: 'stock', card: 'general'},
 
-    // General
-
     // Things
     question: {tab: 'general', card: 'general'},
     solution: {tab: 'general', card: 'general'},
@@ -108,7 +106,6 @@ const mapping = {
     metaDescription: {tab: 'seo', card: 'general'},
     metaKeywords: {tab: 'seo', card: 'general'},
     seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
-
     duration: {tab: 'seo', card: 'meta', cols: 6},
     fileCount: {tab: 'seo', card: 'meta', cols: 6},
     lessonCount: {tab: 'seo', card: 'meta', cols: 6},
@@ -214,7 +211,6 @@ const mapping = {
     courses: {tab: 'relations', card: 'relations'},
     chapters: {tab: 'relations', card: 'relations'},
     files: {tab: 'relations', card: 'relations'},
-
     salesChannel: {tab: 'relations', card: 'relations'},
     customer: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'customerNumber'}},
     customerGroup: {tab: 'relations', card: 'relations'},
@@ -235,10 +231,8 @@ const mapping = {
     board: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'content'}},
     downloadCenter: {tab: 'relations', card: 'relations'},
     downloadCenterCode: {tab: 'relations', card: 'relations'},
-
     creator: {tab: 'general', card: 'general'},
     tutor: {tab: 'general', card: 'general'},
-
     categoriesRo: {hidden: true},
     categoryIds: {hidden: true},
     categoryTree: {hidden: true},
