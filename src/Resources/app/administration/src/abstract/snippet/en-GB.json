@@ -1,6 +1,8 @@
 {
   "moorl-foundation": {
     "field": {
+      "visible": "Sichtbar",
+      "availabilityRule": "Verfügbarkeitsregel",
       "isStandardPage": "Standard Ansicht verwenden",
       "progress": "Fortschritt",
       "courses": "Kurse",

@@ -156,6 +156,8 @@ const mapping = {
     cssClass: {tab: 'general', card: 'visibility', cols: 6},
     minResults: {tab: 'general', card: 'visibility', cols: 6},
     page: {tab: 'general', card: 'visibility', cols: 6},
+    availabilityRule: {tab: 'general', card: 'visibility', cols: 6},
+    visible: {tab: 'general', card: 'visibility', cols: 6},
 
     // Address
     street: {tab: 'address', card: 'general', cols: 8},
