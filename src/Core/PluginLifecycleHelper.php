@@ -2,11 +2,14 @@
 
 namespace MoorlFoundation\Core;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\ParameterType;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Bundle;
 use Shopware\Core\Framework\Migration\MigrationStep;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -184,6 +187,55 @@ class PluginLifecycleHelper
                 continue;
             }
         }
+    }
+
+    public static function renameCmsBlock(
+        Connection $connection,
+        string $oldType,
+        string $newType = 'moorl-column-layout-1',
+        array $slotMapping = [
+            'content' => 'slot-a',
+            'left' => 'slot-a',
+            'right' => 'slot-a',
+            'center' => 'slot-a',
+        ]
+    ): void
+    {
+        $blockIds = $connection->fetchFirstColumn(
+            'SELECT `id` FROM `cms_block` WHERE `type` = :oldType',
+            ['oldType' => $oldType],
+            ['oldType' => ParameterType::STRING]
+        );
+        if (empty($blockIds)) {
+            return;
+        }
+
+        foreach ($slotMapping as $oldSlot => $newSlot) {
+            $connection->executeStatement(
+                'UPDATE `cms_slot` SET `slot` = :newSlot WHERE `cms_block_id` IN (:blockIds) AND `slot` = :oldSlot',
+                ['newSlot' => $newSlot, 'blockIds' => $blockIds, 'oldSlot' => $oldSlot],
+                ['newSlot' => ParameterType::STRING, 'blockIds' => ArrayParameterType::BINARY, 'oldSlot' => ParameterType::STRING]
+            );
+        }
+
+        $connection->executeStatement(
+            'UPDATE `cms_block` SET `type` = :newType WHERE `id` IN (:blockIds) AND `type` = :oldType',
+            ['newType' => $newType, 'blockIds' => $blockIds, 'oldType' => $oldType],
+            ['newType' => ParameterType::STRING, 'blockIds' => ArrayParameterType::BINARY, 'oldType' => ParameterType::STRING]
+        );
+    }
+
+    public static function renameCmsSlot(
+        Connection $connection,
+        string $oldType,
+        string $newType,
+    ): void
+    {
+        $connection->executeStatement(
+            'UPDATE `cms_slot` SET `type` = :newType WHERE `type` = :oldType',
+            ['newType' => $newType, 'oldType' => $oldType],
+            ['newType' => ParameterType::STRING, 'oldType' => ParameterType::STRING]
+        );
     }
 
     private static function c(string $plugin, string $constant): mixed
