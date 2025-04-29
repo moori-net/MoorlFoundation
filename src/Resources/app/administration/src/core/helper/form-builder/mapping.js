@@ -98,6 +98,7 @@ const mapping = {
     manufacturerNumber: {tab: 'general', card: 'general', cols: 6},
     ean: {tab: 'general', card: 'general', cols: 6},
     useChapters: {tab: 'general', card: 'general', cols: 6},
+    validUntil: {tab: 'general', card: 'general', cols: 6},
 
     // SEO / Meta
     schemaOrgType: {tab: 'seo', card: 'general'},

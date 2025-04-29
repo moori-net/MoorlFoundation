@@ -1,6 +1,7 @@
 {
   "moorl-foundation": {
     "field": {
+      "isStandardPage": "Standard Ansicht verwenden",
       "progress": "Fortschritt",
       "courses": "Kurse",
       "ratingCount": "Anzahl Bewertungen",
@@ -472,7 +473,8 @@
     },
     "button": {
       "import": "Import",
-      "export": "Export"
+      "export": "Export",
+      "update": "Update"
     }
   }
 }

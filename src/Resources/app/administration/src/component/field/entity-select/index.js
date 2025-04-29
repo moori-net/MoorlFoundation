@@ -57,10 +57,14 @@ Shopware.Component.register('moorl-entity-select-field', {
     },
 
     computed: {
+        fieldLabel() {
+            return this.label ?? this.$tc(`global.entities.${this.entity}`);
+        },
+
         vBind() {
             return {
                 entity: this.entity,
-                label: this.label,
+                label: this.fieldLabel,
                 helpText: this.helpText,
                 placeholder: this.placeholder,
                 disabled: this.disabled,
