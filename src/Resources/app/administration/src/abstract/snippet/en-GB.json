@@ -1,6 +1,11 @@
 {
   "moorl-foundation": {
     "field": {
+      "relationship": "Beziehung",
+      "borders": "Grenzen",
+      "maxDimensions": "Max. Breite/Höhe",
+      "style": "Stil",
+      "maxImages": "Max. Bilder",
       "visible": "Sichtbar",
       "availabilityRule": "Verfügbarkeitsregel",
       "isStandardPage": "Standard Ansicht verwenden",
