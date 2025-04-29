@@ -2,10 +2,10 @@
     <sw-card class="moorl-contact-card" :title="$tc('moorl-foundation.card.contact')">
         <sw-container columns="1fr 1fr" gap="0 20px">
             {% block moorl_contact_card_inner %}
-                <sw-text-field :label="$tc('moorl-foundation.properties.email')" v-model:value="item.email"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.phoneNumber')" v-model:value="item.phoneNumber"/>
-                <sw-url-field :label="$tc('moorl-foundation.properties.shopUrl')" v-model:value="item.shopUrl"/>
-                <sw-url-field :label="$tc('moorl-foundation.properties.merchantUrl')" v-model:value="item.merchantUrl"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.email')" v-model:value="item.email"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.phoneNumber')" v-model:value="item.phoneNumber"/>
+                <sw-url-field :label="$tc('moorl-foundation.field.shopUrl')" v-model:value="item.shopUrl"/>
+                <sw-url-field :label="$tc('moorl-foundation.field.merchantUrl')" v-model:value="item.merchantUrl"/>
             {% endblock %}
         </sw-container>
 

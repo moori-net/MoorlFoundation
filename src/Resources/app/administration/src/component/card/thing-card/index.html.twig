@@ -11,7 +11,7 @@
                     default-folder="product_manufacturer"
                     :source="item.mediaId"
                     :allowMultiSelect="false"
-                    :label="$tc('moorl-foundation.properties.logo')"
+                    :label="$tc('moorl-foundation.field.logo')"
                     @sw-media-upload-media-upload-success="setMediaItem"
                     @media-drop="onDropMedia"
                     @media-upload-sidebar-open="onOpenMediaModal"
@@ -19,10 +19,10 @@
             />
         </div>
 
-        <sw-text-field :label="$tc('moorl-foundation.properties.name')" v-model:value="item.name" required validation="required" :error="itemNameError"/>
-        <sw-switch-field bordered :label="$tc('moorl-foundation.properties.active')" v-model:value="item.active"/>
-        <sw-textarea-field :label="$tc('moorl-foundation.properties.teaser')" v-model:value="item.teaser"/>
-        <sw-text-editor :label="$tc('moorl-foundation.properties.description')" v-model:value="item.description"/>
+        <sw-text-field :label="$tc('moorl-foundation.field.name')" v-model:value="item.name" required validation="required" :error="itemNameError"/>
+        <sw-switch-field bordered :label="$tc('moorl-foundation.field.active')" v-model:value="item.active"/>
+        <sw-textarea-field :label="$tc('moorl-foundation.field.teaser')" v-model:value="item.teaser"/>
+        <sw-text-editor :label="$tc('moorl-foundation.field.description')" v-model:value="item.description"/>
 
         <slot name="append"/>
 

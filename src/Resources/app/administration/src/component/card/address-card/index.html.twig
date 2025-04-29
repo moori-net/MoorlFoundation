@@ -2,14 +2,14 @@
     <sw-card class="moorl-address-card" :title="$tc('moorl-foundation.card.address')">
         <sw-container columns="1fr 1fr" gap="0 20px">
             {% block moorl_address_card_inner %}
-                <sw-text-field :label="$tc('moorl-foundation.properties.street')" v-model:value="item.street"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.streetNumber')" v-model:value="item.streetNumber"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.zipcode')" v-model:value="item.zipcode"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.city')" v-model:value="item.city"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.additionalAddressLine1')" v-model:value="item.additionalAddressLine1"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.additionalAddressLine2')" v-model:value="item.additionalAddressLine2"/>
-                <sw-entity-single-select :label="$tc('moorl-foundation.properties.country')" v-model:value="item.countryId"  entity="country"/>
-                <sw-entity-single-select :label="$tc('moorl-foundation.properties.countryState')" v-model:value="item.countryStateId"  entity="country_state"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.street')" v-model:value="item.street"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.streetNumber')" v-model:value="item.streetNumber"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.zipcode')" v-model:value="item.zipcode"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.city')" v-model:value="item.city"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.additionalAddressLine1')" v-model:value="item.additionalAddressLine1"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.additionalAddressLine2')" v-model:value="item.additionalAddressLine2"/>
+                <sw-entity-single-select :label="$tc('moorl-foundation.field.country')" v-model:value="item.countryId"  entity="country"/>
+                <sw-entity-single-select :label="$tc('moorl-foundation.field.countryState')" v-model:value="item.countryStateId"  entity="country_state"/>
                 <sw-text-field :label="$tc('moorl-foundation.properties.countryCode')" v-model:value="item.countryCode"/>
                 <sw-text-field :label="$tc('moorl-foundation.properties.locationPlaceId')" v-model:value="item.locationPlaceId"/>
             {% endblock %}

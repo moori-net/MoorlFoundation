@@ -21,9 +21,9 @@
         <ul class="moorl-parts-list-items">
             <li class="moorl-parts-list-item">
                 <div></div>
-                <div>{{ "moorl-foundation.properties.quantity"|trans }}</div>
-                <div>{{ "moorl-foundation.properties.product"|trans }}</div>
-                <div class="text-end">{{ "moorl-foundation.properties.subtotal"|trans }}</div>
+                <div>{{ "moorl-foundation.field.quantity"|trans }}</div>
+                <div>{{ "moorl-foundation.field.product"|trans }}</div>
+                <div class="text-end">{{ "moorl-foundation.field.subtotal"|trans }}</div>
             </li>
             {% for lineItem in cart.lineItems %}
                 {% if lineItem.type == 'product' %}

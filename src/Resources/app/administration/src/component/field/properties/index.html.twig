@@ -16,7 +16,7 @@
                                         v-model:value="searchTerm"
                                         variant="form"
                                         size="small"
-                                        :placeholder="$tc('sw-product.properties.placeholderSearchAddedProperties')"
+                                        :placeholder="$tc('moorl-foundation.field.placeholderSearchAddedProperties')"
                                         :disabled="isPropertiesLoading || undefined"
                                         @search-term-change="onChangeSearchTerm"
                                 />
@@ -35,7 +35,7 @@
                                         :disabled="!acl.can('product.editor') || undefined"
                                         @click="turnOnAddPropertiesModal"
                                 >
-                                    {{ $tc('sw-product.properties.buttonAddProperty') }}
+                                    {{ $tc('moorl-foundation.field.buttonAddProperty') }}
                                 </mt-button>
                             {% endblock %}
                         </sw-container>

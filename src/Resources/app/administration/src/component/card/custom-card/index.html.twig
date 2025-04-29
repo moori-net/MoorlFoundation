@@ -2,10 +2,10 @@
     <sw-card class="moorl-custom-card" :title="$tc('moorl-foundation.card.custom')">
         <sw-container columns="1fr 1fr" gap="0 20px">
             {% block moorl_custom_card_inner %}
-                <sw-text-field :label="$t('moorl-foundation.properties.custom1')" v-model:value="item.custom1"/>
-                <sw-text-field :label="$t('moorl-foundation.properties.custom2')" v-model:value="item.custom2"/>
-                <sw-text-field :label="$t('moorl-foundation.properties.custom3')" v-model:value="item.custom3"/>
-                <sw-text-field :label="$t('moorl-foundation.properties.custom4')" v-model:value="item.custom4"/>
+                <sw-text-field :label="$t('moorl-foundation.field.custom1')" v-model:value="item.custom1"/>
+                <sw-text-field :label="$t('moorl-foundation.field.custom2')" v-model:value="item.custom2"/>
+                <sw-text-field :label="$t('moorl-foundation.field.custom3')" v-model:value="item.custom3"/>
+                <sw-text-field :label="$t('moorl-foundation.field.custom4')" v-model:value="item.custom4"/>
             {% endblock %}
         </sw-container>
 

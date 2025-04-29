@@ -2,15 +2,15 @@
     <sw-card class="moorl-company-card" :title="$tc('moorl-foundation.card.company')">
         <sw-container columns="1fr 1fr" gap="0 20px">
             {% block moorl_company_card_inner %}
-                <sw-text-field :label="$tc('moorl-foundation.properties.executiveDirector')" v-model:value="item.executiveDirector"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.placeOfFulfillment')" v-model:value="item.placeOfFulfillment"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.placeOfJurisdiction')" v-model:value="item.placeOfJurisdiction"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.bankBic')" v-model:value="item.bankBic"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.bankIban')" v-model:value="item.bankIban"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.bankName')" v-model:value="item.bankName"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.taxOffice')" v-model:value="item.taxOffice"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.taxNumber')" v-model:value="item.taxNumber"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.vatId')" v-model:value="item.vatId"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.executiveDirector')" v-model:value="item.executiveDirector"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.placeOfFulfillment')" v-model:value="item.placeOfFulfillment"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.placeOfJurisdiction')" v-model:value="item.placeOfJurisdiction"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.bankBic')" v-model:value="item.bankBic"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.bankIban')" v-model:value="item.bankIban"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.bankName')" v-model:value="item.bankName"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.taxOffice')" v-model:value="item.taxOffice"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.taxNumber')" v-model:value="item.taxNumber"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.vatId')" v-model:value="item.vatId"/>
             {% endblock %}
         </sw-container>
 

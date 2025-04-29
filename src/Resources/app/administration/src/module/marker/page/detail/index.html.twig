@@ -2,24 +2,24 @@
     <sw-card-view>
         <sw-card :title="$tc('moorl-marker.card.general')">
             <sw-text-field
-                    :label="$tc('moorl-marker.properties.name')"
+                    :label="$tc('moorl-foundation.field.name')"
                     v-model:value="item.name"
                     required
                     validation="required"
             />
 
             <sw-text-field
-                    :label="$tc('moorl-marker.properties.type')"
+                    :label="$tc('moorl-foundation.field.type')"
                     v-model:value="item.type"
             />
 
             <sw-text-field
-                    :label="$tc('moorl-marker.properties.cssClass')"
+                    :label="$tc('moorl-foundation.field.cssClass')"
                     v-model:value="item.className"
             />
 
             <sw-textarea-field
-                    :label="$tc('moorl-marker.properties.svg')"
+                    :label="$tc('moorl-foundation.field.svg')"
                     :helpText="$tc('moorl-marker.helpText.svg')"
                     v-model:value="item.svg"
             />
@@ -37,7 +37,7 @@
                         :uploadTag="uploadTagMarker"
                         :source="item.markerId"
                         :allowMultiSelect="false"
-                        :label="$tc('moorl-marker.properties.marker')"
+                        :label="$tc('moorl-foundation.field.marker')"
                         @sw-media-upload-media-upload-success="setMarkerItem"
                         @media-drop="onDropMarker"
                         @media-upload-remove-image="onUnlinkMarker"
@@ -55,7 +55,7 @@
                         :uploadTag="uploadTagMarkerRetina"
                         :source="item.markerRetinaId"
                         :allowMultiSelect="false"
-                        :label="$tc('moorl-marker.properties.markerRetina')"
+                        :label="$tc('moorl-foundation.field.markerRetina')"
                         @sw-media-upload-media-upload-success="setMarkerRetinaItem"
                         @media-drop="onDropMarkerRetina"
                         @media-upload-remove-image="onUnlinkMarkerRetina"

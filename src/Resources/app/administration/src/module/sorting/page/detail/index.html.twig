@@ -3,7 +3,7 @@
         <sw-card :title="$tc('moorl-foundation.label.generalCard')">
             <sw-switch-field
                     bordered
-                    :label="$tc('moorl-sorting.properties.active')"
+                    :label="$tc('moorl-foundation.field.active')"
                     v-model:value="item.active"
             />
 
@@ -12,25 +12,25 @@
                     valueProperty="name"
 
                     :options="entityOptions"
-                    :label="$tc('moorl-sorting.properties.entity')"
+                    :label="$tc('moorl-foundation.field.entity')"
                     @on-change="onChangeLanguage"
                     :required="true"
             />
 
             <sw-text-field
-                    :label="$tc('moorl-sorting.properties.key')"
+                    :label="$tc('moorl-foundation.field.key')"
                     v-model:value="item.key"
                     :required="true"
             />
 
             <sw-text-field
-                    :label="$tc('moorl-sorting.properties.label')"
+                    :label="$tc('moorl-foundation.field.label')"
                     v-model:value="item.label"
                     :required="true"
             />
 
             <sw-number-field
-                    :label="$tc('moorl-sorting.properties.priority')"
+                    :label="$tc('moorl-foundation.field.priority')"
                     v-model:value="item.priority"
                     :required="true"
             />

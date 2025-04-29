@@ -2,11 +2,11 @@
     <sw-card class="moorl-person-card" :title="$tc('moorl-foundation.card.person')">
         <sw-container columns="1fr 1fr" gap="0 20px">
             {% block moorl_person_card_inner %}
-                <sw-entity-single-select :label="$tc('moorl-foundation.properties.salutation')" v-model:value="item.salutationId" labelProperty="displayName" entity="salutation"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.title')" v-model:value="item.title"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.firstName')" v-model:value="item.firstName"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.lastName')" v-model:value="item.lastName"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.company')" v-model:value="item.company"/>
+                <sw-entity-single-select :label="$tc('moorl-foundation.field.salutation')" v-model:value="item.salutationId" labelProperty="displayName" entity="salutation"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.title')" v-model:value="item.title"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.firstName')" v-model:value="item.firstName"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.lastName')" v-model:value="item.lastName"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.company')" v-model:value="item.company"/>
             {% endblock %}
         </sw-container>
 

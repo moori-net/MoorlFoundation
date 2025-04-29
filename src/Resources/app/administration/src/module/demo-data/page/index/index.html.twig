@@ -7,13 +7,13 @@
             >
                 <template v-if="options.length">
                     <sw-single-select
-                            :label="$tc('moorl-foundation.properties.type')"
+                            :label="$tc('moorl-foundation.field.type')"
                             v-model:value="optionIndex"
                             :options="options"
                     />
 
                     <sw-entity-single-select
-                            :label="$tc('moorl-foundation.properties.salesChannel')"
+                            :label="$tc('moorl-foundation.field.salesChannel')"
                             v-model:value="salesChannelId"
 
                             entity="sales_channel"

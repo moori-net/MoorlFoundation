@@ -20,7 +20,7 @@
             <sw-text-field
                     v-model:value="item.name"
                     size="small"
-                    :placeholder="$tc('moorl-parameter-grid.properties.name')"
+                    :placeholder="$tc('moorl-foundation.field.name')"
                     @update:value="onChangeItem(item, itemIndex)"
                     :disabled="item.fixed"
             />
@@ -32,7 +32,7 @@
                     v-model:value="item.data"
                     size="small"
                     :options="dataSelection"
-                    :placeholder="$tc('moorl-parameter-grid.properties.data')"
+                    :placeholder="$tc('moorl-foundation.field.data')"
                     @update:value="onChangeItem(item, itemIndex)"
                     show-clearable-button
             />
@@ -41,7 +41,7 @@
                     v-if="item.isCustom || !dataSelection.length"
                     v-model:value="item.data"
                     size="small"
-                    :placeholder="$tc('moorl-parameter-grid.properties.data')"
+                    :placeholder="$tc('moorl-foundation.field.data')"
                     @update:value="onChangeItem(item, itemIndex)"
             />
         </template>

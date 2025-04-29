@@ -4,7 +4,7 @@
             {% block moorl_location_card_inner %}
                 <div class="moorl-link-field">
                     <sw-entity-single-select
-                            :label="$tc('moorl-foundation.properties.markerId')"
+                            :label="$tc('moorl-foundation.field.markerId')"
                             entity="moorl_marker"
                             v-model:value="item.markerId"
                     />
@@ -16,13 +16,13 @@
 
                 <sw-switch-field
                         bordered
-                        :label="$tc('moorl-foundation.properties.autoLocation')"
+                        :label="$tc('moorl-foundation.field.autoLocation')"
                         v-model:value="item.autoLocation"
                 />
 
                 <sw-number-field
                         :disabled="item.autoLocation"
-                        :label="$tc('moorl-foundation.properties.locationLat')"
+                        :label="$tc('moorl-foundation.field.locationLat')"
                         numberType="float"
                         digits="6"
                         v-model:value="item.locationLat"
@@ -30,7 +30,7 @@
 
                 <sw-number-field
                         :disabled="item.autoLocation"
-                        :label="$tc('moorl-foundation.properties.locationLon')"
+                        :label="$tc('moorl-foundation.field.locationLon')"
                         numberType="float"
                         digits="6"
                         v-model:value="item.locationLon"
