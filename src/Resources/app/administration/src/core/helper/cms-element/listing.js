@@ -1,3 +1,5 @@
+const {Criteria} = Shopware.Data;
+
 const listing = {
     listingSource: {
         componentName: 'moorl-select-field',
@@ -12,7 +14,8 @@ const listing = {
     listingSorting: {
         entity: 'moorl_sorting',
         attributes: {
-            labelProperty: 'label'
+            labelProperty: 'label',
+            criteria: ({entity}) => (new Criteria()).addFilter(Criteria.equals('entity', entity))
         },
         tab: 'general',
         card: 'source',

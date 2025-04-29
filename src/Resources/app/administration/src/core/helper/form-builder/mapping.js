@@ -99,6 +99,7 @@ const mapping = {
     ean: {tab: 'general', card: 'general', cols: 6},
     useChapters: {tab: 'general', card: 'general', cols: 6},
     validUntil: {tab: 'general', card: 'general', cols: 6},
+    code: {tab: 'general', card: 'general'},
 
     // SEO / Meta
     schemaOrgType: {tab: 'seo', card: 'general'},
@@ -230,6 +231,8 @@ const mapping = {
     course: {tab: 'relations', card: 'relations'},
     chapter: {tab: 'relations', card: 'relations'},
     board: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'content'}},
+    downloadCenter: {tab: 'relations', card: 'relations'},
+    downloadCenterCode: {tab: 'relations', card: 'relations'},
 
     creator: {tab: 'general', card: 'general'},
     tutor: {tab: 'general', card: 'general'},
