@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
@@ -29,9 +30,9 @@ class FieldThingBaseCollection extends FieldCollection
         if (!$flag) return [];
 
         return [
-            (new StringField('name', 'name'))->addFlags(),
-            (new LongTextField('description', 'description'))->addFlags(new AllowHtml(false)),
-            new LongTextField('keywords', 'keywords')
+            (new StringField('name', 'name'))->addFlags(new ApiAware(), new Required()),
+            (new LongTextField('description', 'description'))->addFlags(new ApiAware(), new AllowHtml(false)),
+            (new LongTextField('keywords', 'keywords'))->addFlags(new ApiAware())
         ];
     }
 }
