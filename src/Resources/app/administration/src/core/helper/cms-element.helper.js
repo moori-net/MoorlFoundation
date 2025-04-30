@@ -139,7 +139,7 @@ export default class CmsElementHelper {
         const abstractComponent = `moorl-abstract-cms-${parent}`;
 
         plugin = plugin ?? 'MoorlFoundation';
-        icon = icon ?? 'regular-marketing';
+        icon = icon ?? 'regular-view-grid';
 
         this.cmsElementConfigCache[name] = {
             cmsElementEntity,

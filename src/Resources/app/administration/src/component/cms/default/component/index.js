@@ -9,7 +9,5 @@ Shopware.Component.register('sw-cms-el-moorl-default', {
             type: Object,
             required: true,
         },
-    },
-
-    computed: {},
+    }
 });

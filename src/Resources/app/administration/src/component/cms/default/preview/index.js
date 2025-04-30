@@ -13,11 +13,5 @@ Shopware.Component.register('sw-cms-el-preview-moorl-default', {
             type: Object,
             required: true,
         },
-    },
-
-    computed: {
-        style() {
-            return null;
-        },
-    },
+    }
 });

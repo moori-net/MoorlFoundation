@@ -1,6 +1,9 @@
 {
   "moorl-foundation": {
     "field": {
+      "rating": "Bewertung",
+      "ratingMax": "Max. Bewertung",
+      "testimonials": "Testimonials",
       "filters": "Filters",
       "partsListConfigurator": "Parts list configurator",
       "productStreams": "Product streams",
