@@ -101,7 +101,6 @@ Shopware.Mixin.register('moorl-form', {
             const taxes = await this.taxRepository.search(criteria);
 
             this.formBuilderHelper.tax = taxes[0];
-            this.item.taxId = taxes[0].id;
         },
 
         async loadCurrency() {

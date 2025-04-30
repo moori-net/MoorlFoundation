@@ -22,8 +22,8 @@
         "shopware-plugin-class": "MoorlFoundation\\MoorlFoundation",
         "copyright": "(c) by moori",
         "label": {
-            "de-DE": "Foundation // Bitte Hinweise in der Pluginbeschreibung beachten!",
-            "en-GB": "Foundation // Please note the information in the plugin description!"
+            "de-DE": "[moori] Foundation",
+            "en-GB": "[moori] Foundation"
         },
         "description": {
             "de-DE": "Das moori Basis Plugin",
