@@ -1,5 +1,4 @@
 const {Criteria} = Shopware.Data;
-const {mapPropertyErrors} = Shopware.Component.getComponentHelper();
 
 Shopware.Mixin.register('moorl-form', {
     mixins: [
