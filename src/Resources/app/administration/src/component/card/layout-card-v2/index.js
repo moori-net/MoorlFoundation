@@ -64,7 +64,7 @@ Shopware.Component.register('moorl-layout-card-v2', {
         },
 
         cmsPageType() {
-            return this.pageType ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.name;
+            return this.pageType ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.pageType;
         },
 
         cmsPageTypes() {
