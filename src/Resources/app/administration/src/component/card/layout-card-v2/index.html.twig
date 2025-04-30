@@ -22,17 +22,28 @@
                 </div>
 
                 <div class="moorl-layout-card__desc-actions">
-                    <mt-button class="moorl-detail-layout__change-layout-action" size="small" @click="openLayoutModal">
+                    <mt-button
+                            class="moorl-detail-layout__change-layout-action"
+                            size="small"
+                            variant="secondary"
+                            @click="openLayoutModal"
+                    >
                         {{ cmsPage ? $tc('moorl-layout-card.changeLayout') : $tc('moorl-layout-card.changeLayoutEmpty') }}
                     </mt-button>
 
-                    <mt-button class="moorl-detail-layout__open-in-pagebuilder" size="small" @click="openInPagebuilder">
+                    <mt-button
+                            class="moorl-detail-layout__open-in-pagebuilder"
+                            size="small"
+                            variant="secondary"
+                            @click="openInPagebuilder"
+                    >
                         {{ cmsPage ? $tc('moorl-layout-card.editInPagebuilder'): $tc('moorl-layout-card.editInPagebuilderEmpty') }}
                     </mt-button>
 
                     <mt-button
                             v-if="cmsPage"
                             size="small"
+                            variant="secondary"
                             class="moorl-detail-layout__layout-reset"
                             square
                             @click="onLayoutReset"

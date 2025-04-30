@@ -1,4 +1,5 @@
 const {Criteria} = Shopware.Data;
+const {mapPropertyErrors} = Shopware.Component.getComponentHelper();
 
 Shopware.Mixin.register('moorl-form', {
     mixins: [
@@ -35,6 +36,10 @@ Shopware.Mixin.register('moorl-form', {
     },
 
     computed: {
+        ...mapPropertyErrors('item', [
+            'type'
+        ]),
+
         formBuilderHelper() {
             return new MoorlFoundation.FormBuilderHelper({
                 entity: this.entity,
@@ -55,6 +60,7 @@ Shopware.Mixin.register('moorl-form', {
         taxRepository() {
             return this.repositoryFactory.create('tax');
         },
+
         currencyRepository() {
             return this.repositoryFactory.create('currency');
         }
@@ -71,6 +77,8 @@ Shopware.Mixin.register('moorl-form', {
 
     created() {
         this.createdComponent();
+
+        console.log(this.itemTypeError);
     },
 
     methods: {
