@@ -36,10 +36,6 @@ Shopware.Mixin.register('moorl-form', {
     },
 
     computed: {
-        ...mapPropertyErrors('item', [
-            'type'
-        ]),
-
         formBuilderHelper() {
             return new MoorlFoundation.FormBuilderHelper({
                 entity: this.entity,
@@ -77,8 +73,6 @@ Shopware.Mixin.register('moorl-form', {
 
     created() {
         this.createdComponent();
-
-        console.log(this.itemTypeError);
     },
 
     methods: {
@@ -134,6 +128,19 @@ Shopware.Mixin.register('moorl-form', {
 
         isDisabled(field) {
             return !this.isVisible(field) || field.attributes?.disabled;
+        },
+
+        getError(field) {
+            if (!field.attributes?.required) {
+                return undefined;
+            }
+
+            const isEntity = this.item && typeof this.item.getEntityName === 'function';
+            if (!isEntity) {
+                return undefined;
+            }
+
+            return Shopware.Store.get('error').getApiError(this.item, field.name);
         },
 
         isDisabledTab(tab) {

@@ -71,6 +71,7 @@
                                             :is="field.componentName"
                                             v-model:entityCollection="fieldModels[field.name]"
                                             v-bind="fieldAttributes(field)"
+                                            :error="getError(field)"
                                     />
 
                                     <sw-form-field-renderer
@@ -79,6 +80,7 @@
                                             :type="field.type"
                                             :label="field.label"
                                             :config="fieldAttributes(field)"
+                                            :error="getError(field)"
                                     />
                                 </div>
                             </template>
