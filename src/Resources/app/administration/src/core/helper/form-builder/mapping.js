@@ -76,6 +76,8 @@ const mapping = {
     technicalName: {tab: 'general', card: 'general', cols: 6},
     internalName: {tab: 'general', card: 'general', cols: 6},
     highlight: {tab: 'general', card: 'general', cols: 6},
+    fixed: {tab: 'general', card: 'general', cols: 6},
+    logical: {tab: 'general', card: 'general', cols: 6},
     type: {tab: 'general', card: 'general', cols: 6},
     levelCount: {tab: 'general', card: 'general', cols: 6},
     autoIncrement: {tab: 'general', card: 'general', cols: 6},
@@ -98,6 +100,7 @@ const mapping = {
     useChapters: {tab: 'general', card: 'general', cols: 6},
     validUntil: {tab: 'general', card: 'general', cols: 6},
     code: {tab: 'general', card: 'general'},
+    calculator: {tab: 'general', card: 'general'},
 
     // SEO / Meta
     schemaOrgType: {tab: 'seo', card: 'general'},
@@ -204,6 +207,8 @@ const mapping = {
     products: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}},
     accessories: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}},
     productManufacturers: {tab: 'relations', card: 'relations'},
+    productStreams: {tab: 'relations', card: 'relations'},
+    filters: {tab: 'relations', card: 'relations'},
     tags: {tab: 'relations', card: 'relations'},
     medias: {tab: 'relations', card: 'relations'},
     downloads: {tab: 'relations', card: 'relations'},
@@ -231,6 +236,8 @@ const mapping = {
     board: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'content'}},
     downloadCenter: {tab: 'relations', card: 'relations'},
     downloadCenterCode: {tab: 'relations', card: 'relations'},
+    partsListConfigurator: {tab: 'relations', card: 'relations'},
+
     creator: {tab: 'general', card: 'general'},
     tutor: {tab: 'general', card: 'general'},
     categoriesRo: {hidden: true},

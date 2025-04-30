@@ -168,6 +168,8 @@ export default class ListHelper {
 
             switch (field.type) {
                 case 'association':
+                    this._addAssociation(property);
+
                     if (childProperties && field.relation === 'many_to_one') {
                         this._initProperties(
                             field.entity,
@@ -175,9 +177,9 @@ export default class ListHelper {
                             field.localField,
                             propertyPath
                         );
-                        continue;
+
                     }
-                    break;
+                    continue; // Ignore one_to_many and many_to_many
 
                 case 'string':
                 case 'text':

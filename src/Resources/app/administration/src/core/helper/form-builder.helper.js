@@ -243,6 +243,9 @@ export default class FormBuilderHelper {
             if (entity === 'category') {
                 column.componentName = 'sw-category-tree-field';
                 attributes.categoriesCollection = this.item[property];
+            } else if (entity === 'property_group_option') {
+                column.model = 'entityCollection';
+                column.componentName = 'moorl-properties';
             } else {
                 column.model = 'entityCollection';
                 column.componentName = 'sw-entity-many-to-many-select';

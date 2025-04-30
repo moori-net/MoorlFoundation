@@ -1,6 +1,13 @@
 {
   "moorl-foundation": {
     "field": {
+      "filters": "Filters",
+      "partsListConfigurator": "Parts list configurator",
+      "productStreams": "Product streams",
+      "fixed": "Fixed",
+      "logical": "Logical",
+      "calculator": "Calculator (technical name)",
+      "partsListConfiguratorProductStreamIds": "Parts list product streams",
       "relationship": "Beziehung",
       "borders": "Grenzen",
       "maxDimensions": "Max. Breite/Höhe",
