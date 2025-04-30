@@ -79,6 +79,7 @@ const mapping = {
     fixed: {tab: 'general', card: 'general', cols: 6},
     logical: {tab: 'general', card: 'general', cols: 6},
     type: {tab: 'general', card: 'general', cols: 6},
+    calculator: {tab: 'general', card: 'general'},
     levelCount: {tab: 'general', card: 'general', cols: 6},
     autoIncrement: {tab: 'general', card: 'general', cols: 6},
     date: {tab: 'general', card: 'general', cols: 6},
@@ -100,7 +101,6 @@ const mapping = {
     useChapters: {tab: 'general', card: 'general', cols: 6},
     validUntil: {tab: 'general', card: 'general', cols: 6},
     code: {tab: 'general', card: 'general'},
-    calculator: {tab: 'general', card: 'general'},
 
     // SEO / Meta
     schemaOrgType: {tab: 'seo', card: 'general'},
