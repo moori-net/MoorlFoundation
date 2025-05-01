@@ -1,16 +1,20 @@
 .moorl-item-detail-form {
-    .moorl-item-detail-form__card > .mt-card__content {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-gap: 20px;
-        grid-auto-flow: row;
+    .moorl-item-detail-form__card > {
+        border-radius: 0;
 
-        > .newline {
-            grid-column: 1 / -1;
-        }
+        .mt-card__content {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-gap: 20px;
+            grid-auto-flow: row;
 
-        > .mt-banner {
-            grid-column: span 12;
+            > .newline {
+                grid-column: 1 / -1;
+            }
+
+            > .mt-banner {
+                grid-column: span 12;
+            }
         }
     }
 
