@@ -9,7 +9,17 @@ const mapping = {
     deeplink: {tab: 'customFields', card: 'deeplink'},
 
     // Promotion
+    discountType: {
+        tab: 'promotion',
+        card: 'promotion',
+        componentName: 'moorl-select-field',
+        attributes: {
+            customSet: ['percentage'],
+            snippetPath: 'moorl-foundation.field'
+        }
+    },
     discountValue: {tab: 'promotion', card: 'promotion'},
+    maxStacks: {tab: 'promotion', card: 'promotion'},
 
     // Contact
     salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}, cols: 3},
@@ -139,6 +149,7 @@ const mapping = {
     published: {tab: 'general', card: 'visibility', cols: 6},
     priority: {tab: 'general', card: 'visibility', cols: 6},
     position: {tab: 'general', card: 'visibility', cols: 6},
+    hidden: {tab: 'general', card: 'visibility', cols: 6},
     isPreview: {tab: 'general', card: 'visibility', cols: 6},
     showFrom: {tab: 'general', card: 'visibility', cols: 6, newline: true},
     showUntil: {tab: 'general', card: 'visibility', cols: 6},

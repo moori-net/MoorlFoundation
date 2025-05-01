@@ -9,6 +9,9 @@
   },
   "moorl-foundation": {
     "field": {
+      "percentage": "Prozentual",
+      "discountPrice": "Rabatt-Preis",
+      "items": "Einträge",
       "textShadowActive": "Text-Schatten aktiv",
       "captionActive": "Überschrift aktiv",
       "search": "Suche",
@@ -569,7 +572,8 @@
     "button": {
       "import": "Import",
       "export": "Export",
-      "update": "Update"
+      "update": "Update",
+      "refresh": "Refresh"
     }
   }
 }
