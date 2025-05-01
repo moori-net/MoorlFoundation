@@ -1,16 +1,32 @@
 <div class="sw-cms-el-studygood-moorl-usp">
-    <div class="moorl-usp-container" :style="uspContainerCss">
-        <div v-if="element.config.iconActive.value" class="icon-container" :style="uspIconCss">
-            <i :class="element.config.iconClass.value"></i>
+    <div
+            class="moorl-usp-container"
+            :style="uspContainerCss"
+    >
+        <div
+                v-if="element.config.iconActive.value"
+                class="icon-container"
+                :style="uspIconCss"
+        >
+            <mt-icon name="regular-checkmark" size="48"/>
         </div>
+
         <div class="text-container">
-            <div v-if="element.config.title.value" class="headline" :style="{ 'color': element.config.headlineColor.value }">
+            <div
+                    v-if="element.config.title.value"
+                    class="headline"
+                    :style="{ 'color': element.config.headlineColor.value }"
+            >
                 {{ element.config.title.value }}
             </div>
-            <div v-if="element.config.text.value" class="subheadline" :style="{ 'color': element.config.subHeadlineColor.value }">
+
+            <div
+                    v-if="element.config.text.value"
+                    class="subheadline"
+                    :style="{ 'color': element.config.subHeadlineColor.value }"
+            >
                 {{ element.config.text.value }}
             </div>
         </div>
     </div>
 </div>
-
