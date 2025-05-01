@@ -212,7 +212,6 @@ export default class CmsElementHelper {
 
         for(const type of types) {
             if (propertyMapping[type] === undefined) {
-
                 continue;
             }
 

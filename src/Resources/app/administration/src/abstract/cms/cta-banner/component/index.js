@@ -21,7 +21,7 @@ Shopware.Component.register('moorl-abstract-cms-cta-banner', {
 
         baseData() {
             return MoorlFoundation.CmsElementHelper.getBaseData({
-                entity: this.currentEntity.name,
+                entity: this.currentEntity?.name,
                 element: this.element,
                 dataSource: this.currentType,
                 properties: [

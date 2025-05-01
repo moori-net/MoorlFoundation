@@ -166,7 +166,6 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
         async onSaveItem() {
             this.isSaveSuccessful = false;
-            this.isLoading = true;
 
             try {
                 await this.updateSeoUrls();
@@ -178,12 +177,13 @@ Shopware.Component.register('moorl-abstract-page-detail', {
                 }
 
                 this.isSaveSuccessful = true;
+
+                await this.loadItem();
             } catch(error) {
                 console.error(error);
                 this.createNotificationError({ message: error.message });
             }
 
-            this.isLoading = false;
             return Promise.resolve();
         },
 
