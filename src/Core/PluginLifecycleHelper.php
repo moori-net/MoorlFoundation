@@ -194,6 +194,9 @@ class PluginLifecycleHelper
         string $oldType,
         string $newType = 'moorl-column-layout-1',
         array $slotMapping = [
+            'one' => 'slot-a',
+            'two' => 'slot-a',
+            'three' => 'slot-a',
             'content' => 'slot-a',
             'left' => 'slot-a',
             'right' => 'slot-a',

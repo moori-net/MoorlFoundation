@@ -13,15 +13,14 @@
                 :context="productSearchContext"
                 :criteria="productSearchCriteria"
         >
-            <template #result-item="{ item, index }">
-                <slot name="result-item" v-bind="{ item, index }">
-                    <li is="sw-select-result" v-bind="{ item, index }">
-                        <span class="sw-select-result__result-item-text">
-                            <sw-product-variant-info :variations="item.variation">
-                                {{ item.translated.name || item.name }}
-                            </sw-product-variant-info>
-                        </span>
-                    </li>
+            <template #selection-label-property="{ item }">
+                <slot
+                        name="selection-label-property"
+                        v-bind="{ item }"
+                >
+                    <sw-product-variant-info :variations="item.variation">
+                        {{ item.translated.name || item.name }}
+                    </sw-product-variant-info>
                 </slot>
             </template>
         </sw-entity-multi-select>
