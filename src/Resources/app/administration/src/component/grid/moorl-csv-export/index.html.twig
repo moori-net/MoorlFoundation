@@ -27,14 +27,14 @@
 
     <template #modal-footer>
         <mt-button @click="onCancel" size="small">
-            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
+            {{ $tc('moorl-foundation.field') }}
         </mt-button>
 
         <mt-button v-if="step == 1"
                    @click="onClickExport"
                    variant="primary"
                    size="small">
-            {{ $tc('moorl-foundation.buttons.startExportButtonText') }}
+            {{ $tc('global.default.apply') }}
         </mt-button>
     </template>
 </sw-modal>

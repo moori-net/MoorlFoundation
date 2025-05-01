@@ -1,4 +1,12 @@
 {
+  "global": {
+    "entities": {
+      "moorl_client": "[moori] Clients",
+      "moorl_cms_element_config": "[moori] CMS element configs",
+      "moorl_marker": "[moori] Map markers",
+      "moorl_sorting": "[moori] Sorting"
+    }
+  },
   "moorl-foundation": {
     "field": {
       "textShadowActive": "Text-Schatten aktiv",

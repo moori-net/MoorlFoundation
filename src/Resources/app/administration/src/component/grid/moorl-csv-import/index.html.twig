@@ -8,7 +8,7 @@
     <sw-container class="moorl-csv-import__top-bar" columns="1fr" gap="10px">
         <template v-if="step == 1">
             <mt-button @click="onClickUpload" variant="primary" size="small">
-                {{ $tc('moorl-foundation.buttons.importButtonText') }}
+                {{ $tc('moorl-foundation.button.import') }}
             </mt-button>
             <form style="display: none;" ref="fileForm">
                 <input class="sw-plugin-file-upload__file-input"
@@ -135,22 +135,22 @@
 
     <template #modal-footer>
         <mt-button @click="onCancel" size="small">
-            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
+            {{ $tc('global.default.cancel') }}
         </mt-button>
 
         <mt-button v-if="step > 1" @click="onClickBack" size="small">
-            {{ $tc('moorl-foundation.buttons.backButtonText') }}
+            {{ $tc('moorl-foundation.button.back') }}
         </mt-button>
 
         <mt-button v-if="step == 2"
                    @click="onClickImport"
                    variant="primary"
                    size="small">
-            {{ $tc('moorl-foundation.buttons.startImportButtonText') }}
+            {{ $tc('global.default.apply') }}
         </mt-button>
 
         <mt-button v-if="step == 3 && options.pause" @click="onClickPause" size="small">
-            {{ pause ? $tc('moorl-foundation.buttons.resumeButtonText') : $tc('moorl-foundation.buttons.pauseButtonText') }}
+            {{ pause ? $tc('moorl-foundation.button.resume') : $tc('moorl-foundation.button.pause') }}
         </mt-button>
     </template>
 </sw-modal>

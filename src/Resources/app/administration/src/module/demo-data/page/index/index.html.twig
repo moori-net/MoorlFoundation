@@ -33,7 +33,7 @@
                             :disabled="!acl.can('system.system_config') || !confirmed"
                             @click="install()"
                     >
-                        {{ $tc('moorl-foundation.buttons.startButtonText') }}
+                        {{ $tc('global.default.apply') }}
                     </mt-button>
 
                     <mt-button
@@ -41,7 +41,7 @@
                             :disabled="!acl.can('system.system_config')"
                             @click="remove()"
                     >
-                        {{ $tc('moorl-foundation.buttons.removeButtonText') }}
+                        {{ $tc('global.default.delete') }}
                     </mt-button>
                 </template>
 
