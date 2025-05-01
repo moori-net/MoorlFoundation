@@ -1,4 +1,4 @@
-<div class="sw-cms-el-moorl-replacer" :style="elementCss">
+<div class="sw-cms-el-moorl-replacer">
     <div>
         <p class="moorl-replacer-title">
             <mt-icon name="regular-repeat" size="24"/>
@@ -8,9 +8,11 @@
         <p>{{ $tc('sw-cms.elements.moorl-replacer.description') }}</p>
 
         <p>
-            <a href="https://store.shopware.com/moori.html"
-               target="_blank"
-               rel="noopener">
+            <a
+                    href="https://store.shopware.com/de/extension-partners/moori"
+                    target="_blank"
+                    rel="noopener"
+            >
                 {{ $tc('sw-cms.elements.moorl-replacer.storeLink') }}
             </a>
         </p>
@@ -18,22 +20,24 @@
 
     <div>
         <sw-entity-single-select
-                :criteria="cmsElementConfigCriteria"
                 entity="moorl_cms_element_config"
-                v-model:value="cmsElementConfigId">
-            <template #result-item="{ item, index }">
-                <slot name="result-item" v-bind="{ item, index }">
-                    <li is="sw-select-result" v-bind="{ item, index }">
-                        {{ item.type }} | {{ item.name }}
-                    </li>
-                </slot>
+                v-model:value="cmsElementConfigId"
+                :placeholder="$tc('sw-cms.elements.moorl-replacer.label.selectConfig')"
+        >
+            <template #result-label-property="{ item }">
+                {{ item.type }} | {{ item.name }}
             </template>
         </sw-entity-single-select>
     </div>
 
     <div>
-        <mt-button :disabled="!cmsElementConfigId"
-                   @click="onLoadCmsElementConfig">
+        <mt-button
+                :disabled="!cmsElementConfigId"
+                square
+                variant="primary"
+                size="default"
+                @click="onLoadCmsElementConfig"
+        >
             <mt-icon name="regular-checkmark" size="16"/>
         </mt-button>
     </div>

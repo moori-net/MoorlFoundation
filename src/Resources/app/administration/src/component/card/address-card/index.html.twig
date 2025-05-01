@@ -10,8 +10,8 @@
                 <sw-text-field :label="$tc('moorl-foundation.field.additionalAddressLine2')" v-model:value="item.additionalAddressLine2"/>
                 <sw-entity-single-select :label="$tc('moorl-foundation.field.country')" v-model:value="item.countryId"  entity="country"/>
                 <sw-entity-single-select :label="$tc('moorl-foundation.field.countryState')" v-model:value="item.countryStateId"  entity="country_state"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.countryCode')" v-model:value="item.countryCode"/>
-                <sw-text-field :label="$tc('moorl-foundation.properties.locationPlaceId')" v-model:value="item.locationPlaceId"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.countryCode')" v-model:value="item.countryCode"/>
+                <sw-text-field :label="$tc('moorl-foundation.field.locationPlaceId')" v-model:value="item.locationPlaceId"/>
             {% endblock %}
         </sw-container>
 

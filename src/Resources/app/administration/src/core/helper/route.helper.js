@@ -1,11 +1,4 @@
 export default class RouteHelper {
-    constructor({entity, router}) {
-        this.entity = entity;
-        this.router = router;
-
-        this._init();
-    }
-
     static getRouterLinkByEntity(entity, target = 'detail') {
         const listPath = MoorlFoundation.ModuleHelper.getByEntity(entity)?.listPath;
         if (listPath === undefined) {

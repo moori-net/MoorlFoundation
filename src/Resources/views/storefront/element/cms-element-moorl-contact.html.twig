@@ -14,7 +14,7 @@
                         {% if element.data.merchantUrl %}
                             <p>
                                 <a href="{{ element.data.merchantUrl }}" target="_blank" rel="noopener">
-                                    {{ "moorl-foundation.properties.merchantUrl"|trans }}
+                                    {{ "moorl-foundation.field.merchantUrl"|trans }}
                                 </a>
                             </p>
                         {% endif %}
@@ -22,7 +22,7 @@
                         {% if element.data.shopUrl %}
                             <p>
                                 <a href="{{ element.data.shopUrl }}" target="_blank" rel="noopener">
-                                    {{ "moorl-foundation.properties.shopUrl"|trans }}
+                                    {{ "moorl-foundation.field.shopUrl"|trans }}
                                 </a>
                             </p>
                         {% endif %}
@@ -30,7 +30,7 @@
                         {% if element.data.phoneNumber %}
                             <p>
                                 <a href="tel:{{ element.data.phoneNumber }}" itemprop="telephone" content="{{ element.data.phoneNumber }}">
-                                    {{ "moorl-foundation.properties.phoneNumber"|trans }}
+                                    {{ "moorl-foundation.field.phoneNumber"|trans }}
                                 </a>
                             </p>
                         {% endif %}
@@ -38,7 +38,7 @@
                         {% if element.data.email %}
                             <p>
                                 <a href="mailto:{{ element.data.email }}" itemprop="email" content="{{ element.data.email }}">
-                                    {{ "moorl-foundation.properties.email"|trans }}
+                                    {{ "moorl-foundation.field.email"|trans }}
                                 </a>
                             </p>
                         {% endif %}

@@ -5,14 +5,6 @@ import template from './index.html.twig';
 Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
     template,
 
-    props: {
-        element: {
-            type: Object,
-            required: false,
-            default: null,
-        },
-    },
-
     mixins: [Shopware.Mixin.getByName('cms-element')],
 
     inject: ['repositoryFactory'],
@@ -54,18 +46,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
                 ],
             };
         },
-
-        downloadSearchCriteria() {
-            const criteria = new Criteria(1, 25);
-            return criteria;
-        },
-
-        downloadSearchContext() {
-            const context = Object.assign({}, Shopware.Context.api);
-            context.inheritance = true;
-
-            return context;
-        },
     },
 
     created() {
@@ -75,7 +55,6 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
     methods: {
         createdComponent() {
             this.initElementConfig('moorl-download-list');
-            this.initElementData('moorl-download-list');
 
             this.downloadCollection = new EntityCollection(
                 '/media',
@@ -87,11 +66,15 @@ Shopware.Component.register('sw-cms-el-config-moorl-download-list', {
                 return;
             }
 
-            const criteria = new Criteria(1, 25);
+            if (this.element.config.downloads.value.length === 0) {
+                return;
+            }
+
+            const criteria = new Criteria();
             criteria.setIds(this.element.config.downloads.value);
 
             this.downloadRepository
-                .search(criteria, this.downloadSearchContext)
+                .search(criteria)
                 .then((result) => {
                     this.downloadCollection = result;
                     this.onDownloadsChange();

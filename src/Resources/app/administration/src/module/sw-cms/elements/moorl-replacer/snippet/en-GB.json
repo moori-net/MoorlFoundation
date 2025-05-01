@@ -2,12 +2,12 @@
     "sw-cms": {
         "elements": {
             "moorl-replacer": {
-                "title": "Replace Me",
-                "description": "Replace this Element or load one from moori CMS Element Config Saver",
-                "storeLink": "Visit my Store Page for More",
+                "title": "Replace me",
+                "description": "Replace this element or load one from moori CMS element config saver",
+                "storeLink": "Visit my store page for more",
                 "label": {
                     "load": "Load",
-                    "selectConfig": "Select a Configuration"
+                    "selectConfig": "Select a configuration"
                 }
             }
         }
