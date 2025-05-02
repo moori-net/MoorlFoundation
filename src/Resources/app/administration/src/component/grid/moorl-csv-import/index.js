@@ -350,15 +350,6 @@ Shopware.Component.register('moorl-csv-import', {
         mountedComponent() {},
 
         onClickImport() {
-            this.createSystemNotificationSuccess({
-                title: this.$tc(
-                    'moorl-foundation.notification.finishImportTitle'
-                ),
-                message: this.$tc(
-                    'moorl-foundation.notification.finishImportText'
-                ),
-            });
-
             this.step = 3;
 
             this.importItem();

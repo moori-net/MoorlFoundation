@@ -573,7 +573,9 @@
       "import": "Import",
       "export": "Export",
       "update": "Update",
-      "refresh": "Refresh"
+      "refresh": "Refresh",
+      "back": "Back",
+      "pause": "Pause"
     }
   }
 }

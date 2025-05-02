@@ -26,14 +26,20 @@
     </sw-container>
 
     <template #modal-footer>
-        <mt-button @click="onCancel" size="small">
+        <mt-button
+                @click="onCancel"
+                size="small"
+                variant="secondary"
+        >
             {{ $tc('moorl-foundation.field') }}
         </mt-button>
 
-        <mt-button v-if="step == 1"
-                   @click="onClickExport"
-                   variant="primary"
-                   size="small">
+        <mt-button
+                v-if="step == 1"
+                @click="onClickExport"
+                variant="primary"
+                size="small"
+        >
             {{ $tc('global.default.apply') }}
         </mt-button>
     </template>
