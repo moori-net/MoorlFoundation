@@ -217,12 +217,13 @@ export default class FormBuilderHelper {
 
     _buildAssociationField(field, column, attributes, property, fields) {
         const entity = field.entity;
-        const localField = field.localField;
-        const required = fields[localField].flags.required;
 
         attributes.entity = entity;
 
         if (field.relation === 'many_to_one') {
+            const localField = field.localField;
+            const required = fields[localField].flags.required;
+
             attributes.required = required;
 
             if (entity === 'media') {
