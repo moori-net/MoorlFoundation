@@ -38,7 +38,6 @@ Shopware.Component.register('moorl-entity-grid-v2', {
     data() {
         return {
             selectedItems: null,
-            selectedItem: null,
             page: 1,
             limit: 10,
             term: null,
@@ -161,24 +160,8 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             });
         },
 
-        onSaveItem() {
-            this.isLoading = true;
-
-            this.itemRepository
-                .save(this.selectedItem, Shopware.Context.api)
-                .then(() => {
-                    this.getItems();
-
-                    this.showEditModal = false;
-                })
-                .catch((error) => {
-                    this.createNotificationError({ message: error.message });
-                });
-        },
-
         onEditItem(editId) {
             this.editId = editId;
-
             this.showEditModal = true;
         },
 
@@ -194,6 +177,8 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             this.showEditModal = false;
             this.showExportModal = false;
             this.showImportModal = false;
+
+            this.onSearch();
         },
     },
 });

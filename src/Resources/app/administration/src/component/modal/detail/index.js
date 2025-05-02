@@ -97,7 +97,7 @@ Shopware.Component.register('moorl-modal-detail', {
 
             setTimeout(() => {
                 this.$emit('close');
-            }, 500);
+            }, 50);
         }
     }
 });
