@@ -46,6 +46,8 @@ export default class FormBuilderHelper {
 
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
 
+        this._buildImportExportProfile(fields);
+
         for (const [property, field] of Object.entries(fields)) {
             if (
                 field.type === 'uuid' ||
@@ -65,6 +67,41 @@ export default class FormBuilderHelper {
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'pageStruct', this.pageStruct);
 
         return this.pageStruct;
+    }
+
+    _buildImportExportProfile(fields) {
+        const typeOrder = ['uuid', 'boolean', 'int', 'float', 'string', 'text', 'date'];
+
+        function toSnakeCase(str) {
+            return str.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+        }
+
+        const array = Object.entries(fields)
+            .map(([key, value]) => ({ key, ...value }))
+            .filter(entry => typeOrder.includes(entry.type)) // nur erlaubte Typen
+            .sort((a, b) => {
+                return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
+            });
+
+        const mapping = [];
+
+        for (const index in array) {
+            if (array[index].flags.translatable) {
+                mapping.push({
+                    key: `translations.DEFAULT.${array[index].key}`,
+                    mappedKey: toSnakeCase(array[index].key),
+                    position: parseInt(index)
+                });
+            } else {
+                mapping.push({
+                    key: `${array[index].key}`,
+                    mappedKey: toSnakeCase(array[index].key),
+                    position: parseInt(index)
+                });
+            }
+        }
+
+        console.log(mapping);
     }
 
     _init() {

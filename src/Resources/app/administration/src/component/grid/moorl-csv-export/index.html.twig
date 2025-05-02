@@ -1,5 +1,5 @@
 <sw-modal v-if="showExportModal"
-          :title="$tc('moorl-foundation.export.title')"
+          :title="$tc('moorl-csv-export.title')"
           @modal-close="onCancel"
           variant="default"
           class="moorl-csv-export">
@@ -7,21 +7,21 @@
         <template v-if="step == 1">
             <sw-switch-field
                     bordered
-                    :label="$tc('moorl-foundation.export.localTable')"
+                    :label="$tc('moorl-csv-export.localTable')"
                     v-model:value="options.localTable"
             />
 
-            <p class="info">{{ $t('moorl-foundation.export.introText') }}</p>
+            <p class="info">{{ $t('moorl-csv-export.introText') }}</p>
         </template>
 
         <template v-if="step == 2 && items.length > 0">
             <sw-progress-bar :value="items.length" :maxValue="total"/>
 
-            <p class="info">{{ $tc('moorl-foundation.export.proccess') }}</p>
+            <p class="info">{{ $tc('moorl-csv-export.process') }}</p>
         </template>
 
         <template v-if="step == 3">
-            <p class="info">{{ $tc('moorl-foundation.export.completedMessage') }}</p>
+            <p class="info">{{ $tc('moorl-csv-export.completedMessage') }}</p>
         </template>
     </sw-container>
 

@@ -9,6 +9,7 @@ use League\Flysystem\Filesystem;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\System\DataInterface;
 use Shopware\Core\Content\Flow\Dispatching\Action\SendMailAction;
+use Shopware\Core\Content\ImportExport\ImportExportProfileDefinition;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
@@ -606,6 +607,9 @@ SQL;
             }
             if (isset($item['_skipEnrichData'])) {
                 unset($item['_skipEnrichData']);
+                continue;
+            }
+            if ($table === ImportExportProfileDefinition::ENTITY_NAME) {
                 continue;
             }
             /**

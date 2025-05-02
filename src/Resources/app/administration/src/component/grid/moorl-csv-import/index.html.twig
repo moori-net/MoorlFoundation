@@ -1,6 +1,6 @@
 <sw-modal
         v-if="showImportModal"
-        :title="$tc('moorl-foundation.import.title')"
+        :title="$tc('moorl-csv-import.title')"
         @modal-close="onCancel"
         variant="large"
         class="moorl-csv-import"
@@ -24,29 +24,29 @@
         <template v-if="step == 2">
             <sw-switch-field
                     bordered
-                    :label="$t('moorl-foundation.import.overwriteLabel', { properties: getUniquePropertyLabels() })"
+                    :label="$t('moorl-csv-import.overwriteLabel', { properties: getUniquePropertyLabels() })"
                     v-model:value="options.overwrite"
             />
 
             <sw-switch-field
                     bordered
-                    :label="$tc('moorl-foundation.import.pauseLabel')"
+                    :label="$tc('moorl-csv-import.pauseLabel')"
                     v-model:value="options.pause"
             />
 
             <sw-switch-field
                     bordered
-                    :label="$tc('moorl-foundation.import.validateIdsLabel')"
+                    :label="$tc('moorl-csv-import.validateIdsLabel')"
                     v-model:value="options.validateIds"
             />
 
             <sw-entity-single-select
-                    :placeholder="$tc('moorl-foundation.import.mediaFolder')"
+                    :placeholder="$tc('moorl-csv-import.mediaFolder')"
                     v-model:value="options.mediaFolderId"
                     entity="media_folder"
             />
 
-            <p class="info">{{ $t('moorl-foundation.import.loadedText', { count: rowCount }) }}</p>
+            <p class="info">{{ $t('moorl-csv-import.loadedText', { count: rowCount }) }}</p>
         </template>
 
         <template v-if="step == 3">
@@ -58,7 +58,7 @@
         <template v-if="step == 4">
             <sw-progress-bar :value="rowsDone" :maxValue="rowCount"/>
 
-            <p class="info">{{ $t('moorl-foundation.import.completedMessage', { skipped: rowsSkipped, new: rowsNew, total: rowsDone, errors: errorCount }) }}</p>
+            <p class="info">{{ $t('moorl-csv-import.completedMessage', { skipped: rowsSkipped, new: rowsNew, total: rowsDone, errors: errorCount }) }}</p>
         </template>
     </sw-container>
 
@@ -70,19 +70,19 @@
                     <tr class="sw-data-grid__row">
                         <th class="sw-data-grid__cell sw-data-grid__cell--header">
                             <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value">{{ $tc('moorl-foundation.import.property') }}</span>
+                                <span class="sw-data-grid__cell-value">{{ $tc('moorl-csv-import.property') }}</span>
                             </div>
                         </th>
 
                         <th class="sw-data-grid__cell sw-data-grid__cell--header">
                             <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value">{{ $t('moorl-foundation.import.mapping') }}</span>
+                                <span class="sw-data-grid__cell-value">{{ $t('moorl-csv-import.mapping') }}</span>
                             </div>
                         </th>
 
                         <th class="sw-data-grid__cell sw-data-grid__cell--header">
                             <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value">{{ $t('moorl-foundation.import.choseDefault') }}</span>
+                                <span class="sw-data-grid__cell-value">{{ $t('moorl-csv-import.choseDefault') }}</span>
                             </div>
                         </th>
                     </tr>
@@ -123,7 +123,7 @@
                                         :column="column"
                                 />
                                 <span v-else class="sw-data-grid__cell-value">
-                                    {{ $tc('moorl-foundation.import.isUnique') }}
+                                    {{ $tc('moorl-csv-import.isUnique') }}
                                 </span>
                             </div>
                         </td>
