@@ -17,7 +17,7 @@
                 variant="primary"
                 :block="true"
                 size="small"
-                @click="onEditItem()"
+                @click="onEditItem(null)"
         >
             <span>
                 <mt-icon name="regular-plus" size="12"/>
@@ -92,7 +92,7 @@
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
 
-            <sw-context-menu-item v-else @click="onEditItem(item)">
+            <sw-context-menu-item v-else @click="onEditItem(item.id)">
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
 
@@ -121,11 +121,11 @@
 
     <moorl-modal-detail
             v-if="showEditModal"
-            :item="selectedItem"
+            v-model:value="editId"
             :entity="entity"
+            :defaultItem="defaultItem"
             :componentName="componentName"
-            @save="onSaveItem"
-            @cancel="onCloseModal"
+            @close="onCloseModal"
     />
 
     <sw-confirm-modal

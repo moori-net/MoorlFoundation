@@ -322,10 +322,7 @@ export default class FormBuilderHelper {
 
             case 'moorl-entity-grid':
             case 'moorl-entity-grid-v2':
-                attributes.defaultItem = { [refField]: this.item[localField] };
-                if (column.root) {
-                    attributes.defaultItem.parentId = null;
-                }
+                attributes.defaultItem = attributes.defaultItem ?? { [refField]: this.item[localField] };
                 break;
 
             case 'moorl-entity-grid-card':
@@ -335,9 +332,6 @@ export default class FormBuilderHelper {
                 attributes.title = column.label;
                 attributes.componentName = this.componentName;
                 attributes.defaultItem = attributes.defaultItem ?? { [refField]: this.item[localField] };
-                if (column.root) {
-                    attributes.defaultItem.parentId = null;
-                }
                 break;
 
             case 'sw-seo-url':

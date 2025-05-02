@@ -114,17 +114,7 @@ Shopware.Component.register('moorl-entity-select-field', {
                 });
         },
 
-        async editItem() {
-            if (this.currentValue !== null) {
-                this.selectedItem = await this.itemRepository.get(this.currentValue, Shopware.Context.api);
-            } else {
-                this.selectedItem = this.itemRepository.create(Shopware.Context.api);
-
-                this.selectedItem.id = Shopware.Utils.createId();
-
-                Object.assign(this.selectedItem, this.defaultItem);
-            }
-
+        editItem() {
             this.showEditModal = true;
         },
     }

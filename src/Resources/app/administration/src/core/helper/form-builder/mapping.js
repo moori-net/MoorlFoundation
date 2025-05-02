@@ -242,6 +242,8 @@ const mapping = {
     category: {tab: 'relations', card: 'relations'},
     site: {tab: 'relations', card: 'relations'},
     client: {tab: 'relations', card: 'relations'},
+    filterGroup: {tab: 'relations', card: 'relations'},
+    parent: {tab: 'relations', card: 'relations'},
     lesson: {tab: 'relations', card: 'relations'},
     course: {tab: 'relations', card: 'relations'},
     chapter: {tab: 'relations', card: 'relations'},

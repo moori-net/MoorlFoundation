@@ -11,7 +11,7 @@
                 <mt-button
                         variant="secondary"
                         size="default"
-                        @click="editItem()"
+                        @click="showEditModal = true"
                 >
                     {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
                 </mt-button>
@@ -21,9 +21,9 @@
 
     <moorl-modal-detail
             v-if="showEditModal"
-            :item="selectedItem"
+            v-model:value="currentValue"
             :entity="entity"
-            @save="saveItem"
-            @cancel="showEditModal = false"
+            :defaultItem="defaultItem"
+            @close="showEditModal = false"
     />
 </div>
