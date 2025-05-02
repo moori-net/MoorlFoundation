@@ -278,7 +278,7 @@ export default class FormBuilderHelper {
                 return null;
             } else {
                 column.name = localField;
-                column.componentName = 'sw-entity-single-select';
+                column.componentName = column.componentName ?? 'sw-entity-single-select';
                 attributes.showClearableButton = required === undefined;
             }
         } else if (field.relation === 'many_to_many') {
