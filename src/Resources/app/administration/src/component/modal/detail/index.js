@@ -20,6 +20,12 @@ Shopware.Component.register('moorl-modal-detail', {
         }
     },
 
+    data() {
+        return {
+            showForm: true // If the modal is closed and the form is mounted, there will be an error
+        };
+    },
+
     computed: {
         itemName() {
             for (const property of ['name', 'label', 'key', 'technicalName']) {
@@ -29,6 +35,24 @@ Shopware.Component.register('moorl-modal-detail', {
             }
 
             return this.$tc('global.default.add');
+        }
+    },
+
+    methods: {
+        onSave() {
+            this.showForm = false;
+
+            setTimeout(() => {
+                this.$emit('save');
+            }, 50);
+        },
+
+        onCancel() {
+            this.showForm = false;
+
+            setTimeout(() => {
+                this.$emit('cancel');
+            }, 50);
         }
     }
 });

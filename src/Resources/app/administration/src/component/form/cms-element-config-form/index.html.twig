@@ -47,7 +47,7 @@
                             </template>
                         </template>
 
-                        <sw-card
+                        <mt-card
                                 v-else-if="!isDisabledCard(card)"
                                 :title="card.label"
                                 :class="card.id + '-card moorl-cms-element-config-form__card'"
@@ -69,23 +69,36 @@
                                         v-if="isVisible(field)"
                                         :style="getStyle(field)"
                                 >
-                                    <component
-                                            v-if="field.model === 'entityCollection'"
-                                            :is="field.componentName"
-                                            v-model:entityCollection="fieldModels[field.name]"
-                                            v-bind="fieldAttributes(field)"
-                                    />
-
+                                    <!-- Deprecated: sw-form-field-renderer -->
                                     <sw-form-field-renderer
-                                            v-else
+                                            v-if="field.type !== undefined"
                                             v-model:value="fieldModels[field.name]"
                                             :type="field.type"
                                             :label="field.label"
                                             :config="fieldAttributes(field)"
+                                            :error="getError(field)"
+                                    />
+
+                                    <!-- Meteor components without model -->
+                                    <component
+                                            v-else-if="field.model === undefined"
+                                            :is="field.componentName"
+                                            v-model="fieldModels[field.name]"
+                                            v-bind="fieldAttributes(field)"
+                                            :error="getError(field)"
+                                    />
+
+                                    <!-- Other components with model -->
+                                    <component
+                                            v-else
+                                            :is="field.componentName"
+                                            v-model:[field.model]="fieldModels[field.name]"
+                                            v-bind="fieldAttributes(field)"
+                                            :error="getError(field)"
                                     />
                                 </div>
                             </template>
-                        </sw-card>
+                        </mt-card>
                     </template>
                 </template>
             </template>

@@ -161,7 +161,7 @@ export default class FormBuilderHelper {
             tab: 'undefined',
             card: 'undefined',
             name: property,
-            model: 'value',
+            model: undefined,
             order: this.mapping[property]?.order ?? 9999,
             cols: 12
         };
@@ -179,70 +179,66 @@ export default class FormBuilderHelper {
 
         column.label = this.translationHelper.getLabel('field', property);
 
-        switch (field.type) {
-            case 'string':
-                column.type = 'text';
-                attributes.type = 'text';
-                break;
-            case 'text':
-                column.type = 'text';
-                attributes.type = 'text';
-                if (!field.flags.allow_html) {
-                    column.type = 'textarea';
-                } else {
-                    attributes.componentName = 'sw-text-editor';
-                }
-                break;
-            case 'html':
-                column.type = 'text';
-                attributes.type = 'text';
-                attributes.componentName = 'sw-text-editor';
-                break;
-            case 'int':
-            case 'float':
-            case 'number':
-                column.type = field.type;
-                attributes.type = 'number';
-                attributes.numberType = field.type;
-                attributes.componentName = 'sw-number-field';
-                break;
-            case 'boolean':
-            case 'bool':
-                column.type = 'bool';
-                attributes.bordered = true;
-                break;
-            case 'date':
-                column.type = 'date';
-                attributes.dateType = 'date';
-                attributes.size = 'default';
-                attributes.componentName = 'sw-datepicker';
-                break;
-            case 'color':
-                column.type = 'text';
-                attributes.type = 'text';
-                attributes.componentName = 'sw-colorpicker';
-                break;
-            case 'code':
-                column.type = 'text';
-                attributes.type = 'text';
-                attributes.componentName = 'sw-code-editor';
-                break;
-            case 'object':
-            case 'json_object':
-            case 'list':
-                if (property.toLowerCase().includes("price")) {
-                    column.tab = 'price';
-                    column.card = 'price';
-                    column.componentName = 'moorl-price-field';
-                    attributes.tax = ({tax}) => tax;
-                    attributes.currency = ({currency}) => currency;
-                }
+        if (column.componentName && field.type !== 'association') {
+            column.model = 'value';
+        } else {
+            switch (field.type) {
+                case 'string':
+                    column.componentName = 'mt-text-field';
+                    break;
+                case 'text':
+                    if (!field.flags.allow_html) {
+                        column.componentName = 'mt-textarea';
+                    } else {
+                        column.componentName = 'mt-text-editor';
+                    }
+                    break;
+                case 'html':
+                    column.componentName = 'mt-text-editor';
+                    break;
+                case 'int':
+                case 'float':
+                case 'number':
+                    column.componentName = 'mt-number-field';
+                    attributes.numberType = field.type;
+                    if (field.type === 'float') {
+                        attributes.digits = 8;
+                    }
+                    break;
+                case 'boolean':
+                case 'bool':
+                    column.componentName = 'mt-switch';
+                    attributes.bordered = true;
+                    break;
+                case 'date':
+                    column.componentName = 'mt-datepicker';
+                    attributes.dateType = 'date';
+                    attributes.size = 'default';
+                    break;
+                case 'color':
+                    column.componentName = 'mt-colorpicker';
+                    break;
+                case 'code':
+                    column.model = 'value';
+                    column.componentName = 'sw-code-editor';
+                    break;
+                case 'object':
+                case 'json_object':
+                case 'list':
+                    if (property.toLowerCase().includes("price")) {
+                        column.tab = 'price';
+                        column.card = 'price';
+                        column.componentName = 'moorl-price-field';
+                        attributes.tax = ({tax}) => tax;
+                        attributes.currency = ({currency}) => currency;
+                    }
 
-                if (!column.componentName) return null;
-                column.type = 'json';
-                break;
-            case 'association':
-                this._buildAssociationField(field, column, attributes, property, fields);
+                    if (!column.componentName) return null;
+                    column.type = 'json';
+                    break;
+                case 'association':
+                    this._buildAssociationField(field, column, attributes, property, fields);
+            }
         }
 
         this._handleSpecialComponents(column, attributes, field, property);
@@ -255,7 +251,15 @@ export default class FormBuilderHelper {
     _buildAssociationField(field, column, attributes, property, fields) {
         const entity = field.entity;
 
+        column.model = 'value';
+
         attributes.entity = entity;
+
+        if (entity === 'media') {
+            attributes.labelProperty = 'fileName';
+        } else if (entity === 'product') {
+            attributes.labelProperty = 'productNumber';
+        }
 
         if (field.relation === 'many_to_one') {
             const localField = field.localField;
@@ -288,12 +292,6 @@ export default class FormBuilderHelper {
                 column.model = 'entityCollection';
                 column.componentName = 'sw-entity-many-to-many-select';
                 attributes.localMode = true;
-                if (entity === 'media') {
-                    attributes.labelProperty = 'fileName';
-                } else if (entity === 'product') {
-                    attributes.labelProperty = 'productNumber';
-                    //column.componentName = 'moorl-product-multi-select-field'; Name wird nicht vererbt
-                }
             }
         } else if (entity === `${this.entity}_media`) {
             column.componentName = 'moorl-media-gallery';
@@ -307,9 +305,6 @@ export default class FormBuilderHelper {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-multi-select';
             attributes.localMode = true;
-            if (entity === 'media') {
-                attributes.labelProperty = 'fileName';
-            }
         }
     }
 

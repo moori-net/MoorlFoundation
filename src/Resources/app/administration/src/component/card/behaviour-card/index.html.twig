@@ -1,10 +1,10 @@
 {% block moorl_behaviour_card %}
     <sw-card class="moorl-behaviour-card" :title="$tc('moorl-behaviour-card.name')">
-        <sw-switch-field
+        <mt-switch
                 bordered
                 :label="$tc('moorl-behaviour-card.label.autoSize')"
                 :helpText="$tc('moorl-behaviour-card.helpText.autoSize')"
-                v-model:value="item.autoSize"
+                v-model="item.autoSize"
         />
 
         <div class="moorl-behaviour-card-grid">
@@ -13,10 +13,10 @@
                     {{ $tc('moorl-behaviour-card.behaviour.' + behaviour.label) }}
                 </h4>
 
-                <sw-switch-field
+                <mt-switch
                         bordered
                         :label="$tc('moorl-behaviour-card.label.visible')"
-                        v-model:value="item.behaviour[size].visible"
+                        v-model="item.behaviour[size].visible"
                 />
 
                 <moorl-select-field

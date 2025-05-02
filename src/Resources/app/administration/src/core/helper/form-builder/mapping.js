@@ -161,6 +161,7 @@ const mapping = {
     shopwareCategories: {tab: 'general', card: 'visibility'},
     salesChannels: {tab: 'general', card: 'visibility'},
     customers: {tab: 'general', card: 'visibility', attributes: {labelProperty: 'customerNumber'}},
+    sorting: {tab: 'general', card: 'visibility', attributes: {labelProperty: 'label'}},
     customerGroups: {tab: 'general', card: 'visibility'},
     redirectFix: {tab: 'general', card: 'visibility'},
     language: {tab: 'general', card: 'visibility'},

@@ -5,14 +5,13 @@
         class="moorl-modal-detail"
 >
     <moorl-item-detail-form
-            :item="item"
-            :entity="entity"
-            :componentName="componentName"
+            v-if="showForm"
+            v-bind="{item, entity, componentName}"
     />
 
     <template #modal-footer>
         <mt-button
-                @click="$emit('cancel')"
+                @click="onCancel"
                 variant="secondary"
                 size="small"
         >
@@ -20,7 +19,7 @@
         </mt-button>
 
         <mt-button
-                @click="$emit('save')"
+                @click="onSave"
                 variant="primary"
                 size="small"
         >
