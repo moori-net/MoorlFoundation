@@ -11,11 +11,13 @@
                 {{ $tc('moorl-foundation.button.import') }}
             </mt-button>
             <form style="display: none;" ref="fileForm">
-                <input class="sw-plugin-file-upload__file-input"
-                       type="file"
-                       id="files"
-                       ref="fileInput"
-                       @change="onFileInputChange"/>
+                <input
+                        class="sw-plugin-file-upload__file-input"
+                        type="file"
+                        id="files"
+                        ref="fileInput"
+                        @change="onFileInputChange"
+                />
             </form>
         </template>
 
@@ -41,7 +43,6 @@
             <sw-entity-single-select
                     :placeholder="$tc('moorl-foundation.import.mediaFolder')"
                     v-model:value="options.mediaFolderId"
-
                     entity="media_folder"
             />
 
@@ -134,22 +135,38 @@
     </template>
 
     <template #modal-footer>
-        <mt-button @click="onCancel" size="small">
+        <mt-button
+                @click="onCancel"
+                size="small"
+                variant="secondary"
+        >
             {{ $tc('global.default.cancel') }}
         </mt-button>
 
-        <mt-button v-if="step > 1" @click="onClickBack" size="small">
+        <mt-button
+                v-if="step > 1"
+                @click="onClickBack"
+                variant="secondary"
+                size="small"
+        >
             {{ $tc('moorl-foundation.button.back') }}
         </mt-button>
 
-        <mt-button v-if="step == 2"
-                   @click="onClickImport"
-                   variant="primary"
-                   size="small">
+        <mt-button
+                v-if="step == 2"
+                @click="onClickImport"
+                variant="primary"
+                size="small"
+        >
             {{ $tc('global.default.apply') }}
         </mt-button>
 
-        <mt-button v-if="step == 3 && options.pause" @click="onClickPause" size="small">
+        <mt-button
+                v-if="step == 3 && options.pause"
+                @click="onClickPause"
+                size="small"
+                variant="secondary"
+        >
             {{ pause ? $tc('moorl-foundation.button.resume') : $tc('moorl-foundation.button.pause') }}
         </mt-button>
     </template>

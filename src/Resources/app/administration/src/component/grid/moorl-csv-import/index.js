@@ -284,10 +284,7 @@ Shopware.Component.register('moorl-csv-import', {
                 skipEmptyLines: true,
                 complete: (results) => {
                     if (results.errors && results.errors.length > 0) {
-                        this.createSystemNotificationError({
-                            title: this.$t('moorl-foundation.notification.errorTitle'),
-                            message: this.$t('moorl-foundation.notification.errorFileText'),
-                        });
+                        console.error(results.errors);
 
                         this.onCloseModal();
 
@@ -341,6 +338,7 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         onClickPause() {
+            this.pause = !this.pause;
             this.pause = !this.pause;
 
             // resuming import
