@@ -143,9 +143,9 @@ export default class ModuleHelper {
         });
 
         for (const cmsElement of cmsElements) {
-            cmsElement.plugin = pluginName;
+            cmsElement.plugin = cmsElement.plugin ?? pluginName;
             if (cmsElement.cmsElementEntity) {
-                cmsElement.cmsElementEntity.entity = entity;
+                cmsElement.cmsElementEntity.entity = cmsElement.cmsElementEntity.entity ?? entity;
             }
             MoorlFoundation.CmsElementHelper.registerCmsElement(cmsElement);
         }
