@@ -101,7 +101,7 @@ export default class FormBuilderHelper {
             }
         }
 
-        console.log(mapping);
+        MoorlFoundation.Logger.log('FormBuilderHelper._buildImportExportProfile', 'mapping', mapping);
     }
 
     _init() {
