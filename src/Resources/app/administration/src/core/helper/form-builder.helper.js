@@ -290,6 +290,9 @@ export default class FormBuilderHelper {
                 attributes.localMode = true;
                 if (entity === 'media') {
                     attributes.labelProperty = 'fileName';
+                } else if (entity === 'product') {
+                    attributes.labelProperty = 'productNumber';
+                    //column.componentName = 'moorl-product-multi-select-field'; Name wird nicht vererbt
                 }
             }
         } else if (entity === `${this.entity}_media`) {

@@ -5,7 +5,6 @@ import './cms-slot-card';
 import './entity-grid-card'; // Deprecated
 
 /* Deprecated
-import './address-card';
 import './company-card';
 import './contact-card';
 import './thing-card';

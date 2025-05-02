@@ -14,14 +14,9 @@
                 :criteria="productSearchCriteria"
         >
             <template #selection-label-property="{ item }">
-                <slot
-                        name="selection-label-property"
-                        v-bind="{ item }"
-                >
-                    <sw-product-variant-info :variations="item.variation">
-                        {{ item.translated.name || item.name }}
-                    </sw-product-variant-info>
-                </slot>
+                <sw-product-variant-info :variations="item.variation">
+                    {{ item.translated.name || item.name }}
+                </sw-product-variant-info>
             </template>
         </sw-entity-multi-select>
     </sw-cms-mapping-field>

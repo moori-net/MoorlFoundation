@@ -215,7 +215,7 @@ const mapping = {
     },
 
     // Relations
-    products: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}},
+    products: {tab: 'relations', card: 'relations'},
     accessories: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}},
     productManufacturers: {tab: 'relations', card: 'relations'},
     productStreams: {tab: 'relations', card: 'relations'},

@@ -10,3 +10,4 @@ import './file-explorer';
 import './price';
 import './embedded-url';
 import './entity-select';
+import './product-multi-select';
