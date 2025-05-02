@@ -27,6 +27,7 @@
             color: red;
         }
 
+        .mt-field-label,
         .mt-field__label,
         .sw-field__label {
             display: none;
@@ -49,6 +50,10 @@
         .sw-field--textarea textarea {
             min-height: auto;
             max-height: 50px;
+        }
+
+        .sw-data-grid__cell-content {
+            height: auto;
         }
     }
 

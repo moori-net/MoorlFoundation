@@ -4,21 +4,19 @@
         @modal-close="onCancel"
         variant="large"
         class="moorl-csv-import"
+        :closable="false"
 >
     <sw-container class="moorl-csv-import__top-bar" columns="1fr" gap="10px">
         <template v-if="step == 1">
-            <mt-button @click="onClickUpload" variant="primary" size="small">
-                {{ $tc('moorl-foundation.button.import') }}
-            </mt-button>
-            <form style="display: none;" ref="fileForm">
-                <input
-                        class="sw-plugin-file-upload__file-input"
-                        type="file"
-                        id="files"
-                        ref="fileInput"
-                        @change="onFileInputChange"
-                />
-            </form>
+            <sw-file-input
+                    v-model:value="csvFile"
+                    :allowed-mime-types="['text/csv']"
+                    @update:value="onFileInputChange"
+            >
+                <template #caption-label>
+                    {{ $tc('sw-import-export.importer.labelUploadCaption') }}
+                </template>
+            </sw-file-input>
         </template>
 
         <template v-if="step == 2">

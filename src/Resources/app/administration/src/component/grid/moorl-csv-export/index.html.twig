@@ -1,8 +1,11 @@
-<sw-modal v-if="showExportModal"
-          :title="$tc('moorl-csv-export.title')"
-          @modal-close="onCancel"
-          variant="default"
-          class="moorl-csv-export">
+<sw-modal
+        v-if="showExportModal"
+        :title="$tc('moorl-csv-export.title')"
+        @modal-close="onCancel"
+        variant="default"
+        class="moorl-csv-export"
+        :closable="false"
+>
     <sw-container class="moorl-csv-export__top-bar" columns="1fr" gap="10px">
         <template v-if="step == 1">
             <sw-switch-field
@@ -31,7 +34,7 @@
                 size="small"
                 variant="secondary"
         >
-            {{ $tc('moorl-foundation.field') }}
+            {{ $tc('global.default.cancel') }}
         </mt-button>
 
         <mt-button

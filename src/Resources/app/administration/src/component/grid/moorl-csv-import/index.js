@@ -49,6 +49,7 @@ Shopware.Component.register('moorl-csv-import', {
             selectedItem: null,
             tags: null,
             rowCount: 0,
+            csvFile: null,
             rowsDone: 0,
             rowsLeft: 0,
             rowsSkipped: 0,
@@ -279,7 +280,9 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         onFileInputChange() {
-            Papa.parse(this.$refs.fileInput.files[0], {
+            console.log(this.csvFile);
+
+            Papa.parse(this.csvFile, {
                 header: true,
                 skipEmptyLines: true,
                 complete: (results) => {
@@ -293,7 +296,6 @@ Shopware.Component.register('moorl-csv-import', {
 
                     this.data = results.data;
                     this.validateItem();
-                    this.$refs.fileForm.reset();
 
                     this.rowCount = this.data.length;
                     this.rowsDone = 0;
