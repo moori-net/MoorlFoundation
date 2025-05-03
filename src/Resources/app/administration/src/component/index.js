@@ -16,11 +16,5 @@ import './feature-unlocker';
 import './link';
 import './section-config';
 import './demo-button';
-import './flow-crm-mapping';
 import './template-mapping-info';
 import './fieldset';
-
-/* Deprecated
-
-
-*/
