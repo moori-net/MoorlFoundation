@@ -67,10 +67,8 @@
     </template>
 
     <template #content>
-        <div v-if="isLoading">
-            <sw-skeleton/>
-            <sw-skeleton/>
-        </div>
+        <mt-loader v-if="isLoading" />
+
         <template v-if="!isLoading">
             {% block moorl_page_detail_content %}
             <moorl-page-detail
@@ -80,6 +78,7 @@
             />
             {% endblock %}
         </template>
+
         <sw-confirm-modal
             v-if="showConfirmDeleteModal"
             type="delete"
