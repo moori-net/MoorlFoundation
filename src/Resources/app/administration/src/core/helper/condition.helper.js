@@ -45,7 +45,7 @@ export default class ConditionHelper {
     }
 
     static _compare(a, b, operator) {
-        if (typeof a == 'object') {
+        if (typeof a == 'object' && a !== null) {
             a = a.value; // Handle CMS element config
         }
 
