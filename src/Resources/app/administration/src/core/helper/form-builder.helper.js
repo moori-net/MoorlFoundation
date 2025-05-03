@@ -54,7 +54,7 @@ export default class FormBuilderHelper {
 
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
 
-        //this._buildImportExportProfile(this.entity, fields);
+        this._buildImportExportProfile(this.entity, fields);
 
         for (const [property, field] of Object.entries(fields)) {
             if (
@@ -92,9 +92,10 @@ export default class FormBuilderHelper {
 
         const array = Object.entries(fields)
             .map(([key, value]) => ({ key, ...value }))
-            .filter(entry => typeOrder.includes(entry.type)) // nur erlaubte Typen
-            .filter(entry => !blacklist.includes(entry.key)) // nur erlaubte Typen
-            .filter(entry => depth === 0 || whitelist.includes(entry.key)) // nur erlaubte Typen
+            .filter(entry => typeOrder.includes(entry.type))
+            .filter(entry => !blacklist.includes(entry.key))
+            .filter(entry => depth === 0 || whitelist.includes(entry.key))
+            //.filter(entry => depth === 0 || entry.flags.required)
             .sort((a, b) => {
                 return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
             });
