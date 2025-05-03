@@ -54,17 +54,17 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
             return [
                 {
                     property: 'field',
-                    label: this.$tc('moorl-sorting.properties.name'),
+                    label: this.$tc('moorl-foundation.field.name'),
                     inlineEdit: 'string',
                 },
                 {
                     property: 'order',
-                    label: this.$tc('moorl-sorting.properties.order'),
+                    label: this.$tc('moorl-foundation.field.order'),
                     inlineEdit: 'string',
                 },
                 {
                     property: 'priority',
-                    label: this.$tc('moorl-sorting.properties.priority'),
+                    label: this.$tc('moorl-foundation.field.priority'),
                     inlineEdit: 'number',
                 },
             ];

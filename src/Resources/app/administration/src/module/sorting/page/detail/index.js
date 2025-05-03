@@ -18,6 +18,7 @@ Shopware.Component.override('moorl-sorting-detail', {
             definitionRegistry.forEach(function (value, key) {
                 storeOptions.push({
                     name: `${key}`,
+                    value: `${key}`,
                 });
             });
 

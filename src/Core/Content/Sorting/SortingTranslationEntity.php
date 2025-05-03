@@ -6,27 +6,16 @@ use Shopware\Core\Content\Product\SalesChannel\Sorting\ProductSortingTranslation
 
 class SortingTranslationEntity extends ProductSortingTranslationEntity
 {
-    protected string $moorlSortingId = "";
-    protected SortingEntity $moorlSorting;
+    protected ?string $label = null;
 
-    public function getMoorlSortingId(): string
+    public function getLabel(): ?string
     {
-        return $this->moorlSortingId;
+        return $this->label;
     }
 
-    public function setMoorlSortingId(string $moorlSortingId): void
+    public function setLabel(?string $label): void
     {
-        $this->moorlSortingId = $moorlSortingId;
-    }
-
-    public function getMoorlSorting(): SortingEntity
-    {
-        return $this->moorlSorting;
-    }
-
-    public function setMoorlSorting(SortingEntity $moorlSorting): void
-    {
-        $this->moorlSorting = $moorlSorting;
+        $this->label = $label;
     }
 
     public function getApiAlias(): string
