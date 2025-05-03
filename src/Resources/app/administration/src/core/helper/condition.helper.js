@@ -1,7 +1,4 @@
 export default class ConditionHelper {
-    /**
-     * Check visibility for a field based on its conditions.
-     */
     static isVisible(field, item) {
         if (!field.conditions || field.conditions.length === 0) {
             return true;
@@ -10,10 +7,6 @@ export default class ConditionHelper {
         return ConditionHelper.evaluate(field.conditions, item);
     }
 
-    /**
-     * Evaluate an array of condition objects against an item.
-     * Supports operators and value callbacks.
-     */
     static evaluate(conditions = [], item = {}) {
         let fulfilled = 0;
 
@@ -51,9 +44,6 @@ export default class ConditionHelper {
         return fulfilled === conditions.length;
     }
 
-    /**
-     * Internal comparison logic for supported operators.
-     */
     static _compare(a, b, operator) {
         if (typeof a == 'object') {
             a = a.value; // Handle CMS element config
