@@ -15,11 +15,10 @@ use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\System\SalesChannel\SalesChannelContext;
 
 class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
 {
-    private const PRODUCT_SLIDER_ENTITY_FALLBACK = 'product-slider-entity-fallback';
+    private const TYPE = 'moorl-product-buy-list';
 
     private readonly ProductConfiguratorLoader $configuratorLoader;
 
@@ -32,23 +31,31 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
 
     public function getType(): string
     {
-        return 'moorl-product-buy-list';
+        return self::TYPE;
     }
 
     public function collect(CmsSlotEntity $slot, ResolverContext $resolverContext): ?CriteriaCollection
     {
-        $config = $slot->getFieldConfig();
-        $collection = new CriteriaCollection();
+        $collection = parent::collect($slot, $resolverContext);
+        if ($collection !== null) {
+            return $collection;
+        }
 
-        $products = $config->get('products');
-        if ($products === null) {
+        $collection = new CriteriaCollection();
+        $config = $slot->getFieldConfig();
+        $productConfig = $config->get('products');
+        if ($productConfig === null) {
             return null;
         }
 
-        if ($products->isMapped() && $products->getValue() && $resolverContext instanceof EntityResolverContext) {
-            $criteria = $this->collectByEntity($resolverContext, $products);
+        if ($productConfig->isMapped() && $productConfig->getStringValue() && $resolverContext instanceof EntityResolverContext) {
+            $criteria = $this->collectByEntity($resolverContext, $productConfig);
             if ($criteria !== null) {
-                $collection->add(self::PRODUCT_SLIDER_ENTITY_FALLBACK . '_' . $slot->getUniqueIdentifier(), ProductDefinition::class, $criteria);
+                $collection->add(
+                    self::TYPE . $slot->getUniqueIdentifier(),
+                    ProductDefinition::class,
+                    $criteria
+                );
             }
         }
 
@@ -58,23 +65,31 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
         parent::enrich($slot, $resolverContext, $result);
-
-        $config = $slot->getFieldConfig();
-        $productConfig = $config->get('products');
-
         /** @var ProductSliderStruct $slider */
         $slider = $slot->getData();
 
-        if ($productConfig->isMapped() && $resolverContext instanceof EntityResolverContext) {
-            $products = $this->resolveEntityValue($resolverContext->getEntity(), $productConfig->getStringValue());
-            if ($products === null) {
-                $this->enrichFromSearch($slider, $result, self::PRODUCT_SLIDER_ENTITY_FALLBACK . '_' . $slot->getUniqueIdentifier(), $resolverContext->getSalesChannelContext());
-            } else {
-                $slider->setProducts($products);
+        if (!$slider->getProducts()) {
+            $config = $slot->getFieldConfig();
+            $productConfig = $config->get('products');
+            if ($productConfig === null) {
+                return;
+            }
+
+            if ($productConfig->isMapped() && $productConfig->getStringValue() && $resolverContext instanceof EntityResolverContext) {
+                $products = $this->resolveEntityValue($resolverContext->getEntity(), $productConfig->getStringValue());
+                if ($products === null) {
+                    $this->enrichFromSearch(
+                        $slider,
+                        $result,
+                        self::TYPE . $slot->getUniqueIdentifier()
+                    );
+                } else {
+                    $slider->setProducts($products);
+                }
             }
         }
 
-        $products = $slider->getProducts();
+        $products = $slider->getProducts() ?: [];
 
         /** @var SalesChannelProductEntity $product */
         foreach ($products as $product) {
@@ -93,12 +108,10 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
             return null;
         }
 
-        $criteria = $this->resolveCriteriaForLazyLoadedRelations($resolverContext, $config);
-
-        return $criteria;
+        return $this->resolveCriteriaForLazyLoadedRelations($resolverContext, $config);
     }
 
-    private function enrichFromSearch(ProductSliderStruct $slider, ElementDataCollection $result, string $searchKey, SalesChannelContext $saleschannelContext): void
+    private function enrichFromSearch(ProductSliderStruct $slider, ElementDataCollection $result, string $searchKey): void
     {
         $products = $result->get($searchKey)?->getEntities();
         if (!$products instanceof ProductCollection) {
