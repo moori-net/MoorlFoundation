@@ -1,26 +1,24 @@
 <div class="sw-cms-el-config-moorl-html-tag">
     <sw-cms-mapping-field
-            v-model:config="element.config.content"
-            value-types="string"
-            :label="$tc('sw-cms.elements.moorl-html-tag.label.content')">
-        <sw-text-field
-                v-model:value="element.config.content.value"
-                :label="$tc('sw-cms.elements.moorl-html-tag.label.content')"
+        v-model:config="element.config.content"
+        value-types="string"
+        :label="$tc('sw-cms.elements.moorl-html-tag.label.content')"
+    >
+        <mt-text-field
+            v-model="element.config.content.value"
+            :label="$tc('sw-cms.elements.moorl-html-tag.label.content')"
         />
     </sw-cms-mapping-field>
-
-    <sw-text-field
-            v-model:value="element.config.tag.value"
-            :label="$tc('sw-cms.elements.moorl-html-tag.label.tag')"
+    <mt-text-field
+        v-model="element.config.tag.value"
+        :label="$tc('sw-cms.elements.moorl-html-tag.label.tag')"
     />
-
-    <sw-text-field
-            v-model:value="element.config.cssClass.value"
-            :label="$tc('sw-cms.elements.moorl-html-tag.label.cssClass')"
+    <mt-text-field
+        v-model="element.config.cssClass.value"
+        :label="$tc('sw-cms.elements.moorl-html-tag.label.cssClass')"
     />
-
-    <sw-text-field
-            v-model:value="element.config.style.value"
-            :label="$tc('sw-cms.elements.moorl-html-tag.label.style')"
+    <mt-text-field
+        v-model="element.config.style.value"
+        :label="$tc('sw-cms.elements.moorl-html-tag.label.style')"
     />
 </div>

@@ -1,50 +1,57 @@
 <div
-        v-if="!isLoading"
-        class="moorl-abstract-cms-listing"
+    v-if="!isLoading"
+    class="moorl-abstract-cms-listing"
 >
     <h2
-            v-if="getValue('listingHeaderTitle')"
-            class="moorl-listing-header-title"
+        v-if="getValue('listingHeaderTitle')"
+        class="moorl-listing-header-title"
     >
         {{ getValue('listingHeaderTitle') }}
     </h2>
-
-    <ul :style="listingCss" :class="listingClass">
+    <ul
+        :style="listingCss"
+        :class="listingClass"
+    >
         <li class="navigation">
-            <mt-icon name="regular-chevron-left" size="24" />
+            <mt-icon
+                name="regular-chevron-left"
+                size="24"
+            />
         </li>
-
-        <li v-for="item in element.data.listingItems" :key="item.id">
-            <div class="moorl-listing-item-wrapper" :style="itemCss">
+        <li
+            v-for="item in element.data.listingItems"
+            :key="item.id"
+        >
+            <div
+                class="moorl-listing-item-wrapper"
+                :style="itemCss"
+            >
                 <div :class="itemClass">
                     <div class="moorl-listing-item-image">
                         <img
-                                v-if="getData(item).media"
-                                :src="getData(item).media.url"
-                                :class="imageClass"
-                                :style="imageCss"
+                            v-if="getData(item).media"
+                            :src="getData(item).media.url"
+                            :class="imageClass"
+                            :style="imageCss"
                         />
                     </div>
-
                     <div
-                            class="moorl-listing-item-content"
-                            :style="contentCss"
+                        class="moorl-listing-item-content"
+                        :style="contentCss"
                     >
                         <div>
                             <div class="moorl-listing-item-title">
                                 {{ getData(item).name }}
                             </div>
-
                             <div
-                                    v-if="getData(item).description"
-                                    class="moorl-listing-item-description"
+                                v-if="getData(item).description"
+                                class="moorl-listing-item-description"
                             >
                                 {{ getData(item).description }}
                             </div>
-
                             <mt-button
-                                    v-if="getValue('hasButton')"
-                                    variant="primary"
+                                v-if="getValue('hasButton')"
+                                variant="primary"
                             >
                                 {{ getValue('buttonLabel') }}
                             </mt-button>
@@ -53,9 +60,11 @@
                 </div>
             </div>
         </li>
-
         <li class="navigation">
-            <mt-icon name="regular-chevron-right" size="24" />
+            <mt-icon
+                name="regular-chevron-right"
+                size="24"
+            />
         </li>
     </ul>
 </div>

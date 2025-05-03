@@ -1,56 +1,50 @@
 <sw-page class="moorl-demo-data-index">
     <template #content>
         <sw-card-view>
-            <sw-card
-                    :isLoading="isLoading"
-                    :title="$tc('moorl-demo-data.name')"
+            <mt-card
+                :isLoading="isLoading"
+                :title="$tc('moorl-demo-data.name')"
             >
                 <template v-if="options.length">
                     <sw-single-select
-                            :label="$tc('moorl-foundation.field.type')"
-                            v-model:value="optionIndex"
-                            :options="options"
+                        :label="$tc('moorl-foundation.field.type')"
+                        v-model:value="optionIndex"
+                        :options="options"
                     />
-
                     <sw-entity-single-select
-                            :label="$tc('moorl-foundation.field.salesChannel')"
-                            v-model:value="salesChannelId"
-
-                            entity="sales_channel"
+                        :label="$tc('moorl-foundation.field.salesChannel')"
+                        v-model:value="salesChannelId"
+                        entity="sales_channel"
                     />
-
-                    <sw-alert variant="warning">
+                    <mt-banner variant="attention">
                         {{ $tc('moorl-demo-data.notification') }}
-                    </sw-alert>
-
-                    <sw-switch-field
-                            :label="$tc('moorl-demo-data.confirm')"
-                            v-model:value="confirmed"
+                    </mt-banner>
+                    <mt-switch
+                        :label="$tc('moorl-demo-data.confirm')"
+                        v-model="confirmed"
                     />
-
                     <mt-button
-                            variant="primary"
-                            :disabled="!acl.can('system.system_config') || !confirmed"
-                            @click="install()"
+                        variant="primary"
+                        :disabled="!acl.can('system.system_config') || !confirmed"
+                        @click="install()"
                     >
                         {{ $tc('global.default.apply') }}
                     </mt-button>
-
                     <mt-button
-                            variant="primary"
-                            :disabled="!acl.can('system.system_config')"
-                            @click="remove()"
+                        variant="primary"
+                        :disabled="!acl.can('system.system_config')"
+                        @click="remove()"
                     >
                         {{ $tc('global.default.delete') }}
                     </mt-button>
                 </template>
 
                 <template v-else>
-                    <sw-alert variant="warning">
+                    <mt-banner variant="attention">
                         {{ $tc('moorl-foundation.notification.demoDataNotFound') }}
-                    </sw-alert>
+                    </mt-banner>
                 </template>
-            </sw-card>
+            </mt-card>
         </sw-card-view>
     </template>
 </sw-page>

@@ -22,7 +22,7 @@ const mapping = {
     maxStacks: {tab: 'promotion', card: 'promotion'},
 
     // Contact
-    salutation: {tab: 'general', card: 'contact', attributes: {labelProperty: 'displayName'}, cols: 3},
+    salutation: {tab: 'general', card: 'contact', cols: 3},
     title: {tab: 'general', card: 'contact', cols: 3},
     firstName: {tab: 'general', card: 'contact', cols: 3},
     lastName: {tab: 'general', card: 'contact', cols: 3},
@@ -34,7 +34,7 @@ const mapping = {
 
     // Profile
     creatorType: {tab: 'general', card: 'profile'},
-    followers: {tab: 'general', card: 'profile', attributes: {labelProperty: 'customerNumber'}},
+    followers: {tab: 'general', card: 'profile'},
     role: {tab: 'general', card: 'profile'},
     link: {tab: 'general', card: 'profile', componentName: 'sw-url-field'},
     isBusiness: {tab: 'general', card: 'profile'},
@@ -160,8 +160,8 @@ const mapping = {
     swCategories: {tab: 'general', card: 'visibility'},
     shopwareCategories: {tab: 'general', card: 'visibility'},
     salesChannels: {tab: 'general', card: 'visibility'},
-    customers: {tab: 'general', card: 'visibility', attributes: {labelProperty: 'customerNumber'}},
-    sorting: {tab: 'general', card: 'visibility', attributes: {labelProperty: 'label'}},
+    customers: {tab: 'general', card: 'visibility'},
+    sorting: {tab: 'general', card: 'visibility'},
     customerGroups: {tab: 'general', card: 'visibility'},
     redirectFix: {tab: 'general', card: 'visibility'},
     language: {tab: 'general', card: 'visibility'},
@@ -217,7 +217,7 @@ const mapping = {
 
     // Relations
     products: {tab: 'relations', card: 'relations'},
-    accessories: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'productNumber'}},
+    accessories: {tab: 'relations', card: 'relations'},
     productManufacturers: {tab: 'relations', card: 'relations'},
     productStreams: {tab: 'relations', card: 'relations'},
     filters: {tab: 'relations', card: 'relations'},
@@ -229,7 +229,7 @@ const mapping = {
     chapters: {tab: 'relations', card: 'relations'},
     files: {tab: 'relations', card: 'relations'},
     salesChannel: {tab: 'relations', card: 'relations'},
-    customer: {tab: 'relations', card: 'relations', attributes: {labelProperty: 'customerNumber'}},
+    customer: {tab: 'relations', card: 'relations'},
     customerGroup: {tab: 'relations', card: 'relations'},
     article: {tab: 'relations', card: 'relations'},
     look: {tab: 'relations', card: 'relations'},

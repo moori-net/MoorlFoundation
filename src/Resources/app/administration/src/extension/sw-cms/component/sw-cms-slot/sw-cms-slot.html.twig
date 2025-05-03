@@ -1,117 +1,131 @@
 {% block sw_cms_slot_content_component %}
     <sw-cms-el-moorl-default
-            v-if="elementConfig?.component === true"
-            class="sw-cms-slot__element-preview"
-            v-bind="{ element:elementConfig }"
+        v-if="elementConfig?.component === true"
+        class="sw-cms-slot__element-preview"
+        v-bind="{ element:elementConfig }"
     />
 
     <component
-            :is="elementConfig.component"
-            v-else-if="elementConfig?.component"
-            v-model:element="element"
-            :element-data="elementConfig"
-            :disabled="disabled || undefined"
+        :is="elementConfig.component"
+        v-else-if="elementConfig?.component"
+        v-model:element="element"
+        :element-data="elementConfig"
+        :disabled="disabled || undefined"
     />
 {% endblock %}
-
 {% block sw_cms_slot_content_element_modal_selection_element_component %}
     <sw-cms-el-preview-moorl-default
-            v-if="getPlugin(element)"
-            class="sw-cms-slot__element-preview"
-            v-bind="{ element:element, plugin:getPlugin(element) }"
+        v-if="getPlugin(element)"
+        class="sw-cms-slot__element-preview"
+        v-bind="{ element:element, plugin:getPlugin(element) }"
     />
 
     <template v-else>
         {% parent %}
     </template>
 {% endblock %}
-
 {% block sw_cms_slot_content_overlay_action_settings %}
-    {% parent %}
+    {% parent() %}
 
     <template v-if="moorlIsUnlocked">
         <div
-                class="sw-cms-slot__settings-action"
-                @click="onCmsElementConfigSaverButtonClick"
-                v-tooltip.bottom="tooltipDisabled"
+            class="sw-cms-slot__settings-action"
+            @click="onCmsElementConfigSaverButtonClick"
+            v-tooltip.bottom="tooltipDisabled"
         >
-            <mt-icon name="regular-save" size="16"/>
+            <mt-icon
+                name="regular-save"
+                size="16"
+            />
         </div>
-
         <div
-                class="sw-cms-slot__settings-action"
-                @click="showCmsElementAnimationModal = true"
-                v-tooltip.bottom="tooltipDisabled"
+            class="sw-cms-slot__settings-action"
+            @click="showCmsElementAnimationModal = true"
+            v-tooltip.bottom="tooltipDisabled"
         >
-            <mt-icon name="regular-spinner-star" size="16"/>
+            <mt-icon
+                name="regular-spinner-star"
+                size="16"
+            />
         </div>
     </template>
 {% endblock %}
-
 {% block sw_cms_slot_content_settings_modal %}
-    {% parent %}
+    {% parent() %}
 
     <sw-modal
-            v-if="showCmsElementAnimationModal"
-            :title="$tc('sw-cms.component.sw-cms-slot.cmsElementAnimation')"
-            @modal-close="showCmsElementAnimationModal = false"
+        v-if="showCmsElementAnimationModal"
+        :title="$tc('sw-cms.component.sw-cms-slot.cmsElementAnimation')"
+        @modal-close="showCmsElementAnimationModal = false"
     >
         <moorl-element-animation v-model:element="element"/>
-
         <template #modal-footer>
-            <mt-button variant="primary" @click="showCmsElementAnimationModal = false">
+            <mt-button
+                variant="primary"
+                @click="showCmsElementAnimationModal = false"
+            >
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
             </mt-button>
         </template>
     </sw-modal>
 
     <sw-modal
-            v-if="showCmsElementConfigSaver"
-            :title="$tc('sw-cms.component.sw-cms-slot.cmsElementConfigSaver')"
-            @modal-close="showCmsElementConfigSaver = false"
+        v-if="showCmsElementConfigSaver"
+        :title="$tc('sw-cms.component.sw-cms-slot.cmsElementConfigSaver')"
+        @modal-close="showCmsElementConfigSaver = false"
     >
-        <sw-text-field
-                v-model:value="cmsElementConfig.name"
-                :label="$tc('sw-cms.component.sw-cms-slot.label.name')"
+        <mt-text-field
+            v-model="cmsElementConfig.name"
+            :label="$tc('sw-cms.component.sw-cms-slot.label.name')"
         />
-
         <div class="sw-field">
-            <mt-button variant="primary" @click="onSaveCmsElementConfig">
+            <mt-button
+                variant="primary"
+                @click="onSaveCmsElementConfig"
+            >
                 {{ $tc('sw-cms.component.sw-cms-slot.label.save') }}
             </mt-button>
         </div>
-
         <div class="moorl-link-field">
             <sw-entity-single-select
-                    :label="$tc('sw-cms.component.sw-cms-slot.label.selectConfig')"
-                    :criteria="cmsElementConfigCriteria"
-                    entity="moorl_cms_element_config"
-                    v-model:value="cmsElementConfigId"
+                :label="$tc('sw-cms.component.sw-cms-slot.label.selectConfig')"
+                :criteria="cmsElementConfigCriteria"
+                entity="moorl_cms_element_config"
+                v-model:value="cmsElementConfigId"
             >
                 <template #result-item="{ item, index }">
-                    <slot name="result-item" v-bind="{ item, index }">
-                        <li is="sw-select-result" v-bind="{ item, index }">
+                    <slot
+                        name="result-item"
+                        v-bind="{ item, index }"
+                    >
+                        <li
+                            is="sw-select-result"
+                            v-bind="{ item, index }"
+                        >
                             {{ item.type }} | {{ item.name }}
                         </li>
                     </slot>
                 </template>
             </sw-entity-single-select>
-
             <router-link
-                    target="_blank"
-                    rel="noopener"
-                    :to="{ name: 'moorl.foundation.settings.cmselementconfig' }"
+                target="_blank"
+                rel="noopener"
+                :to="{ name: 'moorl.foundation.settings.cmselementconfig' }"
             >
                 {{ $tc('sw-cms.component.sw-cms-slot.label.manageConfigs') }}
             </router-link>
         </div>
-
-        <mt-button variant="primary" @click="onLoadCmsElementConfig">
+        <mt-button
+            variant="primary"
+            @click="onLoadCmsElementConfig"
+        >
             {{ $tc('sw-cms.component.sw-cms-slot.label.load') }}
         </mt-button>
-
         <template #modal-footer>
-            <mt-button variant="primary" @click="showCmsElementConfigSaver = false">
+            <mt-button
+                variant="primary"
+                @click="showCmsElementConfigSaver = false"
+            >
                 {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
             </mt-button>
         </template>

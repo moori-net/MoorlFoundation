@@ -1,8 +1,8 @@
 {% block sw_cms_block_config_background_image_field %}
-    {% parent %}
+    {% parent() %}
 
     <moorl-block-behaviour
-            v-if="moorlIsUnlocked"
-            v-bind="{ block }"
+        v-if="moorlIsUnlocked"
+        v-bind="{ block }"
     />
 {% endblock %}

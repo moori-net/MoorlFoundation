@@ -3,11 +3,19 @@
         <div class="moorl-newsletter-input">
             {{ element.config.placeholder.value }}
         </div>
-        <div class="moorl-newsletter-button" :style="newsletterButtonCss">
+        <div
+            class="moorl-newsletter-button"
+            :style="newsletterButtonCss"
+        >
             {{ element.config.buttonText.value }}
         </div>
     </div>
-    <div v-if="element.config.optin.value" class="moorl-newsletter-optin-container" :style="{ 'color': element.config.privacyColor.value }">
-        <span class="checkbox"></span> I have read the privacy notice
+    <div
+        v-if="element.config.optin.value"
+        class="moorl-newsletter-optin-container"
+        :style="{ 'color': element.config.privacyColor.value }"
+    >
+        <span class="checkbox"></span>
+        I have read the privacy notice
     </div>
 </div>

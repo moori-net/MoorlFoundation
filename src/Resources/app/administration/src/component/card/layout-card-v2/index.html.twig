@@ -1,68 +1,80 @@
 <div class="moorl-layout-card-v2">
-    <sw-card :title="$tc('moorl-layout-card-v2.title')" :is-loading="isLoading">
+    <mt-card
+        :title="$tc('moorl-layout-card-v2.title')"
+        :is-loading="isLoading"
+    >
         <div class="moorl-layout-card__base-layout">
-            <div v-if="cmsPage" class="moorl-layout-card__preview" @click="openLayoutModal">
-                <sw-cms-list-item :page="cmsPage" active/>
+            <div
+                v-if="cmsPage"
+                class="moorl-layout-card__preview"
+                @click="openLayoutModal"
+            >
+                <sw-cms-list-item
+                    :page="cmsPage"
+                    active
+                />
             </div>
-
             <sw-cms-layout-modal
-                    v-if="showLayoutSelectionModal"
-                    :cms-page-types="pageTypes"
-                    :headline="headline"
-                    :pre-selection="cmsPage"
-                    @modal-layout-select="onLayoutSelect"
-                    @modal-close="closeLayoutModal"
+                v-if="showLayoutSelectionModal"
+                :cms-page-types="pageTypes"
+                :headline="headline"
+                :pre-selection="cmsPage"
+                @modal-layout-select="onLayoutSelect"
+                @modal-close="closeLayoutModal"
             />
-
             <div class="moorl-layout-card__desc">
                 <div class="moorl-layout-card__desc-info">
-                    <div class="moorl-layout-card__desc-headline" :class="{ 'is--empty': !cmsPage }">
+                    <div
+                        class="moorl-layout-card__desc-headline"
+                        :class="{ 'is--empty': !cmsPage }"
+                    >
                         {{ cmsPage ? cmsPage.name : $tc('moorl-layout-card-v2.defaultTitle') }}
                     </div>
                 </div>
-
                 <div class="moorl-layout-card__desc-actions">
                     <mt-button
-                            class="moorl-detail-layout__change-layout-action"
-                            size="small"
-                            variant="secondary"
-                            @click="openLayoutModal"
+                        class="moorl-detail-layout__change-layout-action"
+                        size="small"
+                        variant="secondary"
+                        @click="openLayoutModal"
                     >
                         {{ cmsPage ? $tc('moorl-layout-card-v2.changeLayout') : $tc('moorl-layout-card-v2.changeLayoutEmpty') }}
                     </mt-button>
-
                     <mt-button
-                            class="moorl-detail-layout__open-in-pagebuilder"
-                            size="small"
-                            variant="secondary"
-                            @click="openInPagebuilder"
+                        class="moorl-detail-layout__open-in-pagebuilder"
+                        size="small"
+                        variant="secondary"
+                        @click="openInPagebuilder"
                     >
                         {{ cmsPage ? $tc('moorl-layout-card-v2.editInPagebuilder'): $tc('moorl-layout-card-v2.editInPagebuilderEmpty') }}
                     </mt-button>
-
                     <mt-button
-                            v-if="cmsPage"
-                            size="small"
-                            variant="secondary"
-                            class="moorl-detail-layout__layout-reset"
-                            square
-                            @click="onLayoutReset"
+                        v-if="cmsPage"
+                        size="small"
+                        variant="secondary"
+                        class="moorl-detail-layout__layout-reset"
+                        square
+                        @click="onLayoutReset"
                     >
-                        <mt-icon name="regular-trash" small/>
+                        <mt-icon
+                            name="regular-trash"
+                            small
+                        />
                     </mt-button>
                 </div>
-
                 <mt-button
-                        class="moorl-detail-layout__save-cms-config"
-                        size="small"
-                        variant="primary"
-                        @click="saveCmsConfig"
+                    class="moorl-detail-layout__save-cms-config"
+                    size="small"
+                    variant="primary"
+                    @click="saveCmsConfig"
                 >
                     {{ $tc('moorl-layout-card-v2.saveCmsConfig') }}
                 </mt-button>
             </div>
         </div>
-    </sw-card>
-
-    <sw-cms-page-form v-if="cmsPage" :page="cmsPage"/>
+    </mt-card>
+    <sw-cms-page-form
+        v-if="cmsPage"
+        :page="cmsPage"
+    />
 </div>

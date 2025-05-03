@@ -1,51 +1,50 @@
 {% block sw_cms_element_image_slider_config_tab_content %}
-    {% parent %}
+    {% parent() %}
 
-    <sw-tabs-item name="extra" :activeTab="active">
+    <sw-tabs-item
+        name="extra"
+        :activeTab="active"
+    >
         {{ $tc('sw-cms.elements.image-slider.tab.extra') }}
     </sw-tabs-item>
 {% endblock %}
-
 {% block sw_cms_element_image_slider_config_settings %}
-    {% parent %}
+    {% parent() %}
 
-    <sw-container v-if="active === 'extra'" class="sw-cms-el-config-image-slider__tab-extra">
-        <sw-switch-field
-                v-model:value="element.config.enableFeature.value"
-                bordered
-                :label="$tc('sw-cms.elements.image-slider.label.enableFeature')"
+    <sw-container
+        v-if="active === 'extra'"
+        class="sw-cms-el-config-image-slider__tab-extra"
+    >
+        <mt-switch
+            v-model="element.config.enableFeature.value"
+            bordered
+            :label="$tc('sw-cms.elements.image-slider.label.enableFeature')"
         />
-
-        <sw-number-field
-                v-model:value="element.config.speed.value"
-                :label="$tc('sw-cms.elements.image-slider.label.speed')"
+        <mt-number-field
+            v-model="element.config.speed.value"
+            :label="$tc('sw-cms.elements.image-slider.label.speed')"
         />
-
-        <sw-number-field
-                v-model:value="element.config.autoplayTimeout.value"
-                :label="$tc('sw-cms.elements.image-slider.label.autoplayTimeout')"
+        <mt-number-field
+            v-model="element.config.autoplayTimeout.value"
+            :label="$tc('sw-cms.elements.image-slider.label.autoplayTimeout')"
         />
-
-        <sw-switch-field
-                v-model:value="element.config.autoplay.value"
-                bordered
-                :label="$tc('sw-cms.elements.image-slider.label.autoplay')"
+        <mt-switch
+            v-model="element.config.autoplay.value"
+            bordered
+            :label="$tc('sw-cms.elements.image-slider.label.autoplay')"
         />
-
-        <sw-switch-field
-                v-model:value="element.config.autoplayHoverPause.value"
-                bordered
-                :label="$tc('sw-cms.elements.image-slider.label.autoplayHoverPause')"
+        <mt-switch
+            v-model="element.config.autoplayHoverPause.value"
+            bordered
+            :label="$tc('sw-cms.elements.image-slider.label.autoplayHoverPause')"
         />
-
         <moorl-select-field
-                v-model:value="element.config.animateIn.value"
-                set="animateIn"
+            v-model:value="element.config.animateIn.value"
+            set="animateIn"
         />
-
         <moorl-select-field
-                v-model:value="element.config.animateOut.value"
-                set="animateOut"
+            v-model:value="element.config.animateOut.value"
+            set="animateOut"
         />
     </sw-container>
 {% endblock %}

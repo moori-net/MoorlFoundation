@@ -4,6 +4,14 @@ import order from './form-builder/order.json';
 const {merge, cloneDeep} = Shopware.Utils.object;
 
 export default class FormBuilderHelper {
+    static entityLabelProperty = {
+        media: 'fileName',
+        product: 'productNumber',
+        salutation: 'displayName',
+        customer: 'customerNumber',
+        moorl_sorting: 'label'
+    };
+
     constructor({
                     entity,
                     item,
@@ -255,11 +263,7 @@ export default class FormBuilderHelper {
 
         attributes.entity = entity;
 
-        if (entity === 'media') {
-            attributes.labelProperty = 'fileName';
-        } else if (entity === 'product') {
-            attributes.labelProperty = 'productNumber';
-        }
+        attributes.labelProperty = FormBuilderHelper.entityLabelProperty[entity] ?? 'name';
 
         if (field.relation === 'many_to_one') {
             const localField = field.localField;

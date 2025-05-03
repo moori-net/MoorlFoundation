@@ -1,42 +1,41 @@
 <div class="moorl-demo-button">
     <mt-button
-            variant="secondary"
-            size="default"
-            :disabled="!acl.can('system.system_config')"
-            @click="openModal"
+        variant="secondary"
+        size="default"
+        :disabled="!acl.can('system.system_config')"
+        @click="openModal"
     >
         {{ $tc('moorl-demo-button.label') }}
     </mt-button>
-
     <sw-modal
-            v-if="open"
-            :title="$tc('moorl-demo-button.label')"
-            @modal-close="closeModal"
-            :isLoading="isLoading"
+        v-if="open"
+        :title="$tc('moorl-demo-button.label')"
+        @modal-close="closeModal"
+        :isLoading="isLoading"
     >
-        <sw-alert variant="warning">
+        <mt-banner variant="attention">
             {{ $tc('moorl-demo-data.notification') }}
-        </sw-alert>
-
+        </mt-banner>
         <sw-entity-single-select
-                :label="$tc('moorl-foundation.field.salesChannel')"
-                v-model:value="salesChannelId"
-                entity="sales_channel"
+            :label="$tc('moorl-foundation.field.salesChannel')"
+            v-model:value="salesChannelId"
+            entity="sales_channel"
         />
-
         <router-link
-                target="_blank"
-                rel="noopener"
-                :to="{ name: 'moorl.demo.data.index' }"
+            target="_blank"
+            rel="noopener"
+            :to="{ name: 'moorl.demo.data.index' }"
         >
             {{ $tc('moorl-demo-data.name') }}
         </router-link>
-
         <template #modal-footer>
-            <mt-button variant="primary" @click="install" :disabled="salesChannelId === null || isLoading">
+            <mt-button
+                variant="primary"
+                @click="install"
+                :disabled="salesChannelId === null || isLoading"
+            >
                 {{ $tc('global.default.apply') }}
             </mt-button>
-
             <mt-button @click="closeModal">
                 {{ $tc('global.default.cancel') }}
             </mt-button>

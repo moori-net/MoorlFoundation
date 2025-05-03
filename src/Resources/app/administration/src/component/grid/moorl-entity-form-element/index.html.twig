@@ -1,23 +1,25 @@
 <div class="moorl-entity-form-element">
     <template v-if="column.type == 'association'">
-        <template v-if="column.relation === 'many_to_many' || column.relation === 'one_to_many'">
+        <template
+            v-if="column.relation === 'many_to_many' || column.relation === 'one_to_many'"
+        >
             <template v-if="column.flags.moorl_vue_component">
                 <component
-                        :is="column.flags.moorl_vue_component"
-                        ref="component"
-                        v-model:entityCollection="value[column.property]"
-                        :label="column.label"
+                    :is="column.flags.moorl_vue_component"
+                    ref="component"
+                    v-model:entityCollection="value[column.property]"
+                    :label="column.label"
                 />
             </template>
 
             <template v-else>
                 <sw-entity-multi-select
-                        :label="column.label"
-                        :helpText="column.helpText"
-                        v-model:entityCollection="value[column.property]"
-                        :labelProperty="column.flags.moorl_label_property"
-                        :entity="column.entity"
-                        :localMode="true"
+                    :label="column.label"
+                    :helpText="column.helpText"
+                    v-model:entityCollection="value[column.property]"
+                    :labelProperty="column.flags.moorl_label_property"
+                    :entity="column.entity"
+                    :localMode="true"
                 />
             </template>
         </template>
@@ -25,17 +27,23 @@
         <template v-else>
             <template v-if="column.localField === 'productId'">
                 <sw-entity-single-select
-                        entity="product"
-                        :criteria="productSearchCriteria"
-                        :context="productSearchContext"
-                        :label="column.label"
-                        :required="column.required"
-                        v-model:value="value[column.localField]"
-                        :show-clearable-button="!column.required"
+                    entity="product"
+                    :criteria="productSearchCriteria"
+                    :context="productSearchContext"
+                    :label="column.label"
+                    :required="column.required"
+                    v-model:value="value[column.localField]"
+                    :show-clearable-button="!column.required"
                 >
                     <template #result-item="{ item, index }">
-                        <slot name="result-item" v-bind="{ item, index }">
-                            <li is="sw-select-result" v-bind="{ item, index }">
+                        <slot
+                            name="result-item"
+                            v-bind="{ item, index }"
+                        >
+                            <li
+                                is="sw-select-result"
+                                v-bind="{ item, index }"
+                            >
                                 <span class="sw-select-result__result-item-text">
                                     <sw-product-variant-info :variations="item.variation">
                                         {{ item.translated.name || item.name }}
@@ -50,17 +58,20 @@
             <template v-else-if="column.localField === 'sortingId'">
                 <div class="moorl-link-field">
                     <sw-entity-single-select
-                            :label="column.label"
-                            :helpText="column.helpText"
-                            v-model:value="value[column.localField]"
-                            :labelProperty="column.flags.moorl_label_property"
-                            :entity="column.entity"
-                            :criteria="sortingSearchCriteria"
-                            :required="column.required"
-                            :show-clearable-button="!column.required"
+                        :label="column.label"
+                        :helpText="column.helpText"
+                        v-model:value="value[column.localField]"
+                        :labelProperty="column.flags.moorl_label_property"
+                        :entity="column.entity"
+                        :criteria="sortingSearchCriteria"
+                        :required="column.required"
+                        :show-clearable-button="!column.required"
                     />
-
-                    <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.sorting.list', params: { entity: column.entity } }">
+                    <router-link
+                        target="_blank"
+                        rel="noopener"
+                        :to="{ name: 'moorl.sorting.list', params: { entity: column.entity } }"
+                    >
                         {{ $tc('sw-cms.elements.moorl-foundation-listing.label.manageSorting') }}
                     </router-link>
                 </div>
@@ -68,13 +79,13 @@
 
             <template v-else>
                 <sw-entity-single-select
-                        :label="column.label"
-                        :helpText="column.helpText"
-                        v-model:value="value[column.localField]"
-                        :labelProperty="column.flags.moorl_label_property"
-                        :entity="column.entity"
-                        :required="column.required"
-                        :show-clearable-button="!column.required"
+                    :label="column.label"
+                    :helpText="column.helpText"
+                    v-model:value="value[column.localField]"
+                    :labelProperty="column.flags.moorl_label_property"
+                    :entity="column.entity"
+                    :required="column.required"
+                    :show-clearable-button="!column.required"
                 />
             </template>
         </template>
@@ -82,59 +93,61 @@
 
     <template v-else-if="column.flags.moorl_edit_field == 'multi-id'">
         <sw-entity-multi-id-select
-                :label="column.label"
-                :labelProperty="column.flags.moorl_label_property"
-                v-model:value="value[column.property]"
-                :repository="repository"
-                :required="column.required"
+            :label="column.label"
+            :labelProperty="column.flags.moorl_label_property"
+            v-model:value="value[column.property]"
+            :repository="repository"
+            :required="column.required"
         />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'code'">
         <sw-code-editor
-                :label="column.label"
-                :helpText="column.helpText"
-                :softWraps="false"
-                v-model:value="value[column.property]"
+            :label="column.label"
+            :helpText="column.helpText"
+            :softWraps="false"
+            v-model:value="value[column.property]"
         />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'date'">
-        <sw-datepicker
-                :label="column.label"
-                :helpText="column.helpText"
-                v-model:value="value[column.property]"
+        <mt-datepicker
+            :label="column.label"
+            :helpText="column.helpText"
+            v-model="value[column.property]"
         />
     </template>
 
     <template v-else-if="column.flags.moorl_edit_field == 'select'">
         <moorl-select-field
-                :label="column.label"
-                v-model:value="value[column.property]"
-                :customSet="column.flags.moorl_edit_field_options.options"
+            :label="column.label"
+            v-model:value="value[column.property]"
+            :customSet="column.flags.moorl_edit_field_options.options"
         />
     </template>
 
-    <template v-else-if="column.flags.moorl_edit_field === 'price' && column.property === 'price'">
+    <template
+        v-else-if="column.flags.moorl_edit_field === 'price' && column.property === 'price'"
+    >
         <sw-price-field
-                :value="price"
-                :tax-rate="tax"
-                :currency="defaultCurrency"
+            :value="price"
+            :tax-rate="tax"
+            :currency="defaultCurrency"
         />
     </template>
 
     <template v-else-if="column.flags.moorl_vue_component">
         <component
-                :is="column.flags.moorl_vue_component"
-                ref="component"
-                v-model:value="value[column.property]"
+            :is="column.flags.moorl_vue_component"
+            ref="component"
+            v-model:value="value[column.property]"
         />
     </template>
 
     <template v-else>
         <sw-form-field-renderer
-                v-model:value="value[column.property]"
-                :config="{
+            v-model:value="value[column.property]"
+            :config="{
                     label: column.label,
                     helpText: column.helpText,
                     componentName: `sw-${column.flags.moorl_edit_field}-field`,

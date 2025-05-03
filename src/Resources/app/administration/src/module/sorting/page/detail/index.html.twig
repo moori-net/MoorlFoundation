@@ -1,56 +1,50 @@
 {% block moorl_page_detail_content %}
     <sw-card-view>
-        <sw-card :title="$tc('moorl-foundation.label.generalCard')">
-            <sw-switch-field
-                    bordered
-                    :label="$tc('moorl-foundation.field.active')"
-                    v-model:value="item.active"
+        <mt-card :title="$tc('moorl-foundation.label.generalCard')">
+            <mt-switch
+                bordered
+                :label="$tc('moorl-foundation.field.active')"
+                v-model="item.active"
             />
-
             <sw-single-select
-                    v-model:value="item.entity"
-                    valueProperty="name"
-
-                    :options="entityOptions"
-                    :label="$tc('moorl-foundation.field.entity')"
-                    @on-change="onChangeLanguage"
-                    :required="true"
+                v-model:value="item.entity"
+                valueProperty="name"
+                :options="entityOptions"
+                :label="$tc('moorl-foundation.field.entity')"
+                @on-change="onChangeLanguage"
+                :required="true"
             />
-
-            <sw-text-field
-                    :label="$tc('moorl-foundation.field.key')"
-                    v-model:value="item.key"
-                    :required="true"
+            <mt-text-field
+                :label="$tc('moorl-foundation.field.key')"
+                v-model="item.key"
+                :required="true"
             />
-
-            <sw-text-field
-                    :label="$tc('moorl-foundation.field.label')"
-                    v-model:value="item.label"
-                    :required="true"
+            <mt-text-field
+                :label="$tc('moorl-foundation.field.label')"
+                v-model="item.label"
+                :required="true"
             />
-
-            <sw-number-field
-                    :label="$tc('moorl-foundation.field.priority')"
-                    v-model:value="item.priority"
-                    :required="true"
+            <mt-number-field
+                :label="$tc('moorl-foundation.field.priority')"
+                v-model="item.priority"
+                :required="true"
             />
-        </sw-card>
-
+        </mt-card>
         <moorl-sorting-option-criteria-grid
-                v-if="item.entity"
-                :item="item"
-                @criteria-delete="onDeleteCriteria"
-                @criteria-add="onAddCriteria"
-                @inline-edit-save="onSave"
-                @inline-edit-cancel="onCancelEditCriteria"
+            v-if="item.entity"
+            :item="item"
+            @criteria-delete="onDeleteCriteria"
+            @criteria-add="onAddCriteria"
+            @inline-edit-save="onSave"
+            @inline-edit-cancel="onCancelEditCriteria"
         />
     </sw-card-view>
 
     <sw-settings-listing-delete-modal
-            v-if="toBeDeletedCriteria"
-            :title="$tc('sw-settings-listing.base.delete.modalTitle')"
-            :description="$tc('sw-settings-listing.base.delete.modalDescription')"
-            @cancel="toBeDeletedCriteria = null"
-            @delete="onConfirmDeleteCriteria"
+        v-if="toBeDeletedCriteria"
+        :title="$tc('sw-settings-listing.base.delete.modalTitle')"
+        :description="$tc('sw-settings-listing.base.delete.modalDescription')"
+        @cancel="toBeDeletedCriteria = null"
+        @delete="onConfirmDeleteCriteria"
     />
 {% endblock %}

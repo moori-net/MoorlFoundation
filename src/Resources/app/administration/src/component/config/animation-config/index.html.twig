@@ -1,31 +1,34 @@
 <div class="moorl-animation">
     <sw-collapse
-            v-for="currentConfig, index in value"
-            :ref="'moorl-animation_' + index"
-            class="moorl-collapse"
+        v-for="currentConfig, index in value"
+        :ref="'moorl-animation_' + index"
+        class="moorl-collapse"
     >
         <template #header="{ expanded }">
-            <h4>{{ $tc('moorl-animation.label.cssSelector') }}</h4>
-
-            <sw-text-field
-                    v-model:value="currentConfig.cssSelector"
-                    :placeholder="$tc('moorl-animation.placeholder.cssSelector')"
+            <h4>
+                {{ $tc('moorl-animation.label.cssSelector') }}
+            </h4>
+            <mt-text-field
+                v-model="currentConfig.cssSelector"
+                :placeholder="$tc('moorl-animation.placeholder.cssSelector')"
             />
-
-            <div>
-                <mt-icon @click="deleteEntry(index)" name="regular-trash" small/>
-            </div>
-
             <div>
                 <mt-icon
-                        v-if="expanded"
-                        small
-                        name="regular-chevron-down-s"
+                    @click="deleteEntry(index)"
+                    name="regular-trash"
+                    small
+                />
+            </div>
+            <div>
+                <mt-icon
+                    v-if="expanded"
+                    small
+                    name="regular-chevron-down-s"
                 />
                 <mt-icon
-                        v-else
-                        small
-                        name="regular-chevron-right-s"
+                    v-else
+                    small
+                    name="regular-chevron-right-s"
                 />
             </div>
         </template>
@@ -34,10 +37,16 @@
             <moorl-animation-field v-model:item="currentConfig"/>
         </template>
     </sw-collapse>
-
-    <mt-button :block="true" @click="addEntry" variant="ghost">
+    <mt-button
+        :block="true"
+        @click="addEntry"
+        variant="ghost"
+    >
         <span>
-            <mt-icon name="regular-plus-s" :small="true"/>
+            <mt-icon
+                name="regular-plus-s"
+                :small="true"
+            />
             {{ $tc('moorl-animation.label.add') }}
         </span>
     </mt-button>

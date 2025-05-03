@@ -1,13 +1,12 @@
 <div class="moorl-embedded-url-field">
-    <sw-url-field
-            v-bind="vBind"
-            v-model:value="currentValue"
+    <mt-url-field
+        v-bind="vBind"
+        v-model="currentValue"
     />
-
     <iframe
-            v-if="currentValue && !disabled"
-            style="height: 360px; width: 100%"
-            frameborder="0"
-            :src="currentValue"
+        v-if="currentValue && !disabled"
+        style="height: 360px; width: 100%"
+        frameborder="0"
+        :src="currentValue"
     ></iframe>
 </div>

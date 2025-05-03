@@ -1,10 +1,18 @@
 <div class="sw-cms-el-moorl-hero-banner">
     <div class="hero-container">
-        <img :src="mediaUrl">
+        <img :src="mediaUrl"/>
         <div class="hero-caption-search">
-            <div v-if="element.config.captionActive.value" class="caption" :style="captionCss">
-                <p class="title">{{ element.config.title.value }}</p>
-                <p class="content">{{ element.config.content.value }}</p>
+            <div
+                v-if="element.config.captionActive.value"
+                class="caption"
+                :style="captionCss"
+            >
+                <p class="title">
+                    {{ element.config.title.value }}
+                </p>
+                <p class="content">
+                    {{ element.config.content.value }}
+                </p>
             </div>
             <div class="search">
                 <div class="hero-bannerbar">

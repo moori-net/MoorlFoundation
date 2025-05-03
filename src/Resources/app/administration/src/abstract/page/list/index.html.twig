@@ -1,27 +1,26 @@
 <sw-page :class="componentName">
     <template #search-bar>
         <sw-search-bar
-                :initial-search-type="entity"
-                :initial-search="term"
-                @search="onSearch"
+            :initial-search-type="entity"
+            :initial-search="term"
+            @search="onSearch"
         />
     </template>
 
     <template #smart-bar-actions>
         <mt-button
-                v-if="!indexPage"
-                variant="primary"
-                size="default"
-                @click="onCreateItem"
+            v-if="!indexPage"
+            variant="primary"
+            size="default"
+            @click="onCreateItem"
         >
             {{ $tc('global.default.add') }}
         </mt-button>
-
         <moorl-demo-button
-                v-if="pluginName"
-                :pluginName="pluginName"
-                :name="demoName"
-                @on-finish="getList"
+            v-if="pluginName"
+            :pluginName="pluginName"
+            :name="demoName"
+            @on-finish="getList"
         />
     </template>
 
@@ -32,61 +31,59 @@
     <template #sidebar>
         <sw-sidebar>
             <sw-sidebar-item
-                    icon="regular-redo"
-                    :title="$tc('moorl-foundation.button.refresh')"
-                    @click="getList"
+                icon="regular-redo"
+                :title="$tc('moorl-foundation.button.refresh')"
+                @click="getList"
             />
-
             <sw-sidebar-item
-                    icon="regular-cloud-upload"
-                    :title="$tc('moorl-foundation.button.import')"
-                    @click="onImportModal"
+                icon="regular-cloud-upload"
+                :title="$tc('moorl-foundation.button.import')"
+                @click="onImportModal"
             />
-
             <sw-sidebar-item
-                    icon="regular-cloud-download"
-                    :title="$tc('moorl-foundation.button.export')"
-                    @click="onExportModal"
+                icon="regular-cloud-download"
+                :title="$tc('moorl-foundation.button.export')"
+                @click="onExportModal"
             />
         </sw-sidebar>
     </template>
 
     <template #content>
         <sw-entity-listing
-                v-if="ready && entitySearchable"
-                :identifier="componentName"
-                :detailRoute="getItemRoute('detail')"
-                :items="items"
-                :repository="itemRepository"
-                :showSelection="true"
-                :columns="columns"
-                :is-loading="isLoading"
-                :criteria-limit="limit"
-                :sort-by="sortBy"
-                :sort-direction="sortDirection"
-                :disable-data-fetching="true"
-                @select-item="updateSelection"
-                @page-change="onPageChange"
-                @column-sort="onSortColumn"
-                @update-records="updateTotal"
+            v-if="ready && entitySearchable"
+            :identifier="componentName"
+            :detailRoute="getItemRoute('detail')"
+            :items="items"
+            :repository="itemRepository"
+            :showSelection="true"
+            :columns="columns"
+            :is-loading="isLoading"
+            :criteria-limit="limit"
+            :sort-by="sortBy"
+            :sort-direction="sortDirection"
+            :disable-data-fetching="true"
+            @select-item="updateSelection"
+            @page-change="onPageChange"
+            @column-sort="onSortColumn"
+            @update-records="updateTotal"
         >
             <template #[`preview-${listHelper.getPreviewColumn()}`]="{ item }">
                 <sw-media-preview-v2
-                        v-if="mediaProperty"
-                        :source="previewMediaSource(item)"
+                    v-if="mediaProperty"
+                    :source="previewMediaSource(item)"
                 />
             </template>
 
             <template
-                    v-for="dateProperty in listHelper.dateProperties"
-                    #[`column-${dateProperty}`]="{ item }"
+                v-for="dateProperty in listHelper.dateProperties"
+                #[`column-${dateProperty}`]="{ item }"
             >
                 {{ dateFilter(item[dateProperty], { hour: '2-digit', minute: '2-digit' }) }}
             </template>
 
             <template
-                    v-for="props in listHelper.getCurrenciesAndPriceProperties()"
-                    #[`column-${props.priceProperty}-${props.currency.isoCode}`]="{ item }"
+                v-for="props in listHelper.getCurrenciesAndPriceProperties()"
+                #[`column-${props.priceProperty}-${props.currency.isoCode}`]="{ item }"
             >
                 {{ currencyFilter(
                     getCurrencyPriceByCurrencyId(props.currency.id,item[props.priceProperty]).gross,props.currency.isoCode
@@ -99,19 +96,17 @@
                 </sw-context-menu-item>
             </template>
         </sw-entity-listing>
-
         <moorl-csv-import
-                v-if="showImportModal"
-                :entity="entity"
-                :onCloseModal="onCloseModal"
-                :onFinishImport="getList"
+            v-if="showImportModal"
+            :entity="entity"
+            :onCloseModal="onCloseModal"
+            :onFinishImport="getList"
         />
-
         <moorl-csv-export
-                v-if="showExportModal"
-                :entity="entity"
-                :onCloseModal="onCloseModal"
-                :selectedItems="selection"
+            v-if="showExportModal"
+            :entity="entity"
+            :onCloseModal="onCloseModal"
+            :selectedItems="selection"
         />
     </template>
 </sw-page>

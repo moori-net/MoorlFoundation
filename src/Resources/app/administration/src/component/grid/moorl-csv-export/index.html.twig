@@ -1,47 +1,56 @@
 <sw-modal
-        v-if="showExportModal"
-        :title="$tc('moorl-csv-export.title')"
-        @modal-close="onCancel"
-        variant="default"
-        class="moorl-csv-export"
-        :closable="false"
+    v-if="showExportModal"
+    :title="$tc('moorl-csv-export.title')"
+    @modal-close="onCancel"
+    variant="default"
+    class="moorl-csv-export"
+    :closable="false"
 >
-    <sw-container class="moorl-csv-export__top-bar" columns="1fr" gap="10px">
+    <sw-container
+        class="moorl-csv-export__top-bar"
+        columns="1fr"
+        gap="10px"
+    >
         <template v-if="step == 1">
-            <sw-switch-field
-                    bordered
-                    :label="$tc('moorl-csv-export.localTable')"
-                    v-model:value="options.localTable"
+            <mt-switch
+                bordered
+                :label="$tc('moorl-csv-export.localTable')"
+                v-model="options.localTable"
             />
-
-            <p class="info">{{ $t('moorl-csv-export.introText') }}</p>
+            <p class="info">
+                {{ $t('moorl-csv-export.introText') }}
+            </p>
         </template>
 
         <template v-if="step == 2 && items.length > 0">
-            <sw-progress-bar :value="items.length" :maxValue="total"/>
-
-            <p class="info">{{ $tc('moorl-csv-export.process') }}</p>
+            <mt-progress-bar
+                :value="items.length"
+                :maxValue="total"
+            />
+            <p class="info">
+                {{ $tc('moorl-csv-export.process') }}
+            </p>
         </template>
 
         <template v-if="step == 3">
-            <p class="info">{{ $tc('moorl-csv-export.completedMessage') }}</p>
+            <p class="info">
+                {{ $tc('moorl-csv-export.completedMessage') }}
+            </p>
         </template>
     </sw-container>
-
     <template #modal-footer>
         <mt-button
-                @click="onCancel"
-                size="small"
-                variant="secondary"
+            @click="onCancel"
+            size="small"
+            variant="secondary"
         >
             {{ $tc('global.default.cancel') }}
         </mt-button>
-
         <mt-button
-                v-if="step == 1"
-                @click="onClickExport"
-                variant="primary"
-                size="small"
+            v-if="step == 1"
+            @click="onClickExport"
+            variant="primary"
+            size="small"
         >
             {{ $tc('global.default.apply') }}
         </mt-button>

@@ -1,92 +1,91 @@
 <sw-page :class="componentName">
     {% block moorl_page_detail_smart_bar_back %}
-        <!--template #smart-bar-back></template-->
+    <!-- template #smart-bar-back></template -->
     {% endblock %}
-
     <template #smart-bar-header>
         {% block moorl_page_detail_smart_bar_header %}
-            <h2>{{ itemName }}</h2>
+        <h2>{{ itemName }}</h2>
         {% endblock %}
     </template>
 
     <template #smart-bar-actions>
         {% block moorl_page_detail_smart_bar_actions %}
-            <mt-button
-                    variant="secondary"
-                    size="default"
-                    @click="onCancel"
+        <mt-button
+            variant="secondary"
+            size="default"
+            @click="onCancel"
+        >
+            {{ $tc('global.default.cancel') }}
+        </mt-button>
+        <sw-button-group :split-button="true">
+            <sw-button-process
+                v-model:process-success="isSaveSuccessful"
+                variant="primary"
+                :is-loading="isLoading"
+                :disabled="isLoading"
+                @click="onSaveItem"
             >
-                {{ $tc('global.default.cancel') }}
-            </mt-button>
-
-            <sw-button-group :split-button="true">
-                <sw-button-process
-                        v-model:process-success="isSaveSuccessful"
+                {{ $tc('global.default.save') }}
+            </sw-button-process>
+            <sw-context-button v-if="!isNewItem">
+                <template #button>
+                    <mt-button
+                        square
                         variant="primary"
-                        :is-loading="isLoading"
                         :disabled="isLoading"
-                        @click="onSaveItem"
-                >
-                    {{ $tc('global.default.save') }}
-                </sw-button-process>
-
-                <sw-context-button v-if="!isNewItem">
-                    <template #button>
-                        <mt-button
-                                square
-                                variant="primary"
-                                :disabled="isLoading"
-                                size="default"
-                        >
-                            <mt-icon name="regular-chevron-down-xs" size="16"/>
-                        </mt-button>
-                    </template>
-
-                    <sw-context-menu-item @click="onDuplicateItem">
-                        {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
-                    </sw-context-menu-item>
-                </sw-context-button>
-            </sw-button-group>
-
-            <mt-button
-                    v-if="!isNewItem"
-                    variant="critical"
-                    size="default"
-                    @click="showConfirmDeleteModal = true"
-            >
-                {{ $tc('global.default.delete') }}
-            </mt-button>
+                        size="default"
+                    >
+                        <mt-icon
+                            name="regular-chevron-down-xs"
+                            size="16"
+                        />
+                    </mt-button>
+                </template>
+                <sw-context-menu-item @click="onDuplicateItem">
+                    {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
+                </sw-context-menu-item>
+            </sw-context-button>
+        </sw-button-group>
+        <mt-button
+            v-if="!isNewItem"
+            variant="critical"
+            size="default"
+            @click="showConfirmDeleteModal = true"
+        >
+            {{ $tc('global.default.delete') }}
+        </mt-button>
         {% endblock %}
     </template>
 
     <template #language-switch>
         {% block moorl_page_detail_language_switch %}
-            <sw-language-switch v-if="translatable" @on-change="onChangeLanguage"/>
+        <sw-language-switch
+            v-if="translatable"
+            @on-change="onChangeLanguage"
+        />
         {% endblock %}
     </template>
 
     <template #content>
         <div v-if="isLoading">
-            <sw-skeleton />
-            <sw-skeleton />
+            <sw-skeleton/>
+            <sw-skeleton/>
         </div>
-
         <template v-if="!isLoading">
             {% block moorl_page_detail_content %}
-                <moorl-page-detail
-                        v-model:item="item"
-                        :entity="entity"
-                        :componentName="componentName"
-                />
+            <moorl-page-detail
+                v-model:item="item"
+                :entity="entity"
+                :componentName="componentName"
+            />
             {% endblock %}
         </template>
-
         <sw-confirm-modal
-                v-if="showConfirmDeleteModal"
-                type="delete"
-                @confirm="onConfirmDeleteItem"
-                @close="showConfirmDeleteModal = false"
-                @cancel="showConfirmDeleteModal = false"
+            v-if="showConfirmDeleteModal"
+            type="delete"
+            @confirm="onConfirmDeleteItem"
+            @close="showConfirmDeleteModal = false"
+            @cancel="showConfirmDeleteModal = false"
         />
     </template>
 

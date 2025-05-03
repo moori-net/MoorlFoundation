@@ -1,87 +1,85 @@
 {% block moorl_item_detail_form_detail %}
     <sw-tabs
-            v-if="!isLoading"
-            :key="entity"
-            :default-item="defaultTab"
-            class="moorl-item-detail-form"
+        v-if="!isLoading"
+        :key="entity"
+        :default-item="defaultTab"
+        class="moorl-item-detail-form"
     >
         <template #default="{ active }">
             <sw-tabs-item
-                    v-for="tab in formStruct.tabs"
-                    :key="tab.id"
-                    :name="tab.id"
-                    :activeTab="active"
-                    :disabled="isDisabledTab(tab)"
+                v-for="tab in formStruct.tabs"
+                :key="tab.id"
+                :name="tab.id"
+                :activeTab="active"
+                :disabled="isDisabledTab(tab)"
             >
                 {{ tab.label }}
             </sw-tabs-item>
-
             {% block moorl_item_detail_form_detail_tabs %}
-                <!--template v-if="componentName === '...'">
+            <!-- template v-if="componentName === '...'">
                     Add custom tabs here
-                </template-->
+                </template -->
             {% endblock %}
         </template>
 
         <template #content="{ active }">
             <template
-                    v-for="tab in formStruct.tabs"
-                    :key="tab.id"
+                v-for="tab in formStruct.tabs"
+                :key="tab.id"
             >
                 <template v-if="active === tab.id">
                     <template
-                            v-for="card in tab.cards"
-                            :key="card.id"
+                        v-for="card in tab.cards"
+                        :key="card.id"
                     >
                         <template v-if="card.standalone">
                             <template
-                                    v-for="field in card.fields"
-                                    :key="field.name"
+                                v-for="field in card.fields"
+                                :key="field.name"
                             >
                                 <component
-                                        v-if="isVisible(field)"
-                                        :is="field.componentName"
-                                        v-bind="field.attributes"
-                                        :style="getStyle(field)"
+                                    v-if="isVisible(field)"
+                                    :is="field.componentName"
+                                    v-bind="field.attributes"
+                                    :style="getStyle(field)"
                                 />
                             </template>
                         </template>
-
                         <mt-card
-                                v-else
-                                :title="card.label"
-                                :class="card.id + '-card moorl-item-detail-form__card'"
+                            v-else
+                            :title="card.label"
+                            :class="card.id + '-card moorl-item-detail-form__card'"
                         >
-                            <sw-alert
-                                    v-if="translationHelper.getNotification(card.id)"
-                                    variant="warning"
+                            <mt-banner
+                                v-if="translationHelper.getNotification(card.id)"
+                                variant="attention"
                             >
                                 {{ translationHelper.getNotification(card.id) }}
-                            </sw-alert>
-
+                            </mt-banner>
                             <template
-                                    v-for="field in card.fields"
-                                    :key="field.name"
+                                v-for="field in card.fields"
+                                :key="field.name"
                             >
-                                <div v-if="field.newline" class="newline"></div>
-
+                                <div
+                                    v-if="field.newline"
+                                    class="newline"
+                                ></div>
                                 <div :style="getStyle(field)">
                                     <!-- Meteor components without model -->
                                     <component
-                                            v-if="field.model === undefined"
-                                            :is="field.componentName"
-                                            v-model="fieldModels[field.name]"
-                                            v-bind="fieldAttributes(field)"
-                                            :error="getError(field)"
+                                        v-if="field.model === undefined"
+                                        :is="field.componentName"
+                                        v-model="fieldModels[field.name]"
+                                        v-bind="fieldAttributes(field)"
+                                        :error="getError(field)"
                                     />
-
                                     <!-- Other components with model -->
                                     <component
-                                            v-else
-                                            :is="field.componentName"
-                                            v-model:[field.model]="fieldModels[field.name]"
-                                            v-bind="fieldAttributes(field)"
-                                            :error="getError(field)"
+                                        v-else
+                                        :is="field.componentName"
+                                        v-model:[field.model]="fieldModels[field.name]"
+                                        v-bind="fieldAttributes(field)"
+                                        :error="getError(field)"
                                     />
                                 </div>
                             </template>
@@ -89,11 +87,10 @@
                     </template>
                 </template>
             </template>
-
             {% block moorl_item_detail_form_detail_content %}
-                <!--template v-if="componentName === '...' && active === '...'">
+            <!-- template v-if="componentName === '...' && active === '...'">
                     Add custom content here
-                </template-->
+                </template -->
             {% endblock %}
         </template>
     </sw-tabs>

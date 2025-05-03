@@ -1,7 +1,7 @@
 <sw-entity-multi-select
-        v-model:entityCollection="productCollection"
-        :context="productSearchContext"
-        :criteria="productSearchCriteria"
+    v-model:entityCollection="productCollection"
+    :context="productSearchContext"
+    :criteria="productSearchCriteria"
 >
     <template #selection-label-property="{ item }">
         <sw-product-variant-info :variations="item.variation">

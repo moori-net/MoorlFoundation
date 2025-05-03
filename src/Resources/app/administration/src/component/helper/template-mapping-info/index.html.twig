@@ -4,44 +4,47 @@
             <pre v-pre>{{ salesChannel.name }}</pre>
         </template>
     </moorl-collapse>
-
     <moorl-collapse :label="$tc('moorl-template-mapping-info.customer')">
         <template #content>
-<pre v-pre>{{ customer.firstName }}
-{{ customer.lastName }}
-{{ customer.email }}
-{{ customer.phone }}
-{{ customer.subject }}
-{{ customer.comment }}</pre>
+            <pre v-pre>
+                {{ customer.firstName }}
+                {{ customer.lastName }}
+                {{ customer.email }}
+                {{ customer.phone }}
+                {{ customer.subject }}
+                {{ customer.comment }}
+            </pre>
         </template>
     </moorl-collapse>
-
     <moorl-collapse :label="$tc('moorl-template-mapping-info.order')">
         <template #content>
-<pre v-pre>{{ order.orderNumber }}
-{{ order.orderCustomer.email }}
-{{ order.comment }}</pre>
+            <pre v-pre>
+                {{ order.orderNumber }}
+                {{ order.orderCustomer.email }}
+                {{ order.comment }}
+            </pre>
         </template>
     </moorl-collapse>
-
     <moorl-collapse :label="$tc('moorl-template-mapping-info.contactFormData')">
         <template #content>
-<pre v-pre>{{ contactFormData.firstName }}
-{{ contactFormData.lastName }}
-{{ contactFormData.email }}
-{{ contactFormData.phone }}
-{{ contactFormData.subject }}
-{{ contactFormData.comment }}</pre>
+            <pre v-pre>
+                {{ contactFormData.firstName }}
+                {{ contactFormData.lastName }}
+                {{ contactFormData.email }}
+                {{ contactFormData.phone }}
+                {{ contactFormData.subject }}
+                {{ contactFormData.comment }}
+            </pre>
         </template>
     </moorl-collapse>
-
     <moorl-collapse :label="$tc('moorl-template-mapping-info.newsletterRecipient')">
         <template #content>
-<pre v-pre>{{ newsletterRecipient.firstName }}
-{{ newsletterRecipient.lastName }}
-{{ newsletterRecipient.email }}</pre>
+            <pre v-pre>
+                {{ newsletterRecipient.firstName }}
+                {{ newsletterRecipient.lastName }}
+                {{ newsletterRecipient.email }}
+            </pre>
         </template>
     </moorl-collapse>
-
     <p>&nbsp;</p>
 </div>

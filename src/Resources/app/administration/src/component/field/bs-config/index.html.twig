@@ -4,42 +4,39 @@
             <label>{{ label }}</label>
         </div>
     </div>
-
     <div class="moorl-bs-config-items">
-        <div class="moorl-bs-config-item"
-             v-for="behaviour in defaultBehaviour">
+        <div
+            class="moorl-bs-config-item"
+            v-for="behaviour in defaultBehaviour"
+        >
             <div class="moorl-bs-config-icon">
                 <mt-icon :name="behaviour.icon"/>
                 <span>{{ behaviour.breakpoint }}</span>
             </div>
-
-            <sw-switch-field
-                    v-if="showInherit"
-                    :label="$tc('moorl-bs-config.label.inherit')"
-                    v-model:value="value[behaviour.breakpoint].inherit"
-                    v-tooltip="helpText(behaviour.breakpoint,'inherit')"
+            <mt-switch
+                v-if="showInherit"
+                :label="$tc('moorl-bs-config.label.inherit')"
+                v-model="value[behaviour.breakpoint].inherit"
+                v-tooltip="helpText(behaviour.breakpoint,'inherit')"
             />
-
-            <sw-switch-field
-                    :disabled="value[behaviour.breakpoint].inherit"
-                    v-if="showShow"
-                    :label="$tc('moorl-bs-config.label.show')"
-                    v-model:value="value[behaviour.breakpoint].show"
-                    v-tooltip="helpText(behaviour.breakpoint,'show')"
+            <mt-switch
+                :disabled="value[behaviour.breakpoint].inherit"
+                v-if="showShow"
+                :label="$tc('moorl-bs-config.label.show')"
+                v-model="value[behaviour.breakpoint].show"
+                v-tooltip="helpText(behaviour.breakpoint,'show')"
             />
-
             <moorl-select-field
-                    :disabled="value[behaviour.breakpoint].inherit"
-                    v-model:value="value[behaviour.breakpoint].width"
-                    v-tooltip="helpText(behaviour.breakpoint,'width')"
-                    set="bsGridWidth"
+                :disabled="value[behaviour.breakpoint].inherit"
+                v-model:value="value[behaviour.breakpoint].width"
+                v-tooltip="helpText(behaviour.breakpoint,'width')"
+                set="bsGridWidth"
             />
-
             <moorl-select-field
-                    :disabled="value[behaviour.breakpoint].inherit"
-                    v-model:value="value[behaviour.breakpoint].order"
-                    v-tooltip="helpText(behaviour.breakpoint,'order')"
-                    set="bsGridOrder"
+                :disabled="value[behaviour.breakpoint].inherit"
+                v-model:value="value[behaviour.breakpoint].order"
+                v-tooltip="helpText(behaviour.breakpoint,'order')"
+                set="bsGridOrder"
             />
         </div>
     </div>

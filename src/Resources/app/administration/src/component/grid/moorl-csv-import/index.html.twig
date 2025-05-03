@@ -1,17 +1,21 @@
 <sw-modal
-        v-if="showImportModal"
-        :title="$tc('moorl-csv-import.title')"
-        @modal-close="onCancel"
-        variant="large"
-        class="moorl-csv-import"
-        :closable="false"
+    v-if="showImportModal"
+    :title="$tc('moorl-csv-import.title')"
+    @modal-close="onCancel"
+    variant="large"
+    class="moorl-csv-import"
+    :closable="false"
 >
-    <sw-container class="moorl-csv-import__top-bar" columns="1fr" gap="10px">
+    <sw-container
+        class="moorl-csv-import__top-bar"
+        columns="1fr"
+        gap="10px"
+    >
         <template v-if="step == 1">
             <sw-file-input
-                    v-model:value="csvFile"
-                    :allowed-mime-types="['text/csv']"
-                    @update:value="onFileInputChange"
+                v-model:value="csvFile"
+                :allowed-mime-types="['text/csv']"
+                @update:value="onFileInputChange"
             >
                 <template #caption-label>
                     {{ $tc('sw-import-export.importer.labelUploadCaption') }}
@@ -20,112 +24,132 @@
         </template>
 
         <template v-if="step == 2">
-            <sw-switch-field
-                    bordered
-                    :label="$t('moorl-csv-import.overwriteLabel', { properties: getUniquePropertyLabels() })"
-                    v-model:value="options.overwrite"
+            <mt-switch
+                bordered
+                :label="$t('moorl-csv-import.overwriteLabel', { properties: getUniquePropertyLabels() })"
+                v-model="options.overwrite"
             />
-
-            <sw-switch-field
-                    bordered
-                    :label="$tc('moorl-csv-import.pauseLabel')"
-                    v-model:value="options.pause"
+            <mt-switch
+                bordered
+                :label="$tc('moorl-csv-import.pauseLabel')"
+                v-model="options.pause"
             />
-
-            <sw-switch-field
-                    bordered
-                    :label="$tc('moorl-csv-import.validateIdsLabel')"
-                    v-model:value="options.validateIds"
+            <mt-switch
+                bordered
+                :label="$tc('moorl-csv-import.validateIdsLabel')"
+                v-model="options.validateIds"
             />
-
             <sw-entity-single-select
-                    :placeholder="$tc('moorl-csv-import.mediaFolder')"
-                    v-model:value="options.mediaFolderId"
-                    entity="media_folder"
+                :placeholder="$tc('moorl-csv-import.mediaFolder')"
+                v-model:value="options.mediaFolderId"
+                entity="media_folder"
             />
-
-            <p class="info">{{ $t('moorl-csv-import.loadedText', { count: rowCount }) }}</p>
+            <p class="info">
+                {{ $t('moorl-csv-import.loadedText', { count: rowCount }) }}
+            </p>
         </template>
 
         <template v-if="step == 3">
-            <sw-progress-bar :value="rowsDone" :maxValue="rowCount"/>
-
+            <mt-progress-bar
+                :value="rowsDone"
+                :maxValue="rowCount"
+            />
             <p class="info">{{ statusMessage }}</p>
         </template>
 
         <template v-if="step == 4">
-            <sw-progress-bar :value="rowsDone" :maxValue="rowCount"/>
-
-            <p class="info">{{ $t('moorl-csv-import.completedMessage', { skipped: rowsSkipped, new: rowsNew, total: rowsDone, errors: errorCount }) }}</p>
+            <mt-progress-bar
+                :value="rowsDone"
+                :maxValue="rowCount"
+            />
+            <p class="info">
+                {{ $t('moorl-csv-import.completedMessage', { skipped: rowsSkipped, new: rowsNew, total: rowsDone, errors: errorCount }) }}
+            </p>
         </template>
     </sw-container>
-
     <template v-if="step == 2">
         <div class="sw-data-grid is-scroll-x">
             <div class="sw-data-grid__wrapper">
                 <table class="sw-data-grid__table">
                     <thead class="sw-data-grid__header">
-                    <tr class="sw-data-grid__row">
-                        <th class="sw-data-grid__cell sw-data-grid__cell--header">
-                            <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value">{{ $tc('moorl-csv-import.property') }}</span>
-                            </div>
-                        </th>
-
-                        <th class="sw-data-grid__cell sw-data-grid__cell--header">
-                            <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value">{{ $t('moorl-csv-import.mapping') }}</span>
-                            </div>
-                        </th>
-
-                        <th class="sw-data-grid__cell sw-data-grid__cell--header">
-                            <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value">{{ $t('moorl-csv-import.choseDefault') }}</span>
-                            </div>
-                        </th>
-                    </tr>
+                        <tr class="sw-data-grid__row">
+                            <th
+                                class="sw-data-grid__cell sw-data-grid__cell--header"
+                            >
+                                <div class="sw-data-grid__cell-content">
+                                    <span class="sw-data-grid__cell-value">
+                                        {{ $tc('moorl-csv-import.property') }}
+                                    </span>
+                                </div>
+                            </th>
+                            <th
+                                class="sw-data-grid__cell sw-data-grid__cell--header"
+                            >
+                                <div class="sw-data-grid__cell-content">
+                                    <span class="sw-data-grid__cell-value">
+                                        {{ $t('moorl-csv-import.mapping') }}
+                                    </span>
+                                </div>
+                            </th>
+                            <th
+                                class="sw-data-grid__cell sw-data-grid__cell--header"
+                            >
+                                <div class="sw-data-grid__cell-content">
+                                    <span class="sw-data-grid__cell-value">
+                                        {{ $t('moorl-csv-import.choseDefault') }}
+                                    </span>
+                                </div>
+                            </th>
+                        </tr>
                     </thead>
                     <tbody class="sw-data-grid__body">
-                    <tr v-for="column in columns" class="sw-data-grid__row">
-                        <td class="sw-data-grid__cell">
-                            <div class="sw-data-grid__cell-content">
-                                <span class="sw-data-grid__cell-value" :class="column.flags.required ? 'required' : ''">
-                                    {{ column.localField || column.property }} {{ column.flags.required ? '*' : '' }}
-                                </span>
-                            </div>
-                        </td>
-
-                        <td class="sw-data-grid__cell">
-                            <div class="sw-data-grid__cell-content">
-                                <moorl-select-field
+                        <tr
+                            v-for="column in columns"
+                            class="sw-data-grid__row"
+                        >
+                            <td class="sw-data-grid__cell">
+                                <div class="sw-data-grid__cell-content">
+                                    <span
+                                        class="sw-data-grid__cell-value"
+                                        :class="column.flags.required ? 'required' : ''"
+                                    >
+                                        {{ column.localField || column.property }}
+                                        {{ column.flags.required ? '*' : '' }}
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="sw-data-grid__cell">
+                                <div class="sw-data-grid__cell-content">
+                                    <moorl-select-field
                                         v-if="column.localField"
                                         v-model:value="mapping[column.localField]"
                                         :customSet="properties"
                                         showClearableButton
-                                />
-
-                                <moorl-select-field
+                                    />
+                                    <moorl-select-field
                                         v-else
                                         v-model:value="mapping[column.property]"
                                         :customSet="properties"
                                         showClearableButton
-                                />
-                            </div>
-                        </td>
-
-                        <td class="sw-data-grid__cell">
-                            <div class="sw-data-grid__cell-content">
-                                <moorl-entity-form-element
+                                    />
+                                </div>
+                            </td>
+                            <td class="sw-data-grid__cell">
+                                <div class="sw-data-grid__cell-content">
+                                    <moorl-entity-form-element
                                         v-if="!column.flags.primary_key && !column.flags.moorl_unique"
                                         :value="selectedItem"
                                         :column="column"
-                                />
-                                <span v-else class="sw-data-grid__cell-value">
-                                    {{ $tc('moorl-csv-import.isUnique') }}
-                                </span>
-                            </div>
-                        </td>
-                    </tr>
+                                    />
+                                    <span
+                                        v-else
+                                        class="sw-data-grid__cell-value"
+                                    >
+                                        {{ $tc('moorl-csv-import.isUnique') }}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -134,36 +158,33 @@
 
     <template #modal-footer>
         <mt-button
-                @click="onCancel"
-                size="small"
-                variant="secondary"
+            @click="onCancel"
+            size="small"
+            variant="secondary"
         >
             {{ $tc('global.default.cancel') }}
         </mt-button>
-
         <mt-button
-                v-if="step > 1"
-                @click="onClickBack"
-                variant="secondary"
-                size="small"
+            v-if="step > 1"
+            @click="onClickBack"
+            variant="secondary"
+            size="small"
         >
             {{ $tc('moorl-foundation.button.back') }}
         </mt-button>
-
         <mt-button
-                v-if="step == 2"
-                @click="onClickImport"
-                variant="primary"
-                size="small"
+            v-if="step == 2"
+            @click="onClickImport"
+            variant="primary"
+            size="small"
         >
             {{ $tc('global.default.apply') }}
         </mt-button>
-
         <mt-button
-                v-if="step == 3 && options.pause"
-                @click="onClickPause"
-                size="small"
-                variant="secondary"
+            v-if="step == 3 && options.pause"
+            @click="onClickPause"
+            size="small"
+            variant="secondary"
         >
             {{ pause ? $tc('moorl-foundation.button.resume') : $tc('moorl-foundation.button.pause') }}
         </mt-button>

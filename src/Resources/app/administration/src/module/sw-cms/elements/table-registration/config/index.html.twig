@@ -1,11 +1,19 @@
 <div class="sw-cms-el-config-moorl-table-registration">
-    <sw-tabs class="sw-cms-el-config-image-gallery__tabs" default-item="content">
+    <sw-tabs
+        class="sw-cms-el-config-image-gallery__tabs"
+        default-item="content"
+    >
         <template #default="{ active }">
-            <sw-tabs-item name="content" :activeTab="active">
+            <sw-tabs-item
+                name="content"
+                :activeTab="active"
+            >
                 {{ $tc('sw-cms.elements.general.config.tab.content') }}
             </sw-tabs-item>
-
-            <sw-tabs-item name="settings" :activeTab="active">
+            <sw-tabs-item
+                name="settings"
+                :activeTab="active"
+            >
                 {{ $tc('sw-cms.elements.general.config.tab.settings') }}
             </sw-tabs-item>
         </template>
@@ -16,18 +24,16 @@
                     v-model:value="element.config.content.value"
                     :label="$tc('sw-cms.elements.moorl-table-registration.label.content')"
                 />
-
-                <sw-switch-field
+                <mt-switch
                     :label="$tc('sw-cms.elements.moorl-table-registration.label.privacyActive')"
-                    v-model:value="element.config.privacyActive.value"
+                    v-model="element.config.privacyActive.value"
                     bordered
                 />
             </sw-container>
-
             <sw-container v-if="active === 'settings'">
                 <moorl-select-field
-                        v-model:value="element.config.verticalAlign.value"
-                        set="flexVerticalAlign"
+                    v-model:value="element.config.verticalAlign.value"
+                    set="flexVerticalAlign"
                 />
             </sw-container>
         </template>

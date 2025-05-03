@@ -1,4 +1,4 @@
-<sw-card
+<mt-card
     class="moorl-sorting-option-criteria-grid__criteria-card"
     position-identifier="moorl-sorting-option-criteria-grid"
     :title="$tc('moorl-sorting.general.criteria')"
@@ -14,7 +14,6 @@
             @update:value="onAddCriteria"
         />
     </template>
-
     <sw-data-grid
         v-if="item && item.fields.length > 0"
         ref="dataGrid"
@@ -39,7 +38,6 @@
             <div v-if="!isInlineEdit">
                 {{ getOrderSnippet(item.order) }}
             </div>
-
             <sw-single-select
                 v-else
                 v-model:value="item.order"
@@ -60,18 +58,17 @@
             </sw-context-menu-item>
         </template>
     </sw-data-grid>
-
     <sw-empty-state
         v-else
         class="moorl-sorting-option-criteria-grid__criteria-empty-state"
-        title=""
+        title
         :subline="$tc('sorting.base.criteria.emptyStateSubline')"
     >
         <template #icon>
             <img
                 :src="'administration/administration/static/img/empty-states/settings-empty-state.svg' | asset"
-                alt=""
-            >
+                alt
+            />
         </template>
     </sw-empty-state>
-</sw-card>
+</mt-card>

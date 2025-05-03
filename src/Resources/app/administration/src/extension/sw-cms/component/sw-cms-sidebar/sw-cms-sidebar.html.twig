@@ -2,30 +2,31 @@
     <template v-if="isSectionGrid(section) && isSectionGridInitialized(section)">
         <template v-for="gridCol in sectionColumnCount(section)">
             <div class="sw-cms-sidebar__navigator-section-spacer"></div>
-
-            <template v-if="getSectionGridContentBlocks(section.blocks, gridCol).length > 0">
+            <template
+                v-if="getSectionGridContentBlocks(section.blocks, gridCol).length > 0"
+            >
                 <template
-                        v-for="block in getSectionGridContentBlocks(section.blocks, gridCol)"
-                        :key="block.id"
+                    v-for="block in getSectionGridContentBlocks(section.blocks, gridCol)"
+                    :key="block.id"
                 >
                     <sw-cms-sidebar-nav-element
-                            v-draggable="getSectionGridDragData(block, sectionIndex, gridCol)"
-                            v-droppable="getSectionGridDropData(block, sectionIndex, gridCol)"
-                            :block="block"
-                            class="sw-cms-sidebar__navigator-block"
-                            :removable="blockIsRemovable(block)"
-                            :class="{ 'is--dragging': block.isDragging }"
-                            @block-delete="onBlockDelete($event, section)"
-                            @block-duplicate="onBlockDuplicate($event, section)"
+                        v-draggable="getSectionGridDragData(block, sectionIndex, gridCol)"
+                        v-droppable="getSectionGridDropData(block, sectionIndex, gridCol)"
+                        :block="block"
+                        class="sw-cms-sidebar__navigator-block"
+                        :removable="blockIsRemovable(block)"
+                        :class="{ 'is--dragging': block.isDragging }"
+                        @block-delete="onBlockDelete($event, section)"
+                        @block-duplicate="onBlockDuplicate($event, section)"
                     />
                 </template>
             </template>
 
             <template v-else>
                 <div
-                        :key="section.id + '_column_' + gridCol"
-                        v-droppable="getSectionGridDropData({ position: 0 }, sectionIndex, gridCol)"
-                        class="sw-cms-sidebar__navigator-empty-element"
+                    :key="section.id + '_column_' + gridCol"
+                    v-droppable="getSectionGridDropData({ position: 0 }, sectionIndex, gridCol)"
+                    class="sw-cms-sidebar__navigator-empty-element"
                 >
                     {{ $tc('sw-cms.detail.label.addBlocks') }}
                 </div>
