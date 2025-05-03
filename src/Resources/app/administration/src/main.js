@@ -20,8 +20,6 @@ MoorlFoundation.ModuleHelper.registerModule({
     ]
 });
 
-import './module/client/page/detail'; // Override!
-
 MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_cms_element_config',
     name: 'moorl-cms-element-config',

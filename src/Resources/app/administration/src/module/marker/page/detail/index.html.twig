@@ -1,31 +1,29 @@
 {% block moorl_page_detail_content %}
     <sw-card-view>
-        <sw-card :title="$tc('moorl-marker.card.general')">
-            <sw-text-field
+        <mt-card :title="$tc('moorl-foundation.card.general')">
+            <mt-text-field
                     :label="$tc('moorl-foundation.field.name')"
-                    v-model:value="item.name"
+                    v-model="item.name"
                     required
-                    validation="required"
             />
 
-            <sw-text-field
+            <mt-text-field
                     :label="$tc('moorl-foundation.field.type')"
-                    v-model:value="item.type"
+                    v-model="item.type"
             />
 
-            <sw-text-field
+            <mt-text-field
                     :label="$tc('moorl-foundation.field.cssClass')"
-                    v-model:value="item.className"
+                    v-model="item.className"
             />
 
-            <sw-textarea-field
+            <mt-textarea-field
                     :label="$tc('moorl-foundation.field.svg')"
-                    :helpText="$tc('moorl-marker.helpText.svg')"
-                    v-model:value="item.svg"
+                    v-model="item.svg"
             />
-        </sw-card>
+        </mt-card>
 
-        <sw-card :title="$tc('moorl-foundation.label.markerCard')">
+        <mt-card :title="$tc('moorl-foundation.card.media')">
             <div class="sw-field">
                 <sw-upload-listener
                         :uploadTag="uploadTagMarker"
@@ -73,18 +71,17 @@
                         :uploadTag="uploadTagMarkerShadow"
                         :source="item.markerShadowId"
                         :allowMultiSelect="false"
-                        :label="$tc('moorl-marker.properties.markerShadow')"
+                        :label="$tc('moorl-foundation.field.markerShadow')"
                         @sw-media-upload-media-upload-success="setMarkerShadowItem"
                         @media-drop="onDropMarkerShadow"
                         @media-upload-remove-image="onUnlinkMarkerShadow"
                 />
             </div>
-        </sw-card>
+        </mt-card>
 
         <sw-card :title="$tc('moorl-foundation.field.markerSettings')">
             <div class="sw-field">
                 <label>
-                    {{ $tc('moorl-marker.helpText.markerSettings') }}<br>
                     <a href="https://leafletjs.com/examples/custom-icons/" target="_blank" rel="noopener">
                         https://leafletjs.com/examples/custom-icons/
                     </a>
@@ -92,20 +89,20 @@
             </div>
 
             <sw-container columns="1fr 1fr" gap="0 20px">
-                <sw-number-field label="iconSizeX" v-model:value="item.markerSettings.iconSizeX"/>
-                <sw-number-field label="iconSizeY" v-model:value="item.markerSettings.iconSizeY"/>
-                <sw-number-field label="shadowSizeX" v-model:value="item.markerSettings.shadowSizeX"/>
-                <sw-number-field label="shadowSizeY" v-model:value="item.markerSettings.shadowSizeY"/>
-                <sw-number-field label="iconAnchorX" v-model:value="item.markerSettings.iconAnchorX"/>
-                <sw-number-field label="iconAnchorY" v-model:value="item.markerSettings.iconAnchorY"/>
-                <sw-number-field label="shadowAnchorX" v-model:value="item.markerSettings.shadowAnchorX"/>
-                <sw-number-field label="shadowAnchorY" v-model:value="item.markerSettings.shadowAnchorY"/>
-                <sw-number-field label="popupAnchorX" v-model:value="item.markerSettings.popupAnchorX"/>
-                <sw-number-field label="popupAnchorY" v-model:value="item.markerSettings.popupAnchorY"/>
+                <mt-number-field label="iconSizeX" v-model="item.markerSettings.iconSizeX"/>
+                <mt-number-field label="iconSizeY" v-model="item.markerSettings.iconSizeY"/>
+                <mt-number-field label="shadowSizeX" v-model="item.markerSettings.shadowSizeX"/>
+                <mt-number-field label="shadowSizeY" v-model="item.markerSettings.shadowSizeY"/>
+                <mt-number-field label="iconAnchorX" v-model="item.markerSettings.iconAnchorX"/>
+                <mt-number-field label="iconAnchorY" v-model="item.markerSettings.iconAnchorY"/>
+                <mt-number-field label="shadowAnchorX" v-model="item.markerSettings.shadowAnchorX"/>
+                <mt-number-field label="shadowAnchorY" v-model="item.markerSettings.shadowAnchorY"/>
+                <mt-number-field label="popupAnchorX" v-model="item.markerSettings.popupAnchorX"/>
+                <mt-number-field label="popupAnchorY" v-model="item.markerSettings.popupAnchorY"/>
             </sw-container>
         </sw-card>
 
-        <sw-card :title="$tc('moorl-marker.card.preview')">
+        <sw-card :title="$tc('moorl-foundation.card.preview')">
             <moorl-location :locations="locations" :options="['dragging']"/>
         </sw-card>
     </sw-card-view>

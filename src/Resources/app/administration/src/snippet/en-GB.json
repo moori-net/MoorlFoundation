@@ -9,6 +9,11 @@
   },
   "moorl-foundation": {
     "field": {
+      "region": "Region",
+      "accessKeyId": "Access-Key ID",
+      "accessKeySecret": "Access-Key secret",
+      "bucket": "Bucket",
+      "prefix": "Prefix",
       "percentage": "Prozentual",
       "discountPrice": "Rabatt-Preis",
       "items": "Einträge",
@@ -35,7 +40,7 @@
       "multipleSelection": "Mehrfachauswahl",
       "preview": "Vorschau",
       "markerIconsInfo": "Entpacken Sie das Plugin auf Ihrem Desktop, Sie finden die Markersymbole im Marker-Verzeichnis. Diese können Sie anschließend hier hochladen und Verwenden. Gehen Sie in die Plugin Einstellungen um die Marker zuzuweisen.",
-      "markerRetinaId": "Marker Retina",
+      "markerRetina": "Marker Retina",
       "hasCode": "Seriennummern verwenden",
       "none": "Keine Auswahl",
       "credentials": "Zugangsdaten",
@@ -71,7 +76,7 @@
       "image": "Image",
       "logo": "Logo",
       "markerId": "Marker",
-      "markerShadowId": "Marker Schatten",
+      "markerShadow": "Marker Schatten",
       "markerSettings": "Marker Einstellungen",
       "location": "Koordinaten",
       "updatedAt": "Updated at",
@@ -81,7 +86,6 @@
       "markerSettingsExample": "You can copy this example to adjust your custom marker settings.",
       "markerSettingsLink": "Leaflet custom marker example",
       "mediaId": "Media ID",
-      "markerShadow": "Marker shadow",
       "rating": "Bewertung",
       "ratingMax": "Max. Bewertung",
       "testimonials": "Testimonials",
@@ -520,6 +524,7 @@
       "time": "Zeit & Öffnungszeiten"
     },
     "card": {
+      "preview": "Vorschau",
       "meta": "Meta Informationen",
       "chapters": "Kapitel",
       "lessons": "Lektionen",
@@ -575,7 +580,9 @@
       "update": "Update",
       "refresh": "Refresh",
       "back": "Back",
-      "pause": "Pause"
+      "pause": "Pause",
+      "test": "Test",
+      "testConnection": "Test connection"
     }
   }
 }

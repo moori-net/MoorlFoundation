@@ -2,7 +2,7 @@ import template from './index.html.twig';
 
 const utils = Shopware.Utils;
 
-Shopware.Component.extend('moorl-marker-detail', 'moorl-abstract-page-detail', {
+Shopware.Component.override('moorl-marker-detail', {
     template,
 
     data() {

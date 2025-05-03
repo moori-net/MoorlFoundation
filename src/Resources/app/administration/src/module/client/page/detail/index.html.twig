@@ -7,21 +7,21 @@
             size="default"
             variant="primary"
     >
-        {{ $tc('moorl-foundation.button.testConnection') }}
+        {{ $tc('moorl-foundation.button.test') }}
     </mt-button>
 {% endblock %}
 
 {% block moorl_page_detail_content %}
     <sw-card-view>
         <sw-card :title="$tc('moorl-client.card.general')">
-            <sw-switch-field
+            <mt-switch
                     :label="$tc('moorl-foundation.field.active')"
-                    v-model:value="item.active"
+                    v-model="item.active"
             />
 
-            <sw-text-field
+            <mt-text-field
                     :label="$tc('moorl-foundation.field.name')"
-                    v-model:value="item.name"
+                    v-model="item.name"
                     required
                     validation="required"
             />
@@ -33,7 +33,7 @@
                     @update:value="resetConfig"
                     :customSet="options"
                     valueProperty="name"
-
+                    labelProperty="name"
             />
         </sw-card>
 
