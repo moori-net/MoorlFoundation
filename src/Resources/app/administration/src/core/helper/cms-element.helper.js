@@ -30,7 +30,7 @@ export default class CmsElementHelper {
 
     static cmsElementConfigCache = {};
 
-    static prepareCmsElementMapping(parent, cmsElementMapping) {
+    static fetchCmsElement(parent, cmsElementMapping) {
         if (defaultCmsElementMappings[parent] !== undefined) {
             const customMerge = (objValue, srcValue) => {
                 if (Array.isArray(objValue)) {return srcValue;}
@@ -147,10 +147,16 @@ export default class CmsElementHelper {
             }
         }
 
-        const {
-            defaultConfig,
-            abstractComponent
-        } = CmsElementHelper.prepareCmsElementMapping(parent, cmsElementMapping)
+        if (defaultCmsElementMappings[parent] !== undefined) {
+            const customMerge = (objValue, srcValue) => {
+                if (Array.isArray(objValue)) {return srcValue;}
+            };
+
+            cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
+        }
+
+        const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
+        const abstractComponent = `moorl-abstract-cms-${parent}`;
 
         plugin = plugin ?? 'MoorlFoundation';
         icon = icon ?? 'regular-view-grid';

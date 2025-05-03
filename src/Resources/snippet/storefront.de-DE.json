@@ -72,7 +72,7 @@
             "saturday": "Samstag",
             "sunday": "Sonntag"
         },
-        "buttons": {
+        "button": {
             "acceptCookie": "Cookie akzeptieren",
             "placeIdLink": "Route planen",
             "administrationButtonText": "Administration",
@@ -100,7 +100,7 @@
             "share": "Teilen",
             "toc": "Inhaltsverzeichnis"
         },
-        "properties": {
+        "field": {
             "product": "Produkt",
             "unitPrice": "Stückpreis",
             "subtotal": "Gesamt",

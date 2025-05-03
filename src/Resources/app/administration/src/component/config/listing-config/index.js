@@ -22,13 +22,13 @@ Shopware.Component.register('moorl-listing-config', {
     },
 
     created() {
-        const prepared = MoorlFoundation.CmsElementHelper.prepareCmsElementMapping('listing', defaultValue);
+        const fetched = MoorlFoundation.CmsElementHelper.fetchCmsElement('listing', defaultValue);
 
         if (!this.value) {
-            this.$emit('update:value', prepared.defaultConfig);
+            this.$emit('update:value', fetched.defaultConfig);
         }
 
-        this.cmsElementMapping = prepared.cmsElementMapping;
+        this.cmsElementMapping = fetched.cmsElementMapping;
 
         this.isLoading = false;
     },

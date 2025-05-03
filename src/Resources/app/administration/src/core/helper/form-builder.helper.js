@@ -54,7 +54,7 @@ export default class FormBuilderHelper {
 
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
 
-        this._buildImportExportProfile(this.entity, fields);
+        //this._buildImportExportProfile(this.entity, fields);
 
         for (const [property, field] of Object.entries(fields)) {
             if (
