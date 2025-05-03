@@ -26,17 +26,17 @@ const mapping = {
     title: {tab: 'general', card: 'contact', cols: 3},
     firstName: {tab: 'general', card: 'contact', cols: 3},
     lastName: {tab: 'general', card: 'contact', cols: 3},
-    email: {tab: 'general', card: 'contact', componentName: 'sw-email-field', cols: 6},
+    email: {tab: 'general', card: 'contact', componentName: 'mt-email-field', cols: 6},
     phoneNumber: {tab: 'general', card: 'contact', cols: 6},
-    shopUrl: {tab: 'general', card: 'contact', componentName: 'sw-url-field', cols: 6},
-    merchantUrl: {tab: 'general', card: 'contact', componentName: 'sw-url-field', cols: 6},
-    externalLink: {tab: 'general', card: 'contact', componentName: 'sw-url-field', cols: 6},
+    shopUrl: {tab: 'general', card: 'contact', componentName: 'mt-url-field', cols: 6},
+    merchantUrl: {tab: 'general', card: 'contact', componentName: 'mt-url-field', cols: 6},
+    externalLink: {tab: 'general', card: 'contact', componentName: 'mt-url-field', cols: 6},
 
     // Profile
     creatorType: {tab: 'general', card: 'profile'},
     followers: {tab: 'general', card: 'profile'},
     role: {tab: 'general', card: 'profile'},
-    link: {tab: 'general', card: 'profile', componentName: 'sw-url-field'},
+    link: {tab: 'general', card: 'profile', componentName: 'mt-url-field'},
     isBusiness: {tab: 'general', card: 'profile'},
     imprint: {tab: 'general', card: 'profile'},
 
@@ -267,8 +267,8 @@ const mapping = {
 
     // Media
     cover: {hidden: true},
-    color: {tab: 'general', card: 'media', componentName: 'sw-colorpicker', cols: 6},
-    bannerColor: {tab: 'general', card: 'media', componentName: 'sw-colorpicker', cols: 6},
+    color: {tab: 'general', card: 'media', componentName: 'mt-colorpicker', cols: 6},
+    bannerColor: {tab: 'general', card: 'media', componentName: 'mt-colorpicker', cols: 6},
     mediaFolder: {tab: 'general', card: 'media', cols: 6},
     icon: {tab: 'general', card: 'media', cols: 6},
     sgMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},

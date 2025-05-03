@@ -1,4 +1,6 @@
 {% block moorl_cms_element_config_form_detail %}
+    <mt-loader v-if="isLoading" />
+
     <sw-tabs
         v-if="!isLoading"
         :key="entity"

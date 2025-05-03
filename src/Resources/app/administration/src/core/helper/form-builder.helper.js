@@ -214,7 +214,10 @@ export default class FormBuilderHelper {
         column.label = this.translationHelper.getLabel('field', property);
 
         if (column.componentName && field.type !== 'association') {
-            column.model = 'value';
+            // Meteor components have no model value
+            if (!column.componentName.startsWith("mt-")) {
+                column.model = 'value';
+            }
         } else {
             switch (field.type) {
                 case 'string':
