@@ -102,7 +102,6 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
     watch: {
         '$route.params.id'() {
-            console.log('$route.params.id');
             this.loadItem();
         }
     },

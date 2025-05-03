@@ -18,9 +18,6 @@
                 {{ tab.label }}
             </sw-tabs-item>
             {% block moorl_item_detail_form_detail_tabs %}
-            <!-- template v-if="componentName === '...'">
-                    Add custom tabs here
-                </template -->
             {% endblock %}
         </template>
 
@@ -67,7 +64,6 @@
                                     class="newline"
                                 ></div>
                                 <div :style="getStyle(field)">
-                                    <!-- Meteor components without model -->
                                     <component
                                         v-if="field.model === undefined"
                                         :is="field.componentName"
@@ -75,7 +71,6 @@
                                         v-bind="fieldAttributes(field)"
                                         :error="getError(field)"
                                     />
-                                    <!-- Other components with model -->
                                     <component
                                         v-else
                                         :is="field.componentName"
@@ -90,9 +85,6 @@
                 </template>
             </template>
             {% block moorl_item_detail_form_detail_content %}
-            <!-- template v-if="componentName === '...' && active === '...'">
-                    Add custom content here
-                </template -->
             {% endblock %}
         </template>
     </sw-tabs>
