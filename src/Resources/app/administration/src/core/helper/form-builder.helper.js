@@ -54,7 +54,7 @@ export default class FormBuilderHelper {
 
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
 
-        this._buildImportExportProfile(fields);
+        this._buildImportExportProfile(this.entity, fields);
 
         for (const [property, field] of Object.entries(fields)) {
             if (
@@ -77,16 +77,24 @@ export default class FormBuilderHelper {
         return this.pageStruct;
     }
 
-    _buildImportExportProfile(fields) {
-        const typeOrder = ['uuid', 'boolean', 'int', 'float', 'string', 'text', 'date'];
+    _buildImportExportProfile(entity, fields, depth = 0, path = "") {
+        const typeOrder = ['uuid' ,'boolean', 'int', 'float', 'string', 'text', 'date', 'association'];
+        const blacklist = ['createdAt', 'updatedAt', 'translations', 'salesChannel', 'versionId'];
+        const whitelist = ['id', 'name', 'url', 'title', 'alt', 'taxRate'];
 
         function toSnakeCase(str) {
-            return str.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase();
+            return str
+                .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+                .replace(/([a-zA-Z])([0-9]+)/g, '$1_$2')
+                .replace(/\./g, '_')
+                .toLowerCase();
         }
 
         const array = Object.entries(fields)
             .map(([key, value]) => ({ key, ...value }))
             .filter(entry => typeOrder.includes(entry.type)) // nur erlaubte Typen
+            .filter(entry => !blacklist.includes(entry.key)) // nur erlaubte Typen
+            .filter(entry => depth === 0 || whitelist.includes(entry.key)) // nur erlaubte Typen
             .sort((a, b) => {
                 return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
             });
@@ -94,22 +102,39 @@ export default class FormBuilderHelper {
         const mapping = [];
 
         for (const index in array) {
+            if (array[index].type === 'uuid' && !array[index].flags.primary_key) {
+                continue;
+            }
+            if (array[index].type === 'association') {
+                if (depth === 0 && array[index].relation === 'many_to_one') {
+                    const aFields = Shopware.EntityDefinition.get(array[index].entity).properties;
+
+                    mapping.push(...this._buildImportExportProfile(array[index].entity, aFields, depth + 1, `${path}${array[index].key}.`));
+                }
+                continue;
+            }
             if (array[index].flags.translatable) {
                 mapping.push({
-                    key: `translations.DEFAULT.${array[index].key}`,
-                    mappedKey: toSnakeCase(array[index].key),
-                    position: parseInt(index)
+                    key: `${path}translations.DEFAULT.${array[index].key}`,
+                    mappedKey: toSnakeCase(path+array[index].key)
                 });
             } else {
                 mapping.push({
-                    key: `${array[index].key}`,
-                    mappedKey: toSnakeCase(array[index].key),
-                    position: parseInt(index)
+                    key: `${path}${array[index].key}`,
+                    mappedKey: toSnakeCase(path+array[index].key)
                 });
             }
         }
 
-        MoorlFoundation.Logger.log('FormBuilderHelper._buildImportExportProfile', 'mapping', mapping);
+        for (const index in mapping) {
+            mapping[index].position = parseInt(index);
+        }
+
+        if (depth === 0) {
+            MoorlFoundation.Logger.log('FormBuilderHelper._buildImportExportProfile', 'mapping', mapping);
+        }
+
+        return mapping;
     }
 
     _init() {
