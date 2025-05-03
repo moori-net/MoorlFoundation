@@ -2,6 +2,7 @@ import template from './index.html.twig';
 import './index.scss';
 import Papa from 'papaparse';
 
+const blacklist = ['createdAt', 'updatedAt', 'translations', 'salesChannel', 'versionId', 'translated'];
 const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-csv-import', {
@@ -200,7 +201,9 @@ Shopware.Component.register('moorl-csv-import', {
             ).properties;
 
             for (const [property, column] of Object.entries(properties)) {
-                // Since 6.3.5 there are new fields here
+                if (column.relation === 'one_to_many') {
+                    continue;
+                }
                 if (
                     column.relation === 'many_to_many' &&
                     column.localField !== null
@@ -209,11 +212,7 @@ Shopware.Component.register('moorl-csv-import', {
                     delete column.localField;
                     delete column.referenceField;
                 }
-
-                if (
-                    !column.flags.moorl_edit_field &&
-                    !column.flags.primary_key
-                ) {
+                if (blacklist.indexOf(property) !== -1) {
                     continue;
                 }
                 if (Object.keys(this.defaultItem).indexOf(property) !== -1) {

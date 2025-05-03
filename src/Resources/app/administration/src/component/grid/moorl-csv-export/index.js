@@ -2,6 +2,7 @@ import template from './index.html.twig';
 import './index.scss';
 import Papa from 'papaparse';
 
+const blacklist = ['createdAt', 'updatedAt', 'translations', 'salesChannel', 'versionId', 'translated'];
 const { Criteria } = Shopware.Data;
 
 Shopware.Component.register('moorl-csv-export', {
@@ -227,10 +228,7 @@ Shopware.Component.register('moorl-csv-export', {
             ).properties;
 
             for (const [property, column] of Object.entries(properties)) {
-                if (
-                    !column.flags.moorl_edit_field &&
-                    !column.flags.primary_key
-                ) {
+                if (blacklist.indexOf(property) !== -1) {
                     continue;
                 }
 
@@ -264,7 +262,10 @@ Shopware.Component.register('moorl-csv-export', {
             //
             //
 
-            let csv = Papa.unparse(this.exportItems, { delimiter: ';' });
+            let csv = Papa.unparse(this.exportItems, {
+                delimiter: ';',
+                newline: "\n"
+            });
             const blob = new Blob([csv]);
 
             if (window.navigator.msSaveOrOpenBlob) {

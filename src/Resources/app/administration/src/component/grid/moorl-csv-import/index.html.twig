@@ -91,15 +91,6 @@
                                     </span>
                                 </div>
                             </th>
-                            <th
-                                class="sw-data-grid__cell sw-data-grid__cell--header"
-                            >
-                                <div class="sw-data-grid__cell-content">
-                                    <span class="sw-data-grid__cell-value">
-                                        {{ $t('moorl-csv-import.choseDefault') }}
-                                    </span>
-                                </div>
-                            </th>
                         </tr>
                     </thead>
                     <tbody class="sw-data-grid__body">
@@ -124,6 +115,7 @@
                                         v-if="column.localField"
                                         v-model:value="mapping[column.localField]"
                                         :customSet="properties"
+                                        :placeholder="column.property"
                                         showClearableButton
                                     />
                                     <moorl-select-field
@@ -132,21 +124,6 @@
                                         :customSet="properties"
                                         showClearableButton
                                     />
-                                </div>
-                            </td>
-                            <td class="sw-data-grid__cell">
-                                <div class="sw-data-grid__cell-content">
-                                    <moorl-entity-form-element
-                                        v-if="!column.flags.primary_key && !column.flags.moorl_unique"
-                                        :value="selectedItem"
-                                        :column="column"
-                                    />
-                                    <span
-                                        v-else
-                                        class="sw-data-grid__cell-value"
-                                    >
-                                        {{ $tc('moorl-csv-import.isUnique') }}
-                                    </span>
                                 </div>
                             </td>
                         </tr>
