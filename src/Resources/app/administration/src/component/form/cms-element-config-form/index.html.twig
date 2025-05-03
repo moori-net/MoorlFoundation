@@ -69,19 +69,9 @@
                                         v-if="isVisible(field)"
                                         :style="getStyle(field)"
                                 >
-                                    <!-- Deprecated: sw-form-field-renderer -->
-                                    <sw-form-field-renderer
-                                            v-if="field.type !== undefined"
-                                            v-model:value="fieldModels[field.name]"
-                                            :type="field.type"
-                                            :label="field.label"
-                                            :config="fieldAttributes(field)"
-                                            :error="getError(field)"
-                                    />
-
                                     <!-- Meteor components without model -->
                                     <component
-                                            v-else-if="field.model === undefined"
+                                            v-if="field.model === undefined"
                                             :is="field.componentName"
                                             v-model="fieldModels[field.name]"
                                             v-bind="fieldAttributes(field)"

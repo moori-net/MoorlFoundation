@@ -3,3 +3,4 @@ import './listing-layout';
 import './listing-slider';
 import './listing-item';
 import './listing-content';
+import './combination-element-options';

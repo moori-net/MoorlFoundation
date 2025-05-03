@@ -262,6 +262,7 @@ const listing = {
         card: 'animation',
         cols: 6,
         componentName: 'moorl-select-field',
+        attributes: { set: 'animateOut' },
         conditions: [
             { property: 'mode', value: 'gallery' },
             { property: 'listingLayout', value: 'slider' }

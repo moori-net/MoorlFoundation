@@ -30,10 +30,30 @@ export default class CmsElementHelper {
 
     static cmsElementConfigCache = {};
 
+    static prepareCmsElementMapping(parent, cmsElementMapping) {
+        if (defaultCmsElementMappings[parent] !== undefined) {
+            const customMerge = (objValue, srcValue) => {
+                if (Array.isArray(objValue)) {return srcValue;}
+            };
+
+            cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
+        }
+
+        const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
+        const abstractComponent = `moorl-abstract-cms-${parent}`;
+
+        return {cmsElementMapping, defaultConfig, abstractComponent};
+    }
+
     static enrichCmsElementMapping(cmsElementMapping) {
         const defaultConfig = {};
 
         for (const [property, field] of Object.entries(cmsElementMapping)) {
+           if (field.hidden) {
+               delete cmsElementMapping[property];
+               continue;
+           }
+
             field.source = field.source ?? 'static';
             field.flags = field.flags ?? {};
 
@@ -127,16 +147,10 @@ export default class CmsElementHelper {
             }
         }
 
-        if (defaultCmsElementMappings[parent] !== undefined) {
-            const customMerge = (objValue, srcValue) => {
-                if (Array.isArray(objValue)) {return srcValue;}
-            };
-
-            cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
-        }
-
-        const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
-        const abstractComponent = `moorl-abstract-cms-${parent}`;
+        const {
+            defaultConfig,
+            abstractComponent
+        } = CmsElementHelper.prepareCmsElementMapping(parent, cmsElementMapping)
 
         plugin = plugin ?? 'MoorlFoundation';
         icon = icon ?? 'regular-view-grid';

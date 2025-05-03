@@ -17,6 +17,10 @@ Shopware.Component.register('moorl-cms-element-config-form', {
         fieldModels() {
             return new Proxy({}, {
                 get: (_, prop) => {
+                    if (this.item?.[prop] === undefined) {
+                        console.error(prop);
+                    }
+
                     return this.item?.[prop].value;
                 },
                 set: (_, prop, value) => {

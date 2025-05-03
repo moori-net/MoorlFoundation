@@ -1,55 +1,8 @@
-<div v-if="!isLoading" class="moorl-listing-config">
-    <sw-tabs default-item="layout">
-        <template #default="{ active }">
-            <sw-tabs-item name="layout" :activeTab="active">
-                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.layout') }}
-            </sw-tabs-item>
-
-            <sw-tabs-item
-                    v-if="value.listingLayout.value === 'slider'"
-                    name="slider"
-                    :activeTab="active"
-            >
-                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.slider') }}
-            </sw-tabs-item>
-
-            <sw-tabs-item
-                    v-if="value.listingLayout.value !== 'search-suggest'"
-                    name="item"
-                    :activeTab="active"
-            >
-                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.item') }}
-            </sw-tabs-item>
-
-            <sw-tabs-item
-                    v-if="value.listingLayout.value !== 'search-suggest'"
-                    name="content"
-                    :activeTab="active"
-            >
-                {{ $tc('sw-cms.elements.moorl-foundation-listing.tab.content') }}
-            </sw-tabs-item>
-        </template>
-
-        <template #content="{ active }">
-            <moorl-listing-layout-fieldset
-                    v-if="active === 'layout'"
-                    v-model:item="value"
-            />
-
-            <moorl-listing-slider-fieldset
-                    v-if="active === 'slider'"
-                    v-model:item="value"
-            />
-
-            <moorl-listing-item-fieldset
-                    v-if="active === 'item'"
-                    v-model:item="value"
-            />
-
-            <moorl-listing-content-fieldset
-                    v-if="active === 'content'"
-                    v-model:item="value"
-            />
-        </template>
-    </sw-tabs>
+<div class="moorl-listing-config">
+    <moorl-cms-element-config-form
+            v-if="!isLoading"
+            :item="value"
+            componentName="moorl-listing-config"
+            :cmsElementMapping="cmsElementMapping"
+    />
 </div>

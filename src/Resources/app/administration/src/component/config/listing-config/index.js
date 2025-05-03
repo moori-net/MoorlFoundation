@@ -17,13 +17,18 @@ Shopware.Component.register('moorl-listing-config', {
     data() {
         return {
             isLoading: true,
+            cmsElementMapping: null,
         };
     },
 
     created() {
+        const prepared = MoorlFoundation.CmsElementHelper.prepareCmsElementMapping('listing', defaultValue);
+
         if (!this.value) {
-            this.$emit('update:value', defaultValue);
+            this.$emit('update:value', prepared.defaultConfig);
         }
+
+        this.cmsElementMapping = prepared.cmsElementMapping;
 
         this.isLoading = false;
     },
