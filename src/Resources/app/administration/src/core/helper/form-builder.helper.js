@@ -13,12 +13,14 @@ export default class FormBuilderHelper {
                     item,
                     componentName,
                     tc,
-                    snippetSrc = 'moorl-foundation'
+                    snippetSrc = 'moorl-foundation',
+                    useTabs = true
                 }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
+        this.useTabs = useTabs;
 
         this.order = order;
         this.pageStruct = {tabs: []};
@@ -203,6 +205,11 @@ export default class FormBuilderHelper {
         // Handle standalone cards
         if (column.tab !== 'undefined' && column.card === 'undefined') {
             column.card = undefined;
+        }
+
+        // Use one tab for all columns (Disable tab view)
+        if (!this.useTabs) {
+            column.tab = 'general';
         }
 
         column.attributes = attributes;
