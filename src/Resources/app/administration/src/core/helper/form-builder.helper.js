@@ -49,7 +49,9 @@ export default class FormBuilderHelper {
 
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
 
-        buildImportExportProfile(this.entity);
+        if (!this.masterMapping) {
+            buildImportExportProfile(this.entity);
+        }
 
         for (const [property, field] of Object.entries(fields)) {
             if (
@@ -175,6 +177,13 @@ export default class FormBuilderHelper {
         // Initial label
         column.label = this.translationHelper.getLabel('field', property);
 
+        // Resolve function-attributes
+        for (const [key, value] of Object.entries(attributes)) {
+            if (typeof value === 'function') {
+                attributes[key] = value(context);
+            }
+        }
+
         // Final adjustments
         applyAutoConfiguration({configList: componentConfiguration, context, debug: true});
 
@@ -189,20 +198,6 @@ export default class FormBuilderHelper {
 
         if (this.item.translated?.[property] !== undefined) {
             attributes.placeholder = this.item.translated[property];
-        }
-
-        const context = {
-            column,
-            attributes,
-            field,
-            property,
-            ...this.getInstanceParameters()
-        };
-
-        for (const [key, value] of Object.entries(attributes)) {
-            if (typeof value === 'function') {
-                attributes[key] = value(context);
-            }
         }
 
         column.attributes = attributes;

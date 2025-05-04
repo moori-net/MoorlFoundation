@@ -17,20 +17,18 @@ const ctaBanner = {
         cols: 6,
     },
     elementBackground: {
-        value: null,
+        value: '',
         tab: 'general',
         card: 'general',
         cols: 6,
         type: 'color',
-        attributes: { colorOutput: 'hex', zIndex: 1000 }
     },
     overlayBackground: {
-        value: null,
+        value: '',
         tab: 'general',
         card: 'general',
         cols: 6,
         type: 'color',
-        attributes: { colorOutput: 'hex', zIndex: 1000 }
     },
     elementClickable: {
         value: false,
@@ -371,16 +369,14 @@ const ctaBanner = {
         tab: 'position',
         card: 'box-style',
         cols: 6,
-        type: 'color',
-        attributes: { colorOutput: 'hex', zIndex: 1000 }
+        type: 'color'
     },
     boxBackground: {
         value: 'rgba(255,255,255,0.7)',
         tab: 'position',
         card: 'box-style',
         cols: 6,
-        type: 'color',
-        attributes: { colorOutput: 'hex', zIndex: 1000 }
+        type: 'color'
     },
     boxBorderRadius: {
         value: '0px',

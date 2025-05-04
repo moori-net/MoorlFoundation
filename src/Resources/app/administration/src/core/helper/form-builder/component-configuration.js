@@ -24,6 +24,16 @@ const componentConfiguration = [
         }
     },
     {
+        description: 'Component: sw-entity-multi-id-select',
+        conditions: [
+            isComponent('sw-entity-multi-id-select'),
+            ({ attributes }) => attributes.repository === undefined && attributes.entity !== undefined
+        ],
+        apply({ attributes }) {
+            attributes.repository = Shopware.Service('repositoryFactory').create(attributes.entity);
+        }
+    },
+    {
         description: 'Component: sw-custom-field-set-renderer',
         conditions: [
             isComponent('sw-custom-field-set-renderer')

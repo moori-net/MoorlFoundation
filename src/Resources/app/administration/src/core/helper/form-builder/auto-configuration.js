@@ -67,6 +67,28 @@ const autoConfiguration = [
         ],
         apply() {}
     },
+    // mixed conditions - early break
+    {
+        description: ({ property }) => `Add component 'mt-text-editor' (${property})`,
+        conditions: [
+            ({ field }) => field.type === 'html' || (field.type === 'text' && field.flags.allow_html !== undefined)
+        ],
+        apply({ column }) {
+            column.componentName = 'mt-text-editor';
+        }
+    },
+    {
+        description: ({ property }) => `Add component 'mt-colorpicker' (${property})`,
+        conditions: [
+            ({ field, property }) => field.type === 'color' || (field.type === 'string' && property.toLowerCase().includes('color'))
+        ],
+        apply({ column, attributes }) {
+            column.componentName = 'mt-colorpicker';
+
+            attributes.colorOutput = 'hex';
+            attributes.zIndex = 1000;
+        }
+    },
     // field type stuff
     {
         alias: 'isObject',
@@ -92,25 +114,6 @@ const autoConfiguration = [
         ],
         apply({ column }) {
             column.componentName = 'mt-textarea';
-        }
-    },
-    {
-        description: ({ property }) => `Add component 'mt-text-editor' (${property})`,
-        conditions: [
-            ({ field }) => field.type === 'html' || field.flags.allow_html !== undefined
-        ],
-        apply({ column }) {
-            column.componentName = 'mt-text-editor';
-        }
-    },
-    {
-        description: ({ property }) => `Add component 'mt-colorpicker' (${property})`,
-        conditions: [
-            'isString',
-            ({ property }) => property.toLowerCase().includes('color')
-        ],
-        apply({ column }) {
-            column.componentName = 'mt-colorpicker';
         }
     },
     {
