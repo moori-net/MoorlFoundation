@@ -1,7 +1,6 @@
-export function applyAutoConfiguration({ configList, context, debug = false, debugTable = false }) {
+export function applyAutoConfiguration({ configList, context, debug = false }) {
     const aliasMap = {};
     const appliedAliases = [];
-    const debugLog = [];
 
     for (const config of configList) {
         if (config.alias) {
@@ -33,17 +32,13 @@ export function applyAutoConfiguration({ configList, context, debug = false, deb
         const match = config.conditions.every(resolveCondition);
 
         if (match && typeof config.apply === 'function') {
-            const alias = config.alias ?? '(final)';
-            const description = typeof config.description === 'function'
-                ? config.description(context)
-                : config.description ?? '';
-
             if (debug) {
-                console.debug(`[autoConfiguration] Applying rule [${alias}]${description ? `: ${description}` : ''}`);
-            }
+                const alias = config.alias ?? '(final)';
+                const description = typeof config.description === 'function'
+                    ? config.description(context)
+                    : config.description ?? '';
 
-            if (debugTable) {
-                debugLog.push({ alias, description });
+                console.debug(`[autoConfiguration] Applying rule [${alias}]${description ? `: ${description}` : ''}`);
             }
 
             config.apply(context);
@@ -54,10 +49,6 @@ export function applyAutoConfiguration({ configList, context, debug = false, deb
                 break; // abbrechen bei finaler Regel ohne alias
             }
         }
-    }
-
-    if (debugTable && debugLog.length > 0) {
-        console.table(debugLog);
     }
 
     return appliedAliases;

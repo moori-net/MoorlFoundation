@@ -1,7 +1,13 @@
+const entityLabelProperty = {
+    media: 'fileName',
+    product: 'productNumber',
+    salutation: 'displayName',
+    customer: 'customerNumber',
+    moorl_sorting: 'label'
+};
+const not = (fn) => (context) => !fn(context);
 const isType = (...types) => ({ field }) => types.includes(field.type);
-
 const isEntity = (...entities) => ({ field }) => entities.includes(field.entity);
-
 const isRegisteredEntity = () => ({ field }) => {
     const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(field.entity);
     return pluginConfig?.properties?.length > 0;
@@ -11,21 +17,21 @@ const autoConfiguration = [
     // general stuff
     {
         alias: 'hasComponentName',
-        conditions: [({ column }) => column.componentName !== undefined]
+        description: ({ property, column }) => `The componentName is already set to '${column.componentName}' (${property})`,
+        conditions: [
+            ({ column }) => column.componentName !== undefined
+        ]
     },
     {
         alias: 'hasTab',
-        conditions: [({ column }) => column.tab !== undefined]
+        conditions: [
+            ({ column }) => column.tab !== undefined
+        ]
     },
     {
         alias: 'hasCard',
-        conditions: [({ column }) => column.card !== undefined]
-    },
-    {
-        alias: 'isMeteorComponent',
         conditions: [
-            'hasComponentName',
-            ({ column }) => column.componentName.startsWith('mt-')
+            ({ column }) => column.card !== undefined
         ]
     },
     {
@@ -33,6 +39,33 @@ const autoConfiguration = [
         conditions: [
             ({ field }) => field.flags?.translatable
         ]
+    },
+    {
+        alias: 'isRequired',
+        conditions: [
+            ({ field }) => field.flags?.required,
+        ],
+        apply({ attributes }) {
+            attributes.required = true;
+        }
+    },
+    {
+        alias: 'isDisabled',
+        conditions: [
+            ({ field }) => field.flags?.write_protected,
+        ],
+        apply({ attributes }) {
+            attributes.disabled = true;
+        }
+    },
+    // early break
+    {
+        description: ({ property, column }) => `The field is no association and the component is already set to '${column.componentName}' (${property})`,
+        conditions: [
+            not(isType('association')),
+            'hasComponentName',
+        ],
+        apply() {}
     },
     // field type stuff
     {
@@ -43,7 +76,7 @@ const autoConfiguration = [
     },
     {
         alias: 'isString',
-        description: ({ property }) => `Add componentName 'mt-text-field' (${property})`,
+        description: ({ property }) => `Add component 'mt-text-field' (${property})`,
         conditions: [
             isType('string')
         ],
@@ -53,7 +86,7 @@ const autoConfiguration = [
     },
     {
         alias: 'isText',
-        description: ({ property }) => `Add componentName 'mt-textarea' (${property})`,
+        description: ({ property }) => `Add component 'mt-textarea' (${property})`,
         conditions: [
             isType('text')
         ],
@@ -62,7 +95,7 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'mt-text-editor' (${property})`,
+        description: ({ property }) => `Add component 'mt-text-editor' (${property})`,
         conditions: [
             ({ field }) => field.type === 'html' || field.flags.allow_html !== undefined
         ],
@@ -71,7 +104,7 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'mt-colorpicker' (${property})`,
+        description: ({ property }) => `Add component 'mt-colorpicker' (${property})`,
         conditions: [
             'isString',
             ({ property }) => property.toLowerCase().includes('color')
@@ -81,17 +114,18 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'mt-switch' (${property})`,
+        description: ({ property }) => `Add component 'mt-switch' (${property})`,
         conditions: [
             isType('boolean')
         ],
-        apply({ column }) {
+        apply({ column, attributes }) {
             column.componentName = 'mt-switch';
+            attributes.bordered = true;
         }
     },
     {
         alias: 'isNumber',
-        description: ({ property }) => `Add componentName 'mt-number-field' (${property})`,
+        description: ({ property }) => `Add component 'mt-number-field' (${property})`,
         conditions: [
             isType('int', 'float', 'number')
         ],
@@ -110,7 +144,7 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'mt-date-field' (${property})`,
+        description: ({ property }) => `Add component 'mt-date-field' (${property})`,
         conditions: [
             isType('date')
         ],
@@ -128,7 +162,18 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'moorl-price-field' (${property})`,
+        alias: 'isCustomProperty',
+        conditions: [
+            ({ property }) => property.toLowerCase().includes('custom'),
+            ({ property }) => !property.toLowerCase().includes('customer'),
+        ],
+        apply({ column }) {
+            column.tab = 'customFields';
+            column.card = 'customFields';
+        }
+    },
+    {
+        description: ({ property }) => `Add component 'moorl-price-field' (${property})`,
         conditions: [
             '!hasComponentName',
             'isObject',
@@ -148,10 +193,8 @@ const autoConfiguration = [
             isType('association')
         ],
         apply({ column, attributes, field }) {
-            column.model = 'value';
-
             attributes.entity = field.entity;
-            attributes.labelProperty = ({ field }) => MoorlFoundation.FormBuilderHelper.entityLabelProperty[field.entity] ?? 'name';
+            attributes.labelProperty = ({ field }) => entityLabelProperty[field.entity] ?? 'name';
         }
     },
     {
@@ -163,6 +206,7 @@ const autoConfiguration = [
         ],
         apply({ column }) {
             column.tab = 'relations';
+            column.card = 'relations';
         }
     },
     {
@@ -176,7 +220,19 @@ const autoConfiguration = [
             column.name = field.localField;
 
             attributes.required = fields?.[field.localField]?.flags?.required;
+            attributes.disabled = fields?.[field.localField]?.flags?.write_protected;
             attributes.showClearableButton = !!attributes.required;
+        }
+    },
+    {
+        description: ({ property }) => `Hide property, item is new (${property})`,
+        conditions: [
+            'isAssociation',
+            '!isManyToOne',
+            ({ item }) => item._isNew
+        ],
+        apply({ column }) {
+            column.hidden = true;
         }
     },
     {
@@ -194,14 +250,13 @@ const autoConfiguration = [
         ]
     },
     {
-        description: ({ property }) => `Add componentName 'moorl-media-gallery' (${property})`,
+        description: ({ property }) => `Add component 'moorl-media-gallery' (${property})`,
         conditions: [
             'isAssociation',
             ({ field, entity }) => field.entity === `${entity}_media`
         ],
         apply({ column, attributes, field, item }) {
             column.componentName = 'moorl-media-gallery';
-            column.model = undefined;
             column.tab = 'general';
             column.card = 'media';
 
@@ -209,17 +264,19 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'sw-media-field' (${property})`,
+        description: ({ property }) => `Add component 'sw-media-field' (${property})`,
         conditions: [
             'isManyToOne',
             isEntity('media')
         ],
         apply({ column }) {
             column.componentName = 'sw-media-field';
+            column.tab = 'general';
+            column.card = 'media';
         }
     },
     {
-        description: ({ property }) => `Add componentName 'moorl-layout-card-v2' (${property})`,
+        description: ({ property }) => `Add component 'moorl-layout-card-v2' (${property})`,
         conditions: [
             'isManyToOne',
             isEntity('cms_page'),
@@ -230,18 +287,18 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'sw-entity-single-select' (${property})`,
+        description: ({ property }) => `Add component 'sw-entity-single-select' (${property})`,
         conditions: [
             '!hasComponentName',
             'isManyToOne',
-            !isEntity('media', 'cms_page', 'user')
+            not(isEntity('media', 'cms_page', 'user')),
         ],
         apply({ column }) {
             column.componentName = 'sw-entity-single-select';
         }
     },
     {
-        description: ({ property }) => `Add componentName 'sw-category-tree-field' (${property})`,
+        description: ({ property }) => `Add component 'sw-category-tree-field' (${property})`,
         conditions: [
             'isManyToMany',
             isEntity('category')
@@ -252,7 +309,7 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'moorl-properties' (${property})`,
+        description: ({ property }) => `Add component 'moorl-properties' (${property})`,
         conditions: [
             'isManyToMany',
             isEntity('property_group_option')
@@ -263,7 +320,19 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add componentName 'moorl-entity-grid-card-v2' (${property})`,
+        description: ({ property }) => `Add component 'moorl-entity-grid-v2' (${property})`,
+        conditions: [
+            '!hasComponentName',
+            'hasCard',
+            'isOneToMany',
+            isRegisteredEntity()
+        ],
+        apply({ column }) {
+            column.componentName = 'moorl-entity-grid-v2';
+        }
+    },
+    {
+        description: ({ property }) => `Add component 'moorl-entity-grid-card-v2' (${property})`,
         conditions: [
             '!hasComponentName',
             'isOneToMany',
@@ -282,7 +351,6 @@ const autoConfiguration = [
         apply({ column, attributes, field }) {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-many-to-many-select';
-
             attributes.localMode = true;
         }
     },
@@ -295,7 +363,6 @@ const autoConfiguration = [
         apply({ column, attributes, field }) {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-multi-select';
-
             attributes.localMode = true;
         }
     }

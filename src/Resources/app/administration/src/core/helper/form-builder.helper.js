@@ -1,38 +1,27 @@
 import mapping from './form-builder/mapping.js';
 import order from './form-builder/order.json';
-
-import { applyAutoConfiguration } from './util/auto-config.util';
+import {applyAutoConfiguration} from './util/auto-config.util';
 import autoConfiguration from './form-builder/auto-configuration';
+import componentConfiguration from './form-builder/component-configuration';
+import {buildImportExportProfile} from './util/import-export-profile.util';
 
 const {merge, cloneDeep} = Shopware.Utils.object;
 
 export default class FormBuilderHelper {
-    static entityLabelProperty = {
-        media: 'fileName',
-        product: 'productNumber',
-        salutation: 'displayName',
-        customer: 'customerNumber',
-        moorl_sorting: 'label'
-    };
-
-
-
-
     constructor({
                     entity,
                     item,
                     componentName,
                     tc,
                     snippetSrc = 'moorl-foundation'
-    }) {
+                }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
 
         this.order = order;
-        this.pageStruct = { tabs: [] };
-        this.mediaOrder = 4999;
+        this.pageStruct = {tabs: []};
 
         this.masterMapping = undefined;
         this.currency = null;
@@ -60,7 +49,7 @@ export default class FormBuilderHelper {
 
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
 
-        this._buildImportExportProfile(this.entity, fields);
+        buildImportExportProfile(this.entity);
 
         for (const [property, field] of Object.entries(fields)) {
             if (
@@ -81,67 +70,6 @@ export default class FormBuilderHelper {
         MoorlFoundation.Logger.log('FormBuilderHelper._build', 'pageStruct', this.pageStruct);
 
         return this.pageStruct;
-    }
-
-    _buildImportExportProfile(entity, fields, depth = 0, path = "") {
-        const typeOrder = ['uuid' ,'boolean', 'int', 'float', 'string', 'text', 'date', 'association'];
-        const blacklist = ['createdAt', 'updatedAt', 'translations', 'salesChannel', 'versionId'];
-        const whitelist = ['id', 'name', 'url', 'title', 'alt', 'taxRate'];
-
-        function toSnakeCase(str) {
-            return str
-                .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
-                .replace(/([a-zA-Z])([0-9]+)/g, '$1_$2')
-                .replace(/\./g, '_')
-                .toLowerCase();
-        }
-
-        const array = Object.entries(fields)
-            .map(([key, value]) => ({ key, ...value }))
-            .filter(entry => typeOrder.includes(entry.type))
-            .filter(entry => !blacklist.includes(entry.key))
-            .filter(entry => depth === 0 || whitelist.includes(entry.key))
-            //.filter(entry => depth === 0 || entry.flags.required)
-            .sort((a, b) => {
-                return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
-            });
-
-        const mapping = [];
-
-        for (const index in array) {
-            if (array[index].type === 'uuid' && !array[index].flags.primary_key) {
-                continue;
-            }
-            if (array[index].type === 'association') {
-                if (depth === 0 && array[index].relation === 'many_to_one') {
-                    const aFields = Shopware.EntityDefinition.get(array[index].entity).properties;
-
-                    mapping.push(...this._buildImportExportProfile(array[index].entity, aFields, depth + 1, `${path}${array[index].key}.`));
-                }
-                continue;
-            }
-            if (array[index].flags.translatable) {
-                mapping.push({
-                    key: `${path}translations.DEFAULT.${array[index].key}`,
-                    mappedKey: toSnakeCase(path+array[index].key)
-                });
-            } else {
-                mapping.push({
-                    key: `${path}${array[index].key}`,
-                    mappedKey: toSnakeCase(path+array[index].key)
-                });
-            }
-        }
-
-        for (const index in mapping) {
-            mapping[index].position = parseInt(index);
-        }
-
-        if (depth === 0) {
-            MoorlFoundation.Logger.log('FormBuilderHelper._buildImportExportProfile', 'mapping', mapping);
-        }
-
-        return mapping;
     }
 
     _init() {
@@ -197,17 +125,19 @@ export default class FormBuilderHelper {
     }
 
     _buildColumn(field, property, fields) {
+        // Init column
         const column = {
             tab: undefined,
             card: undefined,
             name: property,
-            model: undefined,
+            model: 'value',
             order: this.mapping[property]?.order ?? 9999,
             cols: 12
         };
 
         const attributes = {};
 
+        // Assign from custom mapping
         if (this.mapping[property]) {
             Object.assign(column, this.mapping[property]);
             if (this.mapping[property].attributes) {
@@ -215,10 +145,10 @@ export default class FormBuilderHelper {
             }
         }
 
+        // Early return if column should not be displayed
         if (column.hidden) return null;
 
-        column.label = this.translationHelper.getLabel('field', property);
-
+        // Run auto configuration
         const context = {
             column,
             attributes,
@@ -228,81 +158,42 @@ export default class FormBuilderHelper {
             ...this.getInstanceParameters()
         };
 
-        applyAutoConfiguration({
-            configList: autoConfiguration,
-            context,
-            debug: true
-        });
+        applyAutoConfiguration({configList: autoConfiguration, context, debug: true});
+
+        // Some properties are not available if the item is on creation
+        if (column.hidden) return null;
 
         // Inherit properties from CMS element configuration
         for (const key of ['tab', 'card']) {
             if (field[key] !== undefined) {
                 column[key] = field[key];
+            } else if (column[key] === undefined) {
+                column[key] = 'undefined';
             }
         }
 
-        this._handleSpecialComponents(column, attributes, field, property);
-        this._finalizeAttributes(column, attributes, field, property);
+        // Initial label
+        column.label = this.translationHelper.getLabel('field', property);
 
-        column.attributes = attributes;
+        // Final adjustments
+        applyAutoConfiguration({configList: componentConfiguration, context, debug: true});
+
+        this._finalizeAttributes(column, attributes, field, property);
 
         return column;
     }
 
-    _handleSpecialComponents(column, attributes, field, property) {
-        const refField = field.referenceField;
-        const localField = field.localField;
-
-        switch (column.componentName) {
-            case 'moorl-layout-card-v2':
-                column.card = null;
-                column.model = undefined;
-                attributes.item = this.item;
-                attributes.entity = this.entity;
-                break;
-
-            case 'moorl-entity-grid':
-            case 'moorl-entity-grid-v2':
-                attributes.defaultItem = attributes.defaultItem ?? { [refField]: this.item[localField] };
-                break;
-
-            case 'moorl-entity-grid-card':
-            case 'moorl-entity-grid-card-v2':
-                column.card = null;
-                column.model = undefined;
-                attributes.title = column.label;
-                attributes.componentName = this.componentName;
-                attributes.defaultItem = attributes.defaultItem ?? { [refField]: this.item[localField] };
-                break;
-
-            case 'sw-seo-url':
-                column.card = null;
-                column.model = undefined;
-                attributes.hasDefaultTemplate = false;
-                attributes.urls = this.item[property];
-                break;
-
-            case 'sw-custom-field-set-renderer':
-                column.model = undefined;
-                attributes.entity = this.item;
-                attributes.sets = this.customFieldSets;
-                break;
-        }
-    }
-
     _finalizeAttributes(column, attributes, field, property) {
         attributes.label = column.label;
-        attributes.required = attributes.required ?? field.flags.required;
-        attributes.disabled = field.flags.write_protected;
         attributes.helpText = this.translationHelper.getLabel('helpText', property, false);
-        attributes.componentName = attributes.componentName ?? column.componentName;
 
         if (this.item.translated?.[property] !== undefined) {
             attributes.placeholder = this.item.translated[property];
         }
 
-        const parameters = {
+        const context = {
             column,
+            attributes,
             field,
             property,
             ...this.getInstanceParameters()
@@ -310,9 +201,11 @@ export default class FormBuilderHelper {
 
         for (const [key, value] of Object.entries(attributes)) {
             if (typeof value === 'function') {
-                attributes[key] = value(parameters);
+                attributes[key] = value(context);
             }
         }
+
+        column.attributes = attributes;
     }
 
     getInstanceParameters() {
