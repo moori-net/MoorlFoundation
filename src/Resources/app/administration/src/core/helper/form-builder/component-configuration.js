@@ -28,11 +28,11 @@ const componentConfiguration = [
         conditions: [
             isComponent('sw-custom-field-set-renderer')
         ],
-        apply({ column, attributes, property, item }) {
+        apply({ column, attributes, item, customFieldSets }) {
             column.model = undefined;
 
-            attributes.positionIdentifier = property;
-            attributes.customFieldSets = item.customFieldSets;
+            attributes.entity = item;
+            attributes.sets = customFieldSets;
         }
     },
     {
