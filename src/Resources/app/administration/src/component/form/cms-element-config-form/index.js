@@ -19,6 +19,7 @@ Shopware.Component.register('moorl-cms-element-config-form', {
                 get: (_, prop) => {
                     if (this.item?.[prop] === undefined) {
                         console.error(prop);
+                        return null;
                     }
 
                     return this.item?.[prop].value;

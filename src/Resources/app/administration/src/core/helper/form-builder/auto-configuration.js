@@ -147,12 +147,13 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add component 'mt-date-field' (${property})`,
+        description: ({ property }) => `Add component 'mt-datepicker' (${property})`,
         conditions: [
             isType('date')
         ],
-        apply({ column }) {
-            column.componentName = 'mt-date-field';
+        apply({ column, attributes }) {
+            column.componentName = 'mt-datepicker';
+            attributes.size = 'default';
         }
     },
     {
@@ -186,6 +187,16 @@ const autoConfiguration = [
             column.componentName = 'moorl-price-field';
             attributes.tax = ({ tax }) => tax;
             attributes.currency = ({ currency }) => currency;
+        }
+    },
+    {
+        description: ({ property }) => `Object without component can't be resolved (${property})`,
+        conditions: [
+            '!hasComponentName',
+            'isObject',
+        ],
+        apply({ column }) {
+            column.hidden = true;
         }
     },
     // association stuff

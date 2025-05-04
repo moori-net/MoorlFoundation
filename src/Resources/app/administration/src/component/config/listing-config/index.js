@@ -26,6 +26,8 @@ Shopware.Component.register('moorl-listing-config', {
 
         if (!this.value) {
             this.$emit('update:value', fetched.defaultConfig);
+        } else {
+            this.$emit('update:value', Object.assign({}, fetched.defaultConfig, this.value));
         }
 
         this.cmsElementMapping = fetched.cmsElementMapping;

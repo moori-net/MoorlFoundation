@@ -164,28 +164,28 @@ const listing = {
     },
     contentColor: {
         type: 'color',
-        value: null,
+        value: '',
         tab: 'layout',
         card: 'content',
         cols: 6
     },
     contentBackgroundColor: {
         type: 'color',
-        value: null,
+        value: '',
         tab: 'layout',
         card: 'content',
         cols: 6
     },
     contentHighlightColor: {
         type: 'color',
-        value: null,
+        value: '',
         tab: 'layout',
         card: 'content',
         cols: 6
     },
     itemBackgroundColor: {
         type: 'color',
-        value: null,
+        value: '',
         tab: 'layout',
         card: 'item',
         cols: 6

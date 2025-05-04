@@ -131,8 +131,8 @@ export default class FormBuilderHelper {
         const column = {
             tab: undefined,
             card: undefined,
-            name: property,
-            model: 'value',
+            name: property, // Overridden if association field in autoConfiguration
+            model: 'value', // Meteor components have no model, it will be removed in componentConfiguration
             order: this.mapping[property]?.order ?? 9999,
             cols: 12
         };
