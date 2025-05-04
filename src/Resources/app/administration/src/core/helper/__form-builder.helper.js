@@ -1,9 +1,6 @@
 import mapping from './form-builder/mapping.js';
 import order from './form-builder/order.json';
 
-import { applyAutoConfiguration } from './util/auto-config.util';
-import autoConfiguration from './form-builder/auto-configuration';
-
 const {merge, cloneDeep} = Shopware.Utils.object;
 
 export default class FormBuilderHelper {
@@ -15,8 +12,107 @@ export default class FormBuilderHelper {
         moorl_sorting: 'label'
     };
 
-
-
+    static autoConfiguration = [
+        {
+            alias: 'hasComponentName',
+            conditions: [
+                ({column}) => column.componentName !== undefined
+            ]
+        },
+        {
+            alias: 'isMeteorComponent',
+            conditions: [
+                'hasComponentName',
+                ({column}) => column.componentName.startsWith("mt-")
+            ]
+        },
+        {
+            alias: 'isString',
+            conditions: [
+                ({field}) => field.type === 'string'
+            ],
+            configuration: {
+                column: {
+                    componentName: 'mt-text-field'
+                }
+            }
+        },
+        {
+            alias: 'isText',
+            conditions: [
+                ({field}) => field.type === 'text'
+            ],
+            configuration: {
+                column: {
+                    componentName: 'mt-textarea'
+                }
+            }
+        },
+        {
+            alias: 'isHtml',
+            conditions: [
+                ({field}) => field.type === 'html' || field.flags.allow_html
+            ],
+            configuration: {
+                column: {
+                    componentName: 'mt-text-editor'
+                }
+            }
+        },
+        {
+            alias: 'isColorProperty',
+            conditions: [
+                'isString',
+                ({property}) => property.toLowerCase().includes("color")
+            ],
+            configuration: {
+                column: {
+                    componentName: 'mt-colorpicker'
+                }
+            }
+        },
+        {
+            alias: 'isAssociation',
+            conditions: [
+                ({field}) => field.type === 'association'
+            ],
+            configuration: {
+                column: {
+                    tab: 'relations'
+                },
+                attributes: {
+                    labelProperty: ({field}) => FormBuilderHelper.entityLabelProperty[field.entity] ?? 'name'
+                }
+            }
+        },
+        {
+            alias: 'isPriceProperty',
+            conditions: [({property}) => property.toLowerCase().includes("price")],
+            configuration: {
+                column: {tab: 'price'},
+                attributes: {
+                    labelProperty: ({field}) => FormBuilderHelper.entityLabelProperty[field.entity] ?? 'name'
+                }
+            }
+        },
+        {
+            alias: 'isPriceField',
+            conditions: [
+                '!hasComponentName',
+                'isPriceProperty',
+                ({field}) => ['json_object','object','list'].indexOf(field.type) !== -1
+            ],
+            configuration: {
+                column: {
+                    componentName: 'moorl-price-field'
+                },
+                attributes: {
+                    tax: ({tax}) => tax,
+                    currency: ({currency}) => currency
+                }
+            }
+        }
+    ];
 
     constructor({
                     entity,
@@ -198,8 +294,8 @@ export default class FormBuilderHelper {
 
     _buildColumn(field, property, fields) {
         const column = {
-            tab: undefined,
-            card: undefined,
+            tab: 'undefined',
+            card: 'undefined',
             name: property,
             model: undefined,
             order: this.mapping[property]?.order ?? 9999,
@@ -219,34 +315,138 @@ export default class FormBuilderHelper {
 
         column.label = this.translationHelper.getLabel('field', property);
 
-        const context = {
-            column,
-            attributes,
-            field,
-            property,
-            fields,
-            ...this.getInstanceParameters()
-        };
+        if (column.componentName && field.type !== 'association') {
+            // Meteor components have no model value
+            if (!column.componentName.startsWith("mt-")) {
+                column.model = 'value';
+            }
+        } else {
+            switch (field.type) {
+                case 'string':
+                    column.componentName = 'mt-text-field';
 
-        applyAutoConfiguration({
-            configList: autoConfiguration,
-            context,
-            debug: true
-        });
+                    if (property.toLowerCase().includes("color")) {
+                        column.componentName = 'mt-colorpicker';
+                    }
+                    break;
+                case 'text':
+                    if (!field.flags.allow_html) {
+                        column.componentName = 'mt-textarea';
+                    } else {
+                        column.componentName = 'mt-text-editor';
+                    }
+                    break;
+                case 'html':
+                    column.componentName = 'mt-text-editor';
+                    break;
+                case 'int':
+                case 'float':
+                case 'number':
+                    column.componentName = 'mt-number-field';
+                    attributes.numberType = field.type;
+                    if (field.type === 'float') {
+                        attributes.digits = 8;
+                    }
+                    break;
+                case 'boolean':
+                case 'bool':
+                    column.componentName = 'mt-switch';
+                    attributes.bordered = true;
+                    break;
+                case 'date':
+                    column.componentName = 'mt-datepicker';
+                    attributes.dateType = 'date';
+                    attributes.size = 'default';
+                    break;
+                case 'color':
+                    column.componentName = 'mt-colorpicker';
+                    break;
+                case 'code':
+                    column.model = 'value';
+                    column.componentName = 'sw-code-editor';
+                    break;
+                case 'object':
+                case 'json_object':
+                case 'list':
+                    if (property.toLowerCase().includes("price")) {
+                        column.tab = 'price';
+                        column.card = 'price';
+                        column.componentName = 'moorl-price-field';
+                        attributes.tax = ({tax}) => tax;
+                        attributes.currency = ({currency}) => currency;
+                    }
 
-        // Inherit properties from CMS element configuration
-        for (const key of ['tab', 'card']) {
-            if (field[key] !== undefined) {
-                column[key] = field[key];
+                    if (!column.componentName) return null;
+                    column.type = 'json';
+                    break;
+                case 'association':
+                    this._buildAssociationField(field, column, attributes, property, fields);
             }
         }
 
         this._handleSpecialComponents(column, attributes, field, property);
         this._finalizeAttributes(column, attributes, field, property);
-
         column.attributes = attributes;
 
         return column;
+    }
+
+    _buildAssociationField(field, column, attributes, property, fields) {
+        const entity = field.entity;
+
+        column.model = 'value';
+
+        attributes.entity = entity;
+
+        attributes.labelProperty = attributes.labelProperty ?? FormBuilderHelper.entityLabelProperty[entity] ?? 'name';
+
+        column.tab = column.tab ?? 'relations';
+
+        if (field.relation === 'many_to_one') {
+            const localField = field.localField;
+            const required = fields[localField].flags.required;
+
+            attributes.required = required;
+
+            if (entity === 'media') {
+                column.name = localField;
+                column.tab = field.tab ?? 'general';
+                column.card = field.card ?? 'media';
+                column.componentName = 'sw-media-field';
+            } else if (entity === 'cms_page' && property === 'cmsPage' && this.item.slotConfig !== undefined) {
+                column.componentName = 'moorl-layout-card-v2';
+            } else if (entity === 'user' || entity === `${this.entity}_media`) {
+                return null;
+            } else {
+                column.name = localField;
+                column.componentName = column.componentName ?? 'sw-entity-single-select';
+                attributes.showClearableButton = required === undefined;
+            }
+        } else if (field.relation === 'many_to_many') {
+            if (entity === 'category') {
+                column.componentName = 'sw-category-tree-field';
+                attributes.categoriesCollection = this.item[property];
+            } else if (entity === 'property_group_option') {
+                column.model = 'entityCollection';
+                column.componentName = 'moorl-properties';
+            } else {
+                column.model = 'entityCollection';
+                column.componentName = 'sw-entity-many-to-many-select';
+                attributes.localMode = true;
+            }
+        } else if (entity === `${this.entity}_media`) {
+            column.componentName = 'moorl-media-gallery';
+            column.model = undefined;
+            column.order = this.mediaOrder += 10;
+            column.tab = 'general';
+            column.card = 'media';
+            attributes.item = this.item;
+            attributes.entity = entity;
+        } else if (column.componentName === undefined && field.relation === 'one_to_many') {
+            column.model = 'entityCollection';
+            column.componentName = 'sw-entity-multi-select';
+            attributes.localMode = true;
+        }
     }
 
     _handleSpecialComponents(column, attributes, field, property) {

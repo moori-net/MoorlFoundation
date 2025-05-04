@@ -112,32 +112,9 @@ const mapping = {
     validUntil: {tab: 'general', card: 'general', cols: 6},
     code: {tab: 'general', card: 'general'},
 
-    // SEO / Meta
-    schemaOrgType: {tab: 'seo', card: 'general'},
-    schemaOrgProperty: {tab: 'seo', card: 'general'},
-    metaTitle: {tab: 'seo', card: 'general'},
-    metaDescription: {tab: 'seo', card: 'general'},
-    metaKeywords: {tab: 'seo', card: 'general'},
-    seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
-    duration: {tab: 'seo', card: 'meta', cols: 6},
-    fileCount: {tab: 'seo', card: 'meta', cols: 6},
-    lessonCount: {tab: 'seo', card: 'meta', cols: 6},
-    chapterCount: {tab: 'seo', card: 'meta', cols: 6},
-    boardCount: {tab: 'seo', card: 'meta', cols: 6},
-    points: {tab: 'seo', card: 'meta', cols: 6},
-    ratings: {tab: 'seo', card: 'meta', cols: 6},
-    subscriptionCount: {tab: 'seo', card: 'meta', cols: 6},
-    testCount: {tab: 'seo', card: 'meta', cols: 6},
-    ratingCount: {tab: 'seo', card: 'meta', cols: 6},
-    courseCount: {tab: 'seo', card: 'meta', cols: 6},
-
-    // CMS Page
-    cmsPage: {tab: 'cmsPage', card: 'cmsPage'},
-
-    // Event
-    eventDate: {tab: 'event', card: 'event', cols: 6},
-    eventDuration: {tab: 'event', card: 'event', cols: 6},
-    eventLocation: {tab: 'event', card: 'event', cols: 6},
+    // Specifications
+    unit: {tab: 'general', card: 'specifications', cols: 6},
+    referenceUnit: {tab: 'general', card: 'specifications', cols: 6},
 
     // Visibility
     active: {tab: 'general', card: 'visibility', cols: 6},
@@ -170,6 +147,33 @@ const mapping = {
     page: {tab: 'general', card: 'visibility', cols: 6},
     availabilityRule: {tab: 'general', card: 'visibility', cols: 6},
     visible: {tab: 'general', card: 'visibility', cols: 6},
+
+    // SEO / Meta
+    schemaOrgType: {tab: 'seo', card: 'general'},
+    schemaOrgProperty: {tab: 'seo', card: 'general'},
+    metaTitle: {tab: 'seo', card: 'general'},
+    metaDescription: {tab: 'seo', card: 'general'},
+    metaKeywords: {tab: 'seo', card: 'general'},
+    seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
+    duration: {tab: 'seo', card: 'meta', cols: 6},
+    fileCount: {tab: 'seo', card: 'meta', cols: 6},
+    lessonCount: {tab: 'seo', card: 'meta', cols: 6},
+    chapterCount: {tab: 'seo', card: 'meta', cols: 6},
+    boardCount: {tab: 'seo', card: 'meta', cols: 6},
+    points: {tab: 'seo', card: 'meta', cols: 6},
+    ratings: {tab: 'seo', card: 'meta', cols: 6},
+    subscriptionCount: {tab: 'seo', card: 'meta', cols: 6},
+    testCount: {tab: 'seo', card: 'meta', cols: 6},
+    ratingCount: {tab: 'seo', card: 'meta', cols: 6},
+    courseCount: {tab: 'seo', card: 'meta', cols: 6},
+
+    // CMS Page
+    cmsPage: {tab: 'cmsPage', card: 'cmsPage'},
+
+    // Event
+    eventDate: {tab: 'event', card: 'event', cols: 6},
+    eventDuration: {tab: 'event', card: 'event', cols: 6},
+    eventLocation: {tab: 'event', card: 'event', cols: 6},
 
     // Address
     street: {tab: 'address', card: 'general', cols: 8},
@@ -267,9 +271,11 @@ const mapping = {
 
     // Media
     cover: {hidden: true},
-    color: {tab: 'general', card: 'media', componentName: 'mt-colorpicker', cols: 6},
-    bannerColor: {tab: 'general', card: 'media', componentName: 'mt-colorpicker', cols: 6},
+    color: {tab: 'general', card: 'media', cols: 6},
+    bannerColor: {tab: 'general', card: 'media', cols: 6},
     mediaFolder: {tab: 'general', card: 'media', cols: 6},
+    iconColor: {tab: 'general', card: 'media', cols: 6},
+    backgroundColor: {tab: 'general', card: 'media', cols: 6},
     icon: {tab: 'general', card: 'media', cols: 6},
     sgMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
     embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field'},
