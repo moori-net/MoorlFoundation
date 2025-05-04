@@ -7,7 +7,10 @@
         :default-item="defaultTab"
         class="moorl-item-detail-form"
     >
-        <template #default="{ active }">
+        <template
+                v-if="formStruct.tabs.length > 1"
+                #default="{ active }"
+        >
             <sw-tabs-item
                 v-for="tab in formStruct.tabs"
                 :key="tab.id"

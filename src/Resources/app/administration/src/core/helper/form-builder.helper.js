@@ -200,6 +200,11 @@ export default class FormBuilderHelper {
             attributes.placeholder = this.item.translated[property];
         }
 
+        // Handle standalone cards
+        if (column.tab !== 'undefined' && column.card === 'undefined') {
+            column.card = undefined;
+        }
+
         column.attributes = attributes;
     }
 

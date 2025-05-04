@@ -235,7 +235,7 @@ const autoConfiguration = [
 
             attributes.required = fields?.[field.localField]?.flags?.required;
             attributes.disabled = fields?.[field.localField]?.flags?.write_protected;
-            attributes.showClearableButton = !!attributes.required;
+            attributes.showClearableButton = attributes.required === undefined;
         }
     },
     {
