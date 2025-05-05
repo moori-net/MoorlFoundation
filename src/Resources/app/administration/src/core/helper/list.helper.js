@@ -5,7 +5,7 @@ export default class ListHelper {
                     currencies = [],
                     tc,
                     minVisibility = 0
-    }) {
+                }) {
         this.componentName = componentName;
         this.entity = entity;
         this.minVisibility = minVisibility;
@@ -40,7 +40,12 @@ export default class ListHelper {
     }
 
     getPreviewColumn() {
-        if (this.properties.indexOf('name') === -1) {
+        const prop = this.properties.find(p => p.mediaProperty !== undefined);
+        if (prop) {
+            return prop.name;
+        }
+
+        if (!this.properties.some(p => p.name === 'name')) {
             return this.sortBy;
         }
 
@@ -57,7 +62,6 @@ export default class ListHelper {
 
     async _init() {
         await this._loadProperties();
-
         this._initMediaProperty();
         this._initAssociations();
         this._initProperties();
@@ -65,70 +69,64 @@ export default class ListHelper {
 
     async _loadProperties() {
         let trys = 0;
-
         return new Promise((resolve, reject) => {
             const retry = async () => {
                 const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(this.entity);
                 if (!pluginConfig) {
                     if (trys++ > 50) {
-                        MoorlFoundation.Logger.error('ListHelper._loadProperties', this.componentName, {entity: this.entity});
+                        console.error('[ListHelper]', this.componentName, { entity: this.entity });
                         return reject(new Error('Timeout: PluginConfig not found'));
                     }
-
                     return setTimeout(retry, 50);
                 }
 
-                const properties = pluginConfig.properties ?? [];
+                const props = pluginConfig.properties ?? [];
+                this.properties = props.filter(prop => prop.visibility >= this.minVisibility);
 
-                this.properties = properties
-                    .filter(prop => prop.visibility >= this.minVisibility)
-                    .map(prop => prop.name);
-
-                const highestVisibilityProp = properties.reduce((best, current) => {
+                const highest = this.properties.reduce((best, current) => {
                     return (!best || current.visibility > best.visibility) ? current : best;
                 }, null);
 
-                this.sortBy = highestVisibilityProp?.name ?? null;
+                this.sortBy = highest?.name ?? null;
                 this.sortDirection = this.sortBy === 'autoIncrement' ? 'DESC' : 'ASC';
 
                 this.pluginName = pluginConfig.pluginName ?? null;
                 this.demoName = pluginConfig.demoName ?? 'standard';
-
                 resolve();
             };
-
             retry();
         });
     }
 
     _initMediaProperty() {
+        const prop = this.properties.find(p => p.mediaProperty !== undefined);
+        if (prop) {
+            this.mediaProperty = prop.mediaProperty;
+            this.associations.push(this.mediaProperty);
+            return;
+        }
+
+        // Fallback: Try to find a media property from entity definition
         const fields = Shopware.EntityDefinition.get(this.entity).properties;
 
         for (const [property, field] of Object.entries(fields)) {
             const isMediaAssociation =
                 field.type === 'association' &&
                 field.relation === 'many_to_one' &&
-                (
-                    field.entity === 'media' ||
-                    field.entity === `${this.entity}_media`
-                );
-
+                (field.entity === 'media' || field.entity === `${this.entity}_media`);
             if (!isMediaAssociation) {
                 continue;
             }
 
-            this.mediaProperty = property;
-
-            const isDirectMedia = field.entity === 'media';
-            this.associations.push(isDirectMedia ? property : `${property}.media`);
-
+            this.mediaProperty = field.entity === 'media' ? property : `${property}.media`;
+            this.associations.push(this.mediaProperty);
             return;
         }
     }
 
     _initAssociations() {
-        this.properties.forEach((property) => {
-            let parts = property.split(".");
+        this.properties.forEach(({ name }) => {
+            const parts = name.split(".");
             parts.pop();
             if (parts.length > 0) {
                 this._addAssociation(parts.join("."));
@@ -137,7 +135,7 @@ export default class ListHelper {
     }
 
     _addAssociation(association) {
-        if (this.associations.indexOf(association) === -1) {
+        if (!this.associations.includes(association)) {
             this.associations.push(association);
         }
     }
@@ -146,46 +144,34 @@ export default class ListHelper {
         entity = entity ?? this.entity;
         properties = properties ?? this.createNestedObject(this.properties);
 
+        const nestedLabel = Object.entries(properties).length > 1 || parentPath.length === 0;
         const fields = Shopware.EntityDefinition.get(entity).properties;
 
         for (const [key, childProperties] of Object.entries(properties)) {
             const propertyPath = [...parentPath, key];
             const property = propertyPath.join(".");
-
-            if (fields[key] === undefined) {
-                MoorlFoundation.Logger.error('ListHelper._initProperties', this.componentName, {key, entity});
-                return;
-            }
-
             const field = fields[key];
+            if (!field) continue;
 
             const column = {
                 property,
                 dataIndex: property,
-                label: this.translationHelper.getLabel('field', property),
-                allowResize: true,
+                label: this.translationHelper.getLabel('field', nestedLabel ? property : parentPath.join(".")),
+                allowResize: false,
             };
 
             switch (field.type) {
                 case 'association':
                     this._addAssociation(property);
-
                     if (childProperties && field.relation === 'many_to_one') {
-                        this._initProperties(
-                            field.entity,
-                            childProperties,
-                            field.localField,
-                            propertyPath
-                        );
-
+                        this._initProperties(field.entity, childProperties, field.localField, propertyPath);
                     }
-                    continue; // Ignore one_to_many and many_to_many
+                    continue;
 
                 case 'string':
                 case 'text':
-                    if (parentPath.length === 0) {
-                        column.inlineEdit = 'string';
-                    }
+                    if (parentPath.length === 0) column.inlineEdit = 'string';
+                    column.width = '140px';
                     column.align = 'left';
                     column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(entity, 'detail');
                     column.routerLinkIdProperty = localField;
@@ -193,18 +179,19 @@ export default class ListHelper {
 
                 case 'int':
                 case 'float':
-                    if (parentPath.length === 0) {
-                        column.inlineEdit = 'number';
-                    }
+                    if (parentPath.length === 0) column.inlineEdit = 'number';
+                    column.width = '100px';
                     column.align = 'right';
                     break;
 
                 case 'boolean':
+                    column.width = '80px';
                     column.inlineEdit = 'boolean';
                     column.align = 'center';
                     break;
 
                 case 'date':
+                    column.width = '120px';
                     column.align = 'right';
                     this.dateProperties.push(property);
                     break;
@@ -222,13 +209,11 @@ export default class ListHelper {
         }
     }
 
-    createNestedObject(keys) {
+    createNestedObject(properties) {
         const result = {};
-
-        keys.forEach(key => {
-            const parts = key.split('.');
+        properties.forEach(({ name }) => {
+            const parts = name.split('.');
             let current = result;
-
             parts.forEach((part, index) => {
                 if (!current[part]) {
                     current[part] = (index === parts.length - 1) ? null : {};
@@ -236,38 +221,28 @@ export default class ListHelper {
                 current = current[part];
             });
         });
-
         return result;
     }
 
     getCurrenciesAndPriceProperties() {
-        const props = [];
-
-        for(const priceProperty of this.priceProperties) {
-            for(const currency of this.currencies) {
-                props.push({priceProperty, currency});
-            }
-        }
-
-        return props;
+        return this.priceProperties.flatMap(priceProperty =>
+            this.currencies.map(currency => ({ priceProperty, currency }))
+        );
     }
 
     _getCurrenciesColumns(property, column) {
         return this.currencies
-            .toSorted((a, b) => {
-                return b.isSystemDefault ? 1 : -1;
-            })
-            .map((item) => {
-                return {
-                    property: `${property}-${item.isoCode}`,
-                    dataIndex: `${property}.${item.id}`,
-                    label: column.label,
-                    allowResize: true,
-                    currencyId: item.id,
-                    visible: item.isSystemDefault,
-                    align: 'right',
-                    useCustomSort: true,
-                };
-            });
+            .toSorted((a, b) => b.isSystemDefault ? 1 : -1)
+            .map(item => ({
+                property: `${property}-${item.isoCode}`,
+                dataIndex: `${property}.${item.id}`,
+                label: column.label,
+                allowResize: false,
+                currencyId: item.id,
+                visible: item.isSystemDefault,
+                width: '100px',
+                align: 'right',
+                useCustomSort: true,
+            }));
     }
 }

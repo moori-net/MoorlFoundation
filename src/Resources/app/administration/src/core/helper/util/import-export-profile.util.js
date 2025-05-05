@@ -57,7 +57,7 @@ export function buildImportExportProfile(entity, depth = 0, path = '') {
 
     // Optional debug output
     if (depth === 0) {
-        MoorlFoundation.Logger.log('buildImportExportProfile', entity, mapping);
+        console.log('buildImportExportProfile', entity, mapping);
     }
 
     return mapping;

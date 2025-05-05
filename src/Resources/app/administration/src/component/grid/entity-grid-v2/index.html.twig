@@ -69,11 +69,19 @@
         :sortDirection="sortDirection"
         :allowColumnEdit="false"
         :allowInlineEdit="true"
+        :compactMode="false"
         @column-sort="onSortColumn"
         @select-all-items="onSelectionChanged"
         @selection-change="onSelectionChanged"
     >
         {% block moorl_entity_grid_templates %}{% endblock %}
+        <template #[`preview-${listHelper.getPreviewColumn()}`]="{ item }">
+            <sw-media-preview-v2
+                    v-if="mediaProperty"
+                    :source="previewMediaSource(item)"
+            />
+        </template>
+
         <template
             v-for="dateProperty in listHelper.dateProperties"
             #[`column-${dateProperty}`]="{ item }"

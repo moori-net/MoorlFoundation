@@ -53,11 +53,7 @@ export default class TranslationHelper {
         if (showConsoleError) {
             const snippet = `${group}.${property}`;
 
-            MoorlFoundation.Logger.error(
-                this.componentName,
-                `No translation found for ${snippet}`,
-                this.snippetStruct
-            );
+            console.error(this.componentName, `No translation found for ${snippet}`, this.snippetStruct);
 
             return snippet;
         }

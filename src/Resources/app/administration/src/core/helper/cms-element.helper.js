@@ -1,5 +1,6 @@
 const {Criteria} = Shopware.Data;
 const {mergeWith} = Shopware.Utils.object;
+const {get} = Shopware.Utils;
 
 import ctaBanner from './cms-element/cta-banner';
 import listing from './cms-element/listing';
@@ -182,8 +183,6 @@ export default class CmsElementHelper {
             previewComponent: true // TODO: Remove the hack from core template
         };
 
-        MoorlFoundation.Logger.log('CmsElementHelper.registerCmsElement', name, cmsElementConfig);
-
         Shopware.Application.getContainer('service').cmsService.registerCmsElement(cmsElementConfig);
     }
 
@@ -213,18 +212,11 @@ export default class CmsElementHelper {
         const data = CmsElementHelper.getDefaultData()['default'];
 
         if (item === undefined || entity === undefined) {
-            MoorlFoundation.Logger.warn('CmsElementHelper.getItemData', 'item or entity not defined');
             return data;
         }
 
         let propertyMapping = this.propertyMapping[entity];
         if (propertyMapping === undefined) {
-            MoorlFoundation.Logger.warn(
-                'CmsElementHelper.getItemData',
-                'property mapping not defined, loading default',
-                {entity}
-            );
-
             propertyMapping = this.propertyMapping['default'];
         }
 
@@ -240,25 +232,16 @@ export default class CmsElementHelper {
 
         return data;
     }
-    static getDeepValue(obj, path, fallback = null) {
-        return path.split('.').reduce((acc, key) => acc?.[key], obj) ?? fallback;
-    }
 
     static getItemPropertyData(item, paths, fallback = null) {
         if (!Array.isArray(paths)) {paths = [paths];}
 
         for (const path of paths) {
-            const value = CmsElementHelper.getDeepValue(item, path);
+            const value = get(item, path);
             if (value) {
                 return value;
             }
         }
-
-        MoorlFoundation.Logger.warn(
-            'CmsElementHelper.getItemPropertyData',
-            'item property not defined, returning fallback',
-            {item, paths, fallback}
-        );
 
         return fallback;
     }

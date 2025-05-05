@@ -154,8 +154,6 @@ export default class FormBuilderHelper {
             return this.pageStruct;
         }
 
-        MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
-
         this._buildImportExportProfile(this.entity, fields);
 
         for (const [property, field] of Object.entries(fields)) {
@@ -173,8 +171,6 @@ export default class FormBuilderHelper {
         }
 
         this._sortStruct();
-
-        MoorlFoundation.Logger.log('FormBuilderHelper._build', 'pageStruct', this.pageStruct);
 
         return this.pageStruct;
     }
@@ -234,7 +230,7 @@ export default class FormBuilderHelper {
         }
 
         if (depth === 0) {
-            MoorlFoundation.Logger.log('FormBuilderHelper._buildImportExportProfile', 'mapping', mapping);
+            console.log('[FormBuilderHelper] ImportExportProfile mapping created', mapping);
         }
 
         return mapping;

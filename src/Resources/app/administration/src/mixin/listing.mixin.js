@@ -1,4 +1,5 @@
 const {Criteria} = Shopware.Data;
+const {get} = Shopware.Utils;
 
 Shopware.Mixin.register('moorl-listing', {
     inject: ['repositoryFactory'],
@@ -47,7 +48,6 @@ Shopware.Mixin.register('moorl-listing', {
             if (this.defaultItem !== undefined) {
                 for (const [field, value] of Object.entries(this.defaultItem)) {
                     if (field === 'taxId') {
-                        MoorlFoundation.Logger.log('moorl-listing.itemCriteria', 'taxId filter ignored', this.defaultItem);
                         continue;
                     }
 
@@ -142,6 +142,10 @@ Shopware.Mixin.register('moorl-listing', {
                 linked: true,
                 net: null,
             };
+        },
+
+        previewMediaSource(item) {
+            return get(item, this.mediaProperty, null);
         },
 
         onImportModal() {

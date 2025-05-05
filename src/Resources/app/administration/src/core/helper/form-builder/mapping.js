@@ -120,6 +120,7 @@ const mapping = {
 
     // Visibility
     active: {tab: 'general', card: 'visibility', cols: 6},
+    priority: {tab: 'general', card: 'visibility', cols: 6},
     badge: {tab: 'general', card: 'visibility', cols: 6},
     gallery: {tab: 'general', card: 'visibility', cols: 6},
     tab: {tab: 'general', card: 'visibility', cols: 6},
@@ -129,7 +130,6 @@ const mapping = {
     invisible: {tab: 'general', card: 'visibility', cols: 6},
     released: {tab: 'general', card: 'visibility', cols: 6},
     published: {tab: 'general', card: 'visibility', cols: 6},
-    priority: {tab: 'general', card: 'visibility', cols: 6},
     position: {tab: 'general', card: 'visibility', cols: 6},
     hidden: {tab: 'general', card: 'visibility', cols: 6},
     isPreview: {tab: 'general', card: 'visibility', cols: 6},

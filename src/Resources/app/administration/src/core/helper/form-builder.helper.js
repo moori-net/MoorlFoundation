@@ -53,8 +53,6 @@ export default class FormBuilderHelper {
             return this.pageStruct;
         }
 
-        MoorlFoundation.Logger.log('FormBuilderHelper._build', 'fields', fields);
-
         if (!this.masterMapping) {
             buildImportExportProfile(this.entity);
         }
@@ -74,8 +72,6 @@ export default class FormBuilderHelper {
         }
 
         this._sortStruct();
-
-        MoorlFoundation.Logger.log('FormBuilderHelper._build', 'pageStruct', this.pageStruct);
 
         return this.pageStruct;
     }
@@ -170,6 +166,11 @@ export default class FormBuilderHelper {
 
         // Some properties are not available if the item is on creation
         if (column.hidden) return null;
+
+        if (column.componentName === undefined) {
+            console.warn(`[FormBuilderHelper] No component found for "${property}"...`);
+            return null;
+        }
 
         // Inherit properties from CMS element configuration
         for (const key of ['tab', 'card']) {

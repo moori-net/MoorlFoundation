@@ -139,14 +139,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
 
         onExportModal() {
             this.showExportModal = true;
-        },
-
-        previewMediaSource(item) {
-            if (item[this.mediaProperty]?.media !== undefined) {
-                return item[this.mediaProperty].media
-            }
-
-            return item[this.mediaProperty];
-        },
+        }
     }
 });

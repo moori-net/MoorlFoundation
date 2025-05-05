@@ -1,4 +1,3 @@
-import Logger from './logger';
 import ListHelper from './helper/list.helper';
 import ItemHelper from './helper/item.helper';
 import TranslationHelper from './helper/translation.helper';
@@ -9,7 +8,6 @@ import CmsElementHelper from './helper/cms-element.helper';
 import ModuleHelper from './helper/module.helper';
 
 const MoorlFoundation = {
-    Logger,
     ListHelper,
     ItemHelper,
     TranslationHelper,
