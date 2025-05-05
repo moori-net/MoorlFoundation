@@ -28,6 +28,8 @@ class MoorlFoundation extends Plugin
         'moorl_image_map_translation',
         'moorl_image_map_item',
         'moorl_image_map_item_translation',
+        'moorl_media',
+        'moorl_media_translation',
     ];
 
     public function __getMigrationNamespace(): string
