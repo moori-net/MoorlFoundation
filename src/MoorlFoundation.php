@@ -16,7 +16,9 @@ class MoorlFoundation extends Plugin
 {
     final public const NAME = 'MoorlFoundation';
     final public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
-    final public const SHOPWARE_TABLES = [];
+    final public const SHOPWARE_TABLES = [
+        'import_export_profile'
+    ];
     final public const INHERITANCES = [];
     final public const PLUGIN_TABLES = [
         'moorl_cms_element_config',

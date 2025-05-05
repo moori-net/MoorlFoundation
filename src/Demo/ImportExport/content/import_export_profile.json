@@ -1,0 +1,120 @@
+[
+  {
+    "id": "{ID:IMPORT_EXPORT_MEDIA}",
+    "systemDefault": true,
+    "sourceEntity": "moorl_media",
+    "technicalName": "default_moorl_media",
+    "label": "[moori] Embedded media",
+    "fileType": "text/csv",
+    "delimiter": ";",
+    "enclosure": "\"",
+    "type": "import-export",
+    "mapping": [
+      {
+        "key": "id",
+        "mappedKey": "id",
+        "position": 0
+      },
+      {
+        "key": "active",
+        "mappedKey": "active",
+        "position": 1
+      },
+      {
+        "key": "duration",
+        "mappedKey": "duration",
+        "position": 2
+      },
+      {
+        "key": "technicalName",
+        "mappedKey": "technical_name",
+        "position": 3
+      },
+      {
+        "key": "type",
+        "mappedKey": "type",
+        "position": 4
+      },
+      {
+        "key": "embeddedId",
+        "mappedKey": "embedded_id",
+        "position": 5
+      },
+      {
+        "key": "embeddedUrl",
+        "mappedKey": "embedded_url",
+        "position": 6
+      },
+      {
+        "key": "translations.DEFAULT.name",
+        "mappedKey": "name",
+        "position": 7
+      },
+      {
+        "key": "translations.DEFAULT.description",
+        "mappedKey": "description",
+        "position": 8
+      },
+      {
+        "key": "configParent.id",
+        "mappedKey": "config_parent_id",
+        "position": 9
+      },
+      {
+        "key": "translations.DEFAULT.configParent.name",
+        "mappedKey": "config_parent_name",
+        "position": 10
+      },
+      {
+        "key": "productStream.id",
+        "mappedKey": "product_stream_id",
+        "position": 11
+      },
+      {
+        "key": "translations.DEFAULT.productStream.name",
+        "mappedKey": "product_stream_name",
+        "position": 12
+      },
+      {
+        "key": "cover.id",
+        "mappedKey": "cover_id",
+        "position": 13
+      },
+      {
+        "key": "translations.DEFAULT.cover.title",
+        "mappedKey": "cover_title",
+        "position": 14
+      },
+      {
+        "key": "cover.url",
+        "mappedKey": "cover_url",
+        "position": 15
+      },
+      {
+        "key": "translations.DEFAULT.cover.alt",
+        "mappedKey": "cover_alt",
+        "position": 16
+      },
+      {
+        "key": "media.id",
+        "mappedKey": "media_id",
+        "position": 17
+      },
+      {
+        "key": "translations.DEFAULT.media.title",
+        "mappedKey": "media_title",
+        "position": 18
+      },
+      {
+        "key": "media.url",
+        "mappedKey": "media_url",
+        "position": 19
+      },
+      {
+        "key": "translations.DEFAULT.media.alt",
+        "mappedKey": "media_alt",
+        "position": 20
+      }
+    ]
+  }
+]
