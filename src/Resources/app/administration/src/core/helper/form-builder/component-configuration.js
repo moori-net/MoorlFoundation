@@ -2,12 +2,51 @@ const isComponent = (...components) => ({ column }) => components.includes(colum
 
 const componentConfiguration = [
     {
+        alias: 'isFallbackTab',
+        conditions: [
+            ({ column }) => column.tab === undefined
+        ],
+        apply({ column }) {
+            column.tab = 'undefined';
+        }
+    },
+    {
+        alias: 'isRelationFallbackCard',
+        description: ({ property }) => `Set column card 'relations' (${property})`,
+        conditions: [
+            ({ column }) => column.card === undefined,
+            ({ field }) => field.type === 'association'
+        ],
+        apply({ column }) {
+            column.card = 'relations';
+        }
+    },
+    {
+        alias: 'isFallbackCard',
+        conditions: [
+            ({ column }) => column.card === undefined
+        ],
+        apply({ column }) {
+            column.card = 'undefined';
+        }
+    },
+    {
         description: 'Handle Meteor component',
         conditions: [
-            ({ column }) => column.componentName !== undefined && column.componentName.startsWith('mt-')
+            ({ column }) => column.componentName.startsWith('mt-')
         ],
         apply({ column }) {
             column.model = undefined;
+        }
+    },
+    {
+        alias: 'isCard',
+        description: 'Handle standalone card component',
+        conditions: [
+            ({ column }) => column.componentName.includes('-card')
+        ],
+        apply({ column }) {
+            column.card = undefined;
         }
     },
     {
@@ -51,7 +90,6 @@ const componentConfiguration = [
             isComponent('moorl-layout-card-v2')
         ],
         apply({ column, attributes, item }) {
-            column.card = undefined;
             column.model = undefined;
 
             attributes.slotConfig = item.slotConfig;
@@ -74,7 +112,6 @@ const componentConfiguration = [
             isComponent('moorl-entity-grid-card-v2')
         ],
         apply({ column, attributes, componentName }) {
-            column.card = undefined;
             column.model = undefined;
 
             attributes.componentName = componentName;

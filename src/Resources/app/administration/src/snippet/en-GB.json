@@ -60,6 +60,10 @@
       "visibility": "Visibility"
     },
     "field": {
+      "badge": "Badge",
+      "gallery": "Gallery",
+      "tab": "Tab",
+      "embeddedMedia": "Embedded Media",
       "configParent": "Apply configuration from",
       "languages": "Languages",
       "embeddedType": "Media type",

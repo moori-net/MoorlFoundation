@@ -14,7 +14,7 @@ export default class FormBuilderHelper {
                     componentName,
                     tc,
                     snippetSrc = 'moorl-foundation',
-                    useTabs = true
+                    useTabs = undefined
                 }) {
         this.entity = entity ?? componentName;
         this.item = item;
@@ -39,6 +39,10 @@ export default class FormBuilderHelper {
         this._init();
 
         const fields = this.masterMapping ?? Shopware.EntityDefinition.get(this.entity).properties;
+
+        if (this.useTabs === undefined) {
+            this.useTabs = Object.keys(fields).length >= 15;
+        }
 
         return this._build(fields);
     }
@@ -171,8 +175,6 @@ export default class FormBuilderHelper {
         for (const key of ['tab', 'card']) {
             if (field[key] !== undefined) {
                 column[key] = field[key];
-            } else if (column[key] === undefined) {
-                column[key] = 'undefined';
             }
         }
 
@@ -200,11 +202,6 @@ export default class FormBuilderHelper {
 
         if (this.item.translated?.[property] !== undefined) {
             attributes.placeholder = this.item.translated[property];
-        }
-
-        // Handle standalone cards
-        if (column.tab !== 'undefined' && column.card === 'undefined') {
-            column.card = undefined;
         }
 
         // Use one tab for all columns (Disable tab view)

@@ -120,6 +120,9 @@ const mapping = {
 
     // Visibility
     active: {tab: 'general', card: 'visibility', cols: 6},
+    badge: {tab: 'general', card: 'visibility', cols: 6},
+    gallery: {tab: 'general', card: 'visibility', cols: 6},
+    tab: {tab: 'general', card: 'visibility', cols: 6},
     approved: {tab: 'general', card: 'visibility', cols: 6},
     available: {tab: 'general', card: 'visibility', cols: 6},
     sticky: {tab: 'general', card: 'visibility', cols: 6},
