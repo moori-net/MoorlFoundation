@@ -73,9 +73,31 @@ MoorlFoundation.ModuleHelper.registerModule({
     name: 'moorl-media',
     properties: [
         {name: 'active', visibility: 100},
+        {name: 'name', visibility: 100},
         {name: 'technicalName', visibility: 100},
-        {name: 'embeddedType', visibility: 100}
-    ]
+        {name: 'type', visibility: 100}
+    ],
+    entityMapping: {
+        type: {
+            tab: 'general',
+            card: 'media',
+            componentName: 'moorl-select-field',
+            attributes: {
+                customSet: ['embedded', 'media', 'vimeo', 'youtube'],
+                snippetPath: 'moorl-foundation.field'
+            }
+        },
+        duration: {tab: 'general', card: 'media'},
+        embeddedUrl: {
+            conditions: [{property: 'type', value: 'embedded', operator: 'eq'}],
+        },
+        embeddedId: {
+            conditions: [{property: 'type', value: ['media', 'embedded'], operator: 'nin'}],
+        },
+        media: {
+            conditions: [{property: 'type', value: 'media', operator: 'eq'}],
+        }
+    },
 });
 
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});

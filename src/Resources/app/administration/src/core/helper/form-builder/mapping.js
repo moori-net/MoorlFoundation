@@ -65,6 +65,8 @@ const mapping = {
     hasFiles: {tab: 'general', card: 'options', cols: 6},
     hasCodes: {tab: 'general', card: 'options', cols: 6},
     hasLinks: {tab: 'general', card: 'options', cols: 6},
+    configParent: {tab: 'general', card: 'options'},
+    config: {tab: 'general', card: 'options'},
 
     // Price
     tax: {tab: 'price', card: 'price'},
@@ -134,6 +136,7 @@ const mapping = {
     boostHomeUntil: {tab: 'general', card: 'visibility', cols: 6},
     boostSlotUntil: {tab: 'general', card: 'visibility', cols: 6},
     categories: {tab: 'general', card: 'visibility'},
+    languages: {tab: 'general', card: 'visibility'},
     swCategories: {tab: 'general', card: 'visibility'},
     shopwareCategories: {tab: 'general', card: 'visibility'},
     salesChannels: {tab: 'general', card: 'visibility'},
@@ -270,7 +273,7 @@ const mapping = {
     custom4: {tab: 'customFields', card: 'customFields', cols: 6},
 
     // Media
-    cover: {hidden: true},
+    cover: {tab: 'general', card: 'media'},
     color: {tab: 'general', card: 'media', cols: 6},
     bannerColor: {tab: 'general', card: 'media', cols: 6},
     mediaFolder: {tab: 'general', card: 'media', cols: 6},
@@ -278,6 +281,7 @@ const mapping = {
     backgroundColor: {tab: 'general', card: 'media', cols: 6},
     icon: {tab: 'general', card: 'media', cols: 6},
     sgMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
+    embeddedId: {tab: 'general', card: 'media'},
     embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field'},
 
     // Comments

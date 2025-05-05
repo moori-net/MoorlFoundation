@@ -15,7 +15,7 @@ class EmbeddedMediaEntity extends Entity
     protected int $duration = 0;
     protected ?string $technicalName = null;
     protected ?string $productStreamId = null;
-    protected ?string $embeddedType = null;
+    protected ?string $type = null;
 
     protected array $config = [];
     protected bool $active = false;
@@ -23,6 +23,7 @@ class EmbeddedMediaEntity extends Entity
     protected ?string $embeddedId = null;
     protected ?MediaEntity $cover = null;
     protected ?MediaEntity $media = null;
+    protected ?EmbeddedMediaEntity $configParent = null;
 
     public function getEmbeddedUrl(): ?string
     {
@@ -63,16 +64,15 @@ class EmbeddedMediaEntity extends Entity
     {
         $this->embeddedId = $embeddedId;
     }
-    protected ?EmbeddedMediaEntity $configParent = null;
 
-    public function getEmbeddedType(): ?string
+    public function getType(): ?string
     {
-        return $this->embeddedType;
+        return $this->type;
     }
 
-    public function setEmbeddedType(?string $embeddedType): void
+    public function setType(?string $type): void
     {
-        $this->embeddedType = $embeddedType;
+        $this->type = $type;
     }
 
     public function getDuration(): int

@@ -47,7 +47,7 @@ class EmbeddedMediaDefinition extends EntityDefinition
     public function getDefaults(): array
     {
         return [
-            'embeddedType' => 'auto',
+            'type' => 'auto',
             'duration' => 0,
         ];
     }
@@ -66,7 +66,7 @@ class EmbeddedMediaDefinition extends EntityDefinition
             (new IntField('duration', 'duration'))->addFlags(),
 
             (new StringField('technical_name', 'technicalName'))->addFlags(),
-            (new StringField('embedded_type', 'embeddedType'))->addFlags(new Required()),
+            (new StringField('type', 'type'))->addFlags(new Required()),
             (new StringField('embedded_id', 'embeddedId'))->addFlags(),
             (new StringField('embedded_url', 'embeddedUrl'))->addFlags(),
 

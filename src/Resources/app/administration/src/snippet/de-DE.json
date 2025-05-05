@@ -60,6 +60,10 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "configParent": "Konfiguration übernehmen von",
+      "languages": "Sprachen",
+      "embeddedType": "Media Typ",
+      "embeddedId": "Media ID",
       "svgIcon": "SVG Icon",
       "isDish": "Dieses Produkt ist eine Speise",
       "properties": "Allergene & Zusatzstoffe",
