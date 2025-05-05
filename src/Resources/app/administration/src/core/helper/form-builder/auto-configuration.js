@@ -220,7 +220,6 @@ const autoConfiguration = [
         ],
         apply({ column }) {
             column.tab = 'relations';
-            column.card = 'relations';
         }
     },
     {

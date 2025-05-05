@@ -183,7 +183,9 @@ export default class ListHelper {
 
                 case 'string':
                 case 'text':
-                    column.inlineEdit = 'string';
+                    if (parentPath.length === 0) {
+                        column.inlineEdit = 'string';
+                    }
                     column.align = 'left';
                     column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(entity, 'detail');
                     column.routerLinkIdProperty = localField;
@@ -191,7 +193,9 @@ export default class ListHelper {
 
                 case 'int':
                 case 'float':
-                    column.inlineEdit = 'number';
+                    if (parentPath.length === 0) {
+                        column.inlineEdit = 'number';
+                    }
                     column.align = 'right';
                     break;
 
