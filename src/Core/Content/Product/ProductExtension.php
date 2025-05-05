@@ -2,7 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\Product;
 
-use MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaProductDefinition;
+use MoorlFoundation\Core\Content\ProductVideo\EmbeddedMediaProductDefinition;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityExtension;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Inherited;

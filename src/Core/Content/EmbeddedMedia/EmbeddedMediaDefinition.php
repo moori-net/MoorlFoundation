@@ -4,20 +4,18 @@ namespace MoorlFoundation\Core\Content\EmbeddedMedia;
 
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Content\ProductStream\ProductStreamDefinition;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ReverseInherited;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
@@ -78,12 +76,6 @@ class EmbeddedMediaDefinition extends EntityDefinition
 
             (new JsonField('config', 'config'))->addFlags(),
             (new CustomFields()),
-
-            (new OneToManyAssociationField(
-                EmbeddedMediaProductDefinition::COLLECTION_NAME,
-                EmbeddedMediaProductDefinition::class,
-                'moorl_media_id',
-            ))->addFlags(new ReverseInherited(EmbeddedMediaProductDefinition::EXTENSION_COLLECTION_NAME)),
 
             (new ManyToOneAssociationField(
                 'configParent',

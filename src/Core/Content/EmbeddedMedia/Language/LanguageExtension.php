@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace MoorlFoundation\Core\Content\Language;
+namespace MoorlFoundation\Core\Content\EmbeddedMedia\Language;
 
 use MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaDefinition;
 use MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaLanguageDefinition;

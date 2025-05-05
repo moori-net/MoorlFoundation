@@ -100,18 +100,6 @@ MoorlFoundation.ModuleHelper.registerModule({
     },
 });
 
-MoorlFoundation.ModuleHelper.registerModule({
-    entity: 'moorl_media_product',
-    properties: [
-        {name: 'priority', visibility: 100},
-        {name: 'badge', visibility: 100},
-        {name: 'gallery', visibility: 100},
-        {name: 'tab', visibility: 100},
-        {name: 'product.productNumber', visibility: 100},
-        {name: 'embeddedMedia.name', visibility: 100},
-    ]
-});
-
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
