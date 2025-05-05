@@ -46,7 +46,11 @@ export default class MoorlAnimation extends Plugin {
                 that.el.classList.add('moorl-animation-hidden');
             }
 
-            that.el.style = {};
+            that.el.style.animation = undefined;
+            that.el.style.zIndex = undefined;
+            that.el.style.animationDelay = undefined;
+            that.el.style.animationDuration = undefined;
+
             that.activeAnimation = null;
 
             that.animate();
