@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\EmbeddedMedia;
 
+use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityIdTrait;
@@ -18,6 +19,50 @@ class EmbeddedMediaEntity extends Entity
 
     protected array $config = [];
     protected bool $active = false;
+    protected ?string $embeddedUrl = null;
+    protected ?string $embeddedId = null;
+    protected ?MediaEntity $cover = null;
+    protected ?MediaEntity $media = null;
+
+    public function getEmbeddedUrl(): ?string
+    {
+        return $this->embeddedUrl;
+    }
+
+    public function setEmbeddedUrl(?string $embeddedUrl): void
+    {
+        $this->embeddedUrl = $embeddedUrl;
+    }
+
+    public function getMedia(): ?MediaEntity
+    {
+        return $this->media;
+    }
+
+    public function setMedia(?MediaEntity $media): void
+    {
+        $this->media = $media;
+    }
+
+    public function getCover(): ?MediaEntity
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?MediaEntity $cover): void
+    {
+        $this->cover = $cover;
+    }
+
+    public function getEmbeddedId(): ?string
+    {
+        return $this->embeddedId;
+    }
+
+    public function setEmbeddedId(?string $embeddedId): void
+    {
+        $this->embeddedId = $embeddedId;
+    }
     protected ?EmbeddedMediaEntity $configParent = null;
 
     public function getEmbeddedType(): ?string

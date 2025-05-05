@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\EmbeddedMedia;
 
+use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Content\ProductStream\ProductStreamDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
@@ -13,16 +14,20 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
+use Shopware\Core\System\Language\LanguageDefinition;
 
 class EmbeddedMediaDefinition extends EntityDefinition
 {
-    public const ENTITY_NAME = 'moorl_media';
+    final public const ENTITY_NAME = 'moorl_media';
+    final public const COLLECTION_NAME = 'embeddedMedias';
+    final public const EXTENSION_COLLECTION_NAME = 'moorlEmbeddedMedias';
 
     public function getEntityName(): string
     {
@@ -53,16 +58,20 @@ class EmbeddedMediaDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
             (new FkField('product_stream_id', 'productStreamId', ProductStreamDefinition::class)),
             (new ParentFkField(self::class))->addFlags(),
+            (new FkField('cover_id', 'coverId', MediaDefinition::class)),
+            (new FkField('media_id', 'mediaId', MediaDefinition::class)),
 
             (new BoolField('active', 'active'))->addFlags(),
 
-            (new StringField('technical_name', 'technicalName'))->addFlags(),
-
             (new IntField('duration', 'duration'))->addFlags(),
-            (new StringField('embedded_type', 'embeddedType'))->addFlags(new Required()),
 
-            (new TranslatedField('coverId')),
-            (new TranslatedField('mediaId')),
+            (new StringField('technical_name', 'technicalName'))->addFlags(),
+            (new StringField('embedded_type', 'embeddedType'))->addFlags(new Required()),
+            (new StringField('embedded_id', 'embeddedId'))->addFlags(),
+            (new StringField('embedded_url', 'embeddedUrl'))->addFlags(),
+
+            (new TranslatedField('name'))->addFlags(new Required()),
+            (new TranslatedField('description')),
 
             (new JsonField('config', 'config'))->addFlags(),
             (new CustomFields()),
@@ -82,6 +91,30 @@ class EmbeddedMediaDefinition extends EntityDefinition
                 'id',
                 true
             ))->addFlags(new RestrictDelete()),
+
+            (new ManyToOneAssociationField(
+                'cover',
+                'cover_id',
+                MediaDefinition::class,
+                'id',
+                true
+            ))->addFlags(new RestrictDelete()),
+
+            (new ManyToOneAssociationField(
+                'media',
+                'media_id',
+                MediaDefinition::class,
+                'id',
+                true
+            ))->addFlags(new RestrictDelete()),
+
+            new ManyToManyAssociationField(
+                'languages',
+                LanguageDefinition::class,
+                EmbeddedMediaLanguageDefinition::class,
+                'moorl_media_id',
+                'language_id'
+            ),
 
             (new TranslationsAssociationField(
                 EmbeddedMediaTranslationDefinition::class,

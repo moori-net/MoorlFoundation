@@ -8,12 +8,12 @@
         <import resource="administration/controllers.xml"/>
         <import resource="storefront/cms-element-resolver.xml"/>
         <import resource="storefront/controllers.xml"/>
-        <import resource="location.xml"/>
+        <import resource="core/location.xml"/>
         <import resource="subscribers.xml"/>
-        <import resource="data.xml"/>
-        <import resource="client.xml"/>
-        <import resource="entity-translation.xml"/>
-        <import resource="embedded-media.xml"/>
+        <import resource="core/data.xml"/>
+        <import resource="core/client.xml"/>
+        <import resource="core/entity-translation.xml"/>
+        <import resource="core/embedded-media.xml"/>
     </imports>
 
     <services>

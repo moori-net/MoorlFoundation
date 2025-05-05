@@ -68,6 +68,16 @@ MoorlFoundation.ModuleHelper.registerModule({
     ]
 });
 
+MoorlFoundation.ModuleHelper.registerModule({
+    entity: 'moorl_media',
+    name: 'moorl-media',
+    properties: [
+        {name: 'active', visibility: 100},
+        {name: 'technicalName', visibility: 100},
+        {name: 'embeddedType', visibility: 100}
+    ]
+});
+
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
