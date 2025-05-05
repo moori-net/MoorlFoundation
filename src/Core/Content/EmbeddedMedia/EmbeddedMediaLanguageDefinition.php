@@ -22,9 +22,9 @@ class EmbeddedMediaLanguageDefinition extends MappingEntityDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new FkField('moorl_media_id', 'mediaId', EmbeddedMediaDefinition::class))->addFlags(new PrimaryKey(), new Required()),
+            (new FkField('moorl_media_id', 'embeddedMediaId', EmbeddedMediaDefinition::class))->addFlags(new PrimaryKey(), new Required()),
             (new FkField('language_id', 'languageId', LanguageDefinition::class))->addFlags(new PrimaryKey(), new Required()),
-            new ManyToOneAssociationField('media', 'moorl_media_id', EmbeddedMediaDefinition::class),
+            new ManyToOneAssociationField('embeddedMedia', 'moorl_media_id', EmbeddedMediaDefinition::class),
             new ManyToOneAssociationField('language', 'language_id', LanguageDefinition::class)
         ]);
     }

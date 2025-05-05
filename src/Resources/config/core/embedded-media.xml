@@ -16,6 +16,14 @@
             <tag name="shopware.entity.definition" entity="moorl_media_language"/>
         </service>
 
+        <service id="MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaProductDefinition">
+            <tag name="shopware.entity.definition" entity="moorl_media_product"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Product\ProductExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Content\Language\LanguageExtension">
             <tag name="shopware.entity.extension"/>
         </service>

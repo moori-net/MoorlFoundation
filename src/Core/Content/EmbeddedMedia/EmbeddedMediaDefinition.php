@@ -11,11 +11,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ReverseInherited;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
@@ -26,6 +28,7 @@ use Shopware\Core\System\Language\LanguageDefinition;
 class EmbeddedMediaDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'moorl_media';
+    final public const PROPERTY_NAME = 'embeddedMedia';
     final public const COLLECTION_NAME = 'embeddedMedias';
     final public const EXTENSION_COLLECTION_NAME = 'moorlEmbeddedMedias';
 
@@ -76,36 +79,34 @@ class EmbeddedMediaDefinition extends EntityDefinition
             (new JsonField('config', 'config'))->addFlags(),
             (new CustomFields()),
 
+            (new OneToManyAssociationField(
+                EmbeddedMediaProductDefinition::COLLECTION_NAME,
+                EmbeddedMediaProductDefinition::class,
+                'moorl_media_id',
+            ))->addFlags(new ReverseInherited(EmbeddedMediaProductDefinition::EXTENSION_COLLECTION_NAME)),
+
             (new ManyToOneAssociationField(
                 'configParent',
                 'parent_id',
-                self::class,
-                'id',
-                true
+                self::class
             ))->addFlags(new RestrictDelete()),
 
             (new ManyToOneAssociationField(
                 'productStream',
                 'product_stream_id',
-                ProductStreamDefinition::class,
-                'id',
-                true
+                ProductStreamDefinition::class
             ))->addFlags(new RestrictDelete()),
 
             (new ManyToOneAssociationField(
                 'cover',
                 'cover_id',
-                MediaDefinition::class,
-                'id',
-                true
+                MediaDefinition::class
             ))->addFlags(new RestrictDelete()),
 
             (new ManyToOneAssociationField(
                 'media',
                 'media_id',
-                MediaDefinition::class,
-                'id',
-                true
+                MediaDefinition::class
             ))->addFlags(new RestrictDelete()),
 
             new ManyToManyAssociationField(
