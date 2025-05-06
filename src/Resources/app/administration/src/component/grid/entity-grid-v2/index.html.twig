@@ -70,9 +70,11 @@
         :allowColumnEdit="false"
         :allowInlineEdit="true"
         :compactMode="false"
+
         @column-sort="onSortColumn"
         @select-all-items="onSelectionChanged"
         @selection-change="onSelectionChanged"
+        @inline-edit-save="onSaveItem"
     >
         {% block moorl_entity_grid_templates %}{% endblock %}
         <template #[`preview-${listHelper.getPreviewColumn()}`]="{ item }">
@@ -90,10 +92,14 @@
         </template>
 
         <template
-                v-for="props in listHelper.getLanguagesAndLanguageProperty()"
-                #[`column-${props.languageProperty}-${props.language.locale.code}`]="{ item }"
+                v-for="language in listHelper.languages"
+                #[`column-languageIds-${language.id}`]="{ item, column, isInlineEdit }"
         >
-            {{ item.languageIds.includes(props.language.id) }}
+            <moorl-grid-column-language
+                    v-model:value="item.languageIds"
+                    :languageId="language.id"
+                    :is-inline-edit="isInlineEdit"
+            />
         </template>
 
         <template

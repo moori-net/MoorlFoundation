@@ -11,13 +11,5 @@
         <service id="MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaTranslationDefinition">
             <tag name="shopware.entity.definition" entity="moorl_media_translation"/>
         </service>
-
-        <service id="MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaLanguageDefinition">
-            <tag name="shopware.entity.definition" entity="moorl_media_language"/>
-        </service>
-
-        <service id="MoorlFoundation\Core\Content\EmbeddedMedia\Language\LanguageExtension">
-            <tag name="shopware.entity.extension"/>
-        </service>
     </services>
 </container>

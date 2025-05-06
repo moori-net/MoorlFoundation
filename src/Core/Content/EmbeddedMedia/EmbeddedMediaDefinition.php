@@ -13,14 +13,12 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use Shopware\Core\System\Language\LanguageDefinition;
 
 class EmbeddedMediaDefinition extends EntityDefinition
 {
@@ -93,14 +91,6 @@ class EmbeddedMediaDefinition extends EntityDefinition
                 'media_id',
                 MediaDefinition::class
             ))->addFlags(new RestrictDelete()),
-
-            new ManyToManyAssociationField(
-                'languages',
-                LanguageDefinition::class,
-                EmbeddedMediaLanguageDefinition::class,
-                'moorl_media_id',
-                'language_id'
-            ),
 
             (new TranslationsAssociationField(
                 EmbeddedMediaTranslationDefinition::class,

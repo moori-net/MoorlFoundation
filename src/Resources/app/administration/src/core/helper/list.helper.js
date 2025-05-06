@@ -207,7 +207,7 @@ export default class ListHelper {
                     }
                     continue;
                 case 'json_list':
-                    if (property.toLowerCase().includes("language")) {
+                    if (property === 'languageIds') {
                         this.languageProperty = property;
                         this.columns.push(...this._getLanguageColumns(property, column));
                     }
@@ -239,22 +239,19 @@ export default class ListHelper {
         );
     }
 
-    getLanguagesAndLanguageProperty() {
-        return this.languages.map(language => ({ languageProperty: this.languageProperty, language }));
-    }
-
-    _getLanguageColumns(property, column) {
+    _getLanguageColumns() {
         return this.languages
             .toSorted((a, b) => b.id === Shopware.Context.api.languageId ? 1 : -1)
-            .map(item => ({
-                property: `${property}-${item.locale.code}`,
-                dataIndex: `${property}.${item.id}`,
-                label: item.locale.code,
+            .map(language => ({
+                property: `languageIds-${language.id}`,
+                dataIndex: `languageIds.${language.id}`,
+                label: language.locale?.code,
                 allowResize: false,
-                languageId: item.id,
+                languageId: language.id,
                 width: '80px',
                 align: 'center',
-                inlineEdit: 'boolean'
+                inlineEdit: 'boolean',
+                useCustomSort: true,
             }));
     }
 

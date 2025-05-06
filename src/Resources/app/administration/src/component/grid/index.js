@@ -3,3 +3,4 @@ import './moorl-csv-export';
 import './entity-grid-v2';
 import './parameter-grid';
 import './flow-crm-mapping';
+import './grid-column-language';

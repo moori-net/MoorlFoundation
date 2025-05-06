@@ -160,6 +160,12 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             });
         },
 
+        onSaveItem(item) {
+            return this.itemRepository.save(item, Shopware.Context.api).then(() => {
+                return this.onSearch();
+            });
+        },
+
         onEditItem(editId) {
             this.editId = editId;
             this.showEditModal = true;
