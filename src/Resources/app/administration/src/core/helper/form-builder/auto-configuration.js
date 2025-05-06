@@ -58,6 +58,15 @@ const autoConfiguration = [
             attributes.disabled = true;
         }
     },
+    {
+        alias: 'isObject',
+        conditions: [
+            isType('json_object', 'object', 'list')
+        ],
+        apply({ column }) {
+            column.cols ??= 12;
+        }
+    },
     // early break
     {
         description: ({ property, column }) => `The field is no association and the component is already set to '${column.componentName}' (${property})`,
@@ -65,7 +74,9 @@ const autoConfiguration = [
             not(isType('association')),
             'hasComponentName',
         ],
-        apply() {}
+        apply({ column }) {
+            column.cols ??= 6;
+        }
     },
     // mixed conditions - early break
     {
@@ -91,18 +102,13 @@ const autoConfiguration = [
     },
     // field type stuff
     {
-        alias: 'isObject',
-        conditions: [
-            isType('json_object', 'object', 'list')
-        ]
-    },
-    {
         alias: 'isString',
         description: ({ property }) => `Add component 'mt-text-field' (${property})`,
         conditions: [
             isType('string')
         ],
         apply({ column }) {
+            column.cols ??= 6;
             column.componentName = 'mt-text-field';
         }
     },
@@ -122,7 +128,9 @@ const autoConfiguration = [
             isType('boolean')
         ],
         apply({ column, attributes }) {
+            column.cols ??= 6;
             column.componentName = 'mt-switch';
+
             attributes.bordered = true;
         }
     },
@@ -133,7 +141,9 @@ const autoConfiguration = [
             isType('int', 'float', 'number')
         ],
         apply({ column, attributes, field }) {
+            column.cols ??= 6;
             column.componentName = 'mt-number-field';
+
             attributes.numberType = field.type;
         }
     },
@@ -152,7 +162,9 @@ const autoConfiguration = [
             isType('date')
         ],
         apply({ column, attributes }) {
+            column.cols ??= 6;
             column.componentName = 'mt-datepicker';
+
             attributes.size = 'default';
         }
     },
@@ -163,6 +175,7 @@ const autoConfiguration = [
         ],
         apply({ column }) {
             column.tab = 'price';
+            column.card = 'price';
         }
     },
     {
@@ -260,7 +273,8 @@ const autoConfiguration = [
         conditions: [
             'isAssociation',
             ({ field }) => field.relation === 'many_to_many'
-        ]
+        ],
+        apply({ column }) {}
     },
     {
         description: ({ property }) => `Add component 'moorl-media-gallery' (${property})`,
@@ -268,7 +282,7 @@ const autoConfiguration = [
             'isAssociation',
             ({ field, entity }) => field.entity === `${entity}_media`
         ],
-        apply({ column, attributes, field, item }) {
+        apply({ column, attributes, item }) {
             column.componentName = 'moorl-media-gallery';
             column.tab = 'general';
             column.card = 'media';
@@ -307,6 +321,7 @@ const autoConfiguration = [
             not(isEntity('media', 'cms_page', 'user')),
         ],
         apply({ column }) {
+            column.cols ??= 6;
             column.componentName = 'sw-entity-single-select';
         }
     },

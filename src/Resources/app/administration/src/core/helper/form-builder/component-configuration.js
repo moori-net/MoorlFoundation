@@ -31,6 +31,15 @@ const componentConfiguration = [
         }
     },
     {
+        alias: 'isFallbackCols',
+        conditions: [
+            ({ column }) => column.cols === undefined
+        ],
+        apply({ column }) {
+            column.cols = 12;
+        }
+    },
+    {
         description: 'Handle Meteor component',
         conditions: [
             ({ column }) => column.componentName.startsWith('mt-')
