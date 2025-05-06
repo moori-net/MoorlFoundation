@@ -279,7 +279,7 @@ const autoConfiguration = [
     {
         description: ({ property }) => `Add component 'moorl-media-gallery' (${property})`,
         conditions: [
-            'isAssociation',
+            'isOneToMany',
             ({ field, entity }) => field.entity === `${entity}_media`
         ],
         apply({ column, attributes, item }) {
@@ -288,6 +288,15 @@ const autoConfiguration = [
             column.card = 'media';
 
             attributes.item = item;
+        }
+    },
+    {
+        description: ({ property }) => `Hide cover from 'moorl-media-gallery' (${property})`,
+        conditions: [
+            ({ field, entity }) => field.entity === `${entity}_media`
+        ],
+        apply({ column }) {
+            column.hidden = true;
         }
     },
     {

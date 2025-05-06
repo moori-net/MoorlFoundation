@@ -1,0 +1,18 @@
+{% block moorl_location_card %}
+    <mt-card
+        class="moorl-location-card"
+        :title="$tc('moorl-location-card.name')"
+    >
+        <template #headerRight>
+            <router-link
+                    target="_blank"
+                    rel="noopener"
+                    :to="{ name: 'sw.extension.config', params: { namespace: 'MoorlFoundation' } }"
+            >
+                {{ $tc('moorl-location.link') }}
+            </router-link>
+        </template>
+
+        <moorl-location v-bind="$attrs"/>
+    </mt-card>
+{% endblock %}

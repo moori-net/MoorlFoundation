@@ -214,8 +214,7 @@ const mapping = {
     // Use this prop as placeholder
     locationCache: {
         tab: 'address',
-        card: 'preview',
-        componentName: 'moorl-location',
+        componentName: 'moorl-location-card',
         attributes: {
             item: ({item}) => item
         }

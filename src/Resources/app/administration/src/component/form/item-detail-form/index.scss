@@ -1,7 +1,9 @@
 .moorl-item-detail-form {
-    .moorl-item-detail-form__card {
+    .mt-card {
         border-radius: 0;
+    }
 
+    .moorl-item-detail-form__card {
         .mt-card__content {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
