@@ -61,7 +61,16 @@ const autoConfiguration = [
     {
         alias: 'isObject',
         conditions: [
-            isType('json_object', 'object', 'list')
+            isType('json_object', 'object')
+        ],
+        apply({ column }) {
+            column.cols ??= 12;
+        }
+    },
+    {
+        alias: 'isList',
+        conditions: [
+            isType('json_list', 'list')
         ],
         apply({ column }) {
             column.cols ??= 12;

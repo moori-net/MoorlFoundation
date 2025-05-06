@@ -141,6 +141,12 @@ const mapping = {
     boostSlotUntil: {tab: 'general', card: 'visibility'},
     categories: {tab: 'general', card: 'visibility'},
     languages: {tab: 'general', card: 'visibility'},
+    languageIds: {
+        tab: 'general',
+        card: 'visibility',
+        componentName: 'sw-entity-multi-id-select',
+        attributes: {entity: 'language'}
+    },
     swCategories: {tab: 'general', card: 'visibility'},
     shopwareCategories: {tab: 'general', card: 'visibility'},
     salesChannels: {tab: 'general', card: 'visibility'},
