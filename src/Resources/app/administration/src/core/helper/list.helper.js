@@ -191,6 +191,7 @@ export default class ListHelper {
                     column.width = '80px';
                     column.inlineEdit = 'boolean';
                     column.align = 'center';
+                    column.sortable = false;
                     break;
 
                 case 'date':
@@ -251,7 +252,7 @@ export default class ListHelper {
                 width: '80px',
                 align: 'center',
                 inlineEdit: 'boolean',
-                useCustomSort: true,
+                sortable: false
             }));
     }
 
@@ -267,7 +268,7 @@ export default class ListHelper {
                 visible: item.isSystemDefault,
                 width: '100px',
                 align: 'right',
-                useCustomSort: true,
+                sortable: false
             }));
     }
 }

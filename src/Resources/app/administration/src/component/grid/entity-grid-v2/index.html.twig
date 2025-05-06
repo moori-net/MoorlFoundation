@@ -1,80 +1,79 @@
 <div class="moorl-entity-grid-v2">
     <sw-container
-        v-if="topBarOptions.length > 0"
-        :columns="topBarColumns"
-        gap="0 10px"
-        class="moorl-entity-grid__top-bar"
+            v-if="topBarOptions.length > 0"
+            :columns="topBarColumns"
+            gap="0 10px"
+            class="moorl-entity-grid__top-bar"
     >
         <mt-text-field
-            v-if="topBarOptions.includes('search')"
-            :placeholder="$tc('moorl-foundation.field.search')"
-            v-model="term"
-            @update:model-value="onSearch"
+                v-if="topBarOptions.includes('search')"
+                :placeholder="$tc('moorl-foundation.field.search')"
+                v-model="term"
+                @update:model-value="onSearch"
         />
         <mt-button
-            v-if="topBarOptions.includes('new')"
-            variant="primary"
-            :block="true"
-            size="small"
-            @click="onEditItem(null)"
+                v-if="topBarOptions.includes('new')"
+                variant="primary"
+                :block="true"
+                size="small"
+                @click="onEditItem(null)"
         >
             <span>
                 <mt-icon
-                    name="regular-plus"
-                    size="12"
+                        name="regular-plus"
+                        size="12"
                 />
                 {{ $tc('global.default.add') }}
             </span>
         </mt-button>
         <mt-button
-            v-if="topBarOptions.includes('import')"
-            variant="primary"
-            :block="true"
-            size="small"
-            @click="onImportModal"
+                v-if="topBarOptions.includes('import')"
+                variant="primary"
+                :block="true"
+                size="small"
+                @click="onImportModal"
         >
             <span>
                 <mt-icon
-                    name="regular-cloud-upload"
-                    size="12"
+                        name="regular-cloud-upload"
+                        size="12"
                 />
                 {{ $tc('moorl-foundation.button.import') }}
             </span>
         </mt-button>
         <mt-button
-            v-if="topBarOptions.includes('export')"
-            variant="primary"
-            :block="true"
-            :disabled="items.length === 0"
-            size="small"
-            @click="onExportModal"
+                v-if="topBarOptions.includes('export')"
+                variant="primary"
+                :block="true"
+                :disabled="items.length === 0"
+                size="small"
+                @click="onExportModal"
         >
             <span>
                 <mt-icon
-                    name="regular-cloud-download"
-                    size="12"
+                        name="regular-cloud-download"
+                        size="12"
                 />
                 {{ $tc('moorl-foundation.button.export') }}
             </span>
         </mt-button>
     </sw-container>
     <sw-data-grid
-        v-if="ready && total > 0"
-        :dataSource="items"
-        :columns="columns"
-        :showSelection="false"
-        :showSettings="false"
-        :isLoading="isLoading"
-        :sortBy="sortBy"
-        :sortDirection="sortDirection"
-        :allowColumnEdit="false"
-        :allowInlineEdit="true"
-        :compactMode="false"
-
-        @column-sort="onSortColumn"
-        @select-all-items="onSelectionChanged"
-        @selection-change="onSelectionChanged"
-        @inline-edit-save="onSaveItem"
+            v-if="ready && total > 0"
+            :dataSource="items"
+            :columns="columns"
+            :showSelection="false"
+            :showSettings="false"
+            :isLoading="isLoading"
+            :sortBy="sortBy"
+            :sortDirection="sortDirection"
+            :allowColumnEdit="false"
+            :allowInlineEdit="true"
+            :compactMode="false"
+            @column-sort="onSortColumn"
+            @select-all-items="onSelectionChanged"
+            @selection-change="onSelectionChanged"
+            @inline-edit-save="onSaveItem"
     >
         {% block moorl_entity_grid_templates %}{% endblock %}
         <template #[`preview-${listHelper.getPreviewColumn()}`]="{ item }">
@@ -93,7 +92,7 @@
 
         <template
                 v-for="language in listHelper.languages"
-                #[`column-languageIds-${language.id}`]="{ item, column, isInlineEdit }"
+                #[`column-languageIds-${language.id}`]="{ item, isInlineEdit }"
         >
             <moorl-grid-column-language
                     v-model:value="item.languageIds"
@@ -112,20 +111,20 @@
         <template #actions="{ item }">
             {% block moorl_entity_grid_actions %}{% endblock %}
             <sw-context-menu-item
-                v-if="path"
-                @click="$router.push({ name: path, params: {id: item.id} })"
+                    v-if="path"
+                    @click="$router.push({ name: path, params: {id: item.id} })"
             >
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
             <sw-context-menu-item
-                v-else
-                @click="onEditItem(item.id)"
+                    v-else
+                    @click="onEditItem(item.id)"
             >
                 {{ $tc('global.default.edit') }}
             </sw-context-menu-item>
             <sw-context-menu-item
-                variant="danger"
-                @click="onDeleteItem(item)"
+                    variant="danger"
+                    @click="onDeleteItem(item)"
             >
                 {{ $tc('global.default.delete') }}
             </sw-context-menu-item>
@@ -133,8 +132,8 @@
 
         <template #bulk>
             <a
-                class="link link-danger"
-                @click="onDeleteSelectedItems"
+                    class="link link-danger"
+                    @click="onDeleteSelectedItems"
             >
                 {{ $tc('global.default.delete') }}
             </a>
@@ -142,42 +141,46 @@
 
         <template #pagination>
             <sw-pagination
-                :total="total"
-                :limit="limit"
-                :page="page"
-                :total-visible="gridPagesVisible"
-                :steps="gridSteps"
-                @page-change="onPageChange"
+                    :total="total"
+                    :limit="limit"
+                    :page="page"
+                    :total-visible="gridPagesVisible"
+                    :steps="gridSteps"
+                    @page-change="onPageChange"
             />
         </template>
     </sw-data-grid>
+
     <moorl-modal-detail
-        v-if="showEditModal"
-        v-model:value="editId"
-        :entity="entity"
-        :defaultItem="defaultItem"
-        :componentName="componentName"
-        @close="onCloseModal"
+            v-if="showEditModal"
+            v-model:value="editId"
+            :entity="entity"
+            :defaultItem="defaultItem"
+            :componentName="componentName"
+            @close="onCloseModal"
     />
+
     <sw-confirm-modal
-        v-if="deleteId"
-        type="yesno"
-        @close="deleteId = null"
-        @cancel="deleteId = null"
-        @confirm="onDeleteItemId"
+            v-if="deleteId"
+            type="yesno"
+            @close="deleteId = null"
+            @cancel="deleteId = null"
+            @confirm="onDeleteItemId"
     />
+
     <moorl-csv-import
-        v-if="showImportModal"
-        :entity="entity"
-        :onCloseModal="onCloseModal"
-        :onFinishImport="getItems"
-        :default-item="defaultItem"
+            v-if="showImportModal"
+            :entity="entity"
+            :onCloseModal="onCloseModal"
+            :onFinishImport="getItems"
+            :default-item="defaultItem"
     />
+
     <moorl-csv-export
-        v-if="showExportModal"
-        :entity="entity"
-        :onCloseModal="onCloseModal"
-        :selectedItems="selectedItems"
-        :default-item="defaultItem"
+            v-if="showExportModal"
+            :entity="entity"
+            :onCloseModal="onCloseModal"
+            :selectedItems="selectedItems"
+            :default-item="defaultItem"
     />
 </div>
