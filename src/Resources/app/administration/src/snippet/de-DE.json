@@ -60,6 +60,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "certificate": "Certificate",
       "creators": "Profile",
       "badge": "Badge",
       "gallery": "Galerie",

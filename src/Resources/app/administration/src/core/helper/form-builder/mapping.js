@@ -162,6 +162,7 @@ const mapping = {
     metaDescription: {tab: 'seo', card: 'general'},
     metaKeywords: {tab: 'seo', card: 'general'},
     seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
+    progress: {tab: 'seo', card: 'meta'},
     duration: {tab: 'seo', card: 'meta'},
     fileCount: {tab: 'seo', card: 'meta'},
     lessonCount: {tab: 'seo', card: 'meta'},
@@ -173,9 +174,6 @@ const mapping = {
     testCount: {tab: 'seo', card: 'meta'},
     ratingCount: {tab: 'seo', card: 'meta'},
     courseCount: {tab: 'seo', card: 'meta'},
-
-    // CMS Page
-    cmsPage: {tab: 'cmsPage', card: 'cmsPage'},
 
     // Event
     eventDate: {tab: 'event', card: 'event'},

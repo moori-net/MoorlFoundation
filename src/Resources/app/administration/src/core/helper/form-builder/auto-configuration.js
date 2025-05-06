@@ -311,6 +311,7 @@ const autoConfiguration = [
         ],
         apply({ column }) {
             column.componentName = 'moorl-layout-card-v2';
+            column.tab = 'cmsPage';
         }
     },
     {
@@ -318,7 +319,7 @@ const autoConfiguration = [
         conditions: [
             '!hasComponentName',
             'isManyToOne',
-            not(isEntity('media', 'cms_page', 'user')),
+            not(isEntity('media', 'user')),
         ],
         apply({ column }) {
             column.cols ??= 6;
