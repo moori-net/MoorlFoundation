@@ -58,6 +58,17 @@ Shopware.Mixin.register('moorl-listing', {
             return criteria;
         },
 
+        languageRepository() {
+            return this.repositoryFactory.create('language');
+        },
+
+        languageCriteria() {
+            const criteria = new Criteria(1, 25);
+            criteria.addAssociation('locale');
+            criteria.addSorting(Criteria.sort('name', 'ASC', false));
+            return criteria;
+        },
+
         currencyRepository() {
             return this.repositoryFactory.create('currency');
         },
@@ -97,11 +108,13 @@ Shopware.Mixin.register('moorl-listing', {
             }
 
             const currencies = await this.currencyRepository.search(new Criteria());
+            const languages = await this.languageRepository.search(this.languageCriteria);
 
             this.listHelper = new MoorlFoundation.ListHelper({
                 componentName: this.componentName,
                 entity: this.entity,
                 currencies,
+                languages,
                 tc: this.$tc
             });
 

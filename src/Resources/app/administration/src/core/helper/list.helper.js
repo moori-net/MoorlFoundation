@@ -3,6 +3,7 @@ export default class ListHelper {
                     componentName,
                     entity,
                     currencies = [],
+                    languages = [],
                     tc,
                     minVisibility = 0
                 }) {
@@ -19,9 +20,11 @@ export default class ListHelper {
         this.associations = [];
 
         this.mediaProperty = undefined;
+        this.languageProperty = undefined;
         this.priceProperties = [];
         this.dateProperties = [];
         this.currencies = currencies;
+        this.languages = languages;
 
         this.translationHelper = new MoorlFoundation.TranslationHelper({
             tc: this.tc,
@@ -203,6 +206,12 @@ export default class ListHelper {
                         this._addAssociation('tax');
                     }
                     continue;
+                case 'json_list':
+                    if (property.toLowerCase().includes("language")) {
+                        this.languageProperty = property;
+                        this.columns.push(...this._getLanguageColumns(property, column));
+                    }
+                    continue;
             }
 
             this.columns.push(column);
@@ -228,6 +237,21 @@ export default class ListHelper {
         return this.priceProperties.flatMap(priceProperty =>
             this.currencies.map(currency => ({ priceProperty, currency }))
         );
+    }
+
+    _getLanguageColumns(property, column) {
+        return this.languages
+            .toSorted((a, b) => b.id === Shopware.Context.api.languageId ? 1 : -1)
+            .map(item => ({
+                property: `${property}-${item.locale.code}`,
+                dataIndex: `${property}.${item.id}`,
+                label: item.locale.code,
+                allowResize: false,
+                languageId: item.id,
+                width: '80px',
+                align: 'center',
+                inlineEdit: 'boolean'
+            }));
     }
 
     _getCurrenciesColumns(property, column) {
