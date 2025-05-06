@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Content\EmbeddedMedia;
 
 use Shopware\Core\Content\Media\MediaDefinition;
-use Shopware\Core\Content\ProductStream\ProductStreamDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
@@ -57,7 +56,6 @@ class EmbeddedMediaDefinition extends EntityDefinition
     {
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
-            (new FkField('product_stream_id', 'productStreamId', ProductStreamDefinition::class)),
             (new ParentFkField(self::class))->addFlags(),
             (new FkField('cover_id', 'coverId', MediaDefinition::class)),
             (new FkField('media_id', 'mediaId', MediaDefinition::class)),
@@ -81,12 +79,6 @@ class EmbeddedMediaDefinition extends EntityDefinition
                 'configParent',
                 'parent_id',
                 self::class
-            ))->addFlags(new RestrictDelete()),
-
-            (new ManyToOneAssociationField(
-                'productStream',
-                'product_stream_id',
-                ProductStreamDefinition::class
             ))->addFlags(new RestrictDelete()),
 
             (new ManyToOneAssociationField(

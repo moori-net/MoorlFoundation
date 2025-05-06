@@ -14,7 +14,6 @@ class EmbeddedMediaEntity extends Entity
 
     protected int $duration = 0;
     protected ?string $technicalName = null;
-    protected ?string $productStreamId = null;
     protected ?string $type = null;
 
     protected array $config = [];
@@ -93,16 +92,6 @@ class EmbeddedMediaEntity extends Entity
     public function setTechnicalName(?string $technicalName): void
     {
         $this->technicalName = $technicalName;
-    }
-
-    public function getProductStreamId(): ?string
-    {
-        return $this->productStreamId;
-    }
-
-    public function setProductStreamId(?string $productStreamId): void
-    {
-        $this->productStreamId = $productStreamId;
     }
 
     public function getConfig(): array
