@@ -1,6 +1,7 @@
 const isComponent = (...components) => ({ column }) => components.includes(column.componentName);
 
 const componentConfiguration = [
+    // Fallbacks for general configuration
     {
         alias: 'isFallbackTab',
         conditions: [
@@ -39,6 +40,7 @@ const componentConfiguration = [
             column.cols = 12;
         }
     },
+    // Handle model and attributes by component
     {
         description: 'Handle Meteor component',
         conditions: [

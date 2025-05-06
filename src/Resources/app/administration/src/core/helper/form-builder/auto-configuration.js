@@ -67,7 +67,28 @@ const autoConfiguration = [
             column.cols ??= 12;
         }
     },
+    {
+        alias: 'isCustomProperty',
+        conditions: [
+            ({ property }) => property.toLowerCase().includes('custom'),
+            ({ property }) => !property.toLowerCase().includes('customer'),
+        ],
+        apply({ column }) {
+            column.tab = 'customFields';
+            column.card = 'customFields';
+        }
+    },
     // early break
+    {
+        description: ({ property }) => `Add component 'sw-custom-field-set-renderer' (${property})`,
+        conditions: [
+            ({ property }) => property === 'customFields'
+        ],
+        apply({ column, customFieldSets }) {
+            column.hidden = customFieldSets.length === 0;
+            column.componentName = 'sw-custom-field-set-renderer';
+        }
+    },
     {
         description: ({ property, column }) => `The field is no association and the component is already set to '${column.componentName}' (${property})`,
         conditions: [
@@ -176,17 +197,6 @@ const autoConfiguration = [
         apply({ column }) {
             column.tab = 'price';
             column.card = 'price';
-        }
-    },
-    {
-        alias: 'isCustomProperty',
-        conditions: [
-            ({ property }) => property.toLowerCase().includes('custom'),
-            ({ property }) => !property.toLowerCase().includes('customer'),
-        ],
-        apply({ column }) {
-            column.tab = 'customFields';
-            column.card = 'customFields';
         }
     },
     {

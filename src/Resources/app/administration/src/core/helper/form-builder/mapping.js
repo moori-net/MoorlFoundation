@@ -275,13 +275,6 @@ const mapping = {
     categoryIds: {hidden: true},
     categoryTree: {hidden: true},
 
-    // Custom Fields
-    customFields: {tab: 'customFields', card: 'customFields', componentName: 'sw-custom-field-set-renderer'},
-    custom1: {tab: 'customFields', card: 'customFields'},
-    custom2: {tab: 'customFields', card: 'customFields'},
-    custom3: {tab: 'customFields', card: 'customFields'},
-    custom4: {tab: 'customFields', card: 'customFields'},
-
     // Media
     cover: {tab: 'general', card: 'media'},
     color: {tab: 'general', card: 'media'},
@@ -292,7 +285,7 @@ const mapping = {
     icon: {tab: 'general', card: 'media'},
     sgMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
     embeddedId: {tab: 'general', card: 'media'},
-    embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field'},
+    embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field', cols: 12},
 
     // Comments
     enableComments: {tab: 'comments', card: 'general'}

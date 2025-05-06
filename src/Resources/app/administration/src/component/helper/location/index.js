@@ -31,7 +31,7 @@ Shopware.Component.register('moorl-location', {
         options: {
             type: Array,
             required: false,
-            default: ['scrollWheelZoom', 'dragging', 'tap'],
+            default: ['dragging', 'tap'],
         },
         showOrder: { type: Boolean, required: false, default: true },
         label: { type: String, required: false, default: null },
