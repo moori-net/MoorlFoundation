@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
+/** @deprecated */
 class VueComponent extends Flag
 {
     public function __construct(private readonly ?string $type = null, private readonly ?array $options = null)

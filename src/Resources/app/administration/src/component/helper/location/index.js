@@ -12,6 +12,11 @@ Shopware.Component.register('moorl-location', {
             required: false,
             default: [],
         },
+        item: {
+            type: Object,
+            required: false,
+            default: null,
+        },
         tileLayer: {
             type: String,
             required: false,
@@ -34,8 +39,8 @@ Shopware.Component.register('moorl-location', {
     },
 
     watch: {
-        locations: function () {
-            this.initLocations(this.locations);
+        currentLocations() {
+            this.initLocations();
         },
     },
 
@@ -47,21 +52,49 @@ Shopware.Component.register('moorl-location', {
     },
 
     computed: {
-        mainLocation() {
-            return [
-                this.item.locationLat ? this.item.locationLat : 52.5173,
-                this.item.locationLon ? this.item.locationLon : 13.402,
-            ];
+        mapOptions() {
+            return {
+                scrollWheelZoom: this.options.includes('scrollWheelZoom'),
+                dragging: this.options.includes('dragging'),
+                tap: this.options.includes('tap')
+            };
         },
+
+        currentLocations() {
+            const items = [...this.locations];
+
+            if (this.item) {
+                const m = this.item.marker;
+                const ms = m?.markerSettings ?? {};
+
+                const icon = m ? {
+                    svg: m.svg,
+                    iconUrl: m.marker?.url,
+                    iconRetinaUrl: m.markerRetina?.url,
+                    shadowUrl: m.markerShadow?.url,
+                    iconSize: [ms.iconSizeX, ms.iconSizeY],
+                    iconAnchor: [ms.iconAnchorX, ms.iconAnchorY],
+                    popupAnchor: [ms.popupAnchorX, ms.popupAnchorY],
+                    shadowSize: [ms.shadowSizeX, ms.shadowSizeY],
+                    shadowAnchor: [ms.shadowAnchorX, ms.shadowAnchorY],
+                } : {};
+
+                items.push({
+                    entityId: this.item.id,
+                    latlng: [
+                        this.item.locationLat ?? 52.5173,
+                        this.item.locationLon ?? 13.402
+                    ],
+                    icon,
+                    popup: `<p><b>${this.item.name}</b><br>${this.item.street}<br>${this.item.zipcode} ${this.item.city}</p>`,
+                });
+            }
+
+            return items;
+        }
     },
 
     mounted() {
-        setTimeout(() => {
-            this.initMap();
-        }, 1000);
-    },
-
-    created() {
         this.initMap();
     },
 
@@ -75,32 +108,22 @@ Shopware.Component.register('moorl-location', {
                 return;
             }
 
-            const mapOptions = {};
-            if (this.options) {
-                mapOptions.scrollWheelZoom =
-                    this.options.includes('scrollWheelZoom');
-                mapOptions.dragging = this.options.includes('dragging');
-                mapOptions.tap = this.options.includes('tap');
-            }
-
-            this._mapInstance = {};
-            this._mapInstance.layerGroup = L.layerGroup([]);
-            this._mapInstance.map = L.map(
-                this.$refs['moorlLocation'],
-                mapOptions
-            );
+            this._mapInstance = {
+                layerGroup: L.layerGroup([]),
+                map: L.map(this.$refs['moorlLocation'], this.mapOptions)
+            };
 
             L.tileLayer(this.tileLayer, {
                 attribution: this.attribution,
             }).addTo(this._mapInstance.map);
 
-            this.initLocations(this.locations);
+            this.initLocations();
         },
 
-        initLocations(locations) {
+        initLocations() {
             const featureMarker = [];
 
-            for (let location of locations) {
+            for (let location of this.currentLocations) {
                 const markerOptions = {};
                 if (location.entityId) {
                     markerOptions.entityId = location.entityId;
@@ -138,6 +161,7 @@ Shopware.Component.register('moorl-location', {
             if (this._mapInstance.layerGroup) {
                 this._mapInstance.layerGroup.clearLayers();
             }
+
             this._mapInstance.layerGroup = L.featureGroup(featureMarker).addTo(
                 this._mapInstance.map
             );

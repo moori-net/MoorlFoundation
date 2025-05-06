@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
+/** @deprecated */
 class EditField extends Flag
 {
     public const TEXT = 'text';

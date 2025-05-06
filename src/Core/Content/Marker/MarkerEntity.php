@@ -40,9 +40,9 @@ class MarkerEntity extends Entity
         return [
             'svg' => $this->svg,
             'className' => $this->className,
-            'iconUrl' => $this->marker ? $this->marker->getUrl() : null,
-            'iconRetinaUrl' => $this->markerRetina ? $this->markerRetina->getUrl() : null,
-            'shadowUrl' => $this->markerShadow ? $this->markerShadow->getUrl() : null,
+            'iconUrl' => $this->marker?->getUrl(),
+            'iconRetinaUrl' => $this->markerRetina?->getUrl(),
+            'shadowUrl' => $this->markerShadow?->getUrl(),
             'iconSize' => [$ms['iconSizeX'], $ms['iconSizeY']],
             'iconAnchor' => [$ms['iconAnchorX'], $ms['iconAnchorY']],
             'popupAnchor' => [$ms['popupAnchorX'], $ms['popupAnchorY']],

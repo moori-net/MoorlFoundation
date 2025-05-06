@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
 
+/** @deprecated */
 class LabelProperty extends Flag
 {
     public function __construct(private readonly ?string $labelProperty)

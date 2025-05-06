@@ -210,7 +210,16 @@ const mapping = {
     locationLon: {tab: 'address', card: 'location'},
     autoLocation: {tab: 'address', card: 'location'},
     marker: {tab: 'address', card: 'location'},
-    locationCache: {hidden: true},
+
+    // Use this prop as placeholder
+    locationCache: {
+        tab: 'address',
+        card: 'preview',
+        componentName: 'moorl-location',
+        attributes: {
+            item: ({item}) => item
+        }
+    },
 
     // Time
     timeZone: {tab: 'time', card: 'general', componentName: 'moorl-select-field', attributes: {set: 'timeZone'}},

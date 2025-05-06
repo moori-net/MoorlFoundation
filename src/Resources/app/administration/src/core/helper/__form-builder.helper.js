@@ -2,7 +2,9 @@ import mapping from './form-builder/mapping.js';
 import order from './form-builder/order.json';
 
 const {merge, cloneDeep} = Shopware.Utils.object;
-
+/**
+ * @deprecated: Not used anymore
+ */
 export default class FormBuilderHelper {
     static entityLabelProperty = {
         media: 'fileName',
