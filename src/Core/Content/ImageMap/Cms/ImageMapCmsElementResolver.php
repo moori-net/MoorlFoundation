@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Content\ImageMap\Cms;
 
 use MoorlFoundation\Core\Content\ImageMap\ImageMapEntity;
-use MoorlFoundation\Core\Content\ImageMap\SalesChannel\ImageMapAvailableFilter;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;

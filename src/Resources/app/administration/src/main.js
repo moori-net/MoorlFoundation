@@ -98,6 +98,8 @@ MoorlFoundation.ModuleHelper.registerModule({
             conditions: [{property: 'type', value: 'media', operator: 'eq'}],
         }
     },
+    pluginName: 'MoorlFoundation',
+    demoName: 'import-export'
 });
 
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});

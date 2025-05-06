@@ -2,15 +2,11 @@
 
 namespace MoorlFoundation;
 
-use MoorlFoundation\Core\Content\ProductVideo\EmbeddedMediaProductDefinition;
 use MoorlFoundation\Core\PluginLifecycleHelper;
-use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
-use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
 use Shopware\Core\Framework\Plugin\Context\UpdateContext;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class MoorlFoundation extends Plugin
 {
@@ -36,26 +32,6 @@ class MoorlFoundation extends Plugin
         'moorl_media_translation',
         'moorl_media_language'
     ];
-
-    public function __getMigrationNamespace(): string
-    {
-        return $this->getNamespace() . '\Migration_6_7';
-    }
-
-    public function install(InstallContext $installContext): void
-    {
-        //$installContext->setAutoMigrate(false); //??
-
-        // Migrations are done before install() is called :(
-        //PluginLifecycleHelper::migrationSkipper($this, 1744278006, $this->container);
-
-        parent::install($installContext);
-    }
-
-    public function build(ContainerBuilder $container): void
-    {
-        parent::build($container);
-    }
 
     public function update(UpdateContext $updateContext): void
     {

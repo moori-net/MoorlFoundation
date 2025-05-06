@@ -31,89 +31,74 @@
         "position": 3
       },
       {
+        "key": "backgroundColor",
+        "mappedKey": "background_color",
+        "position": 4
+      },
+      {
         "key": "type",
         "mappedKey": "type",
-        "position": 4
+        "position": 5
       },
       {
         "key": "embeddedId",
         "mappedKey": "embedded_id",
-        "position": 5
+        "position": 6
       },
       {
         "key": "embeddedUrl",
         "mappedKey": "embedded_url",
-        "position": 6
+        "position": 7
       },
       {
         "key": "translations.DEFAULT.name",
         "mappedKey": "name",
-        "position": 7
+        "position": 8
       },
       {
         "key": "translations.DEFAULT.description",
         "mappedKey": "description",
-        "position": 8
-      },
-      {
-        "key": "configParent.id",
-        "mappedKey": "config_parent_id",
         "position": 9
-      },
-      {
-        "key": "translations.DEFAULT.configParent.name",
-        "mappedKey": "config_parent_name",
-        "position": 10
-      },
-      {
-        "key": "productStream.id",
-        "mappedKey": "product_stream_id",
-        "position": 11
-      },
-      {
-        "key": "translations.DEFAULT.productStream.name",
-        "mappedKey": "product_stream_name",
-        "position": 12
       },
       {
         "key": "cover.id",
         "mappedKey": "cover_id",
-        "position": 13
+        "position": 12
       },
       {
         "key": "translations.DEFAULT.cover.title",
         "mappedKey": "cover_title",
-        "position": 14
+        "position": 13
       },
       {
         "key": "cover.url",
         "mappedKey": "cover_url",
-        "position": 15
+        "position": 14
       },
       {
         "key": "translations.DEFAULT.cover.alt",
         "mappedKey": "cover_alt",
-        "position": 16
+        "position": 15
       },
       {
         "key": "media.id",
         "mappedKey": "media_id",
-        "position": 17
+        "position": 16
       },
       {
         "key": "translations.DEFAULT.media.title",
         "mappedKey": "media_title",
-        "position": 18
+        "position": 17
       },
       {
         "key": "media.url",
         "mappedKey": "media_url",
-        "position": 19
+        "position": 18
       },
       {
         "key": "translations.DEFAULT.media.alt",
         "mappedKey": "media_alt",
-        "position": 20
+        "position": 19
       }
     ]
   }
