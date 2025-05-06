@@ -300,15 +300,17 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add component 'sw-media-field' (${property})`,
+        description: ({ property }) => `Add component 'moorl-media-field' (${property})`,
         conditions: [
             'isManyToOne',
             isEntity('media')
         ],
-        apply({ column }) {
-            column.componentName = 'sw-media-field';
+        apply({ column, attributes, entity }) {
+            column.componentName = 'moorl-media-field';
             column.tab = 'general';
             column.card = 'media';
+
+            attributes.entity = entity;
         }
     },
     {
