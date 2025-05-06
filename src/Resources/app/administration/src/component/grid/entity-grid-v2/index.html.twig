@@ -83,19 +83,24 @@
         </template>
 
         <template
-            v-for="dateProperty in listHelper.dateProperties"
-            #[`column-${dateProperty}`]="{ item }"
+                v-for="dateProperty in listHelper.dateProperties"
+                #[`column-${dateProperty}`]="{ item }"
         >
             {{ dateFilter(item[dateProperty], { hour: '2-digit', minute: '2-digit' }) }}
         </template>
 
         <template
-            v-for="props in listHelper.getCurrenciesAndPriceProperties()"
-            #[`column-${props.priceProperty}-${props.currency.isoCode}`]="{ item }"
+                v-for="props in listHelper.getLanguagesAndLanguageProperty()"
+                #[`column-${props.languageProperty}-${props.language.locale.code}`]="{ item }"
         >
-            {{ currencyFilter(
-                getCurrencyPriceByCurrencyId(props.currency.id,item[props.priceProperty]).gross,props.currency.isoCode
-            ) }}
+            {{ item.languageIds.includes(props.language.id) }}
+        </template>
+
+        <template
+                v-for="props in listHelper.getCurrenciesAndPriceProperties()"
+                #[`column-${props.priceProperty}-${props.currency.isoCode}`]="{ item }"
+        >
+            {{ currencyFilter(getCurrencyPriceByCurrencyId(props.currency.id,item[props.priceProperty]).gross,props.currency.isoCode) }}
         </template>
 
         <template #actions="{ item }">

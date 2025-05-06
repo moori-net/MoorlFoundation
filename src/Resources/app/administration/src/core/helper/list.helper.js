@@ -239,6 +239,10 @@ export default class ListHelper {
         );
     }
 
+    getLanguagesAndLanguageProperty() {
+        return this.languages.map(language => ({ languageProperty: this.languageProperty, language }));
+    }
+
     _getLanguageColumns(property, column) {
         return this.languages
             .toSorted((a, b) => b.id === Shopware.Context.api.languageId ? 1 : -1)
