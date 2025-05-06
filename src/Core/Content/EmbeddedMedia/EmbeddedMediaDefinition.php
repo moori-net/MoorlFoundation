@@ -54,7 +54,6 @@ class EmbeddedMediaDefinition extends EntityDefinition
     {
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
-            (new ParentFkField(self::class))->addFlags(),
             (new FkField('cover_id', 'coverId', MediaDefinition::class)),
             (new FkField('media_id', 'mediaId', MediaDefinition::class)),
 
@@ -68,17 +67,11 @@ class EmbeddedMediaDefinition extends EntityDefinition
             (new StringField('embedded_id', 'embeddedId'))->addFlags(),
             (new StringField('embedded_url', 'embeddedUrl'))->addFlags(),
 
-            (new TranslatedField('name'))->addFlags(new Required()),
+            (new TranslatedField('name'))->addFlags(),
             (new TranslatedField('description')),
 
             (new JsonField('config', 'config'))->addFlags(),
             (new CustomFields()),
-
-            (new ManyToOneAssociationField(
-                'configParent',
-                'parent_id',
-                self::class
-            ))->addFlags(new RestrictDelete()),
 
             (new ManyToOneAssociationField(
                 'cover',

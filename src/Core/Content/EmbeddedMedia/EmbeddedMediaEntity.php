@@ -23,7 +23,17 @@ class EmbeddedMediaEntity extends Entity
     protected ?string $embeddedId = null;
     protected ?MediaEntity $cover = null;
     protected ?MediaEntity $media = null;
-    protected ?EmbeddedMediaEntity $configParent = null;
+    protected ?EmbeddedMediaTranslationCollection $translations = null;
+
+    public function getTranslations(): ?EmbeddedMediaTranslationCollection
+    {
+        return $this->translations;
+    }
+
+    public function setTranslations(?EmbeddedMediaTranslationCollection $translations): void
+    {
+        $this->translations = $translations;
+    }
 
     public function getBackgroundColor(): ?string
     {
