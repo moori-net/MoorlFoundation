@@ -14,6 +14,7 @@ class EmbeddedMediaEntity extends Entity
 
     protected int $duration = 0;
     protected ?string $technicalName = null;
+    protected ?string $backgroundColor = null;
     protected ?string $type = null;
 
     protected array $config = [];
@@ -23,6 +24,16 @@ class EmbeddedMediaEntity extends Entity
     protected ?MediaEntity $cover = null;
     protected ?MediaEntity $media = null;
     protected ?EmbeddedMediaEntity $configParent = null;
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(?string $backgroundColor): void
+    {
+        $this->backgroundColor = $backgroundColor;
+    }
 
     public function getEmbeddedUrl(): ?string
     {

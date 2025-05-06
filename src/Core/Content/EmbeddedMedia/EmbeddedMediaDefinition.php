@@ -65,6 +65,7 @@ class EmbeddedMediaDefinition extends EntityDefinition
             (new IntField('duration', 'duration'))->addFlags(),
 
             (new StringField('technical_name', 'technicalName'))->addFlags(),
+            (new StringField('background_color', 'backgroundColor'))->addFlags(),
             (new StringField('type', 'type'))->addFlags(new Required()),
             (new StringField('embedded_id', 'embeddedId'))->addFlags(),
             (new StringField('embedded_url', 'embeddedUrl'))->addFlags(),
