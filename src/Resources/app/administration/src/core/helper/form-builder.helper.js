@@ -250,6 +250,7 @@ export default class FormBuilderHelper {
             entity: this.entity,
             componentName: this.componentName,
             item: this.item,
+            path: this.path,
             currency: this.currency,
             tax: this.tax,
             customFieldSets: this.customFieldSets,

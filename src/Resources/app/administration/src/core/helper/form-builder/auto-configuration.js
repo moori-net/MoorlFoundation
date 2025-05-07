@@ -261,8 +261,9 @@ const autoConfiguration = [
             'isAssociation',
             ({ field }) => field.relation === 'many_to_one'
         ],
-        apply({ column, attributes, field, fields }) {
+        apply({ column, attributes, field, fields, path }) {
             column.name = field.localField;
+            column.path = path ? `${path}.${field.localField}` : field.localField;
 
             attributes.required = fields?.[field.localField]?.flags?.required;
             attributes.disabled = fields?.[field.localField]?.flags?.write_protected;
