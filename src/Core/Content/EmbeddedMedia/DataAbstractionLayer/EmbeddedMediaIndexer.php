@@ -35,7 +35,7 @@ class EmbeddedMediaIndexer extends EntityIndexer
             return;
         }
 
-        $sql = "SELECT `id`, `embedded_url` FROM `moorl_media` WHERE `id` IN (:ids) AND `embedded_url` NOT NULL AND `type` = 'auto'";
+        $sql = "SELECT `id`, `embedded_url` FROM `moorl_media` WHERE `id` IN (:ids) AND `embedded_url` IS NOT NULL AND `type` = 'auto'";
 
         $data = $this->connection->fetchAllAssociative(
             $sql,
