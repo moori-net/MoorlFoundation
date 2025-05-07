@@ -204,7 +204,7 @@ export default class FormBuilderHelper {
         }
 
         // Initial label
-        column.label = this.translationHelper.getLabel('field', property);
+        column.label ??= this.translationHelper.getLabel('field', property);
 
         // Resolve function-attributes
         for (const [key, value] of Object.entries(attributes)) {

@@ -398,8 +398,9 @@ const autoConfiguration = [
             'isOneToMany',
             isRegisteredEntity()
         ],
-        apply({ column }) {
+        apply({ column, property }) {
             column.componentName = 'moorl-entity-grid-card-v2';
+            column.label = property; // Card don't need a label
         }
     },
     {
