@@ -66,19 +66,9 @@
         "position": 12
       },
       {
-        "key": "translations.DEFAULT.cover.title",
-        "mappedKey": "cover_title",
-        "position": 13
-      },
-      {
         "key": "cover.url",
         "mappedKey": "cover_url",
         "position": 14
-      },
-      {
-        "key": "translations.DEFAULT.cover.alt",
-        "mappedKey": "cover_alt",
-        "position": 15
       },
       {
         "key": "media.id",
@@ -86,19 +76,9 @@
         "position": 16
       },
       {
-        "key": "translations.DEFAULT.media.title",
-        "mappedKey": "media_title",
-        "position": 17
-      },
-      {
         "key": "media.url",
         "mappedKey": "media_url",
         "position": 18
-      },
-      {
-        "key": "translations.DEFAULT.media.alt",
-        "mappedKey": "media_alt",
-        "position": 19
       }
     ]
   }
