@@ -52,6 +52,10 @@ Shopware.Mixin.register('moorl-form', {
     },
 
     computed: {
+        masterMapping() {
+            return this.mapping;
+        },
+
         fieldModels() {
             return new Proxy({}, {
                 get: (_, prop) => {
@@ -87,7 +91,7 @@ Shopware.Mixin.register('moorl-form', {
                 componentName: this.componentName,
                 item: this.item,
                 translationHelper: this.translationHelper,
-                masterMapping: this.mapping
+                masterMapping: this.masterMapping
             });
         },
 
@@ -164,6 +168,10 @@ Shopware.Mixin.register('moorl-form', {
                 ...field.attributes,
                 disabled: this.isDisabled(field)
             };
+        },
+
+        isVisibleComponent(field) {
+            return this.hideDisabledFields ? this.isVisible(field) : true
         },
 
         isVisible(field) {

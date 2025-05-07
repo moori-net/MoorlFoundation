@@ -1,3 +1,4 @@
+import fieldsetsConfig from './config/fieldsets.config';
 import ListHelper from './helper/list.helper';
 import ItemHelper from './helper/item.helper';
 import TranslationHelper from './helper/translation.helper';
@@ -9,6 +10,7 @@ import ModuleHelper from './helper/module.helper';
 import MappingHelper from './helper/mapping.helper';
 
 const MoorlFoundation = {
+    fieldsetsConfig,
     ListHelper,
     ItemHelper,
     TranslationHelper,

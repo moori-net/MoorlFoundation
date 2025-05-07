@@ -1,16 +1,9 @@
 import MappingHelper from "./mapping.helper";
 
-const {Criteria} = Shopware.Data;
 const {mergeWith} = Shopware.Utils.object;
 const {get} = Shopware.Utils;
 
-import ctaBanner from './cms-element/cta-banner';
-import listing from './cms-element/listing';
-
-const defaultCmsElementMappings = {
-    listing,
-    'cta-banner': ctaBanner
-};
+import fieldsets from '../config/fieldsets.config';
 
 export default class CmsElementHelper {
     static propertyMapping = {
@@ -34,12 +27,12 @@ export default class CmsElementHelper {
     static cmsElementConfigCache = {};
 
     static fetchCmsElement(parent, cmsElementMapping) {
-        if (defaultCmsElementMappings[parent] !== undefined) {
+        if (fieldsets[parent] !== undefined) {
             const customMerge = (objValue, srcValue) => {
                 if (Array.isArray(objValue)) {return srcValue;}
             };
 
-            cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
+            cmsElementMapping = mergeWith({}, fieldsets[parent], cmsElementMapping, customMerge);
         }
 
         MappingHelper.enrichMapping(cmsElementMapping);

@@ -1,11 +1,11 @@
-{% block moorl_item_detail_form_detail %}
+{% block moorl_form_detail %}
     <mt-loader v-if="isLoading" />
 
     <sw-tabs
         v-if="!isLoading"
         :key="entity"
         :default-item="defaultTab"
-        class="moorl-item-detail-form"
+        class="moorl-form"
     >
         <template
                 v-if="formStruct.tabs.length > 1"
@@ -20,7 +20,7 @@
             >
                 {{ tab.label }}
             </sw-tabs-item>
-            {% block moorl_item_detail_form_detail_tabs %}
+            {% block moorl_form_detail_tabs %}
             {% endblock %}
         </template>
 
@@ -50,7 +50,7 @@
                         <mt-card
                             v-else
                             :title="card.label"
-                            :class="card.id + '-card moorl-item-detail-form__card'"
+                            :class="card.id + '-card moorl-form__card'"
                         >
                             <mt-banner
                                 v-if="translationHelper.getNotification(card.id)"
@@ -66,7 +66,10 @@
                                     v-if="field.newline"
                                     class="newline"
                                 ></div>
-                                <div :style="getStyle(field)">
+                                <div
+                                        v-if="isVisibleComponent(field)"
+                                        :style="getStyle(field)"
+                                >
                                     <component
                                         v-if="field.model === undefined"
                                         :is="field.componentName"
@@ -87,7 +90,7 @@
                     </template>
                 </template>
             </template>
-            {% block moorl_item_detail_form_detail_content %}
+            {% block moorl_form_detail_content %}
             {% endblock %}
         </template>
     </sw-tabs>

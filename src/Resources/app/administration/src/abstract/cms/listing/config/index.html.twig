@@ -1,10 +1,11 @@
 <div class="moorl-abstract-cms-listing-config">
-    <moorl-cms-element-config-form
+    <moorl-form
         v-if="!isLoading"
         :item="element.config"
         :componentName="element.type"
         :entity="cmsElementEntity.entity"
         :mapping="cmsElementMapping"
+        :hideDisabledFields="true"
         pathAppend="value"
     />
     <moorl-support-link path="/MoorlFoundation/listing/"/>

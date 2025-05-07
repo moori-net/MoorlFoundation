@@ -1,24 +1,13 @@
-import mapping from './form-builder/mapping.js';
-import order from './form-builder/order.json';
 import {applyAutoConfiguration} from './util/auto-config.util';
-import autoConfiguration from './form-builder/auto-configuration';
-import componentConfiguration from './form-builder/component-configuration';
 import {buildImportExportProfile} from './util/import-export-profile.util';
 import MappingHelper from "./mapping.helper";
 
 const {merge, cloneDeep} = Shopware.Utils.object;
 
+import {mapping, order, autoConfiguration, componentConfiguration} from '../config/form-builder.config';
+
 export default class FormBuilderHelper {
-    constructor({
-                    entity,
-                    item,
-                    componentName,
-                    translationHelper,
-                    useTabs = undefined,
-                    masterMapping = undefined,
-                    path = undefined,
-                    parentColumn = {},
-                }) {
+    constructor({entity, item, componentName, translationHelper, useTabs = undefined, masterMapping = undefined, path = undefined, parentColumn = {}}) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
@@ -37,7 +26,10 @@ export default class FormBuilderHelper {
     }
 
     buildFormStruct() {
-        this._init();
+        if (this.pageStruct.tabs.length > 0) {
+            console.warn(`[FormBuilderHelper] Form "${this.entity}" already built`);
+            return this.pageStruct;
+        }
 
         const fields = this.masterMapping ?? Shopware.EntityDefinition.get(this.entity).properties;
 
@@ -61,11 +53,6 @@ export default class FormBuilderHelper {
 
     _build(fields) {
         this._init();
-
-        if (this.pageStruct.tabs.length > 0) {
-            console.warn(`[${this.entity}][${this.componentName}] TODO: prevent calling buildFormStruct() multiple times`);
-            return this.pageStruct;
-        }
 
         if (!this.masterMapping) {
             buildImportExportProfile(this.entity);
