@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\EmbeddedMedia;
 
+use MoorlFoundation\Core\Content\EmbeddedMedia\Struct\EmbeddedMediaConfigStruct;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
@@ -24,6 +25,11 @@ class EmbeddedMediaEntity extends Entity
     protected ?MediaEntity $cover = null;
     protected ?MediaEntity $media = null;
     protected ?EmbeddedMediaTranslationCollection $translations = null;
+
+    public function getConfigStruct(): EmbeddedMediaConfigStruct
+    {
+        return (new EmbeddedMediaConfigStruct())->assign($this->config);
+    }
 
     public function getTranslations(): ?EmbeddedMediaTranslationCollection
     {

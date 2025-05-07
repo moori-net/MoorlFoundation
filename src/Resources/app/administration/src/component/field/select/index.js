@@ -125,9 +125,14 @@ Shopware.Component.register('moorl-select-field', {
 
     props: {
         value: {
-            type: String,
+            type: [String, Array],
             required: false,
             default: undefined,
+        },
+        multiple: {
+            type: Boolean,
+            required: false,
+            default: false,
         },
         variant: {
             type: String,
@@ -207,6 +212,10 @@ Shopware.Component.register('moorl-select-field', {
                 disabled: this.disabled,
                 isLoading: this.isLoading,
             };
+        },
+
+        componentName() {
+            return this.multiple ? 'sw-multi-select' : 'sw-single-select';
         },
 
         currentValue: {

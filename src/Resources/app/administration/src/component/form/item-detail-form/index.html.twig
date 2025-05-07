@@ -70,14 +70,14 @@
                                     <component
                                         v-if="field.model === undefined"
                                         :is="field.componentName"
-                                        v-model="fieldModels[field.name]"
+                                        v-model="fieldModels[field.path]"
                                         v-bind="fieldAttributes(field)"
                                         :error="getError(field)"
                                     />
                                     <component
                                         v-else
                                         :is="field.componentName"
-                                        v-model:[field.model]="fieldModels[field.name]"
+                                        v-model:[field.model]="fieldModels[field.path]"
                                         v-bind="fieldAttributes(field)"
                                         :error="getError(field)"
                                     />

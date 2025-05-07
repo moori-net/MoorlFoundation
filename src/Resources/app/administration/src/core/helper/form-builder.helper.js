@@ -4,6 +4,7 @@ import {applyAutoConfiguration} from './util/auto-config.util';
 import autoConfiguration from './form-builder/auto-configuration';
 import componentConfiguration from './form-builder/component-configuration';
 import {buildImportExportProfile} from './util/import-export-profile.util';
+import CmsElementHelper from "./cms-element.helper";
 
 const {merge, cloneDeep} = Shopware.Utils.object;
 
@@ -14,18 +15,28 @@ export default class FormBuilderHelper {
                     componentName,
                     tc,
                     snippetSrc = 'moorl-foundation',
-                    useTabs = undefined
+                    useTabs = undefined,
+                    useCards = undefined,
+                    useStruct = true,
+                    masterMapping = undefined,
+                    path = undefined,
+                    defaultColumn = {},
                 }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
         this.snippetSrc = snippetSrc;
+        this.path = path;
         this.useTabs = useTabs;
+        this.useCards = useCards;
+        this.useStruct = useStruct;
+        this.defaultColumn = defaultColumn;
 
         this.order = order;
         this.pageStruct = {tabs: []};
+        this.columns = [];
 
-        this.masterMapping = undefined;
+        this.masterMapping = masterMapping;
         this.currency = null;
         this.tax = null;
         this.customFieldSets = [];
@@ -40,14 +51,27 @@ export default class FormBuilderHelper {
 
         const fields = this.masterMapping ?? Shopware.EntityDefinition.get(this.entity).properties;
 
+        this._build(fields);
+
         if (this.useTabs === undefined) {
-            this.useTabs = Object.keys(fields).length >= 15;
+            this.useTabs = Object.keys(this.columns).length >= 10;
         }
 
-        return this._build(fields);
+        for (const column of this.columns) {
+            this._addColumnToStruct(column, column.property);
+        }
+
+        this._sortStruct();
+
+        console.log(this.pageStruct);
+        console.log(this.item);
+
+        return this.pageStruct;
     }
 
     _build(fields) {
+        this._init();
+
         if (this.pageStruct.tabs.length > 0) {
             console.warn(`[${this.entity}][${this.componentName}] TODO: prevent calling buildFormStruct() multiple times`);
             return this.pageStruct;
@@ -61,19 +85,16 @@ export default class FormBuilderHelper {
             if (
                 field.type === 'uuid' ||
                 ['createdAt', 'updatedAt', 'translations'].includes(property) ||
-                field.flags.runtime !== undefined ||
-                field.flags.computed !== undefined
+                field.flags?.runtime || field.flags?.computed
             ) continue;
 
             const column = this._buildColumn(field, property, fields);
             if (!column) continue;
 
-            this._addColumnToStruct(column, property);
+            this.columns.push(column);
         }
 
-        this._sortStruct();
-
-        return this.pageStruct;
+        return this.columns;
     }
 
     _init() {
@@ -129,15 +150,19 @@ export default class FormBuilderHelper {
     }
 
     _buildColumn(field, property, fields) {
+        const path = this.path ? `${this.path}.${property}` : property;
+
         // Init column
-        const column = {
+        const column = Object.assign({
+            path,
+            property,
             tab: undefined,
             card: undefined,
             cols: undefined,
             name: property, // Overridden if association field in autoConfiguration
             model: 'value', // Meteor components have no model, it will be removed in componentConfiguration
             order: this.mapping[property]?.order ?? 9999
-        };
+        }, this.defaultColumn);
 
         const attributes = {};
 
@@ -149,8 +174,38 @@ export default class FormBuilderHelper {
             }
         }
 
+        // the column is a json_object and has a mapping attribute, then add a fieldset.
+        // This fieldset items behave like the colum, same tab, same card.
+        // As the column is a json_object, the property to the model value is specified as a path: property = config.hasCookieConsent
+        if (field.type === 'json_object' && column.mapping) {
+            // TODO: Unbind enrichCmsElementMapping this to another util or helper class
+            CmsElementHelper.enrichCmsElementMapping(column.mapping);
+
+            const formBuilderHelper = new FormBuilderHelper({
+                defaultColumn: {
+                    tab: column.tab,
+                    card: column.card
+                },
+                item: this.item[property] ?? {},
+                masterMapping: column.mapping,
+                tc: this.tc,
+                path
+            });
+
+            formBuilderHelper.translationHelper = this.translationHelper;
+
+            const columns = formBuilderHelper._build(column.mapping);
+            this.columns.push(...columns);
+
+            return null;
+        }
+
         // Early return if column should not be displayed
         if (column.hidden) return null;
+
+        if (field.value !== undefined && this.item[property] === undefined) {
+            this.item[property] = field.value;
+        }
 
         // Run auto configuration
         const context = {

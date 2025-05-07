@@ -60,8 +60,13 @@
       "visibility": "Visibility"
     },
     "field": {
+      "cookieConsent": "Enable cookie consent",
+      "disablePointerEvents": "Disable pointer events",
+      "autoPlay": "Auto-Play",
+      "autoPause": "Auto-Pause",
       "embedded": "Embedded",
       "auto": "Auto-Assign",
+      "video": "Video",
       "vimeo": "Vimeo",
       "youtube": "YouTube",
       "certificate": "Certificate",

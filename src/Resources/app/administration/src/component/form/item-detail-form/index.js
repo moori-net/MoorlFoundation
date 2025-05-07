@@ -1,6 +1,8 @@
 import template from './index.html.twig';
 import './index.scss';
 
+const { get, set } = Shopware.Utils.object;
+
 Shopware.Component.register('moorl-item-detail-form', {
     template,
 
@@ -19,13 +21,19 @@ Shopware.Component.register('moorl-item-detail-form', {
         fieldModels() {
             return new Proxy({}, {
                 get: (_, prop) => {
-                    return this.item.extensions?.[prop] ?? this.item?.[prop];
+                    const path = String(prop);
+                    if (get(this.item.extensions, path) !== undefined) {
+                        return get(this.item.extensions, path);
+                    }
+                    return get(this.item, path);
                 },
+
                 set: (_, prop, value) => {
-                    if (this.item.extensions?.hasOwnProperty(prop)) {
-                        this.item.extensions[prop] = value;
+                    const path = String(prop);
+                    if (get(this.item.extensions, path) !== undefined) {
+                        set(this.item.extensions, path, value);
                     } else {
-                        this.item[prop] = value;
+                        set(this.item, path, value);
                     }
                     return true;
                 }
