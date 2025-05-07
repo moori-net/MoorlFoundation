@@ -4,7 +4,8 @@ const mapping = {
     directory: {
         tab: 'directory', card: 'directory', componentName: 'moorl-file-explorer',
         conditions: [{property: 'clientId', value: null, operator: '!=='}],
-        attributes: {clientId: ({item}) => item.clientId, showActions: false}
+        attributes: {clientId: ({item}) => item.clientId, showActions: false},
+        cols: 12
     },
     deeplink: {tab: 'customFields', card: 'deeplink'},
 
