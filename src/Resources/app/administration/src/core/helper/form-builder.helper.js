@@ -7,7 +7,16 @@ const {merge, cloneDeep} = Shopware.Utils.object;
 import {mapping, order, autoConfiguration, componentConfiguration} from '../config/form-builder.config';
 
 export default class FormBuilderHelper {
-    constructor({entity, item, componentName, translationHelper, useTabs = undefined, masterMapping = undefined, path = undefined, parentColumn = {}}) {
+    constructor({
+                    entity,
+                    item,
+                    componentName,
+                    translationHelper,
+                    useTabs = undefined,
+                    masterMapping = undefined,
+                    path = undefined,
+                    parentColumn = {}
+    }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
@@ -242,13 +251,13 @@ export default class FormBuilderHelper {
     }
 
     _addColumnToStruct(column, property) {
-        const tabName = this.useTabs ? column.tab : 'undefined';
+        const tabId = this.useTabs ? column.tab : 'undefined';
 
-        let tab = this.pageStruct.tabs.find(t => t.id === tabName);
+        let tab = this.pageStruct.tabs.find(t => t.id === tabId);
         if (!tab) {
             tab = {
-                id: tabName,
-                label: this.translationHelper.getLabel('tab', tabName),
+                id: tabId,
+                label: this.translationHelper.getLabel('tab', tabId),
                 cards: []
             };
             this.pageStruct.tabs.push(tab);
