@@ -45,9 +45,6 @@ export default class FormBuilderHelper {
 
         this._sortStruct();
 
-        console.log(this.pageStruct);
-        console.log(this.item);
-
         return this.pageStruct;
     }
 
@@ -186,7 +183,7 @@ export default class FormBuilderHelper {
             ...this.getInstanceParameters()
         };
 
-        applyAutoConfiguration({configList: autoConfiguration, context, debug: true});
+        applyAutoConfiguration({configList: autoConfiguration, context});
 
         // Some properties are not available if the item is on creation
         if (column.hidden) return null;
@@ -214,7 +211,7 @@ export default class FormBuilderHelper {
         }
 
         // Final adjustments
-        applyAutoConfiguration({configList: componentConfiguration, context, debug: true});
+        applyAutoConfiguration({configList: componentConfiguration, context});
 
         this._finalizeAttributes(column, attributes, field, property);
 
