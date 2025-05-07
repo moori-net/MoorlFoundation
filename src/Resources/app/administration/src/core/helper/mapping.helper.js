@@ -8,9 +8,6 @@ export default class MappingHelper {
                 continue;
             }
 
-            field.source = field.source ?? 'static';
-            field.flags = field.flags ?? {};
-
             if (field.entity) {
                 field.type = 'association';
 
@@ -22,11 +19,11 @@ export default class MappingHelper {
                     }
                 }
 
-                if (Array.isArray([field.value])) {
+                if (Array.isArray(field.value)) {
+                    field.relation = 'one_to_many';
+                } else {
                     field.relation = 'many_to_one';
                     field.localField = property;
-                } else {
-                    field.relation = 'one_to_many';
                 }
             } else if (field.value === undefined) {
                 field.type = 'string';
