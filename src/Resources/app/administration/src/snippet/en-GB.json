@@ -60,7 +60,11 @@
       "visibility": "Visibility"
     },
     "field": {
-      "certificate": "Zertifikat",
+      "embedded": "Embedded",
+      "auto": "Auto-Assign",
+      "vimeo": "Vimeo",
+      "Youtube": "YouTube",
+      "certificate": "Certificate",
       "creators": "Profiles",
       "badge": "Badge",
       "gallery": "Gallery",

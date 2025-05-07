@@ -292,7 +292,15 @@ const mapping = {
     icon: {tab: 'general', card: 'media'},
     sgMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
     embeddedId: {tab: 'general', card: 'media'},
-    embeddedUrl: {tab: 'general', card: 'media', componentName: 'moorl-embedded-url-field', cols: 12},
+    embeddedUrl: {
+        tab: 'general',
+        card: 'media',
+        componentName: 'moorl-embedded-url-field',
+        cols: 12,
+        attributes: {
+            backgroundColor: ({item}) => item.backgroundColor
+        }
+    },
 
     // Comments
     enableComments: {tab: 'comments', card: 'general'}

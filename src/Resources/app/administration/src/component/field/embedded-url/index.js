@@ -35,6 +35,11 @@ Shopware.Component.register('moorl-embedded-url-field', {
             type: Boolean,
             required: false,
             default: false,
+        },
+        backgroundColor: {
+            type: String,
+            required: false,
+            default: '#ffffff'
         }
     },
 
@@ -56,5 +61,13 @@ Shopware.Component.register('moorl-embedded-url-field', {
                 this.$emit('update:value', newValue ?? null);
             },
         },
+
+        style() {
+            return {
+                height: '360px',
+                width: '100%',
+                background: this.backgroundColor
+            };
+        }
     }
 });
