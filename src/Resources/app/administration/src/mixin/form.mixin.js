@@ -35,17 +35,20 @@ Shopware.Mixin.register('moorl-form', {
     },
 
     computed: {
+        translationHelper() {
+            return new MoorlFoundation.TranslationHelper({
+                $tc: this.$tc,
+                componentName: this.componentName,
+            });
+        },
+
         formBuilderHelper() {
             return new MoorlFoundation.FormBuilderHelper({
                 entity: this.entity,
                 componentName: this.componentName,
                 item: this.item,
-                tc: this.$tc,
+                translationHelper: this.translationHelper,
             });
-        },
-
-        translationHelper() {
-            return this.formBuilderHelper.translationHelper;
         },
 
         defaultTab() {

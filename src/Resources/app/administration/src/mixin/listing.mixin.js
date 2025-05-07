@@ -25,6 +25,13 @@ Shopware.Mixin.register('moorl-listing', {
     },
 
     computed: {
+        translationHelper() {
+            return new MoorlFoundation.TranslationHelper({
+                $tc: this.$tc,
+                componentName: this.componentName,
+            });
+        },
+
         itemRepository() {
             return this.repositoryFactory.create(this.entity);
         },
@@ -113,9 +120,9 @@ Shopware.Mixin.register('moorl-listing', {
             this.listHelper = new MoorlFoundation.ListHelper({
                 componentName: this.componentName,
                 entity: this.entity,
+                translationHelper: this.translationHelper,
                 currencies,
                 languages,
-                tc: this.$tc
             });
 
             await this.listHelper.ready;

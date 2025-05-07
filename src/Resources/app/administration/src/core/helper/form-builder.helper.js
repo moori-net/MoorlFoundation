@@ -4,7 +4,7 @@ import {applyAutoConfiguration} from './util/auto-config.util';
 import autoConfiguration from './form-builder/auto-configuration';
 import componentConfiguration from './form-builder/component-configuration';
 import {buildImportExportProfile} from './util/import-export-profile.util';
-import CmsElementHelper from "./cms-element.helper";
+import MappingHelper from "./mapping.helper";
 
 const {merge, cloneDeep} = Shopware.Utils.object;
 
@@ -13,36 +13,26 @@ export default class FormBuilderHelper {
                     entity,
                     item,
                     componentName,
-                    tc,
-                    snippetSrc = 'moorl-foundation',
+                    translationHelper,
                     useTabs = undefined,
-                    useCards = undefined,
-                    useStruct = true,
                     masterMapping = undefined,
                     path = undefined,
-                    defaultColumn = {},
+                    parentColumn = {},
                 }) {
         this.entity = entity ?? componentName;
         this.item = item;
         this.componentName = componentName;
-        this.snippetSrc = snippetSrc;
         this.path = path;
         this.useTabs = useTabs;
-        this.useCards = useCards;
-        this.useStruct = useStruct;
-        this.defaultColumn = defaultColumn;
-
+        this.parentColumn = parentColumn;
+        this.translationHelper = translationHelper;
         this.order = order;
         this.pageStruct = {tabs: []};
         this.columns = [];
-
         this.masterMapping = masterMapping;
         this.currency = null;
         this.tax = null;
         this.customFieldSets = [];
-
-        this.translationHelper = new MoorlFoundation.TranslationHelper({componentName, snippetSrc, tc});
-
         this.initialized = false;
     }
 
@@ -54,7 +44,7 @@ export default class FormBuilderHelper {
         this._build(fields);
 
         if (this.useTabs === undefined) {
-            this.useTabs = Object.keys(this.columns).length >= 10;
+            this.useTabs = this.columns.length >= 10;
         }
 
         for (const column of this.columns) {
@@ -162,7 +152,7 @@ export default class FormBuilderHelper {
             name: property, // Overridden if association field in autoConfiguration
             model: 'value', // Meteor components have no model, it will be removed in componentConfiguration
             order: this.mapping[property]?.order ?? 9999
-        }, this.defaultColumn);
+        }, this.parentColumn);
 
         const attributes = {};
 
@@ -174,25 +164,17 @@ export default class FormBuilderHelper {
             }
         }
 
-        // the column is a json_object and has a mapping attribute, then add a fieldset.
-        // This fieldset items behave like the colum, same tab, same card.
-        // As the column is a json_object, the property to the model value is specified as a path: property = config.hasCookieConsent
+        // The column is a json_object and has a mapping attribute, then add a fieldset.
         if (field.type === 'json_object' && column.mapping) {
-            // TODO: Unbind enrichCmsElementMapping this to another util or helper class
-            CmsElementHelper.enrichCmsElementMapping(column.mapping);
+            MappingHelper.enrichMapping(column.mapping);
 
             const formBuilderHelper = new FormBuilderHelper({
-                defaultColumn: {
-                    tab: column.tab,
-                    card: column.card
-                },
+                parentColumn: {tab: column.tab, card: column.card}, // just inherit position
                 item: this.item[property] ?? {},
                 masterMapping: column.mapping,
-                tc: this.tc,
+                translationHelper: this.translationHelper,
                 path
             });
-
-            formBuilderHelper.translationHelper = this.translationHelper;
 
             const columns = formBuilderHelper._build(column.mapping);
             this.columns.push(...columns);
@@ -260,11 +242,6 @@ export default class FormBuilderHelper {
             attributes.placeholder = this.item.translated[property];
         }
 
-        // Use one tab for all columns (Disable tab view)
-        if (!this.useTabs) {
-            column.tab = 'general';
-        }
-
         column.attributes = attributes;
     }
 
@@ -280,11 +257,13 @@ export default class FormBuilderHelper {
     }
 
     _addColumnToStruct(column, property) {
-        let tab = this.pageStruct.tabs.find(t => t.id === column.tab);
+        const tabName = this.useTabs ? column.tab : 'undefined';
+
+        let tab = this.pageStruct.tabs.find(t => t.id === tabName);
         if (!tab) {
             tab = {
-                id: column.tab,
-                label: this.translationHelper.getLabel('tab', column.tab),
+                id: tabName,
+                label: this.translationHelper.getLabel('tab', tabName),
                 cards: []
             };
             this.pageStruct.tabs.push(tab);

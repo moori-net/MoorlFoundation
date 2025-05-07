@@ -1,3 +1,5 @@
+import MappingHelper from "./mapping.helper";
+
 const {Criteria} = Shopware.Data;
 const {mergeWith} = Shopware.Utils.object;
 const {get} = Shopware.Utils;
@@ -40,95 +42,12 @@ export default class CmsElementHelper {
             cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
         }
 
-        const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
-        const abstractComponent = `moorl-abstract-cms-${parent}`;
+        MappingHelper.enrichMapping(cmsElementMapping);
 
-        return {cmsElementMapping, defaultConfig, abstractComponent};
-    }
+        const defaultConfig = MappingHelper.getCmsDefaultConfig(cmsElementMapping);
+        const component = `moorl-abstract-cms-${parent}`;
 
-    static enrichCmsElementMapping(cmsElementMapping) {
-        const defaultConfig = {};
-
-        for (const [property, field] of Object.entries(cmsElementMapping)) {
-           if (field.hidden) {
-               delete cmsElementMapping[property];
-               continue;
-           }
-
-            field.source = field.source ?? 'static';
-            field.flags = field.flags ?? {};
-
-            defaultConfig[property] = {
-                source: field.source,
-            };
-
-            if (field.entity) {
-                field.type = 'association';
-
-                if (field.value === undefined) {
-                    if (field.entity.slice(-1) === "s") {
-                        field.value = [];
-                    } else {
-                        field.value = null;
-                    }
-                }
-
-                if (Array.isArray([field.value])) {
-                    field.relation = 'many_to_one';
-                    field.localField = property;
-                } else {
-                    field.relation = 'one_to_many';
-                }
-
-                defaultConfig[property].entity = {
-                    name: field.entity,
-                    criteria: CmsElementHelper.getEntityCriteria(field)
-                };
-            } else if (field.value === undefined) {
-                field.type = 'string';
-                field.value = null;
-            }
-
-            if (!field.type) {
-                field.type = typeof field.value;
-            }
-
-            if (field.type === 'object') {
-                if (Array.isArray(field.value)) {
-                    field.type = 'list';
-                } else if (field.value === null) {
-                    field.type = 'string';
-                }
-            }
-
-            defaultConfig[property].value = field.value;
-        }
-
-        return defaultConfig;
-    }
-
-    static getEntityCriteria(field) {
-        if (!Array.isArray(field.associations)) {
-            field.associations = [];
-            switch (field.entity) {
-                case 'product':
-                    field.associations.push('cover.media');
-                    break;
-                case 'category':
-                case 'product_manufacturer':
-                    field.associations.push('media');
-                    break;
-                default:
-            }
-        }
-
-        const criteria = new Criteria();
-
-        for (const association of field.associations) {
-            criteria.addAssociation(association);
-        }
-
-        return criteria;
+        return {cmsElementMapping, defaultConfig, component};
     }
 
     static getConfig(name, key) {
@@ -141,46 +60,35 @@ export default class CmsElementHelper {
 
     static registerCmsElement({icon, plugin, name, label, parent, cmsElementEntity, cmsElementMapping = {}}) {
         if (cmsElementEntity !== undefined) {
-            cmsElementEntity.criteria = CmsElementHelper.getEntityCriteria(cmsElementEntity);
+            cmsElementEntity.criteria = MappingHelper.getEntityCriteria(cmsElementEntity);
 
             if (cmsElementEntity.propertyMapping !== undefined) {
                 this.propertyMapping[cmsElementEntity.entity] = cmsElementEntity.propertyMapping;
             }
         }
 
-        if (defaultCmsElementMappings[parent] !== undefined) {
-            const customMerge = (objValue, srcValue) => {
-                if (Array.isArray(objValue)) {return srcValue;}
-            };
-
-            cmsElementMapping = mergeWith({}, defaultCmsElementMappings[parent], cmsElementMapping, customMerge);
-        }
-
-        const defaultConfig = CmsElementHelper.enrichCmsElementMapping(cmsElementMapping);
-        const abstractComponent = `moorl-abstract-cms-${parent}`;
+        const fetched = CmsElementHelper.fetchCmsElement(parent, cmsElementMapping);
 
         plugin = plugin ?? 'MoorlFoundation';
         icon = icon ?? 'regular-view-grid';
 
         this.cmsElementConfigCache[name] = {
             cmsElementEntity,
-            cmsElementMapping,
             plugin,
-            icon
+            icon,
+            ...fetched
         };
 
         const cmsElementConfig = {
             cmsElementEntity,
-            cmsElementMapping,
-            defaultConfig,
             defaultData: CmsElementHelper.getDefaultData(),
             plugin,
             icon,
             name,
-            label: label ?? `${abstractComponent}.name`,
-            component: abstractComponent,
-            configComponent: `${abstractComponent}-config`,
-            previewComponent: true // TODO: Remove the hack from core template
+            label: label ?? `${fetched.component}.name`,
+            configComponent: `${fetched.component}-config`,
+            previewComponent: true, // TODO: Remove the hack from core template
+            ...fetched
         };
 
         Shopware.Application.getContainer('service').cmsService.registerCmsElement(cmsElementConfig);

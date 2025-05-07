@@ -2,9 +2,9 @@ export default class ListHelper {
     constructor({
                     componentName,
                     entity,
+                    translationHelper,
                     currencies = [],
                     languages = [],
-                    tc,
                     minVisibility = 0
                 }) {
         this.componentName = componentName;
@@ -13,23 +13,17 @@ export default class ListHelper {
         this.pluginName = null;
         this.demoName = null;
         this.properties = [];
-        this.tc = tc;
         this.sortBy = null;
         this.sortDirection = 'ASC';
         this.columns = [];
         this.associations = [];
-
         this.mediaProperty = undefined;
         this.languageProperty = undefined;
         this.priceProperties = [];
         this.dateProperties = [];
         this.currencies = currencies;
         this.languages = languages;
-
-        this.translationHelper = new MoorlFoundation.TranslationHelper({
-            tc: this.tc,
-            componentName: this.componentName
-        });
+        this.translationHelper = translationHelper;
 
         this.ready = this._init();
     }

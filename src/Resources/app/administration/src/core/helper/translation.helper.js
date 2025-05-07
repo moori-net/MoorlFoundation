@@ -1,16 +1,12 @@
 export default class TranslationHelper {
-    constructor({componentName, snippetSrc, tc}) {
+    constructor({componentName, $tc}) {
         this.componentName = componentName;
-        this.snippetSrc = snippetSrc;
-        this.tc = tc;
+        this.$tc = $tc;
+
         this.snippetSets = [];
         this.snippetStruct = {};
 
         this._init();
-    }
-
-    getSnippetSets() {
-        return this.snippetSets;
     }
 
     getNotification(property) {
@@ -35,7 +31,7 @@ export default class TranslationHelper {
                 }
 
                 const snippet = `${set}.${group}.${part}`;
-                const translated = this.tc(snippet);
+                const translated = this.$tc(snippet);
 
                 if (translated !== snippet) {
                     translatedParts.push(translated);
@@ -62,10 +58,6 @@ export default class TranslationHelper {
     }
 
     _init() {
-        if (this.snippetSrc !== undefined) {
-            this.snippetSets.push(this.snippetSrc);
-        }
-
         if (this.componentName !== undefined) {
             this._addSnippetSourceByComponentName(
                 this.componentName.split("-")

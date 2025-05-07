@@ -6,6 +6,7 @@ import FormBuilderHelper from './helper/form-builder.helper';
 import ConditionHelper from './helper/condition.helper';
 import CmsElementHelper from './helper/cms-element.helper';
 import ModuleHelper from './helper/module.helper';
+import MappingHelper from './helper/mapping.helper';
 
 const MoorlFoundation = {
     ListHelper,
@@ -15,7 +16,8 @@ const MoorlFoundation = {
     FormBuilderHelper,
     ConditionHelper,
     CmsElementHelper,
-    ModuleHelper
+    ModuleHelper,
+    MappingHelper
 };
 
 window.MoorlFoundation = MoorlFoundation;

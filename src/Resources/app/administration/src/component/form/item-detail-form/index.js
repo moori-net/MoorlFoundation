@@ -9,15 +9,6 @@ Shopware.Component.register('moorl-item-detail-form', {
     mixins: [Shopware.Mixin.getByName('moorl-form')],
 
     computed: {
-        formBuilderHelper() {
-            return new MoorlFoundation.FormBuilderHelper({
-                item: this.item,
-                entity: this.entity,
-                tc: this.$tc,
-                componentName: this.componentName
-            });
-        },
-
         fieldModels() {
             return new Proxy({}, {
                 get: (_, prop) => {
