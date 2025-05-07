@@ -6,7 +6,7 @@ export default class ListHelper {
                     currencies = [],
                     languages = [],
                     minVisibility = 0
-                }) {
+    }) {
         this.componentName = componentName;
         this.entity = entity;
         this.minVisibility = minVisibility;
@@ -201,6 +201,7 @@ export default class ListHelper {
                         this._addAssociation('tax');
                     }
                     continue;
+
                 case 'json_list':
                     if (property === 'languageIds') {
                         this.languageProperty = property;

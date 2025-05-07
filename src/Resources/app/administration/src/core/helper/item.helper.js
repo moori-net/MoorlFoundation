@@ -2,15 +2,8 @@ export default class ItemHelper {
     constructor({componentName, entity}) {
         this.componentName = componentName;
         this.entity = entity;
-
-        this.columns = [];
         this.associations = [];
-
         this._init();
-    }
-
-    getColumns() {
-        return this.columns;
     }
 
     getAssociations() {

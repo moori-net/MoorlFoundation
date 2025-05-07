@@ -42,8 +42,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
         itemHelper() {
             return new MoorlFoundation.ItemHelper({
                 componentName: this.componentName,
-                entity: this.entity,
-                tc: this.$tc
+                entity: this.entity
             });
         },
 
