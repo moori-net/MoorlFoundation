@@ -58,6 +58,8 @@ export default class FormBuilderHelper {
             buildImportExportProfile(this.entity);
         }
 
+        MappingHelper.enrichMapping(fields);
+
         for (const [property, field] of Object.entries(fields)) {
             if (
                 field.type === 'uuid' ||
@@ -153,8 +155,6 @@ export default class FormBuilderHelper {
 
         // The column is a json_object and has a mapping attribute, then add a fieldset.
         if (field.type === 'json_object' && column.mapping) {
-            MappingHelper.enrichMapping(column.mapping);
-
             const formBuilderHelper = new FormBuilderHelper({
                 parentColumn: {tab: column.tab, card: column.card}, // just inherit position
                 item: this.item[property] ?? {},

@@ -110,6 +110,15 @@ const autoConfiguration = [
     },
     // mixed conditions - early break
     {
+        description: ({ property }) => `Add component 'sw-code-editor' (${property})`,
+        conditions: [
+            ({ field }) => field.type === 'code'
+        ],
+        apply({ column }) {
+            column.componentName = 'sw-code-editor';
+        }
+    },
+    {
         description: ({ property }) => `Add component 'mt-text-editor' (${property})`,
         conditions: [
             ({ field }) => field.type === 'html' || (field.type === 'text' && field.flags.allow_html !== undefined)

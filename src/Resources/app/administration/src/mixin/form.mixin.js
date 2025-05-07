@@ -26,6 +26,7 @@ Shopware.Mixin.register('moorl-form', {
         item: {
             type: Object,
             required: true,
+            default: {}
         },
         pathAppend: {
             type: String,
@@ -65,7 +66,6 @@ Shopware.Mixin.register('moorl-form', {
                     }
                     return get(this.item, path);
                 },
-
                 set: (_, prop, value) => {
                     const path = String(this.pathAppend ? `${prop}.${this.pathAppend}` : prop);
                     if (get(this.item.extensions, path) !== undefined) {

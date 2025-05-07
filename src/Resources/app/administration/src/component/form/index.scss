@@ -29,9 +29,11 @@
     }
 }
 
+.sw-system-config,
 .sw-modal {
     .moorl-form__card {
         border: 0;
+        margin-bottom: 0;
 
         > .mt-card__header {
             padding: 0;

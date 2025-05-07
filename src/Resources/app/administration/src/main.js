@@ -68,8 +68,6 @@ MoorlFoundation.ModuleHelper.registerModule({
     ]
 });
 
-import moorlMediaConfigMapping from './component/fieldset/media-config/mapping';
-
 MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_media',
     name: 'moorl-media',
@@ -100,7 +98,7 @@ MoorlFoundation.ModuleHelper.registerModule({
             conditions: [{property: 'type', value: 'media', operator: 'eq'}],
         },
         config: {
-            mapping: moorlMediaConfigMapping
+            mapping: MoorlFoundation.fieldsetsConfig['media-config']
         }
     },
     pluginName: 'MoorlFoundation',

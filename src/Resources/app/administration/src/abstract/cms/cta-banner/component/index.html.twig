@@ -2,9 +2,8 @@
     class="moorl-abstract-cms-cta-banner"
     :style="elementCss"
 >
-    <!-- Video background -->
     <video
-        v-if="getValue('mediaActive')"
+        v-if="getValue('mediaActive') && getValue('videoActive')"
         autoplay
         muted
         loop
@@ -15,14 +14,12 @@
             type="video/mp4"
         />
     </video>
-    <!-- Image background -->
     <div
         v-else-if="getValue('mediaActive')"
         class="background"
         :class="getValue('mediaHover')"
         :style="backgroundCss"
     ></div>
-    <!-- Banner content layer -->
     <div
         class="banner-layer"
         :style="overlayCss"
@@ -32,7 +29,6 @@
             :class="boxClass"
             :style="boxCss"
         >
-            <!-- Icon logic -->
             <div
                 v-if="getValue('iconType') !== 'none'"
                 class="container-icon"
@@ -50,14 +46,11 @@
                     <img :src="iconMediaUrl"/>
                 </template>
             </div>
-            <!-- Content -->
             <div class="container-content">
-                <!-- Custom HTML -->
                 <div
                     v-if="currentType === 'custom'"
                     v-html="$sanitize(getValue('content'))"
                 ></div>
-                <!-- Dynamic content -->
                 <template v-else>
                     <div v-html="bannerTitle"></div>
                     <p v-html="bannerDescription"></p>

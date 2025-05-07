@@ -7,6 +7,9 @@ export default class MappingHelper {
                 delete mapping[property];
                 continue;
             }
+            if (field.type) {
+                continue;
+            }
 
             if (field.entity) {
                 field.type = 'association';
