@@ -1,5 +1,5 @@
 export default class TranslationHelper {
-    constructor({componentName, $tc}) {
+    constructor({$tc, componentName = undefined}) {
         this.componentName = componentName;
         this.$tc = $tc;
 
