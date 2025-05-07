@@ -11,5 +11,13 @@
         <service id="MoorlFoundation\Core\Content\EmbeddedMedia\EmbeddedMediaTranslationDefinition">
             <tag name="shopware.entity.definition" entity="moorl_media_translation"/>
         </service>
+
+        <service id="MoorlFoundation\Core\Content\EmbeddedMedia\DataAbstractionLayer\EmbeddedMediaIndexer">
+            <argument type="service" id="Doctrine\DBAL\Connection"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory"/>
+            <argument type="service" id="moorl_media.repository"/>
+
+            <tag name="shopware.entity_indexer"/>
+        </service>
     </services>
 </container>
