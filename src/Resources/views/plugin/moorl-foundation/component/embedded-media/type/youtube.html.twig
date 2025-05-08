@@ -10,7 +10,8 @@
 
 {% if embeddedMedia.config.cookieConsent %}
     {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/cookie-box/index.html.twig' with {
-        cookieKey: 'embedded-media-source',
+        cookieKey: 'youtube-video',
+        cookieSnippet: 'cookie.groupComfortFeaturesYoutubeVideo',
         content: content,
         class: 'w-100 h-100'
     } %}

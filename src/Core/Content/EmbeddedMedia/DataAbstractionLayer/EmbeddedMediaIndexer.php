@@ -44,29 +44,36 @@ class EmbeddedMediaIndexer extends EntityIndexer
         );
 
         foreach ($data as $item) {
-            $sql = "UPDATE `moorl_media` SET `embedded_url` = :embedded_url, `type` = :type WHERE `id` = :id;";
+            $metadata = $this->fetchMetadata($item['embedded_url']);
 
-            $this->connection->executeStatement(
-                $sql,
-                [
-                    'id' => $item['id'],
-                    'type' => 'embedded',
-                    'embedded_url' => $this->embeddedUrlUpdate($item['embedded_url'])
-                ]
-            );
+            $sql = "UPDATE `moorl_media` SET `embedded_id` = :embedded_id, `embedded_url` = :embedded_url, `type` = :type WHERE `id` = :id;";
+
+            $this->connection->executeStatement($sql, ['id' => $item['id'], ...$metadata]);
         }
     }
 
-    private function embeddedUrlUpdate(string $embeddedUrl): string
+    private function fetchMetadata(string $embeddedUrl): array
     {
         if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $embeddedUrl, $match)) {
-            return "https://www.youtube-nocookie.com/embed/" . $match[1] . "?rel=0&enablejsapi=1&version=3&playerapiid=ytplayer";
+            return [
+                'type' => 'youtube',
+                'embedded_id' => $match[1],
+                'embedded_url' => "https://www.youtube-nocookie.com/embed/" . $match[1] . "?rel=0&enablejsapi=1&version=3&playerapiid=ytplayer",
+            ];
         }
 
         if (preg_match('/https?:\/\/(?:www\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)(?:$|\/|\?)/', $embeddedUrl, $match)) {
-            return "https://player.vimeo.com/video/" . $match[3] . "?dnt=1";
+            return [
+                'type' => 'vimeo',
+                'embedded_id' => $match[3],
+                'embedded_url' => "https://player.vimeo.com/video/" . $match[3] . "?dnt=1"
+            ];
         }
 
-        return $embeddedUrl;
+        return [
+            'type' => 'embedded',
+            'embedded_id' => null,
+            'embedded_url' => $embeddedUrl
+        ];
     }
 }

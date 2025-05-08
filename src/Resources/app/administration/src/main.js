@@ -89,10 +89,10 @@ MoorlFoundation.ModuleHelper.registerModule({
         },
         duration: {tab: 'general', card: 'media'},
         embeddedUrl: {
-            conditions: [{property: 'type', value: ['auto' ,'embedded'], operator: 'in'}],
+            conditions: [{property: 'type', value: 'media', operator: '!='}],
         },
         embeddedId: {
-            conditions: [{property: 'type', value: ['media', 'embedded'], operator: 'nin'}],
+            conditions: [{property: 'type', value: 'media', operator: '!='}],
         },
         media: {
             conditions: [{property: 'type', value: 'media', operator: 'eq'}],
