@@ -851,11 +851,8 @@ SQL;
                 $table,
                 $dataObject->getCreatedAt()
             );
-            try {
-                $this->connection->executeStatement($sql);
-            } catch (\Exception) {
-                continue;
-            }
+
+            $this->connection->executeStatement($sql);
         }
     }
 
@@ -875,11 +872,8 @@ SQL;
                 $table,
                 $dataObject->getCreatedAt()
             );
-            try {
-                $this->connection->executeStatement($sql);
-            } catch (\Exception) {
-                continue;
-            }
+
+            $this->connection->executeStatement($sql);
         }
     }
 

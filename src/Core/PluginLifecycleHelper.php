@@ -9,7 +9,6 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Bundle;
 use Shopware\Core\Framework\Migration\MigrationStep;
-use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -61,12 +60,9 @@ class PluginLifecycleHelper
         }
 
         if (self::c($plugin, 'NAME')) {
-            try {
-                /* @var $dataService DataService */
-                $dataService = $container->get(DataService::class);
-                $dataService->remove(self::c($plugin, 'NAME'));
-            } catch (\Exception) {
-            }
+            /* @var $dataService DataService */
+            $dataService = $container->get(DataService::class);
+            $dataService->remove(self::c($plugin, 'NAME'));
         }
 
         self::removeMigrations($connection, $plugin);
@@ -179,13 +175,17 @@ class PluginLifecycleHelper
     public static function removePluginData(Connection $connection, array $shopwareTables, string $createdAt): void
     {
         foreach (array_reverse($shopwareTables) as $table) {
-            $sql = sprintf("DELETE FROM `%s` WHERE `created_at` = '%s';", $table, $createdAt);
-
-            try {
-                $connection->executeStatement($sql);
-            } catch (\Exception) {
+            if (!EntityDefinitionQueryHelper::tableExists($connection, $table)) {
                 continue;
             }
+
+            if (!EntityDefinitionQueryHelper::columnExists($connection, $table, 'created_at')) {
+                continue;
+            }
+
+            $sql = sprintf("DELETE FROM `%s` WHERE `created_at` = '%s';", $table, $createdAt);
+
+            $connection->executeStatement($sql);
         }
     }
 
