@@ -61,6 +61,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "preload": "Preload",
       "mimeType": "Mime type",
       "minWidth": "Min width",
       "cookieConsent": "Enable cookie consent",

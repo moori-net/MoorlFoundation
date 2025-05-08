@@ -99,6 +99,9 @@ MoorlFoundation.ModuleHelper.registerModule({
         },
         config: {
             mapping: MoorlFoundation.fieldsetsConfig['media-config']
+        },
+        videos: {
+            conditions: [{property: 'type', value: 'media', operator: 'eq'}],
         }
     },
     pluginName: 'MoorlFoundation',

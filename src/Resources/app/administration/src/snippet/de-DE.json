@@ -61,6 +61,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "preload": "Preload",
       "mimeType": "Mime-Typ",
       "minWidth": "Min Breite",
       "embedded": "Eingebettet",

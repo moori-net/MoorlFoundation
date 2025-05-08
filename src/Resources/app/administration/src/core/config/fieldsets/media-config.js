@@ -1,9 +1,11 @@
 const mediaConfig = {
     cookieConsent: {
-        value: true
+        value: true,
+        conditions: [{property: 'type', value: 'media', operator: '!='}],
     },
     disablePointerEvents: {
-        value: true
+        value: true,
+        conditions: [{property: 'type', value: 'media', operator: '!='}],
     },
     video: {
         type: 'json_list',
@@ -17,7 +19,8 @@ const mediaConfig = {
                 'muted',
                 'controls'
             ]
-        }
+        },
+        conditions: [{property: 'type', value: 'media', operator: 'eq'}],
     },
     preload: {
         value: 'none',
@@ -28,7 +31,8 @@ const mediaConfig = {
                 'metadata',
                 'auto',
             ]
-        }
+        },
+        conditions: [{property: 'type', value: 'media', operator: 'eq'}],
     }
 };
 
