@@ -17,7 +17,6 @@ class EmbeddedMediaEntity extends Entity
     protected ?string $technicalName = null;
     protected ?string $backgroundColor = null;
     protected ?string $type = null;
-
     protected array $config = [];
     protected bool $active = false;
     protected ?string $embeddedUrl = null;
@@ -25,10 +24,21 @@ class EmbeddedMediaEntity extends Entity
     protected ?MediaEntity $cover = null;
     protected ?MediaEntity $media = null;
     protected ?EmbeddedMediaTranslationCollection $translations = null;
+    protected ?EmbeddedMediaVideoCollection $videos = null;
 
     public function getConfigStruct(): EmbeddedMediaConfigStruct
     {
         return (new EmbeddedMediaConfigStruct())->assign($this->config);
+    }
+
+    public function getVideos(): ?EmbeddedMediaVideoCollection
+    {
+        return $this->videos;
+    }
+
+    public function setVideos(?EmbeddedMediaVideoCollection $videos): void
+    {
+        $this->videos = $videos;
     }
 
     public function getTranslations(): ?EmbeddedMediaTranslationCollection
@@ -131,7 +141,7 @@ class EmbeddedMediaEntity extends Entity
         $this->config = $config;
     }
 
-    public function isActive(): bool
+    public function getActive(): bool
     {
         return $this->active;
     }
@@ -139,15 +149,5 @@ class EmbeddedMediaEntity extends Entity
     public function setActive(bool $active): void
     {
         $this->active = $active;
-    }
-
-    public function getConfigParent(): ?EmbeddedMediaEntity
-    {
-        return $this->configParent;
-    }
-
-    public function setConfigParent(?EmbeddedMediaEntity $configParent): void
-    {
-        $this->configParent = $configParent;
     }
 }

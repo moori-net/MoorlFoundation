@@ -5,7 +5,8 @@
       "moorl_cms_element_config": "[moori] CMS element configs",
       "moorl_marker": "[moori] Map markers",
       "moorl_sorting": "[moori] Sorting",
-      "moorl_media": "[moori] Embedded media"
+      "moorl_media": "[moori] Embedded media",
+      "moorl_media_video": "[moori] Video sources"
     }
   },
   "moorl-foundation": {
@@ -60,6 +61,8 @@
       "visibility": "Visibility"
     },
     "field": {
+      "mimeType": "Mime type",
+      "minWidth": "Min width",
       "cookieConsent": "Enable cookie consent",
       "disablePointerEvents": "Disable pointer events",
       "autoPlay": "Auto-Play",

@@ -5,12 +5,6 @@ const mediaConfig = {
     disablePointerEvents: {
         value: true
     },
-    autoPlay: {
-        value: true
-    },
-    autoPause: {
-        value: true
-    },
     video: {
         type: 'json_list',
         value: ['autoplay', 'muted', 'controls'],
@@ -22,6 +16,17 @@ const mediaConfig = {
                 'loop',
                 'muted',
                 'controls'
+            ]
+        }
+    },
+    preload: {
+        value: 'none',
+        componentName: 'moorl-select-field',
+        attributes: {
+            customSet: [
+                'none',
+                'metadata',
+                'auto',
             ]
         }
     }

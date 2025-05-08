@@ -105,6 +105,15 @@ MoorlFoundation.ModuleHelper.registerModule({
     demoName: 'import-export'
 });
 
+MoorlFoundation.ModuleHelper.registerModule({
+    entity: 'moorl_media_video',
+    properties: [
+        {name: 'media.fileName', visibility: 100, mediaProperty: 'media'},
+        {name: 'media.mimeType', visibility: 100},
+        {name: 'minWidth', visibility: 200},
+    ]
+});
+
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});

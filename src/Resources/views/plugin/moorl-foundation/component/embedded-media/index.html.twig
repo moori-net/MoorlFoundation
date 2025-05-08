@@ -11,6 +11,8 @@
     ] %}
 
     <div class="{{ elementClass|join(" ") }}" style="{{ elementStyle|join(";") }}">
-        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/embedded-media/type/" ~ embeddedMedia.type ~ ".html.twig" ignore missing %}
+        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/embedded-media/type/" ~ embeddedMedia.type ~ ".html.twig" ignore missing with {
+            displayMode: displayMode ?? 'cover'
+        } %}
     </div>
 {% endblock %}

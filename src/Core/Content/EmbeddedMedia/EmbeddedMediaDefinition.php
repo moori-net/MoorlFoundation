@@ -14,6 +14,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -72,6 +73,12 @@ class EmbeddedMediaDefinition extends EntityDefinition
 
             (new JsonField('config', 'config'))->addFlags(),
             (new CustomFields()),
+
+            (new OneToManyAssociationField(
+                EmbeddedMediaVideoDefinition::COLLECTION_NAME,
+                EmbeddedMediaVideoDefinition::class,
+                'moorl_media_id'
+            ))->addFlags(),
 
             (new ManyToOneAssociationField(
                 'cover',

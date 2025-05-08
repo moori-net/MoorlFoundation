@@ -30,7 +30,7 @@ class MoorlFoundation extends Plugin
         'moorl_image_map_item_translation',
         'moorl_media',
         'moorl_media_translation',
-        'moorl_media_language'
+        'moorl_media_video',
     ];
 
     public function update(UpdateContext $updateContext): void
