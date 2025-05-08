@@ -36,5 +36,11 @@
                 <argument type="service" id="service_container"/>
             </call>
         </service>
+
+        <service id="MoorlFoundation\Storefront\Controller\ModalController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
     </services>
 </container>

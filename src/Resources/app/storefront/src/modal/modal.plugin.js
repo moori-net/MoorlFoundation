@@ -6,9 +6,10 @@ export default class MoorlModal extends Plugin {
     }
 
     _registerEvents() {
-        this.el.addEventListener('click', () => {
-            let url = this.el.dataset.moorlModal;
-
+        this.el.addEventListener('click', (evt) => {
+            const url = this.el.dataset.moorlModal;
+            if (!url) {return;}
+            evt.preventDefault();
             window.moorlFoundationModal(url);
         });
     }

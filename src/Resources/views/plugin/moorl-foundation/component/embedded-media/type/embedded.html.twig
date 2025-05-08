@@ -1,0 +1,21 @@
+{% set content %}
+
+
+    <iframe style="min-height: {{ minHeight }};"
+            class="gallery-slider-item w-100 h-100 is-{{ displayMode }}{% if disablePointerEvents %} disable-pointer-events{% endif %}"
+            src="{{ image.translated.customFields.moorl_video_src|embed_src }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+{% endset %}
+
+{% if config('MoorlProductVideo.config.cookieConsent') %}
+    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/cookie-box/index.html.twig' with {
+        cookieKey: 'moorl-product-video',
+        content: content,
+        class: 'gallery-slider-item w-100 h-100',
+        style: "min-height: #{minHeight}"
+    } %}
+{% else %}
+    {{ content|raw }}
+{% endif %}

@@ -1,0 +1,5 @@
+{% block embedded_media %}
+    <div class="moorl-embedded-media">
+        {% sw_include "@MoorlFoundation/plugin/component/embedded-media/" ~ embeddedMedia.type ~ ".html.twig" ignore missing %}
+    </div>
+{% endblock %}
