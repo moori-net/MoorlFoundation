@@ -24,6 +24,7 @@ class EmbeddedMediaDefinition extends EntityDefinition
     final public const ENTITY_NAME = 'moorl_media';
     final public const PROPERTY_NAME = 'embeddedMedia';
     final public const COLLECTION_NAME = 'embeddedMedias';
+    final public const EXTENSION_PROPERTY_NAME = 'moorlEmbeddedMedia';
     final public const EXTENSION_COLLECTION_NAME = 'moorlEmbeddedMedias';
 
     public function getEntityName(): string

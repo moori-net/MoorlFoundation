@@ -1,5 +1,16 @@
 {% block embedded_media %}
-    <div class="moorl-embedded-media">
-        {% sw_include "@MoorlFoundation/plugin/component/embedded-media/" ~ embeddedMedia.type ~ ".html.twig" ignore missing %}
+    {% set elementStyle = [
+        "min-height:#{minHeight ?? '480px'}",
+        "height:#{minHeight ?? '480px'}",
+        "background:#{embeddedMedia.backgroundColor ?? 'transparent'}",
+    ] %}
+
+    {% set elementClass = [
+        "moorl-embedded-media",
+        embeddedMedia.type,
+    ] %}
+
+    <div class="{{ elementClass|join(" ") }}" style="{{ elementStyle|join(";") }}">
+        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/embedded-media/type/" ~ embeddedMedia.type ~ ".html.twig" ignore missing %}
     </div>
 {% endblock %}

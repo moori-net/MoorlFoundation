@@ -1,6 +1,7 @@
-<video style="min-height: {{ minHeight }}"
-       class="gallery-slider-item w-100 h-100 is-{{ displayMode }}"
-       preload="metadata" {{ videoAttributes }}>
-    <source src="{{ image.url }}" type="{{ image.mimeType }}">
+<video
+        class="gallery-slider-item w-100 h-100 is-{{ displayMode }}"
+        preload="metadata" {{ embeddedMedia.config.video|join(" ") }}
+>
+    <source src="{{ embeddedMedia.media.url }}" type="{{ embeddedMedia.media.mimeType }}">
     Your browser does not support the video tag
 </video>

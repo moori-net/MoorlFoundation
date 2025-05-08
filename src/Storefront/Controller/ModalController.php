@@ -40,7 +40,7 @@ class ModalController extends StorefrontController
             [
                 'modal' => [
                     'title' => $embeddedMedia->getTranslation('name'),
-                    'size' => 'sm',
+                    'size' => 'lg',
                     'body' => $body
                 ]
             ]
