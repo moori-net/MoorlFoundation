@@ -2,9 +2,12 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
+use Doctrine\DBAL\ParameterType;
+use Shopware\Core\Framework\Uuid\Uuid;
 
 class EntityDefinitionQueryHelper
 {
@@ -12,15 +15,28 @@ class EntityDefinitionQueryHelper
         Connection $connection,
         string $sql,
         ?string $table = null,
-        ?string $column = null
+        ?string $column = null,
+        array $codes = [],
+        array $ids = []
     ): void
     {
         try {
             $connection->executeStatement($sql);
         } catch (Exception $exception) {
             usleep(100000);
-            self::handleDbalException($exception, $connection, $sql, $table, $column);
+
+            self::handleDbalException(
+                $exception,
+                $connection,
+                $sql,
+                $table,
+                $column,
+                $codes,
+                $ids
+            );
+
             usleep(100000);
+
             $connection->executeStatement($sql);
         }
     }
@@ -28,12 +44,21 @@ class EntityDefinitionQueryHelper
     public static function handleDbalException(
         Exception $exception,
         Connection $connection,
-        string $sql,
+        ?string $sql = null,
         ?string $table = null,
-        ?string $column = null
+        ?string $column = null,
+        array $codes = [],
+        array $ids = []
     ): void
     {
-        if (!$table) {
+        // Just fix pre-defined codes to secure prevent changes in Shopware tables
+        if (count($codes) > 0) {
+            if (!in_array($exception->getCode(), $codes, true)) {
+                throw $exception;
+            }
+        }
+
+        if ($sql && !$table) {
             $pattern = '/\b(?:ALTER\s+TABLE|CREATE\s+TABLE|INSERT\s+INTO|UPDATE|DELETE\s+FROM|DROP\s+TABLE)\s+`?(?<table>[a-zA-Z0-9_]+)`?/i';
             if (preg_match($pattern, $sql, $matches)) {
                 $table = $matches['table'] ?? null;
@@ -50,6 +75,23 @@ class EntityDefinitionQueryHelper
         }
 
         switch ($exception->getCode()) {
+            case 1062:
+                // Error number: 1062; SQLSTATE: 23000
+                // Message: Integrity constraint violation: 1062 Duplicate entry '...'
+                // for key 'product_visibility.uniq.product_id__sales_channel_id'
+                if (preg_match("/for key '([^']+)\.uniq\.([^\']+)'/", $exception->getMessage(), $matches)) {
+                    $errorTable = $matches[1];
+                } else {
+                    throw $exception;
+                }
+                $column = self::resolveForeignKey($connection, $errorTable, $table) ?? sprintf("%s_id", $table);
+                if (!self::columnExists($connection, $errorTable, $column)) {
+                    throw $exception;
+                }
+
+                self::removeDuplicateEntries($connection, $errorTable, $column, $ids);
+                break;
+
             case 1170:
                 // Error number: 1170; Symbol: ER_BLOB_KEY_WITHOUT_LENGTH; SQLSTATE: 42000
                 // Message: BLOB/TEXT column '%s' used in key specification without a key length
@@ -86,16 +128,109 @@ class EntityDefinitionQueryHelper
                 }
                 break;
 
+            case 1217:
+            case 1451:
+                // Error number: 1217; Symbol: ER_ROW_IS_REFERENCED; SQLSTATE: 23000
+                // Error number: 1451; Symbol: ER_ROW_IS_REFERENCED_2; SQLSTATE: 23000
+                if (preg_match('/fails \(`[^`]+`\.`(?<table>[^`]+)`/', $exception->getMessage(), $matches)) {
+                    $errorTable = $matches['table'];
+                } else {
+                    throw $exception;
+                }
+                $column = self::resolveForeignKey($connection, $errorTable, $table) ?? sprintf("%s_id", $table);
+                if (!self::columnExists($connection, $errorTable, $column)) {
+                    return;
+                }
+
+                self::removeForeignKeyReferences($connection, $errorTable, $column, $ids, $table);
+                break;
+
             case 1452:
             case 1216:
                 // Error number: 1452; Symbol: ER_NO_REFERENCED_ROW_2; SQLSTATE: 23000
                 // Error number: 1216; Symbol: ER_NO_REFERENCED_ROW; SQLSTATE: 23000
                 // Message: Cannot add or update a child row: a foreign key constraint fails (%s)
                 // InnoDB reports this error when you try to add a row but there is no parent row, and a foreign key constraint fails. Add the parent row first.
+                if (!$sql) {
+                    throw $exception;
+                }
                 self::removeInvalidForeignKeys($connection, $sql, $table);
                 break;
         }
     }
+
+    public static function removeDuplicateEntries(Connection $connection, string $table, string $column, array $ids): void
+    {
+        if (empty($ids)) {
+            return;
+        }
+
+        $sql = sprintf(
+            "DELETE FROM %s WHERE %s IN (:ids);",
+            self::quote($table),
+            self::quote($column)
+        );
+
+        $connection->executeStatement(
+            $sql,
+            ['ids' => Uuid::fromHexToBytesList($ids)],
+            ['ids' => ArrayParameterType::STRING]
+        );
+    }
+
+    public static function removeForeignKeyReferences(
+        Connection $connection,
+        string $table,
+        string $column,
+        array $ids,
+        ?string $fallbackTable = null
+    ): void {
+        if (empty($ids)) {
+            return;
+        }
+
+        $isNullable = self::isColumnNullable($connection, $table, $column);
+        if (!$isNullable) {
+            if (!$fallbackTable) {
+                return;
+            }
+
+            $fallbackId = self::getAnyForeignKeyValue($connection, $fallbackTable, $ids);
+            if (!$fallbackId) {
+                return;
+            }
+
+            $sql = sprintf(
+                "UPDATE %s SET %s = UNHEX(:fallbackId) WHERE %s IN (:ids);",
+                self::quote($table),
+                self::quote($column),
+                self::quote($column)
+            );
+
+            $connection->executeStatement(
+                $sql,
+                ['fallbackId' => $fallbackId, 'ids' => Uuid::fromHexToBytesList($ids),],
+                ['fallbackId' => ParameterType::STRING, 'ids' => ArrayParameterType::STRING]
+            );
+
+            return;
+        }
+
+        // Standardfall: FK darf NULL sein
+        $sql = sprintf(
+            "UPDATE %s SET %s = NULL WHERE %s IN (:ids);",
+            self::quote($table),
+            self::quote($column),
+            self::quote($column)
+        );
+
+        $connection->executeStatement(
+            $sql,
+            ['ids' => Uuid::fromHexToBytesList($ids)],
+            ['ids' => ArrayParameterType::STRING]
+        );
+    }
+
 
     public static function removeInvalidForeignKeys(Connection $connection, string $query, string $table)
     {
@@ -200,6 +335,24 @@ SQL;
         }
     }
 
+    public static function resolveForeignKey(Connection $connection, string $table, string $referencedTable): ?string
+    {
+        $sql = <<<SQL
+SELECT COLUMN_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = :table
+  AND REFERENCED_TABLE_NAME = :referencedTable
+  AND REFERENCED_COLUMN_NAME = 'id'
+  AND CONSTRAINT_SCHEMA = DATABASE()
+LIMIT 1
+SQL;
+
+        return $connection->fetchOne($sql, [
+            'table' => $table,
+            'referencedTable' => $referencedTable,
+        ]) ?: null;
+    }
+
     public static function constraintExists(Connection $connection, string $table, string $constraint): bool
     {
         $sql = sprintf(
@@ -226,6 +379,27 @@ SQL;
     {
         $sql = sprintf("SHOW TABLES LIKE '%s'", $table);
         return !empty($connection->fetchOne($sql));
+    }
+
+    public static function isColumnNullable(Connection $connection, string $table, string $column): bool
+    {
+        $sql = "SELECT IS_NULLABLE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = :table AND COLUMN_NAME = :column AND TABLE_SCHEMA = DATABASE()";
+        $result = $connection->fetchOne($sql, [
+            'table' => $table,
+            'column' => $column
+        ]);
+
+        return strtoupper((string) $result) === 'YES';
+    }
+
+    public static function getAnyForeignKeyValue(Connection $connection, string $table, array $excludedIds = []): ?string
+    {
+        $sql = sprintf("SELECT HEX(id) FROM %s WHERE id NOT IN (:ids) LIMIT 1", self::quote($table));
+
+        return $connection->fetchOne($sql,
+            ['ids' => Uuid::fromHexToBytesList($excludedIds)],
+            ['ids' => ArrayParameterType::STRING]
+        ) ?: null;
     }
 
     public static function quote(string $string): string

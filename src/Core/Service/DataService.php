@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Service;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\Filesystem;
@@ -388,7 +389,21 @@ SQL;
 
             $this->log(sprintf("Inserting data into table '%s'", $table));
 
-            $repository->upsert($data, $this->context);
+            try {
+                $repository->upsert($data, $this->context);
+            } catch (Exception $exception) {
+                $this->log($exception->getMessage(), "error");
+
+                EntityDefinitionQueryHelper::handleDbalException(
+                    exception: $exception,
+                    connection: $this->connection,
+                    table: $table,
+                    codes: [1451],
+                    ids: array_map(fn($row) => $row['id'], $data)
+                );
+
+                $repository->upsert($data, $this->context);
+            }
         }
     }
 

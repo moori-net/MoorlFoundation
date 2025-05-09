@@ -56,12 +56,10 @@ class MoorlFoundation extends Plugin
 
     public function uninstall(UninstallContext $uninstallContext): void
     {
-        parent::uninstall($uninstallContext);
-
-        if ($uninstallContext->keepUserData()) {
-            return;
+        if (!$uninstallContext->keepUserData()) {
+            PluginLifecycleHelper::uninstall(self::class, $this->container);
         }
 
-        PluginLifecycleHelper::uninstall(self::class, $this->container);
+        parent::uninstall($uninstallContext);
     }
 }

@@ -6,6 +6,7 @@ use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\Exception;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Bundle;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -13,6 +14,7 @@ use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class PluginLifecycleHelper
@@ -60,9 +62,12 @@ class PluginLifecycleHelper
         }
 
         if (self::c($plugin, 'NAME')) {
-            /* @var $dataService DataService */
-            $dataService = $container->get(DataService::class);
-            $dataService->remove(self::c($plugin, 'NAME'));
+            try {
+                /* @var $dataService DataService */
+                $dataService = $container->get(DataService::class);
+                $dataService->remove(self::c($plugin, 'NAME'));
+            } catch (ServiceNotFoundException) {
+            }
         }
 
         self::removeMigrations($connection, $plugin);
@@ -175,17 +180,26 @@ class PluginLifecycleHelper
     public static function removePluginData(Connection $connection, array $shopwareTables, string $createdAt): void
     {
         foreach (array_reverse($shopwareTables) as $table) {
-            if (!EntityDefinitionQueryHelper::tableExists($connection, $table)) {
-                continue;
-            }
+            if (
+                !EntityDefinitionQueryHelper::tableExists($connection, $table) ||
+                !EntityDefinitionQueryHelper::columnExists($connection, $table, 'created_at')
+            ) {continue;}
 
-            if (!EntityDefinitionQueryHelper::columnExists($connection, $table, 'created_at')) {
-                continue;
+            $ids = [];
+            if (EntityDefinitionQueryHelper::columnExists($connection, $table, 'id')) {
+                $sql = sprintf("SELECT HEX(`id`) as id FROM `%s` WHERE `created_at` = '%s';", $table, $createdAt);
+                $ids = $connection->fetchFirstColumn($sql);
             }
 
             $sql = sprintf("DELETE FROM `%s` WHERE `created_at` = '%s';", $table, $createdAt);
 
-            $connection->executeStatement($sql);
+            EntityDefinitionQueryHelper::tryExecuteStatement(
+                connection: $connection,
+                sql: $sql,
+                table: $table,
+                codes: [1451],
+                ids: $ids
+            );
         }
     }
 
