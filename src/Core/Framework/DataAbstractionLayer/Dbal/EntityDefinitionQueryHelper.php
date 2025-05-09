@@ -132,16 +132,16 @@ class EntityDefinitionQueryHelper
             case 1451:
                 // Error number: 1217; Symbol: ER_ROW_IS_REFERENCED; SQLSTATE: 23000
                 // Error number: 1451; Symbol: ER_ROW_IS_REFERENCED_2; SQLSTATE: 23000
-                if (preg_match('/fails \(`[^`]+`\.`(?<table>[^`]+)`/', $exception->getMessage(), $matches)) {
+                if (preg_match(
+                    '/fails \(`[^`]+`\.`(?<table>[^`]+)`, CONSTRAINT `(?<constraint>[^`]+)` FOREIGN KEY \(`(?<column>[^`,]+)`/',
+                    $exception->getMessage(),
+                    $matches
+                )) {
                     $errorTable = $matches['table'];
+                    $column = str_replace('version_', '', $matches['column']);
                 } else {
                     throw $exception;
                 }
-                $column = self::resolveForeignKey($connection, $errorTable, $table) ?? sprintf("%s_id", $table);
-                if (!self::columnExists($connection, $errorTable, $column)) {
-                    return;
-                }
-
                 self::removeForeignKeyReferences($connection, $errorTable, $column, $ids, $table);
                 break;
 
