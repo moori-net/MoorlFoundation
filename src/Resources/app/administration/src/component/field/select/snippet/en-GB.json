@@ -1,6 +1,11 @@
 {
     "moorl-select": {
         "label": {
+            "svgShape": "SVG Type",
+            "iconType": "Icon Type",
+            "domElementState": "Element Status",
+            "cssSizeUnit": "Adjust object",
+            "cssObjectFit": "Size specification",
             "none": "None",
             "horizontalAlign": "Horizontal alignment",
             "textHorizontalAlign": "Horizontal alignment",
@@ -32,21 +37,36 @@
             "operator": "Operator",
             "visibility": "Visibility"
         },
+        "svgShape": {
+            "none": "None",
+            "rect": "Rectangle",
+            "circle": "Circle",
+            "ellipse": "Ellipse"
+        },
+        "iconType": {
+            "fa": "Meteor, FontAwesome 5/6",
+            "svg": "SVG",
+            "media": "Image"
+        },
+        "cssSizeUnit": {
+            "pc": "Percent",
+            "px": "Pixel"
+        },
         "interval": {
-            "hour": "Stündlich",
-            "day": "Täglich",
-            "minute": "Minütlich"
+            "hour": "Hourly",
+            "day": "Daily",
+            "minute": "Minutely"
         },
         "countdownType": {
-            "relative": "Relative Zeitangabe",
+            "relative": "Relative time",
             "countdown": "Countdown",
-            "time": "Datum & Uhrzeit",
-            "hidden": "Im Hintergrund"
+            "time": "Date & time",
+            "hidden": "Hidden"
         },
         "stockType": {
-            "progressBarAbs": "Absoluter Fortschrittsbalken",
-            "progressBarPc": "Prozentualer Fortschrittsbalken",
-            "text": "Nur Text"
+            "progressBarAbs": "Absolute progress bar",
+            "progressBarPc": "Percentage progress bar",
+            "text": "Text only"
         },
         "visibility": {
             "public": "Public",
@@ -98,18 +118,25 @@
         },
         "listingLayout": {
             "standard": "Shopware standard",
-            "grid": "Responsive Grid",
+            "grid": "Responsive grid",
             "list": "List",
             "slider": "Slider",
             "search-suggest": "Suggest search list (minimal)"
         },
+        "cssObjectFit": {
+            "fill": "Fill",
+            "contain": "Contain",
+            "cover": "Cover (crop edges)",
+            "none": "None",
+            "scale-down": "Scale down"
+        },
         "cssJustifyContent": {
             "normal": "Normal",
-            "flex-start": "Start",
-            "flex-end": "End",
+            "flex-start": "Flex-start",
+            "flex-end": "Flex-end",
             "center": "Center",
-            "space-between": "Space between",
-            "space-around": "Space around",
+            "space-between": "Space-between",
+            "space-around": "Space-around",
             "stretch": "Stretch"
         },
         "itemLayout": {

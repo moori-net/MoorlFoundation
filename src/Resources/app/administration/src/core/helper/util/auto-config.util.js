@@ -1,4 +1,4 @@
-export function applyAutoConfiguration({ configList, context, debug = true }) {
+export function applyAutoConfiguration({ configList, context, debug = false }) {
     const aliasMap = {};
     const appliedAliases = [];
 
