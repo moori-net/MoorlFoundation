@@ -1,6 +1,6 @@
 <video
         class="w-100 h-100 is-{{ displayMode }}"
-        preload="{{ embeddedMedia.config.preload ?? 'none' }}"
+        preload="{{ embeddedMedia.config.preload ?? 'metadata' }}"
         poster="{{ embeddedMedia.cover.url }}"
         {{ embeddedMedia.config.video|join(" ") }}
 >
