@@ -5,7 +5,7 @@ Shopware.Component.register('moorl-feature-unlocker', {
     template,
 
     shortcuts: {
-        'SHIFT+m': 'openModal',
+        'SYSTEMKEY+m': 'openModal',
     },
 
     inject: ['acl'],
