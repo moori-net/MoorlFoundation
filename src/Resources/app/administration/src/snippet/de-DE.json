@@ -61,6 +61,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "twig": "HTML/TWIG",
       "button": "Button",
       "iconActiveBack": "Icon aktiv",
       "iconActiveFront": "Icon aktiv",
