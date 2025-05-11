@@ -114,6 +114,8 @@ const mapping = {
     useChapters: {tab: 'general', card: 'general'},
     validUntil: {tab: 'general', card: 'general'},
     code: {tab: 'general', card: 'general'},
+    rating: {tab: 'general', card: 'general'},
+    ratingMax: {tab: 'general', card: 'general'},
 
     // Specifications
     unit: {tab: 'general', card: 'specifications'},
