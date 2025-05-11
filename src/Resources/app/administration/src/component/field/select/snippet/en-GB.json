@@ -98,7 +98,17 @@
             "secondary": "Secondary",
             "secondaryOutline": "Secondary outline",
             "danger": "Danger",
-            "dangerOutline": "Danger outline"
+            "dangerOutline": "Danger outline",
+            "success": "Success",
+            "successOutline": "Success outline",
+            "warning": "Warning",
+            "warningOutline": "Warning outline",
+            "info": "Info",
+            "infoOutline": "Info outline",
+            "dark": "Dark",
+            "darkOutline": "Dark outline",
+            "light": "Light",
+            "lightOutline": "Light outline"
         },
         "domElementState": {
             "isLoaded": "Load",

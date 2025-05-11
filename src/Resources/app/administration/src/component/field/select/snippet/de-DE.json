@@ -97,8 +97,19 @@
             "primaryOutline": "Primär (Umrandung)",
             "secondary": "Sekundär",
             "secondaryOutline": "Sekundär (Umrandung)",
-            "danger": "Warnung",
-            "dangerOutline": "Warnung (Umrandung)"
+            "danger": "Gefahr",
+            "dangerOutline": "Gefahr (Umrandung)",
+            "success": "Erfolg",
+            "successOutline": "Erfolg (Umrandung)",
+            "warning": "Warnung",
+            "warningOutline": "Warnung (Umrandung)",
+            "info": "Info",
+            "infoOutline": "Info (Umrandung)",
+            "dark": "Dunkel",
+            "darkOutline": "Dunkel (Umrandung)",
+            "light": "Hell (Umrandung)",
+            "lightOutline": "Hell (Umrandung)"
+
         },
         "domElementState": {
             "isLoaded": "Geladen",
