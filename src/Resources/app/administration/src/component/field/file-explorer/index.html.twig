@@ -1,8 +1,11 @@
 <div class="moorl-file-explorer">
     <mt-text-field
-        :value="value"
-        :placeholder="placeholder"
+            v-if="value"
+            v-model="value"
+            :placeholder="placeholder"
+            :disabled="true"
     />
+
     <div
         v-if="showActions"
         class="moorl-file-explorer-actions"
