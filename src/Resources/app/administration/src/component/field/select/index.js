@@ -123,6 +123,8 @@ Shopware.Component.register('moorl-select-field', {
 
     emits: ['update:value'],
 
+    inject: ['foundationApiService'],
+
     props: {
         value: {
             type: [String, Array],
@@ -180,7 +182,7 @@ Shopware.Component.register('moorl-select-field', {
             default: [],
         },
         customSet: {
-            type: Array,
+            type: [String, Array],
             required: false,
             default: [],
         },
@@ -199,6 +201,16 @@ Shopware.Component.register('moorl-select-field', {
             required: true,
             default: 'label',
         },
+    },
+
+    data() {
+        return {
+            setOptions: []
+        };
+    },
+
+    created() {
+        this.createdComponent();
     },
 
     computed: {
@@ -225,20 +237,6 @@ Shopware.Component.register('moorl-select-field', {
             set(newValue) {
                 this.$emit('update:value', newValue ?? null);
             },
-        },
-
-        setOptions() {
-            if (this.set === 'customSet') {
-                return this.customSet;
-            }
-
-            if (sets[this.currentSet] === undefined) {
-                return [
-                    { value: null, label: `set ${this.currentSet} not found` },
-                ];
-            }
-
-            return sets[this.currentSet];
         },
 
         currentSet() {
@@ -360,6 +358,29 @@ Shopware.Component.register('moorl-select-field', {
     },
 
     methods: {
+        createdComponent() {
+            if (this.set === 'customSet') {
+                if (Array.isArray(this.customSet)) {
+                    this.setOptions = this.customSet;
+                    return;
+                } else if (typeof this.customSet === 'string') {
+                    this.foundationApiService
+                        .get(this.customSet)
+                        .then((response) => {
+                            this.setOptions = response;
+                        });
+                    return;
+                }
+            }
+
+            if (sets[this.currentSet] === undefined) {
+                this.setOptions = [{ value: null, label: `set ${this.currentSet} not found` }];
+                return;
+            }
+
+            this.setOptions = sets[this.currentSet];
+        },
+
         getLabel(value) {
             if (this.snippetPath) {
                 return this.$tc(`${this.snippetPath}.${value}`);

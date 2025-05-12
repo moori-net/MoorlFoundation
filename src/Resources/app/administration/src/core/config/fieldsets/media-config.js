@@ -23,7 +23,7 @@ const mediaConfig = {
         conditions: [{property: 'type', value: 'media', operator: 'eq'}],
     },
     preload: {
-        value: 'none',
+        value: 'metadata',
         componentName: 'moorl-select-field',
         attributes: {
             customSet: [
