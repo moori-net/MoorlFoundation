@@ -20,5 +20,9 @@
         <service id="MoorlFoundation\Demo\ImportExport\DemoImportExport">
             <tag name="moorl.foundation.data" priority="0"/>
         </service>
+
+        <service id="MoorlFoundation\Demo\MediaFolder\DemoMediaFolder">
+            <tag name="moorl.foundation.data" priority="0"/>
+        </service>
     </services>
 </container>

@@ -83,19 +83,22 @@ MoorlFoundation.ModuleHelper.registerModule({
             card: 'media',
             componentName: 'moorl-select-field',
             attributes: {
-                customSet: ['auto', 'embedded', 'media', 'vimeo', 'youtube'],
+                customSet: ['auto', 'embedded', 'media', 'vimeo', 'youtube', 'media-folder'],
                 snippetPath: 'moorl-foundation.field'
             }
         },
         duration: {tab: 'general', card: 'media'},
         embeddedUrl: {
-            conditions: [{property: 'type', value: 'media', operator: '!='}],
+            conditions: [{property: 'type', value: ['media', 'media-folder'], operator: 'nin'}],
         },
         embeddedId: {
-            conditions: [{property: 'type', value: 'media', operator: '!='}],
+            conditions: [{property: 'type', value: ['media', 'media-folder'], operator: 'nin'}],
         },
         media: {
             conditions: [{property: 'type', value: 'media', operator: 'eq'}],
+        },
+        mediaFolder: {
+            conditions: [{property: 'type', value: 'media-folder', operator: 'eq'}],
         },
         config: {
             mapping: MoorlFoundation.fieldsetsConfig['media-config']

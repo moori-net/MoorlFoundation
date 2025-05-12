@@ -21,6 +21,7 @@ class MoorlFoundation extends Plugin
         'cms_block',
         'cms_slot',
         'cms_slot_translation',
+        'media_default_folder',
     ];
     final public const INHERITANCES = [];
     final public const PLUGIN_TABLES = [

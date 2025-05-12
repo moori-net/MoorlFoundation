@@ -61,6 +61,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "media-folder": "Media folder (360-Viewer)",
       "twig": "HTML/TWIG",
       "button": "Button",
       "iconActiveBack": "Icon active (back)",
@@ -193,7 +194,6 @@
       "ingredients": "Ingredients",
       "badges": "Badges",
       "optionItem": "Option Item",
-
       "accessKeyId": "Access key id",
       "accessKeySecret": "Access key secret",
       "accessory": "Accessory",

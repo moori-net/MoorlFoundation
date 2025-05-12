@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Content\EmbeddedMedia;
 
+use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderDefinition;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
@@ -57,6 +58,7 @@ class EmbeddedMediaDefinition extends EntityDefinition
             (new IdField('id', 'id'))->addFlags(new PrimaryKey(), new Required()),
             (new FkField('cover_id', 'coverId', MediaDefinition::class)),
             (new FkField('media_id', 'mediaId', MediaDefinition::class)),
+            (new FkField('media_folder_id', 'mediaFolderId', MediaFolderDefinition::class)),
 
             (new BoolField('active', 'active'))->addFlags(),
 
@@ -90,6 +92,12 @@ class EmbeddedMediaDefinition extends EntityDefinition
                 'media',
                 'media_id',
                 MediaDefinition::class
+            ))->addFlags(new RestrictDelete()),
+
+            (new ManyToOneAssociationField(
+                'mediaFolder',
+                'media_folder_id',
+                MediaFolderDefinition::class
             ))->addFlags(new RestrictDelete()),
 
             (new TranslationsAssociationField(

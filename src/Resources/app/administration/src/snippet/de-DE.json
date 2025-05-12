@@ -61,6 +61,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "media-folder": "Medien-Ordner (360-Bildbetrachter)",
       "twig": "HTML/TWIG",
       "button": "Button",
       "iconActiveBack": "Icon aktiv",

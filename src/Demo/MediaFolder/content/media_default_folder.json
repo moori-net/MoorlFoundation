@@ -1,0 +1,13 @@
+[
+  {
+    "id": "{ID:MOORL_MEDIA_CFG}",
+    "entity": "moorl_media",
+    "associationFields": [],
+    "folder": {
+      "id":  "{ID:MOORL_MEDIA_FOLDER}",
+      "name": "moorl_media",
+      "configurationId": "{MEDIA_FOLDER_PRODUCT_CFG_ID}",
+      "useParentConfiguration": false
+    }
+  }
+]
