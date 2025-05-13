@@ -9,9 +9,9 @@ Shopware.Service('cmsService').registerCmsBlock({
     previewComponent: 'sw-cms-preview-block-moorl-grid-layout-six',
     defaultConfig: {
         marginBottom: '20px',
-        marginTop: '20px',
-        marginLeft: '20px',
-        marginRight: '20px',
+        marginTop: '0',
+        marginLeft: '0',
+        marginRight: '0',
         sizingMode: 'boxed',
     },
     slots: {
