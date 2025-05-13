@@ -550,7 +550,7 @@
             <label lang="de-DE">Behebung von Anzeigefehlern in CMS-Grid-Blöcken</label>
             <helpText>An additional DIV element is added to eliminate display errors in grid blocks.</helpText>
             <helpText lang="de-DE">Um Anzeigefehler in Grid Blöcken zu beheben, wird ein zusätzliches DIV-Element eingebaut.</helpText>
-            <defaultValue>false</defaultValue>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 </config>
