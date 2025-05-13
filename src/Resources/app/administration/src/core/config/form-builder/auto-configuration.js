@@ -247,7 +247,7 @@ const autoConfiguration = [
         conditions: [
             isType('association')
         ],
-        apply({ column, attributes, field }) {
+        apply({ attributes, field }) {
             attributes.entity = field.entity;
             attributes.labelProperty = ({ field }) => entityLabelProperty[field.entity] ?? 'name';
         }
