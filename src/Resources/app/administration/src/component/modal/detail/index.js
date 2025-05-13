@@ -1,5 +1,7 @@
 import template from './index.html.twig';
 
+const {Criteria} = Shopware.Data;
+
 Shopware.Component.register('moorl-modal-detail', {
     template,
 
@@ -40,8 +42,25 @@ Shopware.Component.register('moorl-modal-detail', {
     },
 
     computed: {
+        itemHelper() {
+            return new MoorlFoundation.ItemHelper({
+                componentName: this.componentName,
+                entity: this.entity
+            });
+        },
+
         itemRepository() {
             return this.repositoryFactory.create(this.entity);
+        },
+
+        itemCriteria() {
+            const itemCriteria = new Criteria();
+
+            this.itemHelper.getAssociations().forEach(association => {
+                itemCriteria.addAssociation(association);
+            });
+
+            return itemCriteria;
         },
 
         itemName() {
@@ -82,7 +101,7 @@ Shopware.Component.register('moorl-modal-detail', {
 
         async loadItem() {
             if (this.value !== null) {
-                this.item = await this.itemRepository.get(this.value, Shopware.Context.api);
+                this.item = await this.itemRepository.get(this.value, Shopware.Context.api, this.itemCriteria);
             } else {
                 this.item = this.itemRepository.create(Shopware.Context.api);
                 this.item.id = Shopware.Utils.createId();

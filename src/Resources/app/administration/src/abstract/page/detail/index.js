@@ -17,7 +17,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
     ],
 
     shortcuts: {
-        'SYSTEMKEY+S': 'onSave',
+        'SYSTEMKEY+s': 'onSave',
         ESCAPE: 'onCancel',
     },
 
