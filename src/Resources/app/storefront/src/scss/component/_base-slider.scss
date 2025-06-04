@@ -2,6 +2,18 @@
 Base slider fix https://github.com/shopware/platform/commit/bf4d022ed3d4a717465e0cae5655e715abccb37c
 */
 
+.base-slider {
+    .is-not-first {
+        display: none;
+    }
+
+    &.js-slider-initialized {
+        .is-not-first {
+            display: inline-block;
+        }
+    }
+}
+
 .moorl-slider {
     overflow: visible;
 
