@@ -3,7 +3,7 @@
     {% set config = block.customFields.moorl_interactive_slider %}
 
     {% set listingCss = [
-        "margin-right:-#{config.gapSize}",
+        "margin-right:-#{config.gapSize}"
     ] %}
 
     {% set sliderOptions = {
@@ -39,7 +39,7 @@
                     {% set element = block.slots.getSlot("slot-#{letter}") %}
 
                     {% if element %}
-                        <div class="">
+                        <div class="{% if loop.first != true %}is-not-first{% endif %}">
                             {% sw_include "@Storefront/storefront/element/cms-element-" ~ element.type ~ ".html.twig" ignore missing %}
                         </div>
                     {% endif %}
@@ -62,7 +62,7 @@
             {% endif %}
         </div>
     {% else %}
-        <div class="base-slider product-slider product-slider"
+        <div class="base-slider product-slider"
              data-product-slider="true"
              data-product-slider-options='{{ sliderOptions|json_encode }}'>
             <div class="moorl-listing-slider"
