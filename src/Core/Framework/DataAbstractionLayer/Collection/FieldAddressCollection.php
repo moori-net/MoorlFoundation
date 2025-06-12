@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
@@ -20,10 +21,10 @@ class FieldAddressCollection extends FieldCollection
         if (!$flag) return [];
         
         return [
-            (new StringField('street', 'street'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new StringField('street', 'street'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
             (new StringField('street_number', 'streetNumber'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('zipcode', 'zipcode'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
-            (new StringField('city', 'city'))->addFlags(new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new StringField('zipcode', 'zipcode'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new StringField('city', 'city'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
             (new StringField('additional_address_line1', 'additionalAddressLine1'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('additional_address_line2', 'additionalAddressLine2'))->addFlags(new EditField(EditField::TEXT)),
             (new StringField('country_code', 'countryCode'))->addFlags(new EditField(EditField::TEXT)),

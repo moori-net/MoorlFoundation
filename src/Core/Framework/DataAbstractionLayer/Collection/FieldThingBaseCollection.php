@@ -19,7 +19,7 @@ class FieldThingBaseCollection extends FieldCollection
         if (!$flag) return [];
 
         return [
-            (new TranslatedField('name'))->addFlags(new Required(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
+            (new TranslatedField('name'))->addFlags(new Required(), new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING), new EditField(EditField::TEXT)),
             (new TranslatedField('keywords'))->addFlags(new EditField(EditField::TEXTAREA)),
             (new TranslatedField('description'))->addFlags(new EditField(EditField::TEXTAREA)),
         ];

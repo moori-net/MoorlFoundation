@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
@@ -17,7 +18,7 @@ class FieldBreadcrumbCollection extends FieldCollection
 
         return [
             new TranslatedField('breadcrumb'),
-            (new TranslatedField('breadcrumbPlain'))->addFlags(new EditField(EditField::TEXT), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+            (new TranslatedField('breadcrumbPlain'))->addFlags(new EditField(EditField::TEXT), new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
         ];
     }
 
