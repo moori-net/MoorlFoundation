@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
@@ -92,16 +93,27 @@ class EntityDefinitionQueryHelper
         $foreignKeyColumn = trim($matches[1], '` ');
         $referencedTable = trim($matches[2], '` ');
 
-        $sql = sprintf(
-            "UPDATE %s SET %s = NULL WHERE %s IS NOT NULL AND %s NOT IN (SELECT `id` FROM %s);",
+        $invalidIds = $connection->fetchFirstColumn(sprintf(
+            'SELECT %s FROM %s WHERE %s IS NOT NULL AND %s NOT IN (SELECT `id` FROM %s);',
+            self::quote($foreignKeyColumn),
             self::quote($table),
             self::quote($foreignKeyColumn),
             self::quote($foreignKeyColumn),
-            self::quote($foreignKeyColumn),
             self::quote($referencedTable)
-        );
+        ));
 
-        $connection->executeStatement($sql);
+        if (!empty($invalidIds)) {
+            $sql = sprintf(
+                'UPDATE %s SET %s = NULL WHERE %s IN (:ids);',
+                self::quote($table),
+                self::quote($foreignKeyColumn),
+                self::quote($foreignKeyColumn)
+            );
+
+            $connection->executeStatement($sql,
+                ['ids' => $invalidIds],
+                ['ids' => ArrayParameterType::BINARY]);
+        }
     }
 
     public static function makeVersionPrimaryKey(Connection $connection, string $table)
