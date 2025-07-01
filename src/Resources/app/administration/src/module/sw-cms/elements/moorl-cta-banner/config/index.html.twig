@@ -93,19 +93,17 @@
                             />
                         </template>
 
-                        <template v-else>
-                            <template v-if="element.config.elementClickable.value">
-                                <sw-text-field
-                                        v-model:value="element.config.elementUrl.value"
-                                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementUrl')"
-                                />
+                        <template v-if="element.config.elementClickable.value">
+                            <sw-text-field
+                                    v-model:value="element.config.elementUrl.value"
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementUrl')"
+                            />
 
-                                <sw-switch-field
-                                        v-model:value="element.config.elementNewTab.value"
-                                        bordered
-                                        :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementNewTab')"
-                                />
-                            </template>
+                            <sw-switch-field
+                                    v-model:value="element.config.elementNewTab.value"
+                                    bordered
+                                    :label="$tc('sw-cms.elements.moorl-cta-banner.label.elementNewTab')"
+                            />
                         </template>
                     {% endblock %}
                 </sw-container>
