@@ -1,0 +1,8 @@
+{% block sw_cms_page_form_element_config %}
+    {% parent %}
+
+    <moorl-element-animation
+            v-if="moorlIsUnlocked && block.type.includes('moorl-')"
+            v-model:element="element"
+    />
+{% endblock %}

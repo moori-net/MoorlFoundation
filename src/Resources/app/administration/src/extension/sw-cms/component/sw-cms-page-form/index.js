@@ -1,5 +1,13 @@
+import template from './sw-cms-page-form.html.twig';
+
 Shopware.Component.override('sw-cms-page-form', {
+    template,
+
     computed: {
+        moorlIsUnlocked() {
+            return Shopware.Store.get('moorlFoundationState').unlocked;
+        },
+
         slotPositions() {
             const slotPositions = this.$super('slotPositions');
 
