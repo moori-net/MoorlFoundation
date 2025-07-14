@@ -61,6 +61,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "fade": "Fade",
       "media-folder": "Media folder (360-Viewer)",
       "twig": "HTML/TWIG",
       "button": "Button",
