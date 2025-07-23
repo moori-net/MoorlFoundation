@@ -15,6 +15,10 @@
         <script type="application/javascript">window.moorlAnimation = {{ config('MoorlFoundation.config.moorlAnimation')|json_encode|raw }};</script>
     {% endif %}
 
+    {% if config('MoorlFoundation.config.moorlAnimationZIndex') %}
+        <script type="application/javascript">window.moorlAnimationZIndex = "{{ config('MoorlFoundation.config.moorlAnimationZIndex') }}";</script>
+    {% endif %}
+
     {% if config('MoorlFoundation.config.advancedSearchWidth') %}
         <style>
             :root {

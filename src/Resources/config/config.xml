@@ -63,6 +63,14 @@
         <title>Animation</title>
         <title lang="de-DE">Animation</title>
 
+        <input-field type="text">
+            <name>moorlAnimationZIndex</name>
+            <label>Z-Index of animated items</label>
+            <label lang="de-DE">Z-Index der animierten Elemente</label>
+            <defaultValue>9000</defaultValue>
+            <placeholder>9000</placeholder>
+        </input-field>
+
         <component name="moorl-animation">
             <name>moorlAnimation</name>
         </component>
@@ -541,6 +549,13 @@
     <card>
         <title>Compatibility</title>
         <title lang="de-DE">Kompatibilität</title>
+
+        <input-field type="bool">
+            <name>cmpSectionFixedBackgroundIOS</name>
+            <label>Fixed CMS section background image for iOS</label>
+            <label lang="de-DE">Fixiertes Hintergrundbild eines CMS Abschnitts für iOS</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
 
         <input-field type="bool">
             <name>cmpCustomerGroupCacheKeyGenerator</name>

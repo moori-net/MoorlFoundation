@@ -52,6 +52,22 @@
   background-attachment: fixed;
 }
 
+.bg-fixed-ios::before  {
+  content: ' ';
+  display: block;
+  background-image: var(--bg-img);
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;
+}
+
 .cms-section.overflow-visible {
   overflow: visible !important;
 
