@@ -60,8 +60,6 @@
         ]) %}
     {% endif %}
 
-    {{ dump(block) }}
-
     {% if backgroundMedia.thumbnails|length > 0 %}
         {% set thumbnails = backgroundMedia.thumbnails|sort((b, a) => a.width <=> b.width) %}
         {% set baseWidthFallback = 1200 %}
