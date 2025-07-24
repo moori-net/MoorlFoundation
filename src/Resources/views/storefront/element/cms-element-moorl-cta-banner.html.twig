@@ -60,11 +60,14 @@
         ]) %}
     {% endif %}
 
+    {{ dump(block) }}
+
     {% if backgroundMedia.thumbnails|length > 0 %}
-        {% set thumbnails = backgroundMedia.thumbnails|sort((a, b) => a.width <=> b.width) %}
-        {% set sizeFallback = 100 %}
+        {% set thumbnails = backgroundMedia.thumbnails|sort((b, a) => a.width <=> b.width) %}
+        {% set baseWidthFallback = 1200 %}
         {% set firstThumbnail = thumbnails|first %}
-        {% set baseWidth = firstThumbnail.width ?? sizeFallback %}
+        {% set baseWidth = firstThumbnail.width ?? baseWidthFallback %}
+        {# TODO: give cms block or slot additional size information for better scale calculation #}
         {% set imageSetPixelDensity = [] %}
         {% set imageSetWidth = [] %}
 
