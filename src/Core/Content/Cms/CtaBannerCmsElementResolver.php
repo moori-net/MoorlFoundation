@@ -61,9 +61,12 @@ class CtaBannerCmsElementResolver extends AbstractCmsElementResolver
 
         $mediaConfig = $config->get('media');
         if ($mediaConfig && $mediaConfig->getValue()) {
-            $searchResult  = $result->get('media_' . $slot->getUniqueIdentifier());
+            $searchResult = $result->get('media_' . $slot->getUniqueIdentifier());
             if ($searchResult) {
-                $ctaBanner->setMedia($searchResult->get($mediaConfig->getValue()));
+                $media = $searchResult->get($mediaConfig->getValue());
+                if ($media) {
+                    $ctaBanner->setMedia($media);
+                }
             }
         }
 
