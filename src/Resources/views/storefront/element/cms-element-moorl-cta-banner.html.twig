@@ -47,18 +47,45 @@
     ] %}
 
     {% if config.mediaActive.value and element.data.media %}
-        {% set backgroundCss = backgroundCss|merge([
-            "background-image:url('#{element.data.media.url}')"
-        ]) %}
+        {% set backgroundMedia = element.data.media %}
     {% elseif config.elementType.value == 'category' %}
-        {% set backgroundCss = backgroundCss|merge([
-            "background-image:url('#{element.data.category.media.url}')"
-        ]) %}
+        {% set backgroundMedia = element.data.category.media %}
     {% elseif config.elementType.value == 'product' %}
+        {% set backgroundMedia = element.data.product.cover.media %}
+    {% endif %}
+
+    {% if backgroundMedia %}
         {% set backgroundCss = backgroundCss|merge([
-            "background-image:url('#{element.data.product.cover.media.url}')"
+            "background-image:url('#{backgroundMedia.url}')"
         ]) %}
     {% endif %}
+
+    {% if backgroundMedia.thumbnails|length > 0 %}
+        {% set thumbnails = backgroundMedia.thumbnails|sort((b, a) => a.width <=> b.width) %}
+        {% set baseWidthFallback = 1200 %}
+        {% set firstThumbnail = thumbnails|first %}
+        {% set baseWidth = firstThumbnail.width ?? baseWidthFallback %}
+        {# TODO: give cms block or slot additional size information for better scale calculation #}
+        {% set imageSetPixelDensity = [] %}
+        {% set imageSetWidth = [] %}
+
+        {% for thumbnail in thumbnails %}
+            {% set density = (thumbnail.width / baseWidth)|number_format(1, '.', '') %}
+            {% set imageSetPixelDensity = imageSetPixelDensity|merge([
+                "url('#{thumbnail.url|sw_encode_url}') #{density}x"
+            ]) %}
+            {% set imageSetWidth = imageSetWidth|merge([
+                "url('#{thumbnail.url|sw_encode_url}') #{thumbnail.width}w"
+            ]) %}
+        {% endfor %}
+
+        {% set backgroundCss = backgroundCss|merge([
+            "background-image:-webkit-image-set(#{imageSetPixelDensity|join(',')})",
+            "background-image:image-set(#{imageSetPixelDensity|join(',')})",
+            "background-image:image-set(#{imageSetWidth|join(',')})",
+        ]) %}
+    {% endif %}
+
     {% if config.backgroundDisplayMode.value == 'custom' %}
         {% set backgroundCss = backgroundCss|merge([
             "background-size:#{config.backgroundSizeX.value} #{config.backgroundSizeY.value}"
@@ -111,14 +138,14 @@
 
                     <div class="container-icon" style="{{ iconCss|join(";") }}">
                         {% block element_moorl_cta_banner_container_icon %}
-                        {% if config.iconType.value == 'fa' %}
-                            {% set parts = config.iconClass.value|split('|') %}
-                            {% sw_icon 'icon' style {pack: parts[0], fileName: parts[1], size: parts[2]} %}
-                        {% elseif config.iconType.value == 'svg' %}
-                            <span>{{ config.iconSvg.value|raw }}</span>
-                        {% elseif config.iconType.value == 'media' %}
-                            <img src="{{ element.data.iconMedia.url }}" alt="{{ bannerTitle }}">
-                        {% endif %}
+                            {% if config.iconType.value == 'fa' %}
+                                {% set parts = config.iconClass.value|split('|') %}
+                                {% sw_icon 'icon' style {pack: parts[0], fileName: parts[1], size: parts[2]} %}
+                            {% elseif config.iconType.value == 'svg' %}
+                                <span>{{ config.iconSvg.value|raw }}</span>
+                            {% elseif config.iconType.value == 'media' %}
+                                <img src="{{ element.data.iconMedia.url }}" alt="{{ bannerTitle }}">
+                            {% endif %}
                         {% endblock %}
                     </div>
                 {% endif %}

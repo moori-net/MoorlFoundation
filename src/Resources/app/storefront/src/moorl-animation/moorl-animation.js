@@ -9,6 +9,7 @@ export default class MoorlAnimation extends Plugin {
         }
 
         this.activeAnimation = null;
+        this.zIndex = parseInt(window.moorlAnimationZIndex ?? "9000");
         this.animateInit();
         this.animate();
         this._registerEvents();
@@ -103,7 +104,7 @@ export default class MoorlAnimation extends Plugin {
         if (this._visible(config.condition)) {
             this.activeAnimation = 'hover';
             this.el.style.animation = config.name;
-            this.el.style.zIndex = 9000;
+            this.el.style.zIndex = this.zIndex;
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
@@ -119,7 +120,7 @@ export default class MoorlAnimation extends Plugin {
         if (this._visible(config.condition)) {
             this.activeAnimation = 'in';
             this.el.style.animation = config.name;
-            this.el.style.zIndex = 9000;
+            this.el.style.zIndex = this.zIndex;
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
