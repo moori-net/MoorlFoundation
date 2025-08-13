@@ -128,6 +128,8 @@ Shopware.Mixin.register('moorl-listing', {
             await this.listHelper.ready;
 
             this.pluginName = this.listHelper.pluginName;
+            this.demoName = this.listHelper.demoName;
+
             this.sortBy = this.listHelper.sortBy;
             this.sortDirection = this.listHelper.sortDirection;
 

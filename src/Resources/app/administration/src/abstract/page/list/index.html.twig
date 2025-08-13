@@ -17,7 +17,7 @@
             {{ $tc('global.default.add') }}
         </mt-button>
         <moorl-demo-button
-            v-if="pluginName"
+            v-if="pluginName && demoName"
             :pluginName="pluginName"
             :name="demoName"
             @on-finish="getList"
