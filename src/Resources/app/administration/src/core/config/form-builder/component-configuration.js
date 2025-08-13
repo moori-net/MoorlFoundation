@@ -100,9 +100,11 @@ const componentConfiguration = [
         conditions: [
             isComponent('moorl-layout-card-v2')
         ],
-        apply({ column, attributes, item }) {
+        apply({ column, attributes, item, entity }) {
             column.model = undefined;
 
+            attributes.item = item;
+            attributes.entity = entity;
             attributes.slotConfig = item.slotConfig;
         }
     },
