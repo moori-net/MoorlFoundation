@@ -23,6 +23,7 @@ export default class ModuleHelper {
     static registerModule({
                               icon,
                               name,
+                              description = `${name}.description`,
                               entity,
                               title = `global.entities.${entity}`,
                               position,
@@ -73,6 +74,7 @@ export default class ModuleHelper {
             const moduleConfig = {
                 type: 'plugin',
                 name,
+                description,
                 entity,
                 title,
                 icon,
