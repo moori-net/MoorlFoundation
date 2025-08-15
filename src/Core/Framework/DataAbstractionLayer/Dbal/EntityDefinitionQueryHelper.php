@@ -37,7 +37,7 @@ final class EntityDefinitionQueryHelper
 
                 usleep(100000);
 
-                self::handleDbalException(
+                $handled = self::handleDbalException(
                     $exception,
                     $connection,
                     $sql,
@@ -46,6 +46,9 @@ final class EntityDefinitionQueryHelper
                     $codes,
                     $ids
                 );
+                if ($handled === true) {
+                    return;
+                }
 
                 usleep(100000);
             }
@@ -64,7 +67,7 @@ final class EntityDefinitionQueryHelper
         ?string $column = null,
         array $codes = [],
         array $ids = []
-    ): void {
+    ): bool {
         if (!empty($codes) && !in_array($exception->getCode(), $codes, true)) {
             throw $exception;
         }
@@ -82,7 +85,7 @@ final class EntityDefinitionQueryHelper
 
         if ($exception instanceof NotNullConstraintViolationException) {
             self::updateNotNullTableData($connection, $sql, $table, $column);
-            return;
+            return false; // Source query not executed, try again
         }
 
         switch ($exception->getCode()) {
@@ -115,7 +118,13 @@ final class EntityDefinitionQueryHelper
             case 1216:
                 self::removeInvalidForeignKeys($connection, $sql, $table);
                 break;
+
+            case 1832:
+                self::handleCannotChangeColumnUsedInFK($exception, $connection, $sql, $table);
+                return true; // Source query executed
         }
+
+        return false; // Source query not executed, try again
     }
 
     // ======================================
@@ -179,6 +188,29 @@ final class EntityDefinitionQueryHelper
         }
 
         self::removeForeignKeyReferences($connection, $errorTable, $column, $ids, $table);
+    }
+
+    private static function handleCannotChangeColumnUsedInFK(Exception $exception, Connection $connection, string $sql, string $table): void {
+        if (!preg_match(
+            "/Cannot change column '[^']+': used in a foreign key constraint '([^']+)'/i",
+            $exception->getMessage(),
+            $matches
+        )) {
+            throw $exception;
+        }
+
+        $constraintName = $matches[1];
+
+        $fkMeta = self::getForeignKeyMetaByName($connection, $table, $constraintName);
+        if (!$fkMeta) {
+            throw $exception;
+        }
+
+        self::dropForeignKey($connection, $table, $constraintName);
+
+        $connection->executeStatement($sql);
+
+        self::addForeignKeyFromMeta($connection, $table, $constraintName, $fkMeta);
     }
 
     // ============================
@@ -281,6 +313,28 @@ final class EntityDefinitionQueryHelper
         }
     }
 
+    public static function addForeignKeyFromMeta(Connection $connection, string $table, string $constraintName, array $fkMeta): void
+    {
+        $cols     = implode(', ', array_map(self::quote(...), $fkMeta['columns']));
+        $refCols  = implode(', ', array_map(self::quote(...), $fkMeta['ref_columns']));
+        $refTable = self::quote($fkMeta['ref_table']);
+        $onUpdate = strtoupper($fkMeta['update_rule'] ?? 'RESTRICT');
+        $onDelete = strtoupper($fkMeta['delete_rule'] ?? 'RESTRICT');
+
+        $sql = sprintf(
+            'ALTER TABLE %s ADD CONSTRAINT %s FOREIGN KEY (%s) REFERENCES %s (%s) ON DELETE %s ON UPDATE %s',
+            self::quote($table),
+            self::quote($constraintName),
+            $cols,
+            $refTable,
+            $refCols,
+            $onDelete,
+            $onUpdate
+        );
+
+        $connection->executeStatement($sql);
+    }
+
     // ============================
     // === MIGRATION UTILITIES ====
     // ============================
@@ -373,6 +427,50 @@ SQL;
         return strtoupper((string) $result) === 'YES';
     }
 
+    public static function getForeignKeyMetaByName(Connection $connection, string $table, string $constraintName): ?array
+    {
+        $sql = <<<SQL
+SELECT
+  k.COLUMN_NAME,
+  k.REFERENCED_TABLE_NAME,
+  k.REFERENCED_COLUMN_NAME,
+  rc.UPDATE_RULE,
+  rc.DELETE_RULE,
+  k.POSITION_IN_UNIQUE_CONSTRAINT
+FROM information_schema.KEY_COLUMN_USAGE k
+JOIN information_schema.REFERENTIAL_CONSTRAINTS rc
+  ON rc.CONSTRAINT_NAME = k.CONSTRAINT_NAME
+ AND rc.CONSTRAINT_SCHEMA = k.CONSTRAINT_SCHEMA
+WHERE k.TABLE_SCHEMA = DATABASE()
+  AND k.TABLE_NAME = :table
+  AND k.CONSTRAINT_NAME = :cname
+ORDER BY COALESCE(k.POSITION_IN_UNIQUE_CONSTRAINT, 1)
+SQL;
+
+        $rows = $connection->fetchAllAssociative(
+            $sql,
+            ['table' => $table, 'cname' => $constraintName]
+        );
+
+        if (!$rows) {
+            return null;
+        }
+
+        $meta = [
+            'columns'     => [],
+            'ref_table'   => $rows[0]['REFERENCED_TABLE_NAME'],
+            'ref_columns' => [],
+            'update_rule' => $rows[0]['UPDATE_RULE'] ?: 'RESTRICT',
+            'delete_rule' => $rows[0]['DELETE_RULE'] ?: 'RESTRICT',
+        ];
+
+        foreach ($rows as $r) {
+            $meta['columns'][]     = $r['COLUMN_NAME'];
+            $meta['ref_columns'][] = $r['REFERENCED_COLUMN_NAME'];
+        }
+        return $meta;
+    }
+
     // =======================
     // === SQL UTILITIES ====
     // =======================
@@ -386,6 +484,12 @@ SQL;
             ['ids' => Uuid::fromHexToBytesList($excludedIds)],
             ['ids' => ArrayParameterType::STRING]
         ) ?: null;
+    }
+
+    public static function dropForeignKey(Connection $connection, string $table, string $constraintName): void
+    {
+        $sql = sprintf("ALTER TABLE %s DROP FOREIGN KEY %s", self::quote($table), self::quote($constraintName));
+        $connection->executeStatement($sql);
     }
 
     public static function dropIndexIfExists(Connection $connection, string $table, string $column): void
