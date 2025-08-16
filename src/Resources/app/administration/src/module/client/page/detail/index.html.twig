@@ -10,9 +10,10 @@
         {{ $tc('moorl-foundation.button.test') }}
     </mt-button>
 {% endblock %}
+
 {% block moorl_page_detail_content %}
     <sw-card-view>
-        <mt-card :title="$tc('moorl-client.card.general')">
+        <mt-card :title="$tc('moorl-foundation.card.general')">
             <mt-switch
                 :label="$tc('moorl-foundation.field.active')"
                 v-model="item.active"
@@ -33,7 +34,7 @@
                 labelProperty="name"
             />
         </mt-card>
-        <mt-card :title="$tc('moorl-client.card.config')">
+        <mt-card :title="$tc('moorl-foundation.card.config')">
             <template v-for="option in options">
                 <template v-if="item.type == option.name">
                     <template v-for="config in option.configTemplate">

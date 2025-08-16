@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "config": "Konfiguration",
       "specifications": "Spezifikationen",
       "animation": "Animation",
       "box": "Box",
@@ -61,6 +62,12 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "tenant": "Tenant",
+      "urlLogin": "Login URL",
+      "urlAPI": "API URL",
+      "clientCertificatePrivateKey": "Privater Schlüssel",
+      "clientCertificateThumbprint": "Fingerabdruck",
+      "defaultEndPointVersion": "Endpunkt Version",
       "fade": "Einblenden",
       "media-folder": "Medien-Ordner (360-Bildbetrachter)",
       "twig": "HTML/TWIG",
