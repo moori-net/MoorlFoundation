@@ -13,5 +13,5 @@
 /src/Resources/app/storefront/node_modules/
 
 # Ignore built content
-/src/Resources/public/administration/
-/src/Resources/app/storefront/dist/storefront/
+#/src/Resources/public/administration/
+#/src/Resources/app/storefront/dist/storefront/
