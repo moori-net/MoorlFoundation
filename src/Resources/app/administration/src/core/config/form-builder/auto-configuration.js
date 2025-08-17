@@ -3,7 +3,8 @@ const entityLabelProperty = {
     product: 'productNumber',
     salutation: 'displayName',
     customer: 'customerNumber',
-    moorl_sorting: 'label'
+    moorl_sorting: 'label',
+    moorl_pv_license_domain: 'domain'
 };
 const not = (fn) => (context) => !fn(context);
 const isType = (...types) => ({ field }) => types.includes(field.type);

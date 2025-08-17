@@ -62,6 +62,13 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "composerName": "Composer Name",
+      "licenseDomain": "Lizenz Domain",
+      "package": "Paket",
+      "verified": "Verifiziert",
+      "notify": "Benachrichtigen",
+      "domain": "Domain",
+      "repository": "Repository",
       "tenant": "Tenant",
       "urlLogin": "Login URL",
       "urlAPI": "API URL",
