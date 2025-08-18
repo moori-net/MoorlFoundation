@@ -62,6 +62,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "private": "Private",
       "composerName": "Composer name",
       "licenseDomain": "License domain",
       "package": "Package",
