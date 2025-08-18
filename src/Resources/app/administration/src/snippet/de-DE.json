@@ -62,6 +62,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "webApplication": "Web-Anwendung",
       "private": "Privat",
       "composerName": "Composer Name",
       "licenseDomain": "Lizenz Domain",
