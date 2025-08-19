@@ -1,3 +1,3 @@
 # Open todos
 
-* In development: ImageMapItemDefinition 
+* In development: ImageMapItemDefinition
