@@ -7,7 +7,7 @@ on:
 
 jobs:
     build:
-        uses: shopware/github-actions/.github/workflows/store-release.yml@main
+        uses: moorl/github-actions/blob/main/release/action.yml@main
         with:
             extensionName: ${{ github.event.repository.name }}
         secrets:
