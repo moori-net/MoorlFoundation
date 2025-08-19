@@ -1,6 +1,7 @@
 # Ignore root directories
 /vendor/
 /packages/
+/.idea/
 
 # Ignore root files
 /*.lock
