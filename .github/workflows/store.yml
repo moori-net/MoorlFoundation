@@ -10,7 +10,3 @@ jobs:
         uses: moorl/github-actions/.github/workflows/github-release.yml@main
         with:
             extensionName: ${{ github.event.repository.name }}
-        secrets:
-            accountUser: ${{ secrets.ACCOUNT_USER }}
-            accountPassword: ${{ secrets.ACCOUNT_PASSWORD }}
-            ghToken: ${{ secrets.GITHUB_TOKEN }}
