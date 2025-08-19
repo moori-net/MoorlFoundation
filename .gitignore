@@ -1,7 +1,6 @@
 # Ignore root directories
 /vendor/
 /packages/
-/.*/
 
 # Ignore root files
 /*.lock
