@@ -83,13 +83,21 @@ class FieldMultiEntityCollection extends FieldCollection
         return $fieldItems;
     }
 
-    public static function getOneToManyFieldItems(string $localClass, array $referenceClasses): array
+    public static function getOneToManyFieldItems(string $localClass, array $references): array
     {
         $localEd = ExtractedDefinition::get(class: $localClass);
 
         $fieldItems = [];
 
-        foreach ($referenceClasses as $referenceClass) {
+        foreach ($references as $reference) {
+            if (is_array($reference)) {
+                $referenceClass = $reference[0];
+                $assocFlags = $reference[1] ?: [new CascadeDelete()];
+            } else {
+                $referenceClass = $reference;
+                $assocFlags = [new CascadeDelete()];
+            }
+
             $referenceEd = ExtractedDefinition::get(
                 class: $referenceClass
             );
@@ -98,7 +106,7 @@ class FieldMultiEntityCollection extends FieldCollection
                 $referenceEd->getCollectionName(),
                 $referenceClass,
                 $localEd->getFkStorageName()
-            ))->addFlags(new ApiAware(), new CascadeDelete());
+            ))->addFlags(new ApiAware(), ...$assocFlags);
         }
 
         return $fieldItems;
