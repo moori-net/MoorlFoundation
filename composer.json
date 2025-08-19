@@ -12,7 +12,6 @@
         "shopware/core": "~6.7.0"
     },
     "type": "shopware-platform-plugin",
-"minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "MoorlFoundation\\": "src/"
