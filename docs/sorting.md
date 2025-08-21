@@ -15,7 +15,7 @@ gehe in die Einstellungen auf den Reiter moori Tools und klicke anschließend au
 
 Danach wählst Du einfach die gewünschte App und den richtigen Verkaufskanal aus. 
 
-Klicke auf Start...
+Klicke auf Start
 Nach einer kurzen Weile hast sind die Demo Daten bereit zum Einsatz!
 
 ![](images/demo-assistant-02.jpg)
