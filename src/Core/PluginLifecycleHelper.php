@@ -156,18 +156,14 @@ class PluginLifecycleHelper
     {
         foreach (array_reverse($pluginTables) as $table) {
             $foreignKeys = $connection->fetchAllAssociative(
-                "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = :table AND CONSTRAINT_TYPE = 'FOREIGN KEY'",
+                "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :table AND CONSTRAINT_TYPE = 'FOREIGN KEY'",
                 ['table' => $table]
             );
 
             foreach ($foreignKeys as $fk) {
                 $constraint = $fk['CONSTRAINT_NAME'];
                 $sql = sprintf("ALTER TABLE `%s` DROP FOREIGN KEY `%s`;", $table, $constraint);
-                try {
-                    $connection->executeStatement($sql);
-                } catch (\Exception $e) {
-                    // Foreign key not found
-                }
+                $connection->executeStatement($sql);
             }
         }
     }

@@ -194,7 +194,7 @@ SQL;
     public static function constraintExists(Connection $connection, string $table, string $constraint): bool
     {
         $sql = sprintf(
-            "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = '%s' AND CONSTRAINT_NAME = '%s'",
+            "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '%s' AND CONSTRAINT_NAME = '%s'",
             $table,
             $constraint
         );
