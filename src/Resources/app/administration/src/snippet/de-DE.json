@@ -62,6 +62,9 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "contentHtml": "HTML",
+      "contentPlain": "Plain (E-Mail Templates)",
+      "nestedFields": "Verschachtelte Felder berücksichtigen",
       "webApplication": "Web-Anwendung",
       "private": "Privat",
       "composerName": "Composer Name",
