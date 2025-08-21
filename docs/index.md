@@ -1,7 +1,5 @@
 # Foundation | Basis Version
 
-test
-
 ## Foundation wird von folgenden Plugins verwendet
 
 Sofern nicht anders angegeben, wird moori Foundation in folgenden Plugins verwendet
