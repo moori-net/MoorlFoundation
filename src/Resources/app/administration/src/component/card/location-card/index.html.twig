@@ -24,7 +24,7 @@
                         :disabled="item.autoLocation"
                         :label="$tc('moorl-foundation.properties.locationLat')"
                         numberType="float"
-                        digits="6"
+                        digits="10"
                         v-model:value="item.locationLat"
                 />
 
@@ -32,7 +32,7 @@
                         :disabled="item.autoLocation"
                         :label="$tc('moorl-foundation.properties.locationLon')"
                         numberType="float"
-                        digits="6"
+                        digits="10"
                         v-model:value="item.locationLon"
                 />
             {% endblock %}
