@@ -1,59 +1,15 @@
 name: Update docs
-
 on:
+  workflow_dispatch:
   push:
     branches:
       - 6.7
     paths:
       - docs/**
-
 jobs:
-  sync:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    env:
-      SOURCE_DIR: docs
-      TARGET_REPO: moori-net/MoorlDocs
-      TARGET_BRANCH: master
-      TARGET_PATH: docs-source/plugin/${{ github.event.repository.name }}
-
-    steps:
-      - name: Checkout source repo (A)
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Checkout target repo (B)
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ env.TARGET_REPO }}
-          token: ${{ secrets.DOCS_TOKEN }}
-          path: target
-          ref: ${{ env.TARGET_BRANCH }}
-          fetch-depth: 0
-
-      - name: Sync files into target path
-        run: |
-          set -e
-          mkdir -p "target/${TARGET_PATH}"
-          # Zielordner leeren (aber Repo-Metadaten behalten)
-          rm -rf "target/${TARGET_PATH:?}/"* "target/${TARGET_PATH}"/.[!.]* "target/${TARGET_PATH}"/..?* || true
-          # Dateien rüberkopieren
-          rsync -a --exclude='.git' "${SOURCE_DIR}/" "target/${TARGET_PATH}/"
-
-      - name: Commit & push if changes
-        working-directory: target
-        run: |
-          set -e
-          if [ -n "$(git status --porcelain)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A
-            git commit -m "chore(sync): update ${TARGET_PATH} from ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
-            git push origin "${TARGET_BRANCH}"
-            echo "Changes pushed."
-          else
-            echo "No changes to commit."
-          fi
+  build:
+    uses: moorl/github-actions/.github/workflows/docs.yml@main
+    with:
+      extensionName: ${{ github.event.repository.name }}
+    secrets:
+      docsToken: ${{ secrets.DOCS_TOKEN }}
