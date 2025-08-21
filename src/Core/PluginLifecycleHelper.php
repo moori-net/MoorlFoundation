@@ -6,7 +6,6 @@ use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
-use MoorlFoundation\Core\Framework\GeoLocation\Exceptions\Exception;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Bundle;
 use Shopware\Core\Framework\Migration\MigrationStep;
@@ -165,7 +164,7 @@ class PluginLifecycleHelper
     {
         foreach (array_reverse($pluginTables) as $table) {
             $foreignKeys = $connection->fetchAllAssociative(
-                "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_NAME = :table AND CONSTRAINT_TYPE = 'FOREIGN KEY'",
+                "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :table AND CONSTRAINT_TYPE = 'FOREIGN KEY'",
                 ['table' => $table]
             );
 
