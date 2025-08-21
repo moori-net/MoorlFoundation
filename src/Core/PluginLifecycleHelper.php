@@ -163,7 +163,11 @@ class PluginLifecycleHelper
             foreach ($foreignKeys as $fk) {
                 $constraint = $fk['CONSTRAINT_NAME'];
                 $sql = sprintf("ALTER TABLE `%s` DROP FOREIGN KEY `%s`;", $table, $constraint);
-                $connection->executeStatement($sql);
+                try {
+                    $connection->executeStatement($sql);
+                } catch (\Exception $e) {
+                    // Foreign key not found
+                }
             }
         }
     }
