@@ -2,7 +2,7 @@
 
 ## Foundation wird von folgenden Plugins verwendet
 
-Sofern nicht anders angegeben, wird moori Foundation in folgenden Plugins verwendet
+Sofern nicht anders angegeben, wird moori Foundation in folgenden Plugins verwendet:
 
 - Plugins von [Appflix](https://store.shopware.com/appflix-ug.html)
 - Plugins von [moori](https://store.shopware.com/moori.html)
