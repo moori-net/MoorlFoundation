@@ -3,26 +3,20 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldContactCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
+    public static function getFieldItems(bool $flag = true): array
     {
-        return new parent(self::getFieldItems());
-    }
+        if (!$flag) return [];
 
-    public static function getFieldItems(): array
-    {
         return [
-            (new StringField('email', 'email'))->addFlags(new EditField('text')),
-            (new StringField('phone_number', 'phoneNumber'))->addFlags(new EditField('text')),
-            (new StringField('shop_url', 'shopUrl'))->addFlags(new EditField('text')),
-            (new StringField('merchant_url', 'merchantUrl'))->addFlags(new EditField('text')),
+            (new StringField('email', 'email'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('phone_number', 'phoneNumber'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('shop_url', 'shopUrl'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('merchant_url', 'merchantUrl'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }

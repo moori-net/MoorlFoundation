@@ -1,46 +1,46 @@
 .moorl-download-list {
-  .moorl-download-list-items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    .moorl-download-list-items {
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-    .moorl-download-list-item {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      align-items: center;
-      grid-gap: 8px;
-      border-bottom: 1px solid $sw-border-color;
+        .moorl-download-list-item {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            align-items: center;
+            grid-gap: 8px;
+            border-bottom: 1px solid $sw-border-color;
+        }
     }
-  }
 
-  .download-icon {
-    font-size: 2em;
-  }
-
-  .download-content {
-    margin-top: 8px;
-    margin-bottom: 8px;
-  }
-
-  .download-title {
-    font-size: 1.2em;
-    white-space: nowrap;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .download-meta {
-    color: $text-muted;
-  }
-
-  .download-form {
-    height: 100%;
-
-    .btn {
-      height: 100%;
-      border-radius: 0;
-      display: flex;
+    .download-icon {
+        font-size: 2em;
     }
-  }
+
+    .download-content {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .download-title {
+        font-size: 1.2em;
+        white-space: nowrap;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .download-meta {
+        color: $text-muted;
+    }
+
+    .download-form {
+        height: 100%;
+
+        .btn {
+            height: 100%;
+            border-radius: 0;
+            display: flex;
+        }
+    }
 }

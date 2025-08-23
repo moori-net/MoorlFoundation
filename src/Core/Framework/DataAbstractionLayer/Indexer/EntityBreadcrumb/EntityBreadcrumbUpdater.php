@@ -2,12 +2,12 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Content\Category\Exception\CategoryNotFoundException;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Api\Context\SystemSource;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
@@ -15,19 +15,13 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\Language\LanguageDefinition;
 use Shopware\Core\System\Language\LanguageEntity;
-
 class EntityBreadcrumbUpdater
 {
-    private DefinitionInstanceRegistry $registry;
-    private Connection $connection;
-
     public function __construct(
-        DefinitionInstanceRegistry $registry,
-        Connection $connection
+        private readonly DefinitionInstanceRegistry $registry,
+        private readonly Connection $connection
     )
     {
-        $this->registry = $registry;
-        $this->connection = $connection;
     }
 
     public function update(array $ids, string $entityName, Context $context): void
@@ -47,9 +41,9 @@ class EntityBreadcrumbUpdater
             $query->andWhere($entityName . '.version_id = :version');
         }
         $query->setParameter('version', $versionId);
-        $query->setParameter('ids', Uuid::fromHexToBytesList($ids), Connection::PARAM_STR_ARRAY);
+        $query->setParameter('ids', Uuid::fromHexToBytesList($ids), ArrayParameterType::STRING);
 
-        $paths = $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        $paths = $query->executeQuery()->fetchFirstColumn();
 
         $all = $ids;
         foreach ($paths as $path) {

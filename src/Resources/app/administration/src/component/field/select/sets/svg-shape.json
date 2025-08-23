@@ -1,0 +1,6 @@
+[
+    { "value": "none", "label": "moorl-select.svgShape.none" },
+    { "value": "rect", "label": "moorl-select.svgShape.rect" },
+    { "value": "circle", "label": "moorl-select.svgShape.circle" },
+    { "value": "ellipse", "label": "moorl-select.svgShape.ellipse" }
+]

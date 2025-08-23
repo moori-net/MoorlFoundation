@@ -1,6 +1,5 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 import HttpClient from 'src/service/http-client.service';
-import Feature from 'src/helper/feature.helper';
 
 export default class MoorlFoundation extends Plugin {
     init() {
@@ -12,51 +11,47 @@ export default class MoorlFoundation extends Plugin {
     _registerModalEvents() {
         const that = this;
 
+        /* @deprecated: Use data-moorl-modal as future selector */
         const buttons = document.querySelectorAll('[data-moorl-foundation-modal]');
-        const modals = document.querySelectorAll('.modal');
 
+        if (buttons.length === 0) {
+            return;
+        }
+
+        const modal = document.getElementById('moorlFoundationModal');
         buttons.forEach((button) => {
             button.addEventListener('click', () => {
                 let url = button.dataset.moorlFoundationModal;
 
-                that._client.get(url, (response) => {
-                    that._openModal(response, null);
+                this._client.get(url, (response) => {
+                    this._openModal(response, null);
                 });
             });
         });
 
-        if (Feature.isActive('v6.5.0.0')) {
-            modals.forEach((modal) => {
-                modal.addEventListener('hidden.bs.modal', () => {
-                    const modalBody = modal.querySelectorAll('.moorl-foundation-modal-body');
-                    modalBody[0].innerHTML = "";
-                });
-            });
-        } else {
-            jQuery('body').on('hidden.bs.modal', function () {
-                jQuery('.moorl-foundation-modal-body video').trigger('pause');
-                jQuery('.moorl-foundation-modal-body iframe').attr('src', null);
-            });
-        }
+        modal.addEventListener('hidden.bs.modal', () => {
+            modal.innerHTML = '';
+        });
 
         window.moorlFoundationModal = function (url, callback) {
             that._client.get(url, (response) => {
                 that._openModal(response, callback);
             });
-        }
+        };
     }
 
     _openModal(response, callback) {
-        if (Feature.isActive('v6.5.0.0')) {
-            const modal = document.getElementById('moorlFoundationModal');
-            modal.innerHTML = response;
-            modal.show();
-        } else {
-            jQuery('#moorlFoundationModal').html(response).modal('show');
-        }
+        const modal = document.getElementById('moorlFoundationModal');
+        modal.innerHTML = response;
+
+        const bsModal =
+            bootstrap.Modal.getInstance(modal) ?? new bootstrap.Modal(modal);
+        bsModal.show();
+
+        window.PluginManager.initializePlugins();
 
         if (typeof callback == 'function') {
-            callback();
+            callback(modal, bsModal);
         }
     }
 }

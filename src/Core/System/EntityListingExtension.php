@@ -5,13 +5,12 @@ namespace MoorlFoundation\Core\System;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingResult;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
-use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\Filter;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,20 +19,23 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class EntityListingExtension implements EntityListingInterface
 {
     protected EntityDefinition $entityDefinition;
-    protected SystemConfigService $systemConfigService;
+    protected ?SystemConfigService $systemConfigService = null;
     protected SalesChannelContext $salesChannelContext;
     protected ?ProductListingResultEvent $event = null;
     protected EventDispatcherInterface $eventDispatcher;
     protected Request $request;
-    protected ?SalesChannelRepositoryInterface $salesChannelRepository = null;
     protected ?Filter $filter = null;
-    protected ?string $route;
+    protected ?string $route = null;
+    /* @noRector $salesChannelRepository must not be accessed before initialization */
+    protected ?SalesChannelRepository $salesChannelRepository = null;
 
     public function __construct(
-        ?SalesChannelRepositoryInterface $salesChannelRepository = null
+        ?SalesChannelRepository $salesChannelRepository = null,
+        ?SystemConfigService $systemConfigService = null
     )
     {
         $this->salesChannelRepository = $salesChannelRepository;
+        $this->systemConfigService = $systemConfigService;
     }
 
     public function isWidget(): bool
@@ -84,26 +86,17 @@ class EntityListingExtension implements EntityListingInterface
         ];
     }
 
-    /**
-     * @param SalesChannelContext $salesChannelContext
-     */
     public function setSalesChannelContext(SalesChannelContext $salesChannelContext): void
     {
         $this->salesChannelContext = $salesChannelContext;
     }
 
-    /**
-     * @param Request $request
-     */
     public function setRequest(Request $request): void
     {
         $this->request = $request;
-        $this->route = $request->get('_route');
+        $this->route = $request->attributes->get('_route');
     }
 
-    /**
-     * @param ProductListingResultEvent $event
-     */
     public function setEvent(ProductListingResultEvent $event): void
     {
         $this->event = $event;
@@ -111,25 +104,16 @@ class EntityListingExtension implements EntityListingInterface
         $this->setRequest($event->getRequest());
     }
 
-    /**
-     * @param EventDispatcherInterface $eventDispatcher
-     */
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void
     {
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @return SalesChannelRepositoryInterface|null
-     */
-    public function getSalesChannelRepository(): ?SalesChannelRepositoryInterface
+    public function getSalesChannelRepository(): ?SalesChannelRepository
     {
         return $this->salesChannelRepository;
     }
 
-    /**
-     * @param SystemConfigService $systemConfigService
-     */
     public function setSystemConfigService(SystemConfigService $systemConfigService): void
     {
         $this->systemConfigService = $systemConfigService;
@@ -187,7 +171,7 @@ class EntityListingExtension implements EntityListingInterface
     {
         $criteria = clone $origin;
 
-        $this->salesChannelContext->getContext()->addState(Context::STATE_ELASTICSEARCH_AWARE);
+        $this->salesChannelContext->getContext()->addState(Criteria::STATE_ELASTICSEARCH_AWARE);
         $ids = $this->salesChannelRepository->searchIds($criteria, $this->salesChannelContext);
 
         $aggregations = $this->salesChannelRepository->aggregate($criteria, $this->salesChannelContext);
@@ -216,7 +200,6 @@ class EntityListingExtension implements EntityListingInterface
 
         $entities = $this->listingLoader($criteria);
 
-        /** @var ProductListingResult $result */
         $result = ProductListingResult::createFrom($entities);
         $result->addState(...$entities->getStates());
 

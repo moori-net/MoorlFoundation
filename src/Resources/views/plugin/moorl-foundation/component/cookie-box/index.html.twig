@@ -1,0 +1,46 @@
+{% set options = {
+    cookieKey: cookieKey,
+    content: content,
+    reload: reload ?? true
+} %}
+
+<div
+        class="moorl-cookie-box {{ class }}"
+        style="{{ style }}"
+        data-moorl-cookie-box
+        data-moorl-cookie-box-options='{{ options|json_encode|raw }}'
+>
+    <div class="mb-3">
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="180px"
+                width="180px"
+                version="1.1"
+                viewBox="0 0 212.715 212.715"
+                xml:space="preserve"
+        >
+            <g>
+                <path d="M211.436,187.771L112.843,17.002c-1.34-2.32-3.815-3.75-6.495-3.75c-2.68,0-5.155,1.43-6.495,3.75L1.005,188.213   c-1.34,2.32-1.34,5.18,0,7.5c1.34,2.32,3.816,3.75,6.495,3.75h197.695c0.007,0,0.015,0,0.02,0c4.143,0,7.5-3.357,7.5-7.5   C212.715,190.41,212.243,188.968,211.436,187.771z M20.49,184.463l85.857-148.711l85.857,148.711H20.49z"/>
+                <path d="M98.848,76.58v63.879c0,4.143,3.357,7.5,7.5,7.5s7.5-3.357,7.5-7.5V76.58c0-4.143-3.357-7.5-7.5-7.5   S98.848,72.438,98.848,76.58z"/>
+                <circle cx="106.348" cy="164.007" r="9.328"/>
+            </g>
+        </svg>
+    </div>
+
+    {% if cookieSnippet %}
+        <div class="h2">{{ cookieSnippet|trans }}</div>
+    {% else %}
+        <div class="h2">{{ "#{cookieKey}.cookieName"|trans }}</div>
+        <div class="mb-2">{{ "#{cookieKey}.cookieDescription"|trans }}</div>
+        <div class="mb-3">{{ "#{cookieKey}.cookieHint"|trans }}</div>
+    {% endif %}
+
+    <div class="d-flex justify-content-center flex-wrap cookie-permission-actions">
+        <span class="js-moorl-cookie-box-button">
+            <button type="button" class="btn btn-outline-primary">{{ "moorl-foundation.button.acceptCookie"|trans }}</button>
+        </span>
+        <span class="js-cookie-configuration-button">
+            <button type="button" class="btn btn-outline-primary">{{ "cookie.configure"|trans|sw_sanitize }}</button>
+        </span>
+    </div>
+</div>

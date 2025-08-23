@@ -1,9 +1,10 @@
-const { Application } = Shopware;
+import FoundationApiService from '../core/foundation-api.service';
 
-import FoundationApiService from '../../src/core/service/api/foundation-api.service';
+Shopware.Application.addServiceProvider('foundationApiService', (container) => {
+    const initContainer = Shopware.Application.getContainer('init');
 
-Application.addServiceProvider('foundationApiService', (container) => {
-    const initContainer = Application.getContainer('init');
-
-    return new FoundationApiService(initContainer.httpClient, container.loginService);
+    return new FoundationApiService(
+        initContainer.httpClient,
+        container.loginService
+    );
 });

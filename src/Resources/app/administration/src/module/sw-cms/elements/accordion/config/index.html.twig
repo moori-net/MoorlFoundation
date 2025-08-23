@@ -1,96 +1,106 @@
 <div class="sw-cms-el-config-moorl-accordion">
-    <sw-tabs class="sw-cms-el-config-image-gallery__tabs" defaultItem="content">
-        <template slot-scope="{ active }" >
-            <sw-tabs-item :title="$tc('sw-cms.elements.general.config.tab.content')"
-                          name="content"
-                          :activeTab="active">
+    <sw-tabs
+        class="sw-cms-el-config-image-gallery__tabs"
+        default-item="content"
+    >
+        <template #default="{ active }">
+            <sw-tabs-item
+                name="content"
+                :activeTab="active"
+            >
                 {{ $tc('sw-cms.elements.general.config.tab.content') }}
             </sw-tabs-item>
-            <sw-tabs-item :title="$tc('sw-cms.elements.general.config.tab.settings')"
-                          name="settings"
-                          :activeTab="active">
+            <sw-tabs-item
+                name="settings"
+                :activeTab="active"
+            >
                 {{ $tc('sw-cms.elements.general.config.tab.settings') }}
             </sw-tabs-item>
         </template>
 
-        <template slot="content" slot-scope="{ active }">
+        <template #content="{ active }">
             <sw-container v-if="active === 'content'">
-                <sw-field type="text"
-                          :label="$tc(snippetPrefix + 'label.name')"
-                          v-model="element.config.name.value">
-                </sw-field>
-
-
+                <mt-text-field
+                    :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
+                    v-model="element.config.name.value"
+                />
                 <div class="sw-field">
-                    <draggable
-                        class="config-moorl_faq_list"
-                        v-model="element.config.entries.value"
-                        handle=".drag-indicator"
-                        @choose="dragChoose"
-                        @start="dragStart"
-                        @end="dragEnd">
-                        <sw-collapse v-for="(entry, index) in element.config.entries.value" :key="index" :ref="'collapse_' + index">
+                    <div class="config-moorl_faq_list">
+                        <sw-collapse
+                            v-for="(entry, index) in element.config.entries.value"
+                            :key="index"
+                            :ref="'collapse_' + index"
+                        >
                             <template #header="{ expanded }">
-                                <div class="collapse-header" :class="expanded ? 'expanded' : ''">
+                                <div
+                                    class="collapse-header"
+                                    :class="expanded ? 'expanded' : ''"
+                                >
                                     <div class="drag-indicator">
-                                        <sw-icon name="default-action-drag-horizontal"></sw-icon>
+                                        <mt-icon name="regular-grip-lines"/>
                                     </div>
-
-                                    <h4>{{ entry.name ?? 'New entry' }}</h4>
-
+                                    <h4>
+                                        {{ entry.name ?? 'New entry' }}
+                                    </h4>
                                     <div class="collapse-indicator">
-                                        <sw-icon v-if="expanded"
-                                                 class="sw-media-collapse__button"
-                                                 name="small-arrow-small-down">
-                                        </sw-icon>
-                                        <sw-icon v-else
-                                                 class="sw-media-collapse__button"
-                                                 name="small-arrow-small-right">
-                                        </sw-icon>
+                                        <mt-icon
+                                            v-if="expanded"
+                                            class="sw-media-collapse__button"
+                                            name="regular-chevron-down-s"
+                                        />
+                                        <mt-icon
+                                            v-else
+                                            class="sw-media-collapse__button"
+                                            name="regular-chevron-right-s"
+                                        />
                                     </div>
                                 </div>
                             </template>
+
                             <template #content>
                                 <div class="collapse-content">
-                                    <sw-field type="text"
-                                              :label="$tc(snippetPrefix + 'label.name')"
-                                              v-model="entry.name">
-                                    </sw-field>
-
-                                    <sw-code-editor v-model="entry.content"
-                                                    mode="twig"
-                                                    :label="$tc(snippetPrefix + 'label.content')"
-                                                    :softWraps="true">
-                                    </sw-code-editor>
-
-                                    <sw-button variant="danger" @click.prevent="removeEntry($event, index)">
-                                        {{ $tc(snippetPrefix + 'label.remove') }}
-                                    </sw-button>
+                                    <mt-text-field
+                                        :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
+                                        v-model="entry.name"
+                                    />
+                                    <sw-code-editor
+                                        v-model:value="entry.content"
+                                        mode="twig"
+                                        :label="$tc('sw-cms.elements.moorl-accordion.label.content')"
+                                        :softWraps="true"
+                                    />
+                                    <mt-button
+                                        variant="danger"
+                                        @click.prevent="removeEntry($event, index)"
+                                    >
+                                        {{ $tc('sw-cms.elements.moorl-accordion.label.remove') }}
+                                    </mt-button>
                                 </div>
                             </template>
                         </sw-collapse>
-                    </draggable>
-
+                    </div>
                     <div class="config-moorl_faq_actions">
-                        <sw-button :block="true" @click="addEntry" variant="ghost">
+                        <mt-button
+                            :block="true"
+                            @click="addEntry"
+                            variant="ghost"
+                        >
                             <span>
-                                <sw-icon name="small-default-plus-line-large" :small="true"></sw-icon>
-                                {{ $tc(snippetPrefix + 'label.add') }}
+                                <mt-icon
+                                    name="regular-plus"
+                                    :small="true"
+                                />
+                                {{ $tc('sw-cms.elements.moorl-accordion.label.add') }}
                             </span>
-                        </sw-button>
+                        </mt-button>
                     </div>
                 </div>
             </sw-container>
-
-
             <sw-container v-if="active === 'settings'">
-                <sw-select-field :label="$tc('sw-cms.elements.general.config.label.verticalAlign')"
-                                 v-model="element.config.verticalAlign.value"
-                                 :placeholder="$tc('sw-cms.elements.general.config.label.verticalAlign')">
-                    <option value="flex-start">{{ $tc('sw-cms.elements.general.config.label.verticalAlignTop') }}</option>
-                    <option value="center">{{ $tc('sw-cms.elements.general.config.label.verticalAlignCenter') }}</option>
-                    <option value="flex-end">{{ $tc('sw-cms.elements.general.config.label.verticalAlignBottom') }}</option>
-                </sw-select-field>
+                <moorl-select-field
+                    v-model:value="element.config.verticalAlign.value"
+                    set="flexVerticalAlign"
+                />
             </sw-container>
         </template>
     </sw-tabs>

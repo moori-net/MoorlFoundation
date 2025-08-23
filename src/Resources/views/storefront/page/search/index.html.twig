@@ -27,7 +27,7 @@
                     <a class="nav-link{% if activeTab == "product" %} active{% endif %}"
                        href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}">
                         {{ "moorl-foundation.search.product"|trans }}
-                        <span class="badge badge-primary">{{ page.listing.total }}</span>
+                        <span class="badge bg-primary">{{ page.listing.total }}</span>
                     </a>
                 </li>
 
@@ -36,7 +36,7 @@
                         <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ moorlSearchResult.criteria.title }}"
                            class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}">
                             {{ moorlSearchResult.snippet|trans }}
-                            <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
+                            <span class="badge bg-primary">{{ moorlSearchResult.total }}</span>
                         </a>
                     </li>
                 {% endfor %}

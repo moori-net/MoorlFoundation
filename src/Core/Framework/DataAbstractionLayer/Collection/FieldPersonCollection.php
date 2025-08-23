@@ -4,8 +4,8 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -13,22 +13,17 @@ use Shopware\Core\System\Salutation\SalutationDefinition;
 
 class FieldPersonCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
+    public static function getFieldItems(bool $flag = true): array
     {
-        return new parent(self::getFieldItems());
-    }
+        if (!$flag) return [];
 
-    public static function getFieldItems(): array
-    {
         return [
             new FkField('salutation_id', 'salutationId', SalutationDefinition::class),
-            (new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class))->addFlags(new EditField(), new LabelProperty('displayName')),
-            (new StringField('title', 'title'))->addFlags(new EditField('text')),
-            (new StringField('first_name', 'firstName'))->addFlags(new EditField('text')),
-            (new StringField('last_name', 'lastName'))->addFlags(new EditField('text')),
-            (new StringField('company', 'company'))->addFlags(new EditField('text')),
+            (new ManyToOneAssociationField('salutation', 'salutation_id', SalutationDefinition::class))->addFlags(new SetNullOnDelete(), new EditField(), new LabelProperty('displayName')),
+            (new StringField('title', 'title'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('first_name', 'firstName'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('last_name', 'lastName'))->addFlags(new EditField(EditField::TEXT)),
+            (new StringField('company', 'company'))->addFlags(new EditField(EditField::TEXT)),
         ];
     }
 }

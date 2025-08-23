@@ -2,39 +2,141 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\ReverseRestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 class FieldMultiEntityCollection extends FieldCollection
 {
-    public static function getFieldItems(array $referenceClasses): array
+    public static function getFieldItems(array $referenceClasses, array $fkFlags = [], array $assocFlags = []): array
     {
         $fieldItems = [];
 
         foreach ($referenceClasses as $referenceClass) {
-            if (!defined("{$referenceClass}::ENTITY_NAME")) {
-                continue;
-            }
+            $ed = ExtractedDefinition::get(
+                class: $referenceClass
+            );
 
-            $entityName = $propertyName = $referenceClass::ENTITY_NAME;
-            $storageName = $entityName . '_id';
+            $fieldItems[] = (new FkField(
+                $ed->getFkStorageName(),
+                $ed->getFkPropertyName(),
+                $referenceClass
+            ))->addFlags(new ApiAware(), ...$fkFlags);
 
-            if (defined("{$referenceClass}::PROPERTY_NAME")) {
-                $propertyName = $referenceClass::PROPERTY_NAME;
-            }
-
-            $fieldItems[] = (new FkField($storageName, self::kebabCaseToCamelCase($propertyName . '_id'), $referenceClass))->addFlags(new ApiAware());
-            $fieldItems[] = (new ManyToOneAssociationField(self::kebabCaseToCamelCase($propertyName), $storageName, $referenceClass, 'id', false));
+            $fieldItems[] = (new ManyToOneAssociationField(
+                $ed->getPropertyName(),
+                $ed->getFkStorageName(),
+                $referenceClass
+            ))->addFlags(...$assocFlags);
         }
 
         return $fieldItems;
     }
 
-    protected static function kebabCaseToCamelCase(string $string): string
+    public static function getManyToOneFieldItems(array $references): array
     {
-        return (new CamelCaseToSnakeCaseNameConverter())->denormalize(str_replace('-', '_', $string));
+        $fieldItems = [];
+
+        foreach ($references as [$referenceClass, $fkFlags, $assocFlags]) {
+            $ed = ExtractedDefinition::get(
+                class: $referenceClass
+            );
+
+            // Auto fix rules
+            if (ExtractedDefinition::hasClass(Required::class, $fkFlags)) {
+                if (!ExtractedDefinition::hasClass(RestrictDelete::class, $assocFlags)) {
+                    $assocFlags[] = new CascadeDelete();
+                }
+            } else {
+                if (!ExtractedDefinition::hasClass(SetNullOnDelete::class, $assocFlags)) {
+                    $assocFlags[] = new SetNullOnDelete();
+                }
+            }
+
+            $fieldItems[] = (new FkField(
+                $ed->getFkStorageName(),
+                $ed->getFkPropertyName(),
+                $referenceClass
+            ))->addFlags(new ApiAware(), ...$fkFlags);
+
+            if (ExtractedDefinition::isVersionDefinition($referenceClass)) {
+                $fieldItems[] = (new ReferenceVersionField($referenceClass))
+                    ->addFlags(new Required());
+            }
+
+            $fieldItems[] = (new ManyToOneAssociationField(
+                $ed->getPropertyName(),
+                $ed->getFkStorageName(),
+                $referenceClass
+            ))->addFlags(new ApiAware(), ...$assocFlags);
+        }
+
+        return $fieldItems;
+    }
+
+    public static function getOneToManyFieldItems(string $localClass, array $references): array
+    {
+        $localEd = ExtractedDefinition::get(class: $localClass);
+
+        $fieldItems = [];
+
+        foreach ($references as $reference) {
+            if (is_array($reference)) {
+                $referenceClass = $reference[0];
+                $assocFlags = $reference[1] ?: [new CascadeDelete()];
+            } else {
+                $referenceClass = $reference;
+                $assocFlags = [new CascadeDelete()];
+            }
+
+            $referenceEd = ExtractedDefinition::get(
+                class: $referenceClass
+            );
+
+            $fieldItems[] = (new OneToManyAssociationField(
+                $referenceEd->getCollectionName(),
+                $referenceClass,
+                $localEd->getFkStorageName()
+            ))->addFlags(new ApiAware(), ...$assocFlags);
+        }
+
+        return $fieldItems;
+    }
+
+    public static function getManyToManyFieldItems(string $localClass, array $references): array
+    {
+        $localEd = ExtractedDefinition::get(
+            class: $localClass
+        );
+
+        $fieldItems = [];
+
+        foreach ($references as [$referenceClass, $mappingDefinition, $flags]) {
+            $referenceEd = ExtractedDefinition::get(
+                class: $referenceClass
+            );
+            $mappingEd = ExtractedDefinition::get(
+                class: $mappingDefinition
+            );
+
+            $fieldItems[] = (new ManyToManyAssociationField(
+                $mappingEd->getCollectionName(),
+                $referenceClass,
+                $mappingDefinition,
+                $localEd->getFkStorageName(),
+                $referenceEd->getFkStorageName())
+            )->addFlags(new ApiAware(), new CascadeDelete(), ...$flags);
+        }
+
+        return $fieldItems;
     }
 }

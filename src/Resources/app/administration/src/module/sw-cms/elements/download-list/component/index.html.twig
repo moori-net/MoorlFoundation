@@ -1,0 +1,36 @@
+<div class="sw-cms-el-moorl-download-list">
+    <ul
+        v-if="element.data.downloads"
+        class="moorl-download-list-items"
+    >
+        <li v-for="download in element.data.downloads">
+            <div class="moorl-download-list-item">
+                <div class="download-icon">
+                    <mt-icon name="regular-download"/>
+                </div>
+                <div class="download-content">
+                    <div class="download-title">
+                        {{ download.fileName }}
+                    </div>
+                    <div class="download-meta">
+                        {{ download.translated.name }}
+                    </div>
+                </div>
+                <div class="download-form">
+                    <a
+                        class="btn mt-button"
+                        href="#"
+                    >
+                        <mt-icon name="regular-cloud-download"/>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <mt-banner
+        v-else
+        variant="info"
+    >
+        {{ element.config.emptyText.value }}
+    </mt-banner>
+</div>

@@ -6,7 +6,6 @@ use MoorlFoundation\Core\Content\Cms\SalesChannel\Struct\LocationStruct;
 use MoorlFoundation\Core\Content\Location\LocationDefinition;
 use MoorlFoundation\Core\Content\Location\LocationEntity;
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
-use MoorlFoundation\Core\Service\LocationService;
 use MoorlFoundation\Core\Service\LocationServiceV2;
 use MoorlFoundation\Core\Service\SortingService;
 use Shopware\Core\Content\Product\Events\ProductListingCriteriaEvent;
@@ -30,20 +29,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EntityListingFeaturesSubscriberExtension
 {
-    public const DEFAULT_SEARCH_SORT = 'standard';
+    final public const DEFAULT_SEARCH_SORT = 'standard';
 
-    protected SortingService $sortingService;
-    protected ?LocationService $locationService = null;
-    protected ?LocationServiceV2 $locationServiceV2 = null;
     protected string $entityName = "";
 
     public function __construct(
-        SortingService $sortingService,
-        ?LocationServiceV2 $locationServiceV2 = null
+        protected SortingService $sortingService,
+        protected ?LocationServiceV2 $locationServiceV2 = null
     )
     {
-        $this->sortingService = $sortingService;
-        $this->locationServiceV2 = $locationServiceV2;
     }
 
     public function handleFlags(ProductListingCriteriaEvent $event): void
@@ -51,11 +45,11 @@ class EntityListingFeaturesSubscriberExtension
         $request = $event->getRequest();
         $criteria = $event->getCriteria();
 
-        if ($request->get('no-aggregations')) {
+        if ($request->query->get('no-aggregations')) {
             $criteria->resetAggregations();
         }
 
-        if ($request->get('only-aggregations')) {
+        if ($request->query->get('only-aggregations')) {
             $criteria->setLimit(0);
             $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_NONE);
             $criteria->resetSorting();
@@ -69,7 +63,7 @@ class EntityListingFeaturesSubscriberExtension
         $criteria = $event->getCriteria();
         $context = $event->getSalesChannelContext();
 
-        if (!$request->get('order')) {
+        if (!$request->query->get('order')) {
             $request->request->set('order', self::DEFAULT_SEARCH_SORT);
         }
 
@@ -84,7 +78,7 @@ class EntityListingFeaturesSubscriberExtension
         $criteria = $event->getCriteria();
         $context = $event->getSalesChannelContext();
 
-        if (!$request->get('order')) {
+        if (!$request->query->get('order')) {
             $request->request->set('order', self::DEFAULT_SEARCH_SORT);
         }
 
@@ -122,8 +116,8 @@ class EntityListingFeaturesSubscriberExtension
             $criteria->addAggregation($aggregation);
         }
 
-        if ($request->get('search')) {
-            $criteria->setTerm($request->get('search'));
+        if ($request->query->get('search')) {
+            $criteria->setTerm($request->query->get('search'));
         }
 
         foreach ($filters as $filter) {
@@ -152,7 +146,7 @@ class EntityListingFeaturesSubscriberExtension
     {
         $aggregations = [];
 
-        if ($request->get('reduce-aggregations') === null) {
+        if ($request->query->get('reduce-aggregations') === null) {
             foreach ($filters as $filter) {
                 $aggregations = array_merge($aggregations, $filter->getAggregations());
             }
@@ -215,7 +209,7 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getCurrentSorting(SortingCollection $sortings, Request $request): ProductSortingEntity
     {
-        $key = $request->get('order');
+        $key = $request->query->get('order', self::DEFAULT_SEARCH_SORT);
         $sorting = $sortings->getByKey($key);
         if ($sorting !== null) {
             return $sorting;
@@ -253,9 +247,9 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getLimit(Request $request): int
     {
-        $limit = $request->query->getInt('limit', 0);
+        $limit = $request->query->getInt('moorl_limit', 0);
         if ($request->isMethod(Request::METHOD_POST)) {
-            $limit = $request->request->getInt('limit', $limit);
+            $limit = $request->request->getInt('moorl_limit', $limit);
         }
         return $limit <= 0 ? 12 : $limit;
     }
@@ -274,15 +268,32 @@ class EntityListingFeaturesSubscriberExtension
         return new FilterCollection();
     }
 
-    protected function getTagFilter(Request $request): Filter
+    protected function getTagFilter(Request $request, ?array $defaultIds = null): Filter
     {
-        $ids = $this->getPropIds($request, "tag");
+        $ids = $this->getPropIds($request, "tag", $defaultIds);
 
         return new Filter(
             'tag',
             !empty($ids),
             [new EntityAggregation('tag', $this->entityName . '.tags.id', 'tag')],
             new EqualsAnyFilter($this->entityName . '.tags.id', $ids),
+            $ids
+        );
+    }
+
+    protected function getProductStreamFilter(Request $request, array $filers = []): Filter
+    {
+        $ids = $this->getPropIds($request, "product-stream");
+
+        return new Filter(
+            'product-stream',
+            !empty($ids),
+            [new FilterAggregation(
+                'product-stream',
+                new EntityAggregation('product-stream', $this->entityName . '.streams.id', 'product_stream'),
+                $filers
+            )],
+            new EqualsAnyFilter($this->entityName . '.streams.id', $ids),
             $ids
         );
     }
@@ -300,9 +311,59 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getCountryFilter(Request $request): Filter
+    protected function getCategoryFilter(Request $request): Filter
     {
-        $ids = $this->getPropIds($request, "country");
+        $ids = $this->getPropIds($request, "category");
+
+        return new Filter(
+            'category',
+            !empty($ids),
+            [new EntityAggregation('category', $this->entityName . '.categories.id', 'category')],
+            new EqualsAnyFilter($this->entityName . '.categories.id', $ids),
+            $ids
+        );
+    }
+
+    protected function getChildCategoryFilter(Request $request, string $navigationId): Filter
+    {
+        $ids = $this->getPropIds($request, "child-category");
+
+        return new Filter(
+            'child-category',
+            !empty($ids),
+            [new FilterAggregation(
+                'child-category',
+                new EntityAggregation('child-category', $this->entityName . '.categories.id', 'category'),
+                [
+                    new ContainsFilter($this->entityName . '.categories.path', $navigationId)
+                ],
+            )],
+            new EqualsAnyFilter($this->entityName . '.categories.id', $ids),
+            $ids
+        );
+    }
+
+    protected function getChildCategoryFilterV2(Request $request, SalesChannelContext $salesChannelContext): Filter
+    {
+        return  $this->getChildCategoryFilter($request, $this->getNavigationId($request, $salesChannelContext));
+    }
+
+    protected function getNavigationFilter(Request $request): Filter
+    {
+        $ids = $this->getPropIds($request, "navigation");
+
+        return new Filter(
+            'navigation',
+            !empty($ids),
+            [new EntityAggregation('navigation', $this->entityName . '.categories.id', 'category')],
+            new EqualsAnyFilter($this->entityName . '.categories.id', $ids),
+            $ids
+        );
+    }
+
+    protected function getCountryFilter(Request $request, ?array $defaultIds = null): Filter
+    {
+        $ids = $this->getPropIds($request, "country", $defaultIds);
 
         return new Filter(
             'country',
@@ -331,7 +392,7 @@ class EntityListingFeaturesSubscriberExtension
         $ids = $this->getPropIds($request, "customer");
 
         return new Filter(
-            'appflix-ad-customer',
+            'customer',
             !empty($ids),
             [],
             new EqualsAnyFilter($this->entityName . '.customerId', $ids),
@@ -363,8 +424,8 @@ class EntityListingFeaturesSubscriberExtension
 
     protected function getPriceFilter(Request $request): Filter
     {
-        $min = $request->get('min-price', 0);
-        $max = $request->get('max-price', 0);
+        $min = $request->query->get('min-price', 0);
+        $max = $request->query->get('max-price', 0);
 
         $range = [];
         if ($min > 0) {
@@ -380,8 +441,8 @@ class EntityListingFeaturesSubscriberExtension
             [new StatsAggregation('price', $this->entityName . '.price', true, true, false, false)],
             new RangeFilter($this->entityName .'.price', $range),
             [
-                'min' => (float) $request->get('min-price'),
-                'max' => (float) $request->get('max-price'),
+                'min' => (float) $request->query->get('min-price'),
+                'max' => (float) $request->query->get('max-price'),
             ]
         );
     }
@@ -393,13 +454,14 @@ class EntityListingFeaturesSubscriberExtension
          * mi = Meilen
          * nm = Nautische Meilen
          */
-        $location = $request->get('location', '');
-        $distance = $request->get('distance', 0);
+        $location = $request->query->get('location', '');
+        $distance = $request->query->get('distance', 0);
         $unit = $this->locationServiceV2->getUnitOfMeasurement();
 
         $filter = new EqualsFilter($this->entityName . '.active', true);
 
         $location = $this->locationServiceV2->getLocationByTerm($location, $this->getPropIds($request, "country"));
+
         /* If a location was found, write locationCache, add filter and add location to salesChannelContext */
         if ($location) {
             $this->locationServiceV2->writeLocationCache($location, $this->entityName, (float) $distance, $unit);
@@ -427,17 +489,35 @@ class EntityListingFeaturesSubscriberExtension
         );
     }
 
-    protected function getPropIds(Request $request, string $prop = "tag"): array
+    protected function getPropIds(Request $request, string $prop = "tag", ?array $defaultIds = null): array
     {
-        $ids = $request->query->get($prop, '');
+        $ids = $request->query->get($prop);
         if ($request->isMethod(Request::METHOD_POST)) {
-            $ids = $request->request->get($prop, '');
+            $ids = $request->request->get($prop);
         }
 
         if (\is_string($ids)) {
             $ids = explode('|', $ids);
         }
 
+        if (empty($ids) && !empty($defaultIds)) {
+            $ids = $defaultIds;
+        }
+
         return array_filter((array) $ids);
+    }
+
+    private function getNavigationId(Request $request, SalesChannelContext $salesChannelContext): string
+    {
+        if ($navigationId = $request->get('navigationId')) {
+            return $navigationId;
+        }
+
+        $params = $request->attributes->get('_route_params');
+        if ($params && isset($params['navigationId'])) {
+            return $params['navigationId'];
+        }
+
+        return $salesChannelContext->getSalesChannel()->getNavigationCategoryId();
     }
 }

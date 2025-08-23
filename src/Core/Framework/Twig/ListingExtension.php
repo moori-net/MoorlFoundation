@@ -4,15 +4,15 @@ namespace MoorlFoundation\Core\Framework\Twig;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Entity;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 class ListingExtension extends AbstractExtension
 {
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('moorl_replace_from_entity', [$this, 'replaceFromEntity'])
+            new TwigFunction('moorl_replace_from_entity', $this->replaceFromEntity(...))
         ];
     }
 
@@ -37,7 +37,7 @@ class ListingExtension extends AbstractExtension
     public function getFilters()
     {
         return array(
-            new TwigFilter('moorl_format_bytes', [$this, 'formatBytes']),
+            new TwigFilter('moorl_format_bytes', $this->formatBytes(...)),
         );
     }
 

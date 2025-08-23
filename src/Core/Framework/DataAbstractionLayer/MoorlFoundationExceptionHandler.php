@@ -3,7 +3,6 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\ExceptionHandlerInterface;
-use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\WriteCommand;
 
 class MoorlFoundationExceptionHandler implements ExceptionHandlerInterface
 {
@@ -12,12 +11,15 @@ class MoorlFoundationExceptionHandler implements ExceptionHandlerInterface
         return ExceptionHandlerInterface::PRIORITY_DEFAULT;
     }
 
-    public function matchException(\Exception $e, WriteCommand $command): ?\Exception
+    public function matchException(\Throwable $e): ?\Throwable
     {
-        if (preg_match('/SQLSTATE\[23000\]:.*1062 Duplicate.*uniq.moorl.*/', $e->getMessage())) {
-            $payload = $command->getPayload() ?: null;
-
-            return new MoorlFoundationDuplicateEntryException($payload, $e);
+        if (preg_match('/SQLSTATE\[23000\]:.*1062 Duplicate.*moorl_/', $e->getMessage())) {
+            $number = [];
+            preg_match('/Duplicate entry \'(.*)\' for key/', $e->getMessage(), $number);
+            return new MoorlFoundationDuplicateEntryException([
+                'value' => $number[1],
+                'message' => $e->getMessage()
+            ], $e);
         }
 
         return null;

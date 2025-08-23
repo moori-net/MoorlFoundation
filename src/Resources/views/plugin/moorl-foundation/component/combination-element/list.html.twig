@@ -1,0 +1,7 @@
+{% block combination_element_list %}
+    <div class="moorl-combination-element-list">
+        {% for combinationElement in combinationElements %}
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/combination-element/item.html.twig' %}
+        {% endfor %}
+    </div>
+{% endblock %}

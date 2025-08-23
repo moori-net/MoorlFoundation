@@ -7,18 +7,15 @@ use Twig\TwigFunction;
 
 class VersionCompareExtension extends AbstractExtension
 {
-    protected string $shopwareVersion;
-
-    public function __construct(string $shopwareVersion)
+    public function __construct(protected string $shopwareVersion)
     {
-        $this->shopwareVersion = $shopwareVersion;
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('moorl_sw_version_compare', [$this, 'swVersionCompare']),
-            new TwigFunction('moorl_php_version_compare', [$this, 'phpVersionCompare'])
+            new TwigFunction('moorl_sw_version_compare', $this->swVersionCompare(...)),
+            new TwigFunction('moorl_php_version_compare', $this->phpVersionCompare(...))
         ];
     }
 

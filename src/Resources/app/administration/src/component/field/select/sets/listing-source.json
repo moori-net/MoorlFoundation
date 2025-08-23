@@ -1,0 +1,5 @@
+[
+    { "value": "static", "label": "moorl-select.listingSource.static" },
+    { "value": "select", "label": "moorl-select.listingSource.select" },
+    { "value": "auto", "label": "moorl-select.listingSource.auto" }
+]

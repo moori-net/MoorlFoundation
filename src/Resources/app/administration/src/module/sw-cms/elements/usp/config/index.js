@@ -1,19 +1,9 @@
-const { Component, Mixin } = Shopware;
-
 import template from './index.html.twig';
 
-Component.register('sw-cms-el-config-moorl-usp', {
+Shopware.Component.register('sw-cms-el-config-moorl-usp', {
     template,
 
-    mixins: [
-        Mixin.getByName('cms-element')
-    ],
-
-    data() {
-        return {
-            snippetPrefix: 'sw-cms.elements.moorl-usp.',
-        };
-    },
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     created() {
         this.createdComponent();
@@ -23,6 +13,6 @@ Component.register('sw-cms-el-config-moorl-usp', {
         createdComponent() {
             this.initElementConfig('moorl-usp');
             this.initElementData('moorl-usp');
-        }
-    }
+        },
+    },
 });

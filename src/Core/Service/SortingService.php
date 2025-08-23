@@ -9,7 +9,7 @@ use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
@@ -19,13 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SortingService
 {
-    protected EntityRepositoryInterface $sortingRepository;
-
-    public function __construct(
-        EntityRepositoryInterface $sortingRepository
-    )
+    public function __construct(protected EntityRepository $sortingRepository)
     {
-        $this->sortingRepository = $sortingRepository;
     }
 
     public function getFallbackSorting(string $entityName): SortingEntity
@@ -115,7 +110,7 @@ class SortingService
         if ($limitConfig && $limitConfig->getValue()) {
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
-                $request->query->set('limit', $limitConfig->getValue());
+                $request->query->set('moorl_limit', $limitConfig->getValue());
             }
         }
 
@@ -132,7 +127,7 @@ class SortingService
             $sorting = $this->addSortingCriteria($listingSortingConfig->getValue(), $criteria, $context);
             if ($listingSourceConfig && $listingSourceConfig->getValue() === 'auto') {
                 $criteria->resetSorting();
-                if ($request && !$request->get('order') && $sorting) {
+                if ($request && !$request->query->get('order') && $sorting) {
                     $request->query->set('order', $sorting->getKey());
                 }
             }
@@ -156,7 +151,7 @@ class SortingService
         if ($resolverContext instanceof EntityResolverContext) {
             $config = $slot->getFieldConfig();
             $foreignKeyConfig = $config->get('foreignKey');
-            if ($foreignKeyConfig && $foreignKeyConfig->getValue()) {
+            if ($foreignKeyConfig && $foreignKeyConfig->getValue() && !in_array($foreignKeyConfig->getValue(), ['Keine', 'None'])) {
                 $criteria->addFilter(new EqualsFilter(
                     $foreignKeyConfig->getValue(),
                     $resolverContext->getEntity()->getUniqueIdentifier()

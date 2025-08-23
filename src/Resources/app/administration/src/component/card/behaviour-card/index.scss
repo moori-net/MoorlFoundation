@@ -1,0 +1,11 @@
+.moorl-behaviour-card {
+  .moorl-behaviour-card-grid {
+    display: flex;
+    grid-gap: 15px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+    > div {
+      width: 100%;
+    }
+  }
+}

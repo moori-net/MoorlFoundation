@@ -1,0 +1,38 @@
+{% block moorl_behaviour_card %}
+    <mt-card
+        class="moorl-behaviour-card"
+        :title="$tc('moorl-behaviour-card.name')"
+    >
+        <mt-switch
+            bordered
+            :label="$tc('moorl-behaviour-card.label.autoSize')"
+            :helpText="$tc('moorl-behaviour-card.helpText.autoSize')"
+            v-model="item.autoSize"
+        />
+        <div class="moorl-behaviour-card-grid">
+            <div v-for="(behaviour, size) in item.behaviour">
+                <h4>
+                    {{ $tc('moorl-behaviour-card.behaviour.' + behaviour.label) }}
+                </h4>
+                <mt-switch
+                    bordered
+                    :label="$tc('moorl-behaviour-card.label.visible')"
+                    v-model="item.behaviour[size].visible"
+                />
+                <moorl-select-field
+                    v-if="!item.autoSize"
+                    v-model:value="item.behaviour[size].width"
+                    :helpText="$tc('moorl-behaviour-card.helpText.width',0,{ viewport : $tc('moorl-behaviour-card.behaviour.' + behaviour.label) })"
+                    :label="$tc('moorl-behaviour-card.label.width')"
+                    set="bsGridColumns"
+                />
+                <moorl-select-field
+                    v-model:value="item.behaviour[size].order"
+                    :helpText="$tc('moorl-behaviour-card.helpText.order',0,{ viewport : $tc('moorl-behaviour-card.behaviour.' + behaviour.label) })"
+                    :label="$tc('moorl-behaviour-card.label.order')"
+                    set="bsGridOrder"
+                />
+            </div>
+        </div>
+    </mt-card>
+{% endblock %}

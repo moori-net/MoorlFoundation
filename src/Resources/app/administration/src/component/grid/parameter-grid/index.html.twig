@@ -1,0 +1,87 @@
+<div class="moorl-parameter-grid sw-field">
+    <mt-banner
+        v-if="helpText"
+        variant="info"
+    >
+        {{ helpText }}
+    </mt-banner>
+    <div
+        v-if="label"
+        class="sw-field__label"
+    >
+        <label>
+            {{ label}}
+        </label>
+    </div>
+    <sw-data-grid
+        :data-source="items"
+        :columns="gridColumns"
+        :show-selection="false"
+        :plain-appearance="true"
+        :show-actions="showActions"
+    >
+        <template
+            v-if="!fixed"
+            #column-name="{ item, itemIndex }"
+        >
+            <mt-text-field
+                v-model="item.name"
+                size="small"
+                :placeholder="$tc('moorl-foundation.field.name')"
+                @update:model-value="onChangeItem(item, itemIndex)"
+                :disabled="item.fixed"
+            />
+        </template>
+
+        <template #column-data="{ item, itemIndex }">
+            <sw-single-select
+                v-if="!item.isCustom && dataSelection.length"
+                v-model:value="item.data"
+                size="small"
+                :options="dataSelection"
+                :placeholder="$tc('moorl-foundation.field.data')"
+                @update:value="onChangeItem(item, itemIndex)"
+                show-clearable-button
+            />
+            <mt-text-field
+                v-if="item.isCustom || !dataSelection.length"
+                v-model="item.data"
+                size="small"
+                :placeholder="$tc('moorl-foundation.field.data')"
+                @update:model-value="onChangeItem(item, itemIndex)"
+            />
+        </template>
+
+        <template #actions="{ item, itemIndex }">
+            <sw-context-menu-item
+                :disabled="!dataSelection.length"
+                @click="toggleCustomValue(item, itemIndex)"
+            >
+                {{ item.isCustom
+                ? $tc('moorl-parameter-grid.placeholderValue')
+                : $tc('moorl-parameter-grid.customValue') }}
+            </sw-context-menu-item>
+            <sw-context-menu-item
+                variant="danger"
+                :disabled="fixed || item.fixed"
+                @click="deleteItem(itemIndex)"
+            >
+                {{ $tc('moorl-parameter-grid.removeItem') }}
+            </sw-context-menu-item>
+        </template>
+    </sw-data-grid>
+    <mt-button
+        v-if="!fixed"
+        :block="true"
+        @click="addItem"
+        variant="ghost"
+    >
+        <span>
+            <mt-icon
+                name="regular-plus-s"
+                :small="true"
+            />
+            {{ $tc('moorl-parameter-grid.addItem') }}
+        </span>
+    </mt-button>
+</div>

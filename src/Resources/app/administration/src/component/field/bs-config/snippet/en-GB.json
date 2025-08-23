@@ -1,0 +1,16 @@
+{
+    "moorl-bs-config": {
+        "title": "Block behaviour",
+        "helpText": {
+            "inherit": "Should the {elementName} inherit the properties of the next small {elementName}?",
+            "show": "Show or hide the {elementName} for the viewport `{breakpoint}`?",
+            "width": "What width (x/12) should the {elementName} have for the viewport `{breakpoint}`?",
+            "order": "Which arrangement (1-48) should the {elementName} for the viewport `{breakpoint}`?"
+        },
+        "label": {
+            "elementName": "element",
+            "inherit": "Inherit",
+            "show": "Show"
+        }
+    }
+}

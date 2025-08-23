@@ -1,75 +1,75 @@
-[class*="cms-block-moorl-column-layout-"] {
-  overflow: visible;
+[class*='cms-block-moorl-column-layout-'] {
+    overflow: visible;
 }
 
 .moorl-column-layout {
-  width: 100%;
-  display: grid;
-  grid-gap: 20px;
-  /* Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns */
-  grid-template-columns: 100%;
-
-  > a,
-  > div {
-    box-sizing: border-box;
-    height: auto;
     width: 100%;
-  }
+    display: grid;
+    grid-gap: 20px;
+    /* Note: Tiny Slider breaks if the parent element is display: grid with fr based template columns */
+    grid-template-columns: 100%;
+
+    > a,
+    > div {
+        box-sizing: border-box;
+        height: auto;
+        width: 100%;
+    }
 }
 
 .cms-block-moorl-column-layout-nb-1-1 .moorl-column-layout {
-  grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .cms-block-moorl-column-layout-nb-1-1-1 .moorl-column-layout {
-  grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 @include media-breakpoint-up(md) {
-  .cms-block-moorl-column-layout-1-1 .moorl-column-layout {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .cms-block-moorl-column-layout-1-1 .moorl-column-layout {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-  .cms-block-moorl-column-layout-1-1-1 .moorl-column-layout {
-    grid-template-columns: repeat(3, 1fr);
-  }
+    .cms-block-moorl-column-layout-1-1-1 .moorl-column-layout {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
-  .cms-block-moorl-column-layout-1-1-1-1 .moorl-column-layout {
-    grid-template-columns: repeat(4, 1fr);
-  }
+    .cms-block-moorl-column-layout-1-1-1-1 .moorl-column-layout {
+        grid-template-columns: repeat(4, 1fr);
+    }
 
-  .cms-block-moorl-column-layout-1-1-1-1-1 .moorl-column-layout {
-    grid-template-columns: repeat(5, 1fr);
-  }
+    .cms-block-moorl-column-layout-1-1-1-1-1 .moorl-column-layout {
+        grid-template-columns: repeat(5, 1fr);
+    }
 
-  .cms-block-moorl-column-layout-2-3 .moorl-column-layout {
-    grid-template-columns: 2fr 3fr;
-  }
+    .cms-block-moorl-column-layout-2-3 .moorl-column-layout {
+        grid-template-columns: 2fr 3fr;
+    }
 
-  .cms-block-moorl-column-layout-3-2 .moorl-column-layout {
-    grid-template-columns: 3fr 2fr;
-  }
+    .cms-block-moorl-column-layout-3-2 .moorl-column-layout {
+        grid-template-columns: 3fr 2fr;
+    }
 }
 
 /* Helper Classes */
 .grid-gap-30 .moorl-column-layout {
-  grid-gap: 30px;
+    grid-gap: 30px;
 }
 .grid-gap-25 .moorl-column-layout {
-  grid-gap: 25px;
+    grid-gap: 25px;
 }
 .grid-gap-20 .moorl-column-layout {
-  grid-gap: 20px;
+    grid-gap: 20px;
 }
 .grid-gap-15 .moorl-column-layout {
-  grid-gap: 15px;
+    grid-gap: 15px;
 }
 .grid-gap-10 .moorl-column-layout {
-  grid-gap: 10px;
+    grid-gap: 10px;
 }
 .grid-gap-5 .moorl-column-layout {
-  grid-gap: 5px;
+    grid-gap: 5px;
 }
 .grid-gap-0 .moorl-column-layout {
-  grid-gap: 0;
+    grid-gap: 0;
 }

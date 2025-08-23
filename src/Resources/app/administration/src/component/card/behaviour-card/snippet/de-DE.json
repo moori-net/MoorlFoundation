@@ -1,0 +1,23 @@
+{
+  "moorl-behaviour-card": {
+    "name": "Behaviour",
+    "helpText": {
+      "autoSize": "Behalten Sie immer die Größe der einzelnen Kästchen in der Auflistung bei.",
+      "width": "What width (x/12) should the element have in the viewport `{viewport}`?",
+      "order": "Which arrangement (1-48) should the element for the viewport `{viewport}` have in the listing?"
+    },
+    "behaviour": {
+      "base": "Base (Mobile)",
+      "sm": "Small (sm)",
+      "md": "Medium (md)",
+      "lg": "Large (lg)",
+      "xl": "Extra Large (xl)"
+    },
+    "label": {
+      "autoSize": "Auto size",
+      "visible": "Visible",
+      "width": "Width",
+      "order": "Order"
+    }
+  }
+}

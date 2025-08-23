@@ -10,58 +10,40 @@ class LocationEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected array $payload;
-    protected float $locationLat;
-    protected float $locationLon;
+    protected array $payload = [];
+    protected float $locationLat = 0;
+    protected float $locationLon = 0;
 
     public function getGeoPoint(): GeoPoint
     {
         return new GeoPoint($this->locationLat, $this->locationLon);
     }
 
-    /**
-     * @return array
-     */
     public function getPayload(): array
     {
         return $this->payload;
     }
 
-    /**
-     * @param array $payload
-     */
     public function setPayload(array $payload): void
     {
         $this->payload = $payload;
     }
 
-    /**
-     * @return float
-     */
     public function getLocationLat(): float
     {
         return $this->locationLat;
     }
 
-    /**
-     * @param float $locationLat
-     */
     public function setLocationLat(float $locationLat): void
     {
         $this->locationLat = $locationLat;
     }
 
-    /**
-     * @return float
-     */
     public function getLocationLon(): float
     {
         return $this->locationLon;
     }
 
-    /**
-     * @param float $locationLon
-     */
     public function setLocationLon(float $locationLon): void
     {
         $this->locationLon = $locationLon;

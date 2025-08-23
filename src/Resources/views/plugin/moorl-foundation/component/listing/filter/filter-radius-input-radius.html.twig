@@ -1,15 +1,36 @@
-<div class="input-group">
-    <div class="input-group-prepend">
-        <span class="input-group-text">{{ unit|trans }}</span>
-    </div>
-
+{% set inputElement %}
     {% if config('MoorlFoundation.config.filterRadiusType') == 'select' %}
-        <select id="distance" name="distance" class="custom-select form-control distance">
+        <select id="distance" name="distance" class="form-select form-control distance">
             {% for distance in config('MoorlFoundation.config.filterRadiusSteps')|split(',') %}
-                <option value="{{ distance }}">{{ distance }} {{ unit|trans }}</option>
+                <option
+                        value="{{ distance }}"
+                        {% if distance == config('MoorlFoundation.config.filterRadiusDefault') %}selected{% endif %}
+                >
+                    {{ distance }} {{ unit|trans }}
+                </option>
             {% endfor %}
         </select>
     {% else %}
-        <input type="number" id="distance" name="distance" class="form-control distance">
+        <input
+                id="distance"
+                type="{{ config('MoorlFoundation.config.filterRadiusType') }}"
+                name="distance"
+                class="form-control distance"
+                value="{{ config('MoorlFoundation.config.filterRadiusDefault') }}"
+                required
+        >
     {% endif %}
-</div>
+{% endset %}
+
+{% if config('MoorlFoundation.config.filterRadiusType') == 'hidden' %}
+    {{ inputElement }}
+{% else %}
+    <div class="{{ wrapper }}">
+        <label for="distance">{{ "moorl-foundation.listing.filter.distance"|trans }}</label>
+
+        <div class="input-group">
+            <span class="input-group-text">{{ unit|trans }}</span>
+            {{ inputElement }}
+        </div>
+    </div>
+{% endif %}

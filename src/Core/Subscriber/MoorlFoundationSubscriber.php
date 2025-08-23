@@ -16,19 +16,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MoorlFoundationSubscriber implements EventSubscriberInterface
 {
-    private SystemConfigService $systemConfigService;
-    private TranslationService $translationService;
-    private StateMachineRegistry $stateMachineRegistry;
-
     public function __construct(
-        SystemConfigService $systemConfigService,
-        TranslationService $translationService,
-        StateMachineRegistry $stateMachineRegistry
+        private readonly SystemConfigService $systemConfigService,
+        private readonly TranslationService $translationService,
+        private readonly StateMachineRegistry $stateMachineRegistry
     )
     {
-        $this->systemConfigService = $systemConfigService;
-        $this->translationService = $translationService;
-        $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
     public static function getSubscribedEvents(): array

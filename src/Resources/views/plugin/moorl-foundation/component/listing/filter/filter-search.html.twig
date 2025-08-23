@@ -11,19 +11,19 @@
     } %}
 
     {% block component_filter_search_panel_item %}
-        <div class="filter-panel-item"
+        <div class="filter-panel-item{% if sidebar %} d-grid{% endif %}"
              data-moorl-foundation-filter-search="true">
             {% block component_filter_search_toggle %}
                 <button
-                        class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
+                        class="filter-panel-item-toggle btn"
                         aria-expanded="true"
                         {% if sidebar %}
-                            data-toggle="collapse"
-                            data-target="#{{ filterItemId }}"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#{{ filterItemId }}"
                         {% else %}
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             data-boundary="viewport"
-                            data-offset="0,8"
+                            data-bs-offset="0,8"
                             aria-haspopup="true"
                         {% endif %}
                 >
@@ -44,7 +44,7 @@
                     {% block component_filter_search_container %}
                         <div class="filter-search-container">
                             <div class="filter-multi-select-list-item">
-                                {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-search-input.html.twig' %}
+                                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-search-input.html.twig' %}
                             </div>
                         </div>
                     {% endblock %}

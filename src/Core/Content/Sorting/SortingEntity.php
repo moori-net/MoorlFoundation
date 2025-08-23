@@ -6,19 +6,13 @@ use Shopware\Core\Content\Product\SalesChannel\Sorting\ProductSortingEntity;
 
 class SortingEntity extends ProductSortingEntity
 {
-    protected string $entity;
+    protected string $entity = "";
 
-    /**
-     * @return string
-     */
     public function getEntity(): string
     {
         return $this->entity;
     }
 
-    /**
-     * @param string $entity
-     */
     public function setEntity(string $entity): void
     {
         $this->entity = $entity;

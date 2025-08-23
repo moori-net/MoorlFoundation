@@ -1,0 +1,110 @@
+<div class="moorl-file-explorer">
+    <mt-text-field
+            v-if="value"
+            v-model="value"
+            :placeholder="placeholder"
+            :disabled="true"
+    />
+
+    <div
+        v-if="showActions"
+        class="moorl-file-explorer-actions"
+    >
+        <mt-button @click="showCreateDirModal = true">
+            <mt-icon
+                name="regular-save"
+                small
+            />
+            {{ $tc('moorl-file-explorer.actions.createDir') }}
+        </mt-button>
+    </div>
+    <ul class="moorl-file-explorer-items">
+        <li
+            v-if="value"
+            class="moorl-file-explorer-item"
+        >
+            <mt-icon name="regular-long-arrow-left"/>
+            <div
+                class="link"
+                @click="changeDirectory('..')"
+            >
+                {{ $tc('moorl-file-explorer.label.parentDirectory') }}
+            </div>
+            <div></div>
+        </li>
+        <template v-for="item in items">
+            <li
+                v-if="item.type == 'dir'"
+                class="moorl-file-explorer-item"
+            >
+                <mt-icon name="regular-folder"/>
+                <div
+                    class="link"
+                    @click="changeDirectory(item.path)"
+                >
+                    {{ getBasename(item.path) }}
+                </div>
+                <div>
+                    <mt-button
+                        v-if="showActions"
+                        size="small"
+                        square
+                        @click="deleteDir(item.path)"
+                    >
+                        <mt-icon
+                            name="regular-trash"
+                            small
+                        />
+                    </mt-button>
+                </div>
+            </li>
+            <li
+                v-else
+                class="moorl-file-explorer-item"
+            >
+                <mt-icon name="regular-file"/>
+                <div
+                    class="link"
+                    @click="read(item.path)"
+                >
+                    {{ getBasename(item.path) }}
+                </div>
+                <div>
+                    <mt-button
+                        v-if="showActions"
+                        size="small"
+                        square
+                        @click="delete(item.path)"
+                    >
+                        <mt-icon
+                            name="regular-trash"
+                            small
+                        />
+                    </mt-button>
+                </div>
+            </li>
+        </template>
+    </ul>
+    <sw-modal
+        v-if="showCreateDirModal"
+        :title="$tc('moorl-file-explorer.actions.createDir')"
+        :closable="false"
+    >
+        <mt-text-field v-model="dirname"/>
+        <template #modal-footer>
+            <mt-button
+                @click="showCreateDirModal = false"
+                size="small"
+            >
+                {{ $tc('global.default.cancel') }}
+            </mt-button>
+            <mt-button
+                variant="primary"
+                @click="createDir"
+                size="small"
+            >
+                {{ $tc('global.default.save') }}
+            </mt-button>
+        </template>
+    </sw-modal>
+</div>

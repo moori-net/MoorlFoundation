@@ -1,0 +1,23 @@
+<div class="sw-cms-el-preview-moorl-default">
+    <div class="moorl-default">
+        <div class="moorl-default-box">
+            <ul class="moorl-default-box-icons">
+                <li v-if="!!plugin.icon">
+                    <img
+                        :src="`data:image/png;base64, ${plugin.icon}`"
+                        alt
+                    />
+                </li>
+                <li v-if="element.icon">
+                    <mt-icon
+                        :name="element.icon"
+                        size="48"
+                    />
+                </li>
+            </ul>
+            <div class="moorl-default-box-label">
+                {{ plugin.translated.label }}
+            </div>
+        </div>
+    </div>
+</div>

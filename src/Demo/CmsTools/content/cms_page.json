@@ -1,1272 +1,1272 @@
 [
-  {
-    "name": "Foundation CMS Tools",
-    "type": "page",
-    "id": "{ID:CMS_PAGE_CMS_TOOLS}",
-    "sections": [
-      {
-        "position": 0,
-        "type": "default",
-        "sizingMode": "boxed",
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_1}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "text-hero",
-            "sectionPosition": "main",
-            "marginTop": "0",
-            "marginBottom": "60px",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_1}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "content",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Bootstrap grid</h2><div style=\"text-align: center;\">This is the Bootstrap grid section of moori Foundation. The first column is sticky, the second is filled with content and the third have the property: \"justify-content: space-between\"</div>"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_1}"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "position": 1,
-        "type": "moorl-grid",
-        "sizingMode": "boxed",
-        "backgroundMediaMode": "cover",
-        "customFields": {
-          "moorl_section_grid_config": [
+    {
+        "name": "Foundation CMS Tools",
+        "type": "page",
+        "id": "{ID:CMS_PAGE_CMS_TOOLS}",
+        "sections": [
             {
-              "value": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": "3",
-                  "inherit": false
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": "3",
-                  "inherit": false
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              },
-              "isSticky": true,
-              "isSidebar": true,
-              "offsetTop": "40px",
-              "alignItems": "normal",
-              "justifyContent": "normal"
+                "position": 0,
+                "type": "default",
+                "sizingMode": "boxed",
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_1}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "text-hero",
+                        "sectionPosition": "main",
+                        "marginTop": "0",
+                        "marginBottom": "60px",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_1}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "content",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "<h2 style=\"text-align: center;\">Bootstrap grid</h2><div style=\"text-align: center;\">This is the Bootstrap grid section of moori Foundation. The first column is sticky, the second is filled with content and the third have the property: \"justify-content: space-between\"</div>"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_1}"
+                            }
+                        ]
+                    }
+                ]
             },
             {
-              "value": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": "6",
-                  "inherit": false
+                "position": 1,
+                "type": "moorl-grid",
+                "sizingMode": "boxed",
+                "backgroundMediaMode": "cover",
+                "customFields": {
+                    "moorl_section_grid_config": [
+                        {
+                            "value": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": "3",
+                                    "inherit": false
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": "3",
+                                    "inherit": false
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            },
+                            "isSticky": true,
+                            "isSidebar": true,
+                            "offsetTop": "40px",
+                            "alignItems": "normal",
+                            "justifyContent": "normal"
+                        },
+                        {
+                            "value": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": "6",
+                                    "inherit": false
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": "6",
+                                    "inherit": false
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            },
+                            "isSticky": false,
+                            "offsetTop": "30px",
+                            "alignItems": "normal",
+                            "justifyContent": "normal"
+                        },
+                        {
+                            "value": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": "3",
+                                    "inherit": false
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": "3",
+                                    "inherit": false
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            },
+                            "isSticky": false,
+                            "isSidebar": false,
+                            "offsetTop": "30px",
+                            "alignItems": "normal",
+                            "justifyContent": "space-between"
+                        }
+                    ],
+                    "moorl_section_column_count": 3
                 },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": "6",
-                  "inherit": false
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              },
-              "isSticky": false,
-              "offsetTop": "30px",
-              "alignItems": "normal",
-              "justifyContent": "normal"
+                "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_2}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_1",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_2}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_2}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 1,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_1",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_3}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_3}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 2,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_2",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_4}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_4}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 3,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_2",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_5}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_5}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 4,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_1",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_6}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_6}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 5,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_1",
+                        "marginBottom": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_7}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_7}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 6,
+                        "type": "moorl-column-layout-1",
+                        "sectionPosition": "moorl_grid_0",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_8}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_8}"
+                            }
+                        ]
+                    }
+                ]
             },
             {
-              "value": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": "3",
-                  "inherit": false
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": "3",
-                  "inherit": false
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              },
-              "isSticky": false,
-              "isSidebar": false,
-              "offsetTop": "30px",
-              "alignItems": "normal",
-              "justifyContent": "space-between"
+                "position": 2,
+                "type": "default",
+                "sizingMode": "boxed",
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_3}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "text-hero",
+                        "sectionPosition": "main",
+                        "marginTop": "60px",
+                        "marginBottom": "60px",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_9}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "content",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "<h2 style=\"text-align: center;\">Element animations</h2><div style=\"text-align: center;\">Here you see what kind of animations are possible with moori Foundation. You can configure the animation type, speed and timeout. The animation will run if an element enters the viewport, exists the viewport, the mouse enters it or the page was loaded.</div>"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_9}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 1,
+                        "type": "moorl-grid-layout-three",
+                        "sectionPosition": "main",
+                        "marginBottom": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_10}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-d",
+                                "config": {
+                                    "moorlAnimation": {
+                                        "value": {
+                                            "in": {
+                                                "name": "rotateIn",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "out": {
+                                                "name": "fadeOut",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "hover": {
+                                                "name": "rubberBand",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "cssSelector": null
+                                        },
+                                        "source": "static"
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_10}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-b",
+                                "config": {
+                                    "moorlAnimation": {
+                                        "value": {
+                                            "in": {
+                                                "name": "bounceInRight",
+                                                "delay": 500,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "out": {
+                                                "name": "fadeOut",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "hover": {
+                                                "name": "wobble",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "cssSelector": null
+                                        },
+                                        "source": "static"
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_11}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "config": {
+                                    "moorlAnimation": {
+                                        "value": {
+                                            "in": {
+                                                "name": "bounceInLeft",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1500,
+                                                "condition": "isInViewport"
+                                            },
+                                            "out": {
+                                                "name": "fadeOut",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "hover": {
+                                                "name": "heartBeat",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "cssSelector": null
+                                        },
+                                        "source": "static"
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_12}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-c",
+                                "config": {
+                                    "moorlAnimation": {
+                                        "value": {
+                                            "in": {
+                                                "name": "flipInX",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "out": {
+                                                "name": "fadeOut",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "hover": {
+                                                "name": "tada",
+                                                "delay": 0,
+                                                "active": true,
+                                                "duration": 1000,
+                                                "condition": "isInViewport"
+                                            },
+                                            "cssSelector": null
+                                        },
+                                        "source": "static"
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_13}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": 3,
+                "type": "default",
+                "sizingMode": "boxed",
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_4}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "text-hero",
+                        "sectionPosition": "main",
+                        "marginTop": "60px",
+                        "marginBottom": "60px",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_11}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "content",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "<h2 style=\"text-align: center;\">Sliders</h2><div style=\"text-align: center;\">With moori Foundation you have a full responsive special slider block with multiple elements. Here are two examples.</div>"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_14}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 1,
+                        "type": "moorl-interactive-slider",
+                        "sectionPosition": "main",
+                        "marginTop": "0",
+                        "marginBottom": "60px",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            },
+                            "moorl_interactive_slider": {
+                                "slots": 1,
+                                "speed": 800,
+                                "gapSize": "20px",
+                                "autoplay": false,
+                                "animateIn": "zoomIn",
+                                "itemWidth": "300px",
+                                "animateOut": "hinge",
+                                "itemHeight": "340px",
+                                "navigation": false,
+                                "autoplayTimeout": 2000,
+                                "autoplayHoverPause": true
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_12}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_15}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-b",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_16}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-c",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_17}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-d",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_18}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-e",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_19}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-f",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_20}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 2,
+                        "type": "moorl-interactive-slider",
+                        "sectionPosition": "main",
+                        "marginTop": "0",
+                        "marginBottom": "0",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            },
+                            "moorl_interactive_slider": {
+                                "slots": 1,
+                                "speed": 800,
+                                "gapSize": "0px",
+                                "autoplay": true,
+                                "animateIn": null,
+                                "itemWidth": "100%",
+                                "animateOut": null,
+                                "itemHeight": "340px",
+                                "navigation": false,
+                                "autoplayTimeout": 2000,
+                                "autoplayHoverPause": true
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_13}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_21}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-b",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_22}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-c",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_23}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-d",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_24}"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "position": 4,
+                "type": "default",
+                "sizingMode": "boxed",
+                "backgroundMediaMode": "cover",
+                "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_5}",
+                "blocks": [
+                    {
+                        "position": 0,
+                        "type": "text-hero",
+                        "sectionPosition": "main",
+                        "marginTop": "60px",
+                        "marginBottom": "60px",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": true
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_14}",
+                        "slots": [
+                            {
+                                "type": "text",
+                                "slot": "content",
+                                "config": {
+                                    "content": {
+                                        "source": "static",
+                                        "value": "<h2 style=\"text-align: center;\">Responsive blocks</h2><div style=\"text-align: center;\">With moori Foundation you can hide or show blocks based on your customers viewport. Just resize your browser to see the change.</div>"
+                                    },
+                                    "verticalAlign": {
+                                        "source": "static",
+                                        "value": null
+                                    }
+                                },
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_25}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 1,
+                        "type": "moorl-grid-layout-fifteen",
+                        "sectionPosition": "main",
+                        "marginTop": "0",
+                        "marginBottom": "60px",
+                        "marginLeft": "0",
+                        "marginRight": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "md": {
+                                    "show": false,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "sm": {
+                                    "show": false,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "xl": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "xs": {
+                                    "show": false,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_15}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_26}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-c",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_27}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-d",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_28}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-b",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_29}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-f",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_30}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-e",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_31}"
+                            }
+                        ]
+                    },
+                    {
+                        "position": 2,
+                        "type": "moorl-column-layout-1-1-1-1-1",
+                        "sectionPosition": "main",
+                        "marginBottom": "0",
+                        "backgroundMediaMode": "cover",
+                        "customFields": {
+                            "moorl_block_behaviour": {
+                                "lg": {
+                                    "show": false,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "md": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "sm": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "xl": {
+                                    "show": false,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                },
+                                "xs": {
+                                    "show": true,
+                                    "order": 0,
+                                    "width": 12,
+                                    "inherit": false
+                                }
+                            }
+                        },
+                        "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_16}",
+                        "slots": [
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-d",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_32}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-a",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_33}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-c",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_34}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-b",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_35}"
+                            },
+                            {
+                                "type": "moorl-replacer",
+                                "slot": "slot-e",
+                                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_36}"
+                            }
+                        ]
+                    }
+                ]
             }
-          ],
-          "moorl_section_column_count": 3
-        },
-        "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_2}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_1",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_2}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_2}"
-              }
-            ]
-          },
-          {
-            "position": 1,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_1",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_3}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_3}"
-              }
-            ]
-          },
-          {
-            "position": 2,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_2",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_4}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_4}"
-              }
-            ]
-          },
-          {
-            "position": 3,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_2",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_5}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_5}"
-              }
-            ]
-          },
-          {
-            "position": 4,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_1",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_6}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_6}"
-              }
-            ]
-          },
-          {
-            "position": 5,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_1",
-            "marginBottom": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_7}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_7}"
-              }
-            ]
-          },
-          {
-            "position": 6,
-            "type": "moorl-column-layout-1",
-            "sectionPosition": "moorl_grid_0",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_8}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_8}"
-              }
-            ]
-          }
         ]
-      },
-      {
-        "position": 2,
-        "type": "default",
-        "sizingMode": "boxed",
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_3}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "text-hero",
-            "sectionPosition": "main",
-            "marginTop": "60px",
-            "marginBottom": "60px",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_9}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "content",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Element animations</h2><div style=\"text-align: center;\">Here you see what kind of animations are possible with moori Foundation. You can configure the animation type, speed and timeout. The animation will run if an element enters the viewport, exists the viewport, the mouse enters it or the page was loaded.</div>"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_9}"
-              }
-            ]
-          },
-          {
-            "position": 1,
-            "type": "moorl-grid-layout-three",
-            "sectionPosition": "main",
-            "marginBottom": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_10}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-d",
-                "config": {
-                  "moorlAnimation": {
-                    "value": {
-                      "in": {
-                        "name": "rotateIn",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "out": {
-                        "name": "fadeOut",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "hover": {
-                        "name": "rubberBand",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "cssSelector": null
-                    },
-                    "source": "static"
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_10}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-b",
-                "config": {
-                  "moorlAnimation": {
-                    "value": {
-                      "in": {
-                        "name": "bounceInRight",
-                        "delay": 500,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "out": {
-                        "name": "fadeOut",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "hover": {
-                        "name": "wobble",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "cssSelector": null
-                    },
-                    "source": "static"
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_11}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "config": {
-                  "moorlAnimation": {
-                    "value": {
-                      "in": {
-                        "name": "bounceInLeft",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1500,
-                        "condition": "isInViewport"
-                      },
-                      "out": {
-                        "name": "fadeOut",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "hover": {
-                        "name": "heartBeat",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "cssSelector": null
-                    },
-                    "source": "static"
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_12}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-c",
-                "config": {
-                  "moorlAnimation": {
-                    "value": {
-                      "in": {
-                        "name": "flipInX",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "out": {
-                        "name": "fadeOut",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "hover": {
-                        "name": "tada",
-                        "delay": 0,
-                        "active": true,
-                        "duration": 1000,
-                        "condition": "isInViewport"
-                      },
-                      "cssSelector": null
-                    },
-                    "source": "static"
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_13}"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "position": 3,
-        "type": "default",
-        "sizingMode": "boxed",
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_4}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "text-hero",
-            "sectionPosition": "main",
-            "marginTop": "60px",
-            "marginBottom": "60px",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_11}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "content",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Sliders</h2><div style=\"text-align: center;\">With moori Foundation you have a full responsive special slider block with multiple elements. Here are two examples.</div>"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_14}"
-              }
-            ]
-          },
-          {
-            "position": 1,
-            "type": "moorl-interactive-slider",
-            "sectionPosition": "main",
-            "marginTop": "0",
-            "marginBottom": "60px",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              },
-              "moorl_interactive_slider": {
-                "slots": 1,
-                "speed": 800,
-                "gapSize": "20px",
-                "autoplay": false,
-                "animateIn": "zoomIn",
-                "itemWidth": "300px",
-                "animateOut": "hinge",
-                "itemHeight": "340px",
-                "navigation": false,
-                "autoplayTimeout": 2000,
-                "autoplayHoverPause": true
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_12}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_15}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-b",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_16}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-c",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_17}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-d",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_18}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-e",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_19}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-f",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_20}"
-              }
-            ]
-          },
-          {
-            "position": 2,
-            "type": "moorl-interactive-slider",
-            "sectionPosition": "main",
-            "marginTop": "0",
-            "marginBottom": "0",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              },
-              "moorl_interactive_slider": {
-                "slots": 1,
-                "speed": 800,
-                "gapSize": "0px",
-                "autoplay": true,
-                "animateIn": null,
-                "itemWidth": "100%",
-                "animateOut": null,
-                "itemHeight": "340px",
-                "navigation": false,
-                "autoplayTimeout": 2000,
-                "autoplayHoverPause": true
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_13}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_21}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-b",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_22}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-c",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_23}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-d",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_24}"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "position": 4,
-        "type": "default",
-        "sizingMode": "boxed",
-        "backgroundMediaMode": "cover",
-        "id": "{ID:CMS_PAGE_CMS_TOOLS_SECTION_5}",
-        "blocks": [
-          {
-            "position": 0,
-            "type": "text-hero",
-            "sectionPosition": "main",
-            "marginTop": "60px",
-            "marginBottom": "60px",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": true
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_14}",
-            "slots": [
-              {
-                "type": "text",
-                "slot": "content",
-                "config": {
-                  "content": {
-                    "source": "static",
-                    "value": "<h2 style=\"text-align: center;\">Responsive blocks</h2><div style=\"text-align: center;\">With moori Foundation you can hide or show blocks based on your customers viewport. Just resize your browser to see the change.</div>"
-                  },
-                  "verticalAlign": {
-                    "source": "static",
-                    "value": null
-                  }
-                },
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_25}"
-              }
-            ]
-          },
-          {
-            "position": 1,
-            "type": "moorl-grid-layout-fifteen",
-            "sectionPosition": "main",
-            "marginTop": "0",
-            "marginBottom": "60px",
-            "marginLeft": "0",
-            "marginRight": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "md": {
-                  "show": false,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "sm": {
-                  "show": false,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "xl": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "xs": {
-                  "show": false,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_15}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_26}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-c",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_27}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-d",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_28}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-b",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_29}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-f",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_30}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-e",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_31}"
-              }
-            ]
-          },
-          {
-            "position": 2,
-            "type": "moorl-column-layout-1-1-1-1-1",
-            "sectionPosition": "main",
-            "marginBottom": "0",
-            "backgroundMediaMode": "cover",
-            "customFields": {
-              "moorl_block_behaviour": {
-                "lg": {
-                  "show": false,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "md": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "sm": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "xl": {
-                  "show": false,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                },
-                "xs": {
-                  "show": true,
-                  "order": 0,
-                  "width": 12,
-                  "inherit": false
-                }
-              }
-            },
-            "id": "{ID:CMS_PAGE_CMS_TOOLS_BLOCK_16}",
-            "slots": [
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-d",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_32}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-a",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_33}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-c",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_34}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-b",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_35}"
-              },
-              {
-                "type": "moorl-replacer",
-                "slot": "slot-e",
-                "id": "{ID:CMS_PAGE_CMS_TOOLS_SLOT_36}"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+    }
 ]

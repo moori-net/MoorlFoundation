@@ -1,0 +1,23 @@
+{
+    "moorl-csv-import": {
+        "validateIdsLabel": "Validate foreign keys/ids (slower import)",
+        "title": "Import assistant",
+        "loadedText": "There are {count} rows in your file. Please configure the mapping in the next step.",
+        "processText": "Processing: {remaining} of {count} rows left.",
+        "mapping": "Mapping",
+        "label": "Label",
+        "value": "Value",
+        "property": "Property",
+        "fromImport": "From Import",
+        "bool": "Boolean",
+        "salesChannel": "Sales channel",
+        "country": "Country",
+        "customerGroup": "Customer group",
+        "choseDefault": "Chose default",
+        "overwriteLabel": "Overwrite by following properties ({properties})",
+        "pauseLabel": "Pause on error",
+        "mediaFolder": "Save media (if set) in this folder",
+        "isUnique": "This field is unique",
+        "completedMessage": "Import complete - Skipped: {skipped} - New: {new} - Total: {total} -  Errors: {errors}"
+    }
+}

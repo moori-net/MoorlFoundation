@@ -10,16 +10,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ProductListingResultSubscriber implements EventSubscriberInterface
 {
-    private EntitySuggestService $suggestService;
-    private EntitySearchService $searchService;
-
     public function __construct(
-        EntitySearchService $searchService,
-        EntitySuggestService $suggestService
+        private readonly EntitySearchService $searchService,
+        private readonly EntitySuggestService $suggestService
     )
     {
-        $this->searchService = $searchService;
-        $this->suggestService = $suggestService;
     }
 
     public static function getSubscribedEvents(): array

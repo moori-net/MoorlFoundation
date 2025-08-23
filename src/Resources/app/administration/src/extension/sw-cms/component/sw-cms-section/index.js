@@ -4,15 +4,14 @@ import './sw-cms-section.scss';
 /*import './sw-cms-section-config';*/
 import './sw-cms-section-actions';
 
-const {Component} = Shopware;
-const {cloneDeep} = Shopware.Utils.object;
+const { cloneDeep } = Shopware.Utils.object;
 
-Component.override('sw-cms-section', {
+Shopware.Component.override('sw-cms-section', {
     template,
 
     computed: {
         isSectionGrid() {
-            return (this.section.type === 'moorl-grid');
+            return this.section.type === 'moorl-grid';
         },
 
         isSectionGridInitialized() {
@@ -25,7 +24,10 @@ Component.override('sw-cms-section', {
             if (!this.section.customFields.moorl_section_grid_config) {
                 return false;
             }
-            if (!this.section?.customFields?.moorl_section_grid_config[0]?.value?.xl?.width) {
+            if (
+                !this.section?.customFields?.moorl_section_grid_config[0]?.value
+                    ?.xl?.width
+            ) {
                 return false;
             }
             return true;
@@ -36,33 +38,38 @@ Component.override('sw-cms-section', {
         },
 
         sectionColumnCount() {
-            return parseInt(this.section.customFields.moorl_section_column_count, 10);
+            return parseInt(
+                this.section.customFields.moorl_section_column_count,
+                10
+            );
         },
 
         sectionSpacing() {
-            return parseInt(this.section.customFields.moorl_section_spacing, 10);
+            return parseInt(
+                this.section.customFields.moorl_section_spacing,
+                10
+            );
         },
 
         sectionSpacingStyle() {
-            return "--section-spacing: " + (this.sectionSpacing / 2) + "px;";
-        }
-    },
-
-    created() {
-        this.initSectionGrid();
+            return '--section-spacing: ' + this.sectionSpacing / 2 + 'px;';
+        },
     },
 
     methods: {
+        createdComponent() {
+            /* https://github.com/shopware/platform/issues/2989 */
+            this.initSectionGrid();
+            this.$super('createdComponent');
+        },
+
         initSectionGrid() {
             if (!this.isSectionGrid) {
                 return;
             }
 
             if (!this.isSectionGridInitialized) {
-                Object.assign(
-                    this.section,
-                    cloneDeep(moorlGridDefault)
-                );
+                Object.assign(this.section, cloneDeep(moorlGridDefault));
             }
         },
 
@@ -74,28 +81,30 @@ Component.override('sw-cms-section', {
             const sectionPosition = 'moorl_grid_' + gridCol;
 
             return this.section.blocks.filter(
-                (block) => this.blockTypeExists(block.type) && block.sectionPosition === sectionPosition
+                (block) =>
+                    this.blockTypeExists(block.type) &&
+                    block.sectionPosition === sectionPosition
             );
         },
 
         getSectionGridStyle(index) {
             const configValue = this.sectionGridConfig[index].value;
-            let rows = configValue.xl.width;
+            let rows = configValue.xl?.width || 3;
             let rowWidth = (100 / 12).toFixed(2);
             if (this.cmsPageState.currentCmsDeviceView === 'tablet-landscape') {
-                rows = configValue.md.width;
+                rows = configValue.md?.width || 3;
             }
             if (this.cmsPageState.currentCmsDeviceView === 'mobile') {
-                rows = configValue.xs.width;
+                rows = configValue.xs?.width || 3;
             }
             let width = parseInt(rows, 10) * rowWidth;
 
             return {
-                flex: "0 0 "+width+"%",
-                maxWidth: width+"%",
+                flex: '0 0 ' + width + '%',
+                maxWidth: width + '%',
                 justifyContent: this.sectionGridConfig[index].justifyContent,
                 alignItems: this.sectionGridConfig[index].alignItems,
-            }
+            };
         },
 
         getDropGridData(index, gridCol = 0) {
@@ -105,8 +114,8 @@ Component.override('sw-cms-section', {
                 dropIndex: index,
                 section: this.section,
                 sectionPosition,
-                gridCol
+                gridCol,
             };
         },
-    }
-})
+    },
+});

@@ -1,48 +1,41 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component} = Shopware;
-
-Component.register('sw-cms-block-moorl-interactive-slider', {
+Shopware.Component.register('sw-cms-block-moorl-interactive-slider', {
     template,
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
             showConfigurationModal: false,
             activeSlot: null,
-            block: null
+            block: null,
         };
     },
 
     computed: {
-        moorlFoundation() {
-            return MoorlFoundation;
-        },
-
         slotRepository() {
             return this.repositoryFactory.create('cms_slot');
         },
 
         slotStyle() {
             return {
-                'min-height': this.block.customFields.moorl_interactive_slider.itemHeight,
-            }
-        }
+                'min-height':
+                    this.block.customFields.moorl_interactive_slider.itemHeight,
+            };
+        },
     },
 
     created() {
-        this.block = this.$parent.block;
+        this.block = this.$parent.$parent.block;
 
         if (!this.block.customFields) {
-            this.$set(this.block, 'customFields', {});
+            this.block.customFields = {};
         }
 
         if (!this.block.customFields.moorl_interactive_slider) {
-            this.$set(this.block.customFields, 'moorl_interactive_slider', {
+            this.block.customFields.moorl_interactive_slider = {
                 slots: 1,
                 itemWidth: '100%',
                 itemHeight: '340px',
@@ -53,18 +46,18 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
                 autoplayHoverPause: true,
                 navigation: false,
                 animateIn: null,
-                animateOut: null
-            });
+                animateOut: null,
+            };
         }
 
         this.sanitizeSlots();
 
-        this.activeSlot = this.block.slots.last().id
+        this.activeSlot = this.block.slots.last().id;
     },
 
     methods: {
         sanitizeSlots() {
-            this.block.slots.sort((a, b) => a.slot > b.slot && 1 || -1);
+            this.block.slots.sort((a, b) => (a.slot > b.slot && 1) || -1);
             this.block.slots.forEach(function (element, index) {
                 let char = String.fromCharCode(index + 97);
                 element.slot = `slot-${char}`;
@@ -86,7 +79,7 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
 
             this.block.slots.add(slot);
 
-            this.activeSlot = slot.id
+            this.activeSlot = slot.id;
 
             this.$parent.$parent.$forceUpdate();
         },
@@ -101,9 +94,9 @@ Component.register('sw-cms-block-moorl-interactive-slider', {
 
             this.block.slots.remove(slotId);
 
-            this.activeSlot = this.block.slots.last().id
+            this.activeSlot = this.block.slots.last().id;
 
             this.$parent.$parent.$forceUpdate();
-        }
-    }
+        },
+    },
 });

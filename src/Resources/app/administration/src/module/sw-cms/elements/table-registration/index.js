@@ -3,7 +3,7 @@ import './config';
 
 Shopware.Service('cmsService').registerCmsElement({
     plugin: 'AppflixDewaShop',
-    icon: 'default-time-clock',
+    icon: 'regular-clock',
     name: 'moorl-table-registration',
     label: 'sw-cms.elements.moorl-table-registration.title',
     component: 'sw-cms-el-moorl-table-registration',
@@ -12,19 +12,19 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         type: {
             source: 'static',
-            value: 'contact'
+            value: 'contact',
         },
         content: {
             source: 'static',
-            value: ''
+            value: '',
         },
         privacyActive: {
             source: 'static',
-            value: true
+            value: true,
         },
         verticalAlign: {
             source: 'static',
-            value: null
-        }
-    }
+            value: null,
+        },
+    },
 });

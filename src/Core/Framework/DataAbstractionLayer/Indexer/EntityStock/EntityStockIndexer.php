@@ -4,31 +4,23 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStoc
 
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityStockIndexer extends EntityIndexer
 {
-    private IteratorFactory $iteratorFactory;
-    private EntityRepositoryInterface $entityRepository;
-    private EventDispatcherInterface $eventDispatcher;
-    private EntityStockUpdater $entityStockUpdater;
-    private string $entityName;
+    private readonly string $entityName;
 
     public function __construct(
-        IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $entityRepository,
-        EventDispatcherInterface $eventDispatcher,
-        EntityStockUpdater $entityStockUpdater
+        private readonly IteratorFactory $iteratorFactory,
+        private readonly EntityRepository $entityRepository,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly EntityStockUpdater $entityStockUpdater
     ) {
-        $this->iteratorFactory = $iteratorFactory;
-        $this->entityRepository = $entityRepository;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->entityStockUpdater = $entityStockUpdater;
-
         $this->entityName = $this->entityRepository->getDefinition()->getEntityName();
     }
 
@@ -37,7 +29,7 @@ class EntityStockIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */$offset): ?EntityIndexingMessage
+    public function iterate(?array $offset): ?EntityIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 
@@ -83,5 +75,10 @@ class EntityStockIndexer extends EntityIndexer
     public function getTotal(): int
     {
         return $this->getIterator(null)->fetchCount();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        throw new DecorationPatternException(static::class);
     }
 }

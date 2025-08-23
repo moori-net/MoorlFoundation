@@ -2,18 +2,29 @@
 
 namespace MoorlFoundation;
 
-use Doctrine\DBAL\Connection;
-use MoorlFoundation\Core\Service\DataService;
+use MoorlFoundation\Core\PluginLifecycleHelper;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
+use Shopware\Core\Framework\Plugin\Context\UpdateContext;
 
 class MoorlFoundation extends Plugin
 {
-    public const NAME = 'MoorlFoundation';
-    public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
-    public const SHOPWARE_TABLES = [];
-    public const PLUGIN_TABLES = [
+    final public const NAME = 'MoorlFoundation';
+    final public const DATA_CREATED_AT = '2001-11-11 11:11:11.111';
+    final public const SHOPWARE_TABLES = [
+        'import_export_profile',
+        'category',
+        'category_translation',
+        'cms_page',
+        'cms_page_translation',
+        'cms_block',
+        'cms_slot',
+        'cms_slot_translation',
+        'media_default_folder',
+    ];
+    final public const INHERITANCES = [];
+    final public const PLUGIN_TABLES = [
         'moorl_cms_element_config',
         'moorl_location',
         'moorl_location_cache',
@@ -21,35 +32,35 @@ class MoorlFoundation extends Plugin
         'moorl_sorting_translation',
         'moorl_marker',
         'moorl_client',
+        'moorl_image_map',
+        'moorl_image_map_translation',
+        'moorl_image_map_item',
+        'moorl_image_map_item_translation',
+        'moorl_media',
+        'moorl_media_translation',
+        'moorl_media_video',
     ];
+
+    public function update(UpdateContext $updateContext): void
+    {
+        parent::update($updateContext);
+
+        PluginLifecycleHelper::update(self::class, $this->container);
+    }
 
     public function activate(ActivateContext $activateContext): void
     {
         parent::activate($activateContext);
 
-        /* @var $dataService DataService */
-        $dataService = $this->container->get(DataService::class);
-        $dataService->install(self::NAME);
+        PluginLifecycleHelper::update(self::class, $this->container);
     }
 
-    public function uninstall(UninstallContext $context): void
+    public function uninstall(UninstallContext $uninstallContext): void
     {
-        parent::uninstall($context);
-
-        if ($context->keepUserData()) {
-            return;
+        if (!$uninstallContext->keepUserData()) {
+            PluginLifecycleHelper::uninstall(self::class, $this->container);
         }
 
-        $this->dropTables();
-    }
-
-    private function dropTables(): void
-    {
-        $connection = $this->container->get(Connection::class);
-
-        foreach (self::PLUGIN_TABLES as $table) {
-            $sql = sprintf('SET FOREIGN_KEY_CHECKS=0; DROP TABLE IF EXISTS `%s`;', $table);
-            $connection->executeStatement($sql);
-        }
+        parent::uninstall($uninstallContext);
     }
 }

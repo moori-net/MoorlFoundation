@@ -1,17 +1,17 @@
-.cms-block-moorl-usp-inner{
+.cms-block-moorl-usp-inner {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.cms-element-moorl-usp{
-    .usp-container{
+.cms-element-moorl-usp {
+    .usp-container {
         display: flex;
         align-items: center;
-        margin:10px 0;
+        margin: 10px 0;
 
-        .icon-container{
+        .icon-container {
             .icon {
                 width: 32px;
                 height: 32px;
@@ -19,24 +19,24 @@
             margin-right: 20px;
         }
 
-        .text-container{
-            .headline{
+        .text-container {
+            .headline {
                 font-size: 1.3em;
                 font-weight: 500;
             }
 
-            .subheadline{
+            .subheadline {
                 font-size: 1.1em;
             }
         }
 
-        &.center{
+        &.center {
             flex-direction: column;
             text-align: center;
 
-            .icon-container{
+            .icon-container {
                 margin-right: 0;
-                margin-bottom:15px;
+                margin-bottom: 15px;
             }
         }
     }

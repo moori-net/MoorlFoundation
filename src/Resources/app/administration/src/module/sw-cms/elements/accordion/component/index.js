@@ -1,13 +1,10 @@
-const { Component, Mixin } = Shopware;
 import template from './index.html.twig';
 import './index.scss';
 
-Component.register('sw-cms-el-moorl-accordion', {
+Shopware.Component.register('sw-cms-el-moorl-accordion', {
     template,
 
-    mixins: [
-        Mixin.getByName('cms-element')
-    ],
+    mixins: [Shopware.Mixin.getByName('cms-element')],
 
     created() {
         this.createdComponent();
@@ -17,6 +14,6 @@ Component.register('sw-cms-el-moorl-accordion', {
         createdComponent() {
             this.initElementConfig('moorl-accordion');
             this.initElementData('moorl-accordion');
-        }
-    }
+        },
+    },
 });

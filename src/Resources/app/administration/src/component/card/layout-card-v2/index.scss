@@ -1,4 +1,4 @@
-@import "~scss/variables";
+@import '~scss/variables';
 
 .moorl-layout-card-v2 {
     .moorl-layout-card__base-layout {
@@ -18,11 +18,11 @@
 
         .moorl-layout-card__desc-headline {
             font-weight: $font-weight-semi-bold;
-            font-size: $font-size-small;
+            font-size: $font-size-s;
         }
 
         .moorl-layout-card__desc-subheadline {
-            font-size: $font-size-small;
+            font-size: $font-size-s;
         }
 
         .moorl-layout-card__desc-headline.is--empty,
@@ -35,7 +35,8 @@
         }
 
         .moorl-layout-card__desc-actions {
-            .sw-button {
+            .sw-button,
+            .mt-button {
                 margin-bottom: 8px;
                 margin-right: 8px;
             }
@@ -47,7 +48,7 @@
             justify-content: flex-end;
             color: $color-shopware-brand-500;
             text-decoration: none;
-            font-size: $font-size-small;
+            font-size: $font-size-s;
             margin-top: 8px;
 
             .sw-icon {

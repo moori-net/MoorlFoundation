@@ -3,8 +3,8 @@
 namespace MoorlFoundation\Migration;
 
 use Doctrine\DBAL\Connection;
-use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Core\Framework\Migration\InheritanceUpdaterTrait;
+use Shopware\Core\Framework\Migration\MigrationStep;
 
 class Migration1616141231 extends MigrationStep
 {
@@ -12,7 +12,7 @@ class Migration1616141231 extends MigrationStep
 
     public function getCreationTimestamp(): int
     {
-        return 1616141231;
+        return 1_616_141_231;
     }
 
     public function update(Connection $connection): void

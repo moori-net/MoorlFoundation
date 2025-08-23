@@ -1,0 +1,165 @@
+{% set quantity = item.quantity %}
+{% set product = item.product %}
+
+{% set price = product.calculatedPrice %}
+{% if product.calculatedPrices|length > 0 %}
+    {% set price = product.calculatedPrices.first %}
+
+    {% for calculatedPrice in product.calculatedPrices %}
+        {% if quantity >= calculatedPrice.quantity %}
+            {% set price = calculatedPrice %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<div itemscope
+     itemtype="https://schema.org/Product"
+     class="moorl-product-buy-list-item enable-add-to-cart{% if options.enableAddToCartAll %}-all{% endif %}{% if options.enableAddToCartSingle %}-single{% endif %}">
+
+    {% block product_buy_list_item_rich_snippets_gtin13 %}
+        {% if product.ean %}
+            <meta itemprop="gtin13" content="{{ product.ean }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_mpn %}
+        {% if product.manufacturerNumber %}
+            <meta itemprop="mpn" content="{{ product.manufacturerNumber }}"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_weight %}
+        {% if product.weight %}
+            <meta itemprop="weight" content="{{ product.weight }} kg"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_height %}
+        {% if product.height %}
+            <meta itemprop="height" content="{{ product.height }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_width %}
+        {% if product.width %}
+            <meta itemprop="width" content="{{product.width }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_depth %}
+        {% if product.length %}
+            <meta itemprop="depth" content="{{product.length }} mm"/>
+        {% endif %}
+    {% endblock %}
+
+    {% block product_buy_list_item_rich_snippets_release_date %}
+        <meta itemprop="releaseDate" content="{{ product.releaseDate|format_date(pattern="Y-MM-dd", locale=app.request.locale) }}"/>
+    {% endblock %}
+
+    {% if options.enableAddToCartAll %}
+        <div class="{% if options.enableSelection %}form-check{% endif %}">
+            <input type="{% if options.enableSelection %}checkbox{% else %}hidden{% endif %}"
+                   class="form-check-input"
+                   name="productId[]"
+                   value="{{ product.id }}"
+                   id="product{{ product.id }}"
+                   data-price="{{ price.unitPrice }}"
+                   data-quantity="{{ quantity }}"
+                   checked>
+            {% if options.enableSelection %}
+                <label class="form-check-label" for="product{{ product.id }}"></label>
+            {% else %}
+                {% sw_icon 'checkmark' %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% block product_buy_list_item_product_cover %}
+        <div class="product-cover">
+            {% if product.cover.media.url %}
+                {% set attributes = {
+                    'itemprop': 'image',
+                    'alt': product.translated.name,
+                    'title': product.translated.name,
+                    'width': '100',
+                    'height': '100'
+                } %}
+                {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
+            {% else %}
+                {% sw_icon 'placeholder' style {'size': 'fluid'} %}
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    {% block product_buy_list_item_product_content %}
+        <div class="product-content">
+            {% block product_buy_list_item_product_title %}
+                <div class="product-title">
+                    {% if options.enableDirectUrl %}
+                        <a itemprop="url"
+                           href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}">
+                        <span itemprop="name">
+                            {% if quantity > 1 %}{{ quantity }}x{% endif %}
+                            {{ product.translated.name }}
+                        </span>
+                        </a>
+                    {% else %}
+                        <a itemprop="url"
+                           href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}"
+                           data-ajax-modal="modal"
+                           data-modal-class="quickview-modal"
+                           data-url="{{ path('widgets.quickview.minimal', { 'productId': product.id }) }}">
+                        <span itemprop="name">
+                            {% if quantity > 1 %}{{ quantity }}x{% endif %}
+                            {{ product.translated.name }}
+                        </span>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endblock %}
+
+            {% block product_buy_list_item_product_configurator %}
+                {% if product.parentId and options.enableVariantSwitch %}
+                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list-v2/product-configurator.html.twig' %}
+                {% endif %}
+            {% endblock %}
+
+            {% block product_buy_list_item_product_price %}
+                {% if options.enablePrices %}
+                    <div itemprop="offers"
+                         itemscope
+                         itemtype="http://schema.org/Offer"
+                         class="products-buy-form-list-item-info-price">
+                        <meta itemprop="priceCurrency"
+                              content="{{ context.currency.translated.shortName }}"/>
+                        <meta itemprop="price" content="{{ price.unitPrice }}"/>
+                        <link itemprop="availability" href="https://schema.org/InStock"/>
+                        {{ (price.unitPrice * quantity)|currency }}{{ "general.star"|trans|sw_sanitize }}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block product_buy_list_item_product_cart %}
+        {% if options.enableAddToCartSingle %}
+            <form action="{{ path('frontend.checkout.line-item.add') }}"
+                  method="post"
+                  data-add-to-cart="true"
+                  class="product-buy-form">
+                <input type="hidden" name="lineItems[{{ product.id }}][id]" value="{{ product.id }}">
+                <input type="hidden" name="lineItems[{{ product.id }}][type]" value="product">
+                <input type="hidden" name="lineItems[{{ product.id }}][referencedId]" value="{{ product.id }}">
+                <input type="hidden" name="lineItems[{{ product.id }}][stackable]" value="1">
+                <input type="hidden" name="lineItems[{{ product.id }}][removable]" value="1">
+                <input type="hidden" name="lineItems[{{ product.id }}][quantity]" value="1">
+                <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+                <button class="{% block product_item_add_to_cart_class %}btn btn-light{% endblock %}"
+                        title="{{ "detail.addProduct"|trans|striptags }}"
+                        aria-label="{{ "detail.addProduct"|trans|striptags }}">
+                    {% block product_item_add_to_cart_icon %}{% sw_icon 'icon' style {fileName: options.addToCartSingleIcon} %}{% endblock %}
+                </button>
+            </form>
+        {% endif %}
+    {% endblock %}
+</div>

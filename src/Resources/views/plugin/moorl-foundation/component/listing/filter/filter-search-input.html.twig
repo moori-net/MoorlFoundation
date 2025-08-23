@@ -1,13 +1,11 @@
 <div class="input-group">
-    <div class="input-group-prepend">
-        <span class="input-group-text">
-            {% sw_icon 'search' style {pack: 'fas'} %}
-        </span>
-    </div>
+    <span class="input-group-text">
+        {% sw_icon 'search' style {pack: 'fas'} %}
+    </span>
 
     <input id="search"
            name="search"
            class="form-control search"
-           placeholder="{{ "moorl-foundation.properties.search"|trans }}"
-           aria-label="{{ "moorl-foundation.properties.search"|trans }}">
+           placeholder="{{ "moorl-foundation.field.search"|trans }}"
+           aria-label="{{ "moorl-foundation.field.search"|trans }}">
 </div>

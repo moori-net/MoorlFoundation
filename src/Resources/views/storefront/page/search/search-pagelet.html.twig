@@ -2,23 +2,27 @@
 
 {# Case 1: From widget or search page #}
 {% block element_product_listing_wrapper %}
-    {% set activeTab = app.request.query.get('tab') ?? "product" %}
-
-    {% if activeTab == "product" %}
-        {# Search page (default) #}
-        {{ parent() }}
-    {% elseif page.listing.moorlSearchResults %}
-        {% for moorlSearchResult in page.listing.moorlSearchResults %}
-            {% if activeTab == moorlSearchResult.criteria.title %}
-                {# Search page #}
-                {% set config = moorlSearchResult.elementConfig %}
-                {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
-            {% endif %}
-        {% endfor %}
+    {# If advanced search is disabled, just inherit the parent #}
+    {% if config('MoorlFoundation.config.advancedSearchActive') %}
+        {% set activeTab = app.request.query.get('tab') ?? "product" %}
+        {% if activeTab == "product" %}
+            {# Search page (default) #}
+            {{ parent() }}
+        {% elseif page.listing.moorlSearchResults %}
+            {% for moorlSearchResult in page.listing.moorlSearchResults %}
+                {% if activeTab == moorlSearchResult.criteria.title %}
+                    {# Search page #}
+                    {% set config = moorlSearchResult.elementConfig %}
+                    {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {# Widget #}
+            {% set moorlSearchResult = page.listing %}
+            {% set config = moorlSearchResult.elementConfig %}
+            {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+        {% endif %}
     {% else %}
-        {# Widget #}
-        {% set moorlSearchResult = page.listing %}
-        {% set config = moorlSearchResult.elementConfig %}
-        {% sw_include "@Storefront/storefront/page/search/search-" ~ moorlSearchResult.criteria.title ~ ".html.twig" ignore missing %}
+        {{ parent() }}
     {% endif %}
 {% endblock %}

@@ -5,7 +5,6 @@ namespace MoorlFoundation\Core\Service;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use Shopware\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use Shopware\Core\Content\Media\MediaEntity;
-use Shopware\Core\Content\Media\Pathname\UrlGeneratorInterface;
 use Shopware\Core\Content\Product\SalesChannel\Price\AbstractProductPriceCalculator;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\Context;
@@ -15,30 +14,17 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class EntityEnricherService
 {
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
-    private AbstractProductPriceCalculator $productPriceCalculator;
-    private UrlGeneratorInterface $urlGenerator;
-
     private ?Context $context = null;
     private ?SalesChannelContext $salesChannelContext = null;
 
     public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        AbstractProductPriceCalculator $productPriceCalculator,
-        UrlGeneratorInterface $urlGenerator
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly AbstractProductPriceCalculator $productPriceCalculator
     )
     {
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->productPriceCalculator = $productPriceCalculator;
-        $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * @param Context|null $context
-     */
     public function setContext(?Context $context): void
     {
         $this->context = $context;
@@ -86,8 +72,6 @@ class EntityEnricherService
             return;
         }
 
-        $media->setUrl($this->urlGenerator->getAbsoluteMediaUrl($media));
-
         foreach ($media->getThumbnails() as $thumbnail) {
             $this->addThumbnailUrl($thumbnail, $media);
         }
@@ -95,17 +79,8 @@ class EntityEnricherService
 
     private function addThumbnailUrl(MediaThumbnailEntity $thumbnail, MediaEntity $media): void
     {
-        $thumbnail->setUrl(
-            $this->urlGenerator->getAbsoluteThumbnailUrl(
-                $media,
-                $thumbnail
-            )
-        );
     }
 
-    /**
-     * @param SalesChannelContext|null $salesChannelContext
-     */
     public function setSalesChannelContext(?SalesChannelContext $salesChannelContext): void
     {
         $this->salesChannelContext = $salesChannelContext;

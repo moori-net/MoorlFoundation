@@ -62,25 +62,30 @@ class CtaBannerCmsElementResolver extends AbstractCmsElementResolver
         $mediaConfig = $config->get('media');
         if ($mediaConfig && $mediaConfig->getValue()) {
             $searchResult = $result->get('media_' . $slot->getUniqueIdentifier());
-            $ctaBanner->setMedia($searchResult->get($mediaConfig->getValue()));
+            if ($searchResult) {
+                $media = $searchResult->get($mediaConfig->getValue());
+                if ($media) {
+                    $ctaBanner->setMedia($media);
+                }
+            }
         }
 
         $iconMediaConfig = $config->get('iconMedia');
         if ($iconMediaConfig && $iconMediaConfig->getValue()) {
             $searchResult = $result->get('icon_media_' . $slot->getUniqueIdentifier());
-            $ctaBanner->setIconMedia($searchResult->get($iconMediaConfig->getValue()));
+            $ctaBanner->setIconMedia($searchResult?->get($iconMediaConfig->getValue()));
         }
 
         $categoryConfig = $config->get('category');
         if ($categoryConfig && $categoryConfig->getValue()) {
             $searchResult = $result->get('category_' . $slot->getUniqueIdentifier());
-            $ctaBanner->setCategory($searchResult->get($categoryConfig->getValue()));
+            $ctaBanner->setCategory($searchResult?->get($categoryConfig->getValue()));
         }
 
         $productConfig = $config->get('product');
         if ($productConfig && $productConfig->getValue()) {
             $searchResult = $result->get('product_' . $slot->getUniqueIdentifier());
-            $ctaBanner->setProduct($searchResult->get($productConfig->getValue()));
+            $ctaBanner->setProduct($searchResult?->get($productConfig->getValue()));
         }
 
         $scssConfig = $config->get('scss');

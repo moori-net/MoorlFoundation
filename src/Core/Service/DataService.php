@@ -2,20 +2,23 @@
 
 namespace MoorlFoundation\Core\Service;
 
-use MoorlFoundation\Core\System\DataInterface;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use League\Flysystem\FilesystemInterface;
-use Shopware\Core\Content\MailTemplate\MailTemplateActions;
+use League\Flysystem\Filesystem;
+use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
+use MoorlFoundation\Core\System\DataInterface;
+use Shopware\Core\Content\Flow\Dispatching\Action\SendMailAction;
+use Shopware\Core\Content\ImportExport\ImportExportProfileDefinition;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Defaults;
+use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
@@ -28,90 +31,40 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DataService
 {
-    private Connection $connection;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
-    private SystemConfigService $systemConfigService;
-    private MediaService $mediaService;
-    private FileSaver $fileSaver;
-    private Context $context;
-    private ClientInterface $client;
+    private readonly Context $context;
+    private readonly ClientInterface $client;
     private ?string $salesChannelId = null;
     private ?string $themeId = null;
-    private string $demoCustomerMail;
+    private readonly string $demoCustomerMail;
     private ?string $customerId = null;
-    private string $projectDir;
     private array $mediaCache = [];
     private EntityCollection $taxes;
-    private FilesystemInterface $filesystem;
-    private ThemeService $themeService;
-    /**
-     * @var DataInterface[]
-     */
-    private iterable $dataObjects;
+    private ?ShopwareStyle $io = null;
 
+    /**
+     * @param DataInterface[] $dataObjects
+     */
     public function __construct(
-        Connection $connection,
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        MediaService $mediaService,
-        FileSaver $fileSaver,
-        FilesystemInterface $filesystem,
-        ThemeService $themeService,
-        string $projectDir,
-        iterable $dataObjects
+        private readonly Connection $connection,
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly MediaService $mediaService,
+        private readonly FileSaver $fileSaver,
+        private readonly Filesystem $filesystem,
+        private readonly ThemeService $themeService,
+        private readonly string $projectDir,
+        private readonly iterable $dataObjects
     )
     {
-        $this->connection = $connection;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->mediaService = $mediaService;
-        $this->fileSaver = $fileSaver;
-        $this->dataObjects = $dataObjects;
-        $this->filesystem = $filesystem;
-        $this->themeService = $themeService;
-        $this->projectDir = $projectDir;
-
         $this->context = Context::createDefaultContext();
         $this->client = new Client([
             'timeout' => 200,
             'allow_redirects' => false,
         ]);
         /**
-         * When you install demo data you might need to have an customer mail
+         * When you install demo data you might need to have a customer mail
          */
         $this->demoCustomerMail = $systemConfigService->get('MoorlFoundation.config.demoCustomerMail') ?: 'test@example.com';
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSalesChannelId(): ?string
-    {
-        return $this->salesChannelId;
-    }
-
-    /**
-     * @param string|null $salesChannelId
-     */
-    public function setSalesChannelId(?string $salesChannelId): void
-    {
-        $this->salesChannelId = $salesChannelId;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getCustomerId(): ?string
-    {
-        return $this->customerId;
-    }
-
-    /**
-     * @param string|null $customerId
-     */
-    public function setCustomerId(?string $customerId): void
-    {
-        $this->customerId = $customerId;
     }
 
     public function getOptions(string $type = 'demo'): array
@@ -119,10 +72,6 @@ class DataService
         $options = [];
 
         foreach ($this->dataObjects as $dataObject) {
-            if ($dataObject->getType() !== $type) {
-                continue;
-            }
-
             $options[] = [
                 'name' => $dataObject->getName(),
                 'pluginName' => $dataObject->getPluginName(),
@@ -134,40 +83,27 @@ class DataService
         return $options;
     }
 
-    public function getOptionsByPluginName(string $pluginName, string $type = 'demo'): array
+    public function install(string $pluginName, string $type = 'data', ?string $name = null): int
     {
-        $options = [];
-
-        foreach ($this->dataObjects as $dataObject) {
-            if ($pluginName !== $dataObject->getPluginName()) {
-                continue;
-            }
-            if ($dataObject->getType() !== $type) {
-                continue;
-            }
-
-            $options[] = $dataObject->getName();
-        }
-
-        return $options;
-    }
-
-    public function install(string $pluginName, string $type = 'data', ?string $name = null): void
-    {
+        $counter = 0;
         $this->initTaxes();
 
         foreach ($this->dataObjects as $dataObject) {
             if ($pluginName !== $dataObject->getPluginName()) {
                 continue;
             }
-
             if ($dataObject->getType() !== $type) {
                 continue;
             }
-
             if ($name && $name !== $dataObject->getName()) {
                 continue;
             }
+            if (!$name && EntityDefinitionQueryHelper::migrationExists($this->connection, $dataObject::class)) {
+                $this->log("--- already has been migrated " . $dataObject::class);
+                continue;
+            }
+
+            $this->log("Installing " . $dataObject::class);
 
             $this->initGlobalReplacers($dataObject);
 
@@ -175,8 +111,8 @@ class DataService
                 $this->connection->executeStatement($this->processReplace($sql, $dataObject));
             }
 
-            $this->insertContent($dataObject);
             $this->copyAssets($dataObject);
+            $this->insertContent($dataObject);
             $this->addStylesheets($dataObject);
 
             foreach ($dataObject->getInstallQueries() as $sql) {
@@ -193,6 +129,8 @@ class DataService
 
             $dataObject->process();
 
+            EntityDefinitionQueryHelper::addMigration($this->connection, $dataObject::class);
+
             if ($this->themeId && $this->salesChannelId) {
                 $this->themeService->compileTheme(
                     $this->salesChannelId,
@@ -200,16 +138,57 @@ class DataService
                     $this->context
                 );
             }
+
+            $counter++;
         }
+
+        return $counter;
+    }
+
+    public function remove(string $pluginName, string $type = 'data', ?string $name = null): int
+    {
+        $counter = 0;
+
+        foreach ($this->dataObjects as $dataObject) {
+            if (!$dataObject->isCleanUp()) {
+                continue;
+            }
+            if ($pluginName !== $dataObject->getPluginName()) {
+                continue;
+            }
+            if ($type && $dataObject->getType() !== $type) {
+                continue;
+            }
+            if ($name && $name !== $dataObject->getName()) {
+                continue;
+            }
+
+            $this->log("Uninstalling " . $dataObject::class);
+
+            $this->initGlobalReplacers($dataObject);
+            $this->cleanUpPluginTables($dataObject);
+            $this->cleanUpShopwareTables($dataObject);
+
+            foreach ($dataObject->getRemoveQueries() as $sql) {
+                $sql = $this->processReplace($sql, $dataObject);
+                $this->connection->executeStatement($sql);
+            }
+
+            EntityDefinitionQueryHelper::removeMigration($this->connection, $dataObject::class);
+
+            $counter++;
+        }
+
+        return $counter;
     }
 
     public function getTargetDir(DataInterface $dataObject, bool $isBundle = false): string
     {
         if ($isBundle) {
-            return sprintf('bundles/%s/', strtolower($dataObject->getPluginName()));
+            return sprintf('bundles/%s', strtolower($dataObject->getPluginName()));
         }
 
-        return '';
+        return strtolower($dataObject->getPluginName());
     }
 
     public function addStylesheets(DataInterface $dataObject, string $type = 'fontFaces'): void
@@ -219,12 +198,12 @@ class DataService
         $targetDir = $this->getTargetDir($dataObject);
 
         foreach ($dataObject->getStylesheets() as $stylesheet) {
-            if($fontFaces && strpos($fontFaces, $stylesheet) !== false) {
+            if($fontFaces && str_contains((string) $fontFaces, (string) $stylesheet)) {
                 continue;
             }
 
             $append = <<<TWIG
-<link rel="stylesheet" href="{{ asset('%s%s') }}">
+<link rel="stylesheet" href="{{ asset('%s/%s') }}">
 TWIG;
             $fontFaces = $fontFaces . sprintf($append, $targetDir, $stylesheet);
         }
@@ -234,14 +213,15 @@ TWIG;
 
     public function copyAssets(DataInterface $dataObject): void
     {
-        $targetDir = $this->getTargetDir($dataObject);
         $originDir = sprintf('%s/public', $dataObject->getPath());
-
         if (!is_dir($originDir)) {
             return;
         }
 
-        $this->filesystem->createDir($targetDir);
+        $targetDir = $this->getTargetDir($dataObject);
+
+        /* NOTE: This is asset filesystem, it starts from public directory */
+        $this->filesystem->createDirectory($targetDir);
 
         $files = Finder::create()
             ->ignoreDotFiles(false)
@@ -251,7 +231,7 @@ TWIG;
 
         foreach ($files as $file) {
             $fs = fopen($file->getPathname(), 'rb');
-            $this->filesystem->putStream($targetDir . $file->getRelativePathname(), $fs);
+            $this->filesystem->writeStream($targetDir . '/' . $file->getRelativePathname(), $fs);
             if (is_resource($fs)) {
                 fclose($fs);
             }
@@ -260,7 +240,6 @@ TWIG;
 
     public function initTaxes(): void
     {
-        /** @var EntityRepositoryInterface $repo */
         $repo = $this->definitionInstanceRegistry->getRepository('tax');
         $criteria = new Criteria();
         $criteria->addSorting(New FieldSorting('taxRate', FieldSorting::DESCENDING));
@@ -274,6 +253,8 @@ TWIG;
         }
 
         $globalReplacers = [
+            '{PROJECT_DIR}' => $this->projectDir,
+            '{DATA_PLUGIN_NAME}' => strtolower($dataObject->getPluginName()),
             '{DATA_CREATED_AT}' => $dataObject->getCreatedAt(),
             '{NOW}' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
             '{P7DAYS}' => (new \DateTime())->modify('+7 days')->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -284,35 +265,35 @@ TWIG;
             '{LANGUAGE_ID}' => Defaults::LANGUAGE_SYSTEM,
             '{CURRENCY_ID}' => Defaults::CURRENCY,
             '{VERSION_ID}' => Defaults::LIVE_VERSION,
-            '{MAIL_TEMPLATE_MAIL_SEND_ACTION}' => MailTemplateActions::MAIL_TEMPLATE_MAIL_SEND_ACTION,
+            '{MAIL_TEMPLATE_MAIL_SEND_ACTION}' => SendMailAction::ACTION_NAME,
             '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
         ];
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/demo-html.html'));
             $globalReplacers['"{DEMO_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/imprint-html.html'));
             $globalReplacers['"{IMPRINT_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/tos-html.html'));
             $globalReplacers['"{TOS_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         try {
             $data = json_encode(file_get_contents(__DIR__ . '/privacy-html.html'));
             $globalReplacers['"{PRIVACY_HTML}"'] = $data;
-        } catch (\Exception $exception) {}
+        } catch (\Exception) {}
 
         $sql = sprintf(
             "SELECT LOWER(HEX(`id`)) AS `id` FROM `theme` WHERE `technical_name` = '%s';",
             $dataObject->getPluginName()
         );
-        $this->themeId = $this->connection->executeQuery($sql)->fetchColumn() ?: null;
+        $this->themeId = $this->connection->executeQuery($sql)->fetchOne() ?: null;
         $globalReplacers['{THEME_ID}'] = $this->themeId;
 
         if (!$this->customerId) {
@@ -320,19 +301,19 @@ TWIG;
                 "SELECT LOWER(HEX(`id`)) AS `id` FROM `customer` WHERE `email` = '%s';",
                 $this->demoCustomerMail
             );
-            $this->customerId = $this->connection->executeQuery($sql)->fetchColumn() ?: null;
+            $this->customerId = $this->connection->executeQuery($sql)->fetchOne() ?: null;
         }
 
         $sql = "SELECT LOWER(HEX(`rule_id`)) AS `id` FROM `rule_condition` WHERE `type` = 'alwaysValid';";
-        $globalReplacers['{RULE_ID}'] = $this->connection->executeQuery($sql)->fetchColumn();
+        $globalReplacers['{RULE_ID}'] = $this->connection->executeQuery($sql)->fetchOne();
 
         $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `delivery_time` LIMIT 1;";
-        $globalReplacers['{DELIVERY_TIME_ID}'] = $this->connection->executeQuery($sql)->fetchColumn();
+        $globalReplacers['{DELIVERY_TIME_ID}'] = $this->connection->executeQuery($sql)->fetchOne();
 
-        $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` ORDER BY `tax_rate` DESC LIMIT 2;";
+        $sql = "SELECT LOWER(HEX(`id`)) AS `id` FROM `tax` GROUP BY `tax_rate` ORDER BY `tax_rate` DESC LIMIT 2;";
         $query = $this->connection->executeQuery($sql);
-        $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchColumn();
-        $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchColumn();
+        $globalReplacers['{TAX_ID_STANDARD}'] = $query->fetchOne();
+        $globalReplacers['{TAX_ID_REDUCED}'] = $query->fetchOne();
 
         $sql = "SELECT LOWER(HEX(`language`.`id`)) AS `id`, `locale`.`code` AS `code` FROM `language` LEFT JOIN `locale` ON `locale`.`id` = `language`.`locale_id`";
         $query = $this->connection->executeQuery($sql);
@@ -355,8 +336,8 @@ WHERE `media_folder`.`use_parent_configuration` = '0'
 SQL;
         $query = $this->connection->executeQuery($sql);
         while (($row = $query->fetchAssociative()) !== false) {
-            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_CFG_ID}", strtoupper($row['entity']))] = $row['cfg_id'];
-            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_ID}", strtoupper($row['entity']))] = $row['id'];
+            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_CFG_ID}", strtoupper((string) $row['entity']))] = $row['cfg_id'];
+            $globalReplacers[sprintf("{MEDIA_FOLDER_%s_ID}", strtoupper((string) $row['entity']))] = $row['id'];
             $globalReplacers["{MEDIA_FOLDER_CFG_ID}"] = $row['cfg_id'];
             $globalReplacers["{MEDIA_FOLDER_ID}"] = $row['id'];
         }
@@ -377,6 +358,7 @@ SQL;
             $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
             $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
         } catch (\Exception $exception) {
+            $this->log("Unable to set SALES_CHANNEL_ID and NAVIGATION_CATEGORY_ID " . $exception->getMessage(), "error");
         }
 
         /**
@@ -403,9 +385,25 @@ SQL;
                 continue;
             }
 
-            /** @var EntityRepositoryInterface $repository */
             $repository = $this->definitionInstanceRegistry->getRepository($table);
-            $repository->upsert($data, $this->context);
+
+            $this->log(sprintf("Inserting data into table '%s'", $table));
+
+            try {
+                $repository->upsert($data, $this->context);
+            } catch (Exception $exception) {
+                $this->log($exception->getMessage(), "error");
+
+                EntityDefinitionQueryHelper::handleDbalException(
+                    exception: $exception,
+                    connection: $this->connection,
+                    table: $table,
+                    codes: [1451],
+                    ids: array_map(fn($row) => $row['id'], $data)
+                );
+
+                $repository->upsert($data, $this->context);
+            }
         }
     }
 
@@ -424,17 +422,28 @@ SQL;
         preg_match_all('/{MD5:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
-                $content = str_replace($matches[0][$i], md5($matches[1][$i]), $content);
+                $content = str_replace($matches[0][$i], md5((string) $matches[1][$i]), $content);
+            }
+        }
+        preg_match_all('/{BASE64:([^}]+)}/', $content, $matches);
+        if (!empty($matches[1]) && is_array($matches[1])) {
+            for ($i = 0; $i < count($matches[1]); $i++) {
+                $content = str_replace($matches[0][$i], base64_decode((string) $matches[1][$i]), $content);
             }
         }
         preg_match_all('/{PRICE:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
+                $splitMatches = explode("|", (string) $matches[1][$i]);
+                $taxId = $globalReplacers['{TAX_ID_STANDARD}'];
+                if (!empty($splitMatches[1])) {
+                    $taxId = $splitMatches[1] === 'R' ? $globalReplacers['{TAX_ID_REDUCED}'] : $taxId;
+                }
                 $content = str_replace(
                     '"' . $matches[0][$i] . '"',
                     json_encode(
                         [
-                            $this->enrichPriceV2($matches[1][$i], $globalReplacers['{TAX_ID_STANDARD}'])
+                            $this->enrichPriceV2($splitMatches[0], $taxId)
                         ]
                     ),
                     $content
@@ -460,7 +469,7 @@ SQL;
         preg_match_all('/{MEDIA_FILE:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
             for ($i = 0; $i < count($matches[1]); $i++) {
-                $splitMatches = explode("|", $matches[1][$i]);
+                $splitMatches = explode("|", (string) $matches[1][$i]);
                 $filePath = $splitMatches[0];
                 $table2 = $table;
                 if (!empty($splitMatches[1])) {
@@ -497,14 +506,9 @@ SQL;
         return $data;
     }
 
-    /**
-     * @param $data
-     * @param DataInterface $dataObject
-     * @return string
-     */
     public function valueFromFile($data, DataInterface $dataObject): string
     {
-        preg_match('/{READ_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+        preg_match('/{READ_FILE:(.*)}/', (string) $data, $matches, PREG_UNMATCHED_AS_NULL);
         if (!empty($matches[1])) {
             $filePath = sprintf('%s/%s', $dataObject->getPath(), $matches[1]);
 
@@ -517,11 +521,6 @@ SQL;
     }
 
     /**
-     * @param $data
-     * @param string $table
-     * @param DataInterface $dataObject
-     * @return string|null
-     *
      * Usage:
      * {MEDIA_FILE:path/to/file.jpg|product} Save The File to Product Directory
      * {MEDIA_FILE:path/to/file.jpg} Save The File to any Directory
@@ -530,7 +529,7 @@ SQL;
      */
     public function mediaFromFile($data, string $table, DataInterface $dataObject): ?string
     {
-        preg_match('/{MEDIA_FILE:(.*)}/', $data, $matches, PREG_UNMATCHED_AS_NULL);
+        preg_match('/{MEDIA_FILE:(.*)}/', (string) $data, $matches, PREG_UNMATCHED_AS_NULL);
         if (!empty($matches[1])) {
             $splitMatches = explode("|", $matches[1]);
             $filePath = $splitMatches[0];
@@ -573,6 +572,13 @@ SQL;
         foreach ($data as &$item) {
             if (!is_array($item)) {
                 continue;
+            }
+            if (array_is_list($item)) {
+                if (count($item) > 0) {
+                    if (is_string($item[0])) {
+                        continue;
+                    }
+                }
             }
             /* Handle duplicate default media folder entity */
             if ($table === 'media_default_folder' && !empty($item['entity']) && is_array($item['folder'])) {
@@ -618,6 +624,9 @@ SQL;
                 unset($item['_skipEnrichData']);
                 continue;
             }
+            if ($table === ImportExportProfileDefinition::ENTITY_NAME) {
+                continue;
+            }
             /**
              * @deprecated tag:v6.5
              */
@@ -643,7 +652,7 @@ SQL;
              */
             if (isset($item['cover']) && isset($item['cover']['mediaId'])) {
                 $item['cover']['mediaId'] = $this->getMediaId($item['cover']['mediaId'], 'product', $dataObject);
-                $item['cover']['id'] = md5($item['id']);
+                $item['cover']['id'] = md5((string) $item['id']);
             }
             /**
              * @deprecated tag:v6.5 Use {PRICE:999} in your JSON File instead
@@ -662,6 +671,9 @@ SQL;
             foreach ($item as $key => &$value) {
                 /* Do not enrich custom fields */
                 if ($table === 'cms_page' && $key === 'customFields') {
+                    continue;
+                }
+                if ($table === 'custom_field_set' && $key === 'config') {
                     continue;
                 }
 
@@ -688,17 +700,13 @@ SQL;
             return $this->mediaCache[$name];
         }
 
-        if (version_compare(phpversion(), '8', '>')) {
-            $headers = get_headers($name, true);
-        } else {
-            $headers = get_headers($name, 1);
-        }
+        $headers = get_headers($name, true);
 
         if (!isset($headers['Content-Type'])) {
             if (is_array($headers['Content-Type'])) {
-                $type = explode("/", $headers['Content-Type'][0]);
+                $type = explode("/", (string) $headers['Content-Type'][0]);
             } else {
-                $type = explode("/", $headers['Content-Type']);
+                $type = explode("/", (string) $headers['Content-Type']);
             }
 
             $type = $type[0];
@@ -737,7 +745,7 @@ SQL;
                     $mediaId,
                     $this->context
                 );
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 $mediaId = null;
             }
         }
@@ -762,11 +770,14 @@ SQL;
             return $this->mediaCache[$name];
         }
 
-        if (strpos($name, 'http') === 0) {
+        if (str_starts_with($name, 'http')) {
             return $this->getMediaIdFromUrl($name, $table, $dataObject);
         }
 
         $filePath = sprintf('%s/media/%s', $dataObject->getPath(), $name);
+        if (!file_exists($filePath)) {
+            $filePath = sprintf('%s/media/%s/%s', $dataObject->getPath(), $table, $name);
+        }
         if (!file_exists($filePath)) {
             $filePath = sprintf('%s/media/%s.jpg', $dataObject->getPath(), $name);
         }
@@ -839,36 +850,6 @@ SQL;
         ];
     }
 
-    public function remove(string $pluginName, string $type = 'data', ?string $name = null): void
-    {
-        foreach ($this->dataObjects as $dataObject) {
-            if (!$dataObject->isCleanUp()) {
-                continue;
-            }
-
-            if ($pluginName !== $dataObject->getPluginName()) {
-                continue;
-            }
-
-            if ($type && $dataObject->getType() !== $type) {
-                continue;
-            }
-
-            if ($name && $name !== $dataObject->getName()) {
-                continue;
-            }
-
-            $this->initGlobalReplacers($dataObject);
-            $this->cleanUpPluginTables($dataObject);
-            $this->cleanUpShopwareTables($dataObject);
-
-            foreach ($dataObject->getRemoveQueries() as $sql) {
-                $sql = $this->processReplace($sql, $dataObject);
-                $this->connection->executeStatement($sql);
-            }
-        }
-    }
-
     public function cleanUpPluginTables(DataInterface $dataObject): void
     {
         if (!$dataObject->getPluginTables()) {
@@ -885,11 +866,8 @@ SQL;
                 $table,
                 $dataObject->getCreatedAt()
             );
-            try {
-                $this->connection->executeStatement($sql);
-            } catch (\Exception $exception) {
-                continue;
-            }
+
+            $this->connection->executeStatement($sql);
         }
     }
 
@@ -909,11 +887,8 @@ SQL;
                 $table,
                 $dataObject->getCreatedAt()
             );
-            try {
-                $this->connection->executeStatement($sql);
-            } catch (\Exception $exception) {
-                continue;
-            }
+
+            $this->connection->executeStatement($sql);
         }
     }
 
@@ -922,15 +897,42 @@ SQL;
         return file_exists(sprintf('%s/content/%s.json', $dataObject->getPath(), $table));
     }
 
-    public function dropTables(DataInterface $dataObject): void
+    private function log(string|\Stringable $message, $level = 'text', array $context = []): void
     {
-        if (!$dataObject->getPluginTables()) {
+        if (!$this->io instanceof ShopwareStyle) {
             return;
         }
+        array_unshift($context, $message);
 
-        foreach ($dataObject->getPluginTables() as $table) {
-            $sql = sprintf('SET FOREIGN_KEY_CHECKS=0; DROP TABLE IF EXISTS `%s`;', $table);
-            $this->connection->executeStatement($sql);
+        if (method_exists($this->io, $level)) {
+            $this->io->{$level}($context);
+        } else {
+            $this->io->info($context);
         }
+    }
+
+    public function setIo(?ShopwareStyle $io): void
+    {
+        $this->io = $io;
+    }
+
+    public function getSalesChannelId(): ?string
+    {
+        return $this->salesChannelId;
+    }
+
+    public function setSalesChannelId(?string $salesChannelId): void
+    {
+        $this->salesChannelId = $salesChannelId;
+    }
+
+    public function getCustomerId(): ?string
+    {
+        return $this->customerId;
+    }
+
+    public function setCustomerId(?string $customerId): void
+    {
+        $this->customerId = $customerId;
     }
 }

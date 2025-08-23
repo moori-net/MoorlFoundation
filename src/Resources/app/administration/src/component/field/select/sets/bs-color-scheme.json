@@ -1,0 +1,14 @@
+[
+    { "value": "primary", "label": "moorl-select.bsColor.primary" },
+    { "value": "secondary", "label": "moorl-select.bsColor.secondary" },
+    { "value": "danger", "label": "moorl-select.bsColor.danger" },
+    { "value": "success", "label": "moorl-select.bsColor.success" },
+    { "value": "warning", "label": "moorl-select.bsColor.warning" },
+    { "value": "info", "label": "moorl-select.bsColor.info" },
+    { "value": "dark", "label": "moorl-select.bsColor.dark" },
+    { "value": "light", "label": "moorl-select.bsColor.light" },
+    { "value": "facebook", "label": "moorl-select.bsColor.facebook" },
+    { "value": "twitter", "label": "moorl-select.bsColor.twitter" },
+    { "value": "google", "label": "moorl-select.bsColor.google" },
+    { "value": "shopware", "label": "moorl-select.bsColor.shopware" }
+]

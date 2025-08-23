@@ -1,0 +1,72 @@
+{% set hotspotContent %}
+    {% for item in items %}
+        {% set itemType = item.productId ? 'product' : item.categoryId ? 'category' : 'product-stream' %}
+
+        {% set itemUrl = null %}
+        {% set itemName = null %}
+        {% set itemId = null %}
+        {% if itemType == 'product' %}
+            {% set itemUrl = seoUrl('frontend.detail.page', {'productId': item.productId}) %}
+            {% set itemName = item.product.translated.name %}
+            {% set hoverCardUrl = seoUrl('frontend.moorl-hover-card', {entityName: itemType, entityId: item.productId}) %}
+        {% elseif itemType == 'category' %}
+            {% set itemUrl = seoUrl('frontend.navigation.page', {'navigationId': item.categoryId}) %}
+            {% set itemName = item.category.translated.name %}
+            {% set hoverCardUrl = seoUrl('frontend.moorl-hover-card', {entityName: itemType, entityId: item.categoryId}) %}
+        {% endif %}
+
+        {% if loadHoverCards %}
+            {% set hoverCardOptions = {
+                url: hoverCardUrl,
+                title: itemName,
+                placement: 'top',
+                toggle: false,
+                animation: false
+            } %}
+        {% endif %}
+
+        {% if useSvg %}
+            <a
+                    href="{{ itemUrl }}"
+                    class="{{ itemType }}"
+                    {% if loadHoverCards %}
+                        data-moorl-hover-card
+                        data-moorl-hover-card-options="{{ hoverCardOptions|json_encode }}"
+                    {% else %}
+                        data-bs-toggle="tooltip"
+                    {% endif %}
+                    title="{{ itemName }}"
+            >{{ item.getSvgShapeHTML()|raw }}</a>
+        {% else %}
+            <a
+                    href="{{ itemUrl }}"
+                    class="moorl-multi-banner-dot {{ itemType }}"
+                    style="top: {{ item.posTop }}%; left: {{ item.posLeft }}%"
+                    title="{{ itemName }}"
+                    {% if loadHoverCards %}
+                        data-moorl-hover-card="{{ hoverCardUrl }}"
+                        data-moorl-hover-card-options="{{ hoverCardOptions|json_encode }}"
+                    {% else %}
+                        data-bs-toggle="tooltip"
+                    {% endif %}
+            ><div class="pulse"></div></a>
+        {% endif %}
+    {% endfor %}
+{% endset %}
+
+{% if useSvg %}
+    {% if not width or not height %}
+        {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+            type: "danger",
+            content: "moorl-multi-banner.missingMetaData"|trans
+        } %}
+    {% endif %}
+
+    <figure>
+        <svg viewBox="0 0 {{ width }} {{ height }}">
+            {{ hotspotContent }}
+        </svg>
+    </figure>
+{% else %}
+    {{ hotspotContent }}
+{% endif %}

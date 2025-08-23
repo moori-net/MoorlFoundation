@@ -2,12 +2,12 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityStock;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Checkout\Cart\Event\CheckoutOrderPlacedEvent;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use Shopware\Core\Checkout\Order\OrderDefinition;
 use Shopware\Core\Checkout\Order\OrderEvents;
 use Shopware\Core\Checkout\Order\OrderStates;
@@ -21,7 +21,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\ChangeSetAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\DeleteCommand;
 use Shopware\Core\Framework\DataAbstractionLayer\Write\Command\InsertCommand;
@@ -31,29 +30,18 @@ use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\StateMachine\Event\StateMachineTransitionEvent;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-
 class EntityStockUpdater implements EventSubscriberInterface
 {
-    protected Connection $connection;
-    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
-    protected SystemConfigService $systemConfigService;
-    protected string $entityName;
-    protected string $propertyName;
-    protected string $propertyNamePlural;
+    protected string $propertyNamePlural = "";
 
     public function __construct(
-        Connection $connection,
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        string $entityName,
-        string $propertyName,
+        protected Connection $connection,
+        protected DefinitionInstanceRegistry $definitionInstanceRegistry,
+        protected SystemConfigService $systemConfigService,
+        protected string $entityName,
+        protected string $propertyName,
         ?string $propertyNamePlural = null
     ) {
-        $this->connection = $connection;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->entityName = $entityName;
-        $this->propertyName = $propertyName;
         if ($propertyNamePlural) {
             $this->propertyNamePlural = $propertyNamePlural;
         } else {
@@ -61,7 +49,7 @@ class EntityStockUpdater implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             OrderEvents::ORDER_LINE_ITEM_WRITTEN_EVENT => 'lineItemWritten',
@@ -74,19 +62,6 @@ class EntityStockUpdater implements EventSubscriberInterface
 
     protected function enrichSalesChannelProductCriteria(Criteria $criteria, OrderLineItemEntity $lineItem): void
     {
-        return;
-
-        /*
-        $salesChannelId = $lineItem->getOrder()->getSalesChannelId();
-
-        try {
-            $customerGroupId = $lineItem->getOrder()->getOrderCustomer()->getCustomer()->getGroupId();
-            $customerId = $lineItem->getOrder()->getOrderCustomer()->getCustomer()->getId();
-        } catch (\Exception $exception) {
-            $customerGroupId = null;
-            $customerId = null;
-        }
-        */
     }
 
     public function lineItemWritten(EntityWrittenEvent $event): void
@@ -154,7 +129,7 @@ class EntityStockUpdater implements EventSubscriberInterface
                 continue;
             }
             /** @var ChangeSetAware|InsertCommand|UpdateCommand $command */
-            if ($command->getDefinition()->getEntityName() !== OrderLineItemDefinition::ENTITY_NAME) {
+            if ($command->getEntityName() !== OrderLineItemDefinition::ENTITY_NAME) {
                 continue;
             }
             if ($command instanceof DeleteCommand) {
@@ -273,7 +248,7 @@ SQL;
                 'ids' => Uuid::fromHexToBytesList($entityStockIds),
             ],
             [
-                'ids' => Connection::PARAM_STR_ARRAY,
+                'ids' => ArrayParameterType::STRING,
             ]
         );
 
@@ -348,11 +323,11 @@ SQL;
     private function getLineItemsOfOrder(string $orderId): array
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select([
+        $query->select(
             'referenced_id',
             'quantity',
             sprintf('LOWER(HEX(%s)) AS entity_stock_id', $this->propertyName)
-        ]);
+        );
         $query->from('order_line_item');
         $query->andWhere('type = :type');
         $query->andWhere('order_id = :id');
@@ -362,7 +337,7 @@ SQL;
         $query->setParameter('version', Uuid::fromHexToBytes(Defaults::LIVE_VERSION));
         $query->setParameter('type', LineItem::PRODUCT_LINE_ITEM_TYPE);
 
-        return $query->execute()->fetchAllAssociative();
+        return $query->executeQuery()->fetchAllAssociative();
     }
 
     private function getEntityStockIdByLineItemId(string $lineItemId, Context $context): ?string
@@ -373,8 +348,14 @@ SQL;
         $lineItemRepository = $this->definitionInstanceRegistry->getRepository(OrderLineItemDefinition::ENTITY_NAME);
         /** @var OrderLineItemEntity $lineItem */
         $lineItem = $lineItemRepository->search($criteria, $context)->get($lineItemId);
+        if (!$lineItem) {
+            return null;
+        }
 
         $productId = $lineItem->getReferencedId();
+        if (!$productId) {
+            return null;
+        }
 
         $criteria = new Criteria([$productId]);
         $criteria->setLimit(1);
@@ -394,13 +375,13 @@ SQL;
 
         $product = $productRepository->search($criteria, $context)->get($productId);
         if (!$product) {
-            if ($product->getParentId()) {
-                $criteria->setIds([$product->getParentId()]);
-                $product = $productRepository->search($criteria, $context)->get($product->getParentId());
-                if (!$product) {
-                    return null;
-                }
-            } else {
+            return null;
+        }
+
+        if ($product->getParentId()) {
+            $criteria->setIds([$product->getParentId()]);
+            $product = $productRepository->search($criteria, $context)->get($product->getParentId());
+            if (!$product) {
                 return null;
             }
         }

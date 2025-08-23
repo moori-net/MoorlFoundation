@@ -1,24 +1,23 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 import HttpClient from 'src/service/http-client.service';
 
 export default class MoorlCountdownPlugin extends Plugin {
     static options = {
         locale: document.documentElement.lang,
         label: {
-            days: "Days",
-            hours: "Hours",
-            minutes: "Minutes",
-            seconds: "Seconds"
+            days: 'Days',
+            hours: 'Hours',
+            minutes: 'Minutes',
+            seconds: 'Seconds',
         },
         intervalTimeout: 1000,
         from: 'now',
         actionUrl: null,
-        debug: false
+        debug: false,
     };
 
     init() {
         if (this.options.actionUrl) {
-            console.log(this.options.actionUrl);
         }
 
         const actionUrl = this.options.actionUrl;
@@ -32,22 +31,31 @@ export default class MoorlCountdownPlugin extends Plugin {
             let now = new Date();
             let diff = Math.floor((from.getTime() - now.getTime()) / 1000);
 
-            if (actionUrl && (debug || diff < 1)) {
+            if (diff < 1) {
                 clearInterval(x);
-                client.get(actionUrl, (response) => {
-                    response = JSON.parse(response);
-                    if (response.url) {
-                        window.location.href = response.url;
+
+                setTimeout(() => {
+                    if (actionUrl) {
+                        client.get(actionUrl, (response) => {
+                            response = JSON.parse(response);
+                            if (response.url) {
+                                window.location.href = response.url;
+                            } else {
+                                window.location.reload();
+                            }
+                        });
                     } else {
                         window.location.reload();
                     }
-                });
+                }, 5000);
+
+                diff = 0;
             }
 
             let days = Math.trunc(diff / (60 * 60 * 24));
             let hours = Math.trunc((diff % (60 * 60 * 24)) / (60 * 60));
-            let minutes = Math.trunc((diff % (60 * 60)) / (60));
-            let seconds = Math.trunc((diff % (60)));
+            let minutes = Math.trunc((diff % (60 * 60)) / 60);
+            let seconds = Math.trunc(diff % 60);
 
             cdItems[0].innerText = zeroPad(days, 2);
             cdItems[1].innerText = zeroPad(hours, 2);
@@ -59,15 +67,15 @@ export default class MoorlCountdownPlugin extends Plugin {
     buildContainer() {
         const cdItems = [];
 
-        for (let item of ['days','hours','minutes','seconds']) {
-            const itemDiv = document.createElement("div");
-            const labelDiv = document.createElement("div");
-            const timeDiv = document.createElement("div");
+        for (let item of ['days', 'hours', 'minutes', 'seconds']) {
+            const itemDiv = document.createElement('div');
+            const labelDiv = document.createElement('div');
+            const timeDiv = document.createElement('div');
 
             labelDiv.classList.add('moorl-countdown-label');
-            labelDiv.innerText =  this.options.label[item];
+            labelDiv.innerText = this.options.label[item];
             timeDiv.classList.add('moorl-countdown-time');
-            timeDiv.innerText = "--";
+            timeDiv.innerText = '--';
 
             itemDiv.appendChild(labelDiv);
             itemDiv.appendChild(timeDiv);

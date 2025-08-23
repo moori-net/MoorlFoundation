@@ -7,17 +7,13 @@ use Shopware\Core\Framework\Event\NestedEvent;
 
 class EntityLocationIndexerEvent extends NestedEvent
 {
-    private Context $context;
-    private array $ids;
-    private array $skip;
-    private string $entityName;
-
-    public function __construct(array $ids, string $entityName, Context $context, array $skip = [])
+    public function __construct(
+        private readonly array $ids,
+        private string $entityName,
+        private readonly Context $context,
+        private readonly array $skip = []
+    )
     {
-        $this->context = $context;
-        $this->ids = $ids;
-        $this->entityName = $entityName;
-        $this->skip = $skip;
     }
 
     public function getContext(): Context

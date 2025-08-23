@@ -1,8 +1,6 @@
 <?php
 namespace MoorlFoundation\Core\Framework\GeoLocation;
 
-use MoorlFoundation\Core\Framework\GeoLocation\GeoPoint;
-
 class Polygon {
 
   protected $GeoPoints = array();

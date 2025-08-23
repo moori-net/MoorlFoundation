@@ -1,0 +1,7 @@
+[
+    { "value": "fill", "label": "moorl-select.cssObjectFit.fill" },
+    { "value": "contain", "label": "moorl-select.cssObjectFit.contain" },
+    { "value": "cover", "label": "moorl-select.cssObjectFit.cover" },
+    { "value": "none", "label": "moorl-select.cssObjectFit.none" },
+    { "value": "scale-down", "label": "moorl-select.cssObjectFit.scale-down" }
+]

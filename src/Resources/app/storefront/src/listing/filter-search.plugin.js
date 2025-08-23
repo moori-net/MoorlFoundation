@@ -1,20 +1,19 @@
 import FilterBasePlugin from 'src/plugin/listing/filter-base.plugin';
-import DomAccess from 'src/helper/dom-access.helper';
+
 import deepmerge from 'deepmerge';
 
 export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin {
-
     static options = deepmerge(FilterBasePlugin.options, {
         inputSearchSelector: '.search',
         inputInvalidCLass: 'is-invalid',
         inputTimeout: 1000,
         searchKey: 'search',
-        containerSelector: '.filter-search-container'
+        containerSelector: '.filter-search-container',
     });
 
     init() {
-        this._container = DomAccess.querySelector(this.el, this.options.containerSelector);
-        this._inputSearch = DomAccess.querySelector(this.el, this.options.inputSearchSelector);
+        this._container = this.el.querySelector(this.options.containerSelector);
+        this._inputSearch = this.el.querySelector(this.options.inputSearchSelector);
         this._timeout = null;
         this._hasError = false;
 
@@ -25,7 +24,10 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
      * @private
      */
     _registerEvents() {
-        this._inputSearch.addEventListener('input', this._onChangeInput.bind(this));
+        this._inputSearch.addEventListener(
+            'input',
+            this._onChangeInput.bind(this)
+        );
     }
 
     /**
@@ -83,7 +85,10 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
         this._inputSearch.classList.add(this.options.inputInvalidCLass);
         this._inputDistance.classList.add(this.options.inputInvalidCLass);
 
-        this._container.insertAdjacentHTML('afterend', this._getErrorMessageTemplate());
+        this._container.insertAdjacentHTML(
+            'afterend',
+            this._getErrorMessageTemplate()
+        );
 
         this._hasError = true;
     }
@@ -94,7 +99,7 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
     _removeError() {
         this._inputSearch.classList.remove(this.options.inputInvalidCLass);
 
-        const error = DomAccess.querySelector(this.el, `.${this.options.errorContainerClass}`, false);
+        const error = this.el.querySelector(`.${this.options.errorContainerClass}`);
 
         if (error) {
             error.remove();
@@ -110,7 +115,7 @@ export default class MoorlFoundationFilterSearchPlugin extends FilterBasePlugin 
      */
     setValuesFromUrl(params) {
         let stateChanged = false;
-        Object.keys(params).forEach(key => {
+        Object.keys(params).forEach((key) => {
             if (key === this.options.searchKey) {
                 this._inputSearch.value = params[key];
                 stateChanged = true;

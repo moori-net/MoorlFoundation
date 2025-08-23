@@ -1,0 +1,4 @@
+[
+    { "value": "carousel", "label": "moorl-select.sliderMode.carousel" },
+    { "value": "gallery", "label": "moorl-select.sliderMode.gallery" }
+]

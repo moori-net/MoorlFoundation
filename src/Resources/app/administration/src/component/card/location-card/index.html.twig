@@ -1,48 +1,18 @@
 {% block moorl_location_card %}
-    <sw-card class="moorl-location-card" :title="$tc('moorl-foundation.card.location')">
-        <sw-container columns="1fr 1fr" gap="0 20px">
-            {% block moorl_location_card_inner %}
-                <div class="moorl-link-field">
-                    <sw-entity-single-select
-                            :label="$tc('moorl-foundation.properties.markerId')"
-                            entity="moorl_marker"
-                            v-model="item.markerId"
-                    />
+    <mt-card
+        class="moorl-location-card"
+        :title="$tc('moorl-location-card.name')"
+    >
+        <template #headerRight>
+            <router-link
+                    target="_blank"
+                    rel="noopener"
+                    :to="{ name: 'sw.extension.config', params: { namespace: 'MoorlFoundation' } }"
+            >
+                {{ $tc('moorl-location.link') }}
+            </router-link>
+        </template>
 
-                    <router-link target="_blank" rel="noopener" :to="{ name: 'moorl.marker.list' }">
-                        {{ $tc('moorl-marker.title') }}
-                    </router-link>
-                </div>
-
-                <sw-field
-                        type="switch"
-                        bordered
-                        :label="$tc('moorl-foundation.properties.autoLocation')"
-                        v-model="item.autoLocation"
-                />
-
-                <sw-number-field
-                        :disabled="item.autoLocation"
-                        :label="$tc('moorl-foundation.properties.locationLat')"
-                        numberType="float"
-                        step="0.00001"
-                        digits="5"
-                        v-model="item.locationLat"
-                />
-
-                <sw-number-field
-                        :disabled="item.autoLocation"
-                        :label="$tc('moorl-foundation.properties.locationLon')"
-                        numberType="float"
-                        step="0.00001"
-                        digits="5"
-                        v-model="item.locationLon"
-                />
-            {% endblock %}
-        </sw-container>
-
-        <moorl-location :locations="locations" :options="['dragging']"/>
-
-        <slot name="append"/>
-    </sw-card>
+        <moorl-location v-bind="$attrs"/>
+    </mt-card>
 {% endblock %}

@@ -1,0 +1,230 @@
+$light: #f9f9f9 !default;
+$sw-border-color: #bcc1c7 !default;
+$border-radius: 10px;
+$sw-background-color: #ffffff;
+$sw-headline-color: #4a545b !default;
+
+.moorl-abstract-cms-listing {
+    width: 100%;
+    min-height: 200px;
+
+    .navigation {
+        display: none;
+    }
+
+    .moorl-listing-slider {
+        display: flex;
+        justify-content: space-between;
+
+        li.navigation {
+            display: block;
+            width: auto;
+            height: auto;
+        }
+
+        li:not(.navigation) {
+            display: none;
+        }
+
+        li:not(.navigation):nth-child(-n + 4) {
+            display: list-item;
+        }
+    }
+
+    /* Same as Storefront CSS */
+    .moorl-listing-header-title {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* listingLayout */
+    .moorl-listing-standard,
+    .moorl-listing-list,
+    .moorl-listing-slider,
+    .moorl-listing-grid {
+        list-style: none;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+
+        > li {
+            width: 100%;
+            height: 100%;
+
+            > div {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .moorl-listing-standard,
+    .moorl-listing-list,
+    .moorl-listing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-gap: 20px;
+    }
+
+    .moorl-listing-list {
+        grid-template-columns: 1fr;
+
+        .moorl-listing-item-image-content,
+        .moorl-listing-item-content-image {
+            display: flex;
+            flex-direction: row;
+
+            .moorl-listing-item-image {
+                height: 100%;
+                width: 50%;
+            }
+
+            .moorl-listing-item-content {
+                height: 100%;
+                width: 50%;
+            }
+        }
+
+        .moorl-listing-item-content-image {
+            flex-direction: row-reverse;
+        }
+    }
+
+    /* itemLayout */
+    .moorl-listing-item-wrapper {
+        &.has-border {
+            border: 1px solid $sw-border-color;
+            border-radius: $border-radius;
+        }
+
+        > div {
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+    }
+
+    .moorl-listing-item-standard,
+    .moorl-listing-item-image-or-title,
+    .moorl-listing-item-overlay {
+        .moorl-listing-item-image {
+            position: absolute;
+        }
+
+        .moorl-listing-item-content {
+            position: absolute;
+            bottom: 0;
+            background-color: rgba($sw-background-color, 0.7);
+        }
+    }
+
+    .moorl-listing-item-image-content,
+    .moorl-listing-item-content-image {
+        display: flex;
+        flex-direction: column;
+
+        .moorl-listing-item-image {
+            height: 50%;
+        }
+
+        .moorl-listing-item-content {
+            height: 50%;
+        }
+    }
+
+    .moorl-listing-item-content-image {
+        flex-direction: column-reverse;
+    }
+
+    .moorl-listing-item-avatar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .moorl-listing-item-image {
+            margin-bottom: 10px;
+
+            img {
+                border-radius: 50%;
+            }
+        }
+
+        .moorl-listing-item-content {
+            .moorl-listing-item-description {
+                display: none;
+            }
+        }
+    }
+
+    .moorl-listing-item-title {
+        font-size: 1.4em;
+        height: 24px;
+        line-height: 24px;
+    }
+
+    .moorl-listing-item-meta {
+        height: 16px;
+        font-size: 0.8em;
+    }
+
+    .moorl-listing-item-description {
+        height: 60px;
+    }
+
+    /* displayMode */
+    .moorl-listing-item-image {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        img {
+            display: block;
+            max-width: 100%;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+
+            &.is-standard,
+            &.is-cover,
+            &.is-contain {
+                width: 100%;
+                height: 100%;
+            }
+
+            &.is-cover {
+                object-fit: cover;
+            }
+
+            &.is-contain {
+                object-fit: contain;
+            }
+
+            &.is-standard {
+                object-fit: scale-down;
+            }
+        }
+
+        .moorl-listing-item-title {
+            height: auto;
+        }
+    }
+
+    .moorl-listing-item-content {
+        padding: 15px;
+        width: 100%;
+
+        > div > div {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 10px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

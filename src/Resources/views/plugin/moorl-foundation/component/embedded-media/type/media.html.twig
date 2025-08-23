@@ -1,0 +1,19 @@
+<video
+        class="w-100 h-100 is-{{ displayMode }}"
+        preload="{{ embeddedMedia.config.preload ?? 'metadata' }}"
+        poster="{{ embeddedMedia.cover.url }}"
+        {{ embeddedMedia.config.video|join(" ") }}
+>
+    {% if embeddedMedia.videos.count() > 0 %}
+        {% for video in embeddedMedia.videos %}
+            <source
+                    src="{{ video.media.url }}"
+                    type="{{ video.media.mimeType }}"
+                    media="(min-width: {{ video.minWidth ?? 0 }})"
+            >
+        {% endfor %}
+    {% endif %}
+
+    <source src="{{ embeddedMedia.media.url }}" type="{{ embeddedMedia.media.mimeType }}">
+    Your browser does not support the video tag
+</video>

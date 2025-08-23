@@ -2,27 +2,30 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use MoorlFoundation\Core\Content\OpeningHours\OpeningHoursDefaults;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\VueComponent;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldOpeningHoursCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
+    public static function getFieldItems(bool $flag = true): array
     {
-        return new parent(self::getFieldItems());
+        if (!$flag) return [];
+
+        return [
+            (new StringField('time_zone', 'timeZone'))->addFlags(new EditField(EditField::TEXT)),
+            (new JsonField('opening_hours','openingHours'))->addFlags(new VueComponent('moorl-opening-hours')),
+        ];
     }
 
-    public static function getFieldItems(): array
+    public static function getDefaults(): array
     {
         return [
-            (new StringField('time_zone', 'timeZone'))->addFlags(new EditField('text')),
-            (new JsonField('opening_hours','openingHours'))->addFlags(new VueComponent('moorl-opening-hours')),
+            'timeZone' => 'Europe/Berlin',
+            'openingHours' => OpeningHoursDefaults::getOpeningHours(),
         ];
     }
 }

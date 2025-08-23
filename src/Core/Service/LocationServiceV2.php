@@ -6,14 +6,18 @@ use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
+use MoorlFoundation\Core\Content\Location\LocationDefinition;
 use MoorlFoundation\Core\Content\Location\LocationEntity;
+use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
+use Shopware\Core\DevOps\Environment\EnvironmentHelper;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\Country\CountryCollection;
 use Shopware\Core\System\Country\CountryDefinition;
 use Shopware\Core\System\Country\CountryEntity;
@@ -21,32 +25,34 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class LocationServiceV2
 {
-    public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
+    final public const SEARCH_ENGINE = 'https://nominatim.openstreetmap.org/search';
 
-    protected ?Context $context;
-    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
-    protected SystemConfigService $systemConfigService;
-    protected Connection $connection;
-    protected ClientInterface $client;
-    protected \DateTimeImmutable $now;
+    private ?Context $context;
+    private ClientInterface $client;
+    private \DateTimeImmutable $now;
+    private string $appUrl;
 
     public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        Connection $connection
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly SystemConfigService $systemConfigService,
+        private readonly Connection $connection,
+        private readonly LoggerInterface $logger
     )
     {
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->connection = $connection;
+        $this->appUrl = (string) EnvironmentHelper::getVariable('APP_URL', getenv('APP_URL'));
 
         $this->client = new Client([
             'timeout' => 200,
-            'allow_redirects' => false,
+            'allow_redirects' => false
         ]);
 
         $this->now = new \DateTimeImmutable();
         $this->context = Context::createDefaultContext();
+    }
+
+    public function clearLocationCache(): void
+    {
+        $this->connection->executeStatement("TRUNCATE TABLE `moorl_location_cache`;");
     }
 
     public function writeLocationCache(
@@ -61,20 +67,20 @@ class LocationServiceV2
         }
 
         $sql = <<<SQL
-INSERT INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`, `updated_at`) 
+INSERT INTO `moorl_location_cache` (`location_id`, `entity_id`, `distance`, `created_at`) 
 SELECT
     UNHEX('%s'),
     `id`, 
-    (6371 * acos(
+    IFNULL((6371 * acos(
         cos(radians(`location_lat`)) *
         cos(radians(%f)) *
         cos(radians(%f) - radians(`location_lon`)) +
         sin(radians(`location_lat`)) *
         sin(radians(%f))
-    )) AS distance,
-    `created_at`, 
-    `updated_at`
+    )), 0) AS `distance`,
+    NOW()
 FROM `%s`
+WHERE `active` = '1'
 ON DUPLICATE KEY UPDATE `moorl_location_cache`.`distance` = `distance`;
 SQL;
         $this->connection->executeStatement(sprintf(
@@ -85,6 +91,18 @@ SQL;
             $location->getLocationLat(),
             $entityName
         ));
+    }
+
+    public function getEntityIdsByDistance(string $locationId, float $distance, string $entityName = ""): array
+    {
+        $sql = <<<SQL
+SELECT DISTINCT LOWER(HEX(`entity_id`)) as `id` FROM `moorl_location_cache` WHERE `location_id` = :location_id AND `distance` < :distance;
+SQL;
+        $ids = $this->connection->fetchFirstColumn($sql, [
+            'location_id' => Uuid::fromHexToBytes($locationId),
+            'distance' => $distance
+        ]);
+        return array_unique(array_filter($ids));
     }
 
     public function getUnitOfMeasurement(): string
@@ -109,7 +127,7 @@ SQL;
         ));
         $criteria->setLimit(1);
 
-        $countryRepository = $this->definitionInstanceRegistry->getRepository('country');
+        $countryRepository = $this->definitionInstanceRegistry->getRepository(CountryDefinition::ENTITY_NAME);
 
         return $countryRepository->search($criteria, $this->context)->first();
     }
@@ -137,6 +155,10 @@ SQL;
         array $countryIds = []
     ): ?LocationEntity
     {
+        if (empty($countryIds) && isset($payload['countryId'])) {
+            $countryIds = [$payload['countryId']];
+        }
+
         $payload = array_merge([
             'street' => null,
             'streetNumber' => null,
@@ -151,7 +173,7 @@ SQL;
         }
 
         /* Check if location already exists */
-        $repo = $this->definitionInstanceRegistry->getRepository('moorl_location');
+        $repo = $this->definitionInstanceRegistry->getRepository(LocationDefinition::ENTITY_NAME);
         $criteria = new Criteria([$locationId]);
         $criteria->addFilter(new RangeFilter('updatedAt', [
             RangeFilter::GTE => ($this->now->modify("-1 hour"))->format(DATE_ATOM)
@@ -164,7 +186,7 @@ SQL;
         }
 
         if (!empty($payload['coords'])) {
-            $coords = explode("|", $payload['coords']);
+            $coords = explode("|", (string) $payload['coords']);
 
             $repo->upsert([[
                 'id' => $locationId,
@@ -202,7 +224,7 @@ SQL;
                 /* Find best result by country filter */
                 if (count($response) > 1) {
                     foreach ($response as $item) {
-                        if (in_array(strtoupper($item['address']['country_code']), $countryIso)) {
+                        if (in_array(strtoupper((string) $item['address']['country_code']), $countryIso)) {
                             $locationLat = $item['lat'];
                             $locationLon = $item['lon'];
                             break;
@@ -240,9 +262,34 @@ SQL;
 
                 return null;
             }
-        } catch (\Exception $exception) {}
+        } catch (\Exception $exception) {
+            $this->logger->critical(
+                sprintf("Error get location by address: %s", $exception->getMessage()),
+                $payload
+            );
+        }
 
         return null;
+    }
+
+    private function getCountryPostalCodePatterns(array $countryIds): array
+    {
+        if (count($countryIds) === 0) {
+            if ($this->systemConfigService->get('MoorlFoundation.config.osmCountryIds')) {
+                $countryIds = $this->systemConfigService->get('MoorlFoundation.config.osmCountryIds');
+            } else {
+                return ['\d{5}','\d{4}']; // DE, AT or CH
+            }
+        }
+
+        $criteria = new Criteria($countryIds);
+        $criteria->setLimit(count($countryIds));
+        $countryRepository = $this->definitionInstanceRegistry->getRepository(CountryDefinition::ENTITY_NAME);
+
+        /** @var CountryCollection $countries */
+        $countries = $countryRepository->search($criteria, $this->context)->getEntities();
+
+        return array_values($countries->fmap(fn(CountryEntity $entity) => $entity->getDefaultPostalCodePattern()));
     }
 
     private function getCountryIso(array $countryIds): array
@@ -262,21 +309,20 @@ SQL;
         /** @var CountryCollection $countries */
         $countries = $countryRepository->search($criteria, $this->context)->getEntities();
 
-        return array_values($countries->fmap(function (CountryEntity $entity) {
-            return $entity->getIso();
-        }));
+        return array_values($countries->fmap(fn(CountryEntity $entity) => $entity->getIso()));
     }
 
     protected function apiRequest(string $method, ?string $endpoint = null, ?array $data = null, array $query = [])
     {
         $headers = [
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'referer' => $this->appUrl
         ];
 
         $httpBody = json_encode($data);
 
-        $query = \guzzlehttp\psr7\build_query($query);
+        $query = http_build_query($query);
 
         $request = new Request(
             $method,
@@ -284,6 +330,8 @@ SQL;
             $headers,
             $httpBody
         );
+
+        sleep(1); // Throttle requests, see fair use policy https://operations.osmfoundation.org/policies/nominatim/
 
         $response = $this->client->send($request);
 
@@ -300,7 +348,7 @@ SQL;
 
         try {
             return json_decode($contents, true);
-        } catch (\Exception $exception) {
+        } catch (\Exception) {
             throw new \Exception(
                 sprintf('[%d] Error decoding JSON: %s', $statusCode, $contents),
                 $statusCode
@@ -314,6 +362,7 @@ SQL;
             return null;
         }
 
+        $countryPostalCodePatterns = $this->getCountryPostalCodePatterns($countryIds);
         $terms = explode(',', $term);
         $iso = null;
         $zipcode = null;
@@ -330,15 +379,17 @@ SQL;
                 ]);
             }
 
+            foreach ($countryPostalCodePatterns as $countryPostalCodePattern) {
+                preg_match("/(^" . $countryPostalCodePattern . "$)/", $term, $matches, PREG_UNMATCHED_AS_NULL);
+                if (!empty($matches[1])) {
+                    $zipcode = $matches[1];
+                    continue 2;
+                }
+            }
+
             preg_match('/([A-Z]{2})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
             if (!empty($matches[1])) {
                 $iso = $matches[1];
-                continue;
-            }
-
-            preg_match('/([\d]{5})/', $term, $matches, PREG_UNMATCHED_AS_NULL);
-            if (!empty($matches[1])) {
-                $zipcode = $matches[1];
                 continue;
             }
 
@@ -364,17 +415,11 @@ SQL;
         ], 0, null, $countryIds);
     }
 
-    /**
-     * @return Context|null
-     */
     public function getContext(): ?Context
     {
         return $this->context;
     }
 
-    /**
-     * @param Context|null $context
-     */
     public function setContext(?Context $context): void
     {
         $this->context = $context;

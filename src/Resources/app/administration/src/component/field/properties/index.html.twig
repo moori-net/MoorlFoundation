@@ -1,0 +1,131 @@
+{% block moorl_properties %}
+    <template v-if="itemHasProperties">
+        <sw-container rows="auto auto">
+            <sw-card-section
+                secondary
+                divider="bottom"
+            >
+                <sw-container
+                    columns="1fr auto"
+                    gap="0 15px"
+                >
+                    <sw-simple-search-field
+                        v-model:value="searchTerm"
+                        variant="form"
+                        size="small"
+                        :placeholder="$tc('sw-product.properties.placeholderSearchAddedProperties')"
+                        :disabled="isPropertiesLoading || undefined"
+                        @search-term-change="onChangeSearchTerm"
+                    />
+                    <mt-button
+                        class="moorl-properties__button-add-property"
+                        ghost
+                        size="small"
+                        variant="secondary"
+                        @click="turnOnAddPropertiesModal"
+                    >
+                        {{ $tc('sw-product.properties.buttonAddProperty') }}
+                    </mt-button>
+                </sw-container>
+            </sw-card-section>
+            <sw-entity-listing
+                v-if="properties.length > 0"
+                ref="entityListing"
+                class="moorl-properties__list"
+                detail-route="sw.property.detail"
+                identifier="moorl-properties-list"
+                plain-appearance
+                :items="properties"
+                :data-source="properties"
+                :columns="propertyColumns"
+                :repository="propertyGroupRepository"
+                :full-page="false"
+                :show-settings="false"
+                :allow-column-edit="false"
+                :allow-inline-edit="false"
+            >
+                <template #column-values="{ item }">
+                    <div
+                        v-for="option in item.options"
+                        :key="option.id"
+                        class="moorl-properties-list__column-values"
+                    >
+                        <sw-label
+                            size="medium"
+                            @dismiss="onDeletePropertyValue(option)"
+                        >
+                            {{ option.translated.name }}
+                        </sw-label>
+                    </div>
+                </template>
+
+                <template #delete-modal-delete-item="{ item }">
+                    <mt-button
+                        variant="danger"
+                        size="small"
+                        @click="onDeleteProperty(item)"
+                    >
+                        {{ $tc('global.default.delete') }}
+                    </mt-button>
+                </template>
+
+                <template #bulk-modal-delete-items>
+                    <mt-button
+                        variant="danger"
+                        size="small"
+                        @click="onDeleteProperties"
+                    >
+                        {{ $tc('global.default.delete') }}
+                    </mt-button>
+                </template>
+            </sw-entity-listing>
+            <sw-empty-state
+                v-if="properties.length <= 0"
+                class="moorl-properties__empty-state has--no-search-result"
+                :absolute="false"
+                :show-description="false"
+                :title="$tc('sw-product.properties.titleEmptyStateList')"
+            >
+                <template #icon>
+                    <img
+                        :src="assetFilter('administration/administration/static/img/empty-states/products-empty-state.svg')"
+                        :alt="$tc('sw-product.properties.titleEmptyStateList')"
+                    />
+                </template>
+            </sw-empty-state>
+            <mt-loader v-if="isPropertiesLoading"/>
+        </sw-container>
+    </template>
+
+    <sw-empty-state
+        v-if="!itemHasProperties"
+        class="moorl-properties__empty-state has--no-properties"
+        :absolute="false"
+        :show-description="false"
+        :title="$tc('sw-product.properties.titleEmptyState')"
+    >
+        <template #icon>
+            <img
+                :src="assetFilter('administration/administration/static/img/empty-states/products-empty-state.svg')"
+                :alt="$tc('sw-product.properties.titleEmptyState')"
+            />
+        </template>
+
+        <template #actions>
+            <mt-button
+                ghost
+                @click="turnOnAddPropertiesModal"
+            >
+                {{ $tc('sw-product.properties.buttonAddProperties') }}
+            </mt-button>
+        </template>
+    </sw-empty-state>
+
+    <sw-product-add-properties-modal
+        v-if="showAddPropertiesModal"
+        :new-properties="newProperties"
+        :properties-available="propertiesAvailable"
+        @modal-cancel="onCancelAddPropertiesModal"
+        @modal-save="onSaveAddPropertiesModal($event, updateCurrentValue)"
+    />
+{% endblock %}

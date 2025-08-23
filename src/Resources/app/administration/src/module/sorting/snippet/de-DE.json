@@ -1,20 +1,11 @@
 {
-  "moorl-sorting": {
-    "properties": {
-      "active": "Aktiv",
-      "entity": "Tabelle",
-      "priority": "Priorität",
-      "label": "Bezeichnung",
-      "name": "Name",
-      "order": "Sortierung",
-      "key": "URL Key"
-    },
-    "general": {
-      "mainMenuItemGeneral": "moori Sortierung",
-      "textHeadline": "moori Sortierung",
-      "criteria": "Kriterien",
-      "selectField": "Wähle ein Feld aus",
-      "criteriaAlreadyUsed": "Das Sortier-Kriterium \"{criteriaName}\" wird schon verwendet."
+    "moorl-sorting": {
+        "general": {
+            "mainMenuItemGeneral": "moori Sortierung",
+            "textHeadline": "moori Sortierung",
+            "criteria": "Kriterien",
+            "selectField": "Wähle ein Feld aus",
+            "criteriaAlreadyUsed": "Das Sortier-Kriterium \"{criteriaName}\" wird schon verwendet."
+        }
     }
-  }
 }

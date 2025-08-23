@@ -18,21 +18,11 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 
 class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
 {
-    protected SortingService $sortingService;
-    protected ?AbstractProductListingRoute $listingRoute = null;
-
-    /**
-     * FoundationListingCmsElementResolver constructor.
-     * @param SortingService $sortingService
-     * @param AbstractProductListingRoute|null $listingRoute
-     */
     public function __construct(
-        SortingService $sortingService,
-        ?AbstractProductListingRoute $listingRoute = null
+        protected readonly SortingService $sortingService,
+        protected readonly ?AbstractProductListingRoute $listingRoute = null
     )
     {
-        $this->sortingService = $sortingService;
-        $this->listingRoute = $listingRoute;
     }
 
     /**
@@ -54,16 +44,12 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         return;
     }
 
-    /**
-     * @param ResolverContext $resolverContext
-     * @return string
-     */
     protected function getNavigationId(ResolverContext $resolverContext): string
     {
         $request = $resolverContext->getRequest();
         $salesChannelContext = $resolverContext->getSalesChannelContext();
 
-        if ($navigationId = $request->get('navigationId')) {
+        if ($navigationId = $request->request->get('navigationId')) {
             return $navigationId;
         }
 
@@ -77,9 +63,6 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
     }
 
     /**
-     * @param CmsSlotEntity $slot
-     * @param Criteria $criteria
-     * @param ResolverContext $resolverContext
      * @throws UnexpectedFieldConfigValueType
      */
     protected function enrichCmsElementResolverCriteriaV2(
@@ -92,7 +75,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $salesChannelContext = $resolverContext->getSalesChannelContext();
 
         if ($request) {
-            /* Unset immediately in EntitySearchService, because its not compatible with product listing */
+            /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
             $request->query->set('slots', $slot->getId());
         }
 
@@ -104,7 +87,8 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         if ($limitConfig && $limitConfig->getValue()) {
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
-                $request->query->set('limit', $limitConfig->getValue());
+                /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
+                $request->query->set('moorl_limit', $limitConfig->getValue());
             }
         }
 
@@ -126,7 +110,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
 
             if ($listingSourceConfig && $listingSourceConfig->getValue() === 'auto') {
                 $criteria->resetSorting();
-                if ($request && !$request->get('order') && $sorting) {
+                if ($request && !$request->query->get('order') && $sorting) {
                     $request->query->set('order', $sorting->getKey());
                 }
             }
@@ -139,7 +123,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $translatedConfig = $slot->getTranslated()['config'];
 
         $foreignKeyConfig = $config->get('foreignKey');
-        if ($foreignKeyConfig && $foreignKeyConfig->getValue()) {
+        if ($foreignKeyConfig && $foreignKeyConfig->getValue() && !in_array($foreignKeyConfig->getValue(), ['Keine', 'None'])) {
             /* Ignore filter if manual selected */
             if (!$listingSourceConfig || $listingSourceConfig->getValue() !== 'select') {
                 $criteria->addFilter(new EqualsFilter(

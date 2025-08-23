@@ -10,7 +10,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class SortingTranslationDefinition extends EntityTranslationDefinition
 {
-    public const ENTITY_NAME = 'moorl_sorting_translation';
+    final public const ENTITY_NAME = 'moorl_sorting_translation';
 
     public function getEntityName(): string
     {

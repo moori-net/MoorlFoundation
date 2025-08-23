@@ -1,0 +1,13 @@
+.moorl-combination-element {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--min-width), 1fr));
+    grid-gap: 20px;
+    grid-auto-flow: dense;
+    margin-bottom: 20px;
+
+    &.content-banner {
+        > .moorl-combination-element-content {
+            order: -1;
+        }
+    }
+}

@@ -1,97 +1,100 @@
 <div class="sw-cms-block-moorl-interactive-slider">
     <div class="sw-cms-block-moorl-interactive-slider-config">
-        <sw-button variant="light"
-                   @click="showConfigurationModal = true">
-            {{ $tc('moorl-foundation.buttons.configuration') }}
-        </sw-button>
-
-        <sw-button variant="light"
-                   @click="addSlot()">
-            {{ $tc('moorl-foundation.buttons.add') }}
-        </sw-button>
-
-        <sw-button variant="light"
-                   @click="removeSlot()">
-            {{ $tc('moorl-foundation.buttons.remove') }}
-        </sw-button>
-
-        <sw-select-field :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.activeSlot')"
-                         v-model="activeSlot">
-            <option v-for="slot in block.slots" :value="slot.id">{{ slot.slot }}</option>
-        </sw-select-field>
+        <mt-button
+            variant="secondary"
+            size="default"
+            @click="showConfigurationModal = true"
+        >
+            {{ $tc('global.default.edit') }}
+        </mt-button>
+        <mt-button
+            variant="secondary"
+            size="default"
+            @click="addSlot()"
+        >
+            {{ $tc('global.default.add') }}
+        </mt-button>
+        <mt-button
+            variant="secondary"
+            size="default"
+            @click="removeSlot()"
+        >
+            {{ $tc('global.default.delete') }}
+        </mt-button>
+        <moorl-select-field
+            v-model:value="activeSlot"
+            :customSet="block.slots"
+            variant="small"
+            valueProperty="id"
+            labelProperty="slot"
+        />
     </div>
-
-    <div class="sw-cms-block-moorl-interactive-slider-content" ref="content">
-        <div v-for="slot in block.slots"
-             v-if="slot.id === activeSlot"
-             :style="slotStyle"
-             class="sw-cms-block-moorl-interactive-slider-slot">
-            <slot :name="slot.slot"></slot>
-        </div>
+    <div
+        class="sw-cms-block-moorl-interactive-slider-content"
+        ref="content"
+    >
+        <template v-for="slot in block.slots">
+            <div
+                v-if="slot.id === activeSlot"
+                :style="slotStyle"
+                class="sw-cms-block-moorl-interactive-slider-slot"
+            >
+                <slot :name="slot.slot"/>
+            </div>
+        </template>
     </div>
-
-    <sw-modal v-if="showConfigurationModal"
-              :title="$tc('sw-cms.blocks.moorl-slider.interactive')"
-              @modal-close="showConfigurationModal = false">
-        <sw-container columns="1fr 1fr" gap="0px 30px">
-            <sw-field v-model="block.customFields.moorl_interactive_slider.itemWidth"
-                      type="text"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemWidth')">
-            </sw-field>
-
-            <sw-field v-model="block.customFields.moorl_interactive_slider.itemHeight"
-                      type="text"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.itemHeight')">
-            </sw-field>
-
-            <sw-field v-model="block.customFields.moorl_interactive_slider.gapSize"
-                      type="text"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.gapSize')">
-            </sw-field>
-            
-            <sw-field v-model="block.customFields.moorl_interactive_slider.speed"
-                      type="number"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.speed')">
-            </sw-field>
-
-            <sw-field v-model="block.customFields.moorl_interactive_slider.autoplayTimeout"
-                      type="number"
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayTimeout')">
-            </sw-field>
-
-            <sw-field v-model="block.customFields.moorl_interactive_slider.autoplay"
-                      type="switch"
-                      bordered
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplay')">
-            </sw-field>
-
-            <sw-field v-model="block.customFields.moorl_interactive_slider.autoplayHoverPause"
-                      type="switch"
-                      bordered
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.autoplayHoverPause')">
-            </sw-field>
-
-            <sw-field v-model="block.customFields.moorl_interactive_slider.navigation"
-                      type="switch"
-                      bordered
-                      :label="$tc('sw-cms.elements.moorl-foundation-listing.label.navigation')">
-            </sw-field>
-
-            <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             v-model="block.customFields.moorl_interactive_slider.animateIn">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
-
-            <sw-select-field :label="$tc('sw-cms.elements.moorl-foundation-listing.label.animateOut')"
-                             :placeholder="$tc('sw-cms.elements.moorl-foundation-listing.label.animateIn')"
-                             v-model="block.customFields.moorl_interactive_slider.animateOut">
-                <optgroup v-for="item in moorlFoundation.animateCss" :label="item.optgroup">
-                    <option v-for="value in item.options" :value="value">{{ value }}</option>
-                </optgroup>
-            </sw-select-field>
+    <sw-modal
+        v-if="showConfigurationModal"
+        :title="$tc('sw-cms.blocks.moorl-slider.interactive')"
+        @modal-close="showConfigurationModal = false"
+    >
+        <sw-container
+            columns="1fr 1fr"
+            gap="0px 30px"
+        >
+            <mt-text-field
+                v-model="block.customFields.moorl_interactive_slider.itemWidth"
+                :label="$tc('moorl-foundation.field.itemWidth')"
+            />
+            <mt-text-field
+                v-model="block.customFields.moorl_interactive_slider.itemHeight"
+                :label="$tc('moorl-foundation.field.itemHeight')"
+            />
+            <mt-text-field
+                v-model="block.customFields.moorl_interactive_slider.gapSize"
+                :label="$tc('moorl-foundation.field.gapSize')"
+            />
+            <mt-number-field
+                v-model="block.customFields.moorl_interactive_slider.speed"
+                :label="$tc('moorl-foundation.field.speed')"
+            />
+            <mt-number-field
+                v-model="block.customFields.moorl_interactive_slider.autoplayTimeout"
+                :label="$tc('moorl-foundation.field.autoplayTimeout')"
+            />
+            <mt-switch
+                v-model="block.customFields.moorl_interactive_slider.autoplay"
+                bordered
+                :label="$tc('moorl-foundation.field.autoplay')"
+            />
+            <mt-switch
+                v-model="block.customFields.moorl_interactive_slider.autoplayHoverPause"
+                bordered
+                :label="$tc('moorl-foundation.field.autoplayHoverPause')"
+            />
+            <mt-switch
+                v-model="block.customFields.moorl_interactive_slider.navigation"
+                bordered
+                :label="$tc('moorl-foundation.field.navigation')"
+            />
+            <moorl-select-field
+                v-model:value="block.customFields.moorl_interactive_slider.animateIn"
+                set="animateIn"
+            />
+            <moorl-select-field
+                v-model:value="block.customFields.moorl_interactive_slider.animateOut"
+                set="animateOut"
+            />
         </sw-container>
     </sw-modal>
 </div>

@@ -1,0 +1,11 @@
+[
+    { "value": "block", "label": "moorl-select.cssDisplay.block" },
+    { "value": "flex", "label": "moorl-select.cssDisplay.flex" },
+    { "value": "inline", "label": "moorl-select.cssDisplay.inline" },
+    { "value": "none", "label": "moorl-select.cssDisplay.none" },
+    {
+        "value": "inline-block",
+        "label": "moorl-select.cssDisplay.inline-block"
+    },
+    { "value": "inline-flex", "label": "moorl-select.cssDisplay.inline-flex" }
+]

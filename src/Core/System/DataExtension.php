@@ -6,11 +6,6 @@ class DataExtension
 {
     private ?array $globalReplacers = null;
 
-    /**
-     * @param string $key
-     * @param string|null $fallback
-     * @return string|null
-     */
     public function getReplacer(string $key, ?string $fallback = null): ?string
     {
         $key = sprintf("{%s}", strtoupper($key));
@@ -18,33 +13,21 @@ class DataExtension
         return isset($this->globalReplacers[$key]) ? $this->globalReplacers[$key] : $fallback;
     }
 
-    /**
-     * @return bool
-     */
     public function customerRequired(): bool
     {
         return false;
     }
 
-    /**
-     * @return bool
-     */
     public function isCleanUp(): bool
     {
         return true;
     }
 
-    /**
-     * @return array|null
-     */
     public function getGlobalReplacers(): ?array
     {
         return $this->globalReplacers;
     }
 
-    /**
-     * @param array|null $globalReplacers
-     */
     public function setGlobalReplacers(?array $globalReplacers): void
     {
         $this->globalReplacers = $globalReplacers;
@@ -148,5 +131,28 @@ class DataExtension
     public function getType(): string
     {
         return 'demo';
+    }
+
+    public function getSeoUrlTemplateQuery($id = 'SEO_URL_1'): string
+    {
+        $sql = <<<SQL
+INSERT IGNORE INTO `seo_url_template` (
+    `id`,
+    `is_valid`,
+    `route_name`,
+    `entity_name`,
+    `template`,
+    `created_at`
+) VALUES (
+    UNHEX('{ID:%s}'),
+    1,
+    '{SEO_ROUTE_NAME}',
+    '{MAIN_ENTITY}',
+    '{SEO_DEFAULT_TEMPLATE}',
+    '{DATA_CREATED_AT}'
+);
+SQL;
+
+        return sprintf($sql, $id);
     }
 }

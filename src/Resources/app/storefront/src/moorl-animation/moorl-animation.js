@@ -1,4 +1,4 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 
 export default class MoorlAnimation extends Plugin {
     init() {
@@ -9,6 +9,7 @@ export default class MoorlAnimation extends Plugin {
         }
 
         this.activeAnimation = null;
+        this.zIndex = parseInt(window.moorlAnimationZIndex ?? "9000");
         this.animateInit();
         this.animate();
         this._registerEvents();
@@ -17,11 +18,15 @@ export default class MoorlAnimation extends Plugin {
     _registerEvents() {
         const that = this;
 
-        window.addEventListener("scroll", function () {
-            that.animate();
-        }, false);
+        window.addEventListener(
+            'scroll',
+            function () {
+                that.animate();
+            },
+            false
+        );
 
-        this.el.addEventListener("mouseenter",  () => {
+        this.el.addEventListener('mouseenter', () => {
             if (that.activeAnimation) {
                 return;
             }
@@ -42,7 +47,11 @@ export default class MoorlAnimation extends Plugin {
                 that.el.classList.add('moorl-animation-hidden');
             }
 
-            that.el.style = {};
+            that.el.style.animation = undefined;
+            that.el.style.zIndex = undefined;
+            that.el.style.animationDelay = undefined;
+            that.el.style.animationDuration = undefined;
+
             that.activeAnimation = null;
 
             that.animate();
@@ -50,27 +59,39 @@ export default class MoorlAnimation extends Plugin {
     }
 
     _ms(number) {
-        return number.toString() + "ms";
+        return number.toString() + 'ms';
     }
 
     _visible(rule) {
-        const el = this.el;
-
         if (rule === 'isLoaded') {
             return true;
         }
 
-        if (Feature.isActive('v6.5.0.0')) {
-            return;
-        }
-
         if (rule === 'isOverBottom') {
-            return $(el).isOverBottom();
+            return this._isOverBottom();
         }
 
         if (rule === 'isInViewport') {
-            return $(el).isInViewport();
+            return this._isInViewport();
         }
+    }
+
+    _isInViewport() {
+        const rect = this.el.getBoundingClientRect();
+
+        return (
+            rect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight)
+        );
+    }
+
+    _isOverBottom() {
+        const rect = this.el.getBoundingClientRect();
+
+        return (
+            rect.top <=
+            (window.innerHeight || document.documentElement.clientHeight)
+        );
     }
 
     animateHover() {
@@ -83,11 +104,11 @@ export default class MoorlAnimation extends Plugin {
         if (this._visible(config.condition)) {
             this.activeAnimation = 'hover';
             this.el.style.animation = config.name;
-            this.el.style.zIndex = 9000;
+            this.el.style.zIndex = this.zIndex;
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
-    };
+    }
 
     animateIn() {
         const config = this.config.in;
@@ -99,11 +120,11 @@ export default class MoorlAnimation extends Plugin {
         if (this._visible(config.condition)) {
             this.activeAnimation = 'in';
             this.el.style.animation = config.name;
-            this.el.style.zIndex = 9000;
+            this.el.style.zIndex = this.zIndex;
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
-    };
+    }
 
     animateOut() {
         const config = this.config.out;
@@ -118,7 +139,7 @@ export default class MoorlAnimation extends Plugin {
             this.el.style.animationDelay = this._ms(config.delay);
             this.el.style.animationDuration = this._ms(config.duration);
         }
-    };
+    }
 
     animateInit() {
         const config = this.config;
@@ -130,7 +151,7 @@ export default class MoorlAnimation extends Plugin {
                 this.el.classList.add('moorl-animation-hidden');
             }
         }
-    };
+    }
 
     animate() {
         if (this.activeAnimation) {
@@ -144,5 +165,5 @@ export default class MoorlAnimation extends Plugin {
         if (this.config.out && this.config.out.active) {
             this.animateOut();
         }
-    };
+    }
 }

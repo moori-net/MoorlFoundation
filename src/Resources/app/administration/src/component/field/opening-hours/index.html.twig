@@ -1,0 +1,60 @@
+<ul class="moorl-opening-hours">
+    <li
+        class="day"
+        v-for="(dayItem, dayIndex) in value"
+    >
+        <div class="moorl-opening-hours-title">
+            {{ $tc('moorl-opening-hours.days.' + dayItem.day) }}
+        </div>
+        <div class="moorl-opening-hours-actions">
+            <mt-button
+                @click="removeTimes(dayIndex)"
+                :disabled="disabled"
+                variant="secondary"
+            >
+                <mt-icon
+                    name="regular-trash"
+                    size="16px"
+                />
+                {{ $tc('moorl-opening-hours.action.remove') }}
+            </mt-button>
+            <mt-button
+                @click="addTimes(dayIndex)"
+                :disabled="disabled"
+                variant="secondary"
+            >
+                <mt-icon
+                    name="regular-plus"
+                    size="16px"
+                />
+                {{ $tc('moorl-opening-hours.action.add') }}
+            </mt-button>
+        </div>
+        <template v-if="dayItem.times.length > 0">
+            <ul class="moorl-opening-hours-times">
+                <li v-for="time in dayItem.times">
+                    <mt-datepicker
+                        dateType="time"
+                        size="small"
+                        v-model="time.from"
+                        :disabled="disabled"
+                    />
+                    <mt-datepicker
+                        dateType="time"
+                        size="small"
+                        v-model="time.until"
+                        :disabled="disabled"
+                    />
+                </li>
+            </ul>
+        </template>
+
+        <template v-else>
+            <mt-text-field
+                :placeholder="$tc('moorl-opening-hours.action.enterClosedHint')"
+                v-model="dayItem.info"
+                :disabled="disabled"
+            />
+        </template>
+    </li>
+</ul>

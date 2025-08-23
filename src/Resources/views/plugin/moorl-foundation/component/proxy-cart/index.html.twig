@@ -1,0 +1,70 @@
+{% set options = {
+    currencyIso: context.currency.isoCode
+} %}
+
+{% set sumPrice = 0 %}
+{% set sumDiscount = 0 %}
+{% set discountName = "" %}
+
+{% if cart.lineItems.count > 0 %}
+    <form
+            action="{{ path('frontend.checkout.line-item.add') }}"
+            method="post"
+            data-add-to-cart="true"
+            class="moorl-parts-list"
+            data-moorl-parts-list
+            data-moorl-parts-list-options='{{ options|json_encode|raw }}'
+    >
+        <input type="hidden" name="redirectTo" value="frontend.cart.offcanvas">
+        <input type="hidden" name="proxy_cart_token" value="{{ cart.token }}">
+
+        <ul class="moorl-parts-list-items">
+            <li class="moorl-parts-list-item">
+                <div></div>
+                <div>{{ "moorl-foundation.field.quantity"|trans }}</div>
+                <div>{{ "moorl-foundation.field.product"|trans }}</div>
+                <div class="text-end">{{ "moorl-foundation.field.subtotal"|trans }}</div>
+            </li>
+            {% for lineItem in cart.lineItems %}
+                {% if lineItem.type == 'product' %}
+                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/proxy-cart/product-item.html.twig' %}
+
+                    {% set sumPrice = sumPrice + lineItem.price.totalPrice %}
+                {% endif %}
+
+                {% if lineItem.type == 'promotion' %}
+                    {% set sumDiscount = sumDiscount + lineItem.price.totalPrice %}
+                    {% set discountName = lineItem.label %}
+                {% endif %}
+            {% endfor %}
+
+            <li class="moorl-parts-list-price">
+                <div class="text-end">
+                    {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
+                    <span class="total-price {% if sumDiscount < 0 %}striked{% endif %}">{{ (sumPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}</span>
+                </div>
+                {% if sumDiscount < 0 %}
+                    <div class="text-end" title="{{ discountName }}">
+                        <span class="discount-price">{{ (sumPrice + sumDiscount)|currency }}{{ "general.star"|trans|sw_sanitize }}</span>
+                    </div>
+                {% endif %}
+            </li>
+        </ul>
+
+        <div class="d-grid">
+            <button
+                    data-moorl-product-buy-list-button
+                    class="btn btn-primary btn-buy"
+                    title="{{ "detail.addProduct"|trans|striptags }}"
+                    aria-label="{{ "detail.addProduct"|trans|striptags }}"
+            >
+                {{ "detail.addProduct"|trans|striptags }}
+            </button>
+        </div>
+    </form>
+{% elseif config('MoorlFoundation.config.cmsEmptyAlert') %}
+    {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
+        type: "primary",
+        content: options.emptyText ?: "moorl-foundation.search.notAvailable"|trans
+    } %}
+{% endif %}

@@ -1,9 +1,9 @@
-import Plugin from 'src/plugin-system/plugin.class';
+const Plugin = window.PluginBaseClass;
 
 export default class MoorlGridPlugin extends Plugin {
     static options = {
         offsetTop: 0,
-        isSticky: false
+        isSticky: false,
     };
 
     init() {
@@ -19,15 +19,17 @@ export default class MoorlGridPlugin extends Plugin {
     _registerEvents() {
         const that = this;
 
-        window.addEventListener('scroll', event => {
+        window.addEventListener('scroll', (event) => {
             that._onScroll();
         });
     }
 
     _onScroll() {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop || 0;
-        let tocNavTop = this.el.getBoundingClientRect().top +
-            this.el.ownerDocument.defaultView.pageYOffset
+        let scrollTop =
+            document.documentElement.scrollTop || document.body.scrollTop || 0;
+        let tocNavTop =
+            this.el.getBoundingClientRect().top +
+            this.el.ownerDocument.defaultView.pageYOffset;
 
         if (scrollTop < tocNavTop) {
             this.el.style.paddingTop = '0';

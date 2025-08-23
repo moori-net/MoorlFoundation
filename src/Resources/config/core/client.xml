@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://symfony.com/schema/dic/services"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="MoorlFoundation\Core\Content\Client\ClientLocal">
+            <tag name="moorl.foundation.client" priority="900"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientFtp">
+            <tag name="moorl.foundation.client" priority="850"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientAwsS3">
+            <tag name="moorl.foundation.client" priority="800"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientWebDAV">
+            <tag name="moorl.foundation.client" priority="750"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientNextcloud">
+            <tag name="moorl.foundation.client" priority="700"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientHubspot">
+            <tag name="moorl.foundation.client" priority="650"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Client\ClientMautic">
+            <tag name="moorl.foundation.client" priority="600"/>
+        </service>
+    </services>
+</container>

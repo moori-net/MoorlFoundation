@@ -10,46 +10,31 @@ use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Storefront\Controller\StorefrontController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Routing\Attribute\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"storefront"}})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class CustomerUploadController extends StorefrontController
 {
-    private EventDispatcherInterface $eventDispatcher;
-    private MediaService $mediaService;
-    private EntityRepositoryInterface $mediaRepository;
-    private EntityRepositoryInterface $mediaFolderRepository;
-    private EntityRepositoryInterface $mediaDefaultFolderRepository;
-
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        MediaService $mediaService,
-        EntityRepositoryInterface $mediaRepository,
-        EntityRepositoryInterface $mediaFolderRepository,
-        EntityRepositoryInterface $mediaDefaultFolderRepository
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly MediaService $mediaService,
+        private readonly EntityRepository $mediaRepository,
+        private readonly EntityRepository $mediaFolderRepository,
+        private readonly EntityRepository $mediaDefaultFolderRepository
     )
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->mediaService = $mediaService;
-        $this->mediaRepository = $mediaRepository;
-        $this->mediaFolderRepository = $mediaFolderRepository;
-        $this->mediaDefaultFolderRepository = $mediaDefaultFolderRepository;
     }
 
-    /**
-     * @Route("/moorl/customer-upload", name="moorl.customer-upload.send", methods={"POST"}, defaults={"XmlHttpRequest"=true})
-     */
+    #[Route(path: '/moorl/customer-upload', name: 'moorl.customer-upload.send', methods: ['POST'], defaults: ['XmlHttpRequest' => true])]
     public function upload(Request $request, SalesChannelContext $salesChannelContext): Response
     {
         $files = $request->files->get('file', null);
@@ -91,7 +76,7 @@ class CustomerUploadController extends StorefrontController
             );
 
             $filenameEvent = new CustomerUploadFilenameEvent(
-                pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+                pathinfo((string) $file->getClientOriginalName(), PATHINFO_FILENAME),
                 $initiator,
                 (string) $key,
                 $uploadEvent->getEntity(),
@@ -185,7 +170,7 @@ class CustomerUploadController extends StorefrontController
                 }
             }
 
-            $body .= $this->renderView('@Storefront/plugin/moorl-foundation/component/form/customer-upload-image.html.twig', [
+            $body .= $this->renderView('@MoorlFoundation/plugin/moorl-foundation/component/form/customer-upload-image.html.twig', [
                 'media' => $media,
                 'entityMedia' => $entityMedia,
                 'entityCoverId' => $entityCoverId,

@@ -18,27 +18,21 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class TranslationService
 {
-    private SystemConfigService $systemConfigService;
-    private DefinitionInstanceRegistry $definitionInstanceRegistry;
     private ?Translator $translator = null;
     private Context $context;
     private array $languages = [];
     private const HASH_KEY = 'moorl_trans_hash';
     private string $sourceLocale = 'de-DE';
-    /**
-     * @var iterable<EntityTranslationInterface>
-     */
-    private iterable $entityTranslations;
 
+    /**
+     * @param EntityTranslationInterface[] $entityTranslations
+     */
     public function __construct(
-        SystemConfigService $systemConfigService,
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        iterable $entityTranslations
+        private readonly SystemConfigService $systemConfigService,
+        private readonly DefinitionInstanceRegistry $definitionInstanceRegistry,
+        private readonly iterable $entityTranslations
     )
     {
-        $this->systemConfigService = $systemConfigService;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->entityTranslations = $entityTranslations;
     }
 
     public function translate(string $entityName, array $writeResults, Context $context): void
@@ -124,10 +118,14 @@ class TranslationService
 
     private function translateField(string $text, string $destinationLocale): string
     {
+        if (substr($destinationLocale, 0, 2) !== 'en' && substr($destinationLocale, 0, 2) !== 'pt') {
+            $destinationLocale = substr($destinationLocale, 0, 2);
+        }
+
         $textResult = $this->translator->translateText(
             $text,
             substr($this->sourceLocale, 0, 2),
-            substr($destinationLocale, 0, 2),
+            $destinationLocale,
             [
                 TranslateTextOptions::TAG_HANDLING => 'html',
                 TranslateTextOptions::IGNORE_TAGS => 'creator,author,name,brand,manufacturer',

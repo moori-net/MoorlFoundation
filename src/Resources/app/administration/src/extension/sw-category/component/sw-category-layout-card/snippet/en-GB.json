@@ -1,0 +1,11 @@
+{
+    "sw-category": {
+        "component": {
+            "sw-category-layout-card": {
+                "adoptChildren": "Adopt selected layout to all subcategories",
+                "adoptSiblings": "Adopt selected layout to all siblings",
+                "success": "{affected_rows} categories has been changed"
+            }
+        }
+    }
+}

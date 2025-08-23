@@ -3,31 +3,20 @@
 namespace MoorlFoundation\Core\Content\Product\SalesChannel\Listing;
 
 use MoorlFoundation\Core\Service\EntitySearchService;
+use Shopware\Core\Content\Product\SalesChannel\Exception\ProductSortingNotFoundException;
 use Shopware\Core\Content\Product\SalesChannel\Listing\AbstractProductListingRoute;
 use Shopware\Core\Content\Product\SalesChannel\Listing\ProductListingRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route(defaults={"_routeScope"={"store-api"}})
- */
+#[Route(defaults: ['_routeScope' => ['store-api']])]
 class FoundationProductListingRoute extends AbstractProductListingRoute
 {
-    private AbstractProductListingRoute $decorated;
-    private EventDispatcherInterface $dispatcher;
-    private EntitySearchService $searchService;
-
-    public function __construct(
-        AbstractProductListingRoute $decorated,
-        EntitySearchService $searchService,
-        EventDispatcherInterface $dispatcher
-    ) {
-        $this->decorated = $decorated;
-        $this->dispatcher = $dispatcher;
-        $this->searchService = $searchService;
+    public function __construct(private readonly AbstractProductListingRoute $decorated, private readonly EntitySearchService $searchService, private readonly EventDispatcherInterface $dispatcher)
+    {
     }
 
     public function getDecorated(): AbstractProductListingRoute
@@ -47,6 +36,10 @@ class FoundationProductListingRoute extends AbstractProductListingRoute
             return $entityListing->listingRoute($criteria, $categoryId);
         }
 
-        return $this->decorated->load($categoryId, $request, $context, $criteria);
+        try {
+            return $this->decorated->load($categoryId, $request, $context, $criteria);
+        } catch (ProductSortingNotFoundException $exception) {
+            throw new \Exception('Product listing is not combinable with another listing. Please leave the product listing alone.');
+        }
     }
 }

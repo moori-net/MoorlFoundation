@@ -1,0 +1,5 @@
+[
+    { "value": "progressBarAbs", "label": "moorl-select.stockType.progressBarAbs" },
+    { "value": "progressBarPc", "label": "moorl-select.stockType.progressBarPc" },
+    { "value": "text", "label": "moorl-select.stockType.text" }
+]

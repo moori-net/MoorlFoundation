@@ -1,73 +1,51 @@
-<sw-page class="moorl-sorting-detail">
-    <template slot="smart-bar-actions">
-        <sw-button :routerLink="{ name: 'moorl.sorting.list' }">
-            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
-        </sw-button>
-
-        <sw-button-process
-                :isLoading="isLoading"
-                :processSuccess="processSuccess"
-                variant="primary"
-                @process-finish="saveFinish"
-                @click="onClickSave">
-            {{ $tc('moorl-foundation.buttons.saveButtonText') }}
-        </sw-button-process>
-    </template>
-
-    <template #language-switch>
-        <sw-language-switch slot="language-switch"
-                            :disabled="item && item.isNew()"
-                            @on-change="onChangeLanguage">
-        </sw-language-switch>
-    </template>
-
-    <template slot="content">
-        <sw-card-view>
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-foundation.label.generalCard')">
-                <sw-field type="switch"
-                          bordered
-                          :label="$tc('moorl-sorting.properties.active')"
-                          v-model="item.active"></sw-field>
-
-                <sw-single-select v-model="item.entity"
-                                  valueProperty="name"
-                                  labelProperty="name"
-                                  :options="entityOptions"
-                                  :label="$tc('moorl-sorting.properties.entity')"
-                                  @on-change="onChangeLanguage"
-                                  :required="true">
-                </sw-single-select>
-
-                <sw-field :label="$tc('moorl-sorting.properties.key')"
-                          v-model="item.key"
-                          :required="true"></sw-field>
-
-                <sw-field :label="$tc('moorl-sorting.properties.label')"
-                          v-model="item.label"
-                          :required="true"></sw-field>
-
-                <sw-number-field :label="$tc('moorl-sorting.properties.priority')"
-                                 v-model="item.priority"
-                                 :required="true">
-                </sw-number-field>
-            </sw-card>
-
-            <moorl-sorting-option-criteria-grid
-                    v-if="item.entity"
-                    :item="item"
-                    @criteria-delete="onDeleteCriteria"
-                    @criteria-add="onAddCriteria"
-                    @inline-edit-save="onSave"
-                    @inline-edit-cancel="onCancelEditCriteria"
+{% block moorl_page_detail_content %}
+    <sw-card-view>
+        <mt-card :title="$tc('moorl-foundation.card.general')">
+            <mt-switch
+                bordered
+                :label="$tc('moorl-foundation.field.active')"
+                v-model="item.active"
             />
-        </sw-card-view>
-
-        <sw-settings-listing-delete-modal
-                v-if="toBeDeletedCriteria"
-                :title="$tc('sw-settings-listing.base.delete.modalTitle')"
-                :description="$tc('sw-settings-listing.base.delete.modalDescription')"
-                @cancel="toBeDeletedCriteria = null"
-                @delete="onConfirmDeleteCriteria"
+            <sw-single-select
+                v-model:value="item.entity"
+                valueProperty="name"
+                :options="entityOptions"
+                :label="$tc('moorl-foundation.field.entity')"
+                labelProperty="name"
+                @on-change="onChangeLanguage"
+                :required="true"
+            />
+            <mt-text-field
+                :label="$tc('moorl-foundation.field.key')"
+                v-model="item.key"
+                :required="true"
+            />
+            <mt-text-field
+                :label="$tc('moorl-foundation.field.label')"
+                v-model="item.label"
+                :required="true"
+            />
+            <mt-number-field
+                :label="$tc('moorl-foundation.field.priority')"
+                v-model="item.priority"
+                :required="true"
+            />
+        </mt-card>
+        <moorl-sorting-option-criteria-grid
+            v-if="item.entity"
+            :item="item"
+            @criteria-delete="onDeleteCriteria"
+            @criteria-add="onAddCriteria"
+            @inline-edit-save="onSave"
+            @inline-edit-cancel="onCancelEditCriteria"
         />
-    </template>
-</sw-page>
+    </sw-card-view>
+
+    <sw-settings-listing-delete-modal
+        v-if="toBeDeletedCriteria"
+        :title="$tc('sw-settings-listing.base.delete.modalTitle')"
+        :description="$tc('sw-settings-listing.base.delete.modalDescription')"
+        @cancel="toBeDeletedCriteria = null"
+        @delete="onConfirmDeleteCriteria"
+    />
+{% endblock %}

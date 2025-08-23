@@ -7,11 +7,11 @@
     <div class="moorl-download-list">
         <ul class="moorl-download-list-items">
             {% for file in downloads %}
-                {% sw_include '@Storefront/plugin/moorl-foundation/component/download-list/download-item.html.twig' %}
+                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/download-list/download-item.html.twig' %}
             {% endfor %}
         </ul>
     </div>
-{% elseif emptyText %}
+{% elseif emptyText and config('MoorlFoundation.config.cmsEmptyAlert') %}
     {% sw_include "@Storefront/storefront/utilities/alert.html.twig" with {
         type: "primary",
         content: emptyText ?: "moorl-foundation.search.notAvailable"|trans

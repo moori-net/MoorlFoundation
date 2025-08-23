@@ -1,32 +1,32 @@
 .cms-element-moorl-share {
-  line-height: 24px;
+    line-height: 24px;
 
-  ul {
-    padding: 20px 0;
-    margin: 0;
-    display: flex;
-    list-style: none;
-    justify-content: center;
+    ul {
+        padding: 20px 0;
+        margin: 0;
+        display: flex;
+        list-style: none;
+        justify-content: center;
 
-    li {
-      display: flex;
-      align-items: center;
-      padding: 4px 16px;
-      border-right: 1px solid $border-color;
+        li {
+            display: flex;
+            align-items: center;
+            padding: 4px 16px;
+            border-right: 1px solid $border-color;
 
-      div > a,
-      div > span {
-        &:after {
-          content: ",";
+            div > a,
+            div > span {
+                &:after {
+                    content: ',';
+                }
+                &:last-child:after {
+                    content: none;
+                }
+            }
+
+            &:last-child {
+                border-right: 0;
+            }
         }
-        &:last-child:after {
-          content: none;
-        }
-      }
-
-      &:last-child {
-        border-right: 0;
-      }
     }
-  }
 }

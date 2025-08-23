@@ -1,0 +1,33 @@
+[
+    { "value": "btn-primary", "label": "moorl-select.bsColor.primary" },
+    {
+        "value": "btn-outline-primary",
+        "label": "moorl-select.bsColor.primaryOutline"
+    },
+    { "value": "btn-danger", "label": "moorl-select.bsColor.danger" },
+    {
+        "value": "btn-outline-danger",
+        "label": "moorl-select.bsColor.dangerOutline"
+    },
+    { "value": "btn-success", "label": "moorl-select.bsColor.success" },
+    {
+        "value": "btn-outline-success",
+        "label": "moorl-select.bsColor.successOutline"
+    },
+    { "value": "btn-warning", "label": "moorl-select.bsColor.warning" },
+    {
+        "value": "btn-outline-warning",
+        "label": "moorl-select.bsColor.warningOutline"
+    },
+    { "value": "btn-info", "label": "moorl-select.bsColor.info" },
+    {
+        "value": "btn-outline-info",
+        "label": "moorl-select.bsColor.infoOutline"
+    },
+    { "value": "btn-dark", "label": "moorl-select.bsColor.dark" },
+    {
+        "value": "btn-outline-dark",
+        "label": "moorl-select.bsColor.darkOutline"
+    },
+    { "value": "btn-link", "label": "moorl-select.bsColor.link" }
+]

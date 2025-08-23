@@ -1,0 +1,36 @@
+@import '~scss/variables';
+
+.moorl-feature-unlocker {
+    p {
+        margin-bottom: 30px;
+    }
+
+    table {
+        tr {
+            &:nth-child(odd) {
+                background-color: $color-gray-200;
+            }
+        }
+
+        th {
+            background-color: $color-gray-400;
+            padding: 5px;
+        }
+
+        td {
+            padding: 5px;
+
+            &:last-child {
+                text-align: center;
+            }
+        }
+
+        .sw-icon {
+            color: #37d046;
+
+            &.icon--default-basic-x-block {
+                color: #94a6b8;
+            }
+        }
+    }
+}

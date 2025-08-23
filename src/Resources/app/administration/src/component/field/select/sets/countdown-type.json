@@ -1,0 +1,6 @@
+[
+    { "value": "countdown", "label": "moorl-select.countdownType.countdown" },
+    { "value": "relative", "label": "moorl-select.countdownType.relative" },
+    { "value": "time", "label": "moorl-select.countdownType.time" },
+    { "value": "hidden", "label": "moorl-select.countdownType.hidden" }
+]

@@ -42,6 +42,7 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
         $slot->setData($data);
 
         $downloadsConfig = $fieldConfig->get('downloads');
+        $downloads = null;
 
         if ($downloadsConfig->isStatic()) {
             $searchResult = $result->get('media_' . $slot->getUniqueIdentifier());
@@ -57,9 +58,10 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
             if ($downloads instanceof MediaEntity) {
                 $downloads = new MediaCollection([$downloads]);
             }
-            if ($downloads === null || \count($downloads) < 1) {
-                return;
-            }
+        }
+
+        if ($downloads === null || \count($downloads) < 1) {
+            return;
         }
 
         $this->sortItemsByFileName($downloads);
@@ -72,8 +74,6 @@ class DownloadListCmsElementResolver extends ImageSliderTypeDataResolver
             return;
         }
 
-        $downloads->sort(function (MediaEntity $a, MediaEntity $b) {
-            return strnatcasecmp($a->getFileName(), $b->getFileName());
-        });
+        $downloads->sort(fn(MediaEntity $a, MediaEntity $b) => strnatcasecmp($a->getFileName(), $b->getFileName()));
     }
 }

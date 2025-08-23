@@ -1,36 +1,29 @@
 import template from './index.html.twig';
 import './index.scss';
 
-const {Component} = Shopware;
-const {Criteria, ChangesetGenerator} = Shopware.Data;
+const { Criteria, ChangesetGenerator } = Shopware.Data;
 const type = Shopware.Utils.types;
-const {cloneDeep, merge} = Shopware.Utils.object;
+const { cloneDeep, merge } = Shopware.Utils.object;
 
-Component.register('moorl-layout-card-v2', {
+Shopware.Component.register('moorl-layout-card-v2', {
     template,
 
-    inject: [
-        'repositoryFactory',
-        'cmsService',
-    ],
+    inject: ['repositoryFactory', 'cmsService'],
 
     props: {
         item: {
             type: Object,
-            required: true
+            required: true,
         },
         entity: {
             type: String,
-            required: true
+            required: true,
+            default: undefined,
         },
         pageType: {
             type: String,
-            required: true
-        },
-        cmsPage: {
-            type: Object,
-            required: false,
-            default: null,
+            required: true,
+            default: undefined,
         },
         isLoading: {
             type: Boolean,
@@ -48,7 +41,7 @@ Component.register('moorl-layout-card-v2', {
             type: String,
             required: false,
             default: '',
-        }
+        },
     },
 
     data() {
@@ -58,50 +51,40 @@ Component.register('moorl-layout-card-v2', {
     },
 
     computed: {
-        pageTypeCriteria() {
-            const criteria = new Criteria(1, 25);
-
-            criteria.addFilter(
-                Criteria.equals('type', this.pageType),
-            );
-
-            return criteria;
-        },
         cmsPageRepository() {
             return this.repositoryFactory.create('cms_page');
         },
+
         cmsPageId() {
             return this.item ? this.item.cmsPageId : null;
         },
+
         cmsPage() {
-            return Shopware.State.get('cmsPageState').currentPage;
+            return Shopware.Store.get('cmsPage').currentPage;
         },
+
+        cmsPageType() {
+            return this.pageType ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.pageType;
+        },
+
         cmsPageTypes() {
-            return {
-                page: this.$tc('sw-cms.detail.label.pageTypeShopPage'),
-                landingpage: this.$tc('sw-cms.detail.label.pageTypeLandingpage'),
-                product_list: this.$tc('sw-cms.detail.label.pageTypeCategory'),
-                product_detail: this.$tc('sw-cms.detail.label.pageTypeProduct'),
-                creator_detail: this.$tc('moorl-creator.general.creator'),
-                magazine_article_detail: this.$tc('moorl-magazine.general.article'),
-                merchant_detail: this.$tc('moorl-merchant-finder.general.mainMenuItemGeneral'),
-                lexicon_detail: this.$tc('sw-seo-url-template-card.routeNames.moorl-lexicon-lexicon-page'),
-            };
-        },
+            return [];
+        }
     },
 
     watch: {
         cmsPageId() {
-            Shopware.State.dispatch('cmsPageState/resetCmsPageState');
+            Shopware.Store.get('cmsPage').resetCmsPageState();
+
             this.getAssignedCmsPage();
-        }
+        },
     },
 
     created() {
-        Shopware.State.dispatch('cmsPageState/resetCmsPageState');
+        Shopware.Store.get('cmsPage').resetCmsPageState();
 
         if (this.pageTypes.length === 0) {
-            this.pageTypes.push(this.pageType)
+            this.pageTypes.push(this.cmsPageType);
         }
 
         this.getAssignedCmsPage();
@@ -117,25 +100,34 @@ Component.register('moorl-layout-card-v2', {
 
             this.$emit('save-cms-config');
         },
+
         onLayoutSelect(selectedLayout) {
             this.item.cmsPageId = selectedLayout;
         },
+
         onLayoutReset() {
             this.onLayoutSelect(null);
         },
+
         openInPagebuilder() {
             if (!this.cmsPage) {
-                this.$router.push({name: 'sw.cms.create'});
+                this.$router.push({ name: 'sw.cms.create' });
             } else {
-                this.$router.push({name: 'sw.cms.detail', params: {id: this.item.cmsPageId}});
+                this.$router.push({
+                    name: 'sw.cms.detail',
+                    params: { id: this.item.cmsPageId },
+                });
             }
         },
+
         openLayoutModal() {
             this.showLayoutSelectionModal = true;
         },
+
         closeLayoutModal() {
             this.showLayoutSelectionModal = false;
         },
+
         getAssignedCmsPage() {
             if (this.cmsPageId === null) {
                 return Promise.resolve(null);
@@ -145,9 +137,12 @@ Component.register('moorl-layout-card-v2', {
             criteria.setIds([cmsPageId]);
             criteria.addAssociation('previewMedia');
             criteria.addAssociation('sections');
-            criteria.getAssociation('sections').addSorting(Criteria.sort('position'));
+            criteria
+                .getAssociation('sections')
+                .addSorting(Criteria.sort('position'));
             criteria.addAssociation('sections.blocks');
-            criteria.getAssociation('sections.blocks')
+            criteria
+                .getAssociation('sections.blocks')
                 .addSorting(Criteria.sort('position', 'ASC'))
                 .addAssociation('slots');
 
@@ -164,32 +159,37 @@ Component.register('moorl-layout-card-v2', {
                                     if (slot.config === null) {
                                         slot.config = {};
                                     }
-                                    merge(slot.config, cloneDeep(this.item.slotConfig[slot.id]));
+                                    merge(
+                                        slot.config,
+                                        cloneDeep(this.item.slotConfig[slot.id])
+                                    );
                                 }
                             });
                         });
                     });
                 }
                 this.updateCmsPageDataMapping();
-                Shopware.State.commit('cmsPageState/setCurrentPage', cmsPage);
+                Shopware.Store.get('cmsPage').setCurrentPage(cmsPage);
+
                 return this.cmsPage;
             });
         },
+
         updateCmsPageDataMapping() {
-            Shopware.State.commit('cmsPageState/setCurrentMappingEntity', this.entity);
-            Shopware.State.commit(
-                'cmsPageState/setCurrentMappingTypes',
-                this.cmsService.getEntityMappingTypes(this.pageType),
+            Shopware.Store.get('cmsPage').setCurrentMappingEntity(this.entity);
+            Shopware.Store.get('cmsPage').setCurrentMappingTypes(
+                this.cmsService.getEntityMappingTypes(this.cmsPageType)
             );
-            Shopware.State.commit('cmsPageState/setCurrentDemoEntity', this.item);
+            Shopware.Store.get('cmsPage').setCurrentDemoEntity(this.item);
         },
+
         getCmsPageOverrides() {
             if (this.cmsPage === null) {
                 return null;
             }
             this.deleteSpecifcKeys(this.cmsPage.sections);
             const changesetGenerator = new ChangesetGenerator();
-            const {changes} = changesetGenerator.generate(this.cmsPage);
+            const { changes } = changesetGenerator.generate(this.cmsPage);
             const slotOverrides = {};
             if (changes === null) {
                 return slotOverrides;
@@ -209,6 +209,7 @@ Component.register('moorl-layout-card-v2', {
             }
             return slotOverrides;
         },
+
         deleteSpecifcKeys(sections) {
             if (!sections) {
                 return;
@@ -229,7 +230,7 @@ Component.register('moorl-layout-card-v2', {
                             if (configField.entity) {
                                 delete configField.entity;
                             }
-                            if (configField.hasOwnProperty('required')) {
+                            if (configField.required !== undefined) {
                                 delete configField.required;
                             }
                             if (configField.type) {
@@ -240,5 +241,5 @@ Component.register('moorl-layout-card-v2', {
                 });
             });
         },
-    }
+    },
 });

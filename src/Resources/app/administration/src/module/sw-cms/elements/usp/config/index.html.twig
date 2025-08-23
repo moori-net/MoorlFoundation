@@ -1,71 +1,73 @@
-<sw-tabs class="sw-cms-el-config-search-hero__tabs" defaultItem="general">
-    <template slot-scope="{ active }" >
-        <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
-                      name="general"
-                      :activeTab="active">
-            {{ $tc(snippetPrefix + 'tab.general') }}
+<sw-tabs default-item="general">
+    <template #default="{ active }">
+        <sw-tabs-item
+            name="general"
+            :activeTab="active"
+        >
+            {{ $tc('sw-cms.elements.moorl-usp.tab.general') }}
         </sw-tabs-item>
-        <sw-tabs-item :title="$tc(snippetPrefix + 'tab.textColor')"
-                      name="textColor"
-                      :activeTab="active">
-            {{ $tc(snippetPrefix + 'tab.textColor') }}
+        <sw-tabs-item
+            name="textColor"
+            :activeTab="active"
+        >
+            {{ $tc('sw-cms.elements.moorl-usp.tab.textColor') }}
         </sw-tabs-item>
     </template>
 
-    <template slot="content" slot-scope="{ active }">
-        <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-usp__tab-general">
-            <sw-field v-model="element.config.iconActive.value"
-                      bordered
-                      type="switch"
-                      :label="$tc(snippetPrefix + 'config.iconActive')">
-            </sw-field>
-
-            <template v-if="element.config.iconActive.value">
-                <sw-field v-model="element.config.iconClass.value"
-                          type="text"
-                          placeholder="fab|shopware"
-                          :helpText="$tc(snippetPrefix + 'config.iconClassHelpText')"
-                          :label="$tc(snippetPrefix + 'config.iconClass')">
-                </sw-field>
-            </template>
-
-            <sw-field v-model="element.config.title.value"
-                      type="text"
-                      :label="$tc(snippetPrefix + 'config.headline')">
-            </sw-field>
-
-            <sw-field v-model="element.config.text.value"
-                      type="text"
-                      :label="$tc(snippetPrefix + 'config.subHeadline')">
-            </sw-field>
-
-            <sw-select-field :label="$tc(snippetPrefix + 'config.alignment')"
-                             v-model="element.config.alignment.value">
-                <option value="left">{{ $tc(snippetPrefix + 'config.left') }}</option>
-                <option value="center">{{ $tc(snippetPrefix + 'config.center') }}</option>
-            </sw-select-field>
+    <template #content="{ active }">
+        <sw-container
+            v-if="active === 'general'"
+            class="sw-cms-el-config-moorl-usp__tab-general"
+        >
+            <mt-switch
+                v-model="element.config.iconActive.value"
+                bordered
+                :label="$tc('sw-cms.elements.moorl-usp.config.iconActive')"
+            />
+            <mt-text-field
+                v-if="element.config.iconActive.value"
+                v-model="element.config.iconClass.value"
+                placeholder="fab|shopware"
+                :helpText="$tc('sw-cms.elements.moorl-usp.config.iconClassHelpText')"
+                :label="$tc('sw-cms.elements.moorl-usp.config.iconClass')"
+            />
+            <mt-text-field
+                v-model="element.config.title.value"
+                :label="$tc('sw-cms.elements.moorl-usp.config.headline')"
+            />
+            <mt-text-field
+                v-model="element.config.text.value"
+                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadline')"
+            />
+            <moorl-select-field
+                :label="$tc('sw-cms.elements.moorl-usp.config.alignment')"
+                v-model:value="element.config.alignment.value"
+                set="textHorizontalAlign"
+                :filter="['left','center']"
+            />
         </sw-container>
-
-        <sw-container v-if="active === 'textColor'" class="sw-cms-el-config-moorl-usp__tab-colors">
-            <sw-colorpicker
+        <sw-container
+            v-if="active === 'textColor'"
+            class="sw-cms-el-config-moorl-usp__tab-colors"
+        >
+            <mt-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
-                :label="$tc(snippetPrefix + 'config.iconColor')"
-                v-model="element.config.iconColor.value">
-            </sw-colorpicker>
-            <sw-colorpicker
+                :label="$tc('sw-cms.elements.moorl-usp.config.iconColor')"
+                v-model="element.config.iconColor.value"
+            />
+            <mt-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
-                :label="$tc(snippetPrefix + 'config.headlineColor')"
-                v-model="element.config.headlineColor.value">
-            </sw-colorpicker>
-
-            <sw-colorpicker
+                :label="$tc('sw-cms.elements.moorl-usp.config.headlineColor')"
+                v-model="element.config.headlineColor.value"
+            />
+            <mt-colorpicker
                 colorOutput="hex"
                 :zIndex="1000"
-                :label="$tc(snippetPrefix + 'config.subHeadlineColor')"
-                v-model="element.config.subHeadlineColor.value">
-            </sw-colorpicker>
+                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadlineColor')"
+                v-model="element.config.subHeadlineColor.value"
+            />
         </sw-container>
     </template>
 </sw-tabs>

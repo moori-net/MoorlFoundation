@@ -1,21 +1,19 @@
-.cms-element-moorl-table-registration{
-    .input-group-text{
+.cms-element-moorl-table-registration {
+    .input-group-text {
         background-color: $sw-color-brand-primary;
-        color: color-yiq($sw-color-brand-primary);
+        color: color-contrast($sw-color-brand-primary);
     }
 
-    .table-registration-privacy{
-        div:not(.privacy-notice){
+    .table-registration-privacy {
+        div:not(.privacy-notice) {
             display: none;
         }
     }
 
-    button[type=submit]{
+    button[type='submit'] {
         padding: 5px 25px;
         float: none !important;
         display: inline-block;
         margin-top: 20px;
     }
 }
-
-

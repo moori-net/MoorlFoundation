@@ -1,69 +1,79 @@
 <div class="sw-cms-el-config-moorl-newsletter">
-    <sw-tabs class="sw-cms-el-config-moorl-newsletter__tabs" defaultItem="general">
-        <template slot-scope="{ active }" >
-            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.general')"
-                          name="general"
-                          :activeTab="active">
-                {{ $tc(snippetPrefix + 'tab.general') }}
+    <sw-tabs
+        class="sw-cms-el-config-moorl-newsletter__tabs"
+        default-item="general"
+    >
+        <template #default="{ active }">
+            <sw-tabs-item
+                name="general"
+                :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-newsletter.tab.general') }}
             </sw-tabs-item>
-            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.colors')"
-                          name="colors"
-                          :activeTab="active">
-                {{ $tc(snippetPrefix + 'tab.colors') }}
+            <sw-tabs-item
+                name="colors"
+                :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-newsletter.tab.colors') }}
             </sw-tabs-item>
-
-            <sw-tabs-item :title="$tc(snippetPrefix + 'tab.text')"
-                          name="text"
-                          :activeTab="active">
-                {{ $tc(snippetPrefix + 'tab.text') }}
+            <sw-tabs-item
+                name="text"
+                :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-newsletter.tab.text') }}
             </sw-tabs-item>
         </template>
 
-        <template slot="content" slot-scope="{ active }">
-            <sw-container v-if="active === 'general'" class="sw-cms-el-config-moorl-newsletter__tab-general">
-                <sw-field type="switch"
-                          bordered
-                          :label="$tc(snippetPrefix + 'config.optin')"
-                          v-model="element.config.optin.value">
-                </sw-field>
+        <template #content="{ active }">
+            <sw-container
+                v-if="active === 'general'"
+                class="sw-cms-el-config-moorl-newsletter__tab-general"
+            >
+                <mt-switch
+                    bordered
+                    :label="$tc('sw-cms.elements.moorl-newsletter.config.optin')"
+                    v-model="element.config.optin.value"
+                />
             </sw-container>
-
-            <sw-container v-if="active === 'colors'" class="sw-cms-el-config-moorl-newsletter__tab-colors">
-                <sw-colorpicker
+            <sw-container
+                v-if="active === 'colors'"
+                class="sw-cms-el-config-moorl-newsletter__tab-colors"
+            >
+                <mt-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
-                    :label="$tc(snippetPrefix + 'config.buttonBackground')"
-                    v-model="element.config.buttonBackground.value">
-                </sw-colorpicker>
-                <sw-colorpicker
+                    :label="$tc('sw-cms.elements.moorl-newsletter.config.buttonBackground')"
+                    v-model="element.config.buttonBackground.value"
+                />
+                <mt-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
-                    :label="$tc(snippetPrefix + 'config.buttonTextColor')"
-                    v-model="element.config.buttonTextColor.value">
-                </sw-colorpicker>
-                <sw-colorpicker
+                    :label="$tc('sw-cms.elements.moorl-newsletter.config.buttonTextColor')"
+                    v-model="element.config.buttonTextColor.value"
+                />
+                <mt-colorpicker
                     colorOutput="hex"
                     :zIndex="1000"
-                    :label="$tc(snippetPrefix + 'config.privacyColor')"
-                    v-model="element.config.privacyColor.value">
-                </sw-colorpicker>
+                    :label="$tc('sw-cms.elements.moorl-newsletter.config.privacyColor')"
+                    v-model="element.config.privacyColor.value"
+                />
             </sw-container>
-
-            <sw-container v-if="active === 'text'" class="sw-cms-el-config-moorl-newsletter__tab-text">
-                <sw-alert variant="info">
-                    {{ $tc(snippetPrefix + 'config.hint') }}
-                </sw-alert>
-
-                <sw-field v-model="element.config.placeholder.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.placeholder')">
-                </sw-field>
-                <sw-field v-model="element.config.buttonText.value"
-                          type="text"
-                          :label="$tc(snippetPrefix + 'config.buttonText')">
-                </sw-field>
+            <sw-container
+                v-if="active === 'text'"
+                class="sw-cms-el-config-moorl-newsletter__tab-text"
+            >
+                <mt-banner variant="info">
+                    {{ $tc('sw-cms.elements.moorl-newsletter.config.hint') }}
+                </mt-banner>
+                <mt-text-field
+                    v-model="element.config.placeholder.value"
+                    :label="$tc('sw-cms.elements.moorl-newsletter.config.placeholder')"
+                />
+                <mt-text-field
+                    v-model="element.config.buttonText.value"
+                    :label="$tc('sw-cms.elements.moorl-newsletter.config.')"
+                />
             </sw-container>
         </template>
-
     </sw-tabs>
 </div>

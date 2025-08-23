@@ -1,0 +1,29 @@
+<sw-modal
+    :title="itemName"
+    variant="large"
+    :closable="false"
+    class="moorl-modal-detail"
+>
+    <moorl-form
+        v-if="!isLoading"
+        v-bind="{ item, entity, componentName }"
+    />
+    <template #modal-footer>
+        <mt-button
+            @click="onCloseModal"
+            variant="secondary"
+            size="default"
+        >
+            {{ $tc('global.default.cancel') }}
+        </mt-button>
+        <sw-button-process
+            v-model:process-success="isSaveSuccessful"
+            variant="primary"
+            :is-loading="isLoading"
+            :disabled="isLoading"
+            @click="onSaveItem"
+        >
+            {{ $tc('global.default.save') }}
+        </sw-button-process>
+    </template>
+</sw-modal>

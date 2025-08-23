@@ -1,0 +1,188 @@
+{
+    "moorl-select": {
+        "label": {
+            "svgShape": "SVG Typ",
+            "iconType": "Icon Typ",
+            "domElementState": "Element Status",
+            "cssSizeUnit": "Objekt anpassen",
+            "cssObjectFit": "Größenangabe",
+            "none": "None",
+            "horizontalAlign": "Horizontale Ausrichtung",
+            "textHorizontalAlign": "Horizontale Ausrichtung",
+            "flexHorizontalAlign": "Horizontale Ausrichtung",
+            "verticalAlign": "Vertikale Ausrichtung",
+            "textVerticalAlign": "Vertikale Ausrichtung",
+            "flexVerticalAlign": "Vertikale Ausrichtung",
+            "sliderMode": "Slider-Modus",
+            "navigationArrows": "Navigationspfeile",
+            "navigationDots": "Navigationspunkte",
+            "listingSorting": "Sortierung",
+            "listingItemIds": "Elemente auswählen",
+            "listingSource": "Quellen-Typ",
+            "listingLayout": "Listen-Layout",
+            "itemLayout": "Element-Layout",
+            "displayMode": "Anzeigemodus",
+            "cssJustifyContent": "Inhalt ausrichten",
+            "animateIn": "Einblenden",
+            "animateOut": "Ausblenden",
+            "animateHover": "Hover-Animation",
+            "animateCss": "Animation",
+            "bsButton": "Button-Typ",
+            "bsColorScheme": "Farbschema",
+            "bsGridWidth": "Gitterbreite",
+            "bsGridOrder": "Gitter-Reihenfolge",
+            "cssDisplay": "Anzeige",
+            "cssFlexDirection": "Flex-Richtung",
+            "cssFlexWrap": "Zeilenumbruch",
+            "operator": "Operator",
+            "visibility": "Sichtbarkeit"
+        },
+        "svgShape": {
+            "none": "Keine",
+            "rect": "Rechteck",
+            "circle": "Kreis",
+            "ellipse": "Ellipse"
+        },
+        "iconType": {
+            "fa": "Meteor, FontAwesome 5/6",
+            "svg": "SVG",
+            "media": "Bild"
+        },
+        "cssSizeUnit": {
+            "pc": "Prozent",
+            "px": "Pixel"
+        },
+        "interval": {
+            "hour": "Stündlich",
+            "day": "Täglich",
+            "minute": "Minütlich"
+        },
+        "countdownType": {
+            "relative": "Relative Zeitangabe",
+            "countdown": "Countdown",
+            "time": "Datum & Uhrzeit",
+            "hidden": "Im Hintergrund"
+        },
+        "stockType": {
+            "progressBarAbs": "Absoluter Fortschrittsbalken",
+            "progressBarPc": "Prozentualer Fortschrittsbalken",
+            "text": "Nur Text"
+        },
+        "visibility": {
+            "public": "Öffentlich",
+            "private": "Privat"
+        },
+        "cssFlexWrap": {
+            "wrap": "Umbruch",
+            "nowrap": "Kein Umbruch"
+        },
+        "cssDisplay": {
+            "block": "Block",
+            "flex": "Flex",
+            "inline": "Inline",
+            "none": "Keine",
+            "inline-block": "Inline-Block",
+            "inline-flex": "Inline-Flex"
+        },
+        "cssFlexDirection": {
+            "row": "Zeile",
+            "column": "Spalte"
+        },
+        "customSet": {
+            "top": "Oben",
+            "left": "Links"
+        },
+        "bsColor": {
+            "primary": "Primär",
+            "primaryOutline": "Primär (Umrandung)",
+            "secondary": "Sekundär",
+            "secondaryOutline": "Sekundär (Umrandung)",
+            "danger": "Gefahr",
+            "dangerOutline": "Gefahr (Umrandung)",
+            "success": "Erfolg",
+            "successOutline": "Erfolg (Umrandung)",
+            "warning": "Warnung",
+            "warningOutline": "Warnung (Umrandung)",
+            "info": "Info",
+            "infoOutline": "Info (Umrandung)",
+            "dark": "Dunkel",
+            "darkOutline": "Dunkel (Umrandung)",
+            "light": "Hell (Umrandung)",
+            "lightOutline": "Hell (Umrandung)"
+
+        },
+        "domElementState": {
+            "isLoaded": "Geladen",
+            "isOverBottom": "Über unteren Rand",
+            "isInViewport": "Im Sichtbereich"
+        },
+        "displayMode": {
+            "cover": "Cover",
+            "contain": "Einpassen",
+            "standard": "Standard",
+            "custom": "Benutzerdefiniert"
+        },
+        "listingSource": {
+            "static": "Statische Elemente",
+            "select": "Ausgewählte Elemente",
+            "auto": "Automatische Elemente (mit Paginierung)"
+        },
+        "listingLayout": {
+            "standard": "Shopware-Standard",
+            "grid": "Responsives Raster",
+            "list": "Liste",
+            "slider": "Slider",
+            "search-suggest": "Suchvorschlagsliste (minimal)"
+        },
+        "cssObjectFit": {
+            "fill": "Füllen",
+            "contain": "Einpassen",
+            "cover": "Cover (Ränder abschneiden)",
+            "none": "Keine",
+            "scale-down": "Herunterskalieren"
+        },
+        "cssJustifyContent": {
+            "normal": "Normal",
+            "flex-start": "Anfang",
+            "flex-end": "Ende",
+            "center": "Zentriert",
+            "space-between": "Verteilen (mit Abstand)",
+            "space-around": "Verteilen (gleichmäßig)",
+            "stretch": "Strecken"
+        },
+        "itemLayout": {
+            "avatar": "Avatar (rundes Bild)",
+            "custom": "Benutzerdefinierte Vorlage",
+            "standard": "Standard",
+            "overlay": "Überlagerung",
+            "image-or-title": "Bild (falls nicht gesetzt: Titel)",
+            "image-content": "1. Bild - 2. Inhalt",
+            "content-image": "1. Inhalt - 2. Bild"
+        },
+        "horizontalAlign": {
+            "left": "Links",
+            "center": "Zentriert",
+            "right": "Rechts",
+            "stretch": "Strecken"
+        },
+        "verticalAlign": {
+            "top": "Oben",
+            "center": "Zentriert",
+            "bottom": "Unten",
+            "stretch": "Strecken"
+        },
+        "sliderMode": {
+            "carousel": "Karussell",
+            "gallery": "Galerie"
+        },
+        "navigationArrows": {
+            "inside": "Innen",
+            "outside": "Außen"
+        },
+        "navigationDots": {
+            "inside": "Innen",
+            "outside": "Außen",
+            "thumbnails": "Vorschaubilder"
+        }
+    }
+}

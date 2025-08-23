@@ -1,66 +1,51 @@
-<sw-page class="moorl-client-detail">
-    <template slot="smart-bar-actions">
-        <sw-button :routerLink="{ name: 'moorl.client.list' }">
-            {{ $tc('moorl-foundation.buttons.cancelButtonText') }}
-        </sw-button>
+{% block moorl_page_detail_smart_bar_actions %}
+    {% parent() %}
 
-        <sw-button-process
-                :isLoading="isLoading"
-                :processSuccess="processSuccess"
-                variant="primary"
-                @process-finish="saveFinish"
-                @click="onClickSave"
-        >
-            {{ $tc('moorl-foundation.buttons.saveButtonText') }}
-        </sw-button-process>
+    <mt-button
+        @click="onClickTest"
+        :disabled="isNewItem"
+        size="default"
+        variant="primary"
+    >
+        {{ $tc('moorl-foundation.button.test') }}
+    </mt-button>
+{% endblock %}
 
-        <sw-button @click="onClickTest">
-            {{ $tc('moorl-foundation.buttons.testConnection') }}
-        </sw-button>
-    </template>
-
-    <template slot="content">
-        <sw-card-view>
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.general')">
-                <sw-field
-                        type="switch"
-                        :label="$tc('moorl-client.properties.active')"
-                        v-model="item.active"
-                />
-
-                <sw-field
-                        :label="$tc('moorl-client.properties.name')"
-                        v-model="item.name"
-                        required
-                        validation="required"
-                />
-
-                <template v-if="options.length">
-                    <sw-select-field
-                            :label="$tc('moorl-client.properties.type')"
-                            v-model="item.type"
-                            @change="resetConfig"
-                    >
-                        <option v-for="(option, index) in options" :key="option.name" :value="option.name">
-                            {{ option.name }}
-                        </option>
-                    </sw-select-field>
-                </template>
-            </sw-card>
-
-            <sw-card v-if="item" :isLoading="isLoading" :title="$tc('moorl-client.card.config')">
-                <template v-for="option in options">
-                    <template v-if="item.type == option.name">
-                        <template v-for="config in option.configTemplate">
-                            <sw-form-field-renderer
-                                    v-model="item.config[config.name]"
-                                    :label="$tc('moorl-client.properties.' + config.name)"
-                                    :config="config"
-                            />
-                        </template>
+{% block moorl_page_detail_content %}
+    <sw-card-view>
+        <mt-card :title="$tc('moorl-foundation.card.general')">
+            <mt-switch
+                :label="$tc('moorl-foundation.field.active')"
+                v-model="item.active"
+            />
+            <mt-text-field
+                :label="$tc('moorl-foundation.field.name')"
+                v-model="item.name"
+                required
+                validation="required"
+            />
+            <moorl-select-field
+                v-if="options.length"
+                :label="$tc('moorl-foundation.field.type')"
+                v-model:value="item.type"
+                @update:value="resetConfig"
+                :customSet="options"
+                valueProperty="name"
+                labelProperty="name"
+            />
+        </mt-card>
+        <mt-card :title="$tc('moorl-foundation.card.config')">
+            <template v-for="option in options">
+                <template v-if="item.type == option.name">
+                    <template v-for="config in option.configTemplate">
+                        <sw-form-field-renderer
+                            v-model:value="item.config[config.name]"
+                            :label="$tc('moorl-foundation.field.' + config.name)"
+                            :config="config"
+                        />
                     </template>
                 </template>
-            </sw-card>
-        </sw-card-view>
-    </template>
-</sw-page>
+            </template>
+        </mt-card>
+    </sw-card-view>
+{% endblock %}

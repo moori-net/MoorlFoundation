@@ -9,17 +9,11 @@ class DownloadListStruct extends Struct
 {
     protected ?EntityCollection $downloads = null;
 
-    /**
-     * @return EntityCollection|null
-     */
     public function getDownloads(): ?EntityCollection
     {
         return $this->downloads;
     }
 
-    /**
-     * @param EntityCollection|null $downloads
-     */
     public function setDownloads(?EntityCollection $downloads): void
     {
         $this->downloads = $downloads;

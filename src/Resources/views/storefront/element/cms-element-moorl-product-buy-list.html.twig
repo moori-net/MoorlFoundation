@@ -3,9 +3,13 @@
     {% set enableAddToCartSingle = element.config.enableAddToCartSingle.value %}
     {% set enableAddToCartAll = element.config.enableAddToCartAll.value %}
     {% set enableDirectUrl = element.config.enableDirectUrl.value %}
+    {% set discountActive = element.config.discountActive.value %}
+    {% set discountPercentage = element.config.discountPercentage.value %}
+    {% set discountName = element.config.discountName.value %}
 
-    {% sw_include '@Storefront/plugin/moorl-foundation/component/product-buy-list/index.html.twig' with {
+    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/product-buy-list/index.html.twig' with {
         products: element.data.products,
+        productQuantities: element.translated.config.productQuantities.value,
         emptyText: element.translated.config.emptyText.value
     } %}
 </div>

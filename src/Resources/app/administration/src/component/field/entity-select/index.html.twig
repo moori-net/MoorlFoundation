@@ -1,0 +1,27 @@
+<div class="moorl-entity-select-field">
+    <div class="moorl-entity-select-field__fieldset">
+        <sw-entity-single-select
+            v-bind="vBind"
+            v-model:value="currentValue"
+        />
+        <div class="sw-field">
+            <div class="sw-field__label">&nbsp;</div>
+            <div class="sw-block-field__block">
+                <mt-button
+                    variant="secondary"
+                    size="default"
+                    @click="showEditModal = true"
+                >
+                    {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
+                </mt-button>
+            </div>
+        </div>
+    </div>
+    <moorl-modal-detail
+        v-if="showEditModal"
+        v-model:value="currentValue"
+        :entity="entity"
+        :defaultItem="defaultItem"
+        @close="showEditModal = false"
+    />
+</div>

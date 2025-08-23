@@ -1,0 +1,56 @@
+.cms-element-moorl-hero-banner {
+    overflow: visible !important;
+
+    .moorl-hero-caption {
+        display: inline-block;
+        max-width: 720px;
+
+        .moorl-hero-headline {
+            font-weight: bold;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .moorl-hero-text {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+        }
+    }
+
+    .moorl-hero-banner {
+        max-width: 100%;
+
+        label {
+            display: none;
+        }
+
+        .header-search-input {
+            border: none;
+            padding: 0 15px;
+            height: 50px;
+            font-size: 1.2em;
+        }
+
+        .btn {
+            background-color: $sw-color-brand-primary;
+            border-color: $sw-color-brand-primary;
+            color: color-contrast($sw-color-brand-primary);
+            padding: 0 15px;
+
+            &:hover {
+                background-color: darken($sw-color-brand-primary, 5%);
+                border-color: darken($sw-color-brand-primary, 5%);
+
+                .icon {
+                    color: color-contrast($sw-color-brand-primary);
+                }
+            }
+        }
+
+        .search-suggest-container {
+            width: 100%;
+            border: none;
+            box-shadow: $moorl-general-box-shadow;
+        }
+    }
+}

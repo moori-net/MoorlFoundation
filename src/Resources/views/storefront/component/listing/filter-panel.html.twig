@@ -2,6 +2,53 @@
 
 {% block component_filter_panel_item_manufacturer %}
     {% if listing.aggregations %}
+        {# Show product streams #}
+        {% set productStreams = listing.aggregations.get('product-stream') %}
+        {% if productStreams and not productStreams.entities is empty %}
+            {% set productStreamsSorted = productStreams.entities|sort((a, b) => a.translated.name|lower > b.translated.name|lower) %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: productStreamsSorted,
+                sidebar: sidebar,
+                name: 'product-stream',
+                displayName: 'moorl-foundation.listing.filter.productStream'|trans
+            } %}
+        {% endif %}
+
+        {# Show navigation tree with results in it #}
+        {% set navigationCategories = listing.aggregations.get('navigation') %}
+        {% if navigationCategories and not navigationCategories.entities is empty %}
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-navigation.html.twig' with {
+                elements: navigationCategories.entities,
+                sidebar: sidebar,
+                name: 'navigation',
+                displayName: 'moorl-foundation.listing.filter.navigation'|trans
+            } %}
+        {% endif %}
+
+        {% set categories = listing.aggregations.get('category') %}
+        {% if categories and not categories.entities is empty %}
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: categories.entities,
+                sidebar: sidebar,
+                name: 'category',
+                displayName: 'moorl-foundation.listing.filter.categories'|trans
+            } %}
+        {% endif %}
+
+        {# Show child categories with results #}
+        {% set childCategories = listing.aggregations.get('child-category') %}
+        {% if childCategories and not childCategories.entities is empty %}
+            {% set childCategoriesSorted = childCategories.entities|sort((a, b) => a.translated.name|lower <=> b.translated.name|lower) %}
+
+            {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+                elements: childCategoriesSorted,
+                sidebar: sidebar,
+                name: 'child-category',
+                displayName: 'moorl-foundation.listing.filter.categories'|trans
+            } %}
+        {% endif %}
+
         {% set countries = listing.aggregations.get('country') %}
         {% if countries and not countries.entities is empty %}
             {% set countriesSorted = countries.entities|sort((a, b) => a.translated.name|lower > b.translated.name|lower) %}

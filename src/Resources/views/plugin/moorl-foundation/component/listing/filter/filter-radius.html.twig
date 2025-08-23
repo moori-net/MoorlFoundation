@@ -6,27 +6,29 @@
     {% set filterRadiusOptions = {
         name: name,
         displayName: displayName,
+        defaultValue: config('MoorlFoundation.config.filterRadiusDefault'),
         snippets: {
-            filterRadiusActiveLocationLabel: 'moorl-foundation.properties.inRadiusOf'|trans|sw_sanitize,
+            filterRadiusActiveLocationLabel: 'moorl-foundation.field.inRadiusOf'|trans|sw_sanitize,
             filterRadiusActiveDistanceLabel: unit|trans|sw_sanitize
-        }
+        },
+        filterRadiusPersist: config('MoorlFoundation.config.filterRadiusPersist')
     } %}
 
     {% block component_filter_radius_panel_item %}
-        <div class="filter-panel-item"
+        <div class="filter-panel-item{% if sidebar %} d-grid{% endif %}"
              data-moorl-foundation-filter-radius="true"
              data-moorl-foundation-filter-radius-options='{{ filterRadiusOptions|json_encode }}'>
             {% block component_filter_radius_toggle %}
                 <button
-                        class="filter-panel-item-toggle btn{% if sidebar %} btn-block{% endif %}"
+                        class="filter-panel-item-toggle btn"
                         aria-expanded="true"
                         {% if sidebar %}
-                            data-toggle="collapse"
-                            data-target="#{{ filterItemId }}"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#{{ filterItemId }}"
                         {% else %}
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             data-boundary="viewport"
-                            data-offset="0,8"
+                            data-bs-offset="0,8"
                             aria-haspopup="true"
                         {% endif %}
                 >
@@ -48,17 +50,32 @@
                             {% block component_filter_location_container %}
                                 <div class="filter-multi-select-list-item">
                                     <label for="location">{{ "moorl-foundation.listing.filter.zipcodeCity"|trans }}</label>
-                                    {% set showMyLocation = true %}
-                                    {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-radius-input-location.html.twig' %}
+                                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-radius-input-location.html.twig' %}
                                 </div>
                             {% endblock %}
 
                             {% block component_filter_distance_container %}
-                                <div class="filter-multi-select-list-item">
-                                    <label for="distance">{{ "moorl-foundation.listing.filter.distance"|trans }}</label>
-                                    {% sw_include '@Storefront/plugin/moorl-foundation/component/listing/filter/filter-radius-input-radius.html.twig' %}
-                                </div>
+                                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-radius-input-radius.html.twig' with {
+                                    wrapper: 'filter-multi-select-list-item'
+                                } %}
                             {% endblock %}
+
+                            {% if config('MoorlFoundation.config.filterRadiusPersist') %}
+                                {% block component_filter_persist_container %}
+                                    <div class="filter-multi-select-list-item">
+                                        <div class="form-check form-switch">
+                                            <input
+                                                    type="checkbox"
+                                                    class="form-check-input radius-persist"
+                                                    value="true"
+                                                    id="radius-persist"
+                                                    name="radius-persist"
+                                            >
+                                            <label for="radius-persist">{{ "moorl-foundation.listing.filter.persist"|trans }}</label>
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            {% endif %}
                         </div>
                     {% endblock %}
                 </div>

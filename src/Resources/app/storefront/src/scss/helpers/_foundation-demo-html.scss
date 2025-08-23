@@ -1,28 +1,28 @@
 .moorl-foundation-demo-html {
-  [id*="demo-"] {
-    border-left: $primary solid 5px;
-    padding-left: 12px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin-top: 50px;
-    margin-bottom: 30px;
+    [id*='demo-'] {
+        border-left: $primary solid 5px;
+        padding-left: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        margin-top: 50px;
+        margin-bottom: 30px;
 
-    &:first-child {
-      margin-top: 0;
+        &:first-child {
+            margin-top: 0;
+        }
     }
-  }
 
-  pre {
-    white-space: pre-line;
-    font-size:14px;
-    color: $text-muted;
-    background-color: $light;
-    padding: 20px;
-    border: 1px solid $border-color;
-    border-radius: $border-radius;
-  }
+    pre {
+        white-space: pre-line;
+        font-size: 14px;
+        color: $text-muted;
+        background-color: $light;
+        padding: 20px;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+    }
 
-  .btn {
-    margin-bottom: 30px;
-  }
+    .btn {
+        margin-bottom: 30px;
+    }
 }

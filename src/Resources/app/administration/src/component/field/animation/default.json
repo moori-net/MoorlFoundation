@@ -1,0 +1,23 @@
+{
+    "in": {
+        "active": false,
+        "name": "none",
+        "condition": "isInViewport",
+        "duration": 1000,
+        "delay": 0
+    },
+    "out": {
+        "active": false,
+        "name": "none",
+        "condition": "isInViewport",
+        "duration": 1000,
+        "delay": 0
+    },
+    "hover": {
+        "active": false,
+        "name": "none",
+        "condition": "isInViewport",
+        "duration": 1000,
+        "delay": 0
+    }
+}

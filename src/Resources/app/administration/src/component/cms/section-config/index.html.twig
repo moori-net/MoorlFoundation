@@ -1,0 +1,163 @@
+<div class="moorl-section-config">
+    <div
+        class="sw-cms-section__action"
+        @click="show = true"
+    >
+        <mt-icon
+            name="regular-cog"
+            size="20"
+            :color="iconColor"
+        />
+    </div>
+    <sw-modal
+        class="sw-cms-slot__config-modal"
+        v-if="show"
+        :title="$tc('moorl-section-config.title')"
+        @modal-close="show = false"
+    >
+        <sw-tabs
+            class="moorl-section-config__tabs"
+            default-item="content"
+        >
+            <template #default="{ active }">
+                <sw-tabs-item
+                    v-if="section.type === 'moorl-grid'"
+                    name="grid"
+                    :activeTab="active"
+                >
+                    {{ $tc('moorl-section-config.tab.grid') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    name="content"
+                    :activeTab="active"
+                >
+                    {{ $tc('moorl-section-config.tab.content') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    name="background"
+                    :activeTab="active"
+                >
+                    {{ $tc('moorl-section-config.tab.background') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    name="offset"
+                    :activeTab="active"
+                >
+                    {{ $tc('moorl-section-config.tab.offset') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    name="transition"
+                    :activeTab="active"
+                >
+                    {{ $tc('moorl-section-config.tab.transition') }}
+                </sw-tabs-item>
+                <sw-tabs-item
+                    name="visibility"
+                    :activeTab="active"
+                >
+                    {{ $tc('moorl-section-config.tab.visibility') }}
+                </sw-tabs-item>
+            </template>
+
+            <template #content="{ active }">
+                <moorl-section-grid-config
+                    v-if="active === 'grid'"
+                    v-bind="{ section }"
+                />
+                <sw-container v-if="active === 'content'">
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.color')"
+                        :helpText="$tc('moorl-section-config.helpText.color')"
+                        :options="colorOptions"
+                        v-model:value="section.customFields.moorl_section_config.color"
+                        show-clearable-button
+                        @update:value="initCustomFields"
+                    />
+                </sw-container>
+                <sw-container v-if="active === 'background'">
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.backgroundColor')"
+                        :helpText="$tc('moorl-section-config.helpText.backgroundColor')"
+                        :options="colorOptions"
+                        v-model:value="section.customFields.moorl_section_config.backgroundColor"
+                        show-clearable-button
+                    />
+                    <mt-switch
+                        :label="$tc('moorl-section-config.label.fixedBackground')"
+                        :helpText="$tc('moorl-section-config.helpText.fixedBackground')"
+                        bordered
+                        v-model="section.customFields.moorl_section_config.fixedBackground"
+                    />
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.backgroundPaint')"
+                        :helpText="$tc('moorl-section-config.helpText.backgroundPaint')"
+                        :options="paintOptions"
+                        v-model:value="section.customFields.moorl_section_config.backgroundPaint"
+                        show-clearable-button
+                    />
+                </sw-container>
+                <sw-container v-if="active === 'offset'">
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.offsetTop')"
+                        :helpText="$tc('moorl-section-config.helpText.offsetTop')"
+                        :options="offsetOptions"
+                        v-model:value="section.customFields.moorl_section_config.offsetTop"
+                        show-clearable-button
+                    />
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.offsetBottom')"
+                        :helpText="$tc('moorl-section-config.helpText.offsetBottom')"
+                        :options="offsetOptions"
+                        v-model:value="section.customFields.moorl_section_config.offsetBottom"
+                        show-clearable-button
+                    />
+                </sw-container>
+                <sw-container v-if="active === 'transition'">
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.top')"
+                        :helpText="$tc('moorl-section-config.helpText.top')"
+                        :options="separatorOptions"
+                        v-model:value="section.customFields.moorl_section_config.top"
+                        show-clearable-button
+                    />
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.bottom')"
+                        :helpText="$tc('moorl-section-config.helpText.bottom')"
+                        :options="separatorOptions"
+                        v-model:value="section.customFields.moorl_section_config.bottom"
+                        show-clearable-button
+                    />
+                    <sw-single-select
+                        :label="$tc('moorl-section-config.label.separatorBackground')"
+                        :helpText="$tc('moorl-section-config.helpText.separatorBackground')"
+                        :options="colorOptions"
+                        v-model:value="section.customFields.moorl_section_config.separatorBackground"
+                        show-clearable-button
+                    />
+                </sw-container>
+                <sw-container v-if="active === 'visibility'">
+                    <sw-entity-multi-id-select
+                        :label="$tc('moorl-section-config.label.salesChannel')"
+                        :helpText="$tc('moorl-section-config.helpText.salesChannel')"
+                        v-model:value="section.customFields.moorl_section_config.salesChannel"
+                        :repository="salesChannelRepository"
+                    />
+                    <sw-entity-multi-id-select
+                        :label="$tc('moorl-section-config.label.customerGroup')"
+                        :helpText="$tc('moorl-section-config.helpText.customerGroup')"
+                        v-model:value="section.customFields.moorl_section_config.customerGroup"
+                        :repository="customerGroupRepository"
+                    />
+                </sw-container>
+            </template>
+        </sw-tabs>
+        <template #modal-footer>
+            <mt-button
+                variant="primary"
+                @click="show = false"
+            >
+                {{ $tc('sw-cms.detail.label.buttonElementSettingsConfirm') }}
+            </mt-button>
+        </template>
+    </sw-modal>
+</div>

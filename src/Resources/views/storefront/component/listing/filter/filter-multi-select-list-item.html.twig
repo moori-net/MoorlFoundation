@@ -4,7 +4,7 @@
     {% if config('MoorlFoundation.config.cmpFilterPanel') %}
         {{ parent() }}
     {% else %}
-        <div class="custom-control custom-checkbox">
+        <div class="form-check">
             {% set id = element.id %}
             {# Shopware Core template does not support non-translated items #}
             {% set name = element.translated.name ?? element.name %}

@@ -7,14 +7,10 @@ use Shopware\Core\Framework\Event\NestedEvent;
 
 class EntityStockIndexerEvent extends NestedEvent
 {
-    private Context $context;
-    private array $ids;
-    private string $entityName;
+    private readonly string $entityName;
 
-    public function __construct(string $entityName, array $ids, Context $context)
+    public function __construct(string $entityName, private readonly array $ids, private readonly Context $context)
     {
-        $this->context = $context;
-        $this->ids = $ids;
     }
 
     public function getContext(): Context

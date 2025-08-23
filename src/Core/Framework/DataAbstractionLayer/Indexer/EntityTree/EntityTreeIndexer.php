@@ -7,41 +7,33 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityBreadcrumb
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
 use Shopware\Core\Framework\DataAbstractionLayer\Doctrine\RetryableTransaction;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\ChildCountUpdater;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdater;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\Framework\Uuid\Uuid;
 
 class EntityTreeIndexer extends EntityIndexer
 {
-    protected IteratorFactory $iteratorFactory;
-    protected Connection $connection;
-    protected EntityRepositoryInterface $repository;
-    protected ?ChildCountUpdater $childCountUpdater;
-    protected ?TreeUpdater $treeUpdater;
-    protected ?EntityBreadcrumbUpdater $breadcrumbUpdater;
-
-    protected string $entityName;
+    protected string $entityName = "";
 
     public function __construct(
-        Connection $connection,
-        IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository,
-        ?ChildCountUpdater $childCountUpdater = null,
-        ?TreeUpdater $treeUpdater = null,
-        ?EntityBreadcrumbUpdater $breadcrumbUpdater = null
+        protected Connection $connection,
+        protected IteratorFactory $iteratorFactory,
+        protected EntityRepository $repository,
+        protected ?ChildCountUpdater $childCountUpdater = null,
+        protected ?TreeUpdater $treeUpdater = null,
+        protected ?EntityBreadcrumbUpdater $breadcrumbUpdater = null
     ) {
-        $this->connection = $connection;
-        $this->iteratorFactory = $iteratorFactory;
-        $this->repository = $repository;
-        $this->childCountUpdater = $childCountUpdater;
-        $this->treeUpdater = $treeUpdater;
-        $this->breadcrumbUpdater = $breadcrumbUpdater;
-
         $this->entityName = $repository->getDefinition()->getEntityName();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        throw new DecorationPatternException(static::class);
     }
 
     public function getName(): string
@@ -49,7 +41,7 @@ class EntityTreeIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */$offset): ?EntityIndexingMessage
+    public function iterate(?array $offset): ?EntityIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 
@@ -97,7 +89,8 @@ class EntityTreeIndexer extends EntityIndexer
             $this->treeUpdater->batchUpdate(
                 $idsWithChangedParentIds,
                 $this->entityName,
-                $event->getContext()
+                $event->getContext(),
+                true
             );
         }
 
@@ -125,7 +118,7 @@ class EntityTreeIndexer extends EntityIndexer
             }
 
             if ($this->treeUpdater && $message->allow($this->entityName . '.tree')) {
-                $this->treeUpdater->batchUpdate($ids, $this->entityName, $context);
+                $this->treeUpdater->batchUpdate($ids, $this->entityName, $context, true);
             }
 
             if ($this->breadcrumbUpdater && $message->allow($this->entityName . '.breadcrumb')) {
@@ -158,7 +151,7 @@ class EntityTreeIndexer extends EntityIndexer
 
         $query->andWhere('(' . implode(' OR ', $wheres) . ')');
         
-        return $query->execute()->fetchAll(\PDO::FETCH_COLUMN);
+        return $query->executeQuery()->fetchNumeric() ?: [];
     }
 
     private function getIterator(?array $offset): IterableQuery

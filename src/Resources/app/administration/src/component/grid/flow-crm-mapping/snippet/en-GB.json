@@ -1,0 +1,19 @@
+{
+    "moorl-flow-crm-mapping": {
+        "description": "Following fields are available in this {name} form. Please select which form fields should be sent.",
+        "mappingPlaceholder": "Text or placeholder",
+        "helpText": {
+            "clientId": "Sie brauchen einen Client vom Typ: {name}",
+            "formId": "Wenn kein Formular erscheint, müssen Sie ein neues Formular in Ihrem {name}-Konto erstellen",
+            "formField": "Bitte nur textbasierte Felder verwenden"
+        },
+        "properties": {
+            "technicalName": "Technical name",
+            "label": "Label",
+            "mapping": "Mapped to",
+            "clientId": "{name} client",
+            "formId": "{name} form",
+            "formField": "Mapping to {name} form field"
+        }
+    }
+}

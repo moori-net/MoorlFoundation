@@ -1,0 +1,27 @@
+<div class="moorl-media-field">
+    <div class="mt-field">
+        <sw-upload-listener
+                :upload-tag="uploadTag"
+                auto-upload
+                @media-upload-finish="onSetMediaItem"
+        />
+        <sw-media-upload-v2
+                :label="$attrs.label"
+                :uploadTag="uploadTag"
+                :source="currentValue"
+                :scroll-target="$parent.$el"
+                :default-folder="entity"
+                :allowMultiSelect="false"
+                @media-drop="onMediaDropped"
+                @media-upload-sidebar-open="onOpenMediaModal"
+                @media-upload-remove-image="onUnlinkMedia"
+        />
+        <sw-media-modal-v2
+                v-if="showMediaModal"
+                entity-context="entity"
+                :allowMultiSelect="false"
+                @media-modal-selection-change="onMediaSelectionChange"
+                @modal-close="onCloseMediaModal"
+        />
+    </div>
+</div>

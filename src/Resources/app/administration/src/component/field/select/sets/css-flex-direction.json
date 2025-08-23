@@ -1,0 +1,4 @@
+[
+    { "value": "column", "label": "moorl-select.cssFlexDirection.column" },
+    { "value": "row", "label": "moorl-select.cssFlexDirection.row" }
+]

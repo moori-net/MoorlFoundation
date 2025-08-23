@@ -4,7 +4,6 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldCollectionMergeTrait;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
@@ -16,22 +15,17 @@ use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
 
 class FieldStockCollection extends FieldCollection
 {
-    use FieldCollectionMergeTrait;
-
-    public function __construct()
+    public static function getFieldItems(bool $flag = true): array
     {
-        return new parent(self::getFieldItems());
-    }
+        if (!$flag) return [];
 
-    public static function getFieldItems(): array
-    {
         return [
             (new FkField('product_id', 'productId', ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ReferenceVersionField(ProductDefinition::class))->addFlags(new ApiAware(), new Required()),
             (new ManyToOneAssociationField('product', 'product_id', ProductDefinition::class))->addFlags(new EditField(), new LabelProperty('productNumber')),
-            (new IntField('sales', 'sales'))->addFlags(new Required(), new EditField('number')),
-            (new IntField('stock', 'stock'))->addFlags(new Required(), new EditField('number')),
-            (new IntField('available_stock', 'availableStock'))->addFlags(new Required(), new EditField('number'))
+            (new IntField('sales', 'sales'))->addFlags(new Required(), new EditField(EditField::NUMBER)),
+            (new IntField('stock', 'stock'))->addFlags(new Required(), new EditField(EditField::NUMBER)),
+            (new IntField('available_stock', 'availableStock'))->addFlags(new Required(), new EditField(EditField::NUMBER))
         ];
     }
 

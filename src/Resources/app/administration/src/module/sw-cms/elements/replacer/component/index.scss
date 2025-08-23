@@ -1,0 +1,66 @@
+@import '~scss/variables';
+
+.sw-cms-el-moorl-replacer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: grid;
+    grid-template:
+        'a a' auto
+        'b c' 46px / 1fr 40px;
+    grid-gap: 0;
+    text-align: center;
+
+    .moorl-replacer-title {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    .sw-field,
+    .mt-field {
+        margin-bottom: 0;
+    }
+
+    .sw-block-field .sw-block-field__block,
+    .sw-button,
+    .mt-button {
+        border: 0 !important;
+        border-radius: 0 !important;
+    }
+
+    .sw-button,
+    .mt-button {
+        display: block;
+        height: 46px;
+        width: 100%;
+        padding: 2px 0;
+        text-align: center;
+        .sw-button__content {
+            display: block;
+        }
+    }
+
+    > div {
+        box-sizing: border-box;
+        width: 100%;
+
+        &:nth-child(1) {
+            grid-area: a;
+            padding: 20px;
+            border-bottom: 2px solid $color-gray-900;
+        }
+        &:nth-child(2) {
+            grid-area: b;
+        }
+        &:nth-child(3) {
+            grid-area: c;
+        }
+        &:nth-child(4) {
+            grid-area: d;
+        }
+    }
+}

@@ -14,27 +14,27 @@
 
         <div class="moorl-customer-upload-image-actions">
             {% if entityCoverId and entityMedia %}
-                <div class="custom-control custom-radio cover">
+                <div class="form-check cover">
                     <input type="radio"
-                           class="custom-control-input"
+                           class="form-check-input"
                            required
                            id="coverId{{ entityMedia.id }}"
                            name="coverId"
                            value="{{ entityMedia.id }}"{% if entityMedia.id == entityCoverId %} checked{% endif %}>
-                    <label class="custom-control-label" for="coverId{{ entityMedia.id }}">
+                    <label class="form-check-label" for="coverId{{ entityMedia.id }}">
                         {{ 'moorl-foundation.customerUpload.useAsCover'|trans }}
                     </label>
                 </div>
             {% endif %}
 
             {% if entityMedia %}
-                <div class="custom-control custom-checkbox delete">
+                <div class="form-check delete">
                     <input type="checkbox"
-                           class="custom-control-input"
+                           class="form-check-input"
                            id="entityMediaDelete{{ entityMedia.id }}"
                            name="entityMediaDeleteIds[]"
                            value="{{ entityMedia.id }}">
-                    <label class="custom-control-label" for="entityMediaDelete{{ entityMedia.id }}">
+                    <label class="form-check-label" for="entityMediaDelete{{ entityMedia.id }}">
                         {{ 'moorl-foundation.customerUpload.checkToDelete'|trans }}
                     </label>
                 </div>

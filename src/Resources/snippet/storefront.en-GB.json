@@ -1,14 +1,35 @@
 {
+    "moorl-multi-banner": {
+        "missingMetaData": "This image has no width/height meta data"
+    },
+    "moorl-hero-banner": {
+        "missingCategory": "Missing category id. Please check the CMS element configuration!"
+    },
+    "moorl-location-map": {
+        "cookieName": "Location maps",
+        "cookieDescription": "We use OpenStreetMap as tile provider to show you visually the location of our stores and merchants.",
+        "cookieHint": "Please accept the cookie to use the desired function."
+    },
+    "moorl-countdown": {
+        "seconds": "Seconds",
+        "minutes": "Minutes",
+        "hours": "Hours",
+        "days": "Days",
+        "countdownTitle": "Remaining time"
+    },
     "moorl-foundation": {
         "card": {
             "address": "Address",
             "person": "Contact person",
             "company": "Company",
             "openingHours": "Opening hours",
-            "contact": "Contact"
+            "contact": "Contact",
+            "legend": "Legend"
         },
         "listing": {
             "filter": {
+                "persist": "Remember filter",
+                "productStream": "Product stream",
                 "firstChar": "Index",
                 "tags": "Tags",
                 "country": "Country",
@@ -19,7 +40,12 @@
                 "mi": "MI",
                 "zipcodeCity": "Postcode / City",
                 "distance": "Distance",
-                "myLocation": "Use my location"
+                "myLocation": "Use my location",
+                "categories": "Categories",
+                "navigation": "Categories",
+                "nearbyFilterEnabled": "Your nearby filter is enabled. Your shown results are next to you (distanceKM of location).",
+                "nearbyFilterDisabled": "Your nearby filter is disabled.",
+                "nearbyFilterReset": "Reset"
             }
         },
         "customerUpload": {
@@ -46,7 +72,8 @@
             "saturday": "Saturday",
             "sunday": "Sunday"
         },
-        "buttons": {
+        "button": {
+            "acceptCookie": "Accept cookie",
             "placeIdLink": "Plan route",
             "administrationButtonText": "Administration",
             "openNewWindowButtonText": "Open in new window",
@@ -67,12 +94,18 @@
             "mediaFolder": "Save images in this folder"
         },
         "general": {
+            "discountActive": "Add all products to your shopping cart and receive discountPercentage% discount!",
             "subTotal": "Subtotal",
             "selectedItems": "Selected items",
             "share": "Share",
             "toc": "Table of contents"
         },
-        "properties": {
+        "field": {
+            "product": "Product",
+            "unitPrice": "Unit price",
+            "subtotal": "Subtotal",
+            "quantity": "Quantity",
+            "qty": "QTY",
             "inRadiusOf": "in radius of",
             "radius": "Radius",
             "distance": "Distance",

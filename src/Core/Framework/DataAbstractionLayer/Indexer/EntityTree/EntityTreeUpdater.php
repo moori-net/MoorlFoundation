@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityTree;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Statement;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -17,23 +18,15 @@ use Shopware\Core\Framework\DataAbstractionLayer\Indexing\TreeUpdaterBag;
 use Shopware\Core\Framework\Uuid\Exception\InvalidUuidException;
 use Shopware\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 use Shopware\Core\Framework\Uuid\Uuid;
-
 /**
  * @deprecated: Should be fixed in core now
  */
 class EntityTreeUpdater
 {
-    private DefinitionInstanceRegistry $registry;
-    private Connection $connection;
     private ?Statement $updateEntityStatement = null;
 
-    public function __construct(
-        DefinitionInstanceRegistry $registry,
-        Connection $connection
-    )
+    public function __construct(private readonly DefinitionInstanceRegistry $registry, private readonly Connection $connection)
     {
-        $this->registry = $registry;
-        $this->connection = $connection;
     }
 
     public function batchUpdate(array $updateIds, string $entity, Context $context): void
@@ -100,12 +93,12 @@ class EntityTreeUpdater
         $escaped = EntityDefinitionQueryHelper::escape($definition->getEntityName());
         $query->from($escaped);
 
-        $query->select($this->getFieldsToSelect($definition));
+        $query->select(...$this->getFieldsToSelect($definition));
         $query->andWhere('parent_id = :id');
         $query->setParameter('id', $parent['id']);
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
-        return $query->execute()->fetchAll();
+        return $query->executeQuery()->fetchAllAssociative();
     }
 
     private function updateTree(array $entity, EntityDefinition $definition, Context $context): string
@@ -141,7 +134,7 @@ class EntityTreeUpdater
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
         RetryableQuery::retryable(function () use ($query): void {
-            $query->execute();
+            $query->executeQuery();
         });
 
         return Uuid::fromBytesToHex($entity['id']);
@@ -157,7 +150,7 @@ class EntityTreeUpdater
 
         try {
             $path[] = Uuid::fromBytesToHex($parent[$field->getPathField()]);
-        } catch (InvalidUuidException | InvalidUuidLengthException $e) {
+        } catch (InvalidUuidException | InvalidUuidLengthException) {
             $path[] = $parent[$field->getPathField()];
         }
 
@@ -169,7 +162,7 @@ class EntityTreeUpdater
         $query = $this->getEntityByIdQuery($parentId, $definition);
         $this->makeQueryVersionAware($definition, $versionId, $query);
 
-        $result = $query->execute()->fetch();
+        $result = $query->executeQuery()->fetch();
 
         if ($result === false) {
             return [];
@@ -227,7 +220,7 @@ class EntityTreeUpdater
 
         $query->from($escaped);
 
-        $query->select($this->getFieldsToSelect($definition));
+        $query->select(...$this->getFieldsToSelect($definition));
         $query->andWhere('id = :id');
         $query->setParameter('id', $parentId);
 
@@ -270,11 +263,11 @@ class EntityTreeUpdater
         $query->from($escaped);
         $query->select('id', 'parent_id');
         $query->andWhere($column . ' IN (:ids)');
-        $query->setParameter('ids', $ids, Connection::PARAM_STR_ARRAY);
+        $query->setParameter('ids', $ids, ArrayParameterType::STRING);
         $this->makeQueryVersionAware($definition, Uuid::fromHexToBytes($context->getVersionId()), $query);
 
         $fetchedIds = [];
-        foreach ($query->execute()->fetchAll() as $entity) {
+        foreach ($query->executeQuery()->fetchAllAssociative() as $entity) {
             $bag->addEntity($entity['id'], $entity);
             $fetchedIds[$entity['id']] = $entity['id'];
         }
@@ -386,7 +379,7 @@ class EntityTreeUpdater
         $entity['path'] = '';
         if ($parent !== null) {
             $path = $parent['path'] ?? '';
-            $path = array_filter(explode('|', $path));
+            $path = array_filter(explode('|', (string) $path));
             $path[] = Uuid::fromBytesToHex($parent['id']);
             $entity['path'] = '|' . implode('|', $path) . '|';
         }

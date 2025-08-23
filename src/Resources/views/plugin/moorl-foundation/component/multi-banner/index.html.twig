@@ -1,0 +1,45 @@
+<div class="moorl-multi-banner">
+    {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/stock.html.twig" %}
+
+    {% set media = item.media %}
+    {% if media %}
+        {% if not media.url %}
+            {% set mediaCollection = searchMedia([media.id], context.context) %}
+            {% set media = mediaCollection.get(media.id) %}
+        {% endif %}
+
+        {% block combination_discount_banner_container %}
+            <div class="moorl-multi-banner-container">
+                {% sw_thumbnails 'combination-discount-banner-image' with {
+                    media: media,
+                    attributes: {
+                        alt: item.translated.name,
+                        class: 'moorl-multi-banner-image',
+                        width: '100',
+                        height: '100'
+                    }
+                } %}
+
+                <div class="moorl-multi-banner-overlay">
+                    {% if item.options.showCountdown %}
+                        {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/countdown.html.twig" with {
+                            options: item.options,
+                            countdownTitle: "moorl-countdown.countdownTitle"|trans
+                        } %}
+                    {% endif %}
+
+                    {% if item.options.showHotspots and item.items %}
+                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/multi-banner/hotspots.html.twig' with {
+                            items: item.items,
+                            options: item.options,
+                            useSvg: useSvg,
+                            width: media.metaData.width,
+                            height: media.metaData.height,
+                            loadHoverCards: options.loadHoverCards
+                        } %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endblock %}
+    {% endif %}
+</div>

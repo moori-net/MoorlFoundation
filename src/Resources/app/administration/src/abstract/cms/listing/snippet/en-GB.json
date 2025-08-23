@@ -1,0 +1,65 @@
+{
+  "moorl-abstract-cms-listing": {
+    "name": "Listing / Slider",
+    "description": "Supports Multi Media, Categories and More...",
+    "helpText": {
+      "listingHeaderTitle": "You can use placeholder",
+      "listingSorting": "Manage your sortings at: Settings - Extensions - moori Sorting",
+      "foreignKey": "If you use an entity page, like `product` you can set a foreign key. For example: `products.id`."
+    },
+    "listingSource": {
+      "static": "Static items",
+      "select": "Select items",
+      "auto": "Automatic items (with pagination)"
+    },
+    "listingLayout": {
+      "standard": "Shopware standard",
+      "grid": "Responsive Grid",
+      "list": "List",
+      "slider": "Slider",
+      "search-suggest": "Suggest search list (minimal)"
+    },
+    "listingJustifyContent": {
+      "normal": "Normal",
+      "flex-start": "Start",
+      "flex-end": "End",
+      "center": "Center",
+      "space-between": "Space between",
+      "space-around": "Space around"
+    },
+    "itemLayout": {
+      "avatar": "Avatar (Round image)",
+      "custom": "Custom template",
+      "standard": "Standard",
+      "overlay": "Overlay",
+      "image-or-title": "Image (if not set use title)",
+      "image-content": "1st Image - 2nd Content",
+      "content-image": "1st Content - 2nd Image"
+    },
+    "displayMode": {
+      "standard": "Standard",
+      "cover": "Cover",
+      "contain": "Contain"
+    },
+    "textAlign": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    },
+    "mode": {
+      "carousel": "Carousel",
+      "gallery": "Gallery"
+    },
+    "navigationArrows": {
+      "inside": "Inside",
+      "outside": "Outside"
+    },
+    "navigationDots": {
+      "inside": "Inside",
+      "outside": "Outside",
+      "thumbnails": "Thumbnails"
+    },
+    "none": "None"
+  }
+}
+

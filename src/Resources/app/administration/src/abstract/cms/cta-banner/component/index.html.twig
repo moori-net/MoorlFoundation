@@ -1,0 +1,67 @@
+<div
+    class="moorl-abstract-cms-cta-banner"
+    :style="elementCss"
+>
+    <video
+        v-if="getValue('mediaActive') && getValue('videoActive')"
+        autoplay
+        muted
+        loop
+        class="video"
+    >
+        <source
+            :src="bannerMediaUrl"
+            type="video/mp4"
+        />
+    </video>
+    <div
+        v-else-if="getValue('mediaActive')"
+        class="background"
+        :class="getValue('mediaHover')"
+        :style="backgroundCss"
+    ></div>
+    <div
+        class="banner-layer"
+        :style="overlayCss"
+    >
+        <div
+            class="container"
+            :class="boxClass"
+            :style="boxCss"
+        >
+            <div
+                v-if="getValue('iconType') !== 'none'"
+                class="container-icon"
+                :style="iconCss"
+            >
+                <template v-if="getValue('iconType') === 'fa'">
+                    <mt-icon name="regular-checkmark"/>
+                </template>
+
+                <template v-else-if="getValue('iconType') === 'svg'">
+                    <span v-html="getValue('iconSvg')"></span>
+                </template>
+
+                <template v-else-if="getValue('iconType') === 'media'">
+                    <img :src="iconMediaUrl"/>
+                </template>
+            </div>
+            <div class="container-content">
+                <div
+                    v-if="currentType === 'custom'"
+                    v-html="$sanitize(getValue('content'))"
+                ></div>
+                <template v-else>
+                    <div v-html="bannerTitle"></div>
+                    <p v-html="bannerDescription"></p>
+                    <mt-button
+                        v-if="getValue('btnActive')"
+                        variant="primary"
+                    >
+                        {{ getValue('btnText') }}
+                    </mt-button>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>

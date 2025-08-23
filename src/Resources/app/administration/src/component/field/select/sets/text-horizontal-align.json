@@ -1,0 +1,5 @@
+[
+    { "value": "left", "label": "moorl-select.horizontalAlign.left" },
+    { "value": "center", "label": "moorl-select.horizontalAlign.center" },
+    { "value": "right", "label": "moorl-select.horizontalAlign.right" }
+]

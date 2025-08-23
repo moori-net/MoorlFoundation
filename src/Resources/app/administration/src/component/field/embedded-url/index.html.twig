@@ -1,0 +1,12 @@
+<div class="moorl-embedded-url-field">
+    <mt-url-field
+        v-bind="vBind"
+        v-model="currentValue"
+    />
+    <iframe
+        v-if="currentValue && !disabled"
+        :style="style"
+        frameborder="0"
+        :src="currentValue"
+    ></iframe>
+</div>

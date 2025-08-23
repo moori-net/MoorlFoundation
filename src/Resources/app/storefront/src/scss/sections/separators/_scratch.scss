@@ -1,32 +1,36 @@
-.moorl-separator-scratch-both, .moorl-separator-scratch-top, .moorl-separator-scratch-bottom{
+.moorl-separator-scratch-both,
+.moorl-separator-scratch-top,
+.moorl-separator-scratch-bottom {
     position: relative;
 }
 
-.moorl-separator-scratch-both, .moorl-separator-scratch-top{
+.moorl-separator-scratch-both,
+.moorl-separator-scratch-top {
     padding-top: 60px;
 
-    &:before{
+    &:before {
         top: 0;
         position: absolute;
-        content: "";
+        content: '';
         height: 40px;
         width: 100%;
         z-index: 10;
-        background-image: url("/bundles/moorlfoundation/assets/feature/scratch.png");
+        background-image: url('/bundles/moorlfoundation/assets/feature/scratch.png');
     }
 }
 
-.moorl-separator-scratch-both, .moorl-separator-scratch-bottom{
+.moorl-separator-scratch-both,
+.moorl-separator-scratch-bottom {
     padding-bottom: 60px;
 
-    &:after{
+    &:after {
         bottom: 0;
         transform: rotate(180deg);
         position: absolute;
-        content: "";
+        content: '';
         height: 40px;
         width: 100%;
         z-index: 10;
-        background-image: url("/bundles/moorlfoundation/assets/feature/scratch.png");
+        background-image: url('/bundles/moorlfoundation/assets/feature/scratch.png');
     }
 }

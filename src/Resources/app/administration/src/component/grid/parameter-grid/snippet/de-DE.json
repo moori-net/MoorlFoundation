@@ -1,0 +1,13 @@
+{
+    "moorl-parameter-grid": {
+        "customValue": "Benutzerdefinierter Wert",
+        "placeholderValue": "Platzhalter Wert",
+        "removeItem": "Eintrag entfernen",
+        "addItem": "Eintrag hinzufügen",
+        "properties": {
+            "name": "Name",
+            "label": "Label",
+            "data": "Daten"
+        }
+    }
+}

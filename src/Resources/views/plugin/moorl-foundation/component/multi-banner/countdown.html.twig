@@ -1,0 +1,55 @@
+<div class="moorl-multi-banner-countdown">
+    {% set from = item.showUntil %}
+
+    {# Live countdown needs showUntil date #}
+    {% if from %}
+        {% if options.countdownType == 'countdown' %}
+            {% set pluginOptions = {
+                debug: false,
+                from: from|date('Y-m-d\\TH:i:sP'),
+                title: countdownTitle,
+                label: {
+                    days: "moorl-countdown.days"|trans,
+                    hours: "moorl-countdown.hours"|trans,
+                    minutes: "moorl-countdown.minutes"|trans,
+                    seconds: "moorl-countdown.seconds"|trans,
+                }
+            } %}
+
+            <div class="moorl-countdown"
+                 data-bs-toggle="tooltip"
+                 data-bs-placement="bottom"
+                 title="{{ countdownTitle }}"
+                 data-moorl-countdown="true"
+                 data-moorl-countdown-options='{{ pluginOptions|json_encode }}'>
+            </div>
+        {% elseif options.countdownType == 'relative' %}
+            {% set pluginOptions = {
+                from: from|date('Y-m-d\\TH:i:sP')
+            } %}
+
+            <div class="moorl-countdown">
+                <div>
+                    <div class="moorl-countdown-label">
+                        {{ countdownTitle }}
+                    </div>
+                    <div class="moorl-countdown-time"
+                         data-moorl-relative-time="true"
+                         data-moorl-relative-time-options='{{ pluginOptions|json_encode }}'>
+                    </div>
+                </div>
+            </div>
+        {% elseif options.countdownType == 'time' %}
+            <div class="moorl-countdown">
+                <div>
+                    <div class="moorl-countdown-label">
+                        {{ countdownTitle }}
+                    </div>
+                    <div class="moorl-countdown-time">
+                        {{ from|format_date('long', locale=app.request.locale) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>

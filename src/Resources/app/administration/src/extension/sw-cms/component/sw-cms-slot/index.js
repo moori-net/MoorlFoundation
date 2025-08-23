@@ -1,21 +1,18 @@
-const {Component} = Shopware;
-const Criteria = Shopware.Data.Criteria;
+const { Criteria } = Shopware.Data;
 
 import template from './sw-cms-slot.html.twig';
 
-Component.override('sw-cms-slot', {
+Shopware.Component.override('sw-cms-slot', {
     template,
 
-    inject: [
-        'repositoryFactory'
-    ],
+    inject: ['repositoryFactory'],
 
     data() {
         return {
             cmsElementConfig: null,
             cmsElementConfigId: null,
             showCmsElementConfigSaver: false,
-            showCmsElementAnimationModal: false
+            showCmsElementAnimationModal: false,
         };
     },
 
@@ -39,12 +36,12 @@ Component.override('sw-cms-slot', {
         },
 
         plugins() {
-            return Shopware.State.get('moorlFoundationState').plugins;
+            return Shopware.Store.get('moorlFoundationState').plugins;
         },
 
         moorlIsUnlocked() {
-            return Shopware.State.get('moorlFoundationState').unlocked;
-        }
+            return Shopware.Store.get('moorlFoundationState').unlocked;
+        },
     },
 
     methods: {
@@ -53,7 +50,7 @@ Component.override('sw-cms-slot', {
                 return null;
             }
 
-            return this.plugins.find(item => item.name === element.plugin);
+            return this.plugins.find((item) => item.name === element.plugin);
         },
 
         async onElementButtonClick() {
@@ -61,9 +58,11 @@ Component.override('sw-cms-slot', {
                 return this.$super('onElementButtonClick');
             }
 
-            const plugins = await this.pluginRepository.search(this.pluginCriteria);
+            const plugins = await this.pluginRepository.search(
+                this.pluginCriteria
+            );
 
-            Shopware.State.commit('moorlFoundationState/setPlugins', plugins);
+            Shopware.Store.get('moorlFoundationState').setPlugins(plugins);
 
             this.$super('onElementButtonClick');
         },
@@ -90,7 +89,11 @@ Component.override('sw-cms-slot', {
 
         onLoadCmsElementConfig() {
             this.cmsElementConfigRepository
-                .get(this.cmsElementConfigId, Shopware.Context.api, this.cmsElementConfigCriteria)
+                .get(
+                    this.cmsElementConfigId,
+                    Shopware.Context.api,
+                    this.cmsElementConfigCriteria
+                )
                 .then((entity) => {
                     this.element.config = entity.config;
                     this.element.type = entity.type;
@@ -101,10 +104,12 @@ Component.override('sw-cms-slot', {
         },
 
         getCmsElementConfig() {
-            this.cmsElementConfig = this.cmsElementConfigRepository.create(Shopware.Context.api);
+            this.cmsElementConfig = this.cmsElementConfigRepository.create(
+                Shopware.Context.api
+            );
             this.cmsElementConfig.type = this.element.type;
             this.cmsElementConfig.config = this.element.config;
             this.cmsElementConfig.data = this.element.data;
         },
-    }
+    },
 });

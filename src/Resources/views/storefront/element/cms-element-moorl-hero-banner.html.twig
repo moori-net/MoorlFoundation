@@ -1,0 +1,155 @@
+{% set config = element.translated.config %}
+
+{% set searchWidgetOptions = {
+    searchWidgetMinChars: page.header.activeLanguage.productSearchConfig.minSearchLength ?: 3
+} %}
+
+{% set elementCss = [
+    "height:#{config.height.value}"
+] %}
+{% if config.media.value %}
+    {% set mediaCollection = searchMedia([config.media.value], context.context) %}
+    {% set media = mediaCollection.get(config.media.value) %}
+    {% set mediaUrl = media.url %}
+
+    {% set elementCss = elementCss|merge([
+        "background-image:url('#{media.url}')",
+        "background-position:#{config.backgroundPosition.value}",
+        "background-attachment:#{config.backgroundAttachment.value}",
+        "background-repeat:#{config.backgroundRepeat.value}",
+        "background-position:#{config.backgroundPosition.value}",
+    ]) %}
+
+    {% if config.backgroundDisplayMode.value == 'custom' %}
+        {% set elementCss = elementCss|merge([
+            "background-size:#{config.backgroundSizeX.value} #{config.backgroundSizeY.value}"
+        ]) %}
+    {% else %}
+        {% set elementCss = elementCss|merge([
+            "background-size:#{config.backgroundDisplayMode.value ?: 'cover'}"
+        ]) %}
+    {% endif %}
+{% endif %}
+{% set overlayCss = [
+    "min-height:#{config.height.value}",
+    "background:#{config.overlayBackground.value ?: 'transparent'}",
+    "align-items:#{config.boxVerticalAlign.value ?: 'center'}",
+    "justify-content:#{config.boxHorizontalAlign.value ?: 'center'}",
+] %}
+{% set boxCss = [
+    "display:#{config.iconPosition.value == 'top' ? 'block' : 'flex'}",
+    "margin:#{config.boxMargin.value ?: '0'}",
+    "padding:#{config.boxPadding.value}",
+    "color:#{config.boxColor.value ?: 'inherit'}",
+    "width:#{config.boxWidth.value}",
+    "height:#{config.boxHeight.value}",
+    "border-radius:#{config.boxBorderRadius.value}",
+    "text-align:#{config.boxTextAlign.value ?: 'center'}",
+] %}
+{% set searchCss = [
+    "padding:#{config.boxPadding.value}",
+    "background:#{config.boxBackground.value ?: 'transparent'}",
+    "border-radius:#{config.boxBorderRadius.value}",
+    "text-align:left"
+] %}
+
+<div class="cms-element-moorl-cta-banner cms-element-moorl-hero-banner" style="{{ elementCss|join(";") }}">
+    <div class="banner-layer{% if config.boxMaxWidth.value %} container{% endif %}" style="{{ overlayCss|join(";") }}">
+        <div class="container-box" style="{{ boxCss|join(";") }}">
+            <div class="container-content">
+                {% if config.captionActive.value %}
+                    <div class="moorl-hero-caption" style="{% if config.textShadowActive.value %}text-shadow:2px 2px 15px #000{% endif %}">
+                        <div class="moorl-hero-headline">{{ config.title.value }}</div>
+                        <div class="moorl-hero-text">{{ config.content.value }}</div>
+                    </div>
+                {% endif %}
+
+                <div class="moorl-hero-banner" style="{{ searchCss|join(";") }}">
+                    {% if config.searchType.value == 'search' %}
+                        <form
+                                action="{{ path('frontend.search.page') }}"
+                                method="get"
+                                data-search-widget="true"
+                                data-search-widget-options="{{ searchWidgetOptions|json_encode }}"
+                                data-url="{{ path('frontend.search.suggest') }}?search="
+                                class="header-search-form"
+                        >
+                            <div class="input-group">
+                                <input
+                                        type="search"
+                                        name="search"
+                                        class="form-control header-search-input"
+                                        autocomplete="off"
+                                        autocapitalize="off"
+                                        placeholder="{{ 'header.searchPlaceholder'|trans|striptags }}"
+                                        aria-label="{{ 'header.searchPlaceholder'|trans|striptags }}"
+                                        value="{{ page.searchTerm }}"
+                                >
+
+                                <button
+                                        class="btn header-close-btn js-search-close-btn d-none"
+                                        type="button"
+                                        aria-label="{{ 'header.searchCloseButton'|trans|striptags }}"
+                                >
+                                    <span class="header-close-icon">{% sw_icon 'x' %}</span>
+                                </button>
+
+                                <button
+                                        type="submit"
+                                        class="btn header-search-btn"
+                                        aria-label="{{ "header.searchButton"|trans|striptags }}"
+                                >
+                                    <span class="header-search-icon">
+                                        {% sw_icon 'search' style {pack: 'fas'} %}
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    {% else %}
+                        {% if config.categoryId.value %}
+                            <form
+                                    name="{{ element.type }}-filter-form"
+                                    class="{{ element.type }}-filter-form"
+                                    method="get"
+                                    action="{{ seoUrl('frontend.navigation.page', { navigationId: config.categoryId.value }) }}"
+                            >
+                                <div class="row g-2">
+                                    <div class="col">
+                                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-search-input.html.twig' %}
+                                    </div>
+                                    <div class="col">
+                                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-radius-input-location.html.twig' %}
+                                    </div>
+                                    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-radius-input-radius.html.twig' with {
+                                        wrapper: 'col-auto',
+                                        unit: "moorl-foundation.listing.filter.#{config('MoorlFoundation.config.osmUnitOfMeasurement')}"
+                                    } %}
+                                    {% if config('MoorlFoundation.config.filterRadiusPersist') %}
+                                        <input type="hidden" value="true" name="radius-persist">
+                                    {% endif %}
+                                    <div class="col-auto d-flex">
+                                        <button
+                                                type="submit"
+                                                class="btn btn-primary "
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="{{ "header.searchButton"|trans|striptags }}"
+                                                aria-label="{{ "header.searchButton"|trans|striptags }}"
+                                        >
+                                            {% sw_icon 'search' style {pack:'fas'} %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        {% else %}
+                            {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+                                type: 'danger',
+                                content: 'moorl-hero-banner.missingCategory'|trans
+                            } %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,9 +2,9 @@
 
 namespace MoorlFoundation\Demo\CmsTools;
 
-use MoorlFoundation\MoorlFoundation;
 use MoorlFoundation\Core\System\DataExtension;
 use MoorlFoundation\Core\System\DataInterface;
+use MoorlFoundation\MoorlFoundation;
 
 class DemoCmsTools extends DataExtension implements DataInterface
 {

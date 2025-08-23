@@ -1,0 +1,19 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-location": {
+                "name": "Karte",
+                "label": {
+                    "legendItems": "Legende Einträge",
+                    "legend": "Marker-Legende anzeigen",
+                    "osmOptions": "Mehr Optionen",
+                    "overrideOsmOptions": "\"Mehr Optionen\" überschreiben (Plugin Einstellungen von Foundation)",
+                    "locationLat": "Breitengrad",
+                    "locationLon": "Längengrad",
+                    "marker": "Karte Marker",
+                    "height": "Karte Höhe"
+                }
+            }
+        }
+    }
+}

@@ -2,41 +2,30 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityLocation;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\Service\LocationServiceV2;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IterableQuery;
 use Shopware\Core\Framework\DataAbstractionLayer\Dbal\Common\IteratorFactory;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexer;
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
+use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
 use Shopware\Core\Framework\Uuid\Uuid;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-
 class EntityLocationIndexer extends EntityIndexer
 {
-    protected IteratorFactory $iteratorFactory;
-    protected Connection $connection;
-    protected EntityRepositoryInterface $repository;
-    protected EventDispatcherInterface $eventDispatcher;
-    protected LocationServiceV2 $locationServiceV2;
-
-    protected string $entityName;
+    protected string $entityName = "";
 
     public function __construct(
-        Connection $connection,
-        IteratorFactory $iteratorFactory,
-        EntityRepositoryInterface $repository,
-        EventDispatcherInterface $eventDispatcher,
-        LocationServiceV2 $locationServiceV2
+        protected Connection $connection,
+        protected IteratorFactory $iteratorFactory,
+        protected EntityRepository $repository,
+        protected EventDispatcherInterface $eventDispatcher,
+        protected LocationServiceV2 $locationServiceV2
     ) {
-        $this->iteratorFactory = $iteratorFactory;
-        $this->repository = $repository;
-        $this->connection = $connection;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->locationServiceV2 = $locationServiceV2;
-
         $this->entityName = $repository->getDefinition()->getEntityName();
     }
 
@@ -45,7 +34,7 @@ class EntityLocationIndexer extends EntityIndexer
         return $this->entityName . '.indexer';
     }
 
-    public function iterate(/*?array */$offset): ?EntityLocationIndexingMessage
+    public function iterate(?array $offset): ?EntityLocationIndexingMessage
     {
         $iterator = $this->getIterator($offset);
 
@@ -96,10 +85,10 @@ WHERE #entity#.id IN (:ids);';
             $sql
         );
 
-        $data = $this->connection->fetchAll(
+        $data = $this->connection->fetchAllAssociative(
             $sql,
             ['ids' => Uuid::fromHexToBytesList($ids)],
-            ['ids' => Connection::PARAM_STR_ARRAY]
+            ['ids' => ArrayParameterType::STRING]
         );
 
         foreach ($data as $item) {
@@ -120,8 +109,10 @@ WHERE #entity#.id IN (:ids);';
                                 'country_id' => Uuid::fromHexToBytes($country->getId())
                             ]
                         );
+
+                        $item['countryId'] = $country->getId();
                     }
-                } catch (\Exception $exception) {}
+                } catch (\Exception) {}
             }
 
             if ($item['autoLocation'] === "1") {
@@ -160,5 +151,10 @@ WHERE #entity#.id IN (:ids);';
     public function getTotal(): int
     {
         return $this->getIterator(null)->fetchCount();
+    }
+
+    public function getDecorated(): EntityIndexer
+    {
+        throw new DecorationPatternException(static::class);
     }
 }

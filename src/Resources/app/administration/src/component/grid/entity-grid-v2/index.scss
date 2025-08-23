@@ -1,0 +1,61 @@
+@import '~scss/variables';
+
+.moorl-entity-grid-v2 {
+    .moorl-entity-grid__top-bar {
+        background-color: $color-gray-100;
+        border-bottom: 1px solid $color-gray-100;
+        padding: 25px;
+
+        input {
+            padding: 6px 16px;
+            height: 32px;
+        }
+
+        .sw-field,
+        .mt-field {
+            margin-bottom: 0;
+
+            .mt-field__help-text,
+            .sw-field__help-text {
+                position: relative;
+                top: 33px;
+                right: 15px;
+            }
+        }
+
+        .mt-block-field__block {
+            min-height: auto;
+        }
+
+        .sw-button,
+        .mt-button {
+            height: 32px;
+            line-height: 16px;
+            position: relative;
+            width: auto;
+        }
+    }
+
+    .moorl-entity-grid__progress-bar {
+        background-color: $color-gray-100;
+        border-bottom: 1px solid $color-gray-100;
+        padding-left: 25px;
+        padding-right: 25px;
+
+        .sw-progress-bar {
+            margin-bottom: 25px;
+        }
+    }
+
+    .moorl-entity-grid__selected-codes-delete {
+        z-index: 20;
+        position: absolute;
+        right: 28px;
+        top: 155px;
+    }
+
+    .mt-card__content,
+    .sw-card__content {
+        padding: 0;
+    }
+}

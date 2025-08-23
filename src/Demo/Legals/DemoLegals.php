@@ -2,9 +2,9 @@
 
 namespace MoorlFoundation\Demo\Legals;
 
-use MoorlFoundation\MoorlFoundation;
 use MoorlFoundation\Core\System\DataExtension;
 use MoorlFoundation\Core\System\DataInterface;
+use MoorlFoundation\MoorlFoundation;
 
 class DemoLegals extends DataExtension implements DataInterface
 {

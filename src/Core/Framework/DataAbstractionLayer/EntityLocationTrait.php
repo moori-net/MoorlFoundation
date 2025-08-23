@@ -17,9 +17,6 @@ trait EntityLocationTrait
     protected ?MarkerEntity $marker = null;
     protected ?LocationCacheCollection $locationCache = null;
 
-    /**
-     * @return array
-     */
     public function getLeafletLocation(): array
     {
         return [
@@ -31,9 +28,6 @@ trait EntityLocationTrait
         ];
     }
 
-    /**
-     * @return array
-     */
     public function getLeafletCircle(): array
     {
         return [
@@ -46,11 +40,6 @@ trait EntityLocationTrait
         ];
     }
 
-    /**
-     * @param float $locationLat
-     * @param float $locationLon
-     * @param string $unit
-     */
     public function setLocationDistance(float $locationLat, float $locationLon, string $unit = "km"): void
     {
         if (!$this->locationLat || !$this->locationLon) {
@@ -74,137 +63,86 @@ trait EntityLocationTrait
         }
     }
 
-    /**
-     * @return LocationCacheCollection|null
-     */
     public function getLocationCache(): ?LocationCacheCollection
     {
         return $this->locationCache;
     }
 
-    /**
-     * @param LocationCacheCollection|null $locationCache
-     */
     public function setLocationCache(?LocationCacheCollection $locationCache): void
     {
         $this->locationCache = $locationCache;
     }
 
-    /**
-     * @return string
-     */
     public function getLocationDistanceUnit(): string
     {
         return $this->locationDistanceUnit;
     }
 
-    /**
-     * @param string $locationDistanceUnit
-     */
     public function setLocationDistanceUnit(string $locationDistanceUnit): void
     {
         $this->locationDistanceUnit = $locationDistanceUnit;
     }
 
-    /**
-     * @return float
-     */
     public function getLocationDistance(): float
     {
         return $this->locationDistance;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMarkerId(): ?string
     {
         return $this->markerId;
     }
 
-    /**
-     * @param string|null $markerId
-     */
     public function setMarkerId(?string $markerId): void
     {
         $this->markerId = $markerId;
     }
 
-    /**
-     * @return MarkerEntity|null
-     */
     public function getMarker(): ?MarkerEntity
     {
         return $this->marker;
     }
 
-    /**
-     * @param MarkerEntity|null $marker
-     */
     public function setMarker(?MarkerEntity $marker): void
     {
         $this->marker = $marker;
     }
 
-    /**
-     * @return bool
-     */
     public function getAutoLocation(): bool
     {
         return $this->autoLocation;
     }
 
-    /**
-     * @param bool $autoLocation
-     */
     public function setAutoLocation(bool $autoLocation): void
     {
         $this->autoLocation = $autoLocation;
     }
 
-    /**
-     * @return array
-     */
     public function getLocationData(): array
     {
         return $this->locationData;
     }
 
-    /**
-     * @param array $locationData
-     */
     public function setLocationData(array $locationData): void
     {
         $this->locationData = $locationData;
     }
 
-    /**
-     * @return float
-     */
     public function getLocationLat(): float
     {
         return $this->locationLat;
     }
 
-    /**
-     * @param float $locationLat
-     */
     public function setLocationLat(float $locationLat): void
     {
         $this->locationLat = $locationLat;
     }
 
-    /**
-     * @return float
-     */
     public function getLocationLon(): float
     {
         return $this->locationLon;
     }
 
-    /**
-     * @param float $locationLon
-     */
     public function setLocationLon(float $locationLon): void
     {
         $this->locationLon = $locationLon;

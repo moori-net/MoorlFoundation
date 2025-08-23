@@ -1,0 +1,194 @@
+<div class="moorl-combination-element-options">
+    <sw-card-section
+        divider="bottom"
+        slim
+        v-if="isEnabled('layout')"
+    >
+        <h4>
+            {{ $tc('moorl-combination-element-options.title.layout') }}
+        </h4>
+        <sw-container
+            columns="1fr 1fr"
+            gap="0px 20px"
+        >
+            <mt-text-field
+                v-model="value.idAttribute"
+                :label="$tc('moorl-combination-element-options.label.idAttribute')"
+            />
+            <mt-text-field
+                v-model="value.classAttribute"
+                :label="$tc('moorl-combination-element-options.label.classAttribute')"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-foundation.field.style')"
+                v-model:value="value.layout"
+                :customSet="['banner-content','content-banner']"
+                snippetPath="moorl-combination-element-options.layout"
+            />
+            <mt-switch
+                v-model="value.showBanner"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.showBanner')"
+            />
+            <mt-switch
+                v-model="value.showTitleDescription"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.showTitleDescription')"
+            />
+            <mt-switch
+                v-if="isEnabled('product-buy-list')"
+                v-model="value.showProductBuyList"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.showProductBuyList')"
+            />
+            <mt-text-field
+                v-model="value.minWidth"
+                :label="$tc('moorl-combination-element-options.label.minWidth')"
+            />
+        </sw-container>
+    </sw-card-section>
+    <sw-card-section
+        divider="bottom"
+        slim
+        v-if="isEnabled('product-buy-list') && value.showProductBuyList"
+    >
+        <h4>
+            {{ $tc('moorl-combination-element-options.title.productBuyList') }}
+        </h4>
+        <sw-container
+            columns="1fr 1fr"
+            gap="0px 20px"
+        >
+            <mt-switch
+                v-model="value.enableAddToCartSingle"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.enableAddToCartSingle')"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-combination-element-options.label.addToCartSingleIcon')"
+                v-model:value="value.addToCartSingleIcon"
+                :disabled="!value.enableAddToCartSingle"
+                :customSet="['plus','cart','bag']"
+                snippetPath="moorl-combination-element-options.icon"
+                showClearableButton
+            />
+            <mt-switch
+                v-model="value.enableAddToCartAll"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.enableAddToCartAll')"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-combination-element-options.label.addToCartAllIcon')"
+                v-model:value="value.addToCartAllIcon"
+                :disabled="!value.enableAddToCartAll"
+                :customSet="['plus','cart','bag']"
+                snippetPath="moorl-combination-element-options.icon"
+                showClearableButton
+            />
+            <mt-switch
+                v-model="value.enablePrices"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.enablePrices')"
+            />
+            <mt-switch
+                v-model="value.enableVariantSwitch"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.enableVariantSwitch')"
+            />
+            <mt-switch
+                v-model="value.enableSelection"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.enableSelection')"
+            />
+            <mt-switch
+                v-model="value.enableDirectUrl"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.enableDirectUrl')"
+            />
+        </sw-container>
+    </sw-card-section>
+    <sw-card-section
+        divider="bottom"
+        slim
+        v-if="isEnabled('hotspots') && value.showBanner"
+    >
+        <h4>
+            {{ $tc('moorl-combination-element-options.title.hotspots') }}
+        </h4>
+        <sw-container
+            columns="1fr 1fr"
+            gap="0px 20px"
+        >
+            <mt-switch
+                v-model="value.showHotspots"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.showHotspots')"
+            />
+            <mt-switch
+                v-model="value.loadHoverCards"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.loadHoverCards')"
+                :disabled="!value.showHotspots"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-combination-element-options.label.hotspotAnimation')"
+                v-model:value="value.hotspotAnimation"
+                :disabled="!value.showHotspots"
+                :customSet="['pulse']"
+                snippetPath="moorl-combination-element-options.hotspotAnimation"
+            />
+        </sw-container>
+    </sw-card-section>
+    <sw-card-section
+        divider="bottom"
+        slim
+        v-if="isEnabled('stock') && value.showBanner"
+    >
+        <h4>
+            {{ $tc('moorl-combination-element-options.title.stock') }}
+        </h4>
+        <sw-container
+            columns="1fr 1fr"
+            gap="0px 20px"
+        >
+            <mt-switch
+                v-model="value.showStock"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.showStock')"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-combination-element-options.label.stockType')"
+                v-model:value="value.stockType"
+                :disabled="!value.showStock"
+                :customSet="['progressBarAbs','progressBarPc','text']"
+                snippetPath="moorl-combination-element-options.stockType"
+            />
+        </sw-container>
+    </sw-card-section>
+    <sw-card-section
+        divider="bottom"
+        slim
+        v-if="isEnabled('countdown') && value.showBanner"
+    >
+        <h4>
+            {{ $tc('moorl-combination-element-options.title.countdown') }}
+        </h4>
+        <sw-container
+            columns="1fr 1fr"
+            gap="0px 20px"
+        >
+            <mt-switch
+                v-model="value.showCountdown"
+                bordered
+                :label="$tc('moorl-combination-element-options.label.showCountdown')"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-combination-element-options.label.countdownType')"
+                v-model:value="value.countdownType"
+                :disabled="!value.showCountdown"
+                :customSet="['countdown','relative','time','hidden']"
+                snippetPath="moorl-combination-element-options.countdownType"
+            />
+        </sw-container>
+    </sw-card-section>
+</div>

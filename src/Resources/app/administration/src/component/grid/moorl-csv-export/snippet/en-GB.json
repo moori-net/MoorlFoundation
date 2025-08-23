@@ -1,0 +1,9 @@
+{
+    "moorl-csv-export": {
+        "localTable": "Just export local table",
+        "title": "Export assistant",
+        "introText": "Do you want to export this table?",
+        "process": "Preparing export...",
+        "completedMessage": "Export complete"
+    }
+}

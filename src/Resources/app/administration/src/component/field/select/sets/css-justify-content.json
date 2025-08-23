@@ -1,0 +1,22 @@
+[
+    { "value": "normal", "label": "moorl-select.cssJustifyContent.normal" },
+    { "value": "stretch", "label": "moorl-select.cssJustifyContent.stretch" },
+    {
+        "value": "flex-start",
+        "label": "moorl-select.cssJustifyContent.flex-start"
+    },
+    { "value": "flex-end", "label": "moorl-select.cssJustifyContent.flex-end" },
+    { "value": "center", "label": "moorl-select.cssJustifyContent.center" },
+    {
+        "value": "space-between",
+        "label": "moorl-select.cssJustifyContent.space-between"
+    },
+    {
+        "value": "space-around",
+        "label": "moorl-select.cssJustifyContent.space-around"
+    },
+    {
+        "value": "space-evenly",
+        "label": "moorl-select.cssJustifyContent.space-evenly"
+    }
+]

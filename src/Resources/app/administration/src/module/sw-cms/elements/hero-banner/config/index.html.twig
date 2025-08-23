@@ -1,0 +1,205 @@
+<div class="sw-cms-el-config-moorl-hero-banner">
+    <sw-tabs default-item="general">
+        <template #default="{ active }">
+            <sw-tabs-item
+                name="general"
+                :activeTab="active"
+            >
+                {{ $tc('moorl-foundation.tab.general') }}
+            </sw-tabs-item>
+            <sw-tabs-item
+                v-if="element.config.mediaActive.value"
+                name="media"
+                :activeTab="active"
+            >
+                {{ $tc('moorl-foundation.tab.media') }}
+            </sw-tabs-item>
+            <sw-tabs-item
+                name="position"
+                :activeTab="active"
+            >
+                {{ $tc('moorl-foundation.tab.position') }}
+            </sw-tabs-item>
+            <sw-tabs-item
+                v-if="element.config.captionActive.value"
+                name="content"
+                :activeTab="active"
+            >
+                {{ $tc('moorl-foundation.tab.content') }}
+            </sw-tabs-item>
+        </template>
+
+        <template #content="{ active }">
+            <sw-container v-if="active === 'general'">
+                <moorl-select-field
+                    :label="$tc('moorl-foundation.field.elementType')"
+                    v-model:value="element.config.searchType.value"
+                    :customSet="['search','location']"
+                    snippetPath="moorl-foundation.field"
+                />
+                <sw-entity-single-select
+                    v-if="element.config.searchType.value == 'location'"
+                    :label="$tc('moorl-foundation.field.category')"
+                    entity="category"
+                    v-model:value="element.config.categoryId.value"
+                />
+                <mt-text-field
+                    v-model="element.config.height.value"
+                    :label="$tc('moorl-foundation.field.height')"
+                />
+                <mt-switch
+                    v-model="element.config.mediaActive.value"
+                    bordered
+                    :label="$tc('moorl-foundation.field.mediaActive')"
+                />
+                <mt-switch
+                    v-model="element.config.captionActive.value"
+                    bordered
+                    :label="$tc('moorl-foundation.field.captionActive')"
+                />
+            </sw-container>
+            <sw-container v-if="active === 'media'">
+                <div class="sw-field">
+                    <sw-media-upload-v2
+                        :upload-tag="uploadTag"
+                        :source="previewSource"
+                        :allow-multi-select="false"
+                        :default-folder="cmsPageState.pageEntityName"
+                        :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                        @media-upload-sidebar-open="onOpenMediaModal"
+                        @media-upload-remove-image="onImageRemove"
+                    />
+                    <sw-upload-listener
+                        :uploadTag="uploadTag"
+                        autoUpload
+                        @media-upload-finish="onImageUpload"
+                    />
+                </div>
+                <sw-container
+                    columns="1fr 1fr"
+                    gap="0 10px"
+                >
+                    <moorl-select-field
+                        :label="$tc('moorl-foundation.field.backgroundVerticalAlign')"
+                        v-model:value="element.config.backgroundVerticalAlign.value"
+                        set="textVerticalAlign"
+                    />
+                    <moorl-select-field
+                        :label="$tc('moorl-foundation.field.backgroundHorizontalAlign')"
+                        v-model:value="element.config.backgroundHorizontalAlign.value"
+                        set="textHorizontalAlign"
+                    />
+                    <mt-switch
+                        v-model="element.config.backgroundFixed.value"
+                        bordered
+                        :label="$tc('moorl-foundation.field.backgroundFixed')"
+                    />
+                    <moorl-select-field
+                        :label="$tc('moorl-foundation.field.backgroundDisplayMode')"
+                        v-model:value="element.config.backgroundDisplayMode.value"
+                        set="displayMode"
+                    />
+                </sw-container>
+                <sw-container
+                    v-if="element.config.backgroundDisplayMode.value == 'custom'"
+                    columns="1fr 1fr"
+                    gap="0 10px"
+                >
+                    <mt-text-field
+                        v-model="element.config.backgroundSizeX.value"
+                        :label="$tc('moorl-foundation.field.backgroundSizeX')"
+                    />
+                    <mt-text-field
+                        v-model="element.config.backgroundSizeY.value"
+                        :label="$tc('moorl-foundation.field.backgroundSizeY')"
+                    />
+                </sw-container>
+            </sw-container>
+            <sw-container v-if="active === 'position'">
+                <sw-container
+                    columns="1fr 1fr"
+                    gap="0 10px"
+                >
+                    <moorl-select-field
+                        :label="$tc('moorl-foundation.field.boxVerticalAlign')"
+                        v-model:value="element.config.boxVerticalAlign.value"
+                        set="flexVerticalAlign"
+                    />
+                    <moorl-select-field
+                        :label="$tc('moorl-foundation.field.boxHorizontalAlign')"
+                        v-model:value="element.config.boxHorizontalAlign.value"
+                        set="flexHorizontalAlign"
+                    />
+                    <mt-text-field
+                        :label="$tc('moorl-foundation.field.boxWidth')"
+                        v-model="element.config.boxWidth.value"
+                    />
+                    <mt-text-field
+                        :label="$tc('moorl-foundation.field.boxHeight')"
+                        v-model="element.config.boxHeight.value"
+                    />
+                    <mt-text-field
+                        :label="$tc('moorl-foundation.field.boxMargin')"
+                        v-model="element.config.boxMargin.value"
+                    />
+                    <mt-text-field
+                        :label="$tc('moorl-foundation.field.boxPadding')"
+                        v-model="element.config.boxPadding.value"
+                    />
+                    <moorl-select-field
+                        :label="$tc('moorl-foundation.field.boxTextAlign')"
+                        v-model:value="element.config.boxTextAlign.value"
+                        set="textHorizontalAlign"
+                    />
+                    <mt-colorpicker
+                        colorOutput="hex"
+                        :zIndex="1000"
+                        :label="$tc('moorl-foundation.field.boxColor')"
+                        v-model="element.config.boxColor.value"
+                    />
+                    <mt-colorpicker
+                        colorOutput="hex"
+                        :zIndex="1000"
+                        :label="$tc('moorl-foundation.field.boxBackground')"
+                        v-model="element.config.boxBackground.value"
+                    />
+                    <mt-text-field
+                        :label="$tc('moorl-foundation.field.boxBorderRadius')"
+                        v-model="element.config.boxBorderRadius.value"
+                    />
+                    <mt-switch
+                        v-model="element.config.boxMaxWidth.value"
+                        bordered
+                        :label="$tc('moorl-foundation.field.boxMaxWidth')"
+                    />
+                </sw-container>
+            </sw-container>
+            <sw-container v-if="active === 'content'">
+                <mt-text-field
+                    v-model="element.config.title.value"
+                    :label="$tc('moorl-foundation.field.title')"
+                />
+                <mt-text-field
+                    v-model="element.config.content.value"
+                    :label="$tc('moorl-foundation.field.content')"
+                />
+                <mt-switch
+                    v-model="element.config.textShadowActive.value"
+                    bordered
+                    :label="$tc('moorl-foundation.field.textShadowActive')"
+                />
+            </sw-container>
+        </template>
+    </sw-tabs>
+    <sw-media-modal-v2
+        v-if="mediaModalIsOpen"
+        variant="full"
+        :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+        :entity-context="cmsPageState.entityName"
+        :allow-multi-select="false"
+        :initial-folder-id="cmsPageState.defaultMediaFolderId"
+        @media-upload-remove-image="onImageRemove"
+        @media-modal-selection-change="onSelectionChanges"
+        @modal-close="onCloseModal"
+    />
+</div>

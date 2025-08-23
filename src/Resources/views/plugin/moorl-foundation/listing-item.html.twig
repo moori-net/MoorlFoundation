@@ -2,6 +2,48 @@
     {% set schemaOrgType = 'Thing' %}
 {% endif %}
 
+{% if not collection and not config.itemLayout.value and element.translated.config %}
+    {% set config = element.translated.config %}
+{% endif %}
+
+{% set imageContent %}
+    {% block moorl_listing_item_image %}
+        {% if media.url %}
+            {% set imageCss = [] %}
+            {% if config.itemLayout.value == 'avatar' %}
+                {% set imageCss = imageCss|merge([
+                    "height:#{config.itemWidth.value}",
+                    "width:#{config.itemWidth.value}",
+                ]) %}
+            {% endif %}
+
+            {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
+                media: media,
+                attributes: {
+                    'itemprop': 'image',
+                    'alt': title,
+                    'class': "is-#{config.displayMode.value}",
+                    'style': imageCss|join(';'),
+                    'title': '',
+                    'loading': 'lazy'
+                }
+            } %}
+        {% elseif config.itemLayout.value == 'image-or-title' %}
+            <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
+                {% if config.sanitize.value %}
+                    {{ title|sw_sanitize }}
+                {% else %}
+                    {{ title|raw }}
+                {% endif %}
+            </div>
+        {% else %}
+            {% sw_icon 'placeholder' style {
+                'size': 'fluid'
+            } %}
+        {% endif %}
+    {% endblock %}
+{% endset %}
+
 {% set itemContent %}
     {% block moorl_foundation_listing_item %}
         {% if config.listingLayout.value == 'search-suggest' %}
@@ -11,7 +53,7 @@
                     <a href="{{ url }}"
                        title="{{ title }}"
                        class="search-suggest-product-link">
-                        <div class="row align-items-center {{ gridNoGuttersClass }}">
+                        <div class="row align-items-center g-0">
                             <div class="col-auto search-suggest-product-image-container">
                                 {% if media.url %}
                                     {% sw_thumbnails 'search-suggest-product-image-thumbnails' with {
@@ -42,38 +84,18 @@
                 </li>
             {% endblock %}
         {% else %}
-            <div class="moorl-listing-item-image">
-                {% block moorl_listing_item_image %}
-                    {% if media.url %}
-                        {% set imageCss = [] %}
-                        {% if config.itemLayout.value == 'avatar' %}
-                            {% set imageCss = imageCss|merge([
-                                "height:#{config.itemWidth.value}",
-                                "width:#{config.itemWidth.value}",
-                            ]) %}
-                        {% endif %}
-
-                        {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
-                            media: media,
-                            attributes: {
-                                'itemprop': 'image',
-                                'alt': title,
-                                'class': "is-#{config.displayMode.value}",
-                                'style': imageCss|join(';'),
-                                'title': ''
-                            }
-                        } %}
-                    {% elseif config.itemLayout.value == 'image-or-title' %}
-                        <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
-                            {{ title|raw }}
-                        </div>
-                    {% else %}
-                        {% sw_icon 'placeholder' style {
-                            'size': 'fluid'
-                        } %}
-                    {% endif %}
-                {% endblock %}
-            </div>
+            {% if config.hasButton.value or not url %}
+                <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
+                   rel="noopener"{% endif %}
+                   class="moorl-listing-item-image"
+                   title="{{ title }}">
+                    {{ imageContent }}
+                </a>
+            {% else %}
+                <div class="moorl-listing-item-image">
+                    {{ imageContent }}
+                </div>
+            {% endif %}
 
             {% if config.itemLayout.value != 'image-or-title' %}
                 <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
@@ -81,7 +103,11 @@
                         {% block moorl_foundation_listing_item_content %}
                             <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
                                 {% block moorl_foundation_listing_item_title %}
-                                    {{ title|raw }}
+                                    {% if config.sanitize.value %}
+                                        {{ title|sw_sanitize }}
+                                    {% else %}
+                                        {{ title|raw }}
+                                    {% endif %}
                                 {% endblock %}
                             </div>
 
@@ -96,7 +122,11 @@
                             {% if description %}
                                 <div itemprop="description" class="moorl-listing-item-description">
                                     {% block moorl_foundation_listing_item_description %}
-                                        {{ description|raw }}
+                                        {% if config.sanitize.value %}
+                                            {{ description|length > config.contentLength.value ? description|striptags|slice(0, config.contentLength.value) ~ '...' : description|striptags }}
+                                        {% else %}
+                                            {{ description|raw }}
+                                        {% endif %}
                                     {% endblock %}
                                 </div>
                             {% endif %}

@@ -1,13 +1,13 @@
 {
-  "sw-cms": {
-    "blocks": {
-      "moorl-slider": {
-        "interactive": "Interactive slider",
-        "2": "Slider with two slides",
-        "3": "Slider with three slides",
-        "4": "Slider with four slides",
-        "5": "Slider with five slides"
-      }
+    "sw-cms": {
+        "blocks": {
+            "moorl-slider": {
+                "interactive": "Interactive slider",
+                "2": "Slider with two slides",
+                "3": "Slider with three slides",
+                "4": "Slider with four slides",
+                "5": "Slider with five slides"
+            }
+        }
     }
-  }
 }

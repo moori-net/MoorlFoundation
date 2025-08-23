@@ -9,26 +9,19 @@ use Shopware\Core\Content\Product\SalesChannel\Search\AbstractProductSearchRoute
 use Shopware\Core\Content\Product\SalesChannel\Search\ProductSearchRouteResponse;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"store-api"}})
- */
 class FoundationProductSearchRoute extends AbstractProductSearchRoute
 {
-    private AbstractProductSearchRoute $decorated;
-    private EventDispatcherInterface $dispatcher;
-    private EntitySearchService $searchService;
-
     public function __construct(
-        AbstractProductSearchRoute $decorated,
-        EntitySearchService $searchService,
-        EventDispatcherInterface $dispatcher
-    ) {
-        $this->decorated = $decorated;
-        $this->dispatcher = $dispatcher;
-        $this->searchService = $searchService;
+        private readonly AbstractProductSearchRoute $decorated,
+        private readonly EntitySearchService $searchService,
+        private readonly EventDispatcherInterface $dispatcher,
+        private readonly SystemConfigService $systemConfigService
+    )
+    {
     }
 
     public function getDecorated(): AbstractProductSearchRoute
@@ -38,6 +31,10 @@ class FoundationProductSearchRoute extends AbstractProductSearchRoute
 
     public function load(Request $request, SalesChannelContext $context, Criteria $criteria): ProductSearchRouteResponse
     {
+        if (!$this->systemConfigService->get('MoorlFoundation.config.advancedSearchActive', $context->getSalesChannelId())) {
+            return $this->decorated->load($request, $context, $criteria);
+        }
+
         $entityListing = $this->searchService->getEntityListing($request, $context->getContext());
         if ($entityListing && $entityListing->getEntityName() !== SalesChannelProductDefinition::ENTITY_NAME) {
             $entityListing->setEventDispatcher($this->dispatcher);
@@ -46,7 +43,7 @@ class FoundationProductSearchRoute extends AbstractProductSearchRoute
 
             $result = $entityListing->listingRoute($criteria)->getResult();
             $result = ProductListingResult::createFrom($result);
-            $result->addCurrentFilter('search', $request->get('search'));
+            $result->addCurrentFilter('search', $request->query->get('search'));
 
             return new ProductSearchRouteResponse($result);
         }

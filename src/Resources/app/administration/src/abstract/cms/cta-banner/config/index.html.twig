@@ -1,0 +1,11 @@
+<div class="sw-cms-el-config-moorl-cta-banner">
+    <moorl-form
+        v-if="!isLoading"
+        :item="element.config"
+        :componentName="element.type"
+        :entity="currentEntity.name"
+        :mapping="cmsElementMapping"
+        :hideDisabledFields="true"
+        pathAppend="value"
+    />
+</div>

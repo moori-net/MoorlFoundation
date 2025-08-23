@@ -1,10 +1,9 @@
-const Application = Shopware.Application;
 import './component';
 import './config';
 
-Application.getContainer('service').cmsService.registerCmsElement({
+Shopware.Application.getContainer('service').cmsService.registerCmsElement({
     plugin: 'MoorlFoundation',
-    icon: 'default-object-paperplane',
+    icon: 'regular-paper-plane',
     name: 'moorl-newsletter',
     label: 'sw-cms.elements.moorl-newsletter.title',
     component: 'sw-cms-el-moorl-newsletter',
@@ -13,27 +12,27 @@ Application.getContainer('service').cmsService.registerCmsElement({
     defaultConfig: {
         optin: {
             source: 'static',
-            value: true
+            value: true,
         },
-        buttonTextColor:{
+        buttonTextColor: {
             source: 'static',
-            value: '#ffffff'
+            value: '#ffffff',
         },
-        buttonBackground:{
+        buttonBackground: {
             source: 'static',
-            value: '#4495c0'
+            value: '#4495c0',
         },
-        placeholder:{
+        placeholder: {
             source: 'static',
-            value: 'Enter E-Mail ...'
+            value: 'Enter E-Mail ...',
         },
-        buttonText:{
+        buttonText: {
             source: 'static',
-            value: 'Register'
+            value: 'Register',
         },
-        privacyColor:{
+        privacyColor: {
             source: 'static',
-            value: '#ffffff'
-        }
-    }
+            value: '#ffffff',
+        },
+    },
 });

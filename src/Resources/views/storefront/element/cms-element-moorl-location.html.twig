@@ -6,12 +6,44 @@
             ],
             tileLayer: config('MoorlFoundation.config.osmTileLayer'),
             attribution: config('MoorlFoundation.config.osmAttribution'),
-            options: config('MoorlFoundation.config.osmOptions'),
+            options: element.config.overrideOsmOptions.value ? element.config.osmOptions.value : config('MoorlFoundation.config.osmOptions'),
+            padding: config('MoorlFoundation.config.osmPadding'),
+            zoom: config('MoorlFoundation.config.osmZoom'),
+            cookieConsent: config('MoorlFoundation.config.osmCookieConsent'),
         } %}
 
         {% block element_moorl_location_map %}
             <div data-moorl-location data-moorl-location-options='{{ locationOptions|json_encode }}'>
-                <div style="height:{{ element.config.height.value }}" class="moorl-location-map"></div>
+                {% block element_moorl_location_map_legend %}
+                    {% if element.data.markers %}
+                        <div class="d-none">
+                            <div class="legend">
+                                {% block element_moorl_location_map_legend_title %}
+                                    <h4>{{ "moorl-foundation.card.legend"|trans }}</h4>
+                                {% endblock %}
+
+                                {% block element_moorl_location_map_legend_items %}
+                                    {% for marker in element.data.markers %}
+                                        {% if marker.marker.url %}
+                                            <i><img class="icon" src="{{ marker.marker.url }}" alt=""></i>
+                                        {% else %}
+                                            <i>{{ marker.svg|raw }}</i>
+                                        {% endif %}
+                                        <span>{{ marker.name }}</span><br>
+                                    {% endfor %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+
+                <div style="height:{{ element.config.height.value }}" class="moorl-location-map">
+                    {% if locationOptions.cookieConsent %}
+                        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/cookie-box/index.html.twig' with {
+                            cookieKey: 'moorl-location-map'
+                        } %}
+                    {% endif %}
+                </div>
             </div>
         {% endblock %}
     </div>

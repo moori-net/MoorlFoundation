@@ -1,0 +1,97 @@
+{% block moorl_form_detail %}
+    <mt-loader v-if="isLoading" />
+
+    <sw-tabs
+        v-if="!isLoading"
+        :key="entity"
+        :default-item="defaultTab"
+        class="moorl-form"
+    >
+        <template
+                v-if="formStruct.tabs.length > 1"
+                #default="{ active }"
+        >
+            <sw-tabs-item
+                v-for="tab in formStruct.tabs"
+                :key="tab.id"
+                :name="tab.id"
+                :activeTab="active"
+                :disabled="isDisabledTab(tab)"
+            >
+                {{ tab.label }}
+            </sw-tabs-item>
+            {% block moorl_form_detail_tabs %}
+            {% endblock %}
+        </template>
+
+        <template #content="{ active }">
+            <template
+                v-for="tab in formStruct.tabs"
+                :key="tab.id"
+            >
+                <template v-if="active === tab.id">
+                    <template
+                        v-for="card in tab.cards"
+                        :key="card.id"
+                    >
+                        <template v-if="card.standalone">
+                            <template
+                                v-for="field in card.fields"
+                                :key="field.name"
+                            >
+                                <component
+                                    v-if="isVisible(field)"
+                                    :is="field.componentName"
+                                    v-bind="field.attributes"
+                                    :style="getStyle(field)"
+                                />
+                            </template>
+                        </template>
+                        <mt-card
+                            v-else
+                            :title="card.label"
+                            :class="card.id + '-card moorl-form__card'"
+                        >
+                            <mt-banner
+                                v-if="translationHelper.getNotification(card.id)"
+                                variant="attention"
+                            >
+                                {{ translationHelper.getNotification(card.id) }}
+                            </mt-banner>
+                            <template
+                                v-for="field in card.fields"
+                                :key="field.name"
+                            >
+                                <div
+                                    v-if="field.newline"
+                                    class="newline"
+                                ></div>
+                                <div
+                                        v-if="isVisibleComponent(field)"
+                                        :style="getStyle(field)"
+                                >
+                                    <component
+                                        v-if="field.model === undefined"
+                                        :is="field.componentName"
+                                        v-model="fieldModels[field.path]"
+                                        v-bind="fieldAttributes(field)"
+                                        :error="getError(field)"
+                                    />
+                                    <component
+                                        v-else
+                                        :is="field.componentName"
+                                        v-model:[field.model]="fieldModels[field.path]"
+                                        v-bind="fieldAttributes(field)"
+                                        :error="getError(field)"
+                                    />
+                                </div>
+                            </template>
+                        </mt-card>
+                    </template>
+                </template>
+            </template>
+            {% block moorl_form_detail_content %}
+            {% endblock %}
+        </template>
+    </sw-tabs>
+{% endblock %}

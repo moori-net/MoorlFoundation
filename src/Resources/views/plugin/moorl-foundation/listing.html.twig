@@ -10,7 +10,7 @@
     {% endif %}
 
     {# Set listing title by a page entity #}
-    {% set listingHeaderTitle = element.translated.config.listingHeaderTitle.value %}
+    {% set listingHeaderTitle = listingHeaderTitle ?? element.translated.config.listingHeaderTitle.value %}
 
     {% set itemCss = [
         "padding:#{config.itemPadding.value}",
@@ -63,7 +63,7 @@
 
         {% for item in searchResult %}
             {% block moorl_foundation_listing_item %}
-                {% sw_include '@Storefront/plugin/moorl-foundation/listing-item.html.twig' %}
+                {% sw_include '@MoorlFoundation/plugin/moorl-foundation/listing-item.html.twig' %}
             {% endblock %}
         {% endfor %}
     {% endset %}
@@ -148,7 +148,10 @@
                                         {% block moorl_foundation_listing_slider_thumbnails_item %}
                                             {% sw_thumbnails 'moorl-listing-slider-thumbnail' with {
                                                 media: item.media,
-                                                attributes: {alt: '',title: ''}
+                                                attributes: {
+                                                    alt: item.translated.name,
+                                                    title: item.translated.name
+                                                }
                                             } %}
                                         {% endblock %}
                                     </li>

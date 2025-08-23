@@ -1,12 +1,11 @@
-import Plugin from 'src/plugin-system/plugin.class';
-import Dropzone from "dropzone";
+const Plugin = window.PluginBaseClass;
+import Dropzone from 'dropzone';
 
 export default class MoorlCustomerUploadPlugin extends Plugin {
-
     static options = {};
 
     init() {
-        const dropzone = new Dropzone(this.el.querySelector(".dropzone"), {
+        const dropzone = new Dropzone(this.el.querySelector('.dropzone'), {
             url: this.options.url,
             params: (files, xhr, chunk) => {
                 return Object.fromEntries(
@@ -16,13 +15,17 @@ export default class MoorlCustomerUploadPlugin extends Plugin {
                 );
             },
             disablePreviews: true,
-            dictDefaultMessage: this.options.dictDefaultMessage
+            dictDefaultMessage: this.options.dictDefaultMessage,
         });
 
-        const imageContainer = this.el.querySelector(".moorl-customer-upload-image");
-        const filesContainer = this.el.querySelector(".moorl-customer-upload-files");
+        const imageContainer = this.el.querySelector(
+            '.moorl-customer-upload-image'
+        );
+        const filesContainer = this.el.querySelector(
+            '.moorl-customer-upload-files'
+        );
 
-        dropzone.on("success", (file, response, xhr) => {
+        dropzone.on('success', (file, response, xhr) => {
             if (imageContainer) {
                 imageContainer.innerHTML = response;
             } else if (filesContainer) {
@@ -30,7 +33,6 @@ export default class MoorlCustomerUploadPlugin extends Plugin {
                 const duplicateEl = document.getElementById(responseEl.id);
 
                 if (duplicateEl) {
-                    console.log('duplicateEl');
                     //filesContainer.replaceChild(responseEl, duplicateEl);
                 } else {
                     filesContainer.append(responseEl);
@@ -38,6 +40,6 @@ export default class MoorlCustomerUploadPlugin extends Plugin {
             } else {
                 window.location.reload();
             }
-        })
+        });
     }
 }

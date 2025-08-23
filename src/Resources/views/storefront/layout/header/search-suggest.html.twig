@@ -10,7 +10,7 @@
     {% else %}
         {% block layout_search_suggest_result_total_result %}
             <div class="js-result search-suggest-total">
-                <div class="row form-row align-items-center">
+                <div class="row align-items-center g-0">
                     <div class="col-auto">
                         {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
                     </div>
@@ -74,17 +74,17 @@
             <div class="search-suggest-container{% if config('MoorlFoundation.config.advancedSearchWidth') %} moorl-search-suggest-container{% endif %}">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link{% if activeTab == "product" %} active{% endif %}" data-toggle="tab" href="#product">
+                        <a class="nav-link{% if activeTab == "product" %} active{% endif %}" data-bs-toggle="tab" href="#product">
                             {{ "moorl-foundation.search.product"|trans }}
-                            <span class="badge badge-primary">{{ page.searchResult.total }}</span>
+                            <span class="badge bg-primary">{{ page.searchResult.total }}</span>
                         </a>
                     </li>
 
                     {% for moorlSearchResult in page.searchResult.moorlSearchResults %}
                         <li class="nav-item">
-                            <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
+                            <a class="nav-link{% if activeTab == moorlSearchResult.criteria.title %} active{% endif %}" data-bs-toggle="tab" href="#{{ moorlSearchResult.criteria.title }}">
                                 {{ moorlSearchResult.snippet|trans }}
-                                <span class="badge badge-primary">{{ moorlSearchResult.total }}</span>
+                                <span class="badge bg-primary">{{ moorlSearchResult.total }}</span>
                             </a>
                         </li>
                     {% endfor %}

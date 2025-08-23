@@ -4,7 +4,7 @@
     {{ parent() }}
 
     {% if config('MoorlFoundation.config.fontawesome') %}
-        <link rel="stylesheet" href="https://data.moori.net/fontawesome-free-5.15.4-web/css/all.min.css" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous"/>
     {% endif %}
 
     {% if config('MoorlFoundation.config.animate') %}
@@ -13,6 +13,10 @@
 
     {% if config('MoorlFoundation.config.moorlAnimation') %}
         <script type="application/javascript">window.moorlAnimation = {{ config('MoorlFoundation.config.moorlAnimation')|json_encode|raw }};</script>
+    {% endif %}
+
+    {% if config('MoorlFoundation.config.moorlAnimationZIndex') %}
+        <script type="application/javascript">window.moorlAnimationZIndex = "{{ config('MoorlFoundation.config.moorlAnimationZIndex') }}";</script>
     {% endif %}
 
     {% if config('MoorlFoundation.config.advancedSearchWidth') %}

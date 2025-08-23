@@ -4,20 +4,11 @@ namespace MoorlFoundation\Core\Content\Cms;
 
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
-use Shopware\Core\Content\Cms\DataResolver\Element\TextCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use Shopware\Core\Content\Cms\SalesChannel\Struct\TextStruct;
-use Shopware\Core\Framework\Util\HtmlSanitizer;
 
-class TocCmsElementResolver extends TextCmsElementResolver
+class TocCmsElementResolver extends LegacyTextCmsElementResolver
 {
-    private HtmlSanitizer $sanitizer;
-
-    public function __construct(HtmlSanitizer $sanitizer)
-    {
-        $this->sanitizer = $sanitizer;
-    }
-
     public function getType(): string
     {
         return 'moorl-toc';
@@ -84,6 +75,10 @@ class TocCmsElementResolver extends TextCmsElementResolver
                 }
             } elseif ($headingDepth < $previousHeadingDepth) {
                 $currentOL = $previousOLs[$headingDepth];
+            }
+
+            if (!$currentOL) {
+                continue;
             }
 
             $currentOL->setAttribute('class', 'toc-lvl-' . ($headingDepth - 1));

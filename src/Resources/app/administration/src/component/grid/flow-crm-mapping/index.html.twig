@@ -1,0 +1,51 @@
+<div class="moorl-flow-crm-mapping">
+    <div class="moorl-link-field">
+        <sw-entity-single-select
+            :label="propertiesClientId"
+            :helpText="helpTextClientId"
+            entity="moorl_client"
+            :criteria="clientCriteria"
+            v-model:value="config.clientId"
+            @update:value="onChangeClient"
+        />
+        <router-link
+            v-if="config.clientId"
+            target="_blank"
+            rel="noopener"
+            :to="{ name: 'moorl.client.detail', params: { id: config.clientId } }"
+        >
+            {{ $tc('global.default.edit') }}
+        </router-link>
+        <router-link
+            v-else
+            target="_blank"
+            rel="noopener"
+            :to="{ name: 'moorl.client.create' }"
+        >
+            {{ $tc('global.default.add') }}
+        </router-link>
+    </div>
+    <sw-single-select
+        :label="propertiesFormId"
+        :helpText="helpTextFormId"
+        :options="formOptions"
+        v-model:value="config.formId"
+        :disabled="!config.clientId"
+        @update:value="onChangeForm"
+        show-clearable-button
+    />
+    <mt-loader
+        v-if="config.formId && !activeFormFields.length"
+        size="50px"
+    />
+    <div v-if="activeFormFields.length">
+        <mt-banner variant="info">
+            {{ description }}
+        </mt-banner>
+        <moorl-parameter-grid
+            v-model:parameters="config.mapping"
+            :dataSelection="dataSelection"
+            :showActions="true"
+        />
+    </div>
+</div>

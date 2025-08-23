@@ -1,0 +1,17 @@
+<sw-entity-multi-select
+    v-model:entityCollection="productCollection"
+    :context="productSearchContext"
+    :criteria="productSearchCriteria"
+>
+    <template #selection-label-property="{ item }">
+        <sw-product-variant-info :variations="item.variation">
+            {{ item.translated.name || item.name }}
+        </sw-product-variant-info>
+    </template>
+
+    <template #result-label-property="{ item, index }">
+        <sw-product-variant-info :variations="item.variation">
+            {{ item.translated.name || item.name }}
+        </sw-product-variant-info>
+    </template>
+</sw-entity-multi-select>

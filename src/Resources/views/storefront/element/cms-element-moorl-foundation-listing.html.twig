@@ -1,4 +1,4 @@
-{% sw_extends '@Storefront/plugin/moorl-foundation/listing.html.twig' %}
+{% sw_extends '@MoorlFoundation/plugin/moorl-foundation/listing.html.twig' %}
 
 {# Case 1: From widget or search page - $searchResult is set #}
 {% if searchResult %}
@@ -18,6 +18,10 @@
         {# Case 3: From CMS (others) #}
         {% set isListing = false %}
     {% endif %}
+{% elseif collection and config %}
+    {# Case 4: Static list + plugin config #}
+    {% set isListing = false %}
+    {% set searchResult = collection %}
 {% endif %}
 
 {% if isListing %}
@@ -44,17 +48,19 @@
 
 {% block moorl_foundation_listing %}
     {% if isListing %}
-        <div class="cms-element-product-listing-wrapper cms-element-moorl-foundation-listing-wrapper cms-element-{{ element.type }}"
-             data-listing-pagination="true"
-             data-listing-pagination-options='{{ paginationConfig|json_encode }}'
-             data-listing="true"
-             data-listing-options='{{ listingPagination|json_encode }}'>
+        <div
+                class="cms-element-product-listing-wrapper cms-element-moorl-foundation-listing-wrapper cms-element-{{ element.type }}"
+                data-listing-pagination="true"
+                data-listing-pagination-options='{{ paginationConfig|json_encode }}'
+                data-listing="true"
+                data-listing-options='{{ listingPagination|json_encode }}'
+        >
             <div class="cms-element-product-listing cms-element-moorl-foundation-listing">
                 {% if searchResult.total > 0 %}
                     {# Avoid not necessary pagination or sorting elements #}
                     {% set totalPages = (searchResult.total / searchResult.criteria.limit)|round(0, 'ceil') %}
                     {% if totalPages > 1 or searchResult.availableSortings.count() > 1 %}
-                        <div class="cms-element-product-listing-actions row form-row justify-content-between">
+                        <div class="cms-element-product-listing-actions row g-3 justify-content-between">
                             <div class="col">
                                 {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
                                     entities: searchResult,
@@ -73,6 +79,13 @@
 
                 {% if searchResult.total > 0 %}
                     {{ parent() }}
+
+                    {% if totalPages > 1 %}
+                        {% sw_include '@Storefront/storefront/component/pagination.html.twig' with {
+                            entities: searchResult,
+                            criteria: searchResult.criteria
+                        } %}
+                    {% endif %}
                 {% else %}
                     {% block moorl_foundation_listing_empty %}
                         {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {

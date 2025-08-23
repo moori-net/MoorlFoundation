@@ -1,0 +1,14 @@
+.moorl-block-behaviour {
+    .mt-field--switch,
+    .sw-field--switch {
+        margin-top: 0;
+    }
+
+    .sw-collapse__header {
+        grid-template-columns: 1fr 24px;
+    }
+
+    .sw-collapse__content {
+        grid-template-columns: 60px 1fr 1fr;
+    }
+}

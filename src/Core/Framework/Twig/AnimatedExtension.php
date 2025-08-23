@@ -11,14 +11,15 @@ class AnimatedExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('moorl_animated', [$this, 'animated']),
-            new TwigFunction('moorl_random_bg', [$this, 'randomBg']),
-            new TwigFunction('moorl_element_animation', [$this, 'elementAnimation']),
-            new TwigFunction('moorl_animation', [$this, 'animation']),
-            new TwigFunction('moorl_block_behaviour', [$this, 'blockBehaviour']),
+            new TwigFunction('moorl_animated', $this->animated(...)),
+            new TwigFunction('moorl_random_bg', $this->randomBg(...)),
+            new TwigFunction('moorl_element_animation', $this->elementAnimation(...)),
+            new TwigFunction('moorl_animation', $this->animation(...)),
+            new TwigFunction('moorl_block_behaviour', $this->blockBehaviour(...)),
         ];
     }
 
+    /* @deprecated Is in Shopware now ?! Remove this */
     public function blockBehaviour(?array $behaviours = null, bool $isRow = false): ?string
     {
         if (!$behaviours) {
@@ -62,9 +63,7 @@ class AnimatedExtension extends AbstractExtension
         return trim($string);
     }
 
-    /**
-     * @return string
-     */
+    /* @deprecated Remove this */
     public function animated(array $config): string
     {
         $ar = [
@@ -83,14 +82,12 @@ class AnimatedExtension extends AbstractExtension
         return implode(" ", $html);
     }
 
-    /**
-     * @return string
-     */
     public function randomBg(): string
     {
         return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
     }
 
+    /* @deprecated Remove this */
     public function elementAnimation(?CmsSlotEntity $element = null): ?string
     {
         if (!$element) {

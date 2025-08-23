@@ -1,0 +1,12 @@
+{
+    "moorl-file-explorer": {
+        "actions": {
+            "createDir": "Verzeichnis erstellen"
+        },
+        "title": "Datei Explorer",
+        "helpText": {},
+        "label": {
+            "parentDirectory": "Übergeordnetes Verzeichnis"
+        }
+    }
+}

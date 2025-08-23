@@ -8,32 +8,24 @@ trait CollectionLocationTrait
 {
     public function getLeafletLocations(): array
     {
-        return array_values($this->fmap(function ($entity) {
-            /** @var EntityLocationTrait $entity */
-            return $entity->getLeafletLocation();
-        }));
+        return array_values($this->fmap(fn($entity) => $entity->getLeafletLocation()));
     }
 
     public function sortByLocationDistance(
         float $locationLat,
         float $locationLon,
         string $unit = "km",
-        ?string $direction = null
+        string $direction = FieldSorting::ASCENDING
     ): self
     {
-        /** @var EntityLocationTrait $entity */
         foreach ($this as $entity) {
             $entity->setLocationDistance($locationLat, $locationLon, $unit);
         }
 
         if ($direction === FieldSorting::ASCENDING) {
-            $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
-                return $a->getLocationDistance() > $b->getLocationDistance();
-            });
+            $this->sort(fn($a, $b) => $a->getLocationDistance() > $b->getLocationDistance());
         } else if ($direction === FieldSorting::DESCENDING) {
-            $this->sort(function (EntityLocationTrait $a, EntityLocationTrait $b) {
-                return $a->getLocationDistance() < $b->getLocationDistance();
-            });
+            $this->sort(fn($a, $b) => $a->getLocationDistance() < $b->getLocationDistance());
         }
 
         return $this;

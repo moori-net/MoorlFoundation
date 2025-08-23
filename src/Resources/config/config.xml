@@ -7,8 +7,8 @@
 
         <input-field type="bool">
             <name>fontawesome</name>
-            <label>Enable Font Awesome 5 Free</label>
-            <label lang="de-DE">Aktiviere Font Awesome 5 Free</label>
+            <label>Enable Font Awesome 5 Free (via cdnjs.cloudflare.com)</label>
+            <label lang="de-DE">Aktiviere Font Awesome 5 Free (via cdnjs.cloudflare.com)</label>
             <defaultValue>false</defaultValue>
         </input-field>
 
@@ -17,14 +17,6 @@
             <label>Enable Animate.css</label>
             <label lang="de-DE">Aktiviere Animate.css</label>
             <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field>
-            <name>googleMapsApiKey</name>
-            <label>Google Maps API key</label>
-            <label lang="de-DE">Google Maps API Schlüssel</label>
-            <helpText>This API key is used by moori plugins</helpText>
-            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
         </input-field>
     </card>
 
@@ -71,6 +63,14 @@
         <title>Animation</title>
         <title lang="de-DE">Animation</title>
 
+        <input-field type="text">
+            <name>moorlAnimationZIndex</name>
+            <label>Z-Index of animated items</label>
+            <label lang="de-DE">Z-Index der animierten Elemente</label>
+            <defaultValue>9000</defaultValue>
+            <placeholder>9000</placeholder>
+        </input-field>
+
         <component name="moorl-animation">
             <name>moorlAnimation</name>
         </component>
@@ -79,6 +79,20 @@
             <name>null</name>
             <path>/MoorlFoundation/features-free/</path>
         </component>
+    </card>
+
+    <card>
+        <title>CMS</title>
+        <title lang="de-DE">CMS</title>
+
+        <input-field type="bool">
+            <name>cmsEmptyAlert</name>
+            <label>Alert on empty cms elements</label>
+            <label lang="de-DE">Warnung bei leeren CMS-Elementen</label>
+            <helpText>For example: Buy list, downloads</helpText>
+            <helpText lang="de-DE">Zum Beispiel: Kaufliste, Downloads</helpText>
+            <defaultValue>false</defaultValue>
+        </input-field>
     </card>
 
     <card>
@@ -125,7 +139,7 @@
                     <name>Less</name>
                 </option>
             </options>
-            <defaultValue>less</defaultValue>
+            <defaultValue>default</defaultValue>
         </input-field>
 
         <input-field type="multi-select">
@@ -222,10 +236,17 @@
         <title>Open Street Map</title>
         <title lang="de-DE">Open Street Map</title>
 
+        <input-field type="bool">
+            <name>osmCookieConsent</name>
+            <label>Enable cookie consent</label>
+            <label lang="de-DE">Cookie-Abfrage aktivieren</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
         <input-field>
             <name>osmTileLayer</name>
             <label>URL for tile layer</label>
-            <label lang="de-DE">URL Für Kachel-Ebene</label>
+            <label lang="de-DE">URL für Kachel-Ebene</label>
             <defaultValue><![CDATA[https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png]]></defaultValue>
             <placeholder><![CDATA[https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png]]></placeholder>
         </input-field>
@@ -245,7 +266,7 @@
             <options>
                 <option>
                     <id>scrollWheelZoom</id>
-                    <name>Zoom with scrollwheel</name>
+                    <name>Zoom with scroll wheel</name>
                     <name lang="de-DE">Mit Mausrad zoomen</name>
                 </option>
                 <option>
@@ -261,7 +282,7 @@
                 <option>
                     <id>autoPan</id>
                     <name>Auto pan popup</name>
-                    <name lang="de-DE">Karte antippen</name>
+                    <name lang="de-DE">Pupups ausrichten</name>
                 </option>
                 <option>
                     <id>autoClose</id>
@@ -275,7 +296,7 @@
                 </option>
                 <option>
                     <id>flyTo</id>
-                    <name>Fly to to active marker</name>
+                    <name>Fly to active marker</name>
                     <name lang="de-DE">Fliege zur aktiven Markierung</name>
                 </option>
                 <option>
@@ -283,7 +304,13 @@
                     <name>Fit bounds on close popup</name>
                     <name lang="de-DE">Grenzen beim Schließen des Popups anpassen</name>
                 </option>
+                <option>
+                    <id>gestureHandling</id>
+                    <name>Gesture handling (Test)</name>
+                    <name lang="de-DE">Gestensteuerung (Test)</name>
+                </option>
             </options>
+            <defaultValue>["dragging", "tap", "autoPan", "autoClose", "scrollTo", "flyTo", "fitBounds"]</defaultValue>
         </input-field>
 
         <component name="sw-entity-multi-id-select">
@@ -292,6 +319,20 @@
             <label>Reduce search to selected countries for better search results</label>
             <label lang="de-DE">Suche auf ausgewählte Länder reduzieren für bessere Suchergebnisse</label>
         </component>
+
+        <input-field type="int">
+            <name>osmPadding</name>
+            <label>Map padding on fit bounds</label>
+            <label lang="de-DE">Außenabstand beim Grenzen setzen</label>
+            <defaultValue>5</defaultValue>
+        </input-field>
+
+        <input-field type="int">
+            <name>osmZoom</name>
+            <label>Zoom level on active marker (1 to 14)</label>
+            <label lang="de-DE">Zoom bei aktivem Marker (1 bis 14)</label>
+            <defaultValue>14</defaultValue>
+        </input-field>
 
         <input-field type="single-select">
             <name>osmUnitOfMeasurement</name>
@@ -355,6 +396,11 @@
                     <name>Number</name>
                     <name lang="de-DE">Zahl</name>
                 </option>
+                <option>
+                    <id>hidden</id>
+                    <name>Hidden (default distance)</name>
+                    <name lang="de-DE">Versteckt (Standard Entfernung)</name>
+                </option>
             </options>
             <defaultValue>number</defaultValue>
         </input-field>
@@ -365,6 +411,21 @@
             <label lang="de-DE">Radius Filter Schritte</label>
             <defaultValue>1,2.5,5,10,15,25,50</defaultValue>
             <placeholder>1,2.5,5,10,15,25,50</placeholder>
+        </input-field>
+
+        <input-field type="int">
+            <name>filterRadiusDefault</name>
+            <label>Default distance</label>
+            <label lang="de-DE">Standard Entfernung</label>
+            <defaultValue>10</defaultValue>
+            <placeholder>10</placeholder>
+        </input-field>
+
+        <input-field type="bool">
+            <name>filterRadiusPersist</name>
+            <label>Optional persistant radius filter via cookie</label>
+            <label lang="de-DE">Optionaler dauerhafter Radius Filter über Cookie</label>
+            <defaultValue>false</defaultValue>
         </input-field>
     </card>
 
@@ -383,6 +444,60 @@
     </card>
 
     <card>
+        <title>Automatic cache clearing</title>
+        <title lang="de-DE">Automatisches leeren des Caches</title>
+
+        <input-field type="single-select">
+            <name>entityAutoCacheTrigger</name>
+            <label>Triggering through</label>
+            <label lang="de-DE">Auslösen durch</label>
+            <options>
+                <option>
+                    <id>live</id>
+                    <name>Live (default)</name>
+                    <name lang="de-DE">Live (Standard)</name>
+                </option>
+                <option>
+                    <id>scheduled</id>
+                    <name>Scheduled task</name>
+                    <name lang="de-DE">Geplante Aufgabe</name>
+                </option>
+                <option>
+                    <id>disabled</id>
+                    <name>Console (bin/console moorl-foundation:entity-auto-cache)</name>
+                </option>
+            </options>
+            <defaultValue>live</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>entityAutoCacheMethod</name>
+            <label>Method</label>
+            <label lang="de-DE">Methode</label>
+            <options>
+                <option>
+                    <id>update</id>
+                    <name>Update single items (fast/experimental)</name>
+                    <name lang="de-DE">Einträge einzeln aktualisieren (schnell/experimentell)</name>
+                </option>
+                <option>
+                    <id>clear</id>
+                    <name>Clear full cache (slow/stable)</name>
+                    <name lang="de-DE">Vollständigen Cache leeren (langsam/stabil)</name>
+                </option>
+            </options>
+            <defaultValue>update</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>entityAutoCacheSkip</name>
+            <label>Skip indexing of items (Cache have to be cleared manually after saving)</label>
+            <label lang="de-DE">Überspringen der Indizierung von Einträgen (Cache muss nach dem Speichern manuell geleert werden)</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+    </card>
+
+    <card>
         <title>Plugin settings</title>
         <title lang="de-DE">Plugin Einstellungen</title>
 
@@ -391,49 +506,42 @@
             <label>Additional upload extensions</label>
             <label lang="de-DE">Zusätzliche Upload Erweiterungen</label>
             <placeholder>zip,rar,psd,docx etc...</placeholder>
-            <defaultValue>zip,rar,psd,docx</defaultValue>
+            <defaultValue>zip,rar,psd,docx,csv</defaultValue>
         </input-field>
 
         <input-field type="text">
             <name>demoCustomerMail</name>
             <label>Customer mail address for related demo content</label>
-            <label lang="de-DE">Kunden E-Mail Adresse für entsprechende Demo-Inhalte</label>
+            <label lang="de-DE">Kunden E-Mail-Adresse für entsprechende Demo-Inhalte</label>
             <placeholder>test@example.com</placeholder>
             <defaultValue>test@example.com</defaultValue>
         </input-field>
 
         <input-field type="bool">
-            <name>cmsElements</name>
-            <label>Remove CMS elements when uninstalling</label>
-            <label lang="de-DE">CMS Elemente beim deinstallieren entfernen</label>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field type="bool">
-            <name>mailTemplates</name>
-            <label>Remove/Refresh email templates when uninstalling/activating</label>
-            <label lang="de-DE">Entfernen/Erneuern von E-Mail Templates beim Deinstallieren/Aktivieren</label>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field type="bool">
-            <name>customFields</name>
-            <label>Remove/Refresh custom fields when uninstalling/activating</label>
-            <label lang="de-DE">Entfernen/Erneuern von Freitextfeldern beim Deinstallieren/Aktivieren</label>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
-        <input-field type="bool">
-            <name>snippets</name>
-            <label>Remove/Refresh snippets when uninstalling/activating</label>
-            <label lang="de-DE">Entfernen/Erneuern von Textbausteinen beim Deinstallieren/Aktivieren</label>
-            <defaultValue>true</defaultValue>
+            <name>demoCreateSalesChannel</name>
+            <label>Create a new sales channel for demo content (if no sales channel selected)</label>
+            <label lang="de-DE">einen neuen Verkaufskanal für Demo-Inhalte erstellen (wenn kein Verkaufskanal ausgewählt wurde)</label>
+            <defaultValue>false</defaultValue>
         </input-field>
     </card>
 
     <card>
         <title>Compatibility</title>
         <title lang="de-DE">Kompatibilität</title>
+
+        <input-field type="bool">
+            <name>cmpSectionFixedBackgroundIOS</name>
+            <label>Fixed CMS section background image for iOS</label>
+            <label lang="de-DE">Fixiertes Hintergrundbild eines CMS Abschnitts für iOS</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>cmpCustomerGroupCacheKeyGenerator</name>
+            <label>Enable cache fix</label>
+            <label lang="de-DE">Cache Fix aktivieren</label>
+            <defaultValue>false</defaultValue>
+        </input-field>
 
         <input-field type="bool">
             <name>cmpElasticSearchMappings</name>
@@ -449,6 +557,15 @@
             <label>Disable filter panel polyfill</label>
             <label lang="de-DE">Filterfeld-Polyfill abschalten</label>
             <defaultValue>false</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
+            <name>cmpGridElementWrapper</name>
+            <label>Fix display errors in CMS grid blocks</label>
+            <label lang="de-DE">Behebung von Anzeigefehlern in CMS-Grid-Blöcken</label>
+            <helpText>An additional DIV element is added to eliminate display errors in grid blocks.</helpText>
+            <helpText lang="de-DE">Um Anzeigefehler in Grid Blöcken zu beheben, wird ein zusätzliches DIV-Element eingebaut.</helpText>
+            <defaultValue>true</defaultValue>
         </input-field>
     </card>
 </config>

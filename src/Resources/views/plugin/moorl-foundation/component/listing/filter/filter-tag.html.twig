@@ -1,0 +1,11 @@
+{% set tags = listing.aggregations.get('tag') %}
+{% if tags and not tags.entities is empty %}
+    {% set tagsSorted = tags.entities|sort((a, b) => a.name|lower <=> b.name|lower) %}
+
+    {% sw_include '@Storefront/storefront/component/listing/filter/filter-multi-select.html.twig' with {
+        elements: tagsSorted,
+        sidebar: sidebar,
+        name: 'tag',
+        displayName: 'moorl-foundation.listing.filter.tags'|trans
+    } %}
+{% endif %}

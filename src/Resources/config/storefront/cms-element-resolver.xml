@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <!-- CMS Resolver -->
+
+        <!-- https://github.com/shopware/platform/issues/2999 -->
+        <service id="MoorlFoundation\Core\Content\Cms\LegacyTextCmsElementResolver">
+            <tag name="shopware.cms.data_resolver" priority="-9999"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\TocCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Framework\Util\HtmlSanitizer"/>
+
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\AddressCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\CompanyCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\ContactCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\OpeningHoursCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\PersonCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Product\Cms\ProductBuyListCmsElementResolver"
+                 parent="Shopware\Core\Content\Product\Cms\ProductSliderCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader"/>
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Media\Cms\DownloadListCmsElementResolver"
+                 parent="Shopware\Core\Content\Media\Cms\Type\ImageSliderTypeDataResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\HtmlTagCmsElementResolver">
+            <argument type="service" id="Shopware\Core\Framework\Util\HtmlSanitizer"/>
+
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Content\Cms\CtaBannerCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+    </services>
+</container>

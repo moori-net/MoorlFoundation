@@ -8,13 +8,13 @@ Shopware.Service('cmsService').registerCmsBlock({
     component: 'sw-cms-block-moorl-interactive-slider',
     previewComponent: 'sw-cms-preview-moorl-interactive-slider',
     defaultConfig: {
-        marginBottom: '0',
+        marginBottom: '20px',
         marginTop: '0',
         marginLeft: '0',
         marginRight: '0',
-        sizingMode: 'boxed'
+        sizingMode: 'boxed',
     },
     slots: {
-        'slot-a': 'moorl-replacer'
-    }
+        'slot-a': 'moorl-replacer',
+    },
 });

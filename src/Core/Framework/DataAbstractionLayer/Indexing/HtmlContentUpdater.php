@@ -3,6 +3,7 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexing;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Api\Context\SystemSource;
@@ -18,24 +19,14 @@ use Shopware\Core\System\Language\LanguageEntity;
 
 class HtmlContentUpdater
 {
-    private DefinitionInstanceRegistry $registry;
-    private Connection $connection;
-
     public function __construct(
-        DefinitionInstanceRegistry $registry,
-        Connection                 $connection
+        private readonly DefinitionInstanceRegistry $registry,
+        private readonly Connection $connection
     )
     {
-        $this->registry = $registry;
-        $this->connection = $connection;
     }
 
-    public function update(
-        array   $ids,
-        string  $entityName,
-        Context $context,
-        array   $fields = []
-    ): void
+    public function update(array $ids, string $entityName, Context $context, array $fields = []): void
     {
         $definition = $this->registry->getByEntityName($entityName);
 
@@ -97,10 +88,10 @@ SQL;
             $foreignKey
         );
 
-        $data = $this->connection->fetchAll(
+        $data = $this->connection->fetchAllAssociative(
             $sql,
             ['ids' => Uuid::fromHexToBytesList($ids), 'languageId' => $languageId],
-            ['ids' => Connection::PARAM_STR_ARRAY]
+            ['ids' => ArrayParameterType::STRING]
         );
 
         $sqlTemplate = "UPDATE `%s_translation` SET %s WHERE `language_id` = :languageId AND `%s` = :%s ";
@@ -127,9 +118,9 @@ SQL;
                 $foreignKey
             );
 
-            $this->connection->executeStatement($sql, array_merge($item, [
+            $this->connection->executeStatement($sql, [...$item, ...[
                 'languageId' => $languageId
-            ]));
+            ]]);
         }
     }
 
@@ -145,13 +136,16 @@ SQL;
             $doc = new \DOMDocument('1.0', 'UTF-8');
             \libxml_use_internal_errors(TRUE);
 
-            $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NODEFDTD);
             $xPath = new \DOMXPath($doc);
 
             $tags = $xPath->query('//h2|//h3|//h4|//h5|//h6');
             foreach ($tags as $tag) {
                 /* Skip if already written */
                 if ($tag->getAttribute('id')) {
+                    continue;
+                }
+                if ($tag->hasAttribute('data-no-id')) {
                     continue;
                 }
 
@@ -164,8 +158,8 @@ SQL;
                 $tag->setAttribute('id', $slug);
             }
 
-            return $doc->saveHTML();
-        } catch (\Exception $exception) {
+            return str_replace(['<body>','</body>','<html>','</html>'],'', $doc->saveHTML());
+        } catch (\Exception) {
             return $content;
         }
     }

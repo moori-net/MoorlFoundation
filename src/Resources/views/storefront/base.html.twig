@@ -3,15 +3,5 @@
 {% block base_body_inner %}
     {{ parent() }}
 
-    <div class="modal fade" id="moorlFoundationModal" tabindex="-1" role="dialog" aria-hidden="true">
-        {% sw_include "@Storefront/plugin/moorl-foundation/modal.html.twig" with {
-            modal: {
-                centered: true,
-                size: 'lg',
-                title: '',
-                body: '',
-                button: false
-            }
-        } %}
-    </div>
+    <div class="modal fade" id="moorlFoundationModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 {% endblock %}

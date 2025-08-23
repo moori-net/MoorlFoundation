@@ -1,0 +1,75 @@
+{% set quantity = item.quantity %}
+{% set product = item.product %}
+{% set price = product.calculatedPrice %}
+
+<li
+        class="moorl-parts-list-item"
+        data-product-streams="{{ item.productStreams|json_encode }}"
+        data-groups="{{ item.groups|json_encode }}"
+        data-options="{{ item.options|json_encode }}"
+        data-calc-x="{{ item.calcX }}"
+        data-calc-y="{{ item.calcY }}"
+        data-calc-z="{{ item.calcZ }}"
+>
+    {% block parts_list_item_product_cover %}
+        <div class="product-cover">
+            {% if product.cover.media.url %}
+                {% set attributes = {
+                    'itemprop': 'image',
+                    'alt': product.translated.name,
+                    'title': product.translated.name,
+                    'width': '50',
+                    'height': '50'
+                } %}
+                {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
+            {% else %}
+                {% sw_icon 'placeholder' style {'size': 'fluid'} %}
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    {% block parts_list_item_product_quantity %}
+    <div>
+        <input type="number"
+               min="0"
+               step="1"
+               class="form-control"
+               name="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
+               value="{{ quantity }}">
+    </div>
+    {% endblock %}
+
+    {% block parts_list_item_product_content %}
+        <div class="product-content">
+            {% block parts_list_item_product_title %}
+                <div class="product-title">
+                    <a itemprop="url" href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}">
+                        <span itemprop="name">
+                            {{ product.translated.name }}
+                        </span>
+                    </a>
+                </div>
+            {% endblock %}
+
+            {% block parts_list_item_product_characteristics %}
+                {% if not displayParent %}
+                    <div class="product-characteristics">
+                        {% for variation in product.variation %}
+                            {{ variation.group }}:
+                            {{ variation.option }}
+                            {% if product.variation|last != variation %}
+                                {{ ' | ' }}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block parts_list_item_product_price %}
+        <div class="text-end">
+            {{ (price.unitPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}
+        </div>
+    {% endblock %}
+</li>

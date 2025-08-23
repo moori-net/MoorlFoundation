@@ -1,0 +1,73 @@
+<div class="sw-cms-el-config-moorl-product-buy-list">
+    <sw-cms-mapping-field
+        v-model:config="element.config.products"
+        entity="product"
+        value-types="entity"
+        :label="$tc('sw-cms.elements.moorl-product-buy-list.label.products')"
+    >
+        <sw-entity-multi-select
+            class="sw-cms-el-config-product-slider__products"
+            :placeholder="$tc('sw-cms.elements.productSlider.config.placeholder.selection')"
+            v-model:entityCollection="productCollection"
+            @update:entity-collection="onProductsChange"
+            :context="productSearchContext"
+            :criteria="productSearchCriteria"
+        >
+            <template #selection-label-property="{ item }">
+                <sw-product-variant-info :variations="item.variation">
+                    {{ item.translated.name || item.name }}
+                </sw-product-variant-info>
+            </template>
+        </sw-entity-multi-select>
+    </sw-cms-mapping-field>
+    <sw-container
+        columns="1fr 1fr"
+        gap="0px 30px"
+    >
+        <template v-for="product in products">
+            <template v-if="element.config.productQuantities.value[product.id]">
+                <mt-number-field
+                    min="1"
+                    max="100"
+                    step="1"
+                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.productQuantity') + ': ' + product.translated.name"
+                    v-model="element.config.productQuantities.value[product.id]"
+                />
+            </template>
+        </template>
+    </sw-container>
+    <sw-container
+        columns="1fr 1fr"
+        gap="0px 30px"
+    >
+        <mt-switch
+            v-model="element.config.enablePrices.value"
+            bordered
+            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enablePrices')"
+        />
+        <mt-switch
+            v-model="element.config.enableVariantSwitch.value"
+            bordered
+            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableVariantSwitch')"
+        />
+        <mt-switch
+            v-model="element.config.enableAddToCartAll.value"
+            bordered
+            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
+        />
+        <mt-switch
+            v-model="element.config.enableAddToCartSingle.value"
+            bordered
+            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
+        />
+        <mt-switch
+            v-model="element.config.enableDirectUrl.value"
+            bordered
+            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
+        />
+        <mt-text-field
+            v-model="element.config.emptyText.value"
+            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.emptyText')"
+        />
+    </sw-container>
+</div>

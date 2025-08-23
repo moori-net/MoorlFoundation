@@ -1,0 +1,33 @@
+{% block moorl_animation %}
+    <div
+        v-if="item"
+        class="moorl-animation-field"
+    >
+        <template v-for="type in ['in','out','hover']">
+            <mt-switch
+                :label="$tc('moorl-animation-field.label.active')"
+                bordered
+                v-model="item[type].active"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-animation-field.label.name.' + type)"
+                :helpText="$tc('helpText.name')"
+                v-model:value="item[type].name"
+                set="animateCss"
+            />
+            <moorl-select-field
+                :label="$tc('moorl-animation-field.label.condition')"
+                v-model:value="item[type].condition"
+                set="domElementState"
+            />
+            <mt-number-field
+                v-model="item[type].duration"
+                :label="$tc('moorl-animation-field.label.duration')"
+            />
+            <mt-number-field
+                v-model="item[type].delay"
+                :label="$tc('moorl-animation-field.label.delay')"
+            />
+        </template>
+    </div>
+{% endblock %}

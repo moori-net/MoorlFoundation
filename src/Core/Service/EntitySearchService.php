@@ -11,43 +11,36 @@ use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntitySearchService
 {
-    protected DefinitionInstanceRegistry $definitionInstanceRegistry;
-    protected SystemConfigService $systemConfigService;
-    protected EventDispatcherInterface $eventDispatcher;
     /**
-     * @var EntityListingInterface[]
+     * @param EntityListingInterface[] $searchEntities
      */
-    protected iterable $searchEntities;
-
     public function __construct(
-        DefinitionInstanceRegistry $definitionInstanceRegistry,
-        SystemConfigService $systemConfigService,
-        EventDispatcherInterface $eventDispatcher,
-        iterable $searchEntities
+        protected DefinitionInstanceRegistry $definitionInstanceRegistry,
+        protected SystemConfigService $systemConfigService,
+        protected EventDispatcherInterface $eventDispatcher,
+        protected iterable $searchEntities
     )
     {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->definitionInstanceRegistry = $definitionInstanceRegistry;
-        $this->systemConfigService = $systemConfigService;
-        $this->searchEntities = $searchEntities;
     }
 
     public function getEntityListing(Request $request, Context $context): ?EntityListingInterface
     {
-        if ($request->get('_route') === "frontend.search.page") {
+        if ($request->attributes->get('_route') === "frontend.search.page") {
             $request->query->set('order', 'score');
 
             return null;
         }
 
         $slotIds = $request->query->get('slots');
-        /* Unset immediately, because its not compatible with product listing */
+        /* Unset immediately, because it's not compatible with product listing */
         $request->query->remove('slots');
+        //$request->query->remove('moorl_limit');
+
         $tab = $request->query->get('tab');
         if (!$slotIds && !$tab) {
             return null;
@@ -94,7 +87,11 @@ class EntitySearchService
         $advancedSearchHideEmptyResults = $this->systemConfigService->get('MoorlFoundation.config.advancedSearchHideEmptyResults', $salesChannelContext->getSalesChannelId());
 
         $request = $event->getRequest();
-        $search = $request->get('search');
+        $search = $request->query->get('search');
+        if (empty($search)) {
+            return;
+        }
+
         $result = $event->getResult();
         $context = $salesChannelContext->getContext();
         $moorlSearchResults = [];

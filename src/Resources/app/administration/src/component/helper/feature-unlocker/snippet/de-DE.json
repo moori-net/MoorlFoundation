@@ -1,0 +1,17 @@
+{
+    "moorl-feature-unlocker": {
+        "notifications": {
+            "welcome": "Hit ALT+M (Win/Linux) or CONTROL+M (Mac) to unlock Premium features",
+            "unlocked": "Premium-Funktionen wurden freigeschaltet",
+            "locked": "Premium-Funktionen wurden gesperrt"
+        },
+        "modal": {
+            "title": "Foundation Premium-Funktionen",
+            "message1": "Die Premium-Funktionen sind jetzt nicht mehr verfügbar. Folge dem Link, um das Add-on zu erhalten.",
+            "actions": {
+                "cancel": "Abbrechen",
+                "close": "Schließen"
+            }
+        }
+    }
+}

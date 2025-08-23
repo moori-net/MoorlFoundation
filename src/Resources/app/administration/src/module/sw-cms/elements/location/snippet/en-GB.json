@@ -1,0 +1,19 @@
+{
+    "sw-cms": {
+        "elements": {
+            "moorl-location": {
+                "name": "Map",
+                "label": {
+                    "legendItems": "Legend items",
+                    "legend": "Show marker legend",
+                    "osmOptions": "More options",
+                    "overrideOsmOptions": "Override \"More options\"  (Plugin settings of Foundation)",
+                    "locationLat": "Latitude",
+                    "locationLon": "Longitude",
+                    "marker": "Map marker",
+                    "height": "Map height"
+                }
+            }
+        }
+    }
+}
