@@ -1,4 +1,4 @@
-# Foundation | Basis Version blablalvla
+# Foundation | Basis Version 
 
 ## Foundation wird von folgenden Plugins verwendet
 
