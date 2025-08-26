@@ -1,0 +1,11 @@
+# 1.7.17
+- [Refactored delete restrictions](https://github.com/moori-net/MoorlFoundation/commit/0031117e)
+- [Update plugin description](https://github.com/moori-net/MoorlFoundation/commit/67285a06)
+- [Update plugin description](https://github.com/moori-net/MoorlFoundation/commit/c91257c4)
+- [Store test](https://github.com/moori-net/MoorlFoundation/commit/3914682a)
+- [Store test](https://github.com/moori-net/MoorlFoundation/commit/ce55318e)
+- [Store test](https://github.com/moori-net/MoorlFoundation/commit/b9b3f654)
+- [Update stubs](https://github.com/moori-net/MoorlFoundation/commit/105c2623)
+- [sync main](https://github.com/moori-net/MoorlFoundation/commit/53e3b391)
+- [sync main](https://github.com/moori-net/MoorlFoundation/commit/d35a8f16)
+- [remove blabla](https://github.com/moori-net/MoorlFoundation/commit/c4c7353e)
