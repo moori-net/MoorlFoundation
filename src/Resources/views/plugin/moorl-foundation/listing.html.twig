@@ -162,12 +162,12 @@
                     <div class="">
                         <div class="base-slider-controls"
                              data-product-slider-controls="true">
-                            <button class="{{ controlsPrevClasses|join(' ') }}">
+                            <button class="{{ controlsPrevClasses|join(' ') }}"  aria-label="{{ 'general.previous'|trans|striptags }}">
                                 {% block moorl_foundation_listing_slider_controls_items_prev_icon %}
                                     {% sw_icon 'arrow-head-left' %}
                                 {% endblock %}
                             </button>
-                            <button class="{{ controlsNextClasses|join(' ') }}">
+                            <button class="{{ controlsNextClasses|join(' ') }}" aria-label="{{ 'general.next'|trans|striptags }}">
                                 {% block moorl_foundation_listing_slider_controls_items_next_icon %}
                                     {% sw_icon 'arrow-head-right' %}
                                 {% endblock %}
