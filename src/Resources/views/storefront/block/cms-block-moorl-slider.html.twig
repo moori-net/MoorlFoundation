@@ -28,11 +28,17 @@
         <div class="image-slider-controls-container">
             <div class="base-slider-controls"
                  data-base-slider-controls="true">
-                <button class="base-slider-controls-prev image-slider-controls-previs-nav-prev-inside">
+                <button
+                        class="base-slider-controls-prev image-slider-controls-prev is-nav-prev-inside"
+                        aria-label="{{ 'general.previous'|trans|striptags }}"
+                >
                     {% sw_icon 'arrow-head-left' %}
                 </button>
 
-                <button class="base-slider-controls-next image-slider-controls-next is-nav-next-inside">
+                <button
+                        class="base-slider-controls-next image-slider-controls-next is-nav-next-inside"
+                        aria-label="{{ 'general.next'|trans|striptags }}"
+                >
                     {% sw_icon 'arrow-head-right' %}
                 </button>
             </div>
