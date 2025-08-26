@@ -8,7 +8,6 @@ use Shopware\Core\Defaults;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\PriceField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
@@ -22,7 +21,7 @@ class FieldPriceCollection extends FieldCollection
 
         return [
             (new FkField('tax_id', 'taxId', TaxDefinition::class))->addFlags(new ApiAware(), new Required()),
-            (new ManyToOneAssociationField('tax', 'tax_id', TaxDefinition::class))->addFlags(new RestrictDelete(), new EditField(), new LabelProperty('name')),
+            (new ManyToOneAssociationField('tax', 'tax_id', TaxDefinition::class))->addFlags(new EditField(), new LabelProperty('name')),
             (new PriceField('price', 'price'))->addFlags(new Required(), new EditField('price')),
         ];
     }
