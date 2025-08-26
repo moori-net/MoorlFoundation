@@ -53,7 +53,7 @@ class FieldMediaGalleryMediaCollection extends FieldCollection
             (new CustomFields())
                 ->addFlags(new ApiAware()),
             (new ManyToOneAssociationField($referenceEd->getPropertyName(), $referenceEd->getFkStorageName(), $referenceClass))
-                ->addFlags(new CascadeDelete()),
+                ->addFlags(),
             (new ManyToOneAssociationField('media', 'media_id', MediaDefinition::class, 'id', true))
                 ->addFlags(new ApiAware(), new CascadeDelete()),
             (new OneToManyAssociationField('coverItems', $referenceClass, $localEd->getFkStorageName()))
