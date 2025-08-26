@@ -204,6 +204,9 @@ Shopware.Component.register('moorl-csv-import', {
                 if (column.relation === 'one_to_many') {
                     continue;
                 }
+                if (column.relation === 'many_to_one') {
+                    continue;
+                }
                 if (
                     column.relation === 'many_to_many' &&
                     column.localField !== null
