@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation;
 
+use Doctrine\DBAL\Connection;
 use MoorlFoundation\Core\PluginLifecycleHelper;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\ActivateContext;
@@ -44,6 +45,18 @@ class MoorlFoundation extends Plugin
     public function update(UpdateContext $updateContext): void
     {
         parent::update($updateContext);
+
+        /** @var Connection $connection */
+        $connection = $this->container->get(Connection::class);
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-cta-banner-basic');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-cta-banner-category-three-columns', 'moorl-column-layout-1-1-1');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-cta-banner-category-two-columns', 'moorl-column-layout-1-1');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-cta-banner-service-area', 'moorl-column-layout-1-1-1-1');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-cta-banner-video');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-multi-slider-five', 'moorl-interactive-slider');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-multi-slider-four', 'moorl-interactive-slider');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-multi-slider-three', 'moorl-interactive-slider');
+        PluginLifecycleHelper::renameCmsBlock($connection, 'moorl-multi-slider-two', 'moorl-interactive-slider');
 
         PluginLifecycleHelper::update(self::class, $this->container);
     }
