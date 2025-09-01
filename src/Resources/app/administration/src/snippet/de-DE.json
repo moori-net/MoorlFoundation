@@ -11,13 +11,13 @@
   },
   "moorl-foundation": {
     "button": {
-      "back": "Back",
+      "back": "Zurück",
       "export": "Export",
       "import": "Import",
       "pause": "Pause",
       "refresh": "Refresh",
       "test": "Test",
-      "testConnection": "Test connection",
+      "testConnection": "Verbindung testen",
       "update": "Update"
     },
     "card": {
@@ -62,6 +62,12 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "downloads": "Downloads",
+      "docsUrl": "Doku URL",
+      "storeUrl": "Store URL",
+      "gitUrl": "GIT URL",
+      "composerUrl": "Composer URL",
+      "className": "Klasse",
       "contentHtml": "HTML",
       "contentPlain": "Plain (E-Mail Templates)",
       "nestedFields": "Verschachtelte Felder berücksichtigen",
@@ -207,7 +213,6 @@
       "ingredients": "Inhaltsstoffe",
       "badges": "Badges",
       "optionItem": "Options-Item",
-
       "accessKeyId": "Access-Key ID",
       "accessKeySecret": "Access-Key secret",
       "accessory": "Zubehör-Produkt",
@@ -742,7 +747,7 @@
     },
     "notification": {},
     "tab": {
-      "address": "Address",
+      "address": "Adresse",
       "animation": "Animation",
       "cmsPage": "CMS Page",
       "comments": "Comments",

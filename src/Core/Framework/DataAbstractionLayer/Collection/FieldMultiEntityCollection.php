@@ -92,7 +92,7 @@ class FieldMultiEntityCollection extends FieldCollection
         foreach ($references as $reference) {
             if (is_array($reference)) {
                 $referenceClass = $reference[0];
-                $assocFlags = $reference[1] ?: [new CascadeDelete()];
+                $assocFlags = $reference[1] ?? [new CascadeDelete()];
             } else {
                 $referenceClass = $reference;
                 $assocFlags = [new CascadeDelete()];
