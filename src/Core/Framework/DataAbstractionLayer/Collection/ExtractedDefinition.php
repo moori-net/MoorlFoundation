@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use Shopware\Core\Checkout\Order\OrderDefinition;
 use Shopware\Core\Content\Category\CategoryDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockDefinition;
@@ -20,8 +21,9 @@ final class ExtractedDefinition
         CategoryDefinition::class,
         ProductDefinition::class,
         OrderDefinition::class,
+        OrderTransactionDefinition::class,
         CmsBlockDefinition::class,
-        CmsSlotDefinition::class
+        CmsSlotDefinition::class,
     ];
 
     protected string $entityName = "";
