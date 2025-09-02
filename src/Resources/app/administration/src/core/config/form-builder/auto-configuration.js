@@ -4,7 +4,11 @@ const entityLabelProperty = {
     salutation: 'displayName',
     customer: 'customerNumber',
     moorl_sorting: 'label',
-    moorl_pv_license_domain: 'domain'
+    moorl_pv_license_domain: 'domain',
+    order: 'orderNumber',
+    order_transaction: 'id',
+    moorl_ebics_sepa_mandate: 'mandateReference',
+    moorl_ebics_transaction: 'transactionId',
 };
 const not = (fn) => (context) => !fn(context);
 const isType = (...types) => ({ field }) => types.includes(field.type);
