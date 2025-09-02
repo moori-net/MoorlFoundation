@@ -4,6 +4,9 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityLoca
 
 use Shopware\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexingMessage;
 
+/**
+ * @deprecated: Use moorl.foundation.entity_auto_location tag instead
+ */
 class EntityLocationIndexingMessage extends EntityIndexingMessage
 {
 }

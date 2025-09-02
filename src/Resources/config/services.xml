@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="core/entity-auto-cache.xml"/>
+        <import resource="core/entity-auto-location.xml"/>
         <import resource="administration/controllers.xml"/>
         <import resource="storefront/cms-element-resolver.xml"/>
         <import resource="storefront/controllers.xml"/>
