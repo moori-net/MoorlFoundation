@@ -5,6 +5,9 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Indexer\EntityLoca
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\Event\NestedEvent;
 
+/**
+ * @deprecated: Use moorl.foundation.entity_auto_location tag instead
+ */
 class EntityLocationIndexerEvent extends NestedEvent
 {
     public function __construct(
