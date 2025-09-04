@@ -22,6 +22,12 @@ const mapping = {
     discountValue: {tab: 'promotion', card: 'promotion'},
     maxStacks: {tab: 'promotion', card: 'promotion'},
 
+    // Bank information
+    iban: {tab: 'general', card: 'bank'},
+    bic: {tab: 'general', card: 'bank'},
+    swift: {tab: 'general', card: 'bank'},
+    receiverName: {tab: 'general', card: 'bank'},
+
     // Contact
     salutation: {tab: 'general', card: 'contact', cols: 3},
     title: {tab: 'general', card: 'contact', cols: 3},
