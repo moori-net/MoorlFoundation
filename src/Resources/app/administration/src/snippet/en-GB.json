@@ -21,6 +21,9 @@
       "update": "Update"
     },
     "card": {
+      "payment": "Payment details",
+      "bank": "Bank account",
+      "ebics": "EBICS Credentials",
       "config": "Config",
       "specifications": "Specifications",
       "animation": "Animation",
@@ -62,6 +65,11 @@
       "visibility": "Visibility"
     },
     "field": {
+      "shopOnly": "Shop only",
+      "valueDate": "Value date",
+      "bookingDate": "Booking date",
+      "paymentReference": "Payment reference",
+      "paymentMethod": "Payment method",
       "form": "Form",
       "sepaMandate": "SEPA mandate",
       "bank": "Bank",

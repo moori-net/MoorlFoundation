@@ -133,6 +133,9 @@ Shopware.Mixin.register('moorl-listing', {
             this.sortBy = this.listHelper.sortBy;
             this.sortDirection = this.listHelper.sortDirection;
 
+            this.allowInlineEdit = this.listHelper.allowInlineEdit;
+            this.showSelection = this.listHelper.showSelection;
+
             this.ready = true;
         },
 

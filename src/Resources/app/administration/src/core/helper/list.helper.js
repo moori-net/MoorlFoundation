@@ -24,6 +24,8 @@ export default class ListHelper {
         this.currencies = currencies;
         this.languages = languages;
         this.translationHelper = translationHelper;
+        this.allowInlineEdit = true;
+        this.showSelection = true;
 
         this.ready = this._init();
     }
@@ -89,6 +91,10 @@ export default class ListHelper {
 
                 this.pluginName = pluginConfig.pluginName ?? null;
                 this.demoName = pluginConfig.demoName ?? 'standard';
+
+                this.allowInlineEdit = pluginConfig.moduleConfig?.list?.allowInlineEdit ?? true;
+                this.showSelection = pluginConfig.moduleConfig?.list?.showSelection ?? true;
+
                 resolve();
             };
             retry();
