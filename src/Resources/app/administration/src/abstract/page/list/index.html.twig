@@ -9,7 +9,7 @@
 
     <template #smart-bar-actions>
         <mt-button
-            v-if="!indexPage"
+            v-if="!indexPage && allowInlineEdit"
             variant="primary"
             size="default"
             @click="onCreateItem"
@@ -92,7 +92,10 @@
             </template>
 
             <template #more-actions="{ item }">
-                <sw-context-menu-item @click="onDuplicate(item)">
+                <sw-context-menu-item
+                        v-if="allowInlineEdit"
+                        @click="onDuplicate(item)"
+                >
                     {{ $tc('sw-product.list.buttonDuplicate') }}
                 </sw-context-menu-item>
             </template>
