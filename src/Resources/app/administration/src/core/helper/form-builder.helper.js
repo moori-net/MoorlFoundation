@@ -66,6 +66,9 @@ export default class FormBuilderHelper {
 
         MappingHelper.enrichMapping(fields);
 
+        const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(this.entity);
+        const allowEdit = pluginConfig.moduleConfig?.detail?.allowEdit ?? true;
+
         for (const [property, field] of Object.entries(fields)) {
             if (
                 field.type === 'uuid' ||
@@ -75,6 +78,10 @@ export default class FormBuilderHelper {
 
             const column = this._buildColumn(field, property, fields);
             if (!column) continue;
+
+            if (!allowEdit) {
+                column.attributes.disabled = column.attributes.disabled ?? true;
+            }
 
             this.columns.push(column);
         }
