@@ -49,6 +49,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             showExportModal: false,
             deleteId: null,
             editId: null,
+            allowInlineEdit: true,
         };
     },
 
