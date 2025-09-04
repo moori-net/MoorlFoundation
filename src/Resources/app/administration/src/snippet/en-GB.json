@@ -62,6 +62,9 @@
       "visibility": "Visibility"
     },
     "field": {
+      "form": "Form",
+      "sepaMandate": "SEPA mandate",
+      "bank": "Bank",
       "transmitted": "Transmitted",
       "transactionId": "Transaction ID",
       "state": "State",
