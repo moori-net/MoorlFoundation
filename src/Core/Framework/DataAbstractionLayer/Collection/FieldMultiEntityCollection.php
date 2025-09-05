@@ -144,7 +144,7 @@ class FieldMultiEntityCollection extends FieldCollection
             if ($addReferenceIdsField) {
                 $fieldItems[] = (new ManyToManyIdField(
                     $referenceEd->getFkStorageName() . 's',
-                    $referenceEd->getFkPropertyName() . 'Ids',
+                    $referenceEd->getFkPropertyName() . 's',
                     $referenceEd->getCollectionName()
                 ));
             }
