@@ -67,7 +67,7 @@ export default class FormBuilderHelper {
         MappingHelper.enrichMapping(fields);
 
         const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(this.entity);
-        const allowEdit = pluginConfig.moduleConfig?.detail?.allowEdit ?? true;
+        const allowEdit = pluginConfig?.componentConfig?.detail?.allowEdit ?? true;
 
         for (const [property, field] of Object.entries(fields)) {
             if (

@@ -121,10 +121,10 @@ export default class ListHelper {
                 this.demoName = pluginConfig.demoName ?? 'standard';
 
                 // Inherit config to listing module
-                this.allowInlineEdit = pluginConfig.moduleConfig?.list?.allowInlineEdit ?? true;
-                this.allowDelete = pluginConfig.moduleConfig?.list?.allowDelete ?? true;
-                this.allowCreate = pluginConfig.moduleConfig?.list?.allowCreate ?? true;
-                this.showSelection = pluginConfig.moduleConfig?.list?.showSelection ?? true;
+                this.allowInlineEdit = pluginConfig.componentConfig?.list?.allowInlineEdit ?? true;
+                this.allowDelete = pluginConfig.componentConfig?.list?.allowDelete ?? true;
+                this.allowCreate = pluginConfig.componentConfig?.list?.allowCreate ?? true;
+                this.showSelection = pluginConfig.componentConfig?.list?.showSelection ?? true;
 
                 // Override item props by condition? (detail and listing)
                 this.entityOverride = pluginConfig.entityOverride ?? null;
