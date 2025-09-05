@@ -9,7 +9,7 @@
 
     <template #smart-bar-actions>
         <mt-button
-            v-if="!indexPage && allowInlineEdit"
+            v-if="!indexPage && allowCreate"
             variant="primary"
             size="default"
             @click="onCreateItem"
@@ -57,6 +57,7 @@
             :repository="itemRepository"
             :showSelection="showSelection"
             :allowInlineEdit="allowInlineEdit"
+            :allowDelete="allowDelete"
             :columns="columns"
             :is-loading="isLoading"
             :criteria-limit="limit"
@@ -93,19 +94,21 @@
 
             <template #more-actions="{ item }">
                 <sw-context-menu-item
-                        v-if="allowInlineEdit"
+                        v-if="allowCreate"
                         @click="onDuplicate(item)"
                 >
                     {{ $tc('sw-product.list.buttonDuplicate') }}
                 </sw-context-menu-item>
             </template>
         </sw-entity-listing>
+
         <moorl-csv-import
             v-if="showImportModal"
             :entity="entity"
             :onCloseModal="onCloseModal"
             :onFinishImport="getList"
         />
+
         <moorl-csv-export
             v-if="showExportModal"
             :entity="entity"
