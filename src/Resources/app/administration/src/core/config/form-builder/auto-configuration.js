@@ -280,7 +280,7 @@ const autoConfiguration = [
             column.path = path ? `${path}.${field.localField}` : field.localField;
 
             attributes.required = fields?.[field.localField]?.flags?.required;
-            attributes.disabled = fields?.[field.localField]?.flags?.write_protected;
+            attributes.disabled = attributes.disabled ?? fields?.[field.localField]?.flags?.write_protected;
             attributes.showClearableButton = attributes.required === undefined;
         }
     },

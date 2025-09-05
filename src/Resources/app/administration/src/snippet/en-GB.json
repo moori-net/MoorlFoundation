@@ -65,6 +65,11 @@
       "visibility": "Visibility"
     },
     "field": {
+      "lastUsedAt": "Last used at",
+      "revokedByCustomer": "Revoked",
+      "blocked": "Blocked",
+      "mandateText": "Mandate text",
+      "mandateReference": "Mandate reference",
       "bankAccountHolder": "Bank account holder",
       "shopOnly": "Shop only",
       "valueDate": "Value date",
@@ -304,8 +309,8 @@
       "balance": "Balance",
       "balanceAfter": "Balance after",
       "balanceBefore": "Balance before",
-      "bankBic": "Bank bic",
-      "bankIban": "Bank iban",
+      "bankBic": "Bank BIC",
+      "bankIban": "Bank IBAN",
       "bankName": "Bank name",
       "banner": "Banner",
       "bannerColor": "Banner color",
