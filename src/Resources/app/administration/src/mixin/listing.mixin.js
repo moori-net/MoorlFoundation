@@ -20,7 +20,11 @@ Shopware.Mixin.register('moorl-listing', {
             listHelper: null,
             ready: false,
             showImportModal: false,
-            showExportModal: false
+            showExportModal: false,
+            allowInlineEdit: true,
+            allowDelete: true,
+            allowCreate: true,
+            showSelection: true,
         };
     },
 
@@ -134,6 +138,8 @@ Shopware.Mixin.register('moorl-listing', {
             this.sortDirection = this.listHelper.sortDirection;
 
             this.allowInlineEdit = this.listHelper.allowInlineEdit;
+            this.allowDelete = this.listHelper.allowDelete;
+            this.allowCreate = this.listHelper.allowCreate;
             this.showSelection = this.listHelper.showSelection;
 
             this.ready = true;
@@ -146,6 +152,8 @@ Shopware.Mixin.register('moorl-listing', {
                 const result = await this.itemRepository.search(finalCriteria);
                 this.items = result;
                 this.total = result.total;
+
+                this.listHelper.overrideItems(this.items);
             } catch (e) {
                 this.createNotificationError({ message: e.message });
             } finally {

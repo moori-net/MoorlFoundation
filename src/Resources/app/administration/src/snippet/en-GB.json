@@ -65,6 +65,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "bankAccountHolder": "Bank account holder",
       "shopOnly": "Shop only",
       "valueDate": "Value date",
       "bookingDate": "Booking date",

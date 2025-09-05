@@ -123,6 +123,7 @@ MoorlFoundation.ModuleHelper.registerModule({
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.order.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.country.index'});

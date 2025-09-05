@@ -18,8 +18,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
             items: null,
             showImportModal: false,
             showExportModal: false,
-            allowInlineEdit: true,
-            showSelection: true,
             isLoading: true,
             activeFilterNumber: 0,
             filterCriteria: []

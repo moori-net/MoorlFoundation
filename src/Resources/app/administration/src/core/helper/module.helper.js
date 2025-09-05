@@ -38,7 +38,8 @@ export default class ModuleHelper {
                               cmsElements = [],
                               navigationParent = 'sw-settings',
                               color,
-                              moduleConfig = null
+                              moduleConfig = null,
+                              entityOverride = null,
     }) {
         color = color ?? this.defaultColors[navigationParent] ?? '#9aa8b5';
         icon = icon ?? this.defaultIcons[navigationParent] ?? 'regular-cog';
@@ -143,7 +144,8 @@ export default class ModuleHelper {
             pluginName,
             demoName,
             listPath,
-            moduleConfig
+            moduleConfig,
+            entityOverride
         });
 
         for (const cmsElement of cmsElements) {

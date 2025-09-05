@@ -27,6 +27,7 @@ export default class ListHelper {
         this.allowInlineEdit = true;
         this.showSelection = true;
 
+        this.entityOverride = null;
         this.ready = this._init();
     }
 
@@ -57,6 +58,33 @@ export default class ListHelper {
 
     getMediaProperty() {
         return this.mediaProperty;
+    }
+
+    overrideItems(items) {
+        if (this.entityOverride) {
+            for (const [property, item] of Object.entries(items)) {
+                if (typeof item !== 'object') {continue;}
+                for (const [key, value] of Object.entries(this.entityOverride)) {
+                    if (typeof value === 'function') {
+                        item[key] = value({item});
+                    } else {
+                        item[key] = value;
+                    }
+                }
+            }
+        }
+
+        for (const [property, item] of Object.entries(items)) {
+            if (typeof item !== 'object') {continue;}
+            this.properties.forEach((prop) => {
+                if (prop.snippetPath) {
+                    const snippet = `${prop.snippetPath}.${item[prop.name]}`;
+                    item[prop.name] = this.translationHelper.$tc(snippet);
+                }
+            });
+        }
+
+        return items;
     }
 
     async _init() {
@@ -92,8 +120,18 @@ export default class ListHelper {
                 this.pluginName = pluginConfig.pluginName ?? null;
                 this.demoName = pluginConfig.demoName ?? 'standard';
 
+                // Inherit config to listing module
                 this.allowInlineEdit = pluginConfig.moduleConfig?.list?.allowInlineEdit ?? true;
+                this.allowDelete = pluginConfig.moduleConfig?.list?.allowDelete ?? true;
+                this.allowCreate = pluginConfig.moduleConfig?.list?.allowCreate ?? true;
                 this.showSelection = pluginConfig.moduleConfig?.list?.showSelection ?? true;
+
+                // Override item props by condition? (detail and listing)
+                this.entityOverride = pluginConfig.entityOverride ?? null;
+                if (this.entityOverride || this.properties.find(p => p.snippetPath)) {
+                    // Restrict inline edit if there are overrides or translated values
+                    this.allowInlineEdit = false;
+                }
 
                 resolve();
             };
@@ -173,7 +211,9 @@ export default class ListHelper {
 
                 case 'string':
                 case 'text':
-                    if (parentPath.length === 0) column.inlineEdit = 'string';
+                    if (parentPath.length === 0) {
+                        column.inlineEdit = 'string';
+                    }
                     column.width = '140px';
                     column.align = 'left';
                     column.routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(entity, 'detail');
@@ -182,7 +222,9 @@ export default class ListHelper {
 
                 case 'int':
                 case 'float':
-                    if (parentPath.length === 0) column.inlineEdit = 'number';
+                    if (parentPath.length === 0) {
+                        column.inlineEdit = 'number';
+                    }
                     column.width = '100px';
                     column.align = 'right';
                     break;
