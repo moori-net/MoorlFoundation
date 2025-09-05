@@ -9,7 +9,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ListField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyIdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
@@ -22,9 +25,7 @@ class FieldMultiEntityCollection extends FieldCollection
         $fieldItems = [];
 
         foreach ($referenceClasses as $referenceClass) {
-            $ed = ExtractedDefinition::get(
-                class: $referenceClass
-            );
+            $ed = ExtractedDefinition::get(class: $referenceClass);
 
             $fieldItems[] = (new FkField(
                 $ed->getFkStorageName(),
@@ -47,9 +48,7 @@ class FieldMultiEntityCollection extends FieldCollection
         $fieldItems = [];
 
         foreach ($references as [$referenceClass, $fkFlags, $assocFlags]) {
-            $ed = ExtractedDefinition::get(
-                class: $referenceClass
-            );
+            $ed = ExtractedDefinition::get(class: $referenceClass);
 
             // Auto fix rules
             if (ExtractedDefinition::hasClass(Required::class, $fkFlags)) {
@@ -124,21 +123,31 @@ class FieldMultiEntityCollection extends FieldCollection
 
         $fieldItems = [];
 
-        foreach ($references as [$referenceClass, $mappingDefinition, $flags]) {
-            $referenceEd = ExtractedDefinition::get(
-                class: $referenceClass
-            );
-            $mappingEd = ExtractedDefinition::get(
-                class: $mappingDefinition
-            );
+        foreach ($references as $reference) {
+            $referenceClass = $reference[0];
+            $mappingDefinition = $reference[1];
+            $flags = $reference[2] ?? [];
+            $addReferenceIdsField = $reference[3] ?? false;
+
+            $referenceEd = ExtractedDefinition::get(class: $referenceClass);
+            // $mappingEd = ExtractedDefinition::get(class: $mappingDefinition);
+            // TEST: $mappingEd->getCollectionName() mit $referenceEd->getCollectionName() getauscht
 
             $fieldItems[] = (new ManyToManyAssociationField(
-                $mappingEd->getCollectionName(),
+                $referenceEd->getCollectionName(),
                 $referenceClass,
                 $mappingDefinition,
                 $localEd->getFkStorageName(),
                 $referenceEd->getFkStorageName())
             )->addFlags(new ApiAware(), new CascadeDelete(), ...$flags);
+
+            if ($addReferenceIdsField) {
+                $fieldItems[] = (new ManyToManyIdField(
+                    $referenceEd->getFkStorageName() . 's',
+                    $referenceEd->getFkPropertyName() . 'Ids',
+                    $referenceEd->getCollectionName()
+                ));
+            }
         }
 
         return $fieldItems;
