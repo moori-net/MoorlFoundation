@@ -65,6 +65,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "plannedExecutionDate": "Planned execution",
       "lastUsedAt": "Last used at",
       "revokedByCustomer": "Revoked",
       "blocked": "Blocked",
