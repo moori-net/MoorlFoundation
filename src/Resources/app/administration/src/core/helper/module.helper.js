@@ -40,6 +40,7 @@ export default class ModuleHelper {
                               color,
                               componentConfig = null,
                               entityOverride = null,
+                              labelProperty = 'name',
     }) {
         color = color ?? this.defaultColors[navigationParent] ?? '#9aa8b5';
         icon = icon ?? this.defaultIcons[navigationParent] ?? 'regular-cog';
@@ -145,7 +146,8 @@ export default class ModuleHelper {
             demoName,
             listPath,
             componentConfig,
-            entityOverride
+            entityOverride,
+            labelProperty
         });
 
         for (const cmsElement of cmsElements) {
