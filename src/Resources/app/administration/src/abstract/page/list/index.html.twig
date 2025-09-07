@@ -29,21 +29,22 @@
     </template>
 
     <template #sidebar>
-        <sw-sidebar>
+        <sw-sidebar v-if="items">
             <sw-sidebar-item
-                icon="regular-redo"
-                :title="$tc('moorl-foundation.button.refresh')"
-                @click="getList"
+                    icon="regular-redo"
+                    :title="$tc('moorl-foundation.button.refresh')"
+                    @click="getList"
             />
             <sw-sidebar-item
-                icon="regular-cloud-upload"
-                :title="$tc('moorl-foundation.button.import')"
-                @click="onImportModal"
+                    v-if="allowCreate"
+                    icon="regular-cloud-upload"
+                    :title="$tc('moorl-foundation.button.import')"
+                    @click="onImportModal"
             />
             <sw-sidebar-item
-                icon="regular-cloud-download"
-                :title="$tc('moorl-foundation.button.export')"
-                @click="onExportModal"
+                    icon="regular-cloud-download"
+                    :title="$tc('moorl-foundation.button.export')"
+                    @click="onExportModal"
             />
         </sw-sidebar>
     </template>
