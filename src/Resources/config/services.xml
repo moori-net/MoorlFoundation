@@ -153,5 +153,15 @@
             <argument type="service" id="MoorlFoundation\Core\Framework\DataAbstractionLayer\Cache\CustomerGroupCacheKeyGenerator.inner"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
         </service>
+
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldSerializer\IbanFieldSerializer"
+                 parent="Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\StringFieldSerializer">
+            <tag name="shopware.field_serializer"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Framework\DataAbstractionLayer\FieldSerializer\BicFieldSerializer"
+                 parent="Shopware\Core\Framework\DataAbstractionLayer\FieldSerializer\StringFieldSerializer">
+            <tag name="shopware.field_serializer"/>
+        </service>
     </services>
 </container>
