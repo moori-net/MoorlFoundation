@@ -8,6 +8,7 @@
     </template>
 
     <template #smart-bar-actions>
+        {% block moorl_page_list_smart_bar_actions %}
         <mt-button
             v-if="!indexPage && allowCreate"
             variant="primary"
@@ -22,6 +23,7 @@
             :name="demoName"
             @on-finish="getList"
         />
+        {% endblock %}
     </template>
 
     <template #language-switch>
@@ -29,6 +31,7 @@
     </template>
 
     <template #sidebar>
+        {% block moorl_page_list_sidebar %}
         <sw-sidebar v-if="items">
             <sw-sidebar-item
                     icon="regular-redo"
@@ -47,9 +50,11 @@
                     @click="onExportModal"
             />
         </sw-sidebar>
+        {% endblock %}
     </template>
 
     <template #content>
+        {% block moorl_page_list_content %}
         <sw-entity-listing
             v-if="ready && entitySearchable"
             :identifier="componentName"
@@ -116,5 +121,6 @@
             :onCloseModal="onCloseModal"
             :selectedItems="selection"
         />
+        {% endblock %}
     </template>
 </sw-page>
