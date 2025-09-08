@@ -10,14 +10,14 @@ export default class ModuleHelper {
         'sw-content': '#ff3d58',
         'sw-customer': '#F88962',
         'sw-marketing': '#ffd700',
-        'sw-orders': '#a092f0',
+        'sw-order': '#a092f0',
     };
     static defaultIcons = {
         'sw-catalogue': 'regular-products',
         'sw-content': 'regular-content',
         'sw-customer': 'regular-users',
         'sw-marketing': 'regular-megaphone',
-        'sw-orders': 'shopping-bag',
+        'sw-order': 'shopping-bag',
     };
 
     static registerModule({
