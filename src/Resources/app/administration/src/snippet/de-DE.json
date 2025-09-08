@@ -65,6 +65,14 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "creditorId": "Gläubiger-ID (SEPA-Lastschrift)",
+      "plannedExecutionDate": "Planned execution",
+      "lastUsedAt": "Last used at",
+      "revokedByCustomer": "Revoked",
+      "blocked": "Blocked",
+      "mandateText": "Mandate text",
+      "mandateReference": "Mandate reference",
+      "bankAccountHolder": "Bank account holder",
       "shopOnly": "Shop only",
       "valueDate": "Value date",
       "bookingDate": "Booking date",
