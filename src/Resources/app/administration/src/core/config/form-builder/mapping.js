@@ -214,6 +214,7 @@ const mapping = {
     taxOffice: {tab: 'general', card: 'company'},
     taxNumber: {tab: 'general', card: 'company'},
     vatId: {tab: 'general', card: 'company'},
+    creditorId: {tab: 'general', card: 'company'},
 
     // Location
     locationLat: {tab: 'address', card: 'location'},
