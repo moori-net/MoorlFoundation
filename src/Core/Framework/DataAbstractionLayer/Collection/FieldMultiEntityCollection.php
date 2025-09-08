@@ -53,11 +53,11 @@ class FieldMultiEntityCollection extends FieldCollection
             // Auto fix rules
             if (ExtractedDefinition::hasClass(Required::class, $fkFlags)) {
                 if (!ExtractedDefinition::hasClass(RestrictDelete::class, $assocFlags)) {
-                    $assocFlags[] = new CascadeDelete();
+                    //$assocFlags[] = new CascadeDelete();
                 }
             } else {
                 if (!ExtractedDefinition::hasClass(SetNullOnDelete::class, $assocFlags)) {
-                    $assocFlags[] = new SetNullOnDelete();
+                    //$assocFlags[] = new SetNullOnDelete();
                 }
             }
 

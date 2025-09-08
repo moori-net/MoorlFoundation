@@ -65,6 +65,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "sent": "Gesendet",
       "creditorId": "Gläubiger-ID (SEPA-Lastschrift)",
       "plannedExecutionDate": "Planned execution",
       "lastUsedAt": "Last used at",

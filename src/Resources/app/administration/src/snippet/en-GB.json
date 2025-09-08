@@ -65,6 +65,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "sent": "Sent",
       "creditorId": "Creditor ID (SEPA direct debit)",
       "plannedExecutionDate": "Planned execution",
       "lastUsedAt": "Last used at",
