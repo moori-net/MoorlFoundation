@@ -115,7 +115,7 @@ export default class ListHelper {
                 }, null);
 
                 this.sortBy = highest?.name ?? null;
-                this.sortDirection = this.sortBy === 'autoIncrement' ? 'DESC' : 'ASC';
+                this.sortDirection = this.sortBy === 'autoIncrement' || this.sortBy === 'createdAt' ? 'DESC' : 'ASC';
 
                 this.pluginName = pluginConfig.pluginName ?? null;
                 this.demoName = pluginConfig.demoName ?? 'standard';
