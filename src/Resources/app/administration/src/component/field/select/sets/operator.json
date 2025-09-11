@@ -1,8 +1,9 @@
 [
     { "value": "is", "label": "==" },
     { "value": "not", "label": "!=" },
-    { "value": "lt", "label": "&lt;" },
-    { "value": "gt", "label": "&gt;" },
+    { "value": "lt", "label": "<" },
+    { "value": "gt", "label": ">" },
     { "value": "contains", "label": "in" },
-    { "value": "isset", "label": "isset" }
+    { "value": "isset", "label": "isset" },
+    { "value": "notset", "label": "notset" }
 ]
