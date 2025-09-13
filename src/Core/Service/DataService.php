@@ -412,6 +412,17 @@ SQL;
         $content = strtr($content, $dataObject->getGlobalReplacers());
         $globalReplacers = $dataObject->getGlobalReplacers();
 
+        // Find and replace constants
+        preg_match_all('/([A-Za-z_\\\\][A-Za-z0-9_\\\\]*::[A-Z0-9_]+)/', $content, $matches);
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $search) {
+                $constant = preg_replace('/\\\\+/', '\\', $search);
+                if (!defined($constant)) {
+                    throw new \RuntimeException(sprintf("Constant '%s' not found", $constant));
+                }
+                $content = str_replace($search, constant($constant), $content);
+            }
+        }
         /* Make unique IDs */
         preg_match_all('/{ID:([^}]+)}/', $content, $matches);
         if (!empty($matches[1]) && is_array($matches[1])) {
