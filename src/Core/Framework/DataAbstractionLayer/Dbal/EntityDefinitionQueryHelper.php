@@ -299,18 +299,7 @@ final class EntityDefinitionQueryHelper
             return;
         }
 
-        // Keine Fallback ID gefunden - Einträge löschen
-        $sql = sprintf(
-            'DELETE FROM %s WHERE %s IN (:ids);',
-            self::quote($table),
-            self::quote($column)
-        );
-
-        $connection->executeStatement(
-            $sql,
-            ['ids' => $bytesList],
-            ['ids' => ArrayParameterType::STRING]
-        );
+        self::removeDuplicateEntries($connection, $table, $column, $ids);
     }
 
     public static function removeInvalidForeignKeys(Connection $connection, string $query, string $table): void
