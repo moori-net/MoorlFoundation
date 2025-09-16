@@ -7,10 +7,15 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Doctrine\DBAL\ParameterType;
+use Shopware\Core\Checkout\Customer\CustomerDefinition;
 use Shopware\Core\Framework\Uuid\Uuid;
 
 final class EntityDefinitionQueryHelper
 {
+    public const PRIVACY_PROTECTED_TABLES = [
+        CustomerDefinition::ENTITY_NAME
+    ];
+
     // =========================
     // === PUBLIC INTERFACE ===
     // =========================
@@ -243,17 +248,41 @@ final class EntityDefinitionQueryHelper
             return;
         }
 
+        // Die IDs sollten alle ein gültiges HEX Format haben
+        foreach ($ids as $id) {
+            if (!Uuid::isValid($id)) {
+                throw new \RuntimeException("Error: Id format have to be a valid UUID");
+            }
+        }
+
+        $bytesList = Uuid::fromHexToBytesList($ids);
         $isNullable = self::isColumnNullable($connection, $table, $column);
-        if (!$isNullable) {
-            if (!$fallbackTable) {
-                return;
-            }
 
+        if ($isNullable) {
+            // Setze ungültige IDs auf NULL
+            $sql = sprintf(
+                "UPDATE %s SET %s = NULL WHERE %s IN (:ids);",
+                self::quote($table),
+                self::quote($column),
+                self::quote($column)
+            );
+
+            $connection->executeStatement(
+                $sql,
+                ['ids' => $bytesList],
+                ['ids' => ArrayParameterType::STRING]
+            );
+
+            return;
+        }
+
+        $fallbackId = null;
+        if ($fallbackTable) {
             $fallbackId = self::getAnyForeignKeyValue($connection, $fallbackTable, $ids);
-            if (!$fallbackId) {
-                return;
-            }
+        }
 
+        if ($fallbackId) {
+            // Setze ungültige IDs auf die nächstbeste gültige Fallback ID
             $sql = sprintf(
                 "UPDATE %s SET %s = UNHEX(:fallbackId) WHERE %s IN (:ids);",
                 self::quote($table),
@@ -263,23 +292,23 @@ final class EntityDefinitionQueryHelper
 
             $connection->executeStatement(
                 $sql,
-                ['fallbackId' => $fallbackId, 'ids' => Uuid::fromHexToBytesList($ids)],
+                ['fallbackId' => $fallbackId, 'ids' => $bytesList],
                 ['fallbackId' => ParameterType::STRING, 'ids' => ArrayParameterType::STRING]
             );
 
             return;
         }
 
+        // Keine Fallback ID gefunden - Einträge löschen
         $sql = sprintf(
-            "UPDATE %s SET %s = NULL WHERE %s IN (:ids);",
+            'DELETE FROM %s WHERE %s IN (:ids);',
             self::quote($table),
-            self::quote($column),
             self::quote($column)
         );
 
         $connection->executeStatement(
             $sql,
-            ['ids' => Uuid::fromHexToBytesList($ids)],
+            ['ids' => $bytesList],
             ['ids' => ArrayParameterType::STRING]
         );
     }
@@ -299,7 +328,7 @@ final class EntityDefinitionQueryHelper
         $referencedTable = trim($matches[2], '` ');
 
         $invalidIds = $connection->fetchFirstColumn(sprintf(
-            'SELECT %s FROM %s WHERE %s IS NOT NULL AND %s NOT IN (SELECT `id` FROM %s);',
+            'SELECT LOWER(HEX(%s)) FROM %s WHERE %s IS NOT NULL AND %s NOT IN (SELECT `id` FROM %s);',
             self::quote($foreignKeyColumn),
             self::quote($table),
             self::quote($foreignKeyColumn),
@@ -307,18 +336,7 @@ final class EntityDefinitionQueryHelper
             self::quote($referencedTable)
         ));
 
-        if (!empty($invalidIds)) {
-            $sql = sprintf(
-                'UPDATE %s SET %s = NULL WHERE %s IN (:ids);',
-                self::quote($table),
-                self::quote($foreignKeyColumn),
-                self::quote($foreignKeyColumn)
-            );
-
-            $connection->executeStatement($sql,
-                ['ids' => $invalidIds],
-                ['ids' => ArrayParameterType::BINARY]);
-        }
+        self::removeForeignKeyReferences($connection, $table, $foreignKeyColumn, $invalidIds, $referencedTable);
     }
 
     public static function addForeignKeyFromMeta(Connection $connection, string $table, string $constraintName, array $fkMeta): void
@@ -485,6 +503,10 @@ SQL;
 
     public static function getAnyForeignKeyValue(Connection $connection, string $table, array $excludedIds = []): ?string
     {
+        if (in_array($table, self::PRIVACY_PROTECTED_TABLES, true)) {
+            return null;
+        }
+
         $sql = sprintf("SELECT HEX(id) FROM %s WHERE id NOT IN (:ids) LIMIT 1", self::quote($table));
 
         return $connection->fetchOne(
