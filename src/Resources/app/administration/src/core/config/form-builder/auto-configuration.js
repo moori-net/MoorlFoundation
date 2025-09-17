@@ -129,7 +129,8 @@ const autoConfiguration = [
             ({ field }) => field.type === 'html' || (field.type === 'text' && field.flags.allow_html !== undefined)
         ],
         apply({ column }) {
-            column.componentName = 'mt-text-editor';
+            column.componentName = 'sw-text-editor';
+            //column.componentName = 'mt-text-editor';
         }
     },
     {
