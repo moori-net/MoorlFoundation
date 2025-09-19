@@ -65,6 +65,8 @@
       "visibility": "Visibility"
     },
     "field": {
+      "orderData": "Order data",
+      "ebicsGroup": "Group",
       "sent": "Sent",
       "creditorId": "Creditor ID (SEPA direct debit)",
       "plannedExecutionDate": "Planned execution",
