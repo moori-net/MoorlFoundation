@@ -11,7 +11,7 @@ Shopware.Mixin.register('moorl-listing', {
             items: [],
             isLoading: true,
             sortBy: 'createdAt',
-            sortDirection: 'ASC',
+            sortDirection: 'DESC',
             naturalSorting: undefined,
             page: 1,
             limit: 10,
