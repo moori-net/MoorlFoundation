@@ -65,6 +65,8 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "orderData": "Daten",
+      "ebicsGroup": "Gruppe",
       "sent": "Gesendet",
       "creditorId": "Gläubiger-ID (SEPA-Lastschrift)",
       "plannedExecutionDate": "Planned execution",
