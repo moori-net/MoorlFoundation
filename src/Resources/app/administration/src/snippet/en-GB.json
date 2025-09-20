@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "action": "Actions",
       "payment": "Payment details",
       "bank": "Bank account",
       "ebics": "EBICS Credentials",
@@ -65,7 +66,9 @@
       "visibility": "Visibility"
     },
     "field": {
-      "orderData": "Order data",
+      "paymentInfo": "Additional info",
+      "btdOrderData": "Downloaded order data",
+      "btuOrderData": "Uploaded order data",
       "ebicsGroup": "Group",
       "sent": "Sent",
       "creditorId": "Creditor ID (SEPA direct debit)",
