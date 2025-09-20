@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "action": "Aktionen",
       "payment": "Payment details",
       "bank": "Bank account",
       "ebics": "EBICS Credentials",
@@ -65,7 +66,9 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
-      "orderData": "Daten",
+      "paymentInfo": "Zusätzliche Info",
+      "btdOrderData": "Heruntergeladene Daten",
+      "btuOrderData": "Hochgeladene Daten",
       "ebicsGroup": "Gruppe",
       "sent": "Gesendet",
       "creditorId": "Gläubiger-ID (SEPA-Lastschrift)",

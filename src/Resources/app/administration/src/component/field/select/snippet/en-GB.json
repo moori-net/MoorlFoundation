@@ -182,6 +182,14 @@
             "inside": "Inside",
             "outside": "Outside",
             "thumbnails": "Thumbnails"
+        },
+        "transactionState": {
+            "open": "Open",
+            "paid": "Paid",
+            "refunded": "Refunded",
+            "in_progress": "In progress",
+            "authorized": "Authorized",
+            "chargeback": "Chargeback"
         }
     }
 }

@@ -21,6 +21,7 @@ export default class ListHelper {
         this.languageProperty = undefined;
         this.priceProperties = [];
         this.dateProperties = [];
+        this.snippetProperties = [];
         this.currencies = currencies;
         this.languages = languages;
         this.translationHelper = translationHelper;
@@ -74,16 +75,6 @@ export default class ListHelper {
             }
         }
 
-        for (const [property, item] of Object.entries(items)) {
-            if (typeof item !== 'object') {continue;}
-            this.properties.forEach((prop) => {
-                if (prop.snippetPath) {
-                    const snippet = `${prop.snippetPath}.${item[prop.name]}`;
-                    item[prop.name] = this.translationHelper.$tc(snippet);
-                }
-            });
-        }
-
         return items;
     }
 
@@ -92,6 +83,7 @@ export default class ListHelper {
         this._initMediaProperty();
         this._initAssociations();
         this._initProperties();
+        this._initSnippetProperties();
     }
 
     async _loadProperties() {
@@ -178,6 +170,20 @@ export default class ListHelper {
     _addAssociation(association) {
         if (!this.associations.includes(association)) {
             this.associations.push(association);
+        }
+    }
+
+    _initSnippetProperties() {
+        this.properties.forEach((property) => {
+            if (property.snippetPath) {
+               this._addSnippetProperty(property);
+            }
+        });
+    }
+
+    _addSnippetProperty(property) {
+        if (!this.snippetProperties.includes(property)) {
+            this.snippetProperties.push(property);
         }
     }
 

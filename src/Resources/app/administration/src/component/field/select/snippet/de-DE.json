@@ -183,6 +183,14 @@
             "inside": "Innen",
             "outside": "Außen",
             "thumbnails": "Vorschaubilder"
+        },
+        "transactionState": {
+            "open": "Offen",
+            "paid": "Bezahlt",
+            "refunded": "Rückerstattung",
+            "in_progress": "In Bearbeitung",
+            "authorized": "Autorisiert",
+            "chargeback": "Rückbuchung"
         }
     }
 }

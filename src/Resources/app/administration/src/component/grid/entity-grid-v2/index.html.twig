@@ -85,6 +85,15 @@
         </template>
 
         <template
+                v-for="snippetProperty in listHelper.snippetProperties"
+                #[`column-${snippetProperty.name}`]="{ column, item }"
+        >
+            <a class="sw-data-grid__cell-value" @click="onEditItem(item.id)">
+                {{ $tc(`${snippetProperty.snippetPath}.${item[snippetProperty.name]}`) }}
+            </a>
+        </template>
+
+        <template
                 v-for="dateProperty in listHelper.dateProperties"
                 #[`column-${dateProperty}`]="{ item }"
         >
