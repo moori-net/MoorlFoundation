@@ -121,7 +121,7 @@
         <template #actions="{ item }">
             {% block moorl_entity_grid_actions %}
                 <template v-if="customAction">
-                    <sw-context-menu-item @click="onCustomAction(item.id)">
+                    <sw-context-menu-item @click="customActionId = item.id">
                         {{ $tc(customAction) }}
                     </sw-context-menu-item>
                 </template>
@@ -179,6 +179,14 @@
             :defaultItem="defaultItem"
             :componentName="componentName"
             @close="onCloseModal"
+    />
+
+    <sw-confirm-modal
+            v-if="customActionId"
+            type="yesno"
+            @close="customActionId = null"
+            @cancel="customActionId = null"
+            @confirm="onCustomActionId"
     />
 
     <sw-confirm-modal
