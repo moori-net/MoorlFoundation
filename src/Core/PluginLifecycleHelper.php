@@ -21,7 +21,7 @@ class PluginLifecycleHelper
 {
     public static function removeDir(ContainerInterface $container, string|array $paths = []): void
     {
-        $rootDir = $container->getParameter('kernel.root_dir');
+        $rootDir = $container->getParameter('kernel.project_dir');
         if (!is_array($paths)) {
             $paths = [$paths];
         }
