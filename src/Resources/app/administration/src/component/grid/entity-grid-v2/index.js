@@ -60,6 +60,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             showImportModal: false,
             showExportModal: false,
             deleteId: null,
+            customActionId: null,
             editId: null
         };
     },
@@ -199,8 +200,9 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             this.onSearch();
         },
 
-        onCustomAction(id) {
-            this.$emit('customAction', id);
+        onCustomActionId() {
+            this.$emit('customAction', this.customActionId);
+            this.customActionId = null;
         }
     },
 });
