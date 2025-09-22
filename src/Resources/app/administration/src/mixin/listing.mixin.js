@@ -4,7 +4,10 @@ const {get} = Shopware.Utils;
 Shopware.Mixin.register('moorl-listing', {
     inject: ['repositoryFactory'],
 
-    mixins: [Shopware.Mixin.getByName('notification')],
+    mixins: [
+        Shopware.Mixin.getByName('notification'),
+        Shopware.Mixin.getByName('moorl-component-config'),
+    ],
 
     data() {
         return {
@@ -20,11 +23,7 @@ Shopware.Mixin.register('moorl-listing', {
             listHelper: null,
             ready: false,
             showImportModal: false,
-            showExportModal: false,
-            allowInlineEdit: true,
-            allowDelete: true,
-            allowCreate: true,
-            showSelection: true,
+            showExportModal: false
         };
     },
 
@@ -136,16 +135,10 @@ Shopware.Mixin.register('moorl-listing', {
 
             await this.listHelper.ready;
 
-            this.pluginName = this.listHelper.pluginName;
-            this.demoName = this.listHelper.demoName;
-
             this.sortBy = this.listHelper.sortBy;
             this.sortDirection = this.listHelper.sortDirection;
 
-            this.allowInlineEdit = this.listHelper.allowInlineEdit;
-            this.allowDelete = this.listHelper.allowDelete;
-            this.allowCreate = this.listHelper.allowCreate;
-            this.showSelection = this.listHelper.showSelection;
+            this.initComponentConfig('list');
 
             this.ready = true;
         },
