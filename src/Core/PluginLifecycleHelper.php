@@ -15,9 +15,25 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Filesystem\Filesystem;
 
 class PluginLifecycleHelper
 {
+    public static function removeDir(ContainerInterface $container, string|array $paths = []): void
+    {
+        $rootDir = $container->getParameter('kernel.root_dir');
+        if (!is_array($paths)) {
+            $paths = [$paths];
+        }
+        foreach ($paths as $path) {
+            $filesystem = new Filesystem();
+            $dir = $rootDir . '/' . $path;
+            if ($filesystem->exists($dir)) {
+                $filesystem->remove($dir);
+            }
+        }
+    }
+
     public static function build(ContainerBuilder $container, string|array $paths = []): void
     {
         if (class_exists(AbstractElasticsearchDefinition::class)) {
