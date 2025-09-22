@@ -125,6 +125,7 @@ Shopware.Mixin.register('moorl-listing', {
                 componentName: this.componentName,
                 entity: this.entity,
                 translationHelper: this.translationHelper,
+                minVisibility: this.minVisibility,
                 currencies,
                 languages,
             });

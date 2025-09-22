@@ -4,6 +4,8 @@ import './index.scss';
 Shopware.Component.register('moorl-entity-grid-v2', {
     inject: ['acl'],
 
+    emits: ['customAction'],
+
     template,
 
     mixins: [Shopware.Mixin.getByName('moorl-listing')],
@@ -33,6 +35,16 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             required: false,
             default: true,
         },
+        minVisibility: {
+            type: Number,
+            required: false,
+            default: 0,
+        },
+        customAction: {
+            type: String,
+            required: false,
+            default: undefined,
+        }
     },
 
     data() {
@@ -186,5 +198,9 @@ Shopware.Component.register('moorl-entity-grid-v2', {
 
             this.onSearch();
         },
+
+        onCustomAction(id) {
+            this.$emit('customAction', id);
+        }
     },
 });
