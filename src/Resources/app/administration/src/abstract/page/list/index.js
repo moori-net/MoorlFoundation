@@ -13,8 +13,6 @@ Shopware.Component.register('moorl-abstract-page-list', {
     data() {
         return {
             entity: null,
-            pluginName: null,
-            demoName: null,
             items: null,
             showImportModal: false,
             showExportModal: false,

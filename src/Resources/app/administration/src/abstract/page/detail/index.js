@@ -13,7 +13,8 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
     mixins: [
         Shopware.Mixin.getByName('notification'),
-        Shopware.Mixin.getByName('placeholder')
+        Shopware.Mixin.getByName('placeholder'),
+        Shopware.Mixin.getByName('moorl-component-config'),
     ],
 
     shortcuts: {
@@ -115,6 +116,8 @@ Shopware.Component.register('moorl-abstract-page-detail', {
                 console.error(`${this.componentName} has no entity`);
                 return;
             }
+
+            this.initComponentConfig('detail');
 
             this.loadItem();
         },

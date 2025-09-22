@@ -9,50 +9,55 @@
 
     <template #smart-bar-actions>
         {% block moorl_page_detail_smart_bar_actions %}
-        <mt-button
-            variant="secondary"
-            size="default"
-            @click="onCancel"
-        >
-            {{ $tc('global.default.cancel') }}
-        </mt-button>
-        <sw-button-group :split-button="true">
-            <sw-button-process
-                v-model:process-success="isSaveSuccessful"
-                variant="primary"
-                :is-loading="isLoading"
-                :disabled="isLoading"
-                @click="onSaveItem"
+            <mt-button
+                variant="secondary"
+                size="default"
+                @click="onCancel"
             >
-                {{ $tc('global.default.save') }}
-            </sw-button-process>
-            <sw-context-button v-if="!isNewItem">
-                <template #button>
-                    <mt-button
-                        square
-                        variant="primary"
-                        :disabled="isLoading"
-                        size="default"
-                    >
-                        <mt-icon
-                            name="regular-chevron-down-xs"
-                            size="16"
-                        />
-                    </mt-button>
-                </template>
-                <sw-context-menu-item @click="onDuplicateItem">
-                    {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
-                </sw-context-menu-item>
-            </sw-context-button>
-        </sw-button-group>
-        <mt-button
-            v-if="!isNewItem"
-            variant="critical"
-            size="default"
-            @click="showConfirmDeleteModal = true"
-        >
-            {{ $tc('global.default.delete') }}
-        </mt-button>
+                {{ $tc('global.default.cancel') }}
+            </mt-button>
+
+            <sw-button-group
+                    v-if="allowEdit"
+                    :split-button="true"
+            >
+                <sw-button-process
+                    v-model:process-success="isSaveSuccessful"
+                    variant="primary"
+                    :is-loading="isLoading"
+                    :disabled="isLoading"
+                    @click="onSaveItem"
+                >
+                    {{ $tc('global.default.save') }}
+                </sw-button-process>
+                <sw-context-button v-if="!isNewItem">
+                    <template #button>
+                        <mt-button
+                            square
+                            variant="primary"
+                            :disabled="isLoading"
+                            size="default"
+                        >
+                            <mt-icon
+                                name="regular-chevron-down-xs"
+                                size="16"
+                            />
+                        </mt-button>
+                    </template>
+                    <sw-context-menu-item @click="onDuplicateItem">
+                        {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
+                    </sw-context-menu-item>
+                </sw-context-button>
+            </sw-button-group>
+
+            <mt-button
+                v-if="!isNewItem && allowDelete"
+                variant="critical"
+                size="default"
+                @click="showConfirmDeleteModal = true"
+            >
+                {{ $tc('global.default.delete') }}
+            </mt-button>
         {% endblock %}
     </template>
 

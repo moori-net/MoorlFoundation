@@ -109,15 +109,6 @@ export default class ListHelper {
                 this.sortBy = highest?.name ?? null;
                 this.sortDirection = this.sortBy === 'autoIncrement' || this.sortBy === 'createdAt' ? 'DESC' : 'ASC';
 
-                this.pluginName = pluginConfig.pluginName ?? null;
-                this.demoName = pluginConfig.demoName ?? 'standard';
-
-                // Inherit config to listing module
-                this.allowInlineEdit = pluginConfig.componentConfig?.list?.allowInlineEdit ?? true;
-                this.allowDelete = pluginConfig.componentConfig?.list?.allowDelete ?? true;
-                this.allowCreate = pluginConfig.componentConfig?.list?.allowCreate ?? true;
-                this.showSelection = pluginConfig.componentConfig?.list?.showSelection ?? true;
-
                 // Override item props by condition? (detail and listing)
                 this.entityOverride = pluginConfig.entityOverride ?? null;
                 if (this.entityOverride || this.properties.find(p => p.snippetPath)) {
