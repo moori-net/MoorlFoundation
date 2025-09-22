@@ -119,25 +119,36 @@
         </template>
 
         <template #actions="{ item }">
-            {% block moorl_entity_grid_actions %}{% endblock %}
-            <sw-context-menu-item
-                    v-if="path"
-                    @click="$router.push({ name: path, params: {id: item.id} })"
-            >
-                {{ $tc('global.default.edit') }}
-            </sw-context-menu-item>
-            <sw-context-menu-item
-                    v-else
-                    @click="onEditItem(item.id)"
-            >
-                {{ $tc('global.default.edit') }}
-            </sw-context-menu-item>
-            <sw-context-menu-item
-                    variant="danger"
-                    @click="onDeleteItem(item)"
-            >
-                {{ $tc('global.default.delete') }}
-            </sw-context-menu-item>
+            {% block moorl_entity_grid_actions %}
+                <template v-if="customAction">
+                    <sw-context-menu-item @click="onCustomAction(item.id)">
+                        {{ $tc(customAction) }}
+                    </sw-context-menu-item>
+                </template>
+
+                <template v-else>
+                    <sw-context-menu-item
+                            v-if="path"
+                            @click="$router.push({ name: path, params: {id: item.id} })"
+                    >
+                        {{ $tc('global.default.edit') }}
+                    </sw-context-menu-item>
+
+                    <sw-context-menu-item
+                            v-else
+                            @click="onEditItem(item.id)"
+                    >
+                        {{ $tc('global.default.edit') }}
+                    </sw-context-menu-item>
+
+                    <sw-context-menu-item
+                            variant="danger"
+                            @click="onDeleteItem(item)"
+                    >
+                        {{ $tc('global.default.delete') }}
+                    </sw-context-menu-item>
+                </template>
+            {% endblock %}
         </template>
 
         <template #bulk>
