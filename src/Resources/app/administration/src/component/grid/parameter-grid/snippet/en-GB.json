@@ -7,7 +7,8 @@
         "properties": {
             "name": "Name",
             "label": "Label",
-            "data": "Data"
+            "data": "Data",
+            "override": "Override"
         }
     }
 }

@@ -52,6 +52,15 @@
             />
         </template>
 
+        <template #column-override="{ item, itemIndex }">
+            <mt-checkbox
+                    key="boolean"
+                    v-model:checked="item.override"
+                    name="sw-field--currentValue"
+                    @update:checked="onChangeItem(item, itemIndex)"
+            />
+        </template>
+
         <template #actions="{ item, itemIndex }">
             <sw-context-menu-item
                 :disabled="!dataSelection.length"
@@ -61,6 +70,7 @@
                 ? $tc('moorl-parameter-grid.placeholderValue')
                 : $tc('moorl-parameter-grid.customValue') }}
             </sw-context-menu-item>
+
             <sw-context-menu-item
                 variant="danger"
                 :disabled="fixed || item.fixed"

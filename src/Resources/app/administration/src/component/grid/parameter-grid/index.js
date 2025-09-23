@@ -30,6 +30,11 @@ Shopware.Component.register('moorl-parameter-grid', {
             default: true,
             required: false,
         },
+        override: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
         showActions: {
             type: Boolean,
             default: true,
@@ -70,6 +75,16 @@ Shopware.Component.register('moorl-parameter-grid', {
                 primary: true,
                 width: '320px',
             });
+
+            if (this.override) {
+                columns.push({
+                    label: this.$tc('moorl-parameter-grid.properties.override'),
+                    property: 'override',
+                    dataIndex: 'override',
+                    primary: true,
+                    align: 'center'
+                });
+            }
 
             return columns;
         },
