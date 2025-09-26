@@ -687,6 +687,9 @@ SQL;
                 if ($table === 'custom_field_set' && $key === 'config') {
                     continue;
                 }
+                if ($table === 'flow' && $key === 'config') {
+                    continue;
+                }
 
                 $this->enrichData($value, $table, $dataObject);
             }
