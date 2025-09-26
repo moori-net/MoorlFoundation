@@ -144,6 +144,7 @@
                     <sw-context-menu-item
                             variant="danger"
                             @click="onDeleteItem(item)"
+                            :disabled="!allowDelete"
                     >
                         {{ $tc('global.default.delete') }}
                     </sw-context-menu-item>
