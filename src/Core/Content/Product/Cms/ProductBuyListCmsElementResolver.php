@@ -57,7 +57,7 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
 
         /** @var SalesChannelProductEntity $product */
         foreach ($products as $product) {
-            if ($product->getChildren()) {
+            if ($product->getChildren()?->count() > 0) {
                 $sliderProducts->add($product->getChildren()->first());
             } else {
                 $sliderProducts->add($product);
