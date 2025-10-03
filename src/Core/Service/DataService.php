@@ -14,12 +14,18 @@ use Shopware\Core\Content\ImportExport\ImportExportProfileDefinition;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
+use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
+use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
+use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
+use Shopware\Core\Content\Property\PropertyGroupCollection;
+use Shopware\Core\Content\Property\PropertyGroupDefinition;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityCollection;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Uuid\Uuid;
@@ -38,6 +44,7 @@ class DataService
     private readonly string $demoCustomerMail;
     private ?string $customerId = null;
     private array $mediaCache = [];
+    private ?PropertyGroupCollection $propertyGroups = null;
     private EntityCollection $taxes;
     private ?ShopwareStyle $io = null;
 
@@ -622,6 +629,9 @@ SQL;
                     }
                 }
             }
+            if ($table === 'product' && !empty($item['configuratorSettings']) && empty($item['children'])) {
+                $item['children'] = $this->generateVariants($item);
+            }
             /**
              * @deprecated tag:v6.5
              */
@@ -674,7 +684,9 @@ SQL;
                 ];
             }
             if (!isset($item['createdAt'])) {
-                $item['createdAt'] = $dataObject->getCreatedAt();
+                if (count($item) !== 1) {
+                    $item['createdAt'] = $dataObject->getCreatedAt();
+                }
             }
 
             $this->enrichFallbackData($item, $table, $dataObject);
@@ -694,6 +706,98 @@ SQL;
                 $this->enrichData($value, $table, $dataObject);
             }
         }
+    }
+
+    public function generateVariants(array $item): array
+    {
+        $children = [];
+        $stock = $item['stock'] ?? 1;
+
+        $optionIds = array_map(fn ($cfg) => $cfg['optionId'], $item['configuratorSettings'] ?? []);
+        $optionIds = array_values(array_filter(array_unique($optionIds)));
+        if (empty($optionIds)) {
+            return $children;
+        }
+
+        $criteria = (new Criteria())
+            ->addFilter(new EqualsAnyFilter('id', $optionIds))
+            ->addAssociation('group');
+
+        $repo = $this->definitionInstanceRegistry->getRepository(PropertyGroupOptionDefinition::ENTITY_NAME);
+
+        /** @var PropertyGroupOptionCollection $options */
+        $options = $repo->search($criteria, $this->context)->getEntities();
+
+        if ($options->count() === 0) {
+            return $children;
+        }
+
+        $byGroup = [];
+        foreach ($options as $opt) {
+            /** @var PropertyGroupOptionEntity $opt */
+            $group = $opt->getGroup();
+            if (!$group) {
+                continue;
+            }
+            $gid = $group->getId();
+            $byGroup[$gid]['groupName'] = (string) $group->getName();
+            $byGroup[$gid]['options'][] = $opt;
+        }
+
+        uasort($byGroup, static function ($a, $b): int {
+            return strcmp($a['groupName'] ?? '', $b['groupName'] ?? '');
+        });
+
+        $sets = array_map(fn ($g) => $g['options'], $byGroup);
+        $combinations = self::cartesianProduct($sets);
+
+        $basePN = $item['productNumber'];
+        /* @var PropertyGroupOptionEntity $combo */
+        foreach ($combinations as $index => $combo) {
+            $optionIdsForChild = [];
+            $optionNameParts = [$basePN, $index];
+
+            foreach ($combo as $opt) {
+                $optionIdsForChild[] = ['id' => $opt->getId()];
+            }
+
+            $productNumber = implode('.', $optionNameParts);
+            $children[] = [
+                'id' => md5($productNumber),
+                'options' => $optionIdsForChild,
+                'productNumber' => $productNumber,
+                'stock' => $stock,
+            ];
+        }
+
+        return $children;
+    }
+
+    /**
+     * @param array<int, PropertyGroupOptionEntity[]> $sets
+     * @return array<int, PropertyGroupOptionEntity[]>
+     */
+    private static function cartesianProduct(array $sets): array
+    {
+        if (empty($sets)) {
+            return [];
+        }
+
+        $result = [[]];
+
+        foreach ($sets as $set) {
+            $next = [];
+            foreach ($result as $prefix) {
+                foreach ($set as $elem) {
+                    $tmp = $prefix;
+                    $tmp[] = $elem;
+                    $next[] = $tmp;
+                }
+            }
+            $result = $next;
+        }
+
+        return $result;
     }
 
     public function fetchFileFromURL(string $url, string $extension): MediaFile
