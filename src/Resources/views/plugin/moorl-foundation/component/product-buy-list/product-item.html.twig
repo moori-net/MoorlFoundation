@@ -137,7 +137,7 @@
                               content="{{ context.currency.translated.shortName }}"/>
                         <meta itemprop="price" content="{{ price.unitPrice }}"/>
                         <link itemprop="availability" href="https://schema.org/InStock"/>
-                        {{ price.unitPrice|currency }}{{ "general.star"|trans|sw_sanitize }}
+                        {{ price.unitPrice|currency }}
                     </div>
                 {% endif %}
             {% endblock %}

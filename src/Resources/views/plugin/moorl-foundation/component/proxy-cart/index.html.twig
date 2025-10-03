@@ -41,11 +41,11 @@
             <li class="moorl-parts-list-price">
                 <div class="text-end">
                     {{ "moorl-foundation.general.subTotal"|trans|sw_sanitize }}:
-                    <span class="total-price {% if sumDiscount < 0 %}striked{% endif %}">{{ (sumPrice)|currency }}{{ "general.star"|trans|sw_sanitize }}</span>
+                    <span class="total-price {% if sumDiscount < 0 %}striked{% endif %}">{{ (sumPrice)|currency }}</span>
                 </div>
                 {% if sumDiscount < 0 %}
                     <div class="text-end" title="{{ discountName }}">
-                        <span class="discount-price">{{ (sumPrice + sumDiscount)|currency }}{{ "general.star"|trans|sw_sanitize }}</span>
+                        <span class="discount-price">{{ (sumPrice + sumDiscount)|currency }}</span>
                     </div>
                 {% endif %}
             </li>
