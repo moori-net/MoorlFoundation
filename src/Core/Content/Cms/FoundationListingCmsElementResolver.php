@@ -120,7 +120,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
             return;
         }
 
-        $translatedConfig = $slot->getTranslated()['config'];
+        $translatedConfig = $slot->getTranslation('config');
 
         $foreignKeyConfig = $config->get('foreignKey');
         if ($foreignKeyConfig && $foreignKeyConfig->getValue() && !in_array($foreignKeyConfig->getValue(), ['Keine', 'None'])) {
