@@ -1,0 +1,9 @@
+{
+    "moorl-csv-export": {
+        "localTable": "Nur die lokale Tabelle exportieren",
+        "title": "Export Assistent",
+        "introText": "Möchten Sie diese Tabelle exportieren?",
+        "process": "Export wird vorbereitet...",
+        "completedMessage": "Export abgeschlossen"
+    }
+}

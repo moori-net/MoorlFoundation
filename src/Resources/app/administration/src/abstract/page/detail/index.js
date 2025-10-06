@@ -186,7 +186,9 @@ Shopware.Component.register('moorl-abstract-page-detail', {
                 await this.loadItem();
             } catch(error) {
                 console.error(error);
-                this.createNotificationError({ message: error.message });
+                this.createNotificationError({
+                    message: this.$tc('global.notification.notificationSaveErrorMessageRequiredFieldsInvalid'),
+                });
             }
 
             return Promise.resolve();
