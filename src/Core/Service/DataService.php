@@ -711,9 +711,24 @@ SQL;
     public function generateVariants(array $item): array
     {
         $children = [];
+        $basePN = $item['productNumber'] ?? null;
+        $price = $item['price'] ?? null;
+        if (!$basePN || !$price) {
+            return $children;
+        }
+
         $stock = $item['stock'] ?? 1;
 
-        $optionIds = array_map(fn ($cfg) => $cfg['optionId'], $item['configuratorSettings'] ?? []);
+        $optionIds = [];
+        $optionPrices = [];
+        foreach ($item['configuratorSettings'] as $configuratorSetting) {
+            $optionId = $configuratorSetting['optionId'];
+            $optionIds[] = $optionId;
+            if (isset($configuratorSetting['_price'])) {
+                $optionPrices[$optionId] = (float)$configuratorSetting['_price'];
+            }
+        }
+
         $optionIds = array_values(array_filter(array_unique($optionIds)));
         if (empty($optionIds)) {
             return $children;
@@ -727,7 +742,6 @@ SQL;
 
         /** @var PropertyGroupOptionCollection $options */
         $options = $repo->search($criteria, $this->context)->getEntities();
-
         if ($options->count() === 0) {
             return $children;
         }
@@ -751,15 +765,24 @@ SQL;
         $sets = array_map(fn ($g) => $g['options'], $byGroup);
         $combinations = self::cartesianProduct($sets);
 
-        $basePN = $item['productNumber'];
+
         /* @var PropertyGroupOptionEntity $combo */
         foreach ($combinations as $index => $combo) {
             $optionIdsForChild = [];
             $optionNameParts = [$basePN, $index];
 
+            $priceFactor = 1;
             foreach ($combo as $opt) {
                 $optionIdsForChild[] = ['id' => $opt->getId()];
+
+                if (isset($optionPrices[$opt->getId()])) {
+                    $priceFactor = $priceFactor * ($optionPrices[$opt->getId()] / 100);
+                }
             }
+
+            $optionPrice = $price[0];
+            $optionPrice['net'] = $priceFactor * $optionPrice['net'];
+            $optionPrice['gross'] = $priceFactor * $optionPrice['gross'];
 
             $productNumber = implode('.', $optionNameParts);
             $children[] = [
@@ -767,6 +790,7 @@ SQL;
                 'options' => $optionIdsForChild,
                 'productNumber' => $productNumber,
                 'stock' => $stock,
+                'price' => [$optionPrice],
             ];
         }
 
