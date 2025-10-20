@@ -32,21 +32,23 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
 
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
-        parent::enrich($slot, $resolverContext, $result);
-
         $config = $slot->getFieldConfig();
+        $slider = new ProductSliderStruct();
+        $slot->setData($slider);
+
         $productConfig = $config->get('products');
         if ($productConfig === null || $productConfig->getValue() === null) {
+            return;
+        }
+
+        if (!$productConfig->isMapped() || !$resolverContext instanceof EntityResolverContext) {
+            parent::enrich($slot, $resolverContext, $result);
             return;
         }
 
         /** @var ProductSliderStruct $slider */
         $slider = $slot->getData();
         if ($slider->getProducts()) {
-            return;
-        }
-
-        if (!$productConfig->isMapped() || !$resolverContext instanceof EntityResolverContext) {
             return;
         }
 
