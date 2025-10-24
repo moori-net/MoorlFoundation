@@ -304,8 +304,11 @@ final class EntityDefinitionQueryHelper
 
     public static function removeInvalidForeignKeys(Connection $connection, string $query, string $table): void
     {
-        preg_match('/FOREIGN KEY \((.*?)\) REFERENCES (\w+)/', $query, $matches);
-        if (!isset($matches[1]) || !isset($matches[2])) {
+        if (!preg_match(
+            '/FOREIGN\s+KEY\s*\(([^)]+)\)\s*REFERENCES\s+`?([^\s`(]+)`?\s*(?:\(([^)]+)\))?/i',
+            $query,
+            $matches
+        )) {
             throw new \RuntimeException(sprintf(
                 "Error: Database inconsistency cannot be resolved and must be corrected manually. Query: %s; Table: %s",
                 $query,
@@ -313,7 +316,8 @@ final class EntityDefinitionQueryHelper
             ));
         }
 
-        $foreignKeyColumn = trim($matches[1], '` ');
+        $fkColsRaw = explode(',', $matches[1]);
+        $foreignKeyColumn = trim($fkColsRaw[0], '` ');
         $referencedTable = trim($matches[2], '` ');
 
         $invalidIds = $connection->fetchFirstColumn(sprintf(
