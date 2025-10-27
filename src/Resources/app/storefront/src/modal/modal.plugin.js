@@ -30,6 +30,8 @@ export default class MoorlModal extends Plugin {
                 bootstrap.Modal.getInstance(modal) ?? new bootstrap.Modal(modal);
             bsModal.show();
 
+            window.PluginManager.initializePlugins();
+
             modal.addEventListener('hidden.bs.modal', () => {
                 modal.innerHTML = '';
             });
