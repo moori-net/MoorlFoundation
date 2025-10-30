@@ -163,11 +163,17 @@ Shopware.Component.register('moorl-layout-card-v2', {
                                         slot.config,
                                         cloneDeep(this.item.slotConfig[slot.id])
                                     );
+                                    // https://github.com/shopware/shopware/issues/13263
+                                    merge(
+                                        slot.translated.config,
+                                        cloneDeep(this.item.slotConfig[slot.id])
+                                    );
                                 }
                             });
                         });
                     });
                 }
+
                 this.updateCmsPageDataMapping();
                 Shopware.Store.get('cmsPage').setCurrentPage(cmsPage);
 
