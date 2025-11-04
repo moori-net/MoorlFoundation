@@ -30,10 +30,14 @@
 
     {% block parts_list_item_product_quantity %}
     <div>
+        <label for="{{ namePrefix }}_{{ product.parentId ?: product.id }}" class="visually-hidden">
+            {{ "moorl-foundation.field.quantity"|trans }}
+        </label>
         <input type="number"
                min="0"
                step="1"
                class="form-control"
+               id="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
                name="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
                value="{{ quantity }}">
     </div>
