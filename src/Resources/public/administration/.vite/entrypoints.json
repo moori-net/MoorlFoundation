@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/moorlfoundation/administration/",
+  "entryPoints": {
+    "moorl-foundation": {
+      "css": [
+        "/bundles/moorlfoundation/administration/assets/moorl-foundation-BLzh5UWG.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/moorlfoundation/administration/assets/moorl-foundation-C0fXtYzo.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.1.0",
+    7,
+    1,
+    0
+  ],
+  "viteServer": null
+}
