@@ -27,11 +27,15 @@
         <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][referencedId]" value="{{ lineItem.referencedId }}">
         <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][stackable]" value="1">
         <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][removable]" value="1">
+        <label for="lineItems{{ lineItem.referencedId }}quantity" class="visually-hidden">
+            {{ "moorl-foundation.field.quantity"|trans }}
+        </label>
         <input
                 type="number"
                 min="0"
                 step="1"
                 class="form-control"
+                id="lineItems{{ lineItem.referencedId }}quantity"
                 name="lineItems[{{ lineItem.referencedId }}][quantity]"
                 value="{{ quantity }}"
                 readonly
