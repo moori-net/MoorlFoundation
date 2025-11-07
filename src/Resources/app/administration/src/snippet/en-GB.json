@@ -66,6 +66,8 @@
       "visibility": "Visibility"
     },
     "field": {
+      "value": "Value",
+      "flags": "Flags",
       "paymentInfo": "Additional info",
       "btdOrderData": "Downloaded order data",
       "btuOrderData": "Uploaded order data",

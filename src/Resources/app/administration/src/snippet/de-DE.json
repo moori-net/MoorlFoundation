@@ -66,6 +66,8 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "value": "Wert",
+      "flags": "Flags",
       "paymentInfo": "Zusätzliche Info",
       "btdOrderData": "Heruntergeladene Daten",
       "btuOrderData": "Hochgeladene Daten",
