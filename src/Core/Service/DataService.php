@@ -629,6 +629,11 @@ SQL;
                     }
                 }
             }
+            /* Handle seo urls */
+            if (isset($item['id']) && isset($item['seoUrls']) && is_array($item['seoUrls'])) {
+                $sql = sprintf("DELETE FROM `seo_url` WHERE `foreign_key` = UNHEX('%s');", $item['id']);
+                $this->connection->executeStatement($sql);
+            }
             if ($table === 'product' && !empty($item['configuratorSettings']) && empty($item['children'])) {
                 $item['children'] = $this->generateVariants($item);
             }
