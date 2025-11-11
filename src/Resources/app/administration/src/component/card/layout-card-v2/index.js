@@ -78,6 +78,11 @@ Shopware.Component.register('moorl-layout-card-v2', {
 
             this.getAssignedCmsPage();
         },
+
+        'cmsPage.sections': {
+            handler() {this.saveCmsConfig();},
+            deep: true,
+        },
     },
 
     created() {
