@@ -161,6 +161,7 @@ const mapping = {
     cssClass: {tab: 'general', card: 'visibility'},
     minResults: {tab: 'general', card: 'visibility'},
     page: {tab: 'general', card: 'visibility'},
+    pages: {tab: 'general', card: 'visibility'},
     availabilityRule: {tab: 'general', card: 'visibility'},
     visible: {tab: 'general', card: 'visibility'},
 
