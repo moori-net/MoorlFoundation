@@ -1,131 +1,151 @@
-/* Old plugins */
-import MoorlFoundation from './moorl-foundation/moorl-foundation';
-import MoorlFoundationForm from './moorl-foundation-form/moorl-foundation-form';
-import MoorlAnimation from './moorl-animation/moorl-animation';
-/* New plugins */
-import MoorlRelativeTimePlugin from './relative-time/relative-time.plugin';
-import MoorlCountdownPlugin from './countdown/countdown.plugin';
-import MoorlProductBuyListPlugin from './product-buy-list/product-buy-list.plugin';
-import MoorlPartsListPlugin from './parts-list/parts-list.plugin';
-import MoorlTocPlugin from './toc/toc.plugin';
-import MoorlGridPlugin from './grid/grid.plugin';
-import MoorlPaintPlugin from './paint/paint.plugin';
-import MoorlFoundationFilterRadiusPlugin from './listing/filter-radius.plugin';
-import MoorlFoundationFilterSearchPlugin from './listing/filter-search.plugin';
-import MoorlCustomerUploadPlugin from './customer-upload/customer-upload.plugin';
-import MoorlLocationPlugin from './location/location.plugin';
-import MoorlHoverCardPlugin from './hover-card/hover-card.plugin';
-import MoorlCookieBoxPlugin from './cookie-box/cookie-box.plugin';
-import MoorlModalPlugin from './modal/modal.plugin';
-import MoorlCharCounterPlugin from './char-counter/char-counter.plugin';
-import MoorlCopyPlugin from './copy/copy.plugin';
-import MoorlSelectSearchPlugin from './select-search/select-search.plugin';
-import MoorlSvgLoaderPlugin from './svg-loader/svg-loader.plugin';
-import MoorlInputLocationPlugin from './input-location/input-location.plugin';
-/* Plugins moved since Shopware 6.6 */
-import MoorlFbSignaturePlugin from './fb-signature/fb-signature.plugin';
-
 const PluginManager = window.PluginManager;
+
 /* Old plugins */
-PluginManager.register('MoorlFoundation', MoorlFoundation);
+PluginManager.register(
+    'MoorlFoundation',
+    () => import('./moorl-foundation/moorl-foundation'),
+);
+
 PluginManager.register(
     'MoorlFoundationForm',
-    MoorlFoundationForm,
+    () => import('./moorl-foundation-form/moorl-foundation-form'),
     '[data-moorl-foundation-form]'
 );
+
 PluginManager.register(
     'MoorlAnimation',
-    MoorlAnimation,
+    () => import('./moorl-animation/moorl-animation'),
     '[data-moorl-animation]'
 );
+
 /* New plugins */
 PluginManager.register(
     'MoorlLocation',
-    MoorlLocationPlugin,
+    () => import('./location/location.plugin'),
     '[data-moorl-location]'
 );
+
 PluginManager.register(
     'MoorlRelativeTime',
-    MoorlRelativeTimePlugin,
+    () => import('./relative-time/relative-time.plugin'),
     '[data-moorl-relative-time]'
 );
+
 PluginManager.register(
     'MoorlCountdown',
-    MoorlCountdownPlugin,
+    () => import('./countdown/countdown.plugin'),
     '[data-moorl-countdown]'
 );
+
 PluginManager.register(
     'MoorlProductBuyList',
-    MoorlProductBuyListPlugin,
+    () => import('./product-buy-list/product-buy-list.plugin'),
     '[data-moorl-product-buy-list]'
 );
+
 PluginManager.register(
     'MoorlPartsList',
-    MoorlPartsListPlugin,
+    () => import('./parts-list/parts-list.plugin'),
     '[data-moorl-parts-list]'
 );
-PluginManager.register('MoorlToc', MoorlTocPlugin, '[data-moorl-toc]');
-PluginManager.register('MoorlGrid', MoorlGridPlugin, '[data-moorl-grid]');
-PluginManager.register('MoorlPaint', MoorlPaintPlugin, '.moorl-paint');
+
+PluginManager.register(
+    'MoorlToc',
+    () => import('./toc/toc.plugin'),
+    '[data-moorl-toc]'
+);
+
+PluginManager.register(
+    'MoorlGrid',
+    () => import('./grid/grid.plugin'),
+    '[data-moorl-grid]'
+);
+
+PluginManager.register(
+    'MoorlPaint',
+    () => import('./paint/paint.plugin'),
+    '.moorl-paint'
+);
+
 PluginManager.register(
     'MoorlFoundationFilterRadius',
-    MoorlFoundationFilterRadiusPlugin,
+    () => import('./listing/filter-radius.plugin'),
     '[data-moorl-foundation-filter-radius]'
 );
+
 PluginManager.register(
     'MoorlFoundationFilterSearch',
-    MoorlFoundationFilterSearchPlugin,
+    () => import('./listing/filter-search.plugin'),
     '[data-moorl-foundation-filter-search]'
 );
+
 PluginManager.register(
     'MoorlCustomerUpload',
-    MoorlCustomerUploadPlugin,
+    () => import('./customer-upload/customer-upload.plugin'),
     '[data-moorl-customer-upload]'
 );
+
 PluginManager.register(
     'MoorlHoverCard',
-    MoorlHoverCardPlugin,
+    () => import('./hover-card/hover-card.plugin'),
     '[data-moorl-hover-card]'
 );
+
 PluginManager.register(
     'MoorlCookieBox',
-    MoorlCookieBoxPlugin,
+    () => import('./cookie-box/cookie-box.plugin'),
     '[data-moorl-cookie-box]'
 );
-PluginManager.register('MoorlModal', MoorlModalPlugin, '[data-moorl-modal]');
+
+PluginManager.register(
+    'MoorlModal',
+    () => import('./modal/modal.plugin'),
+    '[data-moorl-modal]'
+);
+
 PluginManager.register(
     'MoorlCharCounter',
-    MoorlCharCounterPlugin,
+    () => import('./char-counter/char-counter.plugin'),
     '[data-moorl-char-counter]'
 );
-PluginManager.register('MoorlCopy', MoorlCopyPlugin, '[data-moorl-copy]');
+
+PluginManager.register(
+    'MoorlCopy',
+    () => import('./copy/copy.plugin'),
+    '[data-moorl-copy]'
+);
+
 PluginManager.register(
     'MoorlSelectSearch',
-    MoorlSelectSearchPlugin,
+    () => import('./select-search/select-search.plugin'),
     '[data-moorl-select-search]'
 );
+
 PluginManager.register(
     'MoorlSvgLoader',
-    MoorlSvgLoaderPlugin,
+    () => import('./svg-loader/svg-loader.plugin'),
     '[data-moorl-svg-loader]'
 );
+
 PluginManager.register(
     'MoorlInputLocation',
-    MoorlInputLocationPlugin,
+    () => import('./input-location/input-location.plugin'),
     '[data-moorl-input-location]'
 );
+
 /* Plugins moved since Shopware 6.6 */
 PluginManager.register(
     'MoorlFbSignature',
-    MoorlFbSignaturePlugin,
+    () => import('./fb-signature/fb-signature.plugin'),
     '[data-moorl-fb-signature]'
 );
 
+/* Dynamic MoorlAnimation configuration */
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
         PluginManager.register(
             'MoorlAnimation',
-            MoorlAnimation,
+            () => import('./moorl-animation/moorl-animation'),
             item.cssSelector,
             item
         );
