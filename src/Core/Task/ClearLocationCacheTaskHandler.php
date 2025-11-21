@@ -8,7 +8,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler(handles: ClearLocationCacheTaskHandler::class)]
+#[AsMessageHandler(handles: ClearLocationCacheTask::class)]
 class ClearLocationCacheTaskHandler extends ScheduledTaskHandler
 {
     public function __construct(
