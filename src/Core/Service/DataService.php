@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Service;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use League\Flysystem\Filesystem;
@@ -18,7 +19,6 @@ use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOp
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionDefinition;
 use Shopware\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionEntity;
 use Shopware\Core\Content\Property\PropertyGroupCollection;
-use Shopware\Core\Content\Property\PropertyGroupDefinition;
 use Shopware\Core\Defaults;
 use Shopware\Core\Framework\Adapter\Console\ShopwareStyle;
 use Shopware\Core\Framework\Context;
@@ -1004,17 +1004,7 @@ SQL;
         }
 
         foreach (array_reverse($dataObject->getPluginTables()) as $table) {
-            if (!$this->contentFileExists($table, $dataObject)) {
-                continue;
-            }
-
-            $sql = sprintf(
-                "DELETE FROM `%s` WHERE `created_at` = '%s';",
-                $table,
-                $dataObject->getCreatedAt()
-            );
-
-            $this->connection->executeStatement($sql);
+            $this->tryDeleteContent($table, $dataObject);
         }
     }
 
@@ -1025,17 +1015,26 @@ SQL;
         }
 
         foreach (array_reverse($dataObject->getShopwareTables()) as $table) {
-            if (!$this->contentFileExists($table, $dataObject)) {
-                continue;
-            }
+            $this->tryDeleteContent($table, $dataObject);
+        }
+    }
 
-            $sql = sprintf(
-                "DELETE FROM `%s` WHERE `created_at` = '%s';",
-                $table,
-                $dataObject->getCreatedAt()
-            );
+    private function tryDeleteContent(string $table, DataInterface $dataObject): void
+    {
+        if (!$this->contentFileExists($table, $dataObject)) {
+            return;
+        }
 
+        $sql = sprintf(
+            "DELETE FROM `%s` WHERE `created_at` = '%s';",
+            $table,
+            $dataObject->getCreatedAt()
+        );
+
+        try {
             $this->connection->executeStatement($sql);
+        } catch (ForeignKeyConstraintViolationException $exception) {
+            $this->log(sprintf("%s, %s", $sql, $exception->getMessage()), "error");
         }
     }
 
