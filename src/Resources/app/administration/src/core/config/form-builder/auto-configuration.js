@@ -373,6 +373,17 @@ const autoConfiguration = [
         }
     },
     {
+        description: ({ property }) => `Add component 'sw-entity-tag-select' (${property})`,
+        conditions: [
+            'isManyToMany',
+            isEntity('tag')
+        ],
+        apply({ column}) {
+            column.model = 'entityCollection';
+            column.componentName = 'sw-entity-tag-select';
+        }
+    },
+    {
         description: ({ property }) => `Add component 'sw-category-tree-field' (${property})`,
         conditions: [
             'isManyToMany',
