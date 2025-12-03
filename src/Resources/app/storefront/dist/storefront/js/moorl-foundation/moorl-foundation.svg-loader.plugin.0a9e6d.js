@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[91318],{318:(t,s,e)=>{e.r(s),e.d(s,{default:()=>i});let n=window.PluginBaseClass;class i extends n{static #t=this.options={src:null,attributes:null};init(){fetch(this.options.src).then(t=>t.text()).then(t=>{this.el.innerHTML=t})}}}}]);
