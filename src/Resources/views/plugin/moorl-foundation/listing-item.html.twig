@@ -6,6 +6,10 @@
     {% set config = element.translated.config %}
 {% endif %}
 
+{% if element.data.queryParams %}
+    {% set url = "#{url}?#{element.data.queryParams|url_encode}" %}
+{% endif %}
+
 {% set imageContent %}
     {% block moorl_listing_item_image %}
         {% if media.url %}
