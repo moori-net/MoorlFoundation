@@ -1,6 +1,6 @@
 import template from './index.html.twig';
 
-const { Criteria } = Shopware.Data;
+const {Criteria} = Shopware.Data;
 
 Shopware.Component.register('moorl-product-multi-select-field', {
     template,
@@ -33,7 +33,6 @@ Shopware.Component.register('moorl-product-multi-select-field', {
             const criteria = new Criteria(1, 25);
             criteria.addAssociation('options.group');
             criteria.addAssociation('cover');
-
             return criteria;
         },
 

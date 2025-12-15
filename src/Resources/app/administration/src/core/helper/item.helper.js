@@ -28,7 +28,12 @@ export default class ItemHelper {
 
         for (const [property, field] of Object.entries(fields)) {
             if (field.type === 'association' && field.relation !== 'many_to_one') {
-                this.associations.push(property);
+                if (field.entity === 'product') {
+                    this.associations.push(`${property}.options.group`);
+                    this.associations.push(`${property}.cover`);
+                } else {
+                    this.associations.push(property);
+                }
             }
         }
     }
