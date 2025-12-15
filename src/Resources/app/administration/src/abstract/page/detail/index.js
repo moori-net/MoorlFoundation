@@ -87,6 +87,13 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             return itemCriteria;
         },
 
+        itemContext() {
+            const context = Object.assign({}, Shopware.Context.api);
+            context.inheritance = true;
+
+            return context;
+        },
+
         translatable() {
             return !!this.item?.translated;
         },
@@ -150,7 +157,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             this.isLoading = true;
 
             if (this.isNewItem) {
-                this.item = await this.itemRepository.create(Shopware.Context.api);
+                this.item = await this.itemRepository.create(this.itemContext);
                 this.onItemLoaded();
 
                 this.isLoading = false;
@@ -158,7 +165,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             }
 
             try {
-                this.item = await this.itemRepository.get(this.itemId, Shopware.Context.api, this.itemCriteria);
+                this.item = await this.itemRepository.get(this.itemId, this.itemContext, this.itemCriteria);
                 this.onItemLoaded();
             } catch (error) {
                 this.createNotificationError({ message: error.message });

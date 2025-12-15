@@ -17,6 +17,7 @@ const isRegisteredEntity = () => ({ field }) => {
     const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(field.entity);
     return pluginConfig?.properties?.length > 0;
 };
+const {Criteria} = Shopware.Data;
 
 const autoConfiguration = [
     // general stuff
@@ -395,6 +396,17 @@ const autoConfiguration = [
         }
     },
     {
+        description: ({ property }) => `Add component 'moorl-product-multi-select-field' (${property})`,
+        conditions: [
+            'isManyToMany',
+            isEntity('product')
+        ],
+        apply({ column }) {
+            column.componentName = 'moorl-product-multi-select-field';
+            column.model = 'entityCollection';
+        }
+    },
+    {
         description: ({ property }) => `Add component 'moorl-properties' (${property})`,
         conditions: [
             'isManyToMany',
@@ -439,6 +451,7 @@ const autoConfiguration = [
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-many-to-many-select';
             attributes.localMode = true;
+            attributes.displayVariants = true;
         }
     },
     {
