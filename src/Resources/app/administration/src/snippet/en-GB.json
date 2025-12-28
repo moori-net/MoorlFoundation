@@ -66,6 +66,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "theme": "Theme",
       "value": "Value",
       "flags": "Flags",
       "paymentInfo": "Additional info",
