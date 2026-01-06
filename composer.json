@@ -1,7 +1,7 @@
 {
     "name": "moorl/foundation",
     "description": "Foundation",
-    "version": "1.6.68",
+    "version": "1.6.69",
     "license": "proprietary",
     "authors": [
         {
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "shopware/core": "~6.6.6"
+        "shopware/core": "~6.6.10"
     },
     "type": "shopware-platform-plugin",
     "autoload": {
