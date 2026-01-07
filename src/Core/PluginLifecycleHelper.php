@@ -202,7 +202,7 @@ class PluginLifecycleHelper
 
             $ids = [];
             if (EntityDefinitionQueryHelper::columnExists($connection, $table, 'id')) {
-                $sql = sprintf("SELECT HEX(`id`) as id FROM `%s` WHERE `created_at` = '%s';", $table, $createdAt);
+                $sql = sprintf("SELECT LOWER(HEX(`id`)) as id FROM `%s` WHERE `created_at` = '%s';", $table, $createdAt);
                 $ids = $connection->fetchFirstColumn($sql);
             }
 

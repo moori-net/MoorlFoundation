@@ -251,7 +251,12 @@ final class EntityDefinitionQueryHelper
         // Die IDs sollten alle ein gültiges HEX Format haben
         foreach ($ids as $id) {
             if (!Uuid::isValid($id)) {
-                throw new \RuntimeException("Error: Id format have to be a valid UUID");
+                throw new \RuntimeException(sprintf(
+                    "Error: Id format have to be a valid UUID (%s, %s, %s)",
+                    $id,
+                    $table,
+                    $column
+                ));
             }
         }
 
