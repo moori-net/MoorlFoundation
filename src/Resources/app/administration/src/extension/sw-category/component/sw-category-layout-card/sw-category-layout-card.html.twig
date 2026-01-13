@@ -1,39 +1,41 @@
+{% block sw_category_detail_layout_modal %}
+    {% parent() %}
+
+    <sw-confirm-modal
+            v-if="showLayoutAdoptChildrenModal"
+            :title="$tc('sw-category.component.sw-category-layout-card.adoptChildren')"
+            type="yesno"
+            @close="showLayoutAdoptChildrenModal = false"
+            @cancel="showLayoutAdoptChildrenModal = false"
+            @confirm="onLayoutAdoptChildren"
+    />
+
+    <sw-confirm-modal
+            v-if="showLayoutAdoptSiblingsModal"
+            :title="$tc('sw-category.component.sw-category-layout-card.adoptSiblings')"
+            type="yesno"
+            @close="showLayoutAdoptSiblingsModal = false"
+            @cancel="showLayoutAdoptSiblingsModal = false"
+            @confirm="onLayoutAdoptSiblings"
+    />
+{% endblock %}
+
 {% block sw_category_detail_layout_desc_actions_remove %}
     {% parent() %}
 
-    <mt-button
+    <sw-context-menu-item
         v-if="cmsPage"
-        size="small"
         :disabled="!acl.can('category.editor')"
         @click="showLayoutAdoptChildrenModal = true"
     >
         {{ $tc('sw-category.component.sw-category-layout-card.adoptChildren') }}
-    </mt-button>
+    </sw-context-menu-item>
 
-    <mt-button
+    <sw-context-menu-item
         v-if="cmsPage"
-        size="small"
         :disabled="!acl.can('category.editor')"
         @click="showLayoutAdoptSiblingsModal = true"
     >
         {{ $tc('sw-category.component.sw-category-layout-card.adoptSiblings') }}
-    </mt-button>
-
-    <sw-confirm-modal
-        v-if="showLayoutAdoptChildrenModal"
-        :title="$tc('sw-category.component.sw-category-layout-card.adoptChildren')"
-        type="yesno"
-        @close="showLayoutAdoptChildrenModal = false"
-        @cancel="showLayoutAdoptChildrenModal = false"
-        @confirm="onLayoutAdoptChildren"
-    />
-
-    <sw-confirm-modal
-        v-if="showLayoutAdoptSiblingsModal"
-        :title="$tc('sw-category.component.sw-category-layout-card.adoptSiblings')"
-        type="yesno"
-        @close="showLayoutAdoptSiblingsModal = false"
-        @cancel="showLayoutAdoptSiblingsModal = false"
-        @confirm="onLayoutAdoptSiblings"
-    />
+    </sw-context-menu-item>
 {% endblock %}
