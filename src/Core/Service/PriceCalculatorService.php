@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use MoorlFoundation\MoorlFoundation;
 use Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
 use Shopware\Core\Checkout\Cart\Price\Struct\CartPrice;
@@ -25,10 +26,11 @@ class PriceCalculatorService
     public function calculatePriceBySurcharge(
         SalesChannelContext $salesChannelContext,
         SalesChannelProductEntity $product,
-        PriceCollection $prices
+        PriceCollection $prices,
+        string $initiator = MoorlFoundation::NAME
     ): void
     {
-        if ($this->shouldSkip($product)) {
+        if ($this->shouldSkip($product, $initiator)) {
             return;
         }
 
@@ -41,19 +43,22 @@ class PriceCalculatorService
             $price->getQuantity()
         );
 
-        $this->cacheAndAssignMainPrice($product, $calculated);
+        $this->cacheAndAssignMainPrice($product, $calculated, $initiator);
     }
 
     public function calculatePriceByFactor(
         SalesChannelContext $salesChannelContext,
         SalesChannelProductEntity $product,
         float $factor = 1,
-        bool $showDiscount = true
+        bool $showDiscount = true,
+        string $initiator = MoorlFoundation::NAME
     ): void
     {
-        if ($this->shouldSkip($product)) {
+        if ($this->shouldSkip($product, $initiator)) {
             return;
         }
+
+        $product->assign([$initiator => $factor]);
 
         /* Handle price */
         $this->cacheAndAssignMainPrice($product, $this->calculate(
@@ -62,7 +67,7 @@ class PriceCalculatorService
             $product->getCalculatedPrice(),
             $factor,
             $showDiscount
-        ));
+        ), $initiator);
 
         /* Handle the cheapest price */
         $product->setCalculatedCheapestPrice(CalculatedCheapestPrice::createFrom($this->calculate(
@@ -75,7 +80,6 @@ class PriceCalculatorService
 
         /* Handle advanced prices */
         $calculated = new CalculatedPriceCollection();
-
         foreach ($product->getCalculatedPrices() as $price) {
             $calculated->add($this->calculate(
                 $salesChannelContext,
@@ -85,18 +89,17 @@ class PriceCalculatorService
                 $showDiscount
             ));
         }
-
         $product->assign(['calculatedPrices' => $calculated]);
     }
 
-    private function shouldSkip(SalesChannelProductEntity $product): bool
+    private function shouldSkip(SalesChannelProductEntity $product, string $initiator): bool
     {
         $price = $product->getCalculatedPrice();
         $cheapest = $product->getCalculatedCheapestPrice();
 
         if ($price->getUnitPrice() == 0 || $cheapest->getUnitPrice() == 0) return true;
 
-        $cached = $this->calculatedPricesCache[$product->getId()] ?? null;
+        $cached = $this->calculatedPricesCache[$initiator][$product->getId()] ?? null;
         return $cached?->getUnitPrice() === $price->getUnitPrice();
     }
 
@@ -109,7 +112,6 @@ class PriceCalculatorService
     ): CalculatedPrice
     {
         $cheapestPrice = $product->getCalculatedCheapestPrice();
-
         $discount = $price->getUnitPrice() * $factor;
 
         $definition = new QuantityPriceDefinition(
@@ -129,9 +131,9 @@ class PriceCalculatorService
         }
 
         if (!$cheapestPrice->getListPrice() && $showDiscount && $factor < 1) {
-            $definition->setListPrice($cheapestPrice->getUnitPrice());
+            $definition->setListPrice($price->getUnitPrice());
         } elseif ($cheapestPrice->getListPrice()) {
-            $definition->setListPrice($cheapestPrice->getListPrice()->getPrice());
+            $definition->setListPrice($price->getListPrice()->getPrice());
         }
 
         if ($price->getRegulationPrice()) {
@@ -141,10 +143,13 @@ class PriceCalculatorService
         return $this->quantityPriceCalculator->calculate($definition, $salesChannelContext);
     }
 
-    private function cacheAndAssignMainPrice(SalesChannelProductEntity $product, CalculatedPrice $calculated): void
+    private function cacheAndAssignMainPrice(SalesChannelProductEntity $product, CalculatedPrice $calculated, string $initiator): void
     {
         $product->setCalculatedPrice($calculated);
-        $this->calculatedPricesCache[$product->getId()] = $calculated;
+        if (!isset($this->calculatedPricesCache[$initiator])) {
+            $this->calculatedPricesCache[$initiator] = [];
+        }
+        $this->calculatedPricesCache[$initiator][$product->getId()] = $calculated;
     }
 
     private function getCalculatedPrice(SalesChannelContext $context, PriceCollection $prices, string $taxId, int $quantity = 1): CalculatedPrice
