@@ -38,6 +38,7 @@
             <div v-if="!isInlineEdit">
                 {{ getOrderSnippet(item.order) }}
             </div>
+
             <sw-single-select
                 v-else
                 v-model:value="item.order"
@@ -58,17 +59,18 @@
             </sw-context-menu-item>
         </template>
     </sw-data-grid>
+
     <sw-empty-state
         v-else
         class="moorl-sorting-option-criteria-grid__criteria-empty-state"
-        title
-        :subline="$tc('sorting.base.criteria.emptyStateSubline')"
+        title=""
+        :subline="$tc('sw-settings-listing.base.criteria.emptyStateSubline')"
     >
         <template #icon>
             <img
-                :src="'administration/administration/static/img/empty-states/settings-empty-state.svg' | asset"
-                alt
-            />
+                    :src="assetFilter('administration/administration/static/img/empty-states/settings-empty-state.svg')"
+                    alt=""
+            >
         </template>
     </sw-empty-state>
 </mt-card>

@@ -127,6 +127,10 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
                 },
             ];
         },
+
+        assetFilter() {
+            return Shopware.Filter.getByName('asset');
+        },
     },
 
     watch: {
