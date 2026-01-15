@@ -111,7 +111,6 @@ class PriceCalculatorService
         bool $showDiscount = true
     ): CalculatedPrice
     {
-        $cheapestPrice = $product->getCalculatedCheapestPrice();
         $discount = $price->getUnitPrice() * $factor;
 
         $definition = new QuantityPriceDefinition(
@@ -130,9 +129,9 @@ class PriceCalculatorService
             );
         }
 
-        if (!$cheapestPrice->getListPrice() && $showDiscount && $factor < 1) {
+        if (!$price->getListPrice() && $showDiscount && $factor < 1) {
             $definition->setListPrice($price->getUnitPrice());
-        } elseif ($cheapestPrice->getListPrice()) {
+        } elseif ($price->getListPrice()) {
             $definition->setListPrice($price->getListPrice()->getPrice());
         }
 
