@@ -9,7 +9,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ListField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LockedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
@@ -53,7 +53,7 @@ class SortingDefinition extends EntityDefinition
             (new StringField('entity', 'entity'))->addFlags(new ApiAware(), new Required()),
             (new IntField('priority', 'priority'))->addFlags(new ApiAware(), new Required()),
             (new BoolField('active', 'active'))->addFlags(new Required()),
-            (new JsonField('fields', 'fields'))->addFlags(new Required()),
+            (new ListField('fields', 'fields'))->addFlags(new Required()),
             (new TranslatedField('label'))->addFlags(new ApiAware()),
             (new TranslationsAssociationField(SortingTranslationDefinition::class, 'moorl_sorting_id'))->addFlags(new Required()),
         ]);
