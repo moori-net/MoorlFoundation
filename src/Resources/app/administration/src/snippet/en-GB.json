@@ -410,6 +410,8 @@
       "creatorTypeId": "Creator type id",
       "credentials": "Credentials",
       "cssClass": "Css class",
+      "cssClassItem": "Css class (Items)",
+      "cssClassList": "Css class (List)",
       "cta": "Cta",
       "custom": "Custom",
       "custom1": "Custom field 1",
