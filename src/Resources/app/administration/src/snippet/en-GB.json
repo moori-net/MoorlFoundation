@@ -66,6 +66,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "listPriceSource": "List price source",
       "theme": "Theme",
       "value": "Value",
       "flags": "Flags",

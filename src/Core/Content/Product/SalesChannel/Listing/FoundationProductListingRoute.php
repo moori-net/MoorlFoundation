@@ -15,7 +15,11 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 #[Route(defaults: ['_routeScope' => ['store-api']])]
 class FoundationProductListingRoute extends AbstractProductListingRoute
 {
-    public function __construct(private readonly AbstractProductListingRoute $decorated, private readonly EntitySearchService $searchService, private readonly EventDispatcherInterface $dispatcher)
+    public function __construct(
+        private readonly AbstractProductListingRoute $decorated,
+        private readonly EntitySearchService $searchService,
+        private readonly EventDispatcherInterface $dispatcher
+    )
     {
     }
 
