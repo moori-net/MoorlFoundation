@@ -16,14 +16,11 @@
         <import resource="core/entity-translation.xml"/>
         <import resource="core/embedded-media.xml"/>
         <import resource="core/validator.xml"/>
+        <import resource="core/price-calculator.xml"/>
     </imports>
 
     <services>
         <!-- Services -->
-        <service id="MoorlFoundation\Core\Service\PriceCalculatorService" public="true">
-            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
-        </service>
-
         <service id="MoorlFoundation\Core\Service\TranslationService" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
             <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>

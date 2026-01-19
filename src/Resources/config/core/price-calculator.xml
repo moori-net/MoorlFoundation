@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="MoorlFoundation\Core\Service\PriceCalculatorService" public="true">
+            <argument type="service" id="Shopware\Core\Checkout\Cart\Price\QuantityPriceCalculator"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+
+            <argument type="tagged" tag="moorl.foundation.price_calculator"/>
+        </service>
+
+        <!--service id="MoorlFoundation\Core\Content\Product\SalesChannel\Price\FoundationProductPriceCalculator"
+                 decorates="Shopware\Core\Content\Product\SalesChannel\Price\ProductPriceCalculator"
+                 decoration-priority="-9999"
+                 public="true">
+            <argument type="service" id="MoorlFoundation\Core\Content\Product\SalesChannel\Price\FoundationProductPriceCalculator.inner"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\PriceCalculatorService"/>
+        </service-->
+    </services>
+</container>
