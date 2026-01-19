@@ -1,0 +1,2 @@
+# 1.7.54
+- Feature: Applied list price source for discounts Feature: Applied "should break" configuration value to skip further calculators (moori plugins only; the calculation priority can't be changed yet - fixed prices have more priority than percentage modifiers)
