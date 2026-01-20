@@ -37,6 +37,10 @@
             "operator": "Operator",
             "visibility": "Sichtbarkeit"
         },
+        "priceSource": {
+            "price": "Basis Preis",
+            "listPrice": "Basis Listenpreis/Streichpreis (Wenn nicht vorhanden: Basis Preis)"
+        },
         "svgShape": {
             "none": "Keine",
             "rect": "Rechteck",

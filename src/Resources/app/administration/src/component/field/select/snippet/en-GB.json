@@ -37,6 +37,10 @@
             "operator": "Operator",
             "visibility": "Visibility"
         },
+        "priceSource": {
+            "price": "Origin price",
+            "listPrice": "Origin list price (if not set: use origin price)"
+        },
         "svgShape": {
             "none": "None",
             "rect": "Rectangle",

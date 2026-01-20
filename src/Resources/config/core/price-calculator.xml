@@ -11,12 +11,12 @@
             <argument type="tagged" tag="moorl.foundation.price_calculator"/>
         </service>
 
-        <!--service id="MoorlFoundation\Core\Content\Product\SalesChannel\Price\FoundationProductPriceCalculator"
+        <service id="MoorlFoundation\Core\Content\Product\SalesChannel\Price\FoundationProductPriceCalculator"
                  decorates="Shopware\Core\Content\Product\SalesChannel\Price\ProductPriceCalculator"
                  decoration-priority="-9999"
                  public="true">
             <argument type="service" id="MoorlFoundation\Core\Content\Product\SalesChannel\Price\FoundationProductPriceCalculator.inner"/>
             <argument type="service" id="MoorlFoundation\Core\Service\PriceCalculatorService"/>
-        </service-->
+        </service>
     </services>
 </container>

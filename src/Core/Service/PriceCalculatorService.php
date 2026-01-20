@@ -14,6 +14,7 @@ use Shopware\Core\Content\Product\SalesChannel\Price\AbstractProductPriceCalcula
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use Shopware\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
+use Shopware\Core\Framework\Struct\Struct;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
@@ -27,6 +28,10 @@ class PriceCalculatorService
     public const CONFIG_KEY_SHOULD_BREAK = 'priceCalculatorShouldBreak';
 
     private array $calculatedPricesCache = [];
+    /**
+     * @param PriceCalculatorInterface[] $collectedCalculators
+     */
+    private array $collectedCalculators = [];
 
     /**
      * @param PriceCalculatorInterface[] $calculators
@@ -41,11 +46,46 @@ class PriceCalculatorService
 
     public function calculate(
         iterable $products,
-        SalesChannelContext $context,
+        SalesChannelContext $salesChannelContext,
         AbstractProductPriceCalculator $calculator
     ): void
     {
-        $calculator->calculate($products, $context);
+        $calculator->calculate($products, $salesChannelContext);
+
+        foreach ($products as $product) {
+            $this->collect($product, $salesChannelContext);
+            $this->process($product, $salesChannelContext);
+        }
+    }
+
+    public function collect(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
+    {
+        $collectedCalculators = [];
+
+        /** @var PriceCalculatorInterface $calculator */
+        foreach ($this->calculators as $calculator) {
+            $calculator->init($salesChannelContext);
+
+            if ($calculator->match($product, $salesChannelContext)) {
+                $collectedCalculators[] = $calculator;
+            }
+        }
+
+        uasort($collectedCalculators, fn(PriceCalculatorInterface $a, PriceCalculatorInterface $b) => $b->getPriority() <=> $a->getPriority());
+
+        $this->collectedCalculators = $collectedCalculators;
+    }
+
+    public function process(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
+    {
+        /** @var PriceCalculatorInterface $calculator */
+        foreach ($this->collectedCalculators as $calculator) {
+            $calculator->calculate($product, $salesChannelContext);
+
+            if ($calculator->shouldBreak()) {
+                return;
+            }
+        }
     }
 
     public function setFixedPrice(
@@ -86,7 +126,8 @@ class PriceCalculatorService
         float $factor = 1,
         bool $showDiscount = true,
         string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE,
-
+        string $calculationPriceSource = self::SOURCE_ORIGIN_PRICE,
+        ?Struct $extension = null
     ): void
     {
         /* Factor 1 = original price */
@@ -98,6 +139,10 @@ class PriceCalculatorService
             return;
         }
 
+        if ($extension) {
+            $product->addExtension($initiator, $extension);
+        }
+
         $product->assign([$initiator => $factor]);
 
         /* Handle price */
@@ -107,7 +152,8 @@ class PriceCalculatorService
             $product->getCalculatedPrice(),
             $factor,
             $showDiscount,
-            $listPriceSource
+            $listPriceSource,
+            $calculationPriceSource
         ));
 
         /* Handle the cheapest price */
@@ -117,7 +163,8 @@ class PriceCalculatorService
             $product->getCalculatedCheapestPrice(),
             $factor,
             $showDiscount,
-            $listPriceSource
+            $listPriceSource,
+            $calculationPriceSource
         )));
 
         /* Handle advanced prices */
@@ -129,7 +176,8 @@ class PriceCalculatorService
                 $price,
                 $factor,
                 $showDiscount,
-                $listPriceSource
+                $listPriceSource,
+                $calculationPriceSource
             ));
         }
         $product->assign(['calculatedPrices' => $calculated]);
@@ -160,9 +208,13 @@ class PriceCalculatorService
         float $factor = 1,
         bool $showDiscount = true,
         string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE,
+        string $calculationPriceSource = self::SOURCE_ORIGIN_PRICE
     ): CalculatedPrice
     {
         $discount = $price->getUnitPrice() * $factor;
+        if ($price->getListPrice() && $calculationPriceSource === self::SOURCE_ORIGIN_LIST_PRICE) {
+            $discount = $price->getListPrice()->getPrice() * $factor;
+        }
 
         $definition = new QuantityPriceDefinition(
             $discount,

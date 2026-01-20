@@ -1,0 +1,4 @@
+[
+    { "value": "origin-list-price", "label": "moorl-select.priceSource.listPrice" },
+    { "value": "origin-price", "label": "moorl-select.priceSource.price" }
+]
