@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "tax": "Tax",
       "action": "Actions",
       "payment": "Payment details",
       "bank": "Bank account",
@@ -66,7 +67,9 @@
       "visibility": "Visibility"
     },
     "field": {
+      "optionPrice": "Option price",
       "rule": "Rule",
+      "calculationPriceSource": "Calculation price source",
       "listPriceSource": "List price source",
       "theme": "Theme",
       "value": "Value",

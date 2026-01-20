@@ -70,8 +70,47 @@ const mapping = {
     config: {tab: 'general', card: 'options'},
 
     // Price
-    tax: {tab: 'price', card: 'price'},
+    showDiscount: {tab: 'price', card: 'price'},
+    optionType: {
+        tab: 'price',
+        card: 'price',
+        componentName: 'moorl-select-field',
+        attributes: {customSet: ['percentage', 'fixed']}
+    },
     customPrice: {tab: 'price', card: 'price'},
+    optionPrice: {
+        tab: 'price',
+        card: 'price',
+        conditions: [
+            {property: 'optionType', value: 'fixed', operator: 'eq'}
+        ],
+    },
+    optionPercentage: {
+        tab: 'price',
+        card: 'price',
+        conditions: [
+            {property: 'optionType', value: 'percentage', operator: 'eq'}
+        ],
+    },
+    calculationPriceSource: {
+        tab: 'price',
+        card: 'source',
+        componentName: 'moorl-select-field',
+        attributes: {set: 'priceSource'},
+        conditions: [
+            {property: 'optionType', value: 'percentage', operator: 'eq'}
+        ],
+    },
+    listPriceSource: {
+        tab: 'price',
+        card: 'source',
+        componentName: 'moorl-select-field',
+        attributes: {set: 'priceSource'},
+        conditions: [
+            {property: 'showDiscount', value: true, operator: 'eq'}
+        ],
+    },
+    tax: {tab: 'price', card: 'tax'},
 
     // Stock
     stock: {tab: 'stock', card: 'general'},
@@ -97,9 +136,7 @@ const mapping = {
     autoIncrement: {tab: 'general', card: 'general'},
     date: {tab: 'general', card: 'general'},
     releaseDate: {tab: 'general', card: 'general'},
-    optionPercentage: {tab: 'general', card: 'general'},
     redeemCode: {tab: 'general', card: 'general'},
-    showDiscount: {tab: 'general', card: 'general'},
     subscriptionTime: {tab: 'general', card: 'general'},
     teaser: {tab: 'general', card: 'general'},
     description: {tab: 'general', card: 'general'},
@@ -137,6 +174,7 @@ const mapping = {
     position: {tab: 'general', card: 'visibility'},
     hidden: {tab: 'general', card: 'visibility'},
     isPreview: {tab: 'general', card: 'visibility'},
+    rule: {tab: 'general', card: 'visibility'},
     showFrom: {tab: 'general', card: 'visibility', newline: true},
     showUntil: {tab: 'general', card: 'visibility'},
     boostTopUntil: {tab: 'general', card: 'visibility', newline: true},

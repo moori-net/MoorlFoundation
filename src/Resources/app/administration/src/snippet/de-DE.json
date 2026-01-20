@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "tax": "Umsatzsteuer",
       "action": "Aktionen",
       "payment": "Payment details",
       "bank": "Bank account",
@@ -66,7 +67,9 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "optionPrice": "Preis",
       "rule": "Regel",
+      "calculationPriceSource": "Quelle für Preisberechnung",
       "listPriceSource": "Quelle für Listenpreis",
       "theme": "Theme",
       "value": "Wert",
