@@ -44,21 +44,15 @@ class PriceCalculatorService
     {
     }
 
-    public function calculate(
-        iterable $products,
-        SalesChannelContext $salesChannelContext,
-        AbstractProductPriceCalculator $calculator
-    ): void
+    public function calculate(iterable $products, SalesChannelContext $salesChannelContext): void
     {
-        $calculator->calculate($products, $salesChannelContext);
-
         foreach ($products as $product) {
             $this->collect($product, $salesChannelContext);
             $this->process($product, $salesChannelContext);
         }
     }
 
-    public function collect(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
+    private function collect(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
     {
         $collectedCalculators = [];
 
@@ -76,7 +70,7 @@ class PriceCalculatorService
         $this->collectedCalculators = $collectedCalculators;
     }
 
-    public function process(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
+    private function process(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
     {
         /** @var PriceCalculatorInterface $calculator */
         foreach ($this->collectedCalculators as $calculator) {

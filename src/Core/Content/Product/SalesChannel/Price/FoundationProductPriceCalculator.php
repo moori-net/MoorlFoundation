@@ -23,6 +23,8 @@ class FoundationProductPriceCalculator extends AbstractProductPriceCalculator im
 
     public function calculate(iterable $products, SalesChannelContext $context): void
     {
-        $this->priceCalculatorService->calculate($products, $context, $this->decorated);
+        $this->decorated->calculate($products, $context);
+
+        $this->priceCalculatorService->calculate($products, $context);
     }
 }
