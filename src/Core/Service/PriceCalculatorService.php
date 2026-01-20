@@ -88,7 +88,8 @@ class PriceCalculatorService
         SalesChannelProductEntity $product,
         ?PriceCollection $prices,
         bool $showDiscount = true,
-        string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE
+        string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE,
+        ?Struct $extension = null
     ): void
     {
         if (!$prices) {
@@ -97,6 +98,10 @@ class PriceCalculatorService
 
         if ($this->shouldSkip($initiator, $product)) {
             return;
+        }
+
+        if ($extension) {
+            $product->addExtension($initiator, $extension);
         }
 
         $calculated = $this->getCalculatedPrice(
