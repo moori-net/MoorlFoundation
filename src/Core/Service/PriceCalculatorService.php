@@ -10,7 +10,7 @@ use Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection as CalculatedPriceC
 use Shopware\Core\Checkout\Cart\Price\Struct\QuantityPriceDefinition;
 use Shopware\Core\Checkout\Cart\Price\Struct\ReferencePriceDefinition;
 use Shopware\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CalculatedCheapestPrice;
-use Shopware\Core\Content\Product\SalesChannel\Price\AbstractProductPriceCalculator;
+use Shopware\Core\Content\Product\ProductEntity;
 use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price;
 use Shopware\Core\Framework\DataAbstractionLayer\Pricing\PriceCollection;
@@ -32,6 +32,7 @@ class PriceCalculatorService
      * @param PriceCalculatorInterface[] $collectedCalculators
      */
     private array $collectedCalculators = [];
+    private ?array $skippedProductExtensions = null;
 
     /**
      * @param PriceCalculatorInterface[] $calculators
@@ -46,7 +47,13 @@ class PriceCalculatorService
 
     public function calculate(iterable $products, SalesChannelContext $salesChannelContext): void
     {
+        $this->init($salesChannelContext);
+
         foreach ($products as $product) {
+            if ($this->isSkippedProduct($product)) {
+                continue;
+            }
+
             $this->collect($product, $salesChannelContext);
             $this->process($product, $salesChannelContext);
         }
@@ -68,6 +75,33 @@ class PriceCalculatorService
         uasort($collectedCalculators, fn(PriceCalculatorInterface $a, PriceCalculatorInterface $b) => $b->getPriority() <=> $a->getPriority());
 
         $this->collectedCalculators = $collectedCalculators;
+    }
+
+    private function init(SalesChannelContext $salesChannelContext): void
+    {
+        if ($this->skippedProductExtensions !== null) {
+            return;
+        }
+
+        $list = $this->systemConfigService->getString(
+            'MoorlFoundation.config.cmpPriceCalculationSkip',
+            $salesChannelContext->getSalesChannelId()
+        );
+
+        $list = explode(',', $list);
+        $list = array_map('trim', $list);
+
+        $this->skippedProductExtensions = $list;
+    }
+
+    private function isSkippedProduct(ProductEntity $product): bool
+    {
+        foreach ($this->skippedProductExtensions as $skippedProductExtension) {
+            if ($product->hasExtension($skippedProductExtension)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private function process(SalesChannelProductEntity $product, SalesChannelContext $salesChannelContext): void
