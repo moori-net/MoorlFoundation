@@ -567,5 +567,12 @@
             <helpText lang="de-DE">Um Anzeigefehler in Grid Blöcken zu beheben, wird ein zusätzliches DIV-Element eingebaut.</helpText>
             <defaultValue>true</defaultValue>
         </input-field>
+
+        <input-field type="text">
+            <name>cmpPriceCalculationSkip</name>
+            <label>Skip price calculation if one of the following product extensions are set</label>
+            <label lang="de-DE">Überspringen der Preisberechnung, wenn eine der folgenden Produkterweiterungen festgelegt ist</label>
+            <placeholder>extension1,extension2,extension3</placeholder>
+        </input-field>
     </card>
 </config>
