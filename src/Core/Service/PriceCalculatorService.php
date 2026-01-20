@@ -86,11 +86,15 @@ class PriceCalculatorService
         string $initiator,
         SalesChannelContext $salesChannelContext,
         SalesChannelProductEntity $product,
-        PriceCollection $prices,
+        ?PriceCollection $prices,
         bool $showDiscount = true,
         string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE
     ): void
     {
+        if (!$prices) {
+            return;
+        }
+
         if ($this->shouldSkip($initiator, $product)) {
             return;
         }
