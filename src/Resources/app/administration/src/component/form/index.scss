@@ -1,6 +1,6 @@
 .moorl-form {
     .mt-card {
-        border-radius: 0;
+        border-radius: 0 !important;
     }
 
     .moorl-form__card {
@@ -26,23 +26,5 @@
 
     .sw-cms-page-form__section {
         padding: 50px 0 70px 0;
-    }
-}
-
-.sw-system-config,
-.sw-modal {
-    .moorl-form__card {
-        border: 0;
-        margin-bottom: 0;
-
-        > .mt-card__header {
-            padding: 0;
-        }
-
-        > .mt-card__content {
-            padding-left: 0;
-            padding-right: 0;
-            padding-bottom: 0;
-        }
     }
 }

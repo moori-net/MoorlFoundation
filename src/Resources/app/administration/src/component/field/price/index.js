@@ -23,6 +23,10 @@ Shopware.Component.register('moorl-price-field', {
             type: Object,
             required: true,
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     computed: {

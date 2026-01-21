@@ -809,7 +809,9 @@
       "priority": "Umso höher der Wert, desto mehr Priorität hat dieses Element. Das dient z.B. der Gewichtung, wenn dieses Element zu mehreren Produkten zugewiesen wurde.",
       "subscriptionTime": "Angabe in Tagen"
     },
-    "notification": {},
+    "notification": {
+      "tax": "Der Steuersatz wird automatisch vom aktuellen Produkt übernommen."
+    },
     "tab": {
       "address": "Adresse",
       "animation": "Animation",

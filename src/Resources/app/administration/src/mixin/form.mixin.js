@@ -105,7 +105,18 @@ Shopware.Mixin.register('moorl-form', {
 
         currencyRepository() {
             return this.repositoryFactory.create('currency');
-        }
+        },
+
+        productRepository() {
+            return this.repositoryFactory.create('product');
+        },
+
+        productSearchContext() {
+            const context = Object.assign({}, Shopware.Context.api);
+            context.inheritance = true;
+
+            return context;
+        },
     },
 
     watch: {
@@ -113,6 +124,14 @@ Shopware.Mixin.register('moorl-form', {
             handler() {
                 this.formStruct = this.formBuilderHelper.buildFormStruct();
             },
+            deep: false
+        },
+        'item.productId': {
+            handler() {this.loadTax().then(() => {this.reloadFields();});},
+            deep: false
+        },
+        'item.taxId': {
+            handler() {this.loadTax().then(() => {this.reloadFields();});},
             deep: false
         }
     },
@@ -131,14 +150,38 @@ Shopware.Mixin.register('moorl-form', {
             this.formStruct = await this.formBuilderHelper.buildFormStruct();
 
             this.isLoading = false;
+            this.reloadFields();
         },
 
         async loadCustomData() {
             return Promise.resolve();
         },
 
-        async loadTax() {
+        async loadProductTax() {
+            if (!this.item.hasOwnProperty('productId')) {
+                return;
+            }
+
             const criteria = new Criteria();
+
+            criteria.addAssociation('tax');
+            criteria.setIds([this.item.productId]);
+
+            const products = await this.productRepository.search(criteria, this.productSearchContext);
+
+            this.item.taxId = products[0].taxId;
+            this.formBuilderHelper.tax = products[0].tax;
+        },
+
+        async loadTax() {
+            if (this.item.hasOwnProperty('productId')) {
+                await this.loadProductTax();
+                return;
+            }
+
+            const criteria = new Criteria();
+
+            criteria.addSorting(Criteria.sort('position', 'ASC', false));
 
             if (this.item.taxId) {
                 criteria.setIds([this.item.taxId]);
@@ -146,6 +189,7 @@ Shopware.Mixin.register('moorl-form', {
 
             const taxes = await this.taxRepository.search(criteria);
 
+            this.item.taxId = taxes[0].id;
             this.formBuilderHelper.tax = taxes[0];
         },
 
@@ -163,11 +207,31 @@ Shopware.Mixin.register('moorl-form', {
             this.formBuilderHelper.customFieldSets = await this.customFieldDataProviderService.getCustomFieldSets(this.entity);
         },
 
+        reloadFields() {
+            this.overrideFieldAttributes('moorl-price-field', {tax: this.formBuilderHelper.tax});
+        },
+
         fieldAttributes(field) {
             return {
                 ...field.attributes,
                 disabled: this.isDisabled(field)
             };
+        },
+
+        overrideFieldAttributes(name, attributes) {
+            this.formStruct.tabs.forEach((tab) => {
+                tab.cards.forEach((card) => {
+                    card.fields.forEach((field) => {
+                        if (field.name !== name && field.componentName !== name) {
+                            return;
+                        }
+                        field.attributes = {
+                            ...field.attributes,
+                            ...attributes
+                        };
+                    });
+                });
+            });
         },
 
         isVisibleComponent(field) {
