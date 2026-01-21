@@ -50,6 +50,10 @@ class PriceCalculatorService
         $this->init($salesChannelContext);
 
         foreach ($products as $product) {
+            if (!$product instanceof SalesChannelProductEntity) {
+                continue;
+            }
+
             if ($this->isSkippedProduct($product)) {
                 continue;
             }
