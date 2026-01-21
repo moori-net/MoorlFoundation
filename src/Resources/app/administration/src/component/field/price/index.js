@@ -32,7 +32,7 @@ Shopware.Component.register('moorl-price-field', {
     computed: {
         price: {
             get() {
-                const priceForCurrency = this.value.find((price) => price.currencyId === this.currency.id);
+                const priceForCurrency = this.value?.find((price) => price.currencyId === this.currency.id);
                 if (priceForCurrency) {
                     return [priceForCurrency];
                 }
