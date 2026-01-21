@@ -816,7 +816,9 @@
       "priority": "Priority",
       "subscriptionTime": "Subscription time"
     },
-    "notification": {},
+    "notification": {
+      "tax": "The tax rate will be automatically inherited from the current product."
+    },
     "tab": {
       "address": "Address",
       "animation": "Animation",
