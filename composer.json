@@ -1,7 +1,7 @@
 {
     "name": "moorl/foundation",
     "description": "Foundation",
-    "version": "1.5.49",
+    "version": "1.5.50",
     "license": "proprietary",
     "authors": [
         {
@@ -26,8 +26,8 @@
             "en-GB": "Foundation"
         },
         "description": {
-            "de-DE": "Das moori Basis Plugin",
-            "en-GB": "The moori basic plugin"
+            "de-DE": "Dieses Plugin bildet das Fundament für meine Plugins, es beinhaltet Animationen, Font Awesome 5 Free mit über 1.500 Icons und immer wiederkehrende Funktionen und Übersetzungen",
+            "en-GB": "This plugin is the foundation for my plugins, it contains animations, Font Awesome 5 Free with over 1.500 icons and recurring functions and translations"
         },
         "manufacturerLink": {
             "de-DE": "https://docs.moori.net/",
