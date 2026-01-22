@@ -10,7 +10,20 @@
     flex-direction: column;
     height: 100%;
 
+    .moorl-cookie-box-icon {
+        display: none;
+    }
+
     svg {
+
         fill: $primary;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .moorl-cookie-box {
+        .moorl-cookie-box-icon {
+            display: block;
+        }
     }
 }
