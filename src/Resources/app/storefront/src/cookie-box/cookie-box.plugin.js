@@ -47,7 +47,7 @@ export default class MoorlCookieBoxPlugin extends Plugin {
             this.el.style.display = 'flex';
 
             if (this.el.parentElement.style.height) {
-                this.el.parentElement.style.minHeight = this.el.parentElement.style.height;
+                this.el.style.minHeight = this.el.parentElement.style.height;
                 this.el.parentElement.style.height = null;
             }
         } else if (this.options.content) {
