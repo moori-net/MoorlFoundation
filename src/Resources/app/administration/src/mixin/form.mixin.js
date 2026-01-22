@@ -157,40 +157,27 @@ Shopware.Mixin.register('moorl-form', {
             return Promise.resolve();
         },
 
-        async loadProductTax() {
-            if (!this.item.hasOwnProperty('productId')) {
-                return;
-            }
-
-            const criteria = new Criteria();
-
-            criteria.addAssociation('tax');
-            criteria.setIds([this.item.productId]);
-
-            const products = await this.productRepository.search(criteria, this.productSearchContext);
-
-            this.item.taxId = products[0].taxId;
-            this.formBuilderHelper.tax = products[0].tax;
-        },
-
         async loadTax() {
-            if (this.item.hasOwnProperty('productId')) {
-                await this.loadProductTax();
+            if (!this.itemPropertyExists('taxId')) {
                 return;
             }
 
             const criteria = new Criteria();
-
-            criteria.addSorting(Criteria.sort('position', 'ASC', false));
-
-            if (this.item.taxId) {
-                criteria.setIds([this.item.taxId]);
+            if (this.itemPropertyExists('productId') && this.item.productId) {
+                criteria.addAssociation('tax');
+                criteria.setIds([this.item.productId]);
+                const products = await this.productRepository.search(criteria, this.productSearchContext);
+                this.item.taxId = products[0].taxId;
+                this.formBuilderHelper.tax = products[0].tax;
+            } else {
+                criteria.addSorting(Criteria.sort('position', 'ASC', false));
+                if (this.item.taxId) {
+                    criteria.setIds([this.item.taxId]);
+                }
+                const taxes = await this.taxRepository.search(criteria);
+                this.item.taxId = taxes[0].id;
+                this.formBuilderHelper.tax = taxes[0];
             }
-
-            const taxes = await this.taxRepository.search(criteria);
-
-            this.item.taxId = taxes[0].id;
-            this.formBuilderHelper.tax = taxes[0];
         },
 
         async loadCurrency() {
@@ -205,6 +192,14 @@ Shopware.Mixin.register('moorl-form', {
             }
 
             this.formBuilderHelper.customFieldSets = await this.customFieldDataProviderService.getCustomFieldSets(this.entity);
+        },
+
+        itemPropertyExists(prop) {
+            if (!this.entity) {
+                return false;
+            }
+            const fields = Shopware.EntityDefinition.get(this.entity).properties;
+            return fields.hasOwnProperty(prop);
         },
 
         reloadFields() {
