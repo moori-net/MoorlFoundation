@@ -7,21 +7,41 @@ export default class MoorlHoverCardPlugin extends Plugin {
         title: '',
         placement: 'top',
         animation: false,
+        template: null,
     };
 
     init() {
+        this._loaded = false;
+        this._scheduled = null;
+        this._isMouseOverPopover = false;
+
         this._popover = new bootstrap.Popover(this.el, {
             html: true,
             sanitize: false,
             animation: this.options.animation,
-            content: '',
             title: this.options.title,
             placement: this.options.placement,
+            content: () => this._getTemplateContent() || '',
         });
-        this._loaded = false;
-        this._scheduled = null;
-        this._isMouseOverPopover = false;
+
+        if (this._getTemplateContent()) {
+            this._loaded = true;
+        }
+
         this._registerEvents();
+    }
+
+    _getTemplateContent() {
+        if (!this.options.template) return null;
+
+        const node = document.querySelector(this.options.template);
+        if (!node) return null;
+
+        if (node.tagName === 'TEMPLATE') {
+            return node.innerHTML;
+        }
+
+        return node.innerHTML;
     }
 
     _registerEvents() {
@@ -33,12 +53,20 @@ export default class MoorlHoverCardPlugin extends Plugin {
             return;
         }
         this.el.addEventListener('mouseenter', () => this._showPopover());
-        this.el.addEventListener('mouseleave', () =>
-            this._scheduleHidePopover()
-        );
+        this.el.addEventListener('mouseleave', () => this._scheduleHidePopover());
     }
 
     _togglePopover() {
+        const tpl = this._getTemplateContent();
+        if (tpl) {
+            this._popover.setContent({ '.popover-body': tpl });
+            this._popover.toggle();
+            window.PluginManager.initializePlugins();
+            this._loaded = true;
+            this._attachPopoverEvents();
+            return;
+        }
+
         if (this._loaded) {
             this._popover.toggle();
             window.PluginManager.initializePlugins();
@@ -58,6 +86,15 @@ export default class MoorlHoverCardPlugin extends Plugin {
         if (this._scheduled) {
             clearTimeout(this._scheduled);
             this._scheduled = null;
+            return;
+        }
+
+        const tpl = this._getTemplateContent();
+        if (tpl) {
+            this._popover.setContent({ '.popover-body': tpl });
+            this._popover.show();
+            this._loaded = true;
+            this._attachPopoverEvents();
             return;
         }
 
