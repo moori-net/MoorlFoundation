@@ -153,6 +153,7 @@ const mapping = {
     code: {tab: 'general', card: 'general'},
     rating: {tab: 'general', card: 'general'},
     ratingMax: {tab: 'general', card: 'general'},
+    errorMessage: {tab: 'general', card: 'general'},
 
     // Specifications
     unit: {tab: 'general', card: 'specifications'},

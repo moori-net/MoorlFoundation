@@ -67,6 +67,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "errorMessage": "Fehlermeldung",
       "optionPrice": "Preis",
       "rule": "Regel",
       "calculationPriceSource": "Quelle für Preisberechnung",
