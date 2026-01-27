@@ -78,6 +78,15 @@ class PartsListCollection extends EntityCollection
         );
     }
 
+    public function filterByAnyProductStreamId(?array $productStreamIds = null): self
+    {
+        return $this->filter(static fn(PartsListEntity $entity) =>
+            $entity->getProduct()->getStreamIds() === null
+            || empty($productStreamIds)
+            || array_intersect($productStreamIds, $entity->getProduct()->getStreamIds())
+        );
+    }
+
     public function filterByProductIds(?array $productIds = null): self
     {
         return $this->filter(
