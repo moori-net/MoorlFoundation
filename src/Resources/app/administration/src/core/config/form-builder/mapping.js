@@ -119,6 +119,9 @@ const mapping = {
     deliveryTime: {tab: 'stock', card: 'general'},
 
     // Things
+    hsn: {tab: 'general', card: 'general', attributes: {maxLength: 4}},
+    tsn: {tab: 'general', card: 'general', attributes: {maxLength: 3}},
+    kbaNumber: {tab: 'general', card: 'general', attributes: {maxLength: 7}},
     question: {tab: 'general', card: 'general'},
     solution: {tab: 'general', card: 'general'},
     isTrue: {tab: 'general', card: 'general'},
