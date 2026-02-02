@@ -7,6 +7,7 @@ use Shopware\Core\Checkout\Order\OrderDefinition;
 use Shopware\Core\Content\Category\CategoryDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotDefinition;
+use Shopware\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerDefinition;
 use Shopware\Core\Content\Product\ProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\DefinitionNotFoundException;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
@@ -20,6 +21,7 @@ final class ExtractedDefinition
     private static array $versionDefinitions = [
         CategoryDefinition::class,
         ProductDefinition::class,
+        ProductManufacturerDefinition::class,
         OrderDefinition::class,
         OrderTransactionDefinition::class,
         CmsBlockDefinition::class,

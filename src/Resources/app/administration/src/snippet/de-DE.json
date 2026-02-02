@@ -36,7 +36,7 @@
       "cmsPage": "CMS-Zuordnung",
       "company": "Unternehmen",
       "contact": "Kontakt",
-      "content": "Content",
+      "content": "Inhalt",
       "customFields": "Benutzerdefinierte Felder",
       "deeplink": "Deeplink-Token",
       "directory": "Verzeichnispfad",
@@ -67,6 +67,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "answer": "Antwort",
       "errorMessage": "Fehlermeldung",
       "optionPrice": "Preis",
       "rule": "Regel",

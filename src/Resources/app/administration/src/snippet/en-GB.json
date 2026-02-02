@@ -67,6 +67,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "answer": "Answer",
       "errorMessage": "Error message",
       "optionPrice": "Option price",
       "rule": "Rule",
