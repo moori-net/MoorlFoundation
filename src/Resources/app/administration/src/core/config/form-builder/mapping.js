@@ -144,6 +144,7 @@ const mapping = {
     teaser: {tab: 'general', card: 'general'},
     description: {tab: 'general', card: 'general'},
     content: {tab: 'general', card: 'general'},
+    answer: {tab: 'general', card: 'general'},
     contentCmsPage: {tab: 'general', card: 'general'},
     descriptionHtml: {tab: 'general', card: 'general'},
     keywords: {tab: 'general', card: 'general'},
