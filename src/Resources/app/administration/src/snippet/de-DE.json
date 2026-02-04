@@ -67,6 +67,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "productManufacturer": "Produkt Hersteller",
       "answer": "Antwort",
       "errorMessage": "Fehlermeldung",
       "optionPrice": "Preis",
