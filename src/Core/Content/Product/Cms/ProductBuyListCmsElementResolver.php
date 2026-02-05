@@ -52,17 +52,19 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
             return;
         }
 
-        /** @var SalesChannelProductCollection $products */
+        /** @var SalesChannelProductCollection|null $products */
         $products = $this->resolveEntityValue($resolverContext->getEntity(), $productConfig->getStringValue());
 
         $sliderProducts = new SalesChannelProductCollection();
 
-        /** @var SalesChannelProductEntity $product */
-        foreach ($products as $product) {
-            if ($product->getChildren()?->count() > 0) {
-                $sliderProducts->add($product->getChildren()->first());
-            } else {
-                $sliderProducts->add($product);
+        if ($products) {
+            /** @var SalesChannelProductEntity $product */
+            foreach ($products as $product) {
+                if ($product->getChildren()?->count() > 0) {
+                    $sliderProducts->add($product->getChildren()->first());
+                } else {
+                    $sliderProducts->add($product);
+                }
             }
         }
 
