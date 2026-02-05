@@ -2,6 +2,7 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use MoorlFoundation\Core\System\EntityListingFeaturesSubscriberExtension;
 use MoorlFoundation\Core\System\EntityListingInterface;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Product\Events\ProductListingResultEvent;
@@ -39,7 +40,7 @@ class EntitySearchService
         $slotIds = $request->query->get('slots');
         /* Unset immediately, because it's not compatible with product listing */
         $request->query->remove('slots');
-        //$request->query->remove('moorl_limit');
+        //$request->query->remove(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM);
 
         $tab = $request->query->get('tab');
         if (!$slotIds && !$tab) {

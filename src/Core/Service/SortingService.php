@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Service;
 
 use MoorlFoundation\Core\Content\Sorting\SortingCollection;
 use MoorlFoundation\Core\Content\Sorting\SortingEntity;
+use MoorlFoundation\Core\System\EntityListingFeaturesSubscriberExtension;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
@@ -35,13 +36,13 @@ class SortingService
         ]);
         $sorting->setFields([
             [
-                'field' => $entityName . '.createdAt',
+                'field' => 'createdAt',
                 'order' => 'desc',
                 'priority' => 1,
                 'naturalSorting' => 0
             ],
             [
-                'field' => $entityName . '.id',
+                'field' => 'id',
                 'order' => 'desc',
                 'priority' => 0,
                 'naturalSorting' => 0
@@ -110,7 +111,7 @@ class SortingService
         if ($limitConfig && $limitConfig->getValue()) {
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
-                $request->query->set('moorl_limit', $limitConfig->getValue());
+                $request->query->set(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM, $limitConfig->getValue());
             }
         }
 

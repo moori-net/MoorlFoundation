@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\Content\Cms;
 
 use MoorlFoundation\Core\Framework\Plugin\Exception\TypePatternException;
 use MoorlFoundation\Core\Service\SortingService;
+use MoorlFoundation\Core\System\EntityListingFeaturesSubscriberExtension;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use Shopware\Core\Content\Cms\DataResolver\CriteriaCollection;
 use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -88,7 +89,7 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
             $criteria->setLimit($limitConfig->getValue());
             if ($request) {
                 /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
-                $request->query->set('moorl_limit', $limitConfig->getValue());
+                $request->query->set(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM, $limitConfig->getValue());
             }
         }
 
@@ -98,6 +99,9 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
             if ($listingItemIdsConfig && $listingItemIdsConfig->getArrayValue()) {
                 $criteria->setIds($listingItemIdsConfig->getArrayValue());
             }
+        } elseif ($listingSourceConfig && $listingSourceConfig->getValue() !== 'auto') {
+
+            $request->query->set(EntityListingFeaturesSubscriberExtension::IGNORE_PAGE_PARAM, true);
         }
 
         $listingSortingConfig = $config->get('listingSorting');
