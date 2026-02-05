@@ -1,0 +1,11 @@
+# 1.7.60
+- Patch: Preparations for Extended Manufacturer plugin
+- Patch: Added new entity traits
+- Bugfix: Combine product listings with other listings or slider
+- Bugfix: Combine product listings with other listings or slider
+- Patch: Removed unused code
+- Patch: Added DAL traits and collections
+- Patch: Added text snippets in Admin
+- Patch: Added Admin form fields and snippets
+- Bugfix: HSN/TSN filter for Shopware categories
+- Patch: Prepare new price calculator
