@@ -30,6 +30,8 @@ use Symfony\Component\HttpFoundation\Request;
 class EntityListingFeaturesSubscriberExtension
 {
     final public const DEFAULT_SEARCH_SORT = 'standard';
+    final public const LIMIT_PARAM = 'moorl_limit';
+    final public const IGNORE_PAGE_PARAM = 'ignore_page'; // If page is set via get parameter e.g. product listings
 
     protected string $entityName = "";
 
@@ -247,9 +249,9 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getLimit(Request $request): int
     {
-        $limit = $request->query->getInt('moorl_limit', 0);
+        $limit = $request->query->getInt(self::LIMIT_PARAM, 0);
         if ($request->isMethod(Request::METHOD_POST)) {
-            $limit = $request->request->getInt('moorl_limit', $limit);
+            $limit = $request->request->getInt(self::LIMIT_PARAM, $limit);
         }
         return $limit <= 0 ? 12 : $limit;
     }
@@ -257,6 +259,10 @@ class EntityListingFeaturesSubscriberExtension
     private function getPage(Request $request): int
     {
         $page = $request->query->getInt('p', 1);
+        if ($request->query->getBoolean(self::IGNORE_PAGE_PARAM)) {
+            return 1;
+        }
+
         if ($request->isMethod(Request::METHOD_POST)) {
             $page = $request->request->getInt('p', $page);
         }
