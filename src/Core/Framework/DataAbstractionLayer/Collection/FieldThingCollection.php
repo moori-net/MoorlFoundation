@@ -19,6 +19,8 @@ class FieldThingCollection extends FieldCollection
         bool $thingMeta = true,
         bool $thingMetaAuthor = false,
         bool $thingMetaMedia = false,
+        bool $thingBanner= false,
+        bool $thingAvatar = false,
         bool $media = true
     ): array
     {
@@ -35,6 +37,8 @@ class FieldThingCollection extends FieldCollection
                 metaAuthor: $thingMetaAuthor,
                 metaMedia: $thingMetaMedia
             ),
+            FieldThingBannerCollection::getFieldItems(flag: $thingBanner),
+            FieldThingAvatarCollection::getFieldItems(flag: $thingAvatar),
             FieldMediaCollection::getFieldItems(flag: $media),
         );
     }
