@@ -100,7 +100,6 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
                 $criteria->setIds($listingItemIdsConfig->getArrayValue());
             }
         } elseif ($listingSourceConfig && $listingSourceConfig->getValue() !== 'auto') {
-
             $request->query->set(EntityListingFeaturesSubscriberExtension::IGNORE_PAGE_PARAM, true);
         }
 

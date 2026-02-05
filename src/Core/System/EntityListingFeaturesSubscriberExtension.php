@@ -31,7 +31,7 @@ class EntityListingFeaturesSubscriberExtension
 {
     final public const DEFAULT_SEARCH_SORT = 'standard';
     final public const LIMIT_PARAM = 'moorl_limit';
-    final public const IGNORE_PAGE_PARAM = 'ignore_page'; // If page is set via get parameter e.g. product listings
+    final public const IGNORE_PAGE_PARAM = 'ignore_page'; // Set from CMS Listing Resolver
 
     protected string $entityName = "";
 
@@ -258,11 +258,12 @@ class EntityListingFeaturesSubscriberExtension
 
     private function getPage(Request $request): int
     {
-        $page = $request->query->getInt('p', 1);
         if ($request->query->getBoolean(self::IGNORE_PAGE_PARAM)) {
+            $request->query->remove(self::IGNORE_PAGE_PARAM);
             return 1;
         }
 
+        $page = $request->query->getInt('p', 1);
         if ($request->isMethod(Request::METHOD_POST)) {
             $page = $request->request->getInt('p', $page);
         }
