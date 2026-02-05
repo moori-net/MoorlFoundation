@@ -1,35 +1,17 @@
 {% sw_extends '@Storefront/storefront/layout/header/search-suggest.html.twig' %}
 
-{% block layout_search_suggest_result_total %}
-    {% if page.searchResult.total == 0 %}
-        {% block layout_search_suggest_no_result %}
-            <div class="search-suggest-no-result">
-                {{ "header.searchNoResult"|trans|sw_sanitize }}
-            </div>
-        {% endblock %}
-    {% else %}
-        {% block layout_search_suggest_result_total_result %}
-            <div class="js-result search-suggest-total">
-                <div class="row align-items-center g-0">
-                    <div class="col-auto">
-                        {% sw_icon 'arrow-head-right' style { 'size': 'sm' } %}
-                    </div>
-                    <div class="col">
-                        <a href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ page.activeTab ?? 'product' }}"
-                           title="{{ "header.searchAllResults"|trans|striptags }}"
-                           class="search-suggest-total-link d-block">
-                            {{ "header.searchAllResults"|trans|sw_sanitize }}
-                        </a>
-                    </div>
-                    <div class="col-auto search-suggest-total-count">
-                        {{ "header.searchResults"|trans({
-                            '%count%': page.searchResult.total,
-                        })|sw_sanitize }}
-                    </div>
-                </div>
-            </div>
-        {% endblock %}
-    {% endif %}
+{% block layout_search_suggest_result_total_link %}
+    <div class="col">
+        <a
+                href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ page.activeTab ?? 'product' }}"
+                title="{{ 'header.searchAllResults'|trans|striptags }}"
+                aria-label="{{ 'header.searchAllResults'|trans|striptags }}"
+                class="search-suggest-total-link"
+        >
+            {% sw_icon 'arrow-head-right' style { size: 'sm' } %}
+            {{ 'header.searchAllResults'|trans|sw_sanitize }}
+        </a>
+    </div>
 {% endblock %}
 
 {% block layout_search_suggest_container %}
