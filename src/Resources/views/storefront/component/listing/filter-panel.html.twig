@@ -75,15 +75,20 @@
 
         {% set firstChar = listing.aggregations.get('first-char') %}
         {% if firstChar and not firstChar.entities is empty %}
-            {% set firstChars = [] %}
-            {% for singleChar in 'A'..'Z' %}
-                {% set firstChars = firstChars|merge([{
-                    name: singleChar,
-                    id: singleChar,
-                    translated: {
-                        name: singleChar
-                    }
-                }]) %}
+            {% set firstChars = {} %}
+            {% for entity in firstChar.entities %}
+                {% set char = entity.translated.name|first|upper %}
+                {% if char >= 'A' and char <= 'Z' %}
+                    {% set firstChars = firstChars|merge({
+                        (char): {
+                            name: char,
+                            id: char,
+                            translated: {
+                                name: char
+                            }
+                        }
+                    }) %}
+                {% endif %}
             {% endfor %}
 
             {% sw_include '@Storefront/storefront/component/listing/filter/filter-property-select.html.twig' with {
