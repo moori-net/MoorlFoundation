@@ -13,18 +13,18 @@
     {% set listingHeaderTitle = listingHeaderTitle ?? element.translated.config.listingHeaderTitle.value %}
 
     {% set itemCss = [
-        "padding:#{config.itemPadding.value}",
-        "background-color:#{config.itemBackgroundColor.value}",
-        "height:#{config.itemHeight.value}",
-        "--content-highlight-color:#{config.contentHighlightColor.value}",
-        "--content-background-color:#{config.contentBackgroundColor.value}",
-        "--content-color:#{config.contentColor.value}",
+        "padding:#{config.itemPadding.value ?? '0'}",
+        "background-color:#{config.itemBackgroundColor.value ?? 'transparent'}",
+        "height:#{config.itemHeight.value ?? 'auto'}",
+        "--content-highlight-color:#{config.contentHighlightColor.value ?? 'inherit'}",
+        "--content-background-color:#{config.contentBackgroundColor.value ?? 'transparent'}",
+        "--content-color:#{config.contentColor.value ?? 'inherit'}",
     ] %}
     {% set contentCss = [
-        "padding:#{config.contentPadding.value}",
-        "background-color:#{config.contentBackgroundColor.value}",
-        "color:#{config.contentColor.value}",
-        "text-align:#{config.textAlign.value}",
+        "padding:#{config.contentPadding.value ?? '0'}",
+        "background-color:#{config.contentBackgroundColor.value ?? 'transparent'}",
+        "color:#{config.contentColor.value ?? 'inherit'}",
+        "text-align:#{config.textAlign.value ?? 'center'}",
     ] %}
 
     {% set listingCss = [] %}
