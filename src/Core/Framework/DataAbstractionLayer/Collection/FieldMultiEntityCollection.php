@@ -124,6 +124,12 @@ class FieldMultiEntityCollection extends FieldCollection
         $fieldItems = [];
 
         foreach ($references as $reference) {
+            if (!is_array($reference)) {
+                throw new \RuntimeException(
+                    'FieldMultiEntityCollection::getManyToManyFieldItems() -> $references should be an array'
+                );
+            }
+
             $referenceClass = $reference[0];
             $mappingDefinition = $reference[1];
             $flags = $reference[2] ?? [];
