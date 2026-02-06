@@ -14,18 +14,22 @@
 
     {% set itemCss = [
         "padding:#{config.itemPadding.value ?? '0'}",
-        "background-color:#{config.itemBackgroundColor.value ?? 'transparent'}",
         "height:#{config.itemHeight.value ?? 'auto'}",
         "--content-highlight-color:#{config.contentHighlightColor.value ?? 'inherit'}",
-        "--content-background-color:#{config.contentBackgroundColor.value ?? 'transparent'}",
-        "--content-color:#{config.contentColor.value ?? 'inherit'}",
+        "--content-color:#{config.contentColor.value ?? 'inherit'}"
     ] %}
     {% set contentCss = [
         "padding:#{config.contentPadding.value ?? '0'}",
-        "background-color:#{config.contentBackgroundColor.value ?? 'transparent'}",
         "color:#{config.contentColor.value ?? 'inherit'}",
-        "text-align:#{config.textAlign.value ?? 'center'}",
+        "text-align:#{config.textAlign.value ?? 'center'}"
     ] %}
+    {% if config.itemBackgroundColor.value %}
+        {% set itemCss = itemCss|merge(["background-color:#{config.itemBackgroundColor.value}"]) %}
+    {% endif %}
+    {% if config.contentBackgroundColor.value %}
+        {% set itemCss = itemCss|merge(["--content-background-color:#{config.contentBackgroundColor.value}"]) %}
+        {% set contentCss = contentCss|merge(["background-color:#{config.contentBackgroundColor.value}"]) %}
+    {% endif %}
 
     {% set listingCss = [] %}
     {% if config.listingLayout.value == 'grid' %}
