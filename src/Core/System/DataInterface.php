@@ -46,4 +46,5 @@ interface DataInterface
      * @deprecated tag:v1.4.16 Use {ID:XYZ123} in your JSON File instead
      */
     public function getDemoPlaceholderCount(): int;
+    public function getLockedEntityRecords(): array;
 }

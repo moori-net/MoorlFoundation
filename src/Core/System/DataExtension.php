@@ -155,4 +155,9 @@ SQL;
 
         return sprintf($sql, $id);
     }
+
+    public function getLockedEntityRecords(): array
+    {
+        return [];
+    }
 }

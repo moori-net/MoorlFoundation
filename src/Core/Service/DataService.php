@@ -37,6 +37,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DataService
 {
+    private const LOCK_RECORD_SQL_TEMPLATE = "UPDATE `%s` SET `locked` = '%d' WHERE `id` = UNHEX('%s');";
+
     private readonly Context $context;
     private readonly ClientInterface $client;
     private ?string $salesChannelId = null;
@@ -114,7 +116,18 @@ class DataService
 
             $this->initGlobalReplacers($dataObject);
 
-            foreach ($dataObject->getPreInstallQueries() as $sql) {
+            // Prepare install queries to lock/unlock records
+            $preInstallQueries = $dataObject->getPreInstallQueries();
+            $installQueries = $dataObject->getInstallQueries();
+
+            foreach ($dataObject->getLockedEntityRecords() as $table => $ids) {
+                foreach ($ids as $id) {
+                    $preInstallQueries[] = sprintf(self::LOCK_RECORD_SQL_TEMPLATE, $table, 0, $id);
+                    $installQueries[] = sprintf(self::LOCK_RECORD_SQL_TEMPLATE, $table, 1, $id);
+                }
+            }
+
+            foreach ($preInstallQueries as $sql) {
                 $this->connection->executeStatement($this->processReplace($sql, $dataObject));
             }
 
@@ -122,7 +135,7 @@ class DataService
             $this->insertContent($dataObject);
             $this->addStylesheets($dataObject);
 
-            foreach ($dataObject->getInstallQueries() as $sql) {
+            foreach ($installQueries as $sql) {
                 $this->connection->executeStatement($this->processReplace($sql, $dataObject));
             }
 
@@ -410,6 +423,14 @@ SQL;
                 );
 
                 $repository->upsert($data, $this->context);
+            }
+
+            foreach ($dataObject->getLockedEntityRecords() as $t => $lockedRecords) {
+                if ($t !== $table) {
+                    continue;
+                }
+
+
             }
         }
     }
