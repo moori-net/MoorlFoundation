@@ -270,7 +270,7 @@ class EntityListingFeaturesSubscriberExtension
         return $page <= 0 ? 1 : $page;
     }
 
-    protected function getFilters(Request $request, SalesChannelContext $context): FilterCollection
+    protected function getFilters(Request $request, SalesChannelContext $salesChannelContext): FilterCollection
     {
         return new FilterCollection();
     }

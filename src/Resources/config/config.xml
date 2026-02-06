@@ -375,6 +375,13 @@
         </input-field>
 
         <input-field type="bool">
+            <name>filterFirstCharCollapsed</name>
+            <label>Index filter collapsed (Sidebar)</label>
+            <label lang="de-DE">Index Filter ausgeklappt (Sidebar)</label>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
             <name>filterRadiusMyLocation</name>
             <label>Allow location request by browser</label>
             <label lang="de-DE">Standortabfrage des Browsers erlauben</label>
