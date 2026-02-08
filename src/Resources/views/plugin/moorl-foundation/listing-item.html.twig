@@ -23,12 +23,15 @@
 
             {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                 media: media,
+                sizes: {
+                    'default': '100px'
+                },
                 attributes: {
                     'itemprop': 'image',
-                    'alt': title,
+                    'alt': (media.translated.alt ?: title),
                     'class': "is-#{config.displayMode.value}",
                     'style': imageCss|join(';'),
-                    'title': '',
+                    'title': (media.translated.title ?: title),
                     'loading': 'lazy'
                 }
             } %}
@@ -54,9 +57,11 @@
             {# Clone of "storefront/layout/header/search-suggest.html.twig" #}
             {% block moorl_listing_search_suggest_item %}
                 <li class="search-suggest-product js-result">
-                    <a href="{{ url }}"
-                       title="{{ title }}"
-                       class="search-suggest-product-link">
+                    <a
+                            href="{{ url }}"
+                            title="{{ title }}"
+                            class="search-suggest-product-link"
+                    >
                         <div class="row align-items-center g-0">
                             <div class="col-auto search-suggest-product-image-container">
                                 {% if media.url %}
