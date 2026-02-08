@@ -77,7 +77,7 @@ Shopware.Component.register('moorl-location', {
                     popupAnchor: [ms.popupAnchorX, ms.popupAnchorY],
                     shadowSize: [ms.shadowSizeX, ms.shadowSizeY],
                     shadowAnchor: [ms.shadowAnchorX, ms.shadowAnchorY],
-                } : {};
+                } : null;
 
                 items.push({
                     entityId: this.item.id,
