@@ -62,6 +62,7 @@ Shopware.Mixin.register('moorl-listing', {
                     }
 
                     if (value === undefined) {
+                        console.error(`Default item for ${this.entity} has no value for ${field}`);
                         continue;
                     }
 

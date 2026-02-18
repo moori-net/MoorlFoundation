@@ -3,21 +3,13 @@ import template from './index.html.twig';
 Shopware.Component.register('moorl-entity-grid-card-v2', {
     template,
 
-    props: {
-        defaultItem: {
-            type: Object,
-            required: false,
-            default: undefined,
-        }
-    },
-
     computed: {
         isReady() {
-            if (!this.defaultItem || Object.values(this.defaultItem).length === 0) {
+            if (!this.$attrs.defaultItem || Object.values(this.$attrs.defaultItem).length === 0) {
                 return true;
             }
 
-            return Object.values(this.defaultItem).every(value => value !== undefined);
+            return Object.values(this.$attrs.defaultItem).every(value => value !== undefined);
         },
 
         cardTitle() {
