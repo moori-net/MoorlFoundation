@@ -61,6 +61,10 @@ Shopware.Mixin.register('moorl-listing', {
                         continue;
                     }
 
+                    if (value === undefined) {
+                        continue;
+                    }
+
                     if (Array.isArray(value)) {
                         criteria.addFilter(Criteria.equalsAny(field, value));
                     } else {
