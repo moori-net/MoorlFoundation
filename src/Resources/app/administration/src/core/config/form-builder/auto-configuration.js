@@ -89,8 +89,8 @@ const autoConfiguration = [
             ({ property }) => !property.toLowerCase().includes('customer'),
         ],
         apply({ column }) {
-            column.tab = 'customFields';
-            column.card = 'customFields';
+            column.tab ??= 'customFields';
+            column.card ??= 'customFields';
         }
     },
     // early break
