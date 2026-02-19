@@ -14,6 +14,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 interface EntityListingInterface
 {
+    public function getPluginName(): ?string;
     public function getElementConfig(): array;
     public function setRequest(Request $request): void;
     public function setEventDispatcher(EventDispatcherInterface $eventDispatcher): void;

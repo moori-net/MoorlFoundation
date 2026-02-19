@@ -26,20 +26,18 @@
     }
 
     .sw-block-field .sw-block-field__block,
-    .sw-button,
     .mt-button {
         border: 0 !important;
         border-radius: 0 !important;
     }
 
-    .sw-button,
     .mt-button {
         display: block;
         height: 46px;
         width: 100%;
         padding: 2px 0;
         text-align: center;
-        .sw-button__content {
+        .mt-button__content {
             display: block;
         }
     }

@@ -95,7 +95,7 @@
         {% else %}
             {% if config.hasButton.value or not url %}
                 <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
-                   rel="noopener"{% endif %}
+                   rel="noopener nofollow"{% endif %}
                    class="moorl-listing-item-image"
                    title="{{ title }}">
                     {{ imageContent }}
@@ -143,7 +143,7 @@
                             {% if config.hasButton.value %}
                                 <a itemprop="mainEntityOfPage"
                                    href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
-                                   rel="noopener"{% endif %}
+                                   rel="noopener nofollow"{% endif %}
                                    title="{{ config.buttonLabel.value }}"
                                    class="{{ config.buttonClass.value }} moorl-listing-item-button">
                                     {% block moorl_foundation_listing_item_button_label %}
@@ -181,7 +181,7 @@
         itemscope
         itemtype="https://schema.org/{{ schemaOrgType }}">
         <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
-           rel="noopener"{% endif %}
+           rel="noopener nofollow"{% endif %}
            class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
            style="{{ itemCss|join(';')|raw }}"
            title="{{ title }}">
