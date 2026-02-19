@@ -18,6 +18,35 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EntityListingExtension implements EntityListingInterface
 {
+    public const CONFIG_TYPE = [
+        'searchActive' => 'bool',
+        'suggestActive' => 'bool',
+        'searchConfigActive' => 'bool',
+        'suggestConfigActive' => 'bool',
+        'searchLimit' => 'int',
+        'suggestLimit' => 'int',
+        'searchConfig' => 'array',
+        'suggestConfig' => 'array',
+    ];
+    public const CONFIG_DEFAULT_SEARCH = [
+        'listingSource' => ['value' => 'auto'],
+        'listingLayout' => ['value' => 'grid'],
+        'itemLayout' => ['value' => 'overlay'],
+        'displayMode' => ['value' => 'cover'],
+        'textAlign' => ['value' => 'left'],
+        'gapSize' => ['value' => '20px'],
+        'itemWidth' => ['value' => '300px'],
+        'itemHeight' => ['value' => '400px'],
+        'itemHasBorder' => ['value' => false],
+        'contentPadding' => ['value' => '20px'],
+        'hasButton' => ['value' => true],
+        'buttonClass' => ['value' => 'btn btn-dark'],
+        'buttonLabel' => ['value' => null],
+    ];
+    public const CONFIG_DEFAULT_SUGGEST = [
+        'listingLayout' => ['value' => 'search-suggest']
+    ];
+
     protected EntityDefinition $entityDefinition;
     protected ?SystemConfigService $systemConfigService = null;
     protected SalesChannelContext $salesChannelContext;
@@ -36,6 +65,11 @@ class EntityListingExtension implements EntityListingInterface
     {
         $this->salesChannelRepository = $salesChannelRepository;
         $this->systemConfigService = $systemConfigService;
+    }
+
+    public function getPluginName(): ?string
+    {
+        return null;
     }
 
     public function isWidget(): bool
@@ -63,27 +97,19 @@ class EntityListingExtension implements EntityListingInterface
 
     public function getElementConfig(): array
     {
-        if ($this->isSuggest()) {
-            return [
-                'listingLayout' => ['value' => 'search-suggest']
-            ];
+        if ($this->getPluginName()) {
+            if ($this->isSearch() && $this->getConfig('searchConfigActive')) {
+                return $this->getConfig('searchConfig');
+            } elseif ($this->isSuggest() && $this->getConfig('suggestConfigActive')) {
+                return $this->getConfig('suggestConfig');
+            }
         }
 
-        return [
-            'listingSource' => ['value' => 'auto'],
-            'listingLayout' => ['value' => 'grid'],
-            'itemLayout' => ['value' => 'overlay'],
-            'displayMode' => ['value' => 'cover'],
-            'textAlign' => ['value' => 'left'],
-            'gapSize' => ['value' => '20px'],
-            'itemWidth' => ['value' => '300px'],
-            'itemHeight' => ['value' => '400px'],
-            'itemHasBorder' => ['value' => false],
-            'contentPadding' => ['value' => '20px'],
-            'hasButton' => ['value' => true],
-            'buttonClass' => ['value' => 'btn btn-dark'],
-            'buttonLabel' => ['value' => null],
-        ];
+        if ($this->isSuggest()) {
+            return self::CONFIG_DEFAULT_SUGGEST;
+        }
+
+        return self::CONFIG_DEFAULT_SEARCH;
     }
 
     public function setSalesChannelContext(SalesChannelContext $salesChannelContext): void
@@ -139,6 +165,14 @@ class EntityListingExtension implements EntityListingInterface
 
     public function isActive(): bool
     {
+        if ($this->getPluginName()) {
+            if ($this->isSearch()) {
+                return $this->getConfig('searchActive');
+            } elseif ($this->isSuggest()) {
+                return $this->getConfig('suggestActive');
+            }
+        }
+
         return true;
     }
 
@@ -149,6 +183,14 @@ class EntityListingExtension implements EntityListingInterface
 
     public function getLimit(): int
     {
+        if ($this->getPluginName()) {
+            if ($this->isSearch()) {
+                return $this->getConfig('searchLimit');
+            } elseif ($this->isSuggest()) {
+                return $this->getConfig('suggestLimit');
+            }
+        }
+
         return 6;
     }
 
@@ -212,5 +254,36 @@ class EntityListingExtension implements EntityListingInterface
         $this->processSearchResult($result);
 
         return new ProductListingRouteResponse($result);
+    }
+
+    private function getConfig(string $key): mixed
+    {
+        $configKey = sprintf("%s.config.%s", $this->getPluginName(), $key);
+
+        if (self::CONFIG_TYPE[$key] === 'bool') {
+            return $this->systemConfigService->getBool($configKey, $this->salesChannelContext->getSalesChannelId());
+        } elseif (self::CONFIG_TYPE[$key] === 'int') {
+            return $this->systemConfigService->getInt($configKey, $this->salesChannelContext->getSalesChannelId());
+        } else {
+            $configValue = $this->systemConfigService->get($configKey, $this->salesChannelContext->getSalesChannelId());
+
+            if ($key === 'searchConfig') {
+                if (is_array($configValue)) {
+                    return array_merge(self::CONFIG_DEFAULT_SEARCH, $configValue);
+                } else {
+                    return self::CONFIG_DEFAULT_SEARCH;
+                }
+            }
+
+            if ($key === 'suggestConfig') {
+                if (is_array($configValue)) {
+                    return array_merge(self::CONFIG_DEFAULT_SUGGEST, $configValue);
+                } else {
+                    return self::CONFIG_DEFAULT_SUGGEST;
+                }
+            }
+
+            return $configValue;
+        }
     }
 }

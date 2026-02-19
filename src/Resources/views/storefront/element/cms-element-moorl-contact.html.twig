@@ -13,7 +13,7 @@
                     {% block element_moorl_contact_card_body %}
                         {% if element.data.merchantUrl %}
                             <p>
-                                <a href="{{ element.data.merchantUrl }}" target="_blank" rel="noopener">
+                                <a href="{{ element.data.merchantUrl }}" target="_blank" rel="noopener nofollow">
                                     {{ "moorl-foundation.field.merchantUrl"|trans }}
                                 </a>
                             </p>
@@ -21,7 +21,7 @@
 
                         {% if element.data.shopUrl %}
                             <p>
-                                <a href="{{ element.data.shopUrl }}" target="_blank" rel="noopener">
+                                <a href="{{ element.data.shopUrl }}" target="_blank" rel="noopener nofollow">
                                     {{ "moorl-foundation.field.shopUrl"|trans }}
                                 </a>
                             </p>
