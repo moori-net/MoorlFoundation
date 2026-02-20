@@ -70,20 +70,49 @@
                                         v-if="isVisibleComponent(field)"
                                         :style="getStyle(field)"
                                 >
-                                    <component
-                                        v-if="field.model === undefined"
-                                        :is="field.componentName"
-                                        v-model="fieldModels[field.path]"
-                                        v-bind="fieldAttributes(field)"
-                                        :error="getError(field)"
-                                    />
-                                    <component
-                                        v-else
-                                        :is="field.componentName"
-                                        v-model:[field.model]="fieldModels[field.path]"
-                                        v-bind="fieldAttributes(field)"
-                                        :error="getError(field)"
-                                    />
+                                    <template v-if="cmsElement">
+                                        <sw-cms-inherit-wrapper
+                                                :field="field.path"
+                                                :element="cmsElement"
+                                                :label="$tc(field.attributes.label)"
+                                        >
+                                            <template #default="{ isInherited }">
+                                                <component
+                                                        v-if="field.model === undefined"
+                                                        :is="field.componentName"
+                                                        v-model="fieldModels[field.path]"
+                                                        v-bind="fieldAttributes(field)"
+                                                        :error="getError(field)"
+                                                        :disabled="isInherited"
+                                                />
+                                                <component
+                                                        v-else
+                                                        :is="field.componentName"
+                                                        v-model:[field.model]="fieldModels[field.path]"
+                                                        v-bind="fieldAttributes(field)"
+                                                        :error="getError(field)"
+                                                        :disabled="isInherited"
+                                                />
+                                            </template>
+                                        </sw-cms-inherit-wrapper>
+                                    </template>
+
+                                    <template v-else>
+                                        <component
+                                                v-if="field.model === undefined"
+                                                :is="field.componentName"
+                                                v-model="fieldModels[field.path]"
+                                                v-bind="fieldAttributes(field)"
+                                                :error="getError(field)"
+                                        />
+                                        <component
+                                                v-else
+                                                :is="field.componentName"
+                                                v-model:[field.model]="fieldModels[field.path]"
+                                                v-bind="fieldAttributes(field)"
+                                                :error="getError(field)"
+                                        />
+                                    </template>
                                 </div>
                             </template>
                         </mt-card>
