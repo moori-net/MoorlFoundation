@@ -20,87 +20,113 @@
 
         <template #content="{ active }">
             <sw-container v-if="active === 'content'">
-                <mt-text-field
-                    :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
-                    v-model="element.config.name.value"
-                />
-                <div class="sw-field">
-                    <div class="config-moorl_faq_list">
-                        <sw-collapse
-                            v-for="(entry, index) in element.config.entries.value"
-                            :key="index"
-                            :ref="'collapse_' + index"
-                        >
-                            <template #header="{ expanded }">
-                                <div
-                                    class="collapse-header"
-                                    :class="expanded ? 'expanded' : ''"
-                                >
-                                    <div class="drag-indicator">
-                                        <mt-icon name="regular-grip-lines"/>
-                                    </div>
-                                    <h4>
-                                        {{ entry.name ?? 'New entry' }}
-                                    </h4>
-                                    <div class="collapse-indicator">
-                                        <mt-icon
-                                            v-if="expanded"
-                                            class="sw-media-collapse__button"
-                                            name="regular-chevron-down-s"
-                                        />
-                                        <mt-icon
-                                            v-else
-                                            class="sw-media-collapse__button"
-                                            name="regular-chevron-right-s"
-                                        />
-                                    </div>
-                                </div>
-                            </template>
+                <sw-cms-inherit-wrapper
+                        field="name"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-model="element.config.name.value"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
 
-                            <template #content>
-                                <div class="collapse-content">
-                                    <mt-text-field
-                                        :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
-                                        v-model="entry.name"
-                                    />
-                                    <sw-code-editor
-                                        v-model:value="entry.content"
-                                        mode="twig"
-                                        :label="$tc('sw-cms.elements.moorl-accordion.label.content')"
-                                        :softWraps="true"
-                                    />
-                                    <mt-button
-                                        variant="danger"
-                                        @click.prevent="removeEntry($event, index)"
-                                    >
-                                        {{ $tc('sw-cms.elements.moorl-accordion.label.remove') }}
-                                    </mt-button>
-                                </div>
-                            </template>
-                        </sw-collapse>
-                    </div>
-                    <div class="config-moorl_faq_actions">
-                        <mt-button
-                            :block="true"
-                            @click="addEntry"
-                            variant="ghost"
-                        >
+                <sw-cms-inherit-wrapper
+                        field="entries"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-accordion.label.entries')"
+                >
+                    <template #default="{ isInherited }">
+                        <div class="sw-field">
+                            <div class="config-moorl_faq_list">
+                                <sw-collapse
+                                        v-for="(entry, index) in element.config.entries.value"
+                                        :key="index"
+                                        :ref="'collapse_' + index"
+                                >
+                                    <template #header="{ expanded }">
+                                        <div
+                                                class="collapse-header"
+                                                :class="expanded ? 'expanded' : ''"
+                                        >
+                                            <div class="drag-indicator">
+                                                <mt-icon name="regular-grip-lines"/>
+                                            </div>
+                                            <h4>
+                                                {{ entry.name ?? 'New entry' }}
+                                            </h4>
+                                            <div class="collapse-indicator">
+                                                <mt-icon
+                                                        v-if="expanded"
+                                                        class="sw-media-collapse__button"
+                                                        name="regular-chevron-down-s"
+                                                />
+                                                <mt-icon
+                                                        v-else
+                                                        class="sw-media-collapse__button"
+                                                        name="regular-chevron-right-s"
+                                                />
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                    <template #content>
+                                        <div class="collapse-content">
+                                            <mt-text-field
+                                                    :label="$tc('sw-cms.elements.moorl-accordion.label.name')"
+                                                    v-model="entry.name"
+                                            />
+                                            <sw-code-editor
+                                                    v-model:value="entry.content"
+                                                    mode="twig"
+                                                    :label="$tc('sw-cms.elements.moorl-accordion.label.content')"
+                                                    :softWraps="true"
+                                            />
+                                            <mt-button
+                                                    variant="danger"
+                                                    @click.prevent="removeEntry($event, index)"
+                                            >
+                                                {{ $tc('sw-cms.elements.moorl-accordion.label.remove') }}
+                                            </mt-button>
+                                        </div>
+                                    </template>
+                                </sw-collapse>
+                            </div>
+                            <div class="config-moorl_faq_actions">
+                                <mt-button
+                                        :block="true"
+                                        @click="addEntry"
+                                        variant="ghost"
+                                >
                             <span>
                                 <mt-icon
-                                    name="regular-plus"
-                                    :small="true"
+                                        name="regular-plus"
+                                        :small="true"
                                 />
                                 {{ $tc('sw-cms.elements.moorl-accordion.label.add') }}
                             </span>
-                        </mt-button>
-                    </div>
-                </div>
+                                </mt-button>
+                            </div>
+                        </div>
+                    </template>
+                </sw-cms-inherit-wrapper>
             </sw-container>
+
             <sw-container v-if="active === 'settings'">
-                <moorl-select-field
-                    v-model:value="element.config.verticalAlign.value"
-                    set="flexVerticalAlign"
-                />
+                <sw-cms-inherit-wrapper
+                        field="contentHTML"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.verticalAlign')"
+                >
+                    <template #default="{ isInherited }">
+                        <moorl-select-field
+                                v-model:value="element.config.verticalAlign.value"
+                                set="flexVerticalAlign"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
             </sw-container>
         </template>
     </sw-tabs>

@@ -27,4 +27,28 @@
     .sw-cms-page-form__section {
         padding: 50px 0 70px 0;
     }
+
+    .sw-cms-inherit-wrapper {
+        .mt-field__label,
+        .sw-field__label {
+            float: right;
+
+            &::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+        }
+
+        .mt-field-label,
+        .sw-field-label,
+        .mt-field__label > label,
+        .sw-field__label > label {
+            display: none;
+        }
+
+        .mt-switch {
+            margin-top: 0;
+        }
+    }
 }

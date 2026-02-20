@@ -2,6 +2,7 @@
     <moorl-form
         v-if="!isLoading"
         :item="element.config"
+        :cmsElement="element"
         :componentName="element.type"
         :entity="currentEntity.name"
         :mapping="cmsElementMapping"
