@@ -4,6 +4,7 @@
             "moorl-accordion": {
                 "title": "Accordion",
                 "label": {
+                    "entries": "Entries",
                     "autoClose": "Close accordion in group",
                     "name": "Name",
                     "cssClass": "Classes",

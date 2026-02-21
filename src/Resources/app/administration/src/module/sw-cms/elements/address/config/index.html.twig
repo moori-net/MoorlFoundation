@@ -1,96 +1,195 @@
 <div class="sw-cms-el-config-moorl-address">
-    <sw-cms-mapping-field
-        v-model:config="element.config.street"
-        value-types="string"
-    >
-        <mt-text-field
+    <sw-cms-inherit-wrapper
+            field="street"
+            :element="element"
             :label="$tc('moorl-foundation.field.street')"
-            v-model="element.config.street.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.streetNumber"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.street"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.street')"
+                        v-model="element.config.street.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="streetNumber"
+            :element="element"
             :label="$tc('moorl-foundation.field.streetNumber')"
-            v-model="element.config.streetNumber.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.zipcode"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.streetNumber"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.streetNumber')"
+                        v-model="element.config.streetNumber.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="zipcode"
+            :element="element"
             :label="$tc('moorl-foundation.field.zipcode')"
-            v-model="element.config.zipcode.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.city"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.zipcode"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.zipcode')"
+                        v-model="element.config.zipcode.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="city"
+            :element="element"
             :label="$tc('moorl-foundation.field.city')"
-            v-model="element.config.city.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.additionalAddressLine1"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.city"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.city')"
+                        v-model="element.config.city.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="additionalAddressLine1"
+            :element="element"
             :label="$tc('moorl-foundation.field.additionalAddressLine1')"
-            v-model="element.config.additionalAddressLine1.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.additionalAddressLine2"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.additionalAddressLine1"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.additionalAddressLine1')"
+                        v-model="element.config.additionalAddressLine1.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="additionalAddressLine2"
+            :element="element"
             :label="$tc('moorl-foundation.field.additionalAddressLine2')"
-            v-model="element.config.additionalAddressLine2.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.countryCode"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.additionalAddressLine2"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.additionalAddressLine2')"
+                        v-model="element.config.additionalAddressLine2.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="countryCode"
+            :element="element"
             :label="$tc('moorl-foundation.field.countryCode')"
-            v-model="element.config.countryCode.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.country"
-        value-types="entity"
-        entity="country"
     >
-        <sw-entity-single-select
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.countryCode"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.countryCode')"
+                        v-model="element.config.countryCode.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="country"
+            :element="element"
             :label="$tc('moorl-foundation.field.country')"
-            entity="country"
-            v-model:value="element.config.countryId.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.countryState"
-        value-types="entity"
-        entity="country_state"
     >
-        <sw-entity-single-select
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.country"
+                    value-types="entity"
+                    entity="country"
+            >
+                <sw-entity-single-select
+                        :label="$tc('moorl-foundation.field.country')"
+                        entity="country"
+                        v-model:value="element.config.countryId.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="countryState"
+            :element="element"
             :label="$tc('moorl-foundation.field.countryState')"
-            entity="country_state"
-            v-model:value="element.config.countryStateId.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.locationPlaceId"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.countryState"
+                    value-types="entity"
+                    entity="country_state"
+            >
+                <sw-entity-single-select
+                        :label="$tc('moorl-foundation.field.countryState')"
+                        entity="country_state"
+                        v-model:value="element.config.countryStateId.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="locationPlaceId"
+            :element="element"
             :label="$tc('moorl-foundation.field.locationPlaceId')"
-            v-model="element.config.locationPlaceId.value"
-        />
-    </sw-cms-mapping-field>
+    >
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.locationPlaceId"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.locationPlaceId')"
+                        v-model="element.config.locationPlaceId.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
 </div>
