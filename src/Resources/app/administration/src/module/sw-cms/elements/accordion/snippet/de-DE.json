@@ -4,6 +4,7 @@
             "moorl-accordion": {
                 "title": "Akkordeon",
                 "label": {
+                    "entries": "Einträge",
                     "name": "Name",
                     "cssClass": "CSS Klassen",
                     "cssId": "CSS ID",
