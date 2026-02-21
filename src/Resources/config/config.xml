@@ -566,15 +566,6 @@
             <defaultValue>false</defaultValue>
         </input-field>
 
-        <input-field type="bool">
-            <name>cmpGridElementWrapper</name>
-            <label>Fix display errors in CMS grid blocks</label>
-            <label lang="de-DE">Behebung von Anzeigefehlern in CMS-Grid-Blöcken</label>
-            <helpText>An additional DIV element is added to eliminate display errors in grid blocks.</helpText>
-            <helpText lang="de-DE">Um Anzeigefehler in Grid Blöcken zu beheben, wird ein zusätzliches DIV-Element eingebaut.</helpText>
-            <defaultValue>true</defaultValue>
-        </input-field>
-
         <input-field type="text">
             <name>cmpPriceCalculationSkip</name>
             <label>Skip price calculation if one of the following product extensions are set</label>
