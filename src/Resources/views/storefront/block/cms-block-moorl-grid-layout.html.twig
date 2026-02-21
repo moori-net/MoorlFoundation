@@ -11,10 +11,8 @@
                     <div data-moorl-animation='{{ moorlAnimation|json_encode|raw }}'>
                         {{ elementContent }}
                     </div>
-                {% elseif config('MoorlFoundation.config.cmpGridElementWrapper') %}
-                    <div>{{ elementContent }}</div>
                 {% else %}
-                    {{ elementContent }}
+                    <div>{{ elementContent }}</div>
                 {% endif %}
             {% endif %}
         {% endfor %}

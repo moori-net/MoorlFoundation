@@ -1,17 +1,19 @@
 <div class="col">
+    {% set sliderOptions = {
+        slider: {
+            navPosition: 'bottom',
+            speed: 1000,
+            autoHeight: false,
+            autoplay: true,
+            autoplayButtonOutput: false,
+            nav: true,
+            controls: true
+        }
+    } %}
+
     <div class="base-slider image-slider"
          data-base-slider="true"
-         data-base-slider-options='{
-                        "slider": {
-                            "navPosition": "bottom",
-                            "speed": 1000,
-                            "nav": true,
-                            "controls": true,
-                            "autoHeight": false,
-                            "autoplay": true,
-                            "autoplayButtonOutput": false
-                        }
-                    }'>
+         data-base-slider-options='{{ sliderOptions|json_encode }}'>
         <div class="image-slider-container"
              data-base-slider-container="true">
             {% for letter in 'a'..'z' %}
