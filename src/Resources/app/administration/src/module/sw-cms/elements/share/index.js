@@ -11,7 +11,7 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         provider: {
             source: 'static',
-            value: ['facebook', 'twitter']
+            value: ['facebook', 'x']
         },
     },
 });
