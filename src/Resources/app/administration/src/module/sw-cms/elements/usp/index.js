@@ -16,7 +16,7 @@ Shopware.Application.getContainer('service').cmsService.registerCmsElement({
         },
         iconClass: {
             source: 'static',
-            value: 'fab|shopware',
+            value: 'fa7b|shopware',
         },
         title: {
             source: 'static',
