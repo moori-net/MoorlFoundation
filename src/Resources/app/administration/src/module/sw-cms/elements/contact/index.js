@@ -11,23 +11,19 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         email: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         phoneNumber: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         shopUrl: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         merchantUrl: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
     },
 });

@@ -11,13 +11,11 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         openingHours: {
             source: 'static',
-            value: null,
-            required: true,
+            value: null
         },
         timeZone: {
             source: 'static',
-            value: 'Europe/Berlin',
-            required: true,
+            value: 'Europe/Berlin'
         },
     },
 });
