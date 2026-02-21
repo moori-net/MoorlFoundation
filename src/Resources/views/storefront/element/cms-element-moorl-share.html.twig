@@ -17,11 +17,11 @@
                     </li>
                 {% endif %}
 
-                {% if 'twitter' in element.config.provider.value %}
+                {% if 'x' in element.config.provider.value or 'twitter' in element.config.provider.value %}
                     <li>
-                        <a title="" class="btn btn-twitter"
-                           href="https://twitter.com/intent/tweet?url={{ currentUrl }}" target="_blank">
-                            {% sw_icon 'twitter' style {pack: 'fab'} %}
+                        <a title="" class="btn btn-x-twitter"
+                           href="https://x.com/intent/tweet?url={{ currentUrl }}" target="_blank">
+                            {% sw_icon 'x-twitter' style {pack: 'fab'} %}
                         </a>
                     </li>
                 {% endif %}

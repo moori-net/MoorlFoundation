@@ -19,6 +19,7 @@ Shopware.Component.register('sw-cms-el-config-moorl-share', {
                 provider: [
                     { value: 'facebook', label: 'Facebook' },
                     { value: 'twitter', label: 'Twitter' },
+                    { value: 'x', label: 'X' },
                     { value: 'pinterest', label: 'Pinterest' },
                     { value: 'email', label: 'E-Mail' },
                 ],
