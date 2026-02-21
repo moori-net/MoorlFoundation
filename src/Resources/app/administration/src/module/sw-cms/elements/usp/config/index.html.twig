@@ -1,73 +1,156 @@
-<sw-tabs default-item="general">
-    <template #default="{ active }">
-        <sw-tabs-item
-            name="general"
-            :activeTab="active"
-        >
-            {{ $tc('sw-cms.elements.moorl-usp.tab.general') }}
-        </sw-tabs-item>
-        <sw-tabs-item
-            name="textColor"
-            :activeTab="active"
-        >
-            {{ $tc('sw-cms.elements.moorl-usp.tab.textColor') }}
-        </sw-tabs-item>
-    </template>
+<div class="sw-cms-el-config-moorl-usp">
+    <sw-tabs default-item="general">
+        <template #default="{ active }">
+            <sw-tabs-item
+                    name="general"
+                    :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-usp.tab.general') }}
+            </sw-tabs-item>
 
-    <template #content="{ active }">
-        <sw-container
-            v-if="active === 'general'"
-            class="sw-cms-el-config-moorl-usp__tab-general"
-        >
-            <mt-switch
-                v-model="element.config.iconActive.value"
-                bordered
-                :label="$tc('sw-cms.elements.moorl-usp.config.iconActive')"
-            />
-            <mt-text-field
-                v-if="element.config.iconActive.value"
-                v-model="element.config.iconClass.value"
-                placeholder="fab|shopware"
-                :helpText="$tc('sw-cms.elements.moorl-usp.config.iconClassHelpText')"
-                :label="$tc('sw-cms.elements.moorl-usp.config.iconClass')"
-            />
-            <mt-text-field
-                v-model="element.config.title.value"
-                :label="$tc('sw-cms.elements.moorl-usp.config.headline')"
-            />
-            <mt-text-field
-                v-model="element.config.text.value"
-                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadline')"
-            />
-            <moorl-select-field
-                :label="$tc('sw-cms.elements.moorl-usp.config.alignment')"
-                v-model:value="element.config.alignment.value"
-                set="textHorizontalAlign"
-                :filter="['left','center']"
-            />
-        </sw-container>
-        <sw-container
-            v-if="active === 'textColor'"
-            class="sw-cms-el-config-moorl-usp__tab-colors"
-        >
-            <mt-colorpicker
-                colorOutput="hex"
-                :zIndex="1000"
-                :label="$tc('sw-cms.elements.moorl-usp.config.iconColor')"
-                v-model="element.config.iconColor.value"
-            />
-            <mt-colorpicker
-                colorOutput="hex"
-                :zIndex="1000"
-                :label="$tc('sw-cms.elements.moorl-usp.config.headlineColor')"
-                v-model="element.config.headlineColor.value"
-            />
-            <mt-colorpicker
-                colorOutput="hex"
-                :zIndex="1000"
-                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadlineColor')"
-                v-model="element.config.subHeadlineColor.value"
-            />
-        </sw-container>
-    </template>
-</sw-tabs>
+            <sw-tabs-item
+                    name="textColor"
+                    :activeTab="active"
+            >
+                {{ $tc('sw-cms.elements.moorl-usp.tab.textColor') }}
+            </sw-tabs-item>
+        </template>
+
+        <template #content="{ active }">
+            <sw-container
+                    v-if="active === 'general'"
+                    class="sw-cms-el-config-moorl-usp__tab-general"
+            >
+                <sw-cms-inherit-wrapper
+                        field="iconActive"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.iconActive')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-switch
+                                v-model="element.config.iconActive.value"
+                                bordered
+                                :label="$tc('sw-cms.elements.moorl-usp.config.iconActive')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="iconClass"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.iconClass')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-if="element.config.iconActive.value"
+                                v-model="element.config.iconClass.value"
+                                placeholder="fab|shopware"
+                                :helpText="$tc('sw-cms.elements.moorl-usp.config.iconClassHelpText')"
+                                :label="$tc('sw-cms.elements.moorl-usp.config.iconClass')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="title"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.headline')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-model="element.config.title.value"
+                                :label="$tc('sw-cms.elements.moorl-usp.config.headline')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="text"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.subHeadline')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-model="element.config.text.value"
+                                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadline')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="alignment"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.alignment')"
+                >
+                    <template #default="{ isInherited }">
+                        <moorl-select-field
+                                :label="$tc('sw-cms.elements.moorl-usp.config.alignment')"
+                                v-model:value="element.config.alignment.value"
+                                set="textHorizontalAlign"
+                                :filter="['left','center']"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+            </sw-container>
+
+            <sw-container
+                    v-if="active === 'textColor'"
+                    class="sw-cms-el-config-moorl-usp__tab-colors"
+            >
+                <sw-cms-inherit-wrapper
+                        field="iconColor"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.iconColor')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-colorpicker
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :label="$tc('sw-cms.elements.moorl-usp.config.iconColor')"
+                                v-model="element.config.iconColor.value"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="headlineColor"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.headlineColor')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-colorpicker
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :label="$tc('sw-cms.elements.moorl-usp.config.headlineColor')"
+                                v-model="element.config.headlineColor.value"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="subHeadlineColor"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-usp.config.subHeadlineColor')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-colorpicker
+                                colorOutput="hex"
+                                :zIndex="1000"
+                                :label="$tc('sw-cms.elements.moorl-usp.config.subHeadlineColor')"
+                                v-model="element.config.subHeadlineColor.value"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+            </sw-container>
+        </template>
+    </sw-tabs>
+</div>

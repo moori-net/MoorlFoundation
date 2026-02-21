@@ -1,7 +1,16 @@
 <div class="sw-cms-el-config-moorl-share">
-    <sw-multi-select
-        :label="$tc('sw-cms.elements.moorl-share.label.provider')"
-        :options="elementOptions.provider"
-        v-model:value="element.config.provider.value"
-    />
+    <sw-cms-inherit-wrapper
+            field="provider"
+            :element="element"
+            :label="$tc('sw-cms.elements.moorl-share.label.provider')"
+    >
+        <template #default="{ isInherited }">
+            <sw-multi-select
+                    :label="$tc('sw-cms.elements.moorl-share.label.provider')"
+                    :options="elementOptions.provider"
+                    v-model:value="element.config.provider.value"
+                    :disabled="isInherited"
+            />
+        </template>
+    </sw-cms-inherit-wrapper>
 </div>

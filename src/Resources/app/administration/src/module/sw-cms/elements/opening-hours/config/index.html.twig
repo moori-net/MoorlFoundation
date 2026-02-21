@@ -1,17 +1,38 @@
 <div class="sw-cms-el-config-moorl-opening-hours">
-    <sw-cms-mapping-field
-        v-model:config="element.config.openingHours"
-        value-types="string"
+    <sw-cms-inherit-wrapper
+            field="openingHours"
+            :element="element"
+            :label="$tc('moorl-foundation.field.openingHours')"
     >
-        <moorl-opening-hours v-model:value="element.config.openingHours.value"/>
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:value="element.config.timeZone"
-        value-types="string"
-    >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.openingHours"
+                    value-types="string"
+            >
+                <moorl-opening-hours
+                        v-model:value="element.config.openingHours.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="timeZone"
+            :element="element"
             :label="$tc('sw-cms.elements.moorl-opening-hours.label.timeZone')"
-            v-model="element.config.timeZone.value"
-        />
-    </sw-cms-mapping-field>
+    >
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:value="element.config.timeZone"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('sw-cms.elements.moorl-opening-hours.label.timeZone')"
+                        v-model="element.config.timeZone.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
 </div>

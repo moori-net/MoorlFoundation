@@ -1,50 +1,99 @@
 <div class="sw-cms-el-config-moorl-person">
-    <sw-cms-mapping-field
-        v-model:config="element.config.salutationId"
-        value-types="string"
-        entity="salutation"
-    >
-        <sw-entity-single-select
+    <sw-cms-inherit-wrapper
+            field="salutationId"
+            :element="element"
             :label="$tc('moorl-foundation.field.salutation')"
-            entity="salutation"
-            labelProperty="displayName"
-            v-model:value="element.config.salutationId.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.title"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.salutationId"
+                    value-types="string"
+                    entity="salutation"
+            >
+                <sw-entity-single-select
+                        :label="$tc('moorl-foundation.field.salutation')"
+                        entity="salutation"
+                        labelProperty="displayName"
+                        v-model:value="element.config.salutationId.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="title"
+            :element="element"
             :label="$tc('moorl-foundation.field.title')"
-            v-model="element.config.title.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.firstName"
-        value-types="string"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.title"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.title')"
+                        v-model="element.config.title.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="firstName"
+            :element="element"
             :label="$tc('moorl-foundation.field.firstName')"
-            v-model="element.config.firstName.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.lastName"
-        value-types="string"
     >
-        <mt-text-field
-            :label="$tc('moorl-foundation.field.lastName')"
-            v-model="element.config.lastName.value"
-        />
-    </sw-cms-mapping-field>
-    <sw-cms-mapping-field
-        v-model:config="element.config.company"
-        value-types="string"
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.firstName"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.firstName')"
+                        v-model="element.config.firstName.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="timeZone"
+            :element="element"
+            :label="$tc('sw-cms.elements.moorl-opening-hours.label.timeZone')"
     >
-        <mt-text-field
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.lastName"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.lastName')"
+                        v-model="element.config.lastName.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+            field="company"
+            :element="element"
             :label="$tc('moorl-foundation.field.company')"
-            v-model="element.config.company.value"
-        />
-    </sw-cms-mapping-field>
+    >
+        <template #default="{ isInherited }">
+            <sw-cms-mapping-field
+                    v-model:config="element.config.company"
+                    value-types="string"
+            >
+                <mt-text-field
+                        :label="$tc('moorl-foundation.field.company')"
+                        v-model="element.config.company.value"
+                        :disabled="isInherited"
+                />
+            </sw-cms-mapping-field>
+        </template>
+    </sw-cms-inherit-wrapper>
 </div>

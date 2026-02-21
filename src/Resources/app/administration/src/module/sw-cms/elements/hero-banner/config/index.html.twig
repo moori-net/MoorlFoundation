@@ -7,6 +7,7 @@
             >
                 {{ $tc('moorl-foundation.tab.general') }}
             </sw-tabs-item>
+
             <sw-tabs-item
                 v-if="element.config.mediaActive.value"
                 name="media"
@@ -14,12 +15,14 @@
             >
                 {{ $tc('moorl-foundation.tab.media') }}
             </sw-tabs-item>
+
             <sw-tabs-item
                 name="position"
                 :activeTab="active"
             >
                 {{ $tc('moorl-foundation.tab.position') }}
             </sw-tabs-item>
+
             <sw-tabs-item
                 v-if="element.config.captionActive.value"
                 name="content"
@@ -31,166 +34,426 @@
 
         <template #content="{ active }">
             <sw-container v-if="active === 'general'">
-                <moorl-select-field
-                    :label="$tc('moorl-foundation.field.elementType')"
-                    v-model:value="element.config.searchType.value"
-                    :customSet="['search','location']"
-                    snippetPath="moorl-foundation.field"
-                />
-                <sw-entity-single-select
-                    v-if="element.config.searchType.value == 'location'"
-                    :label="$tc('moorl-foundation.field.category')"
-                    entity="category"
-                    v-model:value="element.config.categoryId.value"
-                />
-                <mt-text-field
-                    v-model="element.config.height.value"
-                    :label="$tc('moorl-foundation.field.height')"
-                />
-                <mt-switch
-                    v-model="element.config.mediaActive.value"
-                    bordered
-                    :label="$tc('moorl-foundation.field.mediaActive')"
-                />
-                <mt-switch
-                    v-model="element.config.captionActive.value"
-                    bordered
-                    :label="$tc('moorl-foundation.field.captionActive')"
-                />
+                <sw-cms-inherit-wrapper
+                        field="searchType"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.elementType')"
+                >
+                    <template #default="{ isInherited }">
+                        <moorl-select-field
+                                :label="$tc('moorl-foundation.field.elementType')"
+                                v-model:value="element.config.searchType.value"
+                                :customSet="['search','location']"
+                                snippetPath="moorl-foundation.field"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="categoryId"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.category')"
+                >
+                    <template #default="{ isInherited }">
+                        <sw-entity-single-select
+                                v-if="element.config.searchType.value == 'location'"
+                                :label="$tc('moorl-foundation.field.category')"
+                                entity="category"
+                                v-model:value="element.config.categoryId.value"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="height"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.height')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-model="element.config.height.value"
+                                :label="$tc('moorl-foundation.field.height')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="mediaActive"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.mediaActive')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-switch
+                                v-model="element.config.mediaActive.value"
+                                bordered
+                                :label="$tc('moorl-foundation.field.mediaActive')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="captionActive"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.captionActive')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-switch
+                                v-model="element.config.captionActive.value"
+                                bordered
+                                :label="$tc('moorl-foundation.field.captionActive')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
             </sw-container>
+
             <sw-container v-if="active === 'media'">
-                <div class="sw-field">
-                    <sw-media-upload-v2
-                        :upload-tag="uploadTag"
-                        :source="previewSource"
-                        :allow-multi-select="false"
-                        :default-folder="cmsPageState.pageEntityName"
-                        :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
-                        @media-upload-sidebar-open="onOpenMediaModal"
-                        @media-upload-remove-image="onImageRemove"
-                    />
-                    <sw-upload-listener
-                        :uploadTag="uploadTag"
-                        autoUpload
-                        @media-upload-finish="onImageUpload"
-                    />
-                </div>
+                <sw-cms-inherit-wrapper
+                        field="media"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                >
+                    <template #default="{ isInherited }">
+                        <div class="sw-field">
+                            <sw-media-upload-v2
+                                    :upload-tag="uploadTag"
+                                    :source="previewSource"
+                                    :allow-multi-select="false"
+                                    :default-folder="cmsPageState.pageEntityName"
+                                    :caption="$tc('sw-cms.elements.general.config.caption.mediaUpload')"
+                                    @media-upload-sidebar-open="onOpenMediaModal"
+                                    @media-upload-remove-image="onImageRemove"
+                                    :disabled="isInherited"
+                            />
+                            <sw-upload-listener
+                                    :uploadTag="uploadTag"
+                                    autoUpload
+                                    @media-upload-finish="onImageUpload"
+                            />
+                        </div>
+                    </template>
+                </sw-cms-inherit-wrapper>
+
                 <sw-container
                     columns="1fr 1fr"
                     gap="0 10px"
                 >
-                    <moorl-select-field
-                        :label="$tc('moorl-foundation.field.backgroundVerticalAlign')"
-                        v-model:value="element.config.backgroundVerticalAlign.value"
-                        set="textVerticalAlign"
-                    />
-                    <moorl-select-field
-                        :label="$tc('moorl-foundation.field.backgroundHorizontalAlign')"
-                        v-model:value="element.config.backgroundHorizontalAlign.value"
-                        set="textHorizontalAlign"
-                    />
-                    <mt-switch
-                        v-model="element.config.backgroundFixed.value"
-                        bordered
-                        :label="$tc('moorl-foundation.field.backgroundFixed')"
-                    />
-                    <moorl-select-field
-                        :label="$tc('moorl-foundation.field.backgroundDisplayMode')"
-                        v-model:value="element.config.backgroundDisplayMode.value"
-                        set="displayMode"
-                    />
+                    <sw-cms-inherit-wrapper
+                            field="backgroundVerticalAlign"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.backgroundVerticalAlign')"
+                    >
+                        <template #default="{ isInherited }">
+                            <moorl-select-field
+                                    :label="$tc('moorl-foundation.field.backgroundVerticalAlign')"
+                                    v-model:value="element.config.backgroundVerticalAlign.value"
+                                    set="textVerticalAlign"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="backgroundHorizontalAlign"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.backgroundHorizontalAlign')"
+                    >
+                        <template #default="{ isInherited }">
+                            <moorl-select-field
+                                    :label="$tc('moorl-foundation.field.backgroundHorizontalAlign')"
+                                    v-model:value="element.config.backgroundHorizontalAlign.value"
+                                    set="textHorizontalAlign"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="backgroundFixed"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.backgroundFixed')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-switch
+                                    v-model="element.config.backgroundFixed.value"
+                                    bordered
+                                    :label="$tc('moorl-foundation.field.backgroundFixed')"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="backgroundDisplayMode"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.backgroundDisplayMode')"
+                    >
+                        <template #default="{ isInherited }">
+                            <moorl-select-field
+                                    :label="$tc('moorl-foundation.field.backgroundDisplayMode')"
+                                    v-model:value="element.config.backgroundDisplayMode.value"
+                                    set="displayMode"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
                 </sw-container>
+
                 <sw-container
                     v-if="element.config.backgroundDisplayMode.value == 'custom'"
                     columns="1fr 1fr"
                     gap="0 10px"
                 >
-                    <mt-text-field
-                        v-model="element.config.backgroundSizeX.value"
-                        :label="$tc('moorl-foundation.field.backgroundSizeX')"
-                    />
-                    <mt-text-field
-                        v-model="element.config.backgroundSizeY.value"
-                        :label="$tc('moorl-foundation.field.backgroundSizeY')"
-                    />
+                    <sw-cms-inherit-wrapper
+                            field="backgroundSizeX"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.backgroundSizeX')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    v-model="element.config.backgroundSizeX.value"
+                                    :label="$tc('moorl-foundation.field.backgroundSizeX')"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="backgroundSizeY"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.backgroundSizeY')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    v-model="element.config.backgroundSizeY.value"
+                                    :label="$tc('moorl-foundation.field.backgroundSizeY')"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
                 </sw-container>
             </sw-container>
+
             <sw-container v-if="active === 'position'">
                 <sw-container
                     columns="1fr 1fr"
                     gap="0 10px"
                 >
-                    <moorl-select-field
-                        :label="$tc('moorl-foundation.field.boxVerticalAlign')"
-                        v-model:value="element.config.boxVerticalAlign.value"
-                        set="flexVerticalAlign"
-                    />
-                    <moorl-select-field
-                        :label="$tc('moorl-foundation.field.boxHorizontalAlign')"
-                        v-model:value="element.config.boxHorizontalAlign.value"
-                        set="flexHorizontalAlign"
-                    />
-                    <mt-text-field
-                        :label="$tc('moorl-foundation.field.boxWidth')"
-                        v-model="element.config.boxWidth.value"
-                    />
-                    <mt-text-field
-                        :label="$tc('moorl-foundation.field.boxHeight')"
-                        v-model="element.config.boxHeight.value"
-                    />
-                    <mt-text-field
-                        :label="$tc('moorl-foundation.field.boxMargin')"
-                        v-model="element.config.boxMargin.value"
-                    />
-                    <mt-text-field
-                        :label="$tc('moorl-foundation.field.boxPadding')"
-                        v-model="element.config.boxPadding.value"
-                    />
-                    <moorl-select-field
-                        :label="$tc('moorl-foundation.field.boxTextAlign')"
-                        v-model:value="element.config.boxTextAlign.value"
-                        set="textHorizontalAlign"
-                    />
-                    <mt-colorpicker
-                        colorOutput="hex"
-                        :zIndex="1000"
-                        :label="$tc('moorl-foundation.field.boxColor')"
-                        v-model="element.config.boxColor.value"
-                    />
-                    <mt-colorpicker
-                        colorOutput="hex"
-                        :zIndex="1000"
-                        :label="$tc('moorl-foundation.field.boxBackground')"
-                        v-model="element.config.boxBackground.value"
-                    />
-                    <mt-text-field
-                        :label="$tc('moorl-foundation.field.boxBorderRadius')"
-                        v-model="element.config.boxBorderRadius.value"
-                    />
-                    <mt-switch
-                        v-model="element.config.boxMaxWidth.value"
-                        bordered
-                        :label="$tc('moorl-foundation.field.boxMaxWidth')"
-                    />
+                    <sw-cms-inherit-wrapper
+                            field="boxVerticalAlign"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxVerticalAlign')"
+                    >
+                        <template #default="{ isInherited }">
+                            <moorl-select-field
+                                    :label="$tc('moorl-foundation.field.boxVerticalAlign')"
+                                    v-model:value="element.config.boxVerticalAlign.value"
+                                    set="flexVerticalAlign"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxHorizontalAlign"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxHorizontalAlign')"
+                    >
+                        <template #default="{ isInherited }">
+                            <moorl-select-field
+                                    :label="$tc('moorl-foundation.field.boxHorizontalAlign')"
+                                    v-model:value="element.config.boxHorizontalAlign.value"
+                                    set="flexHorizontalAlign"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxWidth"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxWidth')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    :label="$tc('moorl-foundation.field.boxWidth')"
+                                    v-model="element.config.boxWidth.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxHeight"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxHeight')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    :label="$tc('moorl-foundation.field.boxHeight')"
+                                    v-model="element.config.boxHeight.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxMargin"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxMargin')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    :label="$tc('moorl-foundation.field.boxMargin')"
+                                    v-model="element.config.boxMargin.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxPadding"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxPadding')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    :label="$tc('moorl-foundation.field.boxPadding')"
+                                    v-model="element.config.boxPadding.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxTextAlign"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxTextAlign')"
+                    >
+                        <template #default="{ isInherited }">
+                            <moorl-select-field
+                                    :label="$tc('moorl-foundation.field.boxTextAlign')"
+                                    v-model:value="element.config.boxTextAlign.value"
+                                    set="textHorizontalAlign"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxColor"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxColor')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-colorpicker
+                                    colorOutput="hex"
+                                    :zIndex="1000"
+                                    :label="$tc('moorl-foundation.field.boxColor')"
+                                    v-model="element.config.boxColor.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxBackground"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxBackground')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-colorpicker
+                                    colorOutput="hex"
+                                    :zIndex="1000"
+                                    :label="$tc('moorl-foundation.field.boxBackground')"
+                                    v-model="element.config.boxBackground.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxBorderRadius"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxBorderRadius')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-text-field
+                                    :label="$tc('moorl-foundation.field.boxBorderRadius')"
+                                    v-model="element.config.boxBorderRadius.value"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
+
+                    <sw-cms-inherit-wrapper
+                            field="boxMaxWidth"
+                            :element="element"
+                            :label="$tc('moorl-foundation.field.boxMaxWidth')"
+                    >
+                        <template #default="{ isInherited }">
+                            <mt-switch
+                                    v-model="element.config.boxMaxWidth.value"
+                                    bordered
+                                    :label="$tc('moorl-foundation.field.boxMaxWidth')"
+                                    :disabled="isInherited"
+                            />
+                        </template>
+                    </sw-cms-inherit-wrapper>
                 </sw-container>
             </sw-container>
+
             <sw-container v-if="active === 'content'">
-                <mt-text-field
-                    v-model="element.config.title.value"
-                    :label="$tc('moorl-foundation.field.title')"
-                />
-                <mt-text-field
-                    v-model="element.config.content.value"
-                    :label="$tc('moorl-foundation.field.content')"
-                />
-                <mt-switch
-                    v-model="element.config.textShadowActive.value"
-                    bordered
-                    :label="$tc('moorl-foundation.field.textShadowActive')"
-                />
+                <sw-cms-inherit-wrapper
+                        field="title"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.title')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-model="element.config.title.value"
+                                :label="$tc('moorl-foundation.field.title')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="content"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.content')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-text-field
+                                v-model="element.config.content.value"
+                                :label="$tc('moorl-foundation.field.content')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="textShadowActive"
+                        :element="element"
+                        :label="$tc('moorl-foundation.field.textShadowActive')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-switch
+                                v-model="element.config.textShadowActive.value"
+                                bordered
+                                :label="$tc('moorl-foundation.field.textShadowActive')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
             </sw-container>
         </template>
     </sw-tabs>
+
     <sw-media-modal-v2
         v-if="mediaModalIsOpen"
         variant="full"

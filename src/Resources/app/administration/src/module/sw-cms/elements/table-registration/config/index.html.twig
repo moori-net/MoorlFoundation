@@ -1,8 +1,5 @@
 <div class="sw-cms-el-config-moorl-table-registration">
-    <sw-tabs
-        class="sw-cms-el-config-image-gallery__tabs"
-        default-item="content"
-    >
+    <sw-tabs default-item="content">
         <template #default="{ active }">
             <sw-tabs-item
                 name="content"
@@ -10,6 +7,7 @@
             >
                 {{ $tc('sw-cms.elements.general.config.tab.content') }}
             </sw-tabs-item>
+
             <sw-tabs-item
                 name="settings"
                 :activeTab="active"
@@ -20,21 +18,50 @@
 
         <template #content="{ active }">
             <sw-container v-if="active === 'content'">
-                <sw-text-editor
-                    v-model:value="element.config.content.value"
-                    :label="$tc('sw-cms.elements.moorl-table-registration.label.content')"
-                />
-                <mt-switch
-                    :label="$tc('sw-cms.elements.moorl-table-registration.label.privacyActive')"
-                    v-model="element.config.privacyActive.value"
-                    bordered
-                />
+                <sw-cms-inherit-wrapper
+                        field="content"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-table-registration.label.content')"
+                >
+                    <template #default="{ isInherited }">
+                        <sw-text-editor
+                                v-model:value="element.config.content.value"
+                                :label="$tc('sw-cms.elements.moorl-table-registration.label.content')"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
+
+                <sw-cms-inherit-wrapper
+                        field="privacyActive"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-table-registration.label.privacyActive')"
+                >
+                    <template #default="{ isInherited }">
+                        <mt-switch
+                                :label="$tc('sw-cms.elements.moorl-table-registration.label.privacyActive')"
+                                v-model="element.config.privacyActive.value"
+                                bordered
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
             </sw-container>
+
             <sw-container v-if="active === 'settings'">
-                <moorl-select-field
-                    v-model:value="element.config.verticalAlign.value"
-                    set="flexVerticalAlign"
-                />
+                <sw-cms-inherit-wrapper
+                        field="verticalAlign"
+                        :element="element"
+                        :label="$tc('sw-cms.elements.moorl-table-registration.label.verticalAlign')"
+                >
+                    <template #default="{ isInherited }">
+                        <moorl-select-field
+                                v-model:value="element.config.verticalAlign.value"
+                                set="flexVerticalAlign"
+                                :disabled="isInherited"
+                        />
+                    </template>
+                </sw-cms-inherit-wrapper>
             </sw-container>
         </template>
     </sw-tabs>
