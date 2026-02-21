@@ -13,7 +13,6 @@ Shopware.Service('cmsService').registerCmsElement({
         downloads: {
             source: 'static',
             value: [],
-            required: true,
             entity: {
                 name: 'media',
             },

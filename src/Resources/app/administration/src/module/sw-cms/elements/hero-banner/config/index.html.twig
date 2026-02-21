@@ -51,13 +51,13 @@
                 </sw-cms-inherit-wrapper>
 
                 <sw-cms-inherit-wrapper
+                        v-if="element.config.searchType.value == 'location'"
                         field="categoryId"
                         :element="element"
                         :label="$tc('moorl-foundation.field.category')"
                 >
                     <template #default="{ isInherited }">
                         <sw-entity-single-select
-                                v-if="element.config.searchType.value == 'location'"
                                 :label="$tc('moorl-foundation.field.category')"
                                 entity="category"
                                 v-model:value="element.config.categoryId.value"

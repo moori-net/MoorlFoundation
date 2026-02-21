@@ -11,28 +11,23 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         salutationId: {
             source: 'static',
-            value: null,
-            required: true,
+            value: null
         },
         firstName: {
             source: 'static',
             value: null,
-            required: true,
         },
         lastName: {
             source: 'static',
-            value: null,
-            required: true,
+            value: null
         },
         title: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         company: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
     },
 });

@@ -11,48 +11,39 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         locationLat: {
             source: 'static',
-            value: 0,
-            required: true,
+            value: 0
         },
         locationLon: {
             source: 'static',
-            value: 0,
-            required: true,
+            value: 0
         },
         markerId: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         marker: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         height: {
             source: 'static',
-            value: '300px',
-            required: false,
+            value: '300px'
         },
         overrideOsmOptions: {
             source: 'static',
-            value: false,
-            required: false,
+            value: false
         },
         osmOptions: {
             source: 'static',
-            value: [],
-            required: false,
+            value: []
         },
         legend: {
             source: 'static',
-            value: false,
-            required: false,
+            value: false
         },
         legendItems: {
             source: 'static',
-            value: [],
-            required: false,
+            value: []
         },
     },
 });

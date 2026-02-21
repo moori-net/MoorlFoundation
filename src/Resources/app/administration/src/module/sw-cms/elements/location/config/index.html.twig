@@ -59,7 +59,17 @@
                         entity="moorl_marker"
                         v-model:value="element.config.markerId.value"
                         :disabled="isInherited"
-                />
+                >
+                    <template #hint>
+                        <router-link
+                                target="_blank"
+                                rel="noopener"
+                                :to="{ name: 'moorl.marker.list' }"
+                        >
+                            {{ $tc('global.entities.moorl_marker') }}
+                        </router-link>
+                    </template>
+                </sw-entity-single-select>
             </sw-cms-mapping-field>
         </template>
     </sw-cms-inherit-wrapper>
@@ -87,12 +97,14 @@
             <mt-switch
                     :label="$tc('sw-cms.elements.moorl-location.label.overrideOsmOptions')"
                     v-model="element.config.overrideOsmOptions.value"
+                    bordered
                     :disabled="isInherited"
             />
         </template>
     </sw-cms-inherit-wrapper>
 
     <sw-cms-inherit-wrapper
+            v-if="element.config.overrideOsmOptions.value"
             field="osmOptions"
             :element="element"
             :label="$tc('sw-cms.elements.moorl-location.label.osmOptions')"
@@ -116,33 +128,25 @@
             <mt-switch
                     :label="$tc('sw-cms.elements.moorl-location.label.legend')"
                     v-model="element.config.legend.value"
+                    bordered
                     :disabled="isInherited"
             />
         </template>
     </sw-cms-inherit-wrapper>
 
-    <template v-if="element.config.legend.value">
-        <sw-cms-inherit-wrapper
-                field="legendItems"
-                :element="element"
-                :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
-        >
-            <template #default="{ isInherited }">
-                <sw-entity-multi-id-select
-                        :repository="markerRepository"
-                        :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
-                        v-model:value="element.config.legendItems.value"
-                        :disabled="isInherited"
-                />
-            </template>
-        </sw-cms-inherit-wrapper>
-
-        <router-link
-            target="_blank"
-            rel="noopener"
-            :to="{ name: 'moorl.marker.list' }"
-        >
-            {{ $tc('moorl-marker.title') }}
-        </router-link>
-    </template>
+    <sw-cms-inherit-wrapper
+            v-if="element.config.legend.value"
+            field="legendItems"
+            :element="element"
+            :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
+    >
+        <template #default="{ isInherited }">
+            <sw-entity-multi-id-select
+                    :repository="markerRepository"
+                    :label="$tc('sw-cms.elements.moorl-location.label.legendItems')"
+                    v-model:value="element.config.legendItems.value"
+                    :disabled="isInherited"
+            />
+        </template>
+    </sw-cms-inherit-wrapper>
 </div>

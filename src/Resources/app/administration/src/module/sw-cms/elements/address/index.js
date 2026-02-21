@@ -11,63 +11,51 @@ Shopware.Service('cmsService').registerCmsElement({
     defaultConfig: {
         zipcode: {
             source: 'static',
-            value: null,
-            required: true,
+            value: null
         },
         city: {
             source: 'static',
-            value: null,
-            required: true,
+            value: null
         },
         street: {
             source: 'static',
-            value: null,
-            required: true,
+            value: null
         },
         streetNumber: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         additionalAddressLine1: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         additionalAddressLine2: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         countryCode: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         countryId: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         countryStateId: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         country: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         countryState: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
         locationPlaceId: {
             source: 'static',
-            value: null,
-            required: false,
+            value: null
         },
     },
 });

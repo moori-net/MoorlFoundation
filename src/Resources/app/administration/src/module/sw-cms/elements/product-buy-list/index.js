@@ -23,7 +23,6 @@ Shopware.Service('cmsService').registerCmsElement({
         products: {
             source: 'static',
             value: [],
-            required: true,
             entity: {
                 name: 'product',
                 criteria: criteria,
