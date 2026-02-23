@@ -28,11 +28,6 @@ Shopware.Mixin.register('moorl-form', {
             required: true,
             default: {}
         },
-        cmsElement: {
-            type: Object,
-            required: false,
-            default: null
-        },
         pathAppend: {
             type: String,
             required: false,
