@@ -67,8 +67,10 @@
             <name>moorlAnimationZIndex</name>
             <label>Z-Index of animated items</label>
             <label lang="de-DE">Z-Index der animierten Elemente</label>
-            <defaultValue>9000</defaultValue>
-            <placeholder>9000</placeholder>
+            <helpText>The main navigation has a Z-Index of 1000. To prevent the animated element from overlapping it, the value should not be higher than 999.</helpText>
+            <helpText lang="de-DE">Die Hauptnavigation hat einen Z-Index von 1000. Damit das animierte Element nicht darüber liegt, sollte der Wert nicht höher als 999 sein.</helpText>
+            <defaultValue>900</defaultValue>
+            <placeholder>900</placeholder>
         </input-field>
 
         <component name="moorl-animation">
