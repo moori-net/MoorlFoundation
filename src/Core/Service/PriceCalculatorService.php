@@ -134,7 +134,7 @@ class PriceCalculatorService
             return;
         }
 
-        if ($this->shouldSkip($initiator, $product)) {
+        if ($this->shouldSkip($initiator, $product, false, false)) {
             return;
         }
 
@@ -148,7 +148,23 @@ class PriceCalculatorService
             $product->getTaxId()
         );
 
-        $factor = $calculated->getUnitPrice() / $product->getCalculatedPrice()->getUnitPrice();
+        $price = $product->getCalculatedPrice();
+        $cheapest = $product->getCalculatedCheapestPrice();
+
+        // The product have base price 0, but new price is higher
+        if ($price->getUnitPrice() == 0 || $cheapest->getUnitPrice() == 0) {
+            $this->cacheAndAssignMainPrice($initiator, $product, $this->calculateItem(
+                $salesChannelContext,
+                $product,
+                $calculated,
+                1,
+                $showDiscount,
+                $listPriceSource
+            ));
+            return;
+        }
+
+        $factor = $calculated->getUnitPrice() / $price->getUnitPrice();
 
         $this->calculatePriceByFactor(
             $initiator,
@@ -224,9 +240,15 @@ class PriceCalculatorService
         $product->assign(['calculatedPrices' => $calculated]);
     }
 
-    private function shouldSkip(string $initiator, SalesChannelProductEntity $product): bool
+    private function shouldSkip(
+        string $initiator,
+        SalesChannelProductEntity $product,
+        bool $testBreak = true,
+        bool $testZero = true
+    ): bool
     {
         if (
+            $testBreak &&
             $product->has(self::CONFIG_KEY_SHOULD_BREAK) &&
             $product->get(self::CONFIG_KEY_SHOULD_BREAK) !== $initiator
         ) {
@@ -234,9 +256,12 @@ class PriceCalculatorService
         }
 
         $price = $product->getCalculatedPrice();
-        $cheapest = $product->getCalculatedCheapestPrice();
-
-        if ($price->getUnitPrice() == 0 || $cheapest->getUnitPrice() == 0) return true;
+        if ($testZero) {
+            $cheapest = $product->getCalculatedCheapestPrice();
+            if ($price->getUnitPrice() == 0 || $cheapest->getUnitPrice() == 0) {
+                return true;
+            }
+        }
 
         $cached = $this->calculatedPricesCache[$initiator][$product->getId()] ?? null;
         return $cached?->getUnitPrice() === $price->getUnitPrice();
@@ -273,11 +298,15 @@ class PriceCalculatorService
             );
         }
 
-        if ($showDiscount && $factor < 1) {
-            if ($price->getListPrice() && $listPriceSource === self::SOURCE_ORIGIN_LIST_PRICE) {
-                $definition->setListPrice($price->getListPrice()->getPrice());
-            } elseif (!$price->getListPrice() || $listPriceSource === self::SOURCE_ORIGIN_PRICE) {
-                $definition->setListPrice($price->getUnitPrice());
+        if ($showDiscount && $factor <= 1) {
+            $definition->setListPrice($price->getUnitPrice());
+
+            if ($listPriceSource === self::SOURCE_ORIGIN_LIST_PRICE) {
+                if ($price->getListPrice()) {
+                    $definition->setListPrice($price->getListPrice()->getPrice());
+                } elseif ($product->getCalculatedPrice()->getListPrice()) {
+                    $definition->setListPrice($product->getCalculatedPrice()->getListPrice()->getPrice());
+                }
             }
         }
 
