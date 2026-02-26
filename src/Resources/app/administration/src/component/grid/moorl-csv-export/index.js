@@ -105,8 +105,6 @@ Shopware.Component.register('moorl-csv-export', {
             await this.repository
                 .search(criteria, Shopware.Context.api)
                 .then(async (items) => {
-                    //
-
                     this.items = [...this.items, ...items];
                     this.total = items.total;
                     if (this.total > this.items.length) {
@@ -121,18 +119,18 @@ Shopware.Component.register('moorl-csv-export', {
         },
 
         sanitizeItems() {
+            if (this.items.length === 0) {
+                return;
+            }
+
             do {
                 let item = this.items.shift();
 
                 this.exportItems.push(this.sanitizeItem(item));
             } while (this.items.length > 0);
-
-            //
         },
 
         sanitizeItem(item) {
-            //
-
             const exportItem = {};
 
             for (let column of this.columns) {
@@ -144,10 +142,6 @@ Shopware.Component.register('moorl-csv-export', {
                         item[column.property] &&
                         item[column.property].length > 0
                     ) {
-                        /*
-
-                        */
-
                         if (column.entity === 'tag') {
                             exportItem[column.property] = item[column.property]
                                 .map((item) => {
@@ -188,8 +182,6 @@ Shopware.Component.register('moorl-csv-export', {
                 }
             }
 
-            //
-
             return exportItem;
         },
 
@@ -216,6 +208,10 @@ Shopware.Component.register('moorl-csv-export', {
 
             if (this.options.localTable && this.defaultItem) {
                 for (const [field, value] of Object.entries(this.defaultItem)) {
+                    if (field === 'taxId') {
+                        continue;
+                    }
+
                     this.criteria.addFilter(Criteria.equals(field, value));
                 }
             }
@@ -245,8 +241,6 @@ Shopware.Component.register('moorl-csv-export', {
                 columns.push(column);
             }
 
-            //
-
             this.columns = columns;
         },
 
@@ -258,9 +252,6 @@ Shopware.Component.register('moorl-csv-export', {
             await this.getItems();
 
             this.sanitizeItems();
-
-            //
-            //
 
             let csv = Papa.unparse(this.exportItems, {
                 delimiter: ';',
