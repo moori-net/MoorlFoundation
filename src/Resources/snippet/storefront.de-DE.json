@@ -54,6 +54,7 @@
             "dictDefaultMessage": "Drag & Drop zum Upload"
         },
         "search": {
+            "disabled": "Detailsuche deaktiviert",
             "moreButton": "Mehr",
             "noListingSlotFound": "This page do not have a listing element. Check your listing settings and chose \"Automatic items\"",
             "product": "Produkte",

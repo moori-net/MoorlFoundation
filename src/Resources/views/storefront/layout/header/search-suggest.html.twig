@@ -2,15 +2,19 @@
 
 {% block layout_search_suggest_result_total_link %}
     <div class="col">
-        <a
-                href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ page.activeTab ?? 'product' }}"
-                title="{{ 'header.searchAllResults'|trans|striptags }}"
-                aria-label="{{ 'header.searchAllResults'|trans|striptags }}"
-                class="search-suggest-total-link"
-        >
-            {% sw_icon 'arrow-head-right' style { size: 'sm' } %}
-            {{ 'header.searchAllResults'|trans|sw_sanitize }}
-        </a>
+        {% if not page.searchActive and page.activeTab %}
+            <span class="text-muted">{{ "moorl-foundation.search.disabled"|trans }}</span>
+        {% else %}
+            <a
+                    href="{{ path('frontend.search.page') }}?search={{ page.searchTerm }}&tab={{ page.activeTab ?? 'product' }}"
+                    title="{{ 'header.searchAllResults'|trans|striptags }}"
+                    aria-label="{{ 'header.searchAllResults'|trans|striptags }}"
+                    class="search-suggest-total-link"
+            >
+                {% sw_icon 'arrow-head-right' style { size: 'sm' } %}
+                {{ 'header.searchAllResults'|trans|sw_sanitize }}
+            </a>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -38,7 +42,8 @@
                     {% set page = {
                         searchResult: moorlSearchResult,
                         searchTerm: page.searchTerm,
-                        activeTab: moorlSearchResult.criteria.title
+                        activeTab: moorlSearchResult.criteria.title,
+                        searchActive: moorlSearchResult.searchActive
                     } %}
 
                     {% if moorlSearchResult.entity == 'product' %}
@@ -85,7 +90,8 @@
                             {% set page = {
                                 searchResult: moorlSearchResult,
                                 searchTerm: page.searchTerm,
-                                activeTab: moorlSearchResult.criteria.title
+                                activeTab: moorlSearchResult.criteria.title,
+                                searchActive: moorlSearchResult.searchActive
                             } %}
 
                             {% if moorlSearchResult.entity == 'product' %}
