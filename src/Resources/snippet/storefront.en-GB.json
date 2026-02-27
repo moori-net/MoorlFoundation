@@ -54,6 +54,7 @@
             "dictDefaultMessage": "Drag files here to upload"
         },
         "search": {
+            "disabled": "Detailed search disabled",
             "moreButton": "More",
             "noListingSlotFound": "This page do not have a listing element. Check your listing settings and chose \"Automatic items\"",
             "product": "Products",

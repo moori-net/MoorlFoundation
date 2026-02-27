@@ -146,7 +146,9 @@ class EntitySearchService
             $moorlSearchResult->assign([
                 'snippet' => $searchEntity->getSnippet(),
                 'templatePath' => $searchEntity->getTemplatePath(),
-                'elementConfig' => $searchEntity->getElementConfig()
+                'elementConfig' => $searchEntity->getElementConfig(),
+                'searchActive' => $searchEntity->getConfig('searchActive'),
+                'suggestActive' => $searchEntity->getConfig('suggestActive'),
             ]);
 
             $moorlSearchResults[] = $moorlSearchResult;

@@ -256,7 +256,7 @@ class EntityListingExtension implements EntityListingInterface
         return new ProductListingRouteResponse($result);
     }
 
-    private function getConfig(string $key): mixed
+    public function getConfig(string $key): mixed
     {
         $configKey = sprintf("%s.config.%s", $this->getPluginName(), $key);
 
