@@ -8,7 +8,6 @@ import './abstract';
 import './component';
 import './extension';
 import './module';
-import person from "./core/config/fieldsets/person";
 
 MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_client',
@@ -138,6 +137,40 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'moorl-hero-banner', icon: 'regular-search'},
         {name: 'moorl-location', icon: 'regular-map'},
         {name: 'moorl-person', icon: 'regular-user'},
+        {
+            name: 'moorl-toc',
+            icon: 'regular-bars-square',
+            cmsElementMapping: {
+                content: {
+                    tab: 'general',
+                    card: 'general',
+                    type: 'code',
+                    cmsMappingField: true
+                },
+            }
+        },
+        {
+            name: 'moorl-share',
+            icon: 'regular-user',
+            cmsElementMapping: {
+                provider: {
+                    value: [],
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    componentName: 'sw-multi-select',
+                    attributes: {
+                        options: [
+                            { value: 'facebook', label: 'Facebook' },
+                            { value: 'twitter', label: 'Twitter' },
+                            { value: 'x', label: 'X' },
+                            { value: 'pinterest', label: 'Pinterest' },
+                            { value: 'email', label: 'E-Mail' },
+                        ],
+                    },
+                },
+            }
+        },
         {
             name: 'moorl-newsletter',
             icon: 'regular-paper-plane',

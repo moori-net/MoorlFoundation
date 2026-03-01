@@ -67,6 +67,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "provider": "Anbieter",
       "salutationId": "Anrede",
       "optin": "Optin aktivieren",
       "buttonBackground": "Button Hintergrundfarbe",

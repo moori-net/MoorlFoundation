@@ -67,6 +67,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "provider": "Provider",
       "salutationId": "Salutation",
       "optin": "Activate Optin",
       "buttonBackground": "Button background color",
