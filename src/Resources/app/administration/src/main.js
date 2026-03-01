@@ -138,6 +138,107 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'moorl-location', icon: 'regular-map'},
         {name: 'moorl-person', icon: 'regular-user'},
         {
+            name: 'moorl-sidebar-filter',
+            icon: 'regular-filter',
+            component: 'sw-cms-el-sidebar-filter',
+            configComponent: 'sw-cms-el-config-sidebar-filter',
+        },
+        {
+            name: 'moorl-table-registration',
+            icon: 'regular-clock',
+            cmsElementMapping: {
+                content: {
+                    type: 'html',
+                    value: '',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    cmsMappingField: true
+                },
+                privacyActive: {
+                    value: false,
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                },
+                verticalAlign: {
+                    value: 'center',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    componentName: 'moorl-select-field',
+                    attributes: { set: 'flexVerticalAlign' },
+                },
+            }
+        },
+        {
+            name: 'moorl-usp',
+            icon: 'regular-checkmark',
+            component: 'sw-cms-el-moorl-usp',
+            cmsElementMapping: {
+                iconActive: {
+                    value: true,
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                },
+                iconClass: {
+                    value: 'fab|shopware',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    attributes: {
+                        placeholder: 'fab|shopware'
+                    },
+                    conditions: [{ property: 'iconActive', value: true }],
+                    cmsMappingField: true
+                },
+                title: {
+                    value: 'USP',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    cmsMappingField: true
+                },
+                text: {
+                    value: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    cmsMappingField: true
+                },
+                alignment: {
+                    value: 'left',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    componentName: 'moorl-select-field',
+                    attributes: {
+                        set: 'textHorizontalAlign',
+                        filter: ['left', 'center'],
+                    },
+                },
+                iconColor: {
+                    value: '#000000',
+                    tab: 'general',
+                    card: 'general',
+                    type: 'color',
+                },
+                headlineColor: {
+                    value: '#000000',
+                    tab: 'general',
+                    card: 'general',
+                    type: 'color',
+                },
+                subHeadlineColor: {
+                    value: '#000000',
+                    tab: 'general',
+                    card: 'general',
+                    type: 'color',
+                },
+            }
+        },
+        {
             name: 'moorl-toc',
             icon: 'regular-bars-square',
             cmsElementMapping: {

@@ -67,6 +67,15 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "newsletterActive": "Newsletter Checkbox aktivieren",
+      "privacyActive": "Datenschutz Check ist erforderlich",
+      "confirmationText": "Erfolgsnachricht bei Absenden",
+      "iconActive": "Icon aktivieren",
+      "subHeadline": "Sub - Überschrift",
+      "headlineColor": "Überschrift - Farbe",
+      "subHeadlineColor": "Sub Überschrift - Farbe",
+      "alignment": "Ausrichtung",
+      "center": "Zentriert",
       "provider": "Anbieter",
       "salutationId": "Anrede",
       "optin": "Optin aktivieren",
