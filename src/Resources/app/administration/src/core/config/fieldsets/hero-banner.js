@@ -1,0 +1,205 @@
+const heroBanner = {
+    // --- GENERAL ---
+    searchType: {
+        value: 'search',
+        tab: 'general',
+        card: 'general',
+        cols: 12,
+        componentName: 'moorl-select-field',
+        attributes: {
+            customSet: ['search', 'location'],
+            snippetPath: 'moorl-foundation.field',
+        },
+    },
+    categoryId: {
+        value: null,
+        tab: 'general',
+        card: 'general',
+        cols: 12,
+        entity: 'category',
+        conditions: [{ property: 'searchType', value: 'location' }],
+    },
+    height: {
+        value: '',
+        tab: 'general',
+        card: 'general',
+        cols: 12,
+    },
+    mediaActive: {
+        value: false,
+        tab: 'general',
+        card: 'general',
+        cols: 6,
+    },
+    captionActive: {
+        value: true,
+        tab: 'general',
+        card: 'general',
+        cols: 6,
+    },
+
+    // --- MEDIA (Tab nur wenn mediaActive) ---
+    media: {
+        value: null,
+        tab: 'media',
+        card: 'media',
+        cols: 12,
+        entity: 'media',
+        conditions: [{ property: 'mediaActive', value: true }],
+    },
+    backgroundVerticalAlign: {
+        value: 'center',
+        tab: 'media',
+        card: 'media',
+        cols: 6,
+        componentName: 'moorl-select-field',
+        attributes: { set: 'textVerticalAlign' },
+        conditions: [{ property: 'mediaActive', value: true }],
+    },
+    backgroundHorizontalAlign: {
+        value: 'center',
+        tab: 'media',
+        card: 'media',
+        cols: 6,
+        componentName: 'moorl-select-field',
+        attributes: { set: 'textHorizontalAlign' },
+        conditions: [{ property: 'mediaActive', value: true }],
+    },
+    backgroundFixed: {
+        value: false,
+        tab: 'media',
+        card: 'media',
+        cols: 6,
+        conditions: [{ property: 'mediaActive', value: true }],
+    },
+    backgroundDisplayMode: {
+        value: 'cover',
+        tab: 'media',
+        card: 'media',
+        cols: 6,
+        componentName: 'moorl-select-field',
+        attributes: { set: 'displayMode' },
+        conditions: [{ property: 'mediaActive', value: true }],
+    },
+    backgroundSizeX: {
+        value: '',
+        tab: 'media',
+        card: 'media',
+        cols: 6,
+        conditions: [
+            { property: 'mediaActive', value: true },
+            { property: 'backgroundDisplayMode', value: 'custom' },
+        ],
+    },
+    backgroundSizeY: {
+        value: '',
+        tab: 'media',
+        card: 'media',
+        cols: 6,
+        conditions: [
+            { property: 'mediaActive', value: true },
+            { property: 'backgroundDisplayMode', value: 'custom' },
+        ],
+    },
+
+    // --- POSITION ---
+    boxVerticalAlign: {
+        value: 'center',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+        componentName: 'moorl-select-field',
+        attributes: { set: 'flexVerticalAlign' },
+    },
+    boxHorizontalAlign: {
+        value: 'center',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+        componentName: 'moorl-select-field',
+        attributes: { set: 'flexHorizontalAlign' },
+    },
+    boxWidth: {
+        value: 'auto',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+    },
+    boxHeight: {
+        value: 'auto',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+    },
+    boxMargin: {
+        value: '',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+    },
+    boxPadding: {
+        value: '',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+    },
+    boxTextAlign: {
+        value: 'left',
+        tab: 'position',
+        card: 'box',
+        cols: 6,
+        componentName: 'moorl-select-field',
+        attributes: { set: 'textHorizontalAlign' },
+    },
+    boxColor: {
+        value: '#000000',
+        tab: 'position',
+        card: 'box-style',
+        cols: 6,
+        type: 'color',
+    },
+    boxBackground: {
+        value: '#ffffff',
+        tab: 'position',
+        card: 'box-style',
+        cols: 6,
+        type: 'color',
+    },
+    boxBorderRadius: {
+        value: '',
+        tab: 'position',
+        card: 'box-style',
+        cols: 6,
+    },
+    boxMaxWidth: {
+        value: false,
+        tab: 'position',
+        card: 'box-style',
+        cols: 6,
+    },
+
+    // --- CONTENT (Tab nur wenn captionActive) ---
+    title: {
+        value: '',
+        tab: 'content',
+        card: 'content',
+        cols: 12,
+        conditions: [{ property: 'captionActive', value: true }],
+    },
+    content: {
+        value: '',
+        tab: 'content',
+        card: 'content',
+        cols: 12,
+        conditions: [{ property: 'captionActive', value: true }],
+    },
+    textShadowActive: {
+        value: false,
+        tab: 'content',
+        card: 'content',
+        cols: 12,
+        conditions: [{ property: 'captionActive', value: true }],
+    },
+};
+
+export default heroBanner;

@@ -1,10 +1,38 @@
 {
   "moorl-accordion": {
     "name": "Accordion",
-    "description": "Displays accordion elements"
+    "description": "Displays accordion element"
   },
   "moorl-address": {
     "name": "Address",
-    "description": "Displays addresses elements"
+    "description": "Displays address element"
+  },
+  "moorl-contact": {
+    "name": "Contact",
+    "description": "Displays contact element"
+  },
+  "moorl-download-list": {
+    "name": "Download list",
+    "description": "Displays download list element"
+  },
+  "moorl-hero-banner": {
+    "name": "Hero banner",
+    "description": "Displays hero banner element"
+  },
+  "moorl-location": {
+    "name": "Location",
+    "description": "Displays location element"
+  },
+  "moorl-html-tag": {
+    "name": "HTML tag",
+    "description": "Displays HTML tag element"
+  },
+  "moorl-newsletter": {
+    "name": "Newsletter",
+    "description": "Displays newsletter element"
+  },
+  "moorl-person": {
+    "name": "Person",
+    "description": "Displays person element"
   }
 }
