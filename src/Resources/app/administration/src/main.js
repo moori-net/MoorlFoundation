@@ -128,3 +128,9 @@ MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath:
 MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.country.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'mail_template', listPath: 'sw.mail.template.index'});
+MoorlFoundation.ModuleHelper.registerModule({
+    cmsElements: [
+        {name: 'moorl-accordion', icon: 'regular-bars-square'},
+        {name: 'moorl-address', icon: 'regular-home'},
+    ]
+});

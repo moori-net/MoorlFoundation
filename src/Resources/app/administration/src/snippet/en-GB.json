@@ -67,6 +67,8 @@
       "visibility": "Visibility"
     },
     "field": {
+      "entries": "Entries",
+      "autoClose": "Automatically close elements",
       "productManufacturer": "Product manufacturer",
       "answer": "Answer",
       "errorMessage": "Error message",

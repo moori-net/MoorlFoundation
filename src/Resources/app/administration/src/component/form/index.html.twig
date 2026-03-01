@@ -34,19 +34,17 @@
                         v-for="card in tab.cards"
                         :key="card.id"
                     >
-                        <template v-if="card.standalone">
-                            <template
-                                v-for="field in card.fields"
-                                :key="field.name"
-                            >
-                                <component
-                                    v-if="isVisible(field)"
-                                    :is="field.componentName"
-                                    v-bind="field.attributes"
-                                    :style="getStyle(field)"
-                                />
-                            </template>
-                        </template>
+                        <moorl-form-fields
+                                v-if="card.standalone || !grid"
+                                :item="item"
+                                :fields="card.fields"
+                                :field-models="fieldModels"
+                                :is-visible-component="isVisibleComponent"
+                                :get-style="getStyle"
+                                :field-attributes="fieldAttributes"
+                                :get-error="getError"
+                        />
+
                         <mt-card
                             v-else
                             :title="card.label"
@@ -58,34 +56,16 @@
                             >
                                 {{ translationHelper.getNotification(card.id) }}
                             </mt-banner>
-                            <template
-                                v-for="field in card.fields"
-                                :key="field.name"
-                            >
-                                <div
-                                    v-if="field.newline"
-                                    class="newline"
-                                ></div>
-                                <div
-                                        v-if="isVisibleComponent(field)"
-                                        :style="getStyle(field)"
-                                >
-                                    <component
-                                        v-if="field.model === undefined"
-                                        :is="field.componentName"
-                                        v-model="fieldModels[field.path]"
-                                        v-bind="fieldAttributes(field)"
-                                        :error="getError(field)"
-                                    />
-                                    <component
-                                        v-else
-                                        :is="field.componentName"
-                                        v-model:[field.model]="fieldModels[field.path]"
-                                        v-bind="fieldAttributes(field)"
-                                        :error="getError(field)"
-                                    />
-                                </div>
-                            </template>
+
+                            <moorl-form-fields
+                                    :fields="card.fields"
+                                    :item="item"
+                                    :field-models="fieldModels"
+                                    :is-visible-component="isVisibleComponent"
+                                    :get-style="getStyle"
+                                    :field-attributes="fieldAttributes"
+                                    :get-error="getError"
+                            />
                         </mt-card>
                     </template>
                 </template>

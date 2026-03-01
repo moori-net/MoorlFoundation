@@ -1,6 +1,6 @@
 {
     "moorl-select": {
-        "label": {
+        "field": {
             "svgShape": "SVG Type",
             "iconType": "Icon Type",
             "domElementState": "Element Status",

@@ -1,0 +1,69 @@
+{% block moorl_list_field_detail %}
+    <div class="moorl-list-field">
+        <div
+                v-for="currentConfig, index in value"
+                :ref="'moorl-list-field_' + index"
+                class="moorl-list-field__entry"
+        >
+            <div class="moorl-list-field__header">
+                <mt-button
+                        :block="true"
+                        @click="activeEntry = index"
+                        variant="primary"
+                        :disabled="activeEntry === index"
+                >
+                    <mt-icon name="regular-cog"/>
+                </mt-button>
+
+                <h4>
+                    {{ currentConfig[titleAttribute] }}
+                </h4>
+
+                <mt-button
+                        :block="true"
+                        :disabled="!canMoveUp(index)"
+                        @click="moveUp(index)"
+                >
+                    <mt-icon name="regular-chevron-up-s"/>
+                </mt-button>
+
+                <mt-button
+                        :block="true"
+                        :disabled="!canMoveDown(index)"
+                        @click="moveDown(index)"
+                >
+                    <mt-icon name="regular-chevron-down-s"/>
+                </mt-button>
+
+                <mt-button
+                        :block="true"
+                        @click="deleteEntry(index)"
+                        variant="critical"
+                >
+                    <mt-icon name="regular-trash"/>
+                </mt-button>
+            </div>
+
+            <div
+                    v-if="activeEntry === index"
+                    class="moorl-list-field__content"
+            >
+                <moorl-form
+                        :item="value[index]"
+                        :mapping="mapping"
+                        :grid="false"
+                />
+            </div>
+        </div>
+
+        <div class="moorl-list-field__add">
+            <mt-button
+                    :block="true"
+                    @click="addEntry"
+            >
+                <mt-icon name="regular-plus-s"/>
+                {{ $tc('global.default.add') }}
+            </mt-button>
+        </div>
+    </div>
+{% endblock %}

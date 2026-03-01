@@ -64,7 +64,9 @@ export default class TranslationHelper {
             );
         }
 
-        this.snippetSets.push("moorl-foundation"); // Fallback
+        // Fallback
+        this.snippetSets.push("moorl-foundation");
+        this.snippetSets.push("moorl-select");
     }
 
     _addSnippetSourceByComponentName(parts) {

@@ -45,6 +45,10 @@ export default class MappingHelper {
                 } else {
                     field.type = 'json_object';
                 }
+
+                if (field.mapping) {
+                    field.mapping = this.enrichMapping(field.mapping);
+                }
             }
         }
 

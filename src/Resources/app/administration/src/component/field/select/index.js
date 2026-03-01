@@ -306,7 +306,7 @@ Shopware.Component.register('moorl-select-field', {
                 return undefined;
             }
 
-            return this.$tc(`moorl-select.label.${this.set}`);
+            return this.$tc(`moorl-select.field.${this.set}`);
         },
 
         currentPlaceholder() {
@@ -315,10 +315,10 @@ Shopware.Component.register('moorl-select-field', {
             }
 
             if (this.currentVariant === 'small') {
-                return this.$tc(`moorl-select.label.${this.set}`);
+                return this.$tc(`moorl-select.field.${this.set}`);
             }
 
-            return this.$tc('moorl-select.label.none');
+            return this.$tc('moorl-select.field.none');
         },
 
         options() {
