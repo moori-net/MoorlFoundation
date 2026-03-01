@@ -34,5 +34,13 @@
   "moorl-person": {
     "name": "Person",
     "description": "Displays person element"
+  },
+  "moorl-share": {
+    "name": "Share",
+    "description": "Displays share element"
+  },
+  "moorl-toc": {
+    "name": "Table of contents",
+    "description": "Displays TOC element"
   }
 }
