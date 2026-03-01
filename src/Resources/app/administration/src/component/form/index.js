@@ -1,3 +1,5 @@
+import './fields';
+
 import template from './index.html.twig';
 import './index.scss';
 
@@ -12,7 +14,7 @@ Shopware.Component.register('moorl-form', {
         fieldset: {
             type: [String, Array],
             default: undefined
-        },
+        }
     },
 
     computed: {

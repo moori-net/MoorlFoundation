@@ -96,6 +96,13 @@ const componentConfiguration = [
         }
     },
     {
+        description: 'Component: moorl-select-field',
+        conditions: [
+            isComponent('moorl-select-field')
+        ],
+        apply({ column, attributes }) {}
+    },
+    {
         description: 'Component: moorl-layout-card-v2',
         conditions: [
             isComponent('moorl-layout-card-v2')

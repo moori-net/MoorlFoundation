@@ -3,6 +3,10 @@ import MappingHelper from "./mapping.helper";
 const {mergeWith} = Shopware.Utils.object;
 const {get} = Shopware.Utils;
 
+const customMerge = (objValue, srcValue) => {
+    if (Array.isArray(objValue)) {return srcValue;}
+};
+
 import fieldsets from '../config/fieldsets.config';
 
 export default class CmsElementHelper {
@@ -28,19 +32,27 @@ export default class CmsElementHelper {
 
     static fetchCmsElement(parent, cmsElementMapping) {
         if (fieldsets[parent] !== undefined) {
-            const customMerge = (objValue, srcValue) => {
-                if (Array.isArray(objValue)) {return srcValue;}
-            };
-
             cmsElementMapping = mergeWith({}, fieldsets[parent], cmsElementMapping, customMerge);
+        }
+
+        let component = `moorl-abstract-cms-${parent}`;
+
+        const alias = parent.replace('moorl-', '');
+        if (alias !== parent) {
+            if (fieldsets[alias] !== undefined) {
+                cmsElementMapping = mergeWith({}, fieldsets[alias], cmsElementMapping, customMerge);
+            }
+
+            component = `moorl-abstract-cms-base`;
         }
 
         MappingHelper.enrichMapping(cmsElementMapping);
 
-        const defaultConfig = MappingHelper.getCmsDefaultConfig(cmsElementMapping);
-        const component = `moorl-abstract-cms-${parent}`;
-
-        return {cmsElementMapping, defaultConfig, component};
+        return {
+            cmsElementMapping,
+            component,
+            defaultConfig: MappingHelper.getCmsDefaultConfig(cmsElementMapping),
+        };
     }
 
     static getConfig(name, key) {
@@ -60,10 +72,9 @@ export default class CmsElementHelper {
             }
         }
 
-        const fetched = CmsElementHelper.fetchCmsElement(parent, cmsElementMapping);
-
         plugin = plugin ?? 'MoorlFoundation';
         icon = icon ?? 'regular-view-grid';
+        const fetched = CmsElementHelper.fetchCmsElement(parent ?? name, cmsElementMapping);
 
         this.cmsElementConfigCache[name] = {
             cmsElementEntity,
@@ -78,9 +89,9 @@ export default class CmsElementHelper {
             plugin,
             icon,
             name,
-            label: label ?? `${fetched.component}.name`,
+            label: label ?? `${parent ? fetched.component : name}.name`,
             configComponent: `${fetched.component}-config`,
-            previewComponent: true, // TODO: Remove the hack from core template
+            previewComponent: `moorl-abstract-cms-base-preview`,
             ...fetched
         };
 

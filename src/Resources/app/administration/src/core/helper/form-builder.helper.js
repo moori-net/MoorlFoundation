@@ -180,6 +180,8 @@ export default class FormBuilderHelper {
             this.columns.push(...columns);
 
             return null;
+        } else if (field.type === 'json_list' && column.mapping) {
+
         }
 
         // Early return if column should not be displayed

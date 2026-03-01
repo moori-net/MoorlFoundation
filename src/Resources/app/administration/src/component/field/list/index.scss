@@ -1,0 +1,45 @@
+@import '~scss/variables';
+
+.moorl-list-field {
+    .moorl-list-field__entry {
+        margin-bottom: -2px;
+    }
+
+    .moorl-list-field__header {
+        display: grid;
+        align-items: center;
+        grid-gap: 10px;
+        cursor: pointer;
+        padding: 10px;
+        background: $color-shopware-brand-50;
+        border: 1px solid $color-gray-900;
+        grid-template-columns: 48px 1fr 32px 32px 48px;
+
+        .sw-field,
+        .mt-field,
+        h4 {
+            margin: 0;
+        }
+    }
+
+    .moorl-list-field__content {
+        padding: 10px;
+        border: 1px solid $color-gray-900;
+        border-top: none;
+    }
+
+    .sw-tabs.sw-tabs--small {
+        margin: 0;
+        max-width: none;
+    }
+
+    .moorl-list-field__add .mt-button {
+        border: 1px solid $color-gray-900;
+        border-radius: 0;
+
+        .mt-button__content {
+            display: block;
+            line-height: 60px;
+        }
+    }
+}

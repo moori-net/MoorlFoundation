@@ -1,0 +1,10 @@
+{
+  "moorl-accordion": {
+    "name": "Accordion",
+    "description": "Displays accordion elements"
+  },
+  "moorl-address": {
+    "name": "Address",
+    "description": "Displays addresses elements"
+  }
+}

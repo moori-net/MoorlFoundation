@@ -1,7 +1,6 @@
 import './default';
 import './replacer';
 import './html-tag';
-import './accordion';
 import './hero-banner';
 import './usp';
 import './newsletter';
@@ -12,6 +11,5 @@ import './share';
 import './toc';
 import './location';
 import './opening-hours';
-import './address';
 import './contact';
 import './person';

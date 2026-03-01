@@ -17,6 +17,17 @@ Shopware.Mixin.register('moorl-abstract-cms-element', {
         },
     },
 
+    watch: {
+        'elementType': {
+            immediate: false,
+            handler(newType, oldType) {
+                if (newType === oldType) return;
+                this.isLoading = true;
+                this.initCmsConfig();
+            },
+        },
+    },
+
     methods: {
         initBase() {
             const config = MoorlFoundation.CmsElementHelper.getConfig(this.elementType);

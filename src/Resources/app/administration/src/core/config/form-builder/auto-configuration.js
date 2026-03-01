@@ -114,6 +114,19 @@ const autoConfiguration = [
             column.cols ??= 6;
         }
     },
+    {
+        description: ({ property }) => `Add component 'moorl-list-field' (${property})`,
+        conditions: [
+            '!hasComponentName',
+            'isList',
+            ({ column }) => column.mapping !== undefined,
+        ],
+        apply({ column, attributes }) {
+            column.componentName = 'moorl-list-field';
+            attributes.mapping = column.mapping;
+        }
+    },
+
     // mixed conditions - early break
     {
         description: ({ property }) => `Add component 'sw-code-editor' (${property})`,

@@ -1,0 +1,46 @@
+<template v-for="field in fields" :key="field.name">
+    <div v-if="field.newline" class="newline"></div>
+
+    <div v-if="isVisibleComponent(field)" :style="getStyle(field)">
+        <template v-if="field.cmsMappingField">
+            <sw-cms-mapping-field
+                    v-model:config="item[field.path]"
+                    :value-types="field.entity ? 'entity' : 'string'"
+                    :entity="field.entity"
+                    :label="field.label"
+            >
+                <component
+                        v-if="field.model === undefined"
+                        :is="field.componentName"
+                        v-model="fieldModels[field.path]"
+                        v-bind="fieldAttributes(field)"
+                        :error="getError(field)"
+                />
+                <component
+                        v-else
+                        :is="field.componentName"
+                        v-model:[field.model]="fieldModels[field.path]"
+                        v-bind="fieldAttributes(field)"
+                        :error="getError(field)"
+                />
+            </sw-cms-mapping-field>
+        </template>
+
+        <template v-else>
+            <component
+                    v-if="field.model === undefined"
+                    :is="field.componentName"
+                    v-model="fieldModels[field.path]"
+                    v-bind="fieldAttributes(field)"
+                    :error="getError(field)"
+            />
+            <component
+                    v-else
+                    :is="field.componentName"
+                    v-model:[field.model]="fieldModels[field.path]"
+                    v-bind="fieldAttributes(field)"
+                    :error="getError(field)"
+            />
+        </template>
+    </div>
+</template>

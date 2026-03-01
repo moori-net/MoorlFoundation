@@ -1,0 +1,12 @@
+<div class="moorl-abstract-cms-base-config">
+    <moorl-form
+        v-if="!isLoading"
+        :cmsElement="element"
+        :item="element.config"
+        :componentName="element.type"
+        :entity="currentEntity.name"
+        :mapping="cmsElementMapping"
+        :hideDisabledFields="true"
+        pathAppend="value"
+    />
+</div>

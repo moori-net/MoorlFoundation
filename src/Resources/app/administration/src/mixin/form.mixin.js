@@ -38,10 +38,20 @@ Shopware.Mixin.register('moorl-form', {
             required: false,
             default: undefined
         },
+        grid: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
         hideDisabledFields: {
             type: Boolean,
             required: false,
             default: false
+        },
+        cmsElement: {
+            type: Object,
+            required: false,
+            default: undefined
         }
     },
 
@@ -209,7 +219,8 @@ Shopware.Mixin.register('moorl-form', {
         fieldAttributes(field) {
             return {
                 ...field.attributes,
-                disabled: this.isDisabled(field)
+                disabled: this.isDisabled(field),
+                label: field.cmsMappingField ? undefined : field.label,
             };
         },
 
