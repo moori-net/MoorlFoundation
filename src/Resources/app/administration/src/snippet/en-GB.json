@@ -67,6 +67,15 @@
       "visibility": "Visibility"
     },
     "field": {
+      "newsletterActive": "Activate Newsletter Checkbox",
+      "privacyActive": "Activate Privacy Checkbox",
+      "confirmationText": "Confirmation Text",
+      "iconActive": "Activate Icon",
+      "subHeadline": "Sub - Headline",
+      "headlineColor": "Headline - Color",
+      "subHeadlineColor": "Sub Headline - Color",
+      "alignment": "Alignment",
+      "center": "Center",
       "provider": "Provider",
       "salutationId": "Salutation",
       "optin": "Activate Optin",

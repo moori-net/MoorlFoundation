@@ -63,7 +63,17 @@ export default class CmsElementHelper {
         return config;
     }
 
-    static registerCmsElement({icon, plugin, name, label, parent, cmsElementEntity, cmsElementMapping = {}}) {
+    static registerCmsElement({
+                                  icon,
+                                  plugin,
+                                  name,
+                                  label,
+                                  component,
+                                  configComponent,
+                                  parent,
+                                  cmsElementEntity,
+                                  cmsElementMapping = {}
+    }) {
         if (cmsElementEntity !== undefined) {
             cmsElementEntity.criteria = MappingHelper.getEntityCriteria(cmsElementEntity);
 
@@ -94,6 +104,14 @@ export default class CmsElementHelper {
             previewComponent: `moorl-abstract-cms-base-preview`,
             ...fetched
         };
+
+        if (component !== undefined) {
+            cmsElementConfig.component = component;
+        }
+
+        if (configComponent !== undefined) {
+            cmsElementConfig.configComponent = configComponent;
+        }
 
         Shopware.Application.getContainer('service').cmsService.registerCmsElement(cmsElementConfig);
     }

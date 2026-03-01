@@ -42,5 +42,17 @@
   "moorl-toc": {
     "name": "Table of contents",
     "description": "Displays TOC element"
+  },
+  "moorl-usp": {
+    "name": "USP",
+    "description": "Displays USP element"
+  },
+  "moorl-table-registration": {
+    "name": "Table registration",
+    "description": "Displays table registration element"
+  },
+  "moorl-sidebar-filter": {
+    "name": "Sidebar filter",
+    "description": "Displays table sidebar filter element"
   }
 }
