@@ -8,6 +8,7 @@ import './abstract';
 import './component';
 import './extension';
 import './module';
+import person from "./core/config/fieldsets/person";
 
 MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_client',
@@ -132,5 +133,84 @@ MoorlFoundation.ModuleHelper.registerModule({
     cmsElements: [
         {name: 'moorl-accordion', icon: 'regular-bars-square'},
         {name: 'moorl-address', icon: 'regular-home'},
+        {name: 'moorl-contact', icon: 'regular-paper-plane'},
+        {name: 'moorl-download-list', icon: 'regular-cloud-download'},
+        {name: 'moorl-hero-banner', icon: 'regular-search'},
+        {name: 'moorl-location', icon: 'regular-map'},
+        {name: 'moorl-person', icon: 'regular-user'},
+        {
+            name: 'moorl-newsletter',
+            icon: 'regular-paper-plane',
+            cmsElementMapping: {
+                optin: {
+                    value: false,
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                },
+                buttonBackground: {
+                    value: '#000000',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 4,
+                    type: 'color',
+                },
+                buttonTextColor: {
+                    value: '#ffffff',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 4,
+                    type: 'color',
+                },
+                privacyColor: {
+                    value: '#666666',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 4,
+                    type: 'color',
+                },
+                placeholder: {
+                    value: '',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                },
+                buttonText: {
+                    value: '',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                },
+            }
+        },
+        {
+            name: 'moorl-html-tag',
+            icon: 'regular-code',
+            cmsElementMapping: {
+                content: {
+                    value: '',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                    cmsMappingField: true
+                },
+                tag: {
+                    value: 'h1',
+                    tab: 'general',
+                    card: 'general',
+                },
+                cssClass: {
+                    value: 'h1 text-center',
+                    tab: 'general',
+                    card: 'general',
+                },
+                style: {
+                    value: '',
+                    tab: 'general',
+                    card: 'general',
+                    cols: 12,
+                },
+            }
+        },
     ]
 });
