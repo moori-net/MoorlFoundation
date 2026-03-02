@@ -94,9 +94,12 @@ export default class FormBuilderHelper {
             return;
         }
 
-        this.mapping = cloneDeep(this.masterMapping);
-
-        merge(this.mapping, mapping);
+        if (this.masterMapping) {
+            this.mapping = cloneDeep(this.masterMapping);
+            merge(this.mapping, mapping);
+        } else {
+            this.mapping = cloneDeep(mapping);
+        }
 
         let currentOrder = 0;
         for (const [key, config] of Object.entries(this.mapping)) {
