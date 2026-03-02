@@ -14,6 +14,7 @@ import toc from './fieldsets/toc';
 import share from './fieldsets/share';
 import newsletter from './fieldsets/newsletter';
 import htmlTag from './fieldsets/html-tag';
+import openingHours from './fieldsets/opening-hours';
 
 const fieldsetsConfig = {
     listing,
@@ -26,6 +27,7 @@ const fieldsetsConfig = {
     'hero-banner': heroBanner,
     'table-registration': tableRegistration,
     'html-tag': htmlTag,
+    'opening-hours': openingHours,
     location,
     person,
     usp,

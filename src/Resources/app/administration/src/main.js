@@ -135,6 +135,7 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'moorl-share', icon: 'regular-user'},
         {name: 'moorl-newsletter', icon: 'regular-paper-plane'},
         {name: 'moorl-html-tag', icon: 'regular-code'},
+        {name: 'moorl-opening-hours', icon: 'regular-clock'},
         {
             name: 'moorl-sidebar-filter',
             icon: 'regular-filter',
