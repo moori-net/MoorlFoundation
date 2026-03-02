@@ -1,6 +1,5 @@
 import './component';
 import './config';
-import './preview';
 
 const { Criteria } = Shopware.Data;
 const criteria = new Criteria();
@@ -13,7 +12,7 @@ Shopware.Service('cmsService').registerCmsElement({
     name: 'moorl-product-buy-list',
     label: 'sw-cms.elements.moorl-product-buy-list.name',
     component: 'sw-cms-el-moorl-product-buy-list',
-    previewComponent: 'sw-cms-el-preview-moorl-product-buy-list',
+    previewComponent: true,
     configComponent: 'sw-cms-el-config-moorl-product-buy-list',
     defaultConfig: {
         layout: {
