@@ -1,6 +1,7 @@
 {
     "moorl-select": {
         "field": {
+            "timeZone": "Zeitzone",
             "svgShape": "SVG Typ",
             "iconType": "Icon Typ",
             "domElementState": "Element Status",

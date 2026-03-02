@@ -53,6 +53,10 @@
   },
   "moorl-sidebar-filter": {
     "name": "Sidebar filter",
-    "description": "Displays table sidebar filter element"
+    "description": "Displays sidebar filter element"
+  },
+  "moorl-opening-hours": {
+    "name": "Opening hours",
+    "description": "Displays opening hours element"
   }
 }
