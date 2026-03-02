@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "layout": "Layout",
       "tax": "Umsatzsteuer",
       "action": "Aktionen",
       "payment": "Payment details",

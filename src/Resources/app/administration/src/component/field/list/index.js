@@ -30,7 +30,7 @@ Shopware.Component.register('moorl-list-field', {
 
     data() {
         return {
-            activeEntry: 0
+            activeEntry: -1
         };
     },
 
@@ -111,6 +111,14 @@ Shopware.Component.register('moorl-list-field', {
             }
 
             this.$emit('update:value', next);
+        },
+
+        openEntry(index) {
+            if (this.activeEntry === index) {
+                this.activeEntry = -1;
+            } else {
+                this.activeEntry = index;
+            }
         },
 
         canMoveUp(index) {

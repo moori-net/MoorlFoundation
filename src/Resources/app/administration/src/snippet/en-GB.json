@@ -21,6 +21,7 @@
       "update": "Update"
     },
     "card": {
+      "layout": "Layout",
       "tax": "Tax",
       "action": "Actions",
       "payment": "Payment details",

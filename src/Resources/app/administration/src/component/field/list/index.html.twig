@@ -8,9 +8,8 @@
             <div class="moorl-list-field__header">
                 <mt-button
                         :block="true"
-                        @click="activeEntry = index"
+                        @click="openEntry(index)"
                         variant="primary"
-                        :disabled="activeEntry === index"
                 >
                     <mt-icon name="regular-cog"/>
                 </mt-button>
