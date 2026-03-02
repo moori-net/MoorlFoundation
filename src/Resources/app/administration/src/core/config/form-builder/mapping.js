@@ -261,8 +261,26 @@ const mapping = {
     creditorId: {tab: 'general', card: 'company'},
 
     // Location
-    locationLat: {tab: 'address', card: 'location'},
-    locationLon: {tab: 'address', card: 'location'},
+    locationLat: {
+        tab: 'address',
+        card: 'location',
+        type: 'number',
+        attributes: {
+            numberType: 'float',
+            step: 0.00001,
+            digits: 5,
+        },
+    },
+    locationLon: {
+        tab: 'address',
+        card: 'location',
+        type: 'number',
+        attributes: {
+            numberType: 'float',
+            step: 0.00001,
+            digits: 5,
+        },
+    },
     autoLocation: {tab: 'address', card: 'location'},
     marker: {tab: 'address', card: 'location'},
 
