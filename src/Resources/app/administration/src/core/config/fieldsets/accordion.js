@@ -1,22 +1,8 @@
 const accordion = {
     name: {
         tab: 'general',
-        card: 'general',
+        card: 'content',
         cols: 12,
-    },
-    verticalAlign: {
-        value: 'start',
-        tab: 'general',
-        card: 'general',
-        componentName: 'moorl-select-field',
-        attributes: {
-            set: 'flexVerticalAlign'
-        }
-    },
-    autoClose: {
-        value: false,
-        tab: 'general',
-        card: 'general',
     },
     entries: {
         value: [],
@@ -35,6 +21,20 @@ const accordion = {
             }
         }
     },
+    verticalAlign: {
+        value: 'start',
+        tab: 'general',
+        card: 'layout',
+        componentName: 'moorl-select-field',
+        attributes: {
+            set: 'flexVerticalAlign'
+        }
+    },
+    autoClose: {
+        value: false,
+        tab: 'general',
+        card: 'layout',
+    }
 };
 
 export default accordion;

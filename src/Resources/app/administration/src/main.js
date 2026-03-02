@@ -120,14 +120,6 @@ MoorlFoundation.ModuleHelper.registerModule({
     ]
 });
 
-MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.order.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.country.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'mail_template', listPath: 'sw.mail.template.index'});
 MoorlFoundation.ModuleHelper.registerModule({
     cmsElements: [
         {name: 'moorl-accordion', icon: 'regular-bars-square'},
@@ -137,214 +129,27 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'moorl-hero-banner', icon: 'regular-search'},
         {name: 'moorl-location', icon: 'regular-map'},
         {name: 'moorl-person', icon: 'regular-user'},
+        {name: 'moorl-table-registration', icon: 'regular-clock'},
+        {name: 'moorl-usp', icon: 'regular-checkmark', component: 'sw-cms-el-moorl-usp'},
+        {name: 'moorl-toc', icon: 'regular-bars-square'},
+        {name: 'moorl-share', icon: 'regular-user'},
+        {name: 'moorl-newsletter', icon: 'regular-paper-plane'},
+        {name: 'moorl-html-tag', icon: 'regular-code'},
         {
             name: 'moorl-sidebar-filter',
             icon: 'regular-filter',
             component: 'sw-cms-el-sidebar-filter',
             configComponent: 'sw-cms-el-config-sidebar-filter',
         },
-        {
-            name: 'moorl-table-registration',
-            icon: 'regular-clock',
-            cmsElementMapping: {
-                content: {
-                    type: 'html',
-                    value: '',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    cmsMappingField: true
-                },
-                privacyActive: {
-                    value: false,
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                },
-                verticalAlign: {
-                    value: 'center',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    componentName: 'moorl-select-field',
-                    attributes: { set: 'flexVerticalAlign' },
-                },
-            }
-        },
-        {
-            name: 'moorl-usp',
-            icon: 'regular-checkmark',
-            component: 'sw-cms-el-moorl-usp',
-            cmsElementMapping: {
-                iconActive: {
-                    value: true,
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                },
-                iconClass: {
-                    value: 'fab|shopware',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    attributes: {
-                        placeholder: 'fab|shopware'
-                    },
-                    conditions: [{ property: 'iconActive', value: true }],
-                    cmsMappingField: true
-                },
-                title: {
-                    value: 'USP',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    cmsMappingField: true
-                },
-                text: {
-                    value: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    cmsMappingField: true
-                },
-                alignment: {
-                    value: 'left',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    componentName: 'moorl-select-field',
-                    attributes: {
-                        set: 'textHorizontalAlign',
-                        filter: ['left', 'center'],
-                    },
-                },
-                iconColor: {
-                    value: '#000000',
-                    tab: 'general',
-                    card: 'general',
-                    type: 'color',
-                },
-                headlineColor: {
-                    value: '#000000',
-                    tab: 'general',
-                    card: 'general',
-                    type: 'color',
-                },
-                subHeadlineColor: {
-                    value: '#000000',
-                    tab: 'general',
-                    card: 'general',
-                    type: 'color',
-                },
-            }
-        },
-        {
-            name: 'moorl-toc',
-            icon: 'regular-bars-square',
-            cmsElementMapping: {
-                content: {
-                    tab: 'general',
-                    card: 'general',
-                    type: 'code',
-                    cmsMappingField: true
-                },
-            }
-        },
-        {
-            name: 'moorl-share',
-            icon: 'regular-user',
-            cmsElementMapping: {
-                provider: {
-                    value: [],
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    componentName: 'sw-multi-select',
-                    attributes: {
-                        options: [
-                            { value: 'facebook', label: 'Facebook' },
-                            { value: 'twitter', label: 'Twitter' },
-                            { value: 'x', label: 'X' },
-                            { value: 'pinterest', label: 'Pinterest' },
-                            { value: 'email', label: 'E-Mail' },
-                        ],
-                    },
-                },
-            }
-        },
-        {
-            name: 'moorl-newsletter',
-            icon: 'regular-paper-plane',
-            cmsElementMapping: {
-                optin: {
-                    value: false,
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                },
-                buttonBackground: {
-                    value: '#000000',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 4,
-                    type: 'color',
-                },
-                buttonTextColor: {
-                    value: '#ffffff',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 4,
-                    type: 'color',
-                },
-                privacyColor: {
-                    value: '#666666',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 4,
-                    type: 'color',
-                },
-                placeholder: {
-                    value: '',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                },
-                buttonText: {
-                    value: '',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                },
-            }
-        },
-        {
-            name: 'moorl-html-tag',
-            icon: 'regular-code',
-            cmsElementMapping: {
-                content: {
-                    value: '',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                    cmsMappingField: true
-                },
-                tag: {
-                    value: 'h1',
-                    tab: 'general',
-                    card: 'general',
-                },
-                cssClass: {
-                    value: 'h1 text-center',
-                    tab: 'general',
-                    card: 'general',
-                },
-                style: {
-                    value: '',
-                    tab: 'general',
-                    card: 'general',
-                    cols: 12,
-                },
-            }
-        },
     ]
 });
+
+
+MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.order.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.country.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'mail_template', listPath: 'sw.mail.template.index'});
