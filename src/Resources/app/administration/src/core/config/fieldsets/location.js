@@ -9,6 +9,7 @@ const location = {
             step: 0.00001,
             digits: 5,
         },
+        cmsMappingField: true
     },
     locationLon: {
         value: null,
@@ -20,6 +21,7 @@ const location = {
             step: 0.00001,
             digits: 5,
         },
+        cmsMappingField: true
     },
     markerId: {
         value: null,
@@ -27,6 +29,7 @@ const location = {
         card: 'general',
         cols: 12,
         entity: 'moorl_marker',
+        cmsMappingField: true
     },
     height: {
         value: '300px',
