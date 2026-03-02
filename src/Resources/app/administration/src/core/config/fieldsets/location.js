@@ -1,27 +1,11 @@
 const location = {
     locationLat: {
-        value: null,
-        tab: 'general',
-        card: 'general',
+        cmsMappingField: true,
         type: 'number',
-        attributes: {
-            numberType: 'float',
-            step: 0.00001,
-            digits: 5,
-        },
-        cmsMappingField: true
     },
     locationLon: {
-        value: null,
-        tab: 'general',
-        card: 'general',
+        cmsMappingField: true,
         type: 'number',
-        attributes: {
-            numberType: 'float',
-            step: 0.00001,
-            digits: 5,
-        },
-        cmsMappingField: true
     },
     markerId: {
         value: null,
