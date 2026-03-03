@@ -99,7 +99,7 @@ export default class CmsElementHelper {
             plugin,
             icon,
             name,
-            label: label ?? `${parent ? fetched.component : name}.name`,
+            label: label ?? (parent ? `${fetched.component}.name` : `sw-cms.elements.${name}.name`),
             configComponent: `${fetched.component}-config`,
             previewComponent: `moorl-abstract-cms-base-preview`,
             ...fetched
