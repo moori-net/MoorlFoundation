@@ -15,6 +15,7 @@ import share from './fieldsets/share';
 import newsletter from './fieldsets/newsletter';
 import htmlTag from './fieldsets/html-tag';
 import openingHours from './fieldsets/opening-hours';
+import embeddedMedia from './fieldsets/embedded-media';
 
 const fieldsetsConfig = {
     listing,
@@ -28,6 +29,7 @@ const fieldsetsConfig = {
     'table-registration': tableRegistration,
     'html-tag': htmlTag,
     'opening-hours': openingHours,
+    'embedded-media': embeddedMedia,
     location,
     person,
     usp,

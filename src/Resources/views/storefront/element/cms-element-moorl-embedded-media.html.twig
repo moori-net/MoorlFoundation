@@ -1,0 +1,8 @@
+{% block element_moorl_embedded_media %}
+    <div class="cms-element-{{ element.type }}">
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/embedded-media/index.html.twig' with {
+            embeddedMedia: element.data.embeddedMedia,
+            minHeight: element.config.minHeight.value
+        } %}
+    </div>
+{% endblock %}
