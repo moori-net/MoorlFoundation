@@ -2,44 +2,61 @@
     <div v-if="field.newline" class="newline"></div>
 
     <div v-if="isVisibleComponent(field)" :style="getStyle(field)">
-        <template v-if="field.cmsMappingField">
+        <template v-if="cmsElement && hasSwCmsInheritWrapperComponent && field.cmsMappingField">
+            <sw-cms-inherit-wrapper
+                    :field="field.path"
+                    :element="cmsElement"
+                    :label="fieldWrapperLabel(field)"
+            >
+                <template #default="{ isInherited }">
+                    <sw-cms-mapping-field
+                            v-model:config="item[field.path]"
+                            :value-types="field.entity ? 'entity' : 'string'"
+                            :entity="field.entity"
+                            :disabled="isInherited"
+                    >
+                        <component
+                                :is="field.componentName"
+                                v-bind="componentProps(field, isInherited)"
+                        />
+                    </sw-cms-mapping-field>
+                </template>
+            </sw-cms-inherit-wrapper>
+        </template>
+
+        <template v-else-if="cmsElement && hasSwCmsInheritWrapperComponent">
+            <sw-cms-inherit-wrapper
+                    :field="field.path"
+                    :element="cmsElement"
+                    :label="fieldWrapperLabel(field)"
+            >
+                <template #default="{ isInherited }">
+                    <component
+                            :is="field.componentName"
+                            v-bind="componentProps(field, isInherited)"
+                    />
+                </template>
+            </sw-cms-inherit-wrapper>
+        </template>
+
+        <template v-else-if="cmsElement && field.cmsMappingField">
             <sw-cms-mapping-field
                     v-model:config="item[field.path]"
                     :value-types="field.entity ? 'entity' : 'string'"
                     :entity="field.entity"
-                    :label="field.label"
+                    :label="fieldWrapperLabel(field)"
             >
                 <component
-                        v-if="field.model === undefined"
                         :is="field.componentName"
-                        v-model="fieldModels[field.path]"
-                        v-bind="fieldAttributes(field)"
-                        :error="getError(field)"
-                />
-                <component
-                        v-else
-                        :is="field.componentName"
-                        v-model:[field.model]="fieldModels[field.path]"
-                        v-bind="fieldAttributes(field)"
-                        :error="getError(field)"
+                        v-bind="componentProps(field, false)"
                 />
             </sw-cms-mapping-field>
         </template>
 
         <template v-else>
             <component
-                    v-if="field.model === undefined"
                     :is="field.componentName"
-                    v-model="fieldModels[field.path]"
-                    v-bind="fieldAttributes(field)"
-                    :error="getError(field)"
-            />
-            <component
-                    v-else
-                    :is="field.componentName"
-                    v-model:[field.model]="fieldModels[field.path]"
-                    v-bind="fieldAttributes(field)"
-                    :error="getError(field)"
+                    v-bind="componentProps(field, false)"
             />
         </template>
     </div>

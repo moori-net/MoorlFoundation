@@ -26,6 +26,11 @@ Shopware.Component.register('moorl-list-field', {
             required: false,
             default: 'name',
         },
+        disabled: {
+            type: Boolean,
+            required: false,
+            default: false,
+        }
     },
 
     data() {
@@ -123,12 +128,12 @@ Shopware.Component.register('moorl-list-field', {
 
         canMoveUp(index) {
             const len = this.value?.length ?? 0;
-            return len > 1 && index > 0;
+            return !this.disabled && len > 1 && index > 0;
         },
 
         canMoveDown(index) {
             const len = this.value?.length ?? 0;
-            return len > 1 && index < len - 1;
+            return !this.disabled && len > 1 && index < len - 1;
         },
 
         moveEntry(index, direction) {

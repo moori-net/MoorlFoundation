@@ -1,6 +1,7 @@
 <div class="sw-cms-el-config-moorl-cta-banner">
     <moorl-form
         v-if="!isLoading"
+        :cmsElement="element"
         :item="element.config"
         :componentName="element.type"
         :entity="currentEntity.name"

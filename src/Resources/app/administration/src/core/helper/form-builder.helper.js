@@ -94,13 +94,15 @@ export default class FormBuilderHelper {
             return;
         }
 
+        // Default global mapping
+        this.mapping = cloneDeep(mapping);
+
+        // If a mapping is set via component attribute
         if (this.masterMapping) {
-            this.mapping = cloneDeep(this.masterMapping);
-            merge(this.mapping, mapping);
-        } else {
-            this.mapping = cloneDeep(mapping);
+            merge(this.mapping, this.masterMapping);
         }
 
+        // Add order value to mapping entries
         let currentOrder = 0;
         for (const [key, config] of Object.entries(this.mapping)) {
             config.order = currentOrder;
@@ -111,6 +113,7 @@ export default class FormBuilderHelper {
             return;
         }
 
+        // Add mapping from entity
         const customMapping = MoorlFoundation.ModuleHelper.getEntityMapping(this.entity) ?? {};
 
         for (const [key, config] of Object.entries(customMapping)) {
