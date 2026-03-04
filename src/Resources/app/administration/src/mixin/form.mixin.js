@@ -205,6 +205,9 @@ Shopware.Mixin.register('moorl-form', {
         },
 
         itemPropertyExists(prop) {
+            if (this.mapping && !this.mapping.hasOwnProperty(prop)) {
+                return false;
+            }
             if (!this.entity) {
                 return false;
             }
