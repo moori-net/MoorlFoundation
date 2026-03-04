@@ -27,4 +27,11 @@
     .sw-cms-page-form__section {
         padding: 50px 0 70px 0;
     }
+
+    .sw-cms-inherit-wrapper.is--inherited {
+        .mt-switch,
+        .mt-checkbox {
+            margin-top: 0;
+        }
+    }
 }

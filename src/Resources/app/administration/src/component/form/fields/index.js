@@ -1,32 +1,87 @@
 import template from './index.html.twig';
-const {get, set} = Shopware.Utils.object;
 
 Shopware.Component.register('moorl-form-fields', {
     template,
 
     props: {
-        item: { type: Object, required: true },
-        fields: { type: Array, required: true },
-        fieldModels: { type: Object, required: true },
-        isVisibleComponent: { type: Function, required: true },
-        getStyle: { type: Function, required: true },
-        fieldAttributes: { type: Function, required: true },
-        getError: { type: Function, required: true },
+        item: {
+            type: Object,
+            required: true
+        },
+        fields: {
+            type: Array,
+            required: true
+        },
+        fieldModels: {
+            type: Object,
+            required: true
+        },
+        isVisibleComponent: {
+            type: Function,
+            required: true
+        },
+        getStyle: {
+            type: Function,
+            required: true
+        },
+        fieldAttributes: {
+            type: Function,
+            required: true
+        },
+        getError: {
+            type: Function,
+            required: true
+        },
+        cmsElement: {
+            type: Object,
+            required: false,
+            default: undefined
+        }
     },
 
     computed: {
-        configModels() {
-            return new Proxy({}, {
-                get: (_, prop) => {
-                    const path = String(prop);
-                    return get(this.item, path);
-                },
-                set: (_, prop, value) => {
-                    const path = String(prop);
-                    set(this.item, path, value);
-                    return true;
-                }
-            });
+        hasSwCmsInheritWrapperComponent() {
+            return Shopware.Component.getComponentRegistry().has('sw-cms-inherit-wrapper');
+        }
+    },
+
+    methods: {
+        componentProps(field, disabled) {
+            const modelProp = field.model ?? "modelValue";
+            const updateEvent = `onUpdate:${modelProp}`;
+
+            return {
+                ...this.fieldAttributesDynamicLabel(field),
+                error: this.getError(field),
+                disabled: !!disabled,
+                [modelProp]: this.fieldModels[field.path],
+                [updateEvent]: (val) => (this.fieldModels[field.path] = val),
+            };
+        },
+
+        fieldWrapperLabel(field) {
+            if (field.componentName === 'mt-switch' || field.componentName === 'mt-checkbox') {
+                return undefined;
+            }
+
+            return field.label;
+        },
+
+        fieldAttributesDynamicLabel(field) {
+            if (
+                !this.cmsElement ||
+                field.componentName === 'mt-switch' ||
+                field.componentName === 'mt-checkbox' ||
+                (!this.hasSwCmsInheritWrapperComponent && !field.cmsMappingField)
+            ) {
+                return this.fieldAttributes(field);
+            }
+
+            return {
+                ...this.fieldAttributes(field),
+                label: undefined,
+                variant: 'small'
+            };
         },
     }
 });

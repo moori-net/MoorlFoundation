@@ -226,7 +226,7 @@ const ctaBanner = {
         conditions: [{ property: 'btnActive', value: true }]
     },
     btnClass: {
-        value: 'primary',
+        value: 'btn-primary',
         tab: 'content',
         card: 'button',
         cols: 6,

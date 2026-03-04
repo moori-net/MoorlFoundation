@@ -222,8 +222,7 @@ Shopware.Mixin.register('moorl-form', {
         fieldAttributes(field) {
             return {
                 ...field.attributes,
-                disabled: this.isDisabled(field),
-                label: field.cmsMappingField ? undefined : field.label,
+                disabled: this.isDisabled(field)
             };
         },
 
