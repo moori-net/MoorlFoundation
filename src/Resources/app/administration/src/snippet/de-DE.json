@@ -9,6 +9,55 @@
       "moorl_media_video": "[moori] Video sources"
     }
   },
+  "sw-cms": {
+    "elements": {
+      "moorl-accordion": {
+        "name": "Akkordion"
+      },
+      "moorl-address": {
+        "name": "Adresse"
+      },
+      "moorl-contact": {
+        "name": "Kontakt"
+      },
+      "moorl-download-list": {
+        "name": "Download Liste"
+      },
+      "moorl-hero-banner": {
+        "name": "Hero Banner"
+      },
+      "moorl-location": {
+        "name": "Location"
+      },
+      "moorl-html-tag": {
+        "name": "HTML Tag"
+      },
+      "moorl-newsletter": {
+        "name": "Newsletter"
+      },
+      "moorl-person": {
+        "name": "Person"
+      },
+      "moorl-share": {
+        "name": "Teilen"
+      },
+      "moorl-toc": {
+        "name": "Inhaltsverzeichnis"
+      },
+      "moorl-usp": {
+        "name": "USP"
+      },
+      "moorl-table-registration": {
+        "name": "Tischreservierung"
+      },
+      "moorl-sidebar-filter": {
+        "name": "Sidebar Filter"
+      },
+      "moorl-opening-hours": {
+        "name": "Öffnungszeiten"
+      }
+    }
+  },
   "moorl-foundation": {
     "button": {
       "back": "Zurück",
