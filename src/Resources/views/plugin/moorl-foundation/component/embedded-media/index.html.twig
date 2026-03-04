@@ -10,7 +10,11 @@
         embeddedMedia.type,
     ] %}
 
-    <div class="{{ elementClass|join(" ") }}" style="{{ elementStyle|join(";") }}">
+    <div
+            class="{{ elementClass|join(" ") }}"
+            style="{{ elementStyle|join(";") }}"
+            data-type="{{ embeddedMedia.type }}"
+    >
         {% sw_include "@MoorlFoundation/plugin/moorl-foundation/component/embedded-media/type/" ~ embeddedMedia.type ~ ".html.twig" ignore missing with {
             displayMode: displayMode ?? 'cover'
         } %}
