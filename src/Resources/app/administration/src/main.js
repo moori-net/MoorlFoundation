@@ -71,6 +71,7 @@ MoorlFoundation.ModuleHelper.registerModule({
 MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_media',
     name: 'moorl-media',
+    icon: 'regular-expand',
     properties: [
         {name: 'active', visibility: 100},
         {name: 'name', visibility: 100},
@@ -122,6 +123,7 @@ MoorlFoundation.ModuleHelper.registerModule({
 
 MoorlFoundation.ModuleHelper.registerModule({
     cmsElements: [
+        {name: 'moorl-embedded-media', icon: 'regular-expand'},
         {name: 'moorl-accordion', icon: 'regular-bars-square'},
         {name: 'moorl-address', icon: 'regular-home'},
         {name: 'moorl-contact', icon: 'regular-paper-plane'},

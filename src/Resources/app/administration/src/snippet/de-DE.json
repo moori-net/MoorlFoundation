@@ -11,6 +11,9 @@
   },
   "sw-cms": {
     "elements": {
+      "moorl-embedded-media": {
+        "name": "Eingebettete Medien"
+      },
       "moorl-accordion": {
         "name": "Akkordion"
       },
@@ -117,6 +120,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "minHeight": "Mindesthöhe",
       "newsletterActive": "Newsletter Checkbox aktivieren",
       "privacyActive": "Datenschutz Check ist erforderlich",
       "confirmationText": "Erfolgsnachricht bei Absenden",

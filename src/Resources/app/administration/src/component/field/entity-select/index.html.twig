@@ -5,12 +5,16 @@
             v-model:value="currentValue"
         />
         <div class="sw-field">
-            <div class="sw-field__label">&nbsp;</div>
+            <div
+                    v-if="fieldLabel"
+                    class="sw-field__label"
+            >&nbsp;</div>
             <div class="sw-block-field__block">
                 <mt-button
                     variant="secondary"
                     size="default"
                     @click="showEditModal = true"
+                    :disabled="disabled"
                 >
                     {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
                 </mt-button>

@@ -11,6 +11,9 @@
   },
   "sw-cms": {
     "elements": {
+      "moorl-embedded-media": {
+        "name": "Embedded media"
+      },
       "moorl-accordion": {
         "name": "Accordion"
       },
@@ -117,6 +120,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "minHeight": "Minimum height",
       "newsletterActive": "Activate Newsletter Checkbox",
       "privacyActive": "Activate Privacy Checkbox",
       "confirmationText": "Confirmation Text",

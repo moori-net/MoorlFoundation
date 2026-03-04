@@ -46,7 +46,12 @@ Shopware.Component.register('moorl-entity-select-field', {
             type: Boolean,
             required: false,
             default: false,
-        }
+        },
+        variant: {
+            type: String,
+            required: false,
+            default: undefined,
+        },
     },
 
     data() {
@@ -58,6 +63,10 @@ Shopware.Component.register('moorl-entity-select-field', {
 
     computed: {
         fieldLabel() {
+            if (this.variant === 'small') {
+                return undefined;
+            }
+
             return this.label ?? this.$tc(`global.entities.${this.entity}`);
         },
 
