@@ -1,0 +1,14 @@
+# 1.7.71
+- Bugfix: Fixed a configuration error for admin forms with own mapping and a related entity with taxId
+- Bugfix: Fixed an display error for CMS listing elements
+- Patch: Changed names of components with vendor prefix
+- Patch: Share field-mapping between base (for entities) and CMS elements
+- Patch: Share field-mapping between base (for entities) and CMS elements
+- Patch: Renewed CMS elements
+- Patch: Renewed CMS elements
+- Patch: Renewed CMS elements (opening hours)
+- Patch: Renewed CMS elements
+- Patch: Renewed CMS elements (sidebar filter, usp, table registration)
+- Patch: Renewed CMS elements (table of contents, share)
+- Patch: Renewed CMS elements (contact, download list, hero banner, location, person, html tag, newsletter)
+- Patch: Renewed CMS elements (accordion, address)
