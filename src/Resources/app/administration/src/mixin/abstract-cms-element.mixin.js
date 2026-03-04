@@ -90,8 +90,12 @@ Shopware.Mixin.register('moorl-abstract-cms-element', {
             }
         },
 
-        getValue(key) {
-            return this.element.config?.[key]?.value ?? null;
+        getValue(key, defaultValue = null) {
+            const value = this.element.config?.[key]?.value ?? defaultValue;
+            if (defaultValue && value === 'auto') {
+                return defaultValue;
+            }
+            return value;
         },
 
         getData(item) {

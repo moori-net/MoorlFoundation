@@ -18,21 +18,21 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
                 return {
                     ...common,
                     'grid-template-columns': `repeat(auto-fit, minmax(${this.getValue('itemWidth')}, 1fr))`,
-                    'grid-auto-rows': this.getValue('itemHeight'),
+                    'grid-auto-rows': this.getValue('itemHeight', '300px'),
                 };
             }
 
             if (layout === 'list') {
                 return {
                     ...common,
-                    'grid-auto-rows': this.getValue('itemHeight'),
+                    'grid-auto-rows': this.getValue('itemHeight', '300px'),
                 };
             }
 
             if (layout === 'slider') {
                 return {
                     ...common,
-                    height: this.getValue('itemHeight'),
+                    height: this.getValue('itemHeight', '300px'),
                 };
             }
 
