@@ -79,6 +79,7 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'type', visibility: 100}
     ],
     entityMapping: {
+        active: {tab: 'general', card: 'general', order: 'first', newline: true},
         type: {
             tab: 'general',
             card: 'media',

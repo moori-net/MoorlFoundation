@@ -1,11 +1,15 @@
 .moorl-entity-select-field {
     .moorl-entity-select-field__fieldset {
         display: grid;
-        grid-template-columns: 3fr 1fr;
-        gap: 20px;
+        grid-template-columns: 3fr auto;
+        gap: 8px;
 
         .mt-button {
             width: 100%;
         }
+    }
+
+    .sw-block-field .sw-block-field__block {
+        height: 40px;
     }
 }

@@ -349,15 +349,14 @@ const mapping = {
     categoryTree: {hidden: true},
 
     // Media
+    embeddedMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
     cover: {tab: 'general', card: 'media'},
     color: {tab: 'general', card: 'media'},
     bannerColor: {tab: 'general', card: 'media'},
     mediaFolder: {tab: 'general', card: 'media'},
     iconColor: {tab: 'general', card: 'media'},
-    backgroundColor: {tab: 'general', card: 'media'},
     minWidth: {tab: 'general', card: 'media'},
     icon: {tab: 'general', card: 'media'},
-    embeddedMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
     embeddedId: {tab: 'general', card: 'media'},
     embeddedUrl: {
         tab: 'general',
@@ -368,6 +367,7 @@ const mapping = {
             backgroundColor: ({item}) => item.backgroundColor
         }
     },
+    backgroundColor: {tab: 'general', card: 'media', cols: 6},
     videos: {tab: 'general'},
 
     // Comments

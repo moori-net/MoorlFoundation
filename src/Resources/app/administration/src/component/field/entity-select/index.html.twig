@@ -3,24 +3,47 @@
         <sw-entity-single-select
             v-bind="vBind"
             v-model:value="currentValue"
+            variant="small"
         />
         <div class="sw-field">
             <div
                     v-if="fieldLabel"
                     class="sw-field__label"
             >&nbsp;</div>
+
             <div class="sw-block-field__block">
-                <mt-button
-                    variant="secondary"
-                    size="default"
-                    @click="showEditModal = true"
-                    :disabled="disabled"
-                >
-                    {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
-                </mt-button>
+                <sw-button-group :split-button="true">
+                    <mt-button
+                            variant="primary"
+                            size="default"
+                            @click="showEditModal = true"
+                            :disabled="disabled"
+                    >
+                        {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
+                    </mt-button>
+                    <sw-context-button v-if="currentValue && routerLink">
+                        <template #button>
+                            <mt-button
+                                    square
+                                    variant="primary"
+                                    :disabled="disabled"
+                                    size="default"
+                            >
+                                <mt-icon
+                                        name="regular-chevron-down-xs"
+                                        size="16"
+                                />
+                            </mt-button>
+                        </template>
+                        <sw-context-menu-item @click="openNewTab">
+                            {{ $tc('sw-category.base.link.linkNewTabLabel') }}
+                        </sw-context-menu-item>
+                    </sw-context-button>
+                </sw-button-group>
             </div>
         </div>
     </div>
+
     <moorl-modal-detail
         v-if="showEditModal"
         v-model:value="currentValue"
