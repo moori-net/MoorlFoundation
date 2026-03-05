@@ -50,13 +50,18 @@ Shopware.Component.register('moorl-form-fields', {
             const modelProp = field.model ?? "modelValue";
             const updateEvent = `onUpdate:${modelProp}`;
 
-            return {
+            const props = {
                 ...this.fieldAttributesDynamicLabel(field),
                 error: this.getError(field),
-                disabled: !!disabled,
                 [modelProp]: this.fieldModels[field.path],
                 [updateEvent]: (val) => (this.fieldModels[field.path] = val),
             };
+
+            if (disabled) {
+                props.disabled = disabled;
+            }
+
+            return props;
         },
 
         fieldWrapperLabel(field) {

@@ -108,6 +108,10 @@ Shopware.Component.register('moorl-entity-select-field', {
 
             return criteria;
         },
+
+        routerLink() {
+            return MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'detail');
+        }
     },
 
     methods: {
@@ -126,5 +130,10 @@ Shopware.Component.register('moorl-entity-select-field', {
         editItem() {
             this.showEditModal = true;
         },
+
+        openNewTab() {
+            const routeData = this.$router.resolve({ name: this.routerLink, params: { id: this.currentValue } });
+            window.open(routeData.href, '_blank');
+        }
     }
 });
