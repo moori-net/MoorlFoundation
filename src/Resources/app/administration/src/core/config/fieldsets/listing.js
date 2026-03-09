@@ -74,7 +74,8 @@ const listing = {
         card: 'general',
         cols: 6,
         componentName: 'moorl-select-field',
-        attributes: { set: 'itemLayout' }
+        attributes: { set: 'itemLayout' },
+        conditions: [{ property: 'listingLayout', value: 'search-suggest', operator: '!=' }],
     },
     displayMode: {
         value: 'cover',
@@ -83,7 +84,7 @@ const listing = {
         componentName: 'moorl-select-field',
         attributes: { set: 'displayMode' },
         cols: 6,
-        conditions: [{ property: 'itemLayout', value: 'custom', operator: '!='}]
+        conditions: [{ property: 'itemLayout', value: 'custom', operator: '!=' }]
     },
     itemLayoutTemplate: {
         tab: 'layout',

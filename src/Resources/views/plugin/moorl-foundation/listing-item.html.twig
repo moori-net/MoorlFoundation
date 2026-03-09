@@ -1,193 +1,197 @@
-{% if not schemaOrgType %}
-    {% set schemaOrgType = 'Thing' %}
-{% endif %}
+{% if config('MoorlFoundation.config.cmpFoundationListingItem') %}
+    {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/listing-item.html.twig' %}
+{% else %}
+    {% if not schemaOrgType %}
+        {% set schemaOrgType = 'Thing' %}
+    {% endif %}
 
-{% if not collection and not config.itemLayout.value and element.translated.config %}
-    {% set config = element.translated.config %}
-{% endif %}
+    {% if not collection and not config.itemLayout.value and element.translated.config %}
+        {% set config = element.translated.config %}
+    {% endif %}
 
-{% if element.data.queryParams %}
-    {% set url = "#{url}?#{element.data.queryParams|url_encode}" %}
-{% endif %}
+    {% if element.data.queryParams %}
+        {% set url = "#{url}?#{element.data.queryParams|url_encode}" %}
+    {% endif %}
 
-{% set imageContent %}
-    {% block moorl_listing_item_image %}
-        {% if media.url %}
-            {% set imageCss = [] %}
-            {% if config.itemLayout.value == 'avatar' %}
-                {% set imageCss = imageCss|merge([
-                    "height:#{config.itemWidth.value}",
-                    "width:#{config.itemWidth.value}",
-                ]) %}
-            {% endif %}
-
-            {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
-                media: media,
-                sizes: {
-                    'default': '100px'
-                },
-                attributes: {
-                    'itemprop': 'image',
-                    'alt': (media.translated.alt ?: title),
-                    'class': "is-#{config.displayMode.value}",
-                    'style': imageCss|join(';'),
-                    'title': (media.translated.title ?: title),
-                    'loading': 'lazy'
-                }
-            } %}
-        {% elseif config.itemLayout.value == 'image-or-title' %}
-            <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
-                {% if config.sanitize.value %}
-                    {{ title|sw_sanitize }}
-                {% else %}
-                    {{ title|raw }}
+    {% set imageContent %}
+        {% block moorl_listing_item_image %}
+            {% if media.url %}
+                {% set imageCss = [] %}
+                {% if config.itemLayout.value == 'avatar' %}
+                    {% set imageCss = imageCss|merge([
+                        "height:#{config.itemWidth.value}",
+                        "width:#{config.itemWidth.value}",
+                    ]) %}
                 {% endif %}
-            </div>
-        {% else %}
-            {% sw_icon 'placeholder' style {
-                'size': 'fluid'
-            } %}
-        {% endif %}
-    {% endblock %}
-{% endset %}
 
-{% set itemContent %}
-    {% block moorl_foundation_listing_item %}
-        {% if config.listingLayout.value == 'search-suggest' %}
-            {# Clone of "storefront/layout/header/search-suggest.html.twig" #}
-            {% block moorl_listing_search_suggest_item %}
-                <li class="search-suggest-product js-result">
-                    <a
-                            href="{{ url }}"
-                            title="{{ title }}"
-                            class="search-suggest-product-link"
-                    >
-                        <div class="row align-items-center g-0">
-                            <div class="col-auto search-suggest-product-image-container">
-                                {% if media.url %}
-                                    {% sw_thumbnails 'search-suggest-product-image-thumbnails' with {
-                                        media: media,
-                                        sizes: {
-                                            'default': '100px'
-                                        },
-                                        attributes: {
-                                            'class': 'search-suggest-product-image',
-                                            'alt': (media.translated.alt ?: ''),
-                                            'title': (media.translated.title ?: '')
-                                        }
-                                    } %}
-                                {% else %}
-                                    {% sw_icon 'placeholder' style {
-                                        'size': 'lg'
-                                    } %}
-                                {% endif %}
-                            </div>
-                            <div class="col search-suggest-product-name">
-                                {{ title }}
-                            </div>
-                            <div class="col-auto text-muted">
-                                {{ meta }}
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            {% endblock %}
-        {% else %}
-            {% if config.hasButton.value or not url %}
-                <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
-                   rel="noopener nofollow"{% endif %}
-                   class="moorl-listing-item-image"
-                   title="{{ title }}">
-                    {{ imageContent }}
-                </a>
-            {% else %}
-                <div class="moorl-listing-item-image">
-                    {{ imageContent }}
+                {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
+                    media: media,
+                    sizes: {
+                        'default': '100px'
+                    },
+                    attributes: {
+                        'itemprop': 'image',
+                        'alt': (media.translated.alt ?: title),
+                        'class': "is-#{config.displayMode.value}",
+                        'style': imageCss|join(';'),
+                        'title': (media.translated.title ?: title),
+                        'loading': 'lazy'
+                    }
+                } %}
+            {% elseif config.itemLayout.value == 'image-or-title' %}
+                <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
+                    {% if config.sanitize.value %}
+                        {{ title|sw_sanitize }}
+                    {% else %}
+                        {{ title|raw }}
+                    {% endif %}
                 </div>
+            {% else %}
+                {% sw_icon 'placeholder' style {
+                    'size': 'fluid'
+                } %}
             {% endif %}
+        {% endblock %}
+    {% endset %}
 
-            {% if config.itemLayout.value != 'image-or-title' %}
-                <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
-                    <div class="">
-                        {% block moorl_foundation_listing_item_content %}
-                            <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
-                                {% block moorl_foundation_listing_item_title %}
-                                    {% if config.sanitize.value %}
-                                        {{ title|sw_sanitize }}
+    {% set itemContent %}
+        {% block moorl_foundation_listing_item %}
+            {% if config.listingLayout.value == 'search-suggest' %}
+                {# Clone of "storefront/layout/header/search-suggest.html.twig" #}
+                {% block moorl_listing_search_suggest_item %}
+                    <li class="search-suggest-product js-result">
+                        <a
+                                href="{{ url }}"
+                                title="{{ title }}"
+                                class="search-suggest-product-link"
+                        >
+                            <div class="row align-items-center g-0">
+                                <div class="col-auto search-suggest-product-image-container">
+                                    {% if media.url %}
+                                        {% sw_thumbnails 'search-suggest-product-image-thumbnails' with {
+                                            media: media,
+                                            sizes: {
+                                                'default': '100px'
+                                            },
+                                            attributes: {
+                                                'class': 'search-suggest-product-image',
+                                                'alt': (media.translated.alt ?: ''),
+                                                'title': (media.translated.title ?: '')
+                                            }
+                                        } %}
                                     {% else %}
-                                        {{ title|raw }}
+                                        {% sw_icon 'placeholder' style {
+                                            'size': 'lg'
+                                        } %}
                                     {% endif %}
-                                {% endblock %}
-                            </div>
-
-                            {% if meta %}
-                                <div class="moorl-listing-item-meta">
-                                    {% block moorl_foundation_listing_item_meta %}
-                                        {{ meta }}
-                                    {% endblock %}
                                 </div>
-                            {% endif %}
+                                <div class="col search-suggest-product-name">
+                                    {{ title }}
+                                </div>
+                                <div class="col-auto text-muted">
+                                    {{ meta }}
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% endblock %}
+            {% else %}
+                {% if config.hasButton.value or not url %}
+                    <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
+                       rel="noopener nofollow"{% endif %}
+                       class="moorl-listing-item-image"
+                       title="{{ title }}">
+                        {{ imageContent }}
+                    </a>
+                {% else %}
+                    <div class="moorl-listing-item-image">
+                        {{ imageContent }}
+                    </div>
+                {% endif %}
 
-                            {% if description %}
-                                <div itemprop="description" class="moorl-listing-item-description">
-                                    {% block moorl_foundation_listing_item_description %}
+                {% if config.itemLayout.value != 'image-or-title' %}
+                    <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
+                        <div class="">
+                            {% block moorl_foundation_listing_item_content %}
+                                <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
+                                    {% block moorl_foundation_listing_item_title %}
                                         {% if config.sanitize.value %}
-                                            {{ description|length > config.contentLength.value ? description|striptags|slice(0, config.contentLength.value) ~ '...' : description|striptags }}
+                                            {{ title|sw_sanitize }}
                                         {% else %}
-                                            {{ description|raw }}
+                                            {{ title|raw }}
                                         {% endif %}
                                     {% endblock %}
                                 </div>
-                            {% endif %}
 
-                            {% if config.hasButton.value %}
-                                <a itemprop="mainEntityOfPage"
-                                   href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
-                                   rel="noopener nofollow"{% endif %}
-                                   title="{{ config.buttonLabel.value }}"
-                                   class="{{ config.buttonClass.value }} moorl-listing-item-button">
-                                    {% block moorl_foundation_listing_item_button_label %}
-                                        {{ config.buttonLabel.value ?? "moorl-foundation.search.moreButton"|trans }}
-                                    {% endblock %}
-                                </a>
-                            {% endif %}
-                        {% endblock %}
+                                {% if meta %}
+                                    <div class="moorl-listing-item-meta">
+                                        {% block moorl_foundation_listing_item_meta %}
+                                            {{ meta }}
+                                        {% endblock %}
+                                    </div>
+                                {% endif %}
+
+                                {% if description %}
+                                    <div itemprop="description" class="moorl-listing-item-description">
+                                        {% block moorl_foundation_listing_item_description %}
+                                            {% if config.sanitize.value %}
+                                                {{ description|length > config.contentLength.value ? description|striptags|slice(0, config.contentLength.value) ~ '...' : description|striptags }}
+                                            {% else %}
+                                                {{ description|raw }}
+                                            {% endif %}
+                                        {% endblock %}
+                                    </div>
+                                {% endif %}
+
+                                {% if config.hasButton.value %}
+                                    <a itemprop="mainEntityOfPage"
+                                       href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
+                                       rel="noopener nofollow"{% endif %}
+                                       title="{{ config.buttonLabel.value }}"
+                                       class="{{ config.buttonClass.value }} moorl-listing-item-button">
+                                        {% block moorl_foundation_listing_item_button_label %}
+                                            {{ config.buttonLabel.value ?? "moorl-foundation.search.moreButton"|trans }}
+                                        {% endblock %}
+                                    </a>
+                                {% endif %}
+                            {% endblock %}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endblock %}
-{% endset %}
+        {% endblock %}
+    {% endset %}
 
-{% if config.listingLayout.value == 'search-suggest' %}
-    {{ itemContent }}
-{% elseif config.itemLayout.value == 'custom' %}
-    <li class="{{ listingColumns }}">
-        {% sw_include config.itemLayoutTemplate.value %}
-    </li>
-{% elseif config.hasButton.value or not url %}
-    <li class="{{ listingColumns }}"
-        itemscope
-        itemtype="https://schema.org/{{ schemaOrgType }}">
-        <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
-             style="{{ itemCss|join(';')|raw }}">
-            <div class="moorl-listing-item-{{ config.itemLayout.value }}">
-                {{ itemContent }}
+    {% if config.listingLayout.value == 'search-suggest' %}
+        {{ itemContent }}
+    {% elseif config.itemLayout.value == 'custom' %}
+        <li class="{{ listingColumns }}">
+            {% sw_include config.itemLayoutTemplate.value %}
+        </li>
+    {% elseif config.hasButton.value or not url %}
+        <li class="{{ listingColumns }}"
+            itemscope
+            itemtype="https://schema.org/{{ schemaOrgType }}">
+            <div class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
+                 style="{{ itemCss|join(';')|raw }}">
+                <div class="moorl-listing-item-{{ config.itemLayout.value }}">
+                    {{ itemContent }}
+                </div>
             </div>
-        </div>
-    </li>
-{% else %}
-    <li class="{{ listingColumns }}"
-        itemscope
-        itemtype="https://schema.org/{{ schemaOrgType }}">
-        <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
-           rel="noopener nofollow"{% endif %}
-           class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
-           style="{{ itemCss|join(';')|raw }}"
-           title="{{ title }}">
-            <div class="moorl-listing-item-{{ config.itemLayout.value }}">
-                {{ itemContent }}
-            </div>
-        </a>
-    </li>
+        </li>
+    {% else %}
+        <li class="{{ listingColumns }}"
+            itemscope
+            itemtype="https://schema.org/{{ schemaOrgType }}">
+            <a itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
+               rel="noopener nofollow"{% endif %}
+               class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
+               style="{{ itemCss|join(';')|raw }}"
+               title="{{ title }}">
+                <div class="moorl-listing-item-{{ config.itemLayout.value }}">
+                    {{ itemContent }}
+                </div>
+            </a>
+        </li>
+    {% endif %}
 {% endif %}

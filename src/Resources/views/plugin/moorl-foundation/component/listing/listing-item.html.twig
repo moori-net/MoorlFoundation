@@ -1,0 +1,64 @@
+{% if not schemaOrgType %}
+    {% set schemaOrgType = 'Thing' %}
+{% endif %}
+
+{% if not collection and not config.itemLayout.value and element.translated.config %}
+    {% set config = element.translated.config %}
+{% endif %}
+
+{% if element.data.queryParams %}
+    {% set url = "#{url}?#{element.data.queryParams|url_encode}" %}
+{% endif %}
+
+{% set itemContent %}
+    {% if config.listingLayout.value == 'search-suggest' %}
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/search-suggest.html.twig' %}
+    {% elseif config.itemLayout.value == 'custom' %}
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/custom.html.twig' %}
+    {% elseif config.itemLayout.value == 'avatar' %}
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/avatar.html.twig' %}
+    {% elseif config.itemLayout.value == 'image-or-title' %}
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/image-or-title.html.twig' %}
+    {% else %}
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/_default.html.twig' %}
+    {% endif %}
+{% endset %}
+
+{% if config.listingLayout.value == 'search-suggest' %}
+    <li class="search-suggest-product js-result">
+        <a href="{{ url }}" title="{{ title }}" class="search-suggest-product-link">{{ itemContent }}</a>
+    </li>
+{% elseif config.itemLayout.value == 'custom' %}
+    <li class="{{ listingColumns }}">
+        {% sw_include config.itemLayoutTemplate.value %}
+    </li>
+{% elseif config.hasButton.value or not url %}
+    <li
+            class="{{ listingColumns }}"
+            itemscope
+            itemtype="https://schema.org/{{ schemaOrgType }}"
+    >
+        <div
+                class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
+                style="{{ itemCss|join(';')|raw }}"
+        >
+            {{ itemContent }}
+        </div>
+    </li>
+{% else %}
+    <li
+            class="{{ listingColumns }}"
+            itemscope
+            itemtype="https://schema.org/{{ schemaOrgType }}"
+    >
+        <a
+                itemprop="mainEntityOfPage" href="{{ url }}" {% if config.urlNewTab.value %}target="_blank"
+                rel="noopener nofollow"{% endif %}
+                class="moorl-listing-item-wrapper{% if config.itemHasBorder.value %} has-border{% endif %}"
+                style="{{ itemCss|join(';')|raw }}"
+                title="{{ title }}"
+        >
+            {{ itemContent }}
+        </a>
+    </li>
+{% endif %}

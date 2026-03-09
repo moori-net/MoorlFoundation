@@ -1,0 +1,16 @@
+<div class="moorl-listing-item-avatar">
+    <div class="moorl-listing-item-image">
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/_image.html.twig' with {
+            imageCss: [
+                "height:#{config.itemWidth.value}",
+                "width:#{config.itemWidth.value}",
+            ]
+        } %}
+    </div>
+
+    <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
+        <div>
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/_content.html.twig' %}
+        </div>
+    </div>
+</div>

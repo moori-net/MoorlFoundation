@@ -1,0 +1,29 @@
+<div class="row align-items-center g-0">
+    <div class="col-auto search-suggest-product-image-container">
+        {% if media.url %}
+            {% sw_thumbnails 'search-suggest-product-image-thumbnails' with {
+                media: media,
+                sizes: {
+                    'default': '100px'
+                },
+                attributes: {
+                    'class': 'search-suggest-product-image',
+                    'alt': (media.translated.alt ?: ''),
+                    'title': (media.translated.title ?: '')
+                }
+            } %}
+        {% else %}
+            {% sw_icon 'placeholder' style {
+                'size': 'lg'
+            } %}
+        {% endif %}
+    </div>
+
+    <div class="col search-suggest-product-name">
+        {{ title }}
+    </div>
+
+    <div class="col-auto text-muted">
+        {{ meta }}
+    </div>
+</div>
