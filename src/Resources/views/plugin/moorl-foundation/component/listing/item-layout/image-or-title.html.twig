@@ -1,0 +1,15 @@
+<div class="moorl-listing-item-image-or-title">
+    {% if media.url %}
+        <div class="moorl-listing-item-image">
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/_image.html.twig' %}
+        </div>
+    {% else %}
+        <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
+            {% if config.sanitize.value %}
+                {{ title|sw_sanitize }}
+            {% else %}
+                {{ title|raw }}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

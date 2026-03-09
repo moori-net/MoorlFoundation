@@ -539,6 +539,15 @@
         <title lang="de-DE">Kompatibilität</title>
 
         <input-field type="bool">
+            <name>cmpFoundationListingItem</name>
+            <label>Use new TWIG templates for listing items (List/Grid/Slider)</label>
+            <label lang="de-DE">Neue TWIG-Vorlagen für die Auflistung von Elementen verwenden (Liste/Grid/Slider)</label>
+            <helpText>The new templates are located in @MoorlFoundation/plugin/moorl-foundation/component/listing/. If you encounter any problems, this option can be disabled for the time being.</helpText>
+            <helpText lang="de-DE">Die neuen Templates befinden sich in @MoorlFoundation/plugin/moorl-foundation/component/listing/. Bei Problemen kann diese Option vorerst deaktiviert werden.</helpText>
+            <defaultValue>true</defaultValue>
+        </input-field>
+
+        <input-field type="bool">
             <name>cmpSectionFixedBackgroundIOS</name>
             <label>Fixed CMS section background image for iOS</label>
             <label lang="de-DE">Fixiertes Hintergrundbild eines CMS Abschnitts für iOS</label>

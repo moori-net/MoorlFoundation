@@ -1,0 +1,11 @@
+<div class="moorl-listing-item-{{ config.itemLayout.value }}">
+    <div class="moorl-listing-item-image">
+        {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/_image.html.twig' %}
+    </div>
+
+    <div class="moorl-listing-item-content" style="{{ contentCss|join(';') }}">
+        <div>
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/item-layout/_content.html.twig' %}
+        </div>
+    </div>
+</div>

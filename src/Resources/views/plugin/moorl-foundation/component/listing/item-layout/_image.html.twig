@@ -1,0 +1,26 @@
+{% block moorl_listing_item_image %}
+    {% if media.url %}
+        {% if not imageCss %}
+            {% set imageCss = [] %}
+        {% endif %}
+
+        {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
+            media: media,
+            sizes: {
+                'default': '100px'
+            },
+            attributes: {
+                'itemprop': 'image',
+                'alt': (media.translated.alt ?: title),
+                'class': "is-#{config.displayMode.value}",
+                'style': imageCss|join(';'),
+                'title': (media.translated.title ?: title),
+                'loading': 'lazy'
+            }
+        } %}
+    {% else %}
+        {% sw_icon 'placeholder' style {
+            size: 'fluid'
+        } %}
+    {% endif %}
+{% endblock %}

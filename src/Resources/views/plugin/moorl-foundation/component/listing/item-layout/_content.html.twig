@@ -1,0 +1,45 @@
+{% block moorl_foundation_listing_item_content %}
+    <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
+        {% block moorl_foundation_listing_item_title %}
+            {% if config.sanitize.value %}
+                {{ title|sw_sanitize }}
+            {% else %}
+                {{ title|raw }}
+            {% endif %}
+        {% endblock %}
+    </div>
+
+    {% if meta %}
+        <div class="moorl-listing-item-meta">
+            {% block moorl_foundation_listing_item_meta %}
+                {{ meta }}
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {% if description %}
+        <div itemprop="description" class="moorl-listing-item-description">
+            {% block moorl_foundation_listing_item_description %}
+                {% if config.sanitize.value %}
+                    {{ description|length > config.contentLength.value ? description|striptags|slice(0, config.contentLength.value) ~ '...' : description|striptags }}
+                {% else %}
+                    {{ description|raw }}
+                {% endif %}
+            {% endblock %}
+        </div>
+    {% endif %}
+
+    {% if config.hasButton.value %}
+        <a
+                itemprop="mainEntityOfPage"
+                href="{{ url }}"
+                {% if config.urlNewTab.value %}target="_blank" rel="noopener nofollow"{% endif %}
+                title="{{ config.buttonLabel.value }}"
+                class="{{ config.buttonClass.value }} moorl-listing-item-button"
+        >
+            {% block moorl_foundation_listing_item_button_label %}
+                {{ config.buttonLabel.value ?? "moorl-foundation.search.moreButton"|trans }}
+            {% endblock %}
+        </a>
+    {% endif %}
+{% endblock %}
