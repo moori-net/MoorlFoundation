@@ -1,7 +1,11 @@
 <template v-for="field in fields" :key="field.name">
     <div v-if="field.newline" class="newline"></div>
 
-    <div v-if="isVisibleComponent(field)" :style="getStyle(field)">
+    <div
+            v-if="isVisibleComponent(field)"
+            :style="getStyle(field)"
+            :data-property-name="field.path"
+    >
         <template v-if="cmsElement && hasSwCmsInheritWrapperComponent && field.cmsMappingField">
             <sw-cms-inherit-wrapper
                     :field="field.path"

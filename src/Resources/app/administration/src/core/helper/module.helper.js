@@ -19,6 +19,14 @@ export default class ModuleHelper {
         'sw-marketing': 'regular-megaphone',
         'sw-order': 'shopping-bag',
     };
+    static entityLabelProperties = {
+        media: 'fileName',
+        salutation: 'displayName',
+        order_transaction: 'id',
+        moorl_pv_license_domain: 'domain',
+        moorl_ebics_sepa_mandate: 'mandateReference',
+        moorl_ebics_transaction: 'transactionId'
+    };
 
     static registerModule({
                               icon,
@@ -157,6 +165,12 @@ export default class ModuleHelper {
             }
             MoorlFoundation.CmsElementHelper.registerCmsElement(cmsElement);
         }
+
+        this.entityLabelProperties[entity] ??= labelProperty;
+    }
+
+    static getEntityLabelProperty(entity) {
+        return this.entityLabelProperties[entity] ?? 'name';
     }
 
     static getEntityMapping(entity) {

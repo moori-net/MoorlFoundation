@@ -1,6 +1,7 @@
 [
   "action",
   "general",
+  "board",
   "specifications",
   "directory",
   "promotion",
@@ -31,5 +32,6 @@
   "slider",
   "navigation",
   "animation",
+  "meta",
   "undefined"
 ]
