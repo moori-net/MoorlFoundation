@@ -13,8 +13,9 @@ tags:
 Verfügbar ab Shopware 6.7
 
 Verwendet in:
-- [](../MoorlFoundation/index.md)
-- [](../AppflixStudygood/index.md)
+
+- [Videos in den Produkt Details abspielen](../MoorlProductVideo/index.md)
+- [Studygood](../AppflixStudygood/index.md)
 
 ## Wo der Medien-Manager von Shopware an seine Grenzen stößt ...
 
