@@ -1,19 +1,41 @@
+---
+description: Many plugins include preconfigured demo packages. These make it quick and easy to get to know plugins and understand them better.
+tags:
+  - Demos
+  - Reset data
+  - Getting started
+---
+
 # Foundation | Demo Assistant
 
-available from Shopware 6.4
+Available from Shopware 6.4
 
-### Simply install demo data
+## Easily install demo data
 
-Many plugins have ready-made demo packages and thus make it easier for you to fill content.
+Many plugins include preconfigured demo packages. These make it quick and easy to get to know plugins and understand them better.
 
-### How does it work?
+## How does it work?
 
-After you have installed Foundation, go to the "Settings" on the "Extensions" tab and then click on the "Demo Assistant".
+### Using the Demo Assistant
 
-![](images/demo-assistant-01.jpg)
+Via the main navigation in the admin: `Settings` → `Extensions` → `Demo Assistant`
 
-Then simply select the desired plug-in and the correct sales channel.
+![](images/demo-assistant-01.png)
 
-![](images/demo-assistant-02.jpg)
+There are two different types of data packages:
 
-Please note that the images are protected by copyright. The contents of the demo packages may not be freely accessible.
+1. **The basic configuration**  
+   This contains all data relevant to the plugin, such as SEO URL templates, email templates, shipping methods, and payment methods. If there is a problem with the plugin, it is recommended to reset the data using this option.
+
+2. **The demo package**  
+   A demo package is intended to provide a quick introduction to a plugin. It creates real data and structures, making it easier to get to know the plugin and work with the data.
+
+![](images/demo-assistant-02.png)
+
+Please note that the image materials are protected by copyright. The contents of the demo packages must therefore not be made publicly accessible.
+
+### Plugin-specific demo packages
+
+At the plugin’s entry point (usually in the listing overview), the recommended demo package can also be installed directly. Admin permissions are required for this; otherwise, the button is hidden.
+
+![](images/demo-assistant-03.png)

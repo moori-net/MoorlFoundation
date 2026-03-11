@@ -1,19 +1,41 @@
-# Foundation | Demo Assistant
+---
+description: Viele Plugins enthalten vorgefertigte Demo-Pakete. Diese erleichtern es, Plugins schnell und einfach kennenzulernen und besser zu verstehen.
+tags:
+  - Demos
+  - Daten zurücksetzen
+  - Einstieg
+---
 
-verfügbar ab Shopware 6.4
+# Foundation | Demo Assistent
 
-### Demo Daten einfach installieren
+Verfügbar ab Shopware 6.4
 
-Viele Plugins haben vorgefertigte Demopakete und erleichtern dir somit Inhalte zu befüllen.
+## Demo-Daten einfach installieren
 
-### Wie geht das?
+Viele Plugins enthalten vorgefertigte Demo-Pakete. Diese erleichtern es, Plugins schnell und einfach kennenzulernen und besser zu verstehen.
 
-Nachdem du Foundation installiert hast, gehe in die "Einstellungen" auf den Reiter "Erweiterungen" und klicke anschließend auf dem "Demo Assistant".
+## Wie funktioniert das?
 
-![](images/demo-assistant-01.jpg)
+### Mit dem Demo Assistenten
 
-Danach wählst du einfach das gewünschte Plugin und den richtigen Verkaufskanal aus. 
+Über die Hauptnavigation im Admin: `Einstellungen` → `Erweiterungen` → `Demo Assistent`
 
-![](images/demo-assistant-02.jpg)
+![](images/demo-assistant-01.png)
 
-Bitte beachte, dass die Bildmaterialien durch ein Copyright geschützt sind. Die Inhalte aus den Demopaketen dürfen nicht frei zugänglich sein.
+Es gibt zwei unterschiedliche Typen von Datenpaketen:
+
+1. **Die Basiskonfiguration**  
+   Hier sind alle für das Plugin relevanten Daten enthalten, z. B. SEO-URL-Templates, E-Mail-Templates sowie Versand- und Zahlungsarten. Wenn es ein Problem mit dem Plugin gibt, empfiehlt es sich, die Daten über diesen Weg zurückzusetzen.
+
+2. **Das Demo-Paket**  
+   Ein Demo-Paket dient dem schnellen Einstieg in ein Plugin. Dabei werden reale Daten und Strukturen angelegt, die es ermöglichen, das Plugin besser kennenzulernen und mit den Daten zu arbeiten.
+
+![](images/demo-assistant-02.png)
+
+Bitte beachten Sie, dass die Bildmaterialien urheberrechtlich geschützt sind. Die Inhalte aus den Demo-Paketen dürfen daher nicht frei zugänglich gemacht werden.
+
+### Plugin-spezifische Demo-Pakete
+
+Am Einstiegspunkt des Plugins (i. d. R. in der Listing-Übersicht) kann auch direkt das empfohlene Demo-Paket installiert werden. Dazu benötigt der Benutzer Adminrechte, andernfalls wird der Button ausgeblendet.
+
+![](images/demo-assistant-03.png)
