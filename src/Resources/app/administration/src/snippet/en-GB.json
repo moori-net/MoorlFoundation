@@ -73,6 +73,7 @@
       "update": "Update"
     },
     "card": {
+      "assessment": "Assessment",
       "layout": "Layout",
       "tax": "Tax",
       "action": "Actions",
@@ -120,6 +121,8 @@
       "visibility": "Visibility"
     },
     "field": {
+      "durationPointer": "Timestamp",
+      "helpfulCount": "Helpful",
       "minHeight": "Minimum height",
       "newsletterActive": "Activate Newsletter Checkbox",
       "privacyActive": "Activate Privacy Checkbox",
@@ -907,6 +910,9 @@
       "tax": "The tax rate will be automatically inherited from the current product."
     },
     "tab": {
+      "board": "Board",
+      "meta": "Metadata",
+      "assessment": "Assessment",
       "address": "Address",
       "animation": "Animation",
       "cmsPage": "CMS page",

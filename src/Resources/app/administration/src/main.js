@@ -60,6 +60,7 @@ MoorlFoundation.ModuleHelper.registerModule({
     entity: 'moorl_sorting',
     name: 'moorl-sorting',
     icon: 'regular-sort',
+    labelProperty: 'label',
     properties: [
         {name: 'active', visibility: 100},
         {name: 'entity', visibility: 100},
@@ -149,10 +150,10 @@ MoorlFoundation.ModuleHelper.registerModule({
 });
 
 
-MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index', labelProperty: 'productNumber'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index'});
-MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.order.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index', labelProperty: 'email'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.order.index', labelProperty: 'orderNumber'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.country.index'});

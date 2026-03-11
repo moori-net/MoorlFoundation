@@ -1,15 +1,3 @@
-const entityLabelProperty = {
-    media: 'fileName',
-    product: 'productNumber',
-    salutation: 'displayName',
-    customer: 'customerNumber',
-    moorl_sorting: 'label',
-    moorl_pv_license_domain: 'domain',
-    order: 'orderNumber',
-    order_transaction: 'id',
-    moorl_ebics_sepa_mandate: 'mandateReference',
-    moorl_ebics_transaction: 'transactionId',
-};
 const not = (fn) => (context) => !fn(context);
 const isType = (...types) => ({ field }) => types.includes(field.type);
 const isEntity = (...entities) => ({ field }) => entities.includes(field.entity);
@@ -17,7 +5,6 @@ const isRegisteredEntity = () => ({ field }) => {
     const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(field.entity);
     return pluginConfig?.properties?.length > 0;
 };
-const {Criteria} = Shopware.Data;
 
 const autoConfiguration = [
     // general stuff
@@ -269,7 +256,7 @@ const autoConfiguration = [
         ],
         apply({ attributes, field }) {
             attributes.entity = field.entity;
-            attributes.labelProperty = ({ field }) => entityLabelProperty[field.entity] ?? 'name';
+            attributes.labelProperty ??= MoorlFoundation.ModuleHelper.getEntityLabelProperty(field.entity);
         }
     },
     {
@@ -280,7 +267,7 @@ const autoConfiguration = [
             '!hasTab'
         ],
         apply({ column }) {
-            column.tab = 'relations';
+            column.tab ??= 'relations';
         }
     },
     {
@@ -333,8 +320,8 @@ const autoConfiguration = [
         ],
         apply({ column, attributes, item }) {
             column.componentName = 'moorl-media-gallery';
-            column.tab = 'general';
-            column.card = 'media';
+            column.tab ??= 'general';
+            column.card ??= 'media';
 
             attributes.item = item;
         }
@@ -381,7 +368,7 @@ const autoConfiguration = [
             'isManyToOne',
             not(isEntity('media', 'user')),
         ],
-        apply({ column }) {
+        apply({ column}) {
             column.cols ??= 6;
             column.componentName = 'sw-entity-single-select';
         }

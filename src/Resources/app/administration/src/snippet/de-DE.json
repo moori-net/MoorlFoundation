@@ -73,6 +73,7 @@
       "update": "Update"
     },
     "card": {
+      "assessment": "Bewertung",
       "layout": "Layout",
       "tax": "Umsatzsteuer",
       "action": "Aktionen",
@@ -120,6 +121,8 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "durationPointer": "Zeitstempel",
+      "helpfulCount": "Hilfreich",
       "minHeight": "Mindesthöhe",
       "newsletterActive": "Newsletter Checkbox aktivieren",
       "privacyActive": "Datenschutz Check ist erforderlich",
@@ -900,6 +903,9 @@
       "tax": "Der Steuersatz wird automatisch vom aktuellen Produkt übernommen."
     },
     "tab": {
+      "board": "Board",
+      "assessment": "Bewertung",
+      "meta": "Metadaten",
       "address": "Adresse",
       "animation": "Animation",
       "cmsPage": "CMS Page",

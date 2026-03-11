@@ -141,6 +141,7 @@ const mapping = {
     releaseDate: {tab: 'general', card: 'general'},
     redeemCode: {tab: 'general', card: 'general'},
     subscriptionTime: {tab: 'general', card: 'general'},
+    useChapters: {tab: 'general', card: 'general'},
     teaser: {tab: 'general', card: 'general'},
     description: {tab: 'general', card: 'general'},
     content: {tab: 'general', card: 'general'},
@@ -152,7 +153,6 @@ const mapping = {
     customerNumber: {tab: 'general', card: 'general'},
     manufacturerNumber: {tab: 'general', card: 'general'},
     ean: {tab: 'general', card: 'general'},
-    useChapters: {tab: 'general', card: 'general'},
     validUntil: {tab: 'general', card: 'general'},
     code: {tab: 'general', card: 'general'},
     rating: {tab: 'general', card: 'general'},
@@ -208,25 +208,30 @@ const mapping = {
     availabilityRule: {tab: 'general', card: 'visibility'},
     visible: {tab: 'general', card: 'visibility'},
 
-    // SEO / Meta
+    // SEO
     schemaOrgType: {tab: 'seo', card: 'general'},
     schemaOrgProperty: {tab: 'seo', card: 'general'},
     metaTitle: {tab: 'seo', card: 'general'},
     metaDescription: {tab: 'seo', card: 'general'},
     metaKeywords: {tab: 'seo', card: 'general'},
     seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
-    progress: {tab: 'seo', card: 'meta'},
-    duration: {tab: 'seo', card: 'meta'},
-    fileCount: {tab: 'seo', card: 'meta'},
-    lessonCount: {tab: 'seo', card: 'meta'},
-    chapterCount: {tab: 'seo', card: 'meta'},
-    boardCount: {tab: 'seo', card: 'meta'},
-    points: {tab: 'seo', card: 'meta'},
-    ratings: {tab: 'seo', card: 'meta'},
-    subscriptionCount: {tab: 'seo', card: 'meta'},
-    testCount: {tab: 'seo', card: 'meta'},
-    ratingCount: {tab: 'seo', card: 'meta'},
-    courseCount: {tab: 'seo', card: 'meta'},
+
+    // Meta
+    progress: {tab: 'meta', card: 'meta'},
+    duration: {tab: 'meta', card: 'meta'},
+    fileCount: {tab: 'meta', card: 'meta'},
+    lessonCount: {tab: 'meta', card: 'meta'},
+    chapterCount: {tab: 'meta', card: 'meta'},
+    boardCount: {tab: 'meta', card: 'meta'},
+    points: {tab: 'meta', card: 'meta'},
+    ratings: {tab: 'meta', card: 'meta'},
+    subscriptionCount: {tab: 'meta', card: 'meta'},
+    testCount: {tab: 'meta', card: 'meta'},
+    ratingCount: {tab: 'meta', card: 'meta'},
+    courseCount: {tab: 'meta', card: 'meta'},
+    durationPointer: {tab: 'meta', card: 'meta'},
+    level: {tab: 'meta', card: 'meta'},
+    helpfulCount: {tab: 'meta', card: 'meta'},
 
     // Event
     eventDate: {tab: 'event', card: 'event'},
@@ -305,6 +310,17 @@ const mapping = {
         ]
     },
 
+    // Assessment
+    testMinPoints: {tab: 'assessment', card: 'assessment'},
+    testMaxTry: {tab: 'assessment', card: 'assessment'},
+    questions: {tab: 'assessment', card: 'assessment'},
+
+    // Content
+    lessons: {tab: 'content', card: 'content'},
+    courses: {tab: 'content', card: 'content'},
+    chapters: {tab: 'content', card: 'content'},
+    files: {tab: 'content', card: 'content'},
+
     // Relations
     products: {tab: 'relations', card: 'relations'},
     accessories: {tab: 'relations', card: 'relations'},
@@ -314,10 +330,6 @@ const mapping = {
     tags: {tab: 'relations', card: 'relations'},
     medias: {tab: 'relations', card: 'relations'},
     downloads: {tab: 'relations', card: 'relations'},
-    lessons: {tab: 'relations', card: 'relations'},
-    courses: {tab: 'relations', card: 'relations'},
-    chapters: {tab: 'relations', card: 'relations'},
-    files: {tab: 'relations', card: 'relations'},
     salesChannel: {tab: 'relations', card: 'relations'},
     customer: {tab: 'relations', card: 'relations'},
     customerGroup: {tab: 'relations', card: 'relations'},
@@ -342,8 +354,8 @@ const mapping = {
     downloadCenterCode: {tab: 'relations', card: 'relations'},
     partsListConfigurator: {tab: 'relations', card: 'relations'},
 
-    creator: {tab: 'general', card: 'general'},
-    tutor: {tab: 'general', card: 'general'},
+    creator: {tab: 'general', card: 'general', componentName: 'moorl-entity-select-field'},
+    tutor: {tab: 'general', card: 'general', componentName: 'moorl-entity-select-field'},
     categoriesRo: {hidden: true},
     categoryIds: {hidden: true},
     categoryTree: {hidden: true},
