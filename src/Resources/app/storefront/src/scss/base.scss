@@ -77,6 +77,10 @@
     }
 }
 
+.cms-section.p-0 > .full-width {
+    padding: 0 !important;
+}
+
 .moorl-foundation-hide,
 .moorl-animation-hidden {
     opacity: 0;
