@@ -123,7 +123,6 @@ const mapping = {
     tsn: {tab: 'general', card: 'general', attributes: {maxLength: 3}},
     kbaNumber: {tab: 'general', card: 'general', attributes: {maxLength: 7}},
     question: {tab: 'general', card: 'general'},
-    solution: {tab: 'general', card: 'general'},
     isTrue: {tab: 'general', card: 'general'},
     name: {tab: 'general', card: 'general'},
     alias: {tab: 'general', card: 'general'},
@@ -145,6 +144,7 @@ const mapping = {
     teaser: {tab: 'general', card: 'general'},
     description: {tab: 'general', card: 'general'},
     content: {tab: 'general', card: 'general'},
+    solution: {tab: 'general', card: 'general'},
     answer: {tab: 'general', card: 'general'},
     contentCmsPage: {tab: 'general', card: 'general'},
     descriptionHtml: {tab: 'general', card: 'general'},
@@ -316,9 +316,9 @@ const mapping = {
     questions: {tab: 'assessment', card: 'assessment'},
 
     // Content
-    lessons: {tab: 'content', card: 'content'},
     courses: {tab: 'content', card: 'content'},
     chapters: {tab: 'content', card: 'content'},
+    lessons: {tab: 'content', card: 'content'},
     files: {tab: 'content', card: 'content'},
 
     // Relations
