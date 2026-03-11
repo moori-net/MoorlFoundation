@@ -1,4 +1,5 @@
 [
+    { "value": "flex", "label": "moorl-select.itemLayout.flex" },
     { "value": "overlay", "label": "moorl-select.itemLayout.overlay" },
     {
         "value": "image-or-title",
