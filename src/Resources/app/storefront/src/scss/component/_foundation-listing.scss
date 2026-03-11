@@ -133,6 +133,7 @@
     }
 }
 
+.moorl-listing-item-flex,
 .moorl-listing-item-image-or-title,
 .moorl-listing-item-overlay {
     .moorl-listing-item-image {
@@ -199,6 +200,36 @@
 .moorl-listing-item-description {
     height: 60px;
 }
+
+.moorl-listing-item-button {
+    display: grid;
+}
+
+.moorl-listing-item-flex {
+    .moorl-listing-item-content {
+        transition: background-color 0.3s ease;
+    }
+
+    .moorl-listing-item-title {
+        height: auto;
+    }
+
+    .moorl-listing-item-description {
+        height: 0;
+        transition: height 0.3s ease;
+    }
+
+    &:hover {
+        .moorl-listing-item-content {
+            background-color: rgba($sw-background-color, 0.9);
+        }
+
+        .moorl-listing-item-description {
+            height: 100px;
+        }
+    }
+}
+
 
 /* displayMode */
 .moorl-listing-item-image {

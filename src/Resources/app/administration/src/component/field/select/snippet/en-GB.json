@@ -155,6 +155,7 @@
             "stretch": "Stretch"
         },
         "itemLayout": {
+            "flex": "Flex (Hover-effect)",
             "avatar": "Avatar (Round image)",
             "custom": "Custom template",
             "standard": "Standard",

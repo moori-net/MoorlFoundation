@@ -156,6 +156,7 @@
             "stretch": "Strecken"
         },
         "itemLayout": {
+            "flex": "Flex (Hover-Effekt)",
             "avatar": "Avatar (rundes Bild)",
             "custom": "Benutzerdefinierte Vorlage",
             "standard": "Standard",
