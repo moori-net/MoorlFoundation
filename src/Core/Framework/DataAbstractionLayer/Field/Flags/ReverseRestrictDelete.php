@@ -3,9 +3,8 @@
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags;
 
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag;
-use Shopware\Core\Framework\Log\Package;
 
-#[Package('framework')]
+/** @deprecated */
 class ReverseRestrictDelete extends Flag
 {
     public function parse(): \Generator
