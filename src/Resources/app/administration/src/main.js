@@ -77,7 +77,8 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'active', visibility: 100},
         {name: 'name', visibility: 100},
         {name: 'technicalName', visibility: 100},
-        {name: 'type', visibility: 100}
+        {name: 'type', visibility: 100},
+        {name: 'embeddedUrl', visibility: 100}
     ],
     entityMapping: {
         active: {tab: 'general', card: 'general', order: 'first', newline: true},
@@ -148,7 +149,6 @@ MoorlFoundation.ModuleHelper.registerModule({
         },
     ]
 });
-
 
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.product.index', labelProperty: 'productNumber'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
