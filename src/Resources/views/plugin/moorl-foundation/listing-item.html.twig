@@ -19,12 +19,16 @@
 
             {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                 media: media,
+                sizes: {
+                    'default': '100px'
+                },
                 attributes: {
                     'itemprop': 'image',
-                    'alt': title,
+                    'alt': (media.translated.alt ?: title),
                     'class': "is-#{config.displayMode.value}",
                     'style': imageCss|join(';'),
-                    'title': ''
+                    'title': (media.translated.title ?: title),
+                    'loading': 'lazy'
                 }
             } %}
         {% elseif config.itemLayout.value == 'image-or-title' %}
