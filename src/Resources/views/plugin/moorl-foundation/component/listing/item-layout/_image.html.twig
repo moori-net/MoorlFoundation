@@ -7,15 +7,15 @@
         {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
             media: media,
             sizes: {
-                'default': '100px'
+                default: config.itemWidth.value ?? '100px'
             },
             attributes: {
-                'itemprop': 'image',
-                'alt': (media.translated.alt ?: title),
-                'class': "is-#{config.displayMode.value}",
-                'style': imageCss|join(';'),
-                'title': (media.translated.title ?: title),
-                'loading': 'lazy'
+                itemprop: 'image',
+                alt: (media.translated.alt ?: title),
+                class: "is-#{config.displayMode.value}",
+                style: imageCss|join(';'),
+                title: (media.translated.title ?: title),
+                loading: 'lazy'
             }
         } %}
     {% else %}
