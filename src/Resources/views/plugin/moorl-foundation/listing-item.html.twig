@@ -20,7 +20,7 @@
             {% sw_thumbnails 'moorl-listing-item-image-thumbnails' with {
                 media: media,
                 sizes: {
-                    'default': '100px'
+                    'default': config.itemWidth.value ?? '100px'
                 },
                 attributes: {
                     'itemprop': 'image',
