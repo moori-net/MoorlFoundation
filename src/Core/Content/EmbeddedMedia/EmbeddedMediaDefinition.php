@@ -10,7 +10,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IntField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
@@ -86,19 +85,19 @@ class EmbeddedMediaDefinition extends EntityDefinition
                 'cover',
                 'cover_id',
                 MediaDefinition::class
-            ))->addFlags(new RestrictDelete()),
+            ))->addFlags(),
 
             (new ManyToOneAssociationField(
                 'media',
                 'media_id',
                 MediaDefinition::class
-            ))->addFlags(new RestrictDelete()),
+            ))->addFlags(),
 
             (new ManyToOneAssociationField(
                 'mediaFolder',
                 'media_folder_id',
                 MediaFolderDefinition::class
-            ))->addFlags(new RestrictDelete()),
+            ))->addFlags(),
 
             (new TranslationsAssociationField(
                 EmbeddedMediaTranslationDefinition::class,

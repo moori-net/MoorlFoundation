@@ -7,7 +7,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
@@ -17,6 +16,8 @@ class EmbeddedMediaVideoDefinition extends EntityDefinition
 {
     final public const ENTITY_NAME = 'moorl_media_video';
     final public const COLLECTION_NAME = 'videos';
+    final public const EXTENSION_PROPERTY_NAME = 'moorlEmbeddedMediaVideo';
+    final public const EXTENSION_COLLECTION_NAME = 'moorlEmbeddedMediaVideos';
 
     public function getEntityName(): string
     {
@@ -45,7 +46,7 @@ class EmbeddedMediaVideoDefinition extends EntityDefinition
                 'media',
                 'media_id',
                 MediaDefinition::class
-            ))->addFlags(new RestrictDelete()),
+            ))->addFlags(),
 
             (new ManyToOneAssociationField(
                 EmbeddedMediaDefinition::PROPERTY_NAME,
