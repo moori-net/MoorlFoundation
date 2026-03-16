@@ -14,6 +14,10 @@
         {% endif %}
     {% endif %}
 
+    {% if config.queryParams.value %}
+        {% set bannerLink = bannerLink ~ config.queryParams.value %}
+    {% endif %}
+
     {% if config.title.value %}
         {% set bannerTitle = "<#{titleTag}>#{config.title.value}</#{titleTag}>" %}
     {% else %}
