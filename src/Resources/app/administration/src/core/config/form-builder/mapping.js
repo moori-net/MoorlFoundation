@@ -362,6 +362,7 @@ const mapping = {
     categoryTree: {hidden: true},
 
     // Media
+    media: {tab: 'general', card: 'media'},
     embeddedMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
     cover: {tab: 'general', card: 'media'},
     color: {tab: 'general', card: 'media'},
