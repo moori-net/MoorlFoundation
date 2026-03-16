@@ -248,6 +248,14 @@ const ctaBanner = {
         cols: 6,
         conditions: [{ property: 'btnActive', value: true }]
     },
+    // Query
+    queryParams: {
+        value: '',
+        attributes: { placeholder: '?distance=20&location=Köln&order=release-desc&p=1' },
+        tab: 'content',
+        card: 'meta',
+        cols: 12
+    },
     // Icon
     iconType: {
         value: 'none',

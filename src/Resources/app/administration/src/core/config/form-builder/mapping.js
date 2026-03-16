@@ -1,5 +1,6 @@
 const mapping = {
     // Other
+    elementType: {tab: 'general', card: 'general'},
     children: {tab: 'general', card: 'general'},
     directory: {
         tab: 'directory', card: 'directory', componentName: 'moorl-file-explorer',

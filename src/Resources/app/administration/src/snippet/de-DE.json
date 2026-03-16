@@ -121,6 +121,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "queryParams": "Zusätzliche Query-Parameter (GET)",
       "durationPointer": "Zeitstempel",
       "helpfulCount": "Hilfreich",
       "minHeight": "Mindesthöhe",
