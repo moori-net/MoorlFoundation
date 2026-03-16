@@ -85,11 +85,11 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         $config = $slot->getFieldConfig();
 
         $limitConfig = $config->get('limit');
-        if ($limitConfig && $limitConfig->getValue()) {
-            $criteria->setLimit($limitConfig->getValue());
+        if ($limitConfig && $limitConfig->getIntValue()) {
+            $criteria->setLimit($limitConfig->getIntValue());
             if ($request) {
                 /* Unset immediately in EntitySearchService, because it's not compatible with product listing */
-                $request->query->set(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM, $limitConfig->getValue());
+                $request->query->set(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM, $limitConfig->getIntValue());
             }
         }
 

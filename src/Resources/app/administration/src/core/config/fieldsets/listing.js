@@ -32,6 +32,7 @@ const listing = {
         tab: 'general',
         card: 'source',
         cols: 6,
+        type: 'int',
         attributes: { max: 24 }
     },
     listingItemIds: {
