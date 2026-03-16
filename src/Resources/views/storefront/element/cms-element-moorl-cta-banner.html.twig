@@ -43,9 +43,14 @@
     {% endif %}
 
     {% set elementCss = [
-        "min-height:#{config.height.value}",
-        "background:#{config.elementBackground.value}",
+        "min-height:#{config.height.value}"
     ] %}
+    {% if config.elementBackground.value %}
+        {% set elementCss = elementCss|merge([
+            "background:#{config.elementBackground.value}"
+        ]) %}
+    {% endif %}
+
     {% set backgroundCss = [
         "background-position:#{config.backgroundVerticalAlign.value} #{config.backgroundHorizontalAlign.value}"
     ] %}
