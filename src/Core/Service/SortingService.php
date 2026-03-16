@@ -108,10 +108,10 @@ class SortingService
 
         $config = $slot->getFieldConfig();
         $limitConfig = $config->get('limit');
-        if ($limitConfig && $limitConfig->getValue()) {
-            $criteria->setLimit($limitConfig->getValue());
+        if ($limitConfig && $limitConfig->getIntValue()) {
+            $criteria->setLimit($limitConfig->getIntValue());
             if ($request) {
-                $request->query->set(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM, $limitConfig->getValue());
+                $request->query->set(EntityListingFeaturesSubscriberExtension::LIMIT_PARAM, $limitConfig->getIntValue());
             }
         }
 
