@@ -4,6 +4,10 @@ Shopware.Component.register('moorl-entity-grid-card-v2', {
     template,
 
     computed: {
+        isDisabled() {
+            return this.$attrs.disabled;
+        },
+
         isReady() {
             if (!this.$attrs.defaultItem || Object.values(this.$attrs.defaultItem).length === 0) {
                 return true;

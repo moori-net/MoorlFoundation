@@ -1,5 +1,6 @@
 {% block moorl_entity_grid_card %}
     <mt-card
+            v-if="!isDisabled"
             class="moorl-entity-grid-v2"
             :title="cardTitle"
     >
