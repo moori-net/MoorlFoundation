@@ -355,15 +355,15 @@ const mapping = {
     downloadCenterCode: {tab: 'relations', card: 'relations'},
     partsListConfigurator: {tab: 'relations', card: 'relations'},
 
-    creator: {tab: 'general', card: 'general', componentName: 'moorl-entity-select-field'},
-    tutor: {tab: 'general', card: 'general', componentName: 'moorl-entity-select-field'},
+    creator: {tab: 'general', card: 'general'},
+    tutor: {tab: 'general', card: 'general'},
     categoriesRo: {hidden: true},
     categoryIds: {hidden: true},
     categoryTree: {hidden: true},
 
     // Media
     media: {tab: 'general', card: 'media'},
-    embeddedMedia: {tab: 'general', card: 'media', componentName: 'moorl-entity-select-field'},
+    embeddedMedia: {tab: 'general', card: 'media'},
     cover: {tab: 'general', card: 'media'},
     color: {tab: 'general', card: 'media'},
     bannerColor: {tab: 'general', card: 'media'},
