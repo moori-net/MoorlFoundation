@@ -94,12 +94,23 @@ export default class FormBuilderHelper {
             return;
         }
 
-        // Default global mapping
-        this.mapping = cloneDeep(mapping);
-
-        // If a mapping is set via component attribute
         if (this.masterMapping) {
-            merge(this.mapping, this.masterMapping);
+            // Mapping is set via component attribute
+            this.mapping = {};
+
+            // Loop master mapping to keep the order
+            for (const [key, config] of Object.entries(this.masterMapping)) {
+                if (mapping[key] !== undefined) {
+                    // Add missing properties from global mapping by key
+                    this.mapping[key] = merge({}, mapping[key], config);
+                } else {
+                    // Clone the proxy object
+                    this.mapping[key] = cloneDeep(config);
+                }
+            }
+        } else {
+            // Default global mapping
+            this.mapping = cloneDeep(mapping);
         }
 
         // Add order value to mapping entries
