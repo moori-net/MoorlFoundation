@@ -157,5 +157,6 @@ MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.orde
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.settings.country.index'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'rule', listPath: 'sw.settings.rule.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'mail_template', listPath: 'sw.mail.template.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'user', listPath: 'sw.users.permissions.user.index', labelProperty: 'email'});
