@@ -3,7 +3,6 @@
         <sw-entity-single-select
             v-bind="vBind"
             v-model:value="currentValue"
-            variant="small"
         />
         <div class="sw-field">
             <div
@@ -12,22 +11,26 @@
             >&nbsp;</div>
 
             <div class="sw-block-field__block">
-                <sw-button-group :split-button="true">
+                <sw-button-group
+                        v-if="showEditButton"
+                        :split-button="true"
+                >
                     <mt-button
                             variant="primary"
-                            size="default"
+                            size="small"
                             @click="showEditModal = true"
                             :disabled="disabled"
                     >
                         {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
                     </mt-button>
+
                     <sw-context-button v-if="currentValue && routerLink">
                         <template #button>
                             <mt-button
                                     square
                                     variant="primary"
                                     :disabled="disabled"
-                                    size="default"
+                                    size="small"
                             >
                                 <mt-icon
                                         name="regular-chevron-down-xs"
@@ -35,17 +38,28 @@
                                 />
                             </mt-button>
                         </template>
+
                         <sw-context-menu-item @click="openNewTab">
                             {{ $tc('sw-category.base.link.linkNewTabLabel') }}
                         </sw-context-menu-item>
                     </sw-context-button>
                 </sw-button-group>
+
+                <mt-button
+                        v-else
+                        variant="primary"
+                        size="small"
+                        @click="openNewTab"
+                        :disabled="disabled"
+                >
+                    {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
+                </mt-button>
             </div>
         </div>
     </div>
 
     <moorl-modal-detail
-        v-if="showEditModal"
+        v-if="showEditButton && showEditModal"
         v-model:value="currentValue"
         :entity="entity"
         :defaultItem="defaultItem"

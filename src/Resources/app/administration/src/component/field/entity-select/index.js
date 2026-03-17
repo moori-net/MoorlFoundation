@@ -32,16 +32,6 @@ Shopware.Component.register('moorl-entity-select-field', {
             required: false,
             default: undefined,
         },
-        placeholder: {
-            type: String,
-            required: false,
-            default: undefined,
-        },
-        helpText: {
-            type: String,
-            required: false,
-            default: undefined,
-        },
         disabled: {
             type: Boolean,
             required: false,
@@ -51,6 +41,11 @@ Shopware.Component.register('moorl-entity-select-field', {
             type: String,
             required: false,
             default: undefined,
+        },
+        showEditButton: {
+            type: Boolean,
+            required: false,
+            default: true,
         },
     },
 
@@ -72,12 +67,11 @@ Shopware.Component.register('moorl-entity-select-field', {
 
         vBind() {
             return {
-                entity: this.entity,
+                ...this.$attrs,
                 label: this.fieldLabel,
-                helpText: this.helpText,
-                placeholder: this.placeholder,
-                disabled: this.disabled,
-                showClearableButton: true
+                variant: this.variant,
+                entity: this.entity,
+                disabled: this.disabled
             };
         },
 
@@ -110,11 +104,24 @@ Shopware.Component.register('moorl-entity-select-field', {
         },
 
         routerLink() {
-            return MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'detail');
-        }
+            const routerLink = MoorlFoundation.RouteHelper.getRouterLinkByEntity(
+                this.entity,
+                this.currentValue ? 'detail' : 'create'
+            );
+
+            if (this.routeExists(routerLink)) {
+                return routerLink;
+            }
+
+            return MoorlFoundation.RouteHelper.getRouterLinkByEntity(this.entity, 'index');
+        },
     },
 
     methods: {
+        routeExists(routerLink) {
+            return this.$router.getRoutes().some(route => route.name === routerLink);
+        },
+
         saveItem() {
             this.itemRepository
                 .save(this.selectedItem, Shopware.Context.api)

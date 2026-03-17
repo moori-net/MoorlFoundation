@@ -5,6 +5,10 @@ const isRegisteredEntity = () => ({ field }) => {
     const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(field.entity);
     return pluginConfig?.properties?.length > 0;
 };
+const isKnownEntity = () => ({ field }) => {
+    const pluginConfig = MoorlFoundation.ModuleHelper.getByEntity(field.entity);
+    return pluginConfig?.listPath !== undefined;
+};
 
 const autoConfiguration = [
     // general stuff
@@ -371,13 +375,39 @@ const autoConfiguration = [
         }
     },
     {
-        description: ({ property }) => `Add component 'sw-entity-single-select' (${property})`,
+        description: ({ property }) => `Add component 'moorl-entity-select-field' for registered entity (${property})`,
+        conditions: [
+            '!hasComponentName',
+            'isManyToOne',
+            isRegisteredEntity()
+        ],
+        apply({ column }) {
+            column.cols ??= 12;
+            column.componentName = 'moorl-entity-select-field';
+        }
+    },
+    {
+        description: ({ property }) => `Add component 'moorl-entity-select-field' for known entity (${property})`,
+        conditions: [
+            '!hasComponentName',
+            'isManyToOne',
+            isKnownEntity(),
+            not(isEntity('media', 'user')),
+        ],
+        apply({ column, attributes}) {
+            column.cols ??= 12;
+            column.componentName = 'moorl-entity-select-field';
+            attributes.showEditButton = false;
+        }
+    },
+    {
+        description: ({ property }) => `Add component 'sw-entity-single-select' for other entity (${property})`,
         conditions: [
             '!hasComponentName',
             'isManyToOne',
             not(isEntity('media', 'user')),
         ],
-        apply({ column}) {
+        apply({ column }) {
             column.cols ??= 6;
             column.componentName = 'sw-entity-single-select';
         }
@@ -388,7 +418,7 @@ const autoConfiguration = [
             'isManyToMany',
             isEntity('tag')
         ],
-        apply({ column}) {
+        apply({ column }) {
             column.model = 'entityCollection';
             column.componentName = 'sw-entity-tag-select';
         }
