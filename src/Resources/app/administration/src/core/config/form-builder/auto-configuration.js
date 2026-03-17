@@ -146,6 +146,15 @@ const autoConfiguration = [
             attributes.zIndex = 1000;
         }
     },
+    {
+        description: ({ property }) => `Add component 'moorl-icon-field' (${property})`,
+        conditions: [
+            ({ field, property }) => field.type === 'icon' || (field.type === 'string' && property.toLowerCase().includes('iconclass'))
+        ],
+        apply({ column }) {
+            column.componentName = 'moorl-icon-field';
+        }
+    },
     // field type stuff
     {
         alias: 'isString',

@@ -14,3 +14,4 @@ import './product-multi-select';
 import './svg-shape';
 import './media';
 import './list';
+import './icon';
