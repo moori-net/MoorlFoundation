@@ -26,4 +26,8 @@
             }
         </style>
     {% endif %}
+
+    {% if config('MoorlFoundation.config.moorlOffsetTop') %}
+        <script type="application/javascript">window.moorlOffsetTop = {{ config('MoorlFoundation.config.moorlOffsetTop') }};</script>
+    {% endif %}
 {% endblock %}

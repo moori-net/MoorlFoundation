@@ -2,7 +2,7 @@ const Plugin = window.PluginBaseClass;
 
 export default class MoorlGridPlugin extends Plugin {
     static options = {
-        offsetTop: 0,
+        offsetTop: window.moorlOffsetTop ?? 30,
         isSticky: false,
     };
 
@@ -10,8 +10,6 @@ export default class MoorlGridPlugin extends Plugin {
         if (!this.options.isSticky) {
             return;
         }
-
-        /*this.el.classList.add('sticky-top');*/
 
         this._registerEvents();
     }
@@ -29,12 +27,12 @@ export default class MoorlGridPlugin extends Plugin {
             document.documentElement.scrollTop || document.body.scrollTop || 0;
         let tocNavTop =
             this.el.getBoundingClientRect().top +
-            this.el.ownerDocument.defaultView.pageYOffset;
+            this.el.ownerDocument.defaultView.scrollY;
 
         if (scrollTop < tocNavTop) {
             this.el.style.paddingTop = '0';
         } else {
-            this.el.style.paddingTop = this.options.offsetTop;
+            this.el.style.paddingTop = `${this.options.offsetTop}px`;
         }
     }
 }

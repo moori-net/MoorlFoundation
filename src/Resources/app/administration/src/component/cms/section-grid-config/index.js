@@ -49,7 +49,6 @@ Shopware.Component.register('moorl-section-grid-config', {
                         justifyContent: 'normal',
                         isSidebar: false,
                         isSticky: false,
-                        offsetTop: '30px',
                         value: {
                             lg: {
                                 show: true,

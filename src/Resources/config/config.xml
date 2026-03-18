@@ -98,143 +98,6 @@
     </card>
 
     <card>
-        <title>Auto translate [Premium]</title>
-        <title lang="de-DE">Automatische Übersetzungen [Premium]</title>
-
-        <input-field>
-            <name>deeplApiKey</name>
-            <label>DeepL API key</label>
-            <label lang="de-DE">DeepL API Schlüssel</label>
-            <helpText>This API key is used by moori plugins</helpText>
-            <helpText lang="de-DE">Dieser API Schlüssel wird von moori Plugins genutzt</helpText>
-        </input-field>
-
-        <component name="sw-entity-single-select">
-            <name>translateSource</name>
-            <entity>language</entity>
-            <label>Source language</label>
-            <label lang="de-DE">Quellsprache</label>
-        </component>
-
-        <component name="sw-entity-multi-id-select">
-            <name>translateDestination</name>
-            <entity>language</entity>
-            <label>Destination language(s)</label>
-            <label lang="de-DE">Zielsprache(n)</label>
-        </component>
-
-        <input-field type="single-select">
-            <name>translateFormality</name>
-            <label>Formality</label>
-            <label lang="de-DE">Formalität</label>
-            <options>
-                <option>
-                    <id>default</id>
-                    <name>Default</name>
-                </option>
-                <option>
-                    <id>more</id>
-                    <name>More</name>
-                </option>
-                <option>
-                    <id>less</id>
-                    <name>Less</name>
-                </option>
-            </options>
-            <defaultValue>default</defaultValue>
-        </input-field>
-
-        <input-field type="multi-select">
-            <name>translateProductProperties</name>
-            <label>Product fields</label>
-            <label lang="de-DE">Produkt Felder</label>
-            <options>
-                <option>
-                    <id>name</id>
-                    <name>name</name>
-                </option>
-                <option>
-                    <id>description</id>
-                    <name>description</name>
-                </option>
-                <option>
-                    <id>metaTitle</id>
-                    <name>metaTitle</name>
-                </option>
-                <option>
-                    <id>metaDescription</id>
-                    <name>metaDescription</name>
-                </option>
-                <option>
-                    <id>keywords</id>
-                    <name>keywords</name>
-                </option>
-            </options>
-        </input-field>
-
-        <input-field type="multi-select">
-            <name>translateCategoryProperties</name>
-            <label>Category fields</label>
-            <label lang="de-DE">Kategorie Felder</label>
-            <options>
-                <option>
-                    <id>name</id>
-                    <name>name</name>
-                </option>
-                <option>
-                    <id>description</id>
-                    <name>description</name>
-                </option>
-                <option>
-                    <id>metaTitle</id>
-                    <name>metaTitle</name>
-                </option>
-                <option>
-                    <id>metaDescription</id>
-                    <name>metaDescription</name>
-                </option>
-                <option>
-                    <id>keywords</id>
-                    <name>keywords</name>
-                </option>
-            </options>
-        </input-field>
-
-        <input-field type="multi-select">
-            <name>translatePropertyGroupProperties</name>
-            <label>Property fields</label>
-            <label lang="de-DE">Eigenschaften Felder</label>
-            <options>
-                <option>
-                    <id>name</id>
-                    <name>name</name>
-                </option>
-                <option>
-                    <id>description</id>
-                    <name>description</name>
-                </option>
-            </options>
-        </input-field>
-
-        <input-field type="multi-select">
-            <name>translatePropertyGroupOptionProperties</name>
-            <label>Property option fields</label>
-            <label lang="de-DE">Eigenschaften Optionen Felder</label>
-            <options>
-                <option>
-                    <id>name</id>
-                    <name>name</name>
-                </option>
-            </options>
-        </input-field>
-
-        <component name="moorl-support-link">
-            <name>null</name>
-            <path>/MoorlFoundation/features-premium/</path>
-        </component>
-    </card>
-
-    <card>
         <title>Open Street Map</title>
         <title lang="de-DE">Open Street Map</title>
 
@@ -509,6 +372,16 @@
     <card>
         <title>Plugin settings</title>
         <title lang="de-DE">Plugin Einstellungen</title>
+
+        <input-field type="int">
+            <name>moorlOffsetTop</name>
+            <label>Offset top for auto scroll and sticky elements</label>
+            <label lang="de-DE">Versatz am oberen Rand für automatischen Bildlauf und fixierte Elemente</label>
+            <helpText>Use this configuration for sticky headers in the Storefront layout</helpText>
+            <helpText lang="de-DE">Verwenden Sie diese Konfiguration für feststehende Kopfzeilen im Storefront Layout</helpText>
+            <defaultValue>30</defaultValue>
+            <placeholder>30</placeholder>
+        </input-field>
 
         <input-field type="text">
             <name>fileExtensions</name>
