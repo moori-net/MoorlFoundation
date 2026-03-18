@@ -140,6 +140,11 @@ PluginManager.register(
     '[data-moorl-fb-signature]'
 );
 
+PluginManager.register(
+    'MoorlScrollTo',
+    () => import('./scroll-to/scroll-to.plugin'),
+);
+
 /* Dynamic MoorlAnimation configuration */
 if (window.moorlAnimation) {
     for (let item of window.moorlAnimation) {
