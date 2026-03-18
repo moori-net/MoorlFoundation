@@ -29,11 +29,6 @@
             :label="$tc('moorl-section-grid-config.label.isSticky')"
             v-model="configItem.isSticky"
         />
-        <mt-text-field
-            v-if="configItem.isSticky"
-            :label="$tc('moorl-section-grid-config.label.offsetTop')"
-            v-model="configItem.offsetTop"
-        />
         <moorl-select-field
             :label="$tc('moorl-section-grid-config.label.justifyContent')"
             v-model:value="configItem.justifyContent"

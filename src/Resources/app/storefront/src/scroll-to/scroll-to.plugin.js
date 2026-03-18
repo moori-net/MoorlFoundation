@@ -2,7 +2,7 @@ const Plugin = window.PluginBaseClass;
 
 export default class MoorlScrollTo extends Plugin {
     static options = {
-        offset: 0
+        offsetTop: window.moorlOffsetTop ?? 30
     };
 
     init() {
@@ -21,7 +21,7 @@ export default class MoorlScrollTo extends Plugin {
             }
 
             const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - this.options.offset;
+            const offsetPosition = elementPosition + window.scrollY - this.options.offsetTop;
 
             window.scrollTo({
                 top: offsetPosition,

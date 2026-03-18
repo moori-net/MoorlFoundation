@@ -13,7 +13,7 @@ export default class MoorlLocationPlugin extends Plugin {
         attribution:
             'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         options: [],
-        offsetTop: 120,
+        offsetTop: window.moorlOffsetTop ?? 60,
         padding: 5,
         zoom: 14,
         cookieConsent: false,

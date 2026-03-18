@@ -1,14 +1,15 @@
 {% set layout = section.sizingMode ? section.sizingMode|replace({"_": "-"}) : "container" %}
 {% set sectionSpacing = section.customFields.moorl_section_spacing is defined ? section.customFields.moorl_section_spacing : 30 %}
 
-<div class="cms-section-moorl-grid {{ layout }}"
-     style="--section-spacing: {{ sectionSpacing / 2 }}px;">
+<div
+        class="cms-section-moorl-grid {{ layout }}"
+        style="--section-spacing: {{ sectionSpacing / 2 }}px;"
+>
     <div class="row">
         {% for configIndex, configItem in section.customFields.moorl_section_grid_config %}
             {% set sectionPosition = "moorl_grid_#{configIndex}" %}
             {% set blockBehaviour = moorl_block_behaviour(configItem.value, true) %}
             {% set options = {
-                offsetTop: configItem.offsetTop ?: '30px',
                 isSidebar: configItem.isSidebar,
                 isSticky: configItem.isSticky
             } %}
@@ -28,8 +29,11 @@
             {% endif %}
 
             <div class="{{ blockBehaviour }}">
-                <div style="{{ sectionCss|join(';')|raw }}" data-moorl-grid
-                     data-moorl-grid-options='{{ options|json_encode|raw }}'>
+                <div
+                        style="{{ sectionCss|join(';')|raw }}"
+                        data-moorl-grid
+                        data-moorl-grid-options='{{ options|json_encode|raw }}'
+                >
                     {% for block in section.blocks.filterBySectionPosition(sectionPosition) %}
                         {% if configItem.isSidebar %}{{ block.setSectionPosition('sidebar') }}{% endif %}
                         {% sw_include "@Storefront/storefront/section/cms-section-block-container.html.twig" ignore missing %}

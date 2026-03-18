@@ -1,13 +1,11 @@
 const Plugin = window.PluginBaseClass;
 
 export default class MoorlTocPlugin extends Plugin {
-    static options = {};
+    static options = {
+        offsetTop: window.moorlOffsetTop ?? 50
+    };
 
     init() {
-        //this._progressBar = document.querySelector('.moorl-toc-progressbar');
-        //this._progress = this._progressBar.querySelector('.progress');
-        //this._headerElement = document.querySelector('.header-main');
-        //this._navElement = document.querySelector('.nav-main');
         this._cmsPageElement = document.querySelector('.cms-page');
         this._headingElements =
             this._cmsPageElement.querySelectorAll('h2,h3,h5,h5,h6');
@@ -41,7 +39,7 @@ export default class MoorlTocPlugin extends Plugin {
                     this._selectedTocLink = ' ';
                 }
                 let top = el.getBoundingClientRect().top;
-                if (top <= 50) {
+                if (top <= this.options.offsetTop) {
                     this._selectedHeadline = el;
                 }
             }
