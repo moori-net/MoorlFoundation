@@ -2,12 +2,9 @@
 
 namespace MoorlFoundation\Core\Subscriber;
 
-use MoorlFoundation\Core\Service\TranslationService;
 use Shopware\Core\Checkout\Order\Event\OrderStateMachineStateChangeEvent;
 use Shopware\Core\Checkout\Order\OrderDefinition;
 use Shopware\Core\Content\Media\Event\MediaFileExtensionWhitelistEvent;
-use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenContainerEvent;
-use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\StateMachine\Transition;
@@ -18,7 +15,6 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly SystemConfigService $systemConfigService,
-        private readonly TranslationService $translationService,
         private readonly StateMachineRegistry $stateMachineRegistry
     )
     {
@@ -28,7 +24,6 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
     {
         return [
             MediaFileExtensionWhitelistEvent::class => 'onMediaFileExtensionWhitelist',
-            EntityWrittenContainerEvent::class => 'onEntityWrittenContainerEvent',
             'state_enter.order_transaction.state.cancelled' => 'stateChanged',
             'state_enter.order_transaction.state.failed' => 'stateChanged',
         ];
@@ -46,15 +41,6 @@ class MoorlFoundationSubscriber implements EventSubscriberInterface
             }
         }
         $event->setWhitelist($whitelist);
-    }
-
-    public function onEntityWrittenContainerEvent(EntityWrittenContainerEvent $event): void
-    {
-        foreach ($event->getEvents() as $entityWrittenEvent) {
-            if ($entityWrittenEvent instanceof EntityWrittenEvent) {
-                $this->translationService->translate($entityWrittenEvent->getEntityName(), $entityWrittenEvent->getWriteResults(), $entityWrittenEvent->getContext());
-            }
-        }
     }
 
     public function stateChanged(OrderStateMachineStateChangeEvent $event): void

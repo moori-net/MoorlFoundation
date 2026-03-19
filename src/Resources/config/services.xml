@@ -13,7 +13,6 @@
         <import resource="subscribers.xml"/>
         <import resource="core/data.xml"/>
         <import resource="core/client.xml"/>
-        <import resource="core/entity-translation.xml"/>
         <import resource="core/embedded-media.xml"/>
         <import resource="core/validator.xml"/>
         <import resource="core/price-calculator.xml"/>
@@ -21,13 +20,6 @@
 
     <services>
         <!-- Services -->
-        <service id="MoorlFoundation\Core\Service\TranslationService" public="true">
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
-            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
-
-            <argument type="tagged" tag="moorl.foundation.entity_translation"/>
-        </service>
-
         <service id="MoorlFoundation\Core\Service\SortingService" public="true">
             <argument type="service" id="moorl_sorting.repository"/>
         </service>
