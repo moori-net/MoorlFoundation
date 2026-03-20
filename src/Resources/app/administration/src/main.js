@@ -66,7 +66,16 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'entity', visibility: 100},
         {name: 'label', visibility: 100},
         {name: 'priority', visibility: 100},
-    ]
+    ],
+    entityMapping: {
+        fields: {
+            tab: 'general',
+            componentName: 'moorl-sorting-option-criteria-card',
+            attributes: {
+                item: ({item}) => item
+            }
+        },
+    }
 });
 
 MoorlFoundation.ModuleHelper.registerModule({

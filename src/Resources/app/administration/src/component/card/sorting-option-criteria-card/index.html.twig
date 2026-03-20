@@ -1,15 +1,13 @@
 <mt-card
-    class="moorl-sorting-option-criteria-grid__criteria-card"
-    position-identifier="moorl-sorting-option-criteria-grid"
-    :title="$tc('moorl-sorting.general.criteria')"
+    class="moorl-sorting-option-criteria-card__criteria-card"
+    position-identifier="moorl-sorting-option-criteria-card"
+    :title="$tc('moorl-sorting-option-criteria-card.criteria')"
 >
     <template #toolbar>
         <sw-single-select
             :value="selectedCriteria"
             :options="criteriaOptions"
-            :placeholder="$tc('moorl-sorting.general.selectField')"
-            value-property="value"
-            label-property="label"
+            :placeholder="$tc('moorl-sorting-option-criteria-card.selectField')"
             show-clearable-button
             @update:value="onAddCriteria"
         />
@@ -62,7 +60,7 @@
 
     <sw-empty-state
         v-else
-        class="moorl-sorting-option-criteria-grid__criteria-empty-state"
+        class="moorl-sorting-option-criteria-card__criteria-empty-state"
         title=""
         :subline="$tc('sw-settings-listing.base.criteria.emptyStateSubline')"
     >

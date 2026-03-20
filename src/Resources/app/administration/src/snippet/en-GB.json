@@ -121,6 +121,8 @@
       "visibility": "Visibility"
     },
     "field": {
+      "svg": "Inline-SVG",
+      "fields": "Fields",
       "showTranslated": "Show translated",
       "queryParams": "Additional query parameters (GET)",
       "durationPointer": "Timestamp",
