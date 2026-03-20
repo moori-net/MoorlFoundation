@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "showTranslated": "Show translated",
       "queryParams": "Additional query parameters (GET)",
       "durationPointer": "Timestamp",
       "helpfulCount": "Helpful",

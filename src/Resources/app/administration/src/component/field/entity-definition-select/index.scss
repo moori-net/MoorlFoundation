@@ -1,0 +1,8 @@
+.moorl-entity-definition-select-field {
+    .moorl-entity-definition-select-field__fieldset {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        width: 100%;
+    }
+}
