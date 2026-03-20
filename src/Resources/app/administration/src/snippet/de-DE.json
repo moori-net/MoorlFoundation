@@ -121,6 +121,8 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "svg": "Inline-SVG",
+      "fields": "Felder",
       "showTranslated": "Nur mit Übersetzung",
       "queryParams": "Zusätzliche Query-Parameter (GET)",
       "durationPointer": "Zeitstempel",

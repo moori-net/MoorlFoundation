@@ -9,6 +9,14 @@ const mapping = {
         cols: 12
     },
     deeplink: {tab: 'customFields', card: 'deeplink'},
+    entity: {
+        tab: 'general',
+        card: 'general',
+        componentName: 'moorl-entity-definition-select',
+        cols: 12
+    },
+    key: {tab: 'general', card: 'general'},
+    label: {tab: 'general', card: 'general'},
 
     // Promotion
     discountType: {

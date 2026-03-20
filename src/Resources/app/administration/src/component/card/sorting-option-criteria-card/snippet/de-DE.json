@@ -1,0 +1,8 @@
+{
+    "moorl-sorting-option-criteria-card": {
+        "criteria": "Kriterien",
+        "selectField": "Wähle ein Feld aus",
+        "criteriaAlreadyUsed": "Das Sortierkriterium \"{fieldName}\" wird schon verwendet.",
+        "entityChangedFieldsReset": "Die Felder wurden zurückgesetzt, weil sich die Entity geändert hat."
+    }
+}

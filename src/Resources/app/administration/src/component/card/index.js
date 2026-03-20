@@ -3,3 +3,4 @@ import './entity-grid-card-v2';
 import './behaviour-card';
 import './cms-slot-card';
 import './location-card';
+import './sorting-option-criteria-card';

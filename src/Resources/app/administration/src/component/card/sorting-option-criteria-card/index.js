@@ -3,7 +3,7 @@ import './index.scss';
 
 const { Criteria } = Shopware.Data;
 
-Shopware.Component.register('moorl-sorting-option-criteria-grid', {
+Shopware.Component.register('moorl-sorting-option-criteria-card', {
     template,
 
     inject: ['repositoryFactory'],
@@ -41,7 +41,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         },
 
         sortedProductSortingFields() {
-            return this.item.fields.sort((a, b) => {
+            return [...(this.item.fields || [])].sort((a, b) => {
                 if (a.priority === b.priority) {
                     return 0;
                 }
@@ -72,11 +72,19 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
 
         criteriaOptions() {
             const storeOptions = [];
-            const entity = this.item.entity;
-            const entityDefinition =
-                Shopware.EntityDefinition.get(entity).properties;
+            const entity = this.item?.entity;
 
-            Object.entries(entityDefinition).forEach(([property, value]) => {
+            if (!entity) {
+                return storeOptions;
+            }
+
+            const entityDefinition = Shopware.EntityDefinition.get(entity);
+
+            if (!entityDefinition || !entityDefinition.properties) {
+                return storeOptions;
+            }
+
+            Object.entries(entityDefinition.properties).forEach(([property, value]) => {
                 if (
                     [
                         'uuid',
@@ -86,19 +94,17 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
                         'date',
                         'boolean',
                         'int',
-                    ].indexOf(value.type) !== -1
+                    ].includes(value.type)
                 ) {
                     if (property === 'customFields') {
-                        this.customFieldSets.forEach(function (customFieldSet) {
-                            customFieldSet.customFields.forEach(
-                                function (customField) {
-                                    storeOptions.push({
-                                        value: `${entity}.${property}.${customField.name}`,
-                                        label: `${property}.${customField.name}`,
-                                        type: `${customField.type}`,
-                                    });
-                                }
-                            );
+                        this.customFieldSets.forEach((customFieldSet) => {
+                            customFieldSet.customFields.forEach((customField) => {
+                                storeOptions.push({
+                                    value: `${entity}.${property}.${customField.name}`,
+                                    label: `${property}.${customField.name}`,
+                                    type: `${customField.type}`,
+                                });
+                            });
                         });
                     } else {
                         storeOptions.push({
@@ -110,9 +116,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
                 }
             });
 
-            return storeOptions.sort((a, b) => {
-                return a.label.localeCompare(b.label);
-            });
+            return storeOptions.sort((a, b) => a.label.localeCompare(b.label));
         },
 
         orderOptions() {
@@ -134,13 +138,20 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
     },
 
     watch: {
-        item: {
-            handler() {
-                if (!this.item || !this.item.fields) {
-                    return;
-                }
-            },
-            deep: true,
+        'item.entity'(newValue, oldValue) {
+            if (!newValue || newValue === oldValue) {
+                return;
+            }
+
+            this.item.fields = [];
+
+            this.createNotificationInfo({
+                message: this.$tc('moorl-sorting-option-criteria-card.entityChangedFieldsReset'),
+            });
+
+            this.customFieldSets = [];
+            this.selectedCriteria = null;
+            this.loadCustomFieldSets();
         },
     },
 
@@ -150,15 +161,25 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
 
     methods: {
         createdComponent() {
+            if (!this.item.fields) {
+                this.item.fields = [];
+            }
+
             this.loadCustomFieldSets();
         },
 
         loadCustomFieldSets() {
+            if (!this.item?.entity) {
+                this.customFieldSets = [];
+                return;
+            }
+
             const criteria = new Criteria(1, 100);
 
             criteria.addFilter(
                 Criteria.equals('relations.entityName', this.item.entity)
             );
+
             criteria
                 .addAssociation('customFields')
                 .addSorting(
@@ -173,12 +194,23 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         },
 
         onAddCriteria(fieldName) {
-            if (!this.criteriaIsAlreadyUsed(fieldName)) {
-                this.$emit('criteria-add', fieldName);
+            if (!fieldName) {
+                return;
+            }
 
-                const record = this.item.fields.find(
-                    (field) => field.field === fieldName
-                );
+            if (!this.criteriaIsAlreadyUsed(fieldName)) {
+                const newCriteria = this.getCriteriaTemplate(fieldName);
+
+                if (!this.item.fields) {
+                    this.item.fields = [];
+                }
+
+                this.item.fields.push(newCriteria);
+
+                const record = this.item.fields.find((field) => {
+                    return field.field === fieldName;
+                });
+
                 this.$nextTick().then(() => {
                     if (record && this.$refs.dataGrid) {
                         this.$refs.dataGrid.onDbClickCell(record);
@@ -189,7 +221,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
             }
 
             this.createNotificationError({
-                message: this.$t('moorl-sorting.general.criteriaAlreadyUsed', {
+                message: this.$t('moorl-sorting-option-criteria-card.criteriaAlreadyUsed', {
                     fieldName,
                 }),
             });
@@ -204,7 +236,9 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         },
 
         onRemoveCriteria(item) {
-            this.$emit('criteria-delete', item);
+            this.item.fields = (this.item.fields || []).filter((currentCriteria) => {
+                return currentCriteria.field !== item.field;
+            });
         },
 
         getCriteriaTemplate(fieldName) {
@@ -219,23 +253,19 @@ Shopware.Component.register('moorl-sorting-option-criteria-grid', {
         onSaveInlineEdit(item) {
             if (item.field === null) {
                 this.createNotificationError({
-                    message: this.$tc(
-                        'sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull'
-                    ),
+                    message: this.$tc('sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull'),
                 });
-
-                return;
             }
-
-            this.$emit('inline-edit-save');
         },
 
         onCancelInlineEdit(item) {
-            this.$emit('inline-edit-cancel', item);
+            this.item.fields = (this.item.fields || []).filter((currentCriteria) => {
+                return currentCriteria.field !== item.field;
+            });
         },
 
         criteriaIsAlreadyUsed(criteriaName) {
-            return this.item.fields.some((currentCriteria) => {
+            return (this.item.fields || []).some((currentCriteria) => {
                 return currentCriteria.field === criteriaName;
             });
         },
