@@ -121,6 +121,10 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "apiKey": "API-Schlüssel",
+      "formality": "Formalität",
+      "tagHandling": "Tag-Handling",
+      "ignoreTags": "Ignorierte Tags",
       "svg": "Inline-SVG",
       "fields": "Felder",
       "showTranslated": "Nur mit Übersetzung",
