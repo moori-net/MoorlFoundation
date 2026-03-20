@@ -10,22 +10,6 @@ Shopware.Component.override('moorl-sorting-detail', {
         };
     },
 
-    computed: {
-        entityOptions() {
-            const storeOptions = [];
-            const definitionRegistry = Shopware.EntityDefinition.getDefinitionRegistry();
-
-            definitionRegistry.forEach(function (value, key) {
-                storeOptions.push({
-                    name: `${key}`,
-                    value: `${key}`,
-                });
-            });
-
-            return storeOptions;
-        },
-    },
-
     methods: {
         getCriteriaTemplate(fieldName) {
             return {

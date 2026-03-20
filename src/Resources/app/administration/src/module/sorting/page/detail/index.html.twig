@@ -6,12 +6,9 @@
                 :label="$tc('moorl-foundation.field.active')"
                 v-model="item.active"
             />
-            <sw-single-select
+            <moorl-entity-definition-select
                 v-model:value="item.entity"
-                valueProperty="name"
-                :options="entityOptions"
                 :label="$tc('moorl-foundation.field.entity')"
-                labelProperty="name"
                 @on-change="onChangeLanguage"
                 :required="true"
             />

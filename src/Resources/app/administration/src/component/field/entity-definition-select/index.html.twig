@@ -1,0 +1,15 @@
+<div class="moorl-entity-definition-select-field">
+    <div class="moorl-entity-definition-select-field__fieldset">
+        <sw-single-select
+                v-bind="$attrs"
+                :options="entityDefinitionOptions"
+        />
+
+        <mt-switch
+                :label="$tc('moorl-foundation.field.showTranslated')"
+                :disabled="$attrs.disabled"
+                v-model="showTranslated"
+                bordered
+        />
+    </div>
+</div>

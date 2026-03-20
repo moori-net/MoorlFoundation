@@ -10,6 +10,7 @@ import './file-explorer';
 import './price';
 import './embedded-url';
 import './entity-select';
+import './entity-definition-select';
 import './product-multi-select';
 import './svg-shape';
 import './media';
