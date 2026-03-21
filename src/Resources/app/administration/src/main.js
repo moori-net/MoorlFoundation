@@ -17,7 +17,17 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'active', visibility: 100},
         {name: 'name', visibility: 100},
         {name: 'type', visibility: 100},
-    ]
+    ],
+    entityMapping: {
+        active: {tab: 'general', card: 'general'},
+        type: {
+            tab: 'general',
+            componentName: 'moorl-client-config-card',
+            attributes: {
+                item: ({item}) => item
+            }
+        },
+    }
 });
 
 MoorlFoundation.ModuleHelper.registerModule({

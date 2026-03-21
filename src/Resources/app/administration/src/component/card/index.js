@@ -4,3 +4,4 @@ import './behaviour-card';
 import './cms-slot-card';
 import './location-card';
 import './sorting-option-criteria-card';
+import './client-config-card';
