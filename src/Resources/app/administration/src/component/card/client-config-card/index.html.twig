@@ -1,0 +1,45 @@
+<mt-card
+        class="moorl-client-config-card"
+        position-identifier="moorl-client-config-card"
+        :title="$tc('moorl-foundation.card.config')"
+>
+    <div class="moorl-client-config-card__fieldset">
+        <moorl-select-field
+                v-if="options.length"
+                v-model:value="item.type"
+                :customSet="options"
+                valueProperty="name"
+                labelProperty="name"
+                :label="$tc('moorl-foundation.field.type')"
+        />
+        <div class="sw-field">
+            <div class="sw-field__label">&nbsp;</div>
+
+            <div class="sw-block-field__block">
+                <mt-button
+                        variant="primary"
+                        size="small"
+                        @click="onClickTest"
+                        :disabled="disabled"
+                >
+                    {{ $tc('moorl-foundation.button.testConnection') }}
+                </mt-button>
+            </div>
+        </div>
+    </div>
+
+    <template
+            v-if="item.config"
+            v-for="option in options"
+    >
+        <template v-if="item.type == option.name">
+            <template v-for="config in option.configTemplate">
+                <sw-form-field-renderer
+                        v-model:value="item.config[config.name]"
+                        :label="$tc('moorl-foundation.field.' + config.name)"
+                        :config="config"
+                />
+            </template>
+        </template>
+    </template>
+</mt-card>
