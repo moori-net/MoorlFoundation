@@ -18,7 +18,7 @@
             </mt-button>
 
             <sw-button-group
-                    v-if="allowEdit"
+                    v-if="allowEdit && !locked"
                     :split-button="true"
             >
                 <sw-button-process
@@ -51,7 +51,7 @@
             </sw-button-group>
 
             <mt-button
-                v-if="!isNewItem && allowDelete"
+                v-if="!isNewItem && allowDelete && !locked"
                 variant="critical"
                 size="default"
                 @click="showConfirmDeleteModal = true"

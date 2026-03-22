@@ -1,0 +1,8 @@
+.moorl-cms-element-type-select-field {
+    .moorl-cms-element-type-select-field__fieldset {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 6px;
+        width: 100%;
+    }
+}

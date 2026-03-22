@@ -121,6 +121,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "hash": "Hash-Wert",
       "apiKey": "API-Schlüssel",
       "formality": "Formalität",
       "tagHandling": "Tag-Handling",
@@ -900,6 +901,7 @@
       "zipcode": "Postleitzahl"
     },
     "helpText": {
+      "hash": "Der originale Inhalt wird als Hash-Wert gespeichert, um in der Datenbank danach zu suchen.",
       "autoLocation": "Die Standortermittlung dauert 1-3 Sekunden pro Eintrag. Wenn die Address nicht richtig ausgefüllt ist, kann es zu Fehlern kommen.",
       "contentCmsPage": "Verwende eine CMS Seite anstatt Content. Nicht empfohlen, da HTML-Inhalte für Migrationen in andere Systeme besser geeignet sind.",
       "duration": "Angabe in Sekunden",

@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "hash": "Hash value",
       "apiKey": "API-Key",
       "formality": "Formality",
       "tagHandling": "Tag handling",
@@ -907,6 +908,7 @@
       "zipcode": "Zipcode"
     },
     "helpText": {
+      "hash": "The original content is stored as a hash value so that it can be searched for in the database.",
       "autoLocation": "Auto location",
       "contentCmsPage": "Content cms page",
       "duration": "Duration",

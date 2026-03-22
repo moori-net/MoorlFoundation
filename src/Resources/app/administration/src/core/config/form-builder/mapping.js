@@ -17,6 +17,7 @@ const mapping = {
     },
     key: {tab: 'general', card: 'general'},
     label: {tab: 'general', card: 'general'},
+    hash: {tab: 'general', card: 'general'},
 
     // Promotion
     discountType: {
