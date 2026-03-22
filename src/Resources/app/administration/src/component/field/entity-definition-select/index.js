@@ -14,7 +14,7 @@ Shopware.Component.register('moorl-entity-definition-select', {
 
     data() {
         return {
-            showTranslated: true
+            showTranslated: false
         };
     },
 
@@ -28,12 +28,14 @@ Shopware.Component.register('moorl-entity-definition-select', {
                     return;
                 }
 
-                if (this.showTranslated && this.$tc(`global.entities.${key}`) === `global.entities.${key}`) {
-                    return;
+                let label = this.showTranslated ? this.$tc(`global.entities.${key}`) : key;
+
+                if (label === `global.entities.${key}`) {
+                    label = key;
                 }
 
                 storeOptions.push({
-                    label: this.$tc(`global.entities.${key}`),
+                    label: label,
                     value: `${key}`,
                 });
             });

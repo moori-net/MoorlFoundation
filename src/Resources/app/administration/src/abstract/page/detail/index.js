@@ -98,6 +98,10 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             return !!this.item?.translated;
         },
 
+        locked() {
+            return !!this.item?.locked;
+        },
+
         isNewItem() {
             return !this.itemId;
         },
