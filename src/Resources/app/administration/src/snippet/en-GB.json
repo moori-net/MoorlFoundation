@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "emptyCheck": "If empty",
       "hash": "Hash value",
       "apiKey": "API-Key",
       "formality": "Formality",
