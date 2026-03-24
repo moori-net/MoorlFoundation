@@ -73,7 +73,7 @@ export default class FormBuilderHelper {
             if (
                 field.type === 'uuid' ||
                 ['createdAt', 'updatedAt', 'translations'].includes(property) ||
-                field.flags?.runtime || field.flags?.computed
+                field.flags?.computed
             ) continue;
 
             const column = this._buildColumn(field, property, fields);

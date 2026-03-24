@@ -63,7 +63,30 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'className', visibility: 100},
     ],
     pluginName: 'MoorlFoundation',
-    demoName: 'marker'
+    demoName: 'marker',
+    entityMapping: {
+        markerSettings: {
+            tab: 'general',
+            componentName: 'moorl-marker-settings-card',
+            attributes: {
+                item: ({item}) => item
+            }
+        },
+        locationCache: {
+            tab: 'general',
+            attributes: {
+                item: ({item}) => {
+                    return {
+                        marker: item,
+                        name: 'Lorem Ipsum GmbH',
+                        street: 'Musterstraße 1',
+                        zipcode: '12345',
+                        city: 'Musterstadt'
+                    }
+                }
+            }
+        },
+    }
 });
 
 MoorlFoundation.ModuleHelper.registerModule({
