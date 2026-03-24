@@ -1010,6 +1010,7 @@ SQL;
         $mediaFolderRepository->upsert([[
             'id' => $mediaFolderId,
             'name' => $table,
+            'useParentConfiguration' => false,
             'defaultFolder' => ['entity' => $table],
             'configuration' => [
                 'id' => Uuid::randomHex()
