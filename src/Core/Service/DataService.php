@@ -12,6 +12,7 @@ use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQue
 use MoorlFoundation\Core\System\DataInterface;
 use Shopware\Core\Content\Flow\Dispatching\Action\SendMailAction;
 use Shopware\Core\Content\ImportExport\ImportExportProfileDefinition;
+use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderDefinition;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaService;
@@ -980,9 +981,42 @@ SQL;
             );
         }
 
+        $repository->update([[
+            'id' => $mediaId,
+            'mediaFolderId' => $this->getMediaFolderId($table),
+        ]], $this->context);
+
         $this->mediaCache[$name] = $mediaId;
 
         return $mediaId;
+    }
+
+    public function getMediaFolderId(string $table): string
+    {
+        $mediaFolderRepository = $this->definitionInstanceRegistry->getRepository(MediaFolderDefinition::ENTITY_NAME);
+
+        $criteria = new Criteria();
+        $criteria->addFilter(new EqualsFilter('media_folder.defaultFolder.entity', $table));
+        $criteria->addAssociation('defaultFolder');
+        $criteria->setLimit(1);
+
+        $mediaFolderId = $mediaFolderRepository->searchIds($criteria, $this->context)->firstId();
+        if ($mediaFolderId) {
+            return $mediaFolderId;
+        }
+
+        $mediaFolderId = Uuid::randomHex();
+
+        $mediaFolderRepository->upsert([[
+            'id' => $mediaFolderId,
+            'name' => $table,
+            'defaultFolder' => ['entity' => $table],
+            'configuration' => [
+                'id' => Uuid::randomHex()
+            ]
+        ]], $this->context);
+
+        return $mediaFolderId;
     }
 
     public function enrichPriceV2(string $price, string $taxId): ?array
