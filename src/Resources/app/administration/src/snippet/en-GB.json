@@ -121,6 +121,14 @@
       "visibility": "Visibility"
     },
     "field": {
+      "cartToken": "Cart token",
+      "lastPage": "Last page",
+      "lastPageAll": "Last page (all)",
+      "redirectUri": "Redirect URI",
+      "staySignedIn": "Stay signed-in",
+      "ip": "IP",
+      "userClient": "User client",
+      "success": "Success",
       "emptyCheck": "If empty",
       "hash": "Hash value",
       "apiKey": "API-Key",

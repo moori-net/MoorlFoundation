@@ -121,6 +121,14 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "cartToken": "Warenkorb Token",
+      "lastPage": "Letzte Seite",
+      "lastPageAll": "Letzte Seite (Alle)",
+      "redirectUri": "Weiterleitung-URI",
+      "staySignedIn": "Eingeloggt bleiben",
+      "ip": "IP",
+      "userClient": "User-Client",
+      "success": "Erfolg",
       "emptyCheck": "Wenn leer",
       "hash": "Hash-Wert",
       "apiKey": "API-Schlüssel",
