@@ -1,0 +1,72 @@
+{% block moorl_marker_settings_card %}
+    <mt-card
+            class="moorl-marker-settings-card"
+            :title="$tc('moorl-foundation.field.markerSettings')"
+    >
+        <template #headerRight>
+            <a
+                    href="https://leafletjs.com/examples/custom-icons/"
+                    target="_blank"
+                    rel="noopener nofollow"
+            >
+                https://leafletjs.com/examples/custom-icons/
+            </a>
+        </template>
+
+        <sw-container
+                columns="1fr 1fr"
+                gap="0 20px"
+        >
+            <mt-number-field
+                    label="iconSizeX"
+                    v-model="item.markerSettings.iconSizeX"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="iconSizeY"
+                    v-model="item.markerSettings.iconSizeY"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="shadowSizeX"
+                    v-model="item.markerSettings.shadowSizeX"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="shadowSizeY"
+                    v-model="item.markerSettings.shadowSizeY"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="iconAnchorX"
+                    v-model="item.markerSettings.iconAnchorX"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="iconAnchorY"
+                    v-model="item.markerSettings.iconAnchorY"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="shadowAnchorX"
+                    v-model="item.markerSettings.shadowAnchorX"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="shadowAnchorY"
+                    v-model="item.markerSettings.shadowAnchorY"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="popupAnchorX"
+                    v-model="item.markerSettings.popupAnchorX"
+                    numberType="int"
+            />
+            <mt-number-field
+                    label="popupAnchorY"
+                    v-model="item.markerSettings.popupAnchorY"
+                    numberType="int"
+            />
+        </sw-container>
+    </mt-card>
+{% endblock %}

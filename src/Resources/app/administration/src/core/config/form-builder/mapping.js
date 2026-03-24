@@ -168,6 +168,7 @@ const mapping = {
     rating: {tab: 'general', card: 'general'},
     ratingMax: {tab: 'general', card: 'general'},
     errorMessage: {tab: 'general', card: 'general'},
+    className: {tab: 'general', card: 'general'},
 
     // Specifications
     unit: {tab: 'general', card: 'specifications'},
@@ -392,6 +393,7 @@ const mapping = {
     },
     backgroundColor: {tab: 'general', card: 'media', cols: 6},
     videos: {tab: 'general'},
+    svg: {tab: 'general', card: 'content'},
 
     // Comments
     enableComments: {tab: 'comments', card: 'general'}

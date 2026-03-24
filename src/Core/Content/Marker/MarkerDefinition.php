@@ -2,14 +2,13 @@
 
 namespace MoorlFoundation\Core\Content\Marker;
 
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
-use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\LabelProperty;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Runtime;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\JsonField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
@@ -44,13 +43,14 @@ class MarkerDefinition extends EntityDefinition
             new FkField('marker_shadow_id', 'markerShadowId', MediaDefinition::class),
             new FkField('marker_retina_id', 'markerRetinaId', MediaDefinition::class),
             new JsonField('marker_settings', 'markerSettings'),
-            (new StringField('type', 'type'))->addFlags(new EditField(EditField::TEXT)),
-            (new StringField('name', 'name'))->addFlags(new EditField(EditField::TEXT), new Required()),
-            (new StringField('class_name', 'className'))->addFlags(new EditField(EditField::TEXT)),
-            (new LongTextField('svg', 'svg'))->addFlags(new EditField(EditField::TEXT), new AllowHtml(false)),
-            (new ManyToOneAssociationField('marker', 'marker_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
-            (new ManyToOneAssociationField('markerShadow', 'marker_shadow_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
-            (new ManyToOneAssociationField('markerRetina', 'marker_retina_id', MediaDefinition::class, 'id', true))->addFlags(new EditField(), new LabelProperty('fileName')),
+            (new StringField('type', 'type'))->addFlags(),
+            (new StringField('name', 'name'))->addFlags(new Required()),
+            (new StringField('class_name', 'className'))->addFlags(),
+            (new LongTextField('svg', 'svg'))->addFlags(new AllowHtml(false)),
+            (new ManyToOneAssociationField('marker', 'marker_id', MediaDefinition::class, 'id', true))->addFlags(),
+            (new ManyToOneAssociationField('markerShadow', 'marker_shadow_id', MediaDefinition::class, 'id', true))->addFlags(),
+            (new ManyToOneAssociationField('markerRetina', 'marker_retina_id', MediaDefinition::class, 'id', true))->addFlags(),
+            (new StringField('location_cache', 'locationCache'))->addFlags(new Runtime()),
         ]);
     }
 }
