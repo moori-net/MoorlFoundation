@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "hideContent": "Hide content",
       "cartToken": "Cart token",
       "lastPage": "Last page",
       "lastPageAll": "Last page (all)",

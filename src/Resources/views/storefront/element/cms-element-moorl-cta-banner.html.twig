@@ -137,46 +137,49 @@
         {% endif %}
 
         <div class="banner-layer{% if config.boxMaxWidth.value %} container{% endif %}" style="{{ overlayCss|join(";") }}">
-            <div class="container-box" style="{{ boxCss|join(";") }}">
-                {% if config.iconType.value != 'none' %}
-                    {% set iconCss = [
-                        "margin-right:#{config.iconMarginRight.value}",
-                        "margin-bottom:#{config.iconMarginBottom.value}",
-                        "--icon-size:#{config.iconFontSize.value}",
-                    ] %}
+            {% if not config.hideContent.value %}
+                <div class="container-box" style="{{ boxCss|join(";") }}">
+                    {% if config.iconType.value != 'none' %}
+                        {% set iconCss = [
+                            "margin-right:#{config.iconMarginRight.value}",
+                            "margin-bottom:#{config.iconMarginBottom.value}",
+                            "--icon-size:#{config.iconFontSize.value}",
+                        ] %}
 
-                    <div class="container-icon" style="{{ iconCss|join(";") }}">
-                        {% block element_moorl_cta_banner_container_icon %}
-                            {% if config.iconType.value == 'fa' %}
-                                {% set parts = config.iconClass.value|split('|') %}
-                                {% sw_icon 'icon' style {pack: parts[0], fileName: parts[1], size: parts[2]} %}
-                            {% elseif config.iconType.value == 'svg' %}
-                                <span>{{ config.iconSvg.value|raw }}</span>
-                            {% elseif config.iconType.value == 'media' %}
-                                <img src="{{ element.data.iconMedia.url }}" alt="{{ bannerTitle }}">
+                        <div class="container-icon" style="{{ iconCss|join(";") }}">
+                            {% block element_moorl_cta_banner_container_icon %}
+                                {% if config.iconType.value == 'fa' %}
+                                    {% set parts = config.iconClass.value|split('|') %}
+                                    {% sw_icon 'icon' style {pack: parts[0], fileName: parts[1], size: parts[2]} %}
+                                {% elseif config.iconType.value == 'svg' %}
+                                    <span>{{ config.iconSvg.value|raw }}</span>
+                                {% elseif config.iconType.value == 'media' %}
+                                    <img src="{{ element.data.iconMedia.url }}" alt="{{ bannerTitle }}">
+                                {% endif %}
+                            {% endblock %}
+                        </div>
+                    {% endif %}
+
+
+                    <div class="container-content">
+                        {% block element_moorl_cta_banner_container_content %}
+                            {% if config.elementType.value == 'custom' %}
+                                {{ config.content.value|raw }}
+                            {% else %}
+                                {{ bannerTitle|raw }}
+                                {{ bannerDescription|raw }}
+                                {% if config.btnActive.value and bannerLink and not config.elementClickable.value %}
+                                    <a
+                                            class="btn {{ config.btnClass.value }}"
+                                            href="{{ bannerLink }}"
+                                            {% if config.btnNewTab.value %}target="_blank"{% endif %}
+                                    >{{ config.btnText.value }}</a>
+                                {% endif %}
                             {% endif %}
                         {% endblock %}
                     </div>
-                {% endif %}
-
-                <div class="container-content">
-                    {% block element_moorl_cta_banner_container_content %}
-                        {% if config.elementType.value == 'custom' %}
-                            {{ config.content.value|raw }}
-                        {% else %}
-                            {{ bannerTitle|raw }}
-                            {{ bannerDescription|raw }}
-                            {% if config.btnActive.value and bannerLink and not config.elementClickable.value %}
-                                <a
-                                        class="btn {{ config.btnClass.value }}"
-                                        href="{{ bannerLink }}"
-                                        {% if config.btnNewTab.value %}target="_blank"{% endif %}
-                                >{{ config.btnText.value }}</a>
-                            {% endif %}
-                        {% endif %}
-                    {% endblock %}
                 </div>
-            </div>
+            {% endif %}
         </div>
 
         {% block element_moorl_cta_banner_overlay %}{% endblock %}

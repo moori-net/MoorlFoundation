@@ -121,6 +121,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "hideContent": "Inhalt ausblenden",
       "cartToken": "Warenkorb Token",
       "lastPage": "Letzte Seite",
       "lastPageAll": "Letzte Seite (Alle)",
