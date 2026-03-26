@@ -11,7 +11,6 @@ use Shopware\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
 use Shopware\Core\Content\Cms\DataResolver\Element\ElementDataCollection;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use Shopware\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
-use Shopware\Core\Content\Cms\Exception\UnexpectedFieldConfigValueType;
 use Shopware\Core\Content\Product\SalesChannel\Listing\AbstractProductListingRoute;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -26,10 +25,6 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
     {
     }
 
-    /**
-     * @return string
-     * @throws TypePatternException
-     */
     public function getType(): string
     {
         throw new TypePatternException(self::class);
@@ -63,9 +58,6 @@ class FoundationListingCmsElementResolver extends AbstractCmsElementResolver
         return $salesChannelContext->getSalesChannel()->getNavigationCategoryId();
     }
 
-    /**
-     * @throws UnexpectedFieldConfigValueType
-     */
     protected function enrichCmsElementResolverCriteriaV2(
         CmsSlotEntity $slot,
         Criteria $criteria,

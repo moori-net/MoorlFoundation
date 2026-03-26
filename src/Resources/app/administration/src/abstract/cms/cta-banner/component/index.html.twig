@@ -25,9 +25,10 @@
         :style="overlayCss"
     >
         <div
-            class="container"
-            :class="boxClass"
-            :style="boxCss"
+                v-if="!getValue('hideContent')"
+                class="container"
+                :class="boxClass"
+                :style="boxCss"
         >
             <div
                 v-if="getValue('iconType') !== 'none'"

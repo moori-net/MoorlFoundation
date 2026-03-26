@@ -52,6 +52,11 @@ const ctaBanner = {
         entity: 'product',
         conditions: [{ property: 'elementType', value: 'product' }]
     },
+    hideContent: {
+        value: false,
+        tab: 'general',
+        card: 'general'
+    },
     contentLength: {
         value: 300,
         tab: 'general',

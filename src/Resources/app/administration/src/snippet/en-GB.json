@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "hideContent": "Hide content",
       "cartToken": "Cart token",
       "lastPage": "Last page",
       "lastPageAll": "Last page (all)",
@@ -756,8 +757,8 @@
       "posLeft": "Pos left",
       "posTop": "Pos top",
       "position": "Position",
-      "ppPromotion": "Pp promotion",
-      "ppPromotionAutoHide": "Pp promotion auto hide",
+      "ppPromotion": "Product promotion",
+      "ppPromotionAutoHide": "Product promotion auto hide",
       "ppStocks": "Pp stocks",
       "prefix": "Prefix",
       "prepend": "Prepend",
