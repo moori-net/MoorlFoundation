@@ -16,3 +16,4 @@ import './svg-shape';
 import './media';
 import './list';
 import './cms-element-type-select';
+import './icon';
