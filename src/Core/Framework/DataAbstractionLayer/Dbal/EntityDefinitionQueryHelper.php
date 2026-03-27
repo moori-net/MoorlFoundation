@@ -94,6 +94,10 @@ final class EntityDefinitionQueryHelper
         }
 
         switch ($exception->getCode()) {
+            case 1265:
+                self::handleDataTruncatedException($exception, $connection, $table);
+                break;
+
             case 1062:
                 self::handleDuplicateEntryException($exception, $connection, $table, $ids);
                 break;
@@ -136,7 +140,66 @@ final class EntityDefinitionQueryHelper
     // === HANDLER: SPECIFIC EXCEPTIONS ====
     // ======================================
 
-    private static function handleDuplicateEntryException(Exception $exception, Connection $connection, string $table, array $ids): void {
+    private static function handleDataTruncatedException(Exception $exception, Connection $connection, string $table): void
+    {
+        // Beispiel:
+        // SQLSTATE[01000]: Warning: 1265 Data truncated for column 'name' at row 31
+        if (!preg_match("/Data truncated for column '([^']+)' at row (\\d+)/i", $exception->getMessage(), $matches)) {
+            throw $exception;
+        }
+
+        $column = $matches[1];
+
+        if (!self::columnExists($connection, $table, $column)) {
+            throw $exception;
+        }
+
+        $columnMeta = $connection->fetchAssociative(
+            <<<SQL
+SELECT COLUMN_TYPE, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT
+FROM information_schema.COLUMNS
+WHERE TABLE_SCHEMA = DATABASE()
+  AND TABLE_NAME = :table
+  AND COLUMN_NAME = :column
+LIMIT 1
+SQL,
+            [
+                'table' => $table,
+                'column' => $column,
+            ]
+        );
+
+        if (!$columnMeta) {
+            throw $exception;
+        }
+
+        $dataType = strtolower((string) ($columnMeta['DATA_TYPE'] ?? ''));
+        $columnType = (string) ($columnMeta['COLUMN_TYPE'] ?? '');
+
+        if (in_array($dataType, ['varchar', 'char'], true) && preg_match('/\((\d+)\)/', $columnType, $lengthMatches)) {
+            $maxLength = (int) $lengthMatches[1];
+
+            if ($maxLength > 0) {
+                $sql = sprintf(
+                    "UPDATE %s SET %s = LEFT(%s, %d) WHERE CHAR_LENGTH(%s) > %d",
+                    self::quote($table),
+                    self::quote($column),
+                    self::quote($column),
+                    $maxLength,
+                    self::quote($column),
+                    $maxLength
+                );
+
+                $connection->executeStatement($sql);
+                return;
+            }
+        }
+
+        throw $exception;
+    }
+
+    private static function handleDuplicateEntryException(Exception $exception, Connection $connection, string $table, array $ids): void
+    {
         if (!preg_match("/for key '([^']+)\\.uniq\\.([^']+)'/", $exception->getMessage(), $matches)) {
             throw $exception;
         }
