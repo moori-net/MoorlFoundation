@@ -1,4 +1,7 @@
-<mt-text-field v-bind="$attrs">
+<mt-text-field
+        v-bind="$attrs"
+        v-model="currentValue"
+>
     <template #hint>
         <moorl-support-link path="/MoorlFoundation/svg-icons/"/>
     </template>
