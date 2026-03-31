@@ -17,3 +17,4 @@ import './media';
 import './list';
 import './cms-element-type-select';
 import './icon';
+import './translated-text';
