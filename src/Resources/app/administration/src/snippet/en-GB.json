@@ -121,6 +121,9 @@
       "visibility": "Visibility"
     },
     "field": {
+      "score": "Score (Priority)",
+      "productA": "Product A",
+      "productB": "Product B",
       "hideContent": "Hide content",
       "cartToken": "Cart token",
       "lastPage": "Last page",
