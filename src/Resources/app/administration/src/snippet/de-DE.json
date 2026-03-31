@@ -121,6 +121,9 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "score": "Punkte (Priorität)",
+      "productA": "Produkt A",
+      "productB": "Produkt B",
       "hideContent": "Inhalt ausblenden",
       "cartToken": "Warenkorb Token",
       "lastPage": "Letzte Seite",
