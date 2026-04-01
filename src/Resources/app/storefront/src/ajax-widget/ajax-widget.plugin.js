@@ -3,7 +3,11 @@ import LoadingIndicatorUtil from 'src/utility/loading-indicator/loading-indicato
 
 export default class MoorlAjaxWidgetPlugin extends Plugin {
     static options = {
-        url: null
+        url: null,
+        method: 'POST',
+        silent: false,
+        body: null,
+        replaceContent: true,
     };
 
     init() {
@@ -15,17 +19,29 @@ export default class MoorlAjaxWidgetPlugin extends Plugin {
             return;
         }
 
-        const loadingIndicatorUtil = new LoadingIndicatorUtil(this.el);
-        loadingIndicatorUtil.create();
+        const method = String(this.options.method || 'POST').toUpperCase();
+        const useLoadingIndicator = !this.options.silent;
 
-        fetch(this.options.url, {
-            method: 'POST',
+        let loadingIndicatorUtil = null;
+
+        if (useLoadingIndicator) {
+            loadingIndicatorUtil = new LoadingIndicatorUtil(this.el);
+            loadingIndicatorUtil.create();
+        }
+
+        const fetchOptions = {
+            method,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
-            body: '',
-        })
+        };
+
+        if (method === 'POST') {
+            fetchOptions.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            fetchOptions.body = this.options.body ?? '';
+        }
+
+        fetch(this.options.url, fetchOptions)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Request failed with status ${response.status}`);
@@ -40,7 +56,9 @@ export default class MoorlAjaxWidgetPlugin extends Plugin {
                 console.error('MoorlAjaxWidgetPlugin:', error);
             })
             .finally(() => {
-                loadingIndicatorUtil.remove();
+                if (loadingIndicatorUtil) {
+                    loadingIndicatorUtil.remove();
+                }
             });
     }
 
