@@ -133,6 +133,12 @@ PluginManager.register(
     '[data-moorl-input-location]'
 );
 
+PluginManager.register(
+    'MoorlAjaxWidget',
+    () => import('./ajax-widget/ajax-widget.plugin'),
+    '[data-moorl-ajax-widget]'
+);
+
 /* Plugins moved since Shopware 6.6 */
 PluginManager.register(
     'MoorlFbSignature',
