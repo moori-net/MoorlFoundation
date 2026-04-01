@@ -52,7 +52,6 @@ Shopware.Component.register('moorl-translated-text-field', {
 
         onChangeLanguage(languageId) {
             this.languageId = languageId;
-            this.initDefaultValue();
         }
     }
 });
