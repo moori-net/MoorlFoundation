@@ -19,9 +19,12 @@ export default class MoorlAjaxWidgetPlugin extends Plugin {
         loadingIndicatorUtil.create();
 
         fetch(this.options.url, {
+            method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
+            body: '',
         })
             .then((response) => {
                 if (!response.ok) {
