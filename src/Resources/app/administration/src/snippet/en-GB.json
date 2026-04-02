@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "method": "Method",
       "score": "Score (Priority)",
       "productA": "Product A",
       "productB": "Product B",
