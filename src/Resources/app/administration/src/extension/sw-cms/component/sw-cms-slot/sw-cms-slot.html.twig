@@ -89,41 +89,36 @@
                 {{ $tc('sw-cms.component.sw-cms-slot.label.save') }}
             </mt-button>
         </div>
-        <div class="moorl-link-field">
-            <sw-entity-single-select
-                :label="$tc('sw-cms.component.sw-cms-slot.label.selectConfig')"
-                :criteria="cmsElementConfigCriteria"
+
+        <sw-entity-single-select
                 entity="moorl_cms_element_config"
+                :label="$tc('sw-cms.component.sw-cms-slot.label.selectConfig')"
+                :helpText="$tc('moorl-fb.helpText.mediaFolderId')"
+                showClearableButton
                 v-model:value="cmsElementConfigId"
-            >
-                <template #result-item="{ item, index }">
-                    <slot
-                        name="result-item"
-                        v-bind="{ item, index }"
-                    >
-                        <li
-                            is="sw-select-result"
-                            v-bind="{ item, index }"
-                        >
-                            {{ item.type }} | {{ item.name }}
-                        </li>
-                    </slot>
-                </template>
-            </sw-entity-single-select>
-            <router-link
-                target="_blank"
-                rel="noopener"
-                :to="{ name: 'moorl.foundation.settings.cmselementconfig' }"
-            >
-                {{ $tc('sw-cms.component.sw-cms-slot.label.manageConfigs') }}
-            </router-link>
-        </div>
+        >
+            <template #result-label-property="{ item }">
+                {{ item.type }} | {{ item.name }}
+            </template>
+
+            <template #hint>
+                <router-link
+                        target="_blank"
+                        rel="noopener"
+                        :to="{ name: 'moorl.cms.element.config.list' }"
+                >
+                    {{ $tc('sw-cms.component.sw-cms-slot.label.manageConfigs') }}
+                </router-link>
+            </template>
+        </sw-entity-single-select>
+
         <mt-button
             variant="primary"
             @click="onLoadCmsElementConfig"
         >
             {{ $tc('sw-cms.component.sw-cms-slot.label.load') }}
         </mt-button>
+
         <template #modal-footer>
             <mt-button
                 variant="primary"
