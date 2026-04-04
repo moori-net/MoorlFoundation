@@ -10,8 +10,11 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 class PriceCalculatorExtension
 {
+    protected bool $active = true;
     protected int $priority = 0;
     protected bool $shouldBreak = true;
+    protected ?string $calculationPriceSource = null;
+    protected ?string $listPriceSource = null;
 
     public function __construct(
         protected readonly EntityRepository $repository,
@@ -26,6 +29,11 @@ class PriceCalculatorExtension
         throw new \RuntimeException('Not implemented');
     }
 
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
     public function getPriority(): int
     {
         return $this->priority;
@@ -34,6 +42,16 @@ class PriceCalculatorExtension
     public function shouldBreak(): bool
     {
         return $this->shouldBreak;
+    }
+
+    public function getCalculationPriceSource(): string
+    {
+        return $this->calculationPriceSource ?? PriceCalculatorService::SOURCE_ORIGIN_PRICE;
+    }
+
+    public function getListPriceSource(): string
+    {
+        return $this->listPriceSource ?? PriceCalculatorService::SOURCE_ORIGIN_LIST_PRICE;
     }
 
     public function init(SalesChannelContext $salesChannelContext): void
@@ -45,6 +63,16 @@ class PriceCalculatorExtension
 
         $this->priority = $this->systemConfigService->getInt(
             sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_PRIORITY),
+            $salesChannelContext->getSalesChannelId()
+        );
+
+        $this->calculationPriceSource = $this->systemConfigService->get(
+            sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_CALCULATION_PRICE_SOURCE),
+            $salesChannelContext->getSalesChannelId()
+        );
+
+        $this->listPriceSource = $this->systemConfigService->get(
+            sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_LIST_PRICE_SOURCE),
             $salesChannelContext->getSalesChannelId()
         );
     }

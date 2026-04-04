@@ -24,8 +24,11 @@ class PriceCalculatorService
     public const TYPE_FIXED = 'fixed';
     public const SOURCE_ORIGIN_LIST_PRICE = 'origin-list-price';
     public const SOURCE_ORIGIN_PRICE = 'origin-price';
+    public const CONFIG_KEY_ACTIVE = 'priceCalculatorActive';
     public const CONFIG_KEY_PRIORITY = 'priceCalculatorPriority';
     public const CONFIG_KEY_SHOULD_BREAK = 'priceCalculatorShouldBreak';
+    public const CONFIG_KEY_CALCULATION_PRICE_SOURCE = 'priceCalculatorCalculationPriceSource';
+    public const CONFIG_KEY_LIST_PRICE_SOURCE = 'priceCalculatorListPriceSource';
 
     private array $calculatedPricesCache = [];
     /**
