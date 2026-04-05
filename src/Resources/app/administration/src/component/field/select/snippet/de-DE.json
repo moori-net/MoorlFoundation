@@ -39,6 +39,7 @@
             "visibility": "Sichtbarkeit"
         },
         "priceSource": {
+            "pluginConfig": "Aus der Plugin-Konfiguration übernehmen",
             "price": "Basis Preis",
             "listPrice": "Basis Listenpreis/Streichpreis (Wenn nicht vorhanden: Basis Preis)"
         },
