@@ -32,8 +32,8 @@ class FieldPriceCalculationCollection extends FieldCollection
             'showDiscount' => false,
             'optionType' => PriceCalculatorService::TYPE_PERCENTAGE,
             'optionPercentage' => 100,
-            'calculationPriceSource' => PriceCalculatorService::SOURCE_ORIGIN_PRICE,
-            'listPriceSource' => PriceCalculatorService::SOURCE_ORIGIN_LIST_PRICE,
+            'calculationPriceSource' => PriceCalculatorService::SOURCE_PLUGIN_CONFIG,
+            'listPriceSource' => PriceCalculatorService::SOURCE_PLUGIN_CONFIG,
         ];
     }
 }

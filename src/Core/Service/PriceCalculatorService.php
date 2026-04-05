@@ -24,6 +24,7 @@ class PriceCalculatorService
     public const TYPE_FIXED = 'fixed';
     public const SOURCE_ORIGIN_LIST_PRICE = 'origin-list-price';
     public const SOURCE_ORIGIN_PRICE = 'origin-price';
+    public const SOURCE_PLUGIN_CONFIG = 'plugin-config';
     public const CONFIG_KEY_ACTIVE = 'priceCalculatorActive';
     public const CONFIG_KEY_PRIORITY = 'priceCalculatorPriority';
     public const CONFIG_KEY_SHOULD_BREAK = 'priceCalculatorShouldBreak';

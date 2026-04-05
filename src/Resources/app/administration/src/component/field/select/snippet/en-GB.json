@@ -39,6 +39,7 @@
             "visibility": "Visibility"
         },
         "priceSource": {
+            "pluginConfig": "Apply from the plugin configuration",
             "price": "Origin price",
             "listPrice": "Origin list price (if not set: use origin price)"
         },
