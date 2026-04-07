@@ -22,6 +22,7 @@ class PriceCalculatorService
 {
     public const TYPE_PERCENTAGE = 'percentage';
     public const TYPE_FIXED = 'fixed';
+    public const TYPE_NONE = 'none';
     public const SOURCE_ORIGIN_LIST_PRICE = 'origin-list-price';
     public const SOURCE_ORIGIN_PRICE = 'origin-price';
     public const SOURCE_PLUGIN_CONFIG = 'plugin-config';
@@ -47,6 +48,24 @@ class PriceCalculatorService
         protected iterable $calculators
     )
     {
+    }
+
+    public function getCalculationPriceSource(string $value, string $initiator, string $salesChannelId): string
+    {
+        if ($value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
+            return $value;
+        }
+        $key = sprintf('%s.config.%s', $initiator, self::CONFIG_KEY_CALCULATION_PRICE_SOURCE);
+        return $this->systemConfigService->get($key, $salesChannelId) ?? self::SOURCE_ORIGIN_PRICE;
+    }
+
+    public function getListPriceSource(string $value, string $initiator, string $salesChannelId): string
+    {
+        if ($value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
+            return $value;
+        }
+        $key = sprintf('%s.config.%s', $initiator, self::CONFIG_KEY_LIST_PRICE_SOURCE);
+        return $this->systemConfigService->get($key, $salesChannelId) ?? self::SOURCE_ORIGIN_LIST_PRICE;
     }
 
     public function calculate(iterable $products, SalesChannelContext $salesChannelContext): void

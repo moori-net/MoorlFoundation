@@ -85,7 +85,7 @@ const mapping = {
         tab: 'price',
         card: 'price',
         componentName: 'moorl-select-field',
-        attributes: {customSet: ['percentage', 'fixed']}
+        attributes: {customSet: ['percentage', 'fixed', 'none']}
     },
     customPrice: {tab: 'price', card: 'price'},
     optionPrice: {

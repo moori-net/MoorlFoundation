@@ -12,8 +12,8 @@ Shopware.Component.register('moorl-price-field', {
         },
         value: {
             type: Array,
-            required: true,
-            default: []
+            required: false,
+            default: () => null
         },
         tax: {
             type: Object,
@@ -32,38 +32,54 @@ Shopware.Component.register('moorl-price-field', {
     computed: {
         price: {
             get() {
-                const priceForCurrency = this.value?.find((price) => price.currencyId === this.currency.id);
+                const prices = Array.isArray(this.value) ? this.value : [];
+                const priceForCurrency = prices.find((price) => price.currencyId === this.currency.id);
+
                 if (priceForCurrency) {
                     return [priceForCurrency];
                 }
 
-                return [
-                    {
-                        gross: null,
-                        currencyId: this.currency.id,
-                        linked: true,
-                        net: null,
-                    },
-                ];
+                return [{
+                    gross: null,
+                    currencyId: this.currency.id,
+                    linked: true,
+                    net: null,
+                }];
             },
 
-            set(newPurchasePrice) {
-                let priceForCurrency = this.value.find((price) => price.currencyId === newPurchasePrice.currencyId);
-                if (priceForCurrency) {
-                    priceForCurrency = newPurchasePrice;
+            set(newPurchasePrices) {
+                const newPurchasePrice = Array.isArray(newPurchasePrices)
+                    ? newPurchasePrices[0]
+                    : newPurchasePrices;
+
+                const prices = Array.isArray(this.value) ? [...this.value] : [];
+
+                const isEmpty =
+                    !newPurchasePrice ||
+                    (newPurchasePrice.gross == null && newPurchasePrice.net == null);
+
+                const index = prices.findIndex(
+                    (price) => price.currencyId === this.currency.id
+                );
+
+                if (isEmpty) {
+                    if (index !== -1) {
+                        prices.splice(index, 1);
+                    }
+                } else if (index !== -1) {
+                    prices.splice(index, 1, newPurchasePrice);
                 } else {
-                    // eslint-disable-next-line vue/no-mutating-props
-                    this.value.push(newPurchasePrice);
+                    prices.push(newPurchasePrice);
                 }
 
-                this.$emit('update:value', this.value);
-            },
+                this.$emit('update:value', prices.length ? prices : null);
+            }
         },
     },
 
     created() {
-        if (!Array.isArray(this.value)) {
-            this.$emit('update:value', []);
+        if (this.value === undefined) {
+            this.$emit('update:value', null);
         }
     },
 

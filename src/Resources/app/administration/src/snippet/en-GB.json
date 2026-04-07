@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "optionType": "Price calculation type",
       "method": "Method",
       "score": "Score (Priority)",
       "productA": "Product A",

@@ -121,6 +121,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "optionType": "Preisberechnungstyp",
       "method": "Methode",
       "score": "Punkte (Priorität)",
       "productA": "Produkt A",
