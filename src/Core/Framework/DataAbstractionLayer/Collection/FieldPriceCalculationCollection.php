@@ -30,7 +30,7 @@ class FieldPriceCalculationCollection extends FieldCollection
     {
         return [
             'showDiscount' => false,
-            'optionType' => PriceCalculatorService::TYPE_NONE,
+            'optionType' => PriceCalculatorService::TYPE_PERCENTAGE,
             'optionPercentage' => 100,
             'calculationPriceSource' => PriceCalculatorService::SOURCE_PLUGIN_CONFIG,
             'listPriceSource' => PriceCalculatorService::SOURCE_PLUGIN_CONFIG,
