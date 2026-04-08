@@ -29,6 +29,12 @@ Shopware.Component.register('moorl-price-field', {
         },
     },
 
+    data() {
+        return {
+            cachedPriceForInstance: null,
+        };
+    },
+
     computed: {
         price: {
             get() {
@@ -75,6 +81,32 @@ Shopware.Component.register('moorl-price-field', {
                 this.$emit('update:value', prices.length ? prices : null);
             }
         },
+    },
+
+    watch: {
+        disabled(value) {
+            const prices = Array.isArray(this.value) ? [...this.value] : [];
+            const currentPrice = prices.find(
+                (price) => price.currencyId === this.currency.id
+            ) || null;
+
+            if (value === true) {
+                this.cachedPriceForInstance = currentPrice;
+                this.$emit('update:value', null);
+                return;
+            }
+
+            if (value === false && this.cachedPriceForInstance) {
+                const filteredPrices = prices.filter(
+                    (price) => price.currencyId !== this.currency.id
+                );
+
+                filteredPrices.push(this.cachedPriceForInstance);
+
+                this.$emit('update:value', filteredPrices);
+                this.cachedPriceForInstance = null;
+            }
+        }
     },
 
     created() {
