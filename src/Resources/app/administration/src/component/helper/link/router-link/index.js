@@ -6,18 +6,40 @@ Shopware.Component.register('moorl-router-link', {
     props: {
         path: {
             type: String,
-            required: true,
+            required: false,
         },
-        snippet: {
+        params: {
+            type: Object,
+            required: false,
+            default: () => null
+        },
+        plugin: {
             type: String,
             required: false,
-            default: 'moorl-router-link.label',
-        },
+        }
     },
 
     computed: {
         routerLink() {
-            return this.$tc('moorl-router-link.routerLink') + this.path;
+            if (this.plugin) {
+                return {
+                    name: 'sw.extension.config',
+                    params: { namespace: this.plugin }
+                };
+            }
+
+            return {
+                name: this.path,
+                params: this.params
+            };
+        },
+
+        label() {
+            if (this.plugin) {
+                return this.$tc('moorl-router-link.configLabel');
+            }
+
+            return this.$tc('global.default.add');
         },
     },
 });
