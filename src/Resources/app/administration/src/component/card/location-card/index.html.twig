@@ -4,13 +4,7 @@
         :title="$tc('moorl-location-card.name')"
     >
         <template #headerRight>
-            <router-link
-                    target="_blank"
-                    rel="noopener"
-                    :to="{ name: 'sw.extension.config', params: { namespace: 'MoorlFoundation' } }"
-            >
-                {{ $tc('moorl-location.link') }}
-            </router-link>
+            <moorl-router-link plugin="MoorlFoundation"/>
         </template>
 
         <moorl-location v-bind="$attrs"/>

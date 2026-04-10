@@ -1,6 +1,5 @@
 {
     "moorl-router-link": {
-        "label": "Read documentation",
-        "routerLink": "https://docs.moori.net/en/plugin"
+        "configLabel": "Plugin configuration"
     }
 }
