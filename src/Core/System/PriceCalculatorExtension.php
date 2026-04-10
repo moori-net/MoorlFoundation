@@ -56,24 +56,23 @@ class PriceCalculatorExtension
 
     public function init(SalesChannelContext $salesChannelContext): void
     {
-        $this->shouldBreak = $this->systemConfigService->getBool(
-            sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_SHOULD_BREAK),
-            $salesChannelContext->getSalesChannelId()
-        );
+        $salesChannelId = $salesChannelContext->getSalesChannelId();
 
-        $this->priority = $this->systemConfigService->getInt(
-            sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_PRIORITY),
-            $salesChannelContext->getSalesChannelId()
+        $this->shouldBreak = $this->priceCalculatorService->getShouldBreak(
+            $this->getName(),
+            $salesChannelId
         );
-
-        $this->calculationPriceSource = $this->systemConfigService->get(
-            sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_CALCULATION_PRICE_SOURCE),
-            $salesChannelContext->getSalesChannelId()
+        $this->priority = $this->priceCalculatorService->getPriority(
+            $this->getName(),
+            $salesChannelId
         );
-
-        $this->listPriceSource = $this->systemConfigService->get(
-            sprintf("%s.config.%s", $this->getName(), PriceCalculatorService::CONFIG_KEY_LIST_PRICE_SOURCE),
-            $salesChannelContext->getSalesChannelId()
+        $this->calculationPriceSource = $this->priceCalculatorService->getCalculationPriceSource(
+            $this->getName(),
+            $salesChannelId
+        );
+        $this->listPriceSource = $this->priceCalculatorService->getListPriceSource(
+            $this->getName(),
+            $salesChannelId
         );
     }
 
