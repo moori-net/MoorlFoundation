@@ -23,6 +23,10 @@ class PriceCalculatorService
     public const TYPE_PERCENTAGE = 'percentage';
     public const TYPE_FIXED = 'fixed';
     public const TYPE_NONE = 'none';
+    public const ROUNDING_TYPE_NONE = 'none';
+    public const ROUNDING_TYPE_DEFAULT = 'default';
+    public const ROUNDING_TYPE_FLOOR = 'floor';
+    public const ROUNDING_TYPE_CEIL = 'ceil';
     public const SOURCE_ORIGIN_LIST_PRICE = 'origin-list-price';
     public const SOURCE_ORIGIN_PRICE = 'origin-price';
     public const SOURCE_PLUGIN_CONFIG = 'plugin-config';
@@ -31,6 +35,8 @@ class PriceCalculatorService
     public const CONFIG_KEY_SHOULD_BREAK = 'priceCalculatorShouldBreak';
     public const CONFIG_KEY_CALCULATION_PRICE_SOURCE = 'priceCalculatorCalculationPriceSource';
     public const CONFIG_KEY_LIST_PRICE_SOURCE = 'priceCalculatorListPriceSource';
+    public const CONFIG_KEY_ROUNDING_TYPE = 'priceCalculatorRoundingType';
+    public const CONFIG_KEY_ROUNDING_STEP = 'priceCalculatorRoundingStep';
 
     private array $calculatedPricesCache = [];
     /**
@@ -50,22 +56,68 @@ class PriceCalculatorService
     {
     }
 
-    public function getCalculationPriceSource(string $value, string $initiator, string $salesChannelId): string
+    public function getPriority(string $initiator, ?string $salesChannelId = null): int
     {
-        if ($value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
-            return $value;
-        }
-        $key = sprintf('%s.config.%s', $initiator, self::CONFIG_KEY_CALCULATION_PRICE_SOURCE);
-        return $this->systemConfigService->get($key, $salesChannelId) ?? self::SOURCE_ORIGIN_PRICE;
+        return $this->systemConfigService->getInt(
+            $this->getConfigKey($initiator, self::CONFIG_KEY_PRIORITY),
+            $salesChannelId
+        );
     }
 
-    public function getListPriceSource(string $value, string $initiator, string $salesChannelId): string
+    public function getShouldBreak(string $initiator, ?string $salesChannelId = null): bool
     {
-        if ($value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
+        return $this->systemConfigService->getBool(
+            $this->getConfigKey($initiator, self::CONFIG_KEY_SHOULD_BREAK),
+            $salesChannelId
+        );
+    }
+
+    public function getCalculationPriceSource(string $initiator, string $salesChannelId, ?string $value = null): string
+    {
+        if ($value && $value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
             return $value;
         }
-        $key = sprintf('%s.config.%s', $initiator, self::CONFIG_KEY_LIST_PRICE_SOURCE);
-        return $this->systemConfigService->get($key, $salesChannelId) ?? self::SOURCE_ORIGIN_LIST_PRICE;
+
+        return $this->systemConfigService->get(
+            $this->getConfigKey($initiator, self::CONFIG_KEY_CALCULATION_PRICE_SOURCE),
+            $salesChannelId
+        ) ?? self::SOURCE_ORIGIN_PRICE;
+    }
+
+    public function getListPriceSource(string $initiator, string $salesChannelId, ?string $value = null): string
+    {
+        if ($value && $value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
+            return $value;
+        }
+
+        return $this->systemConfigService->get(
+            $this->getConfigKey($initiator, self::CONFIG_KEY_LIST_PRICE_SOURCE),
+            $salesChannelId
+        ) ?? self::SOURCE_ORIGIN_LIST_PRICE;
+    }
+
+    public function getRoundingType(string $initiator, string $salesChannelId, ?string $value = null): string
+    {
+        if ($value && $value !== PriceCalculatorService::SOURCE_PLUGIN_CONFIG) {
+            return $value;
+        }
+
+        return $this->systemConfigService->get(
+            $this->getConfigKey($initiator, self::CONFIG_KEY_ROUNDING_TYPE),
+            $salesChannelId
+        ) ?? self::ROUNDING_TYPE_NONE;
+    }
+
+    public function getRoundingStep(string $initiator, string $salesChannelId, ?float $value = null): float
+    {
+        if ($value && $value != 0) {
+            return $value;
+        }
+
+        return $this->systemConfigService->getFloat(
+            $this->getConfigKey($initiator, self::CONFIG_KEY_ROUNDING_STEP),
+            $salesChannelId
+        );
     }
 
     public function calculate(iterable $products, SalesChannelContext $salesChannelContext): void
@@ -128,6 +180,7 @@ class PriceCalculatorService
                 return true;
             }
         }
+
         return false;
     }
 
@@ -174,7 +227,6 @@ class PriceCalculatorService
         $price = $product->getCalculatedPrice();
         $cheapest = $product->getCalculatedCheapestPrice();
 
-        // The product have base price 0, but new price is higher
         if ($price->getUnitPrice() == 0 || $cheapest->getUnitPrice() == 0) {
             $this->cacheAndAssignMainPrice($initiator, $product, $this->calculateItem(
                 $salesChannelContext,
@@ -190,12 +242,13 @@ class PriceCalculatorService
         $factor = $calculated->getUnitPrice() / $price->getUnitPrice();
 
         $this->calculatePriceByFactor(
-            $initiator,
-            $salesChannelContext,
-            $product,
-            $factor,
-            $showDiscount,
-            $listPriceSource
+            initiator: $initiator,
+            salesChannelContext: $salesChannelContext,
+            product: $product,
+            factor: $factor,
+            showDiscount: $showDiscount,
+            listPriceSource: $listPriceSource,
+            useRounding: false
         );
     }
 
@@ -207,10 +260,10 @@ class PriceCalculatorService
         bool $showDiscount = true,
         string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE,
         string $calculationPriceSource = self::SOURCE_ORIGIN_PRICE,
-        ?Struct $extension = null
+        ?Struct $extension = null,
+        bool $useRounding = true
     ): void
     {
-        /* Factor 1 = original price */
         if ($factor == 1) {
             return;
         }
@@ -225,7 +278,13 @@ class PriceCalculatorService
 
         $product->assign([$initiator => $factor]);
 
-        /* Handle price */
+        $roundingType = $useRounding ?
+            $this->getRoundingType($initiator, $salesChannelContext->getSalesChannelId()) :
+            self::ROUNDING_TYPE_NONE;
+        $roundingStep = $useRounding ?
+            $this->getRoundingStep($initiator, $salesChannelContext->getSalesChannelId()) :
+            0;
+
         $this->cacheAndAssignMainPrice($initiator, $product, $this->calculateItem(
             $salesChannelContext,
             $product,
@@ -233,10 +292,11 @@ class PriceCalculatorService
             $factor,
             $showDiscount,
             $listPriceSource,
-            $calculationPriceSource
+            $calculationPriceSource,
+            $roundingType,
+            $roundingStep
         ));
 
-        /* Handle the cheapest price */
         $product->setCalculatedCheapestPrice(CalculatedCheapestPrice::createFrom($this->calculateItem(
             $salesChannelContext,
             $product,
@@ -244,10 +304,11 @@ class PriceCalculatorService
             $factor,
             $showDiscount,
             $listPriceSource,
-            $calculationPriceSource
+            $calculationPriceSource,
+            $roundingType,
+            $roundingStep
         )));
 
-        /* Handle advanced prices */
         $calculated = new CalculatedPriceCollection();
         foreach ($product->getCalculatedPrices() as $price) {
             $calculated->add($this->calculateItem(
@@ -257,9 +318,12 @@ class PriceCalculatorService
                 $factor,
                 $showDiscount,
                 $listPriceSource,
-                $calculationPriceSource
+                $calculationPriceSource,
+                $roundingType,
+                $roundingStep
             ));
         }
+
         $product->assign(['calculatedPrices' => $calculated]);
     }
 
@@ -287,6 +351,7 @@ class PriceCalculatorService
         }
 
         $cached = $this->calculatedPricesCache[$initiator][$product->getId()] ?? null;
+
         return $cached?->getUnitPrice() === $price->getUnitPrice();
     }
 
@@ -297,13 +362,17 @@ class PriceCalculatorService
         float $factor = 1,
         bool $showDiscount = true,
         string $listPriceSource = self::SOURCE_ORIGIN_LIST_PRICE,
-        string $calculationPriceSource = self::SOURCE_ORIGIN_PRICE
+        string $calculationPriceSource = self::SOURCE_ORIGIN_PRICE,
+        string $roundingType = self::ROUNDING_TYPE_NONE,
+        float $roundingStep = 0.00
     ): CalculatedPrice
     {
         $discount = $price->getUnitPrice() * $factor;
         if ($price->getListPrice() && $calculationPriceSource === self::SOURCE_ORIGIN_LIST_PRICE) {
             $discount = $price->getListPrice()->getPrice() * $factor;
         }
+
+        $discount = $this->roundToStep($discount, $roundingStep, $roundingType);
 
         $definition = new QuantityPriceDefinition(
             $discount,
@@ -340,6 +409,22 @@ class PriceCalculatorService
         return $this->quantityPriceCalculator->calculate($definition, $salesChannelContext);
     }
 
+    private function roundToStep(float $price, float $step, string $roundingType): float
+    {
+        if ($step <= 0) {
+            return $price;
+        }
+
+        $value = $price / $step;
+
+        return match ($roundingType) {
+            self::ROUNDING_TYPE_FLOOR => floor($value) * $step,
+            self::ROUNDING_TYPE_CEIL => ceil($value) * $step,
+            self::ROUNDING_TYPE_DEFAULT => round($value) * $step,
+            default => $price,
+        };
+    }
+
     private function cacheAndAssignMainPrice(
         string $initiator,
         SalesChannelProductEntity $product,
@@ -353,10 +438,7 @@ class PriceCalculatorService
         }
         $this->calculatedPricesCache[$initiator][$product->getId()] = $calculated;
 
-        $shouldBreak = $this->systemConfigService->getBool(
-            sprintf("%s.config.%s", $initiator, self::CONFIG_KEY_SHOULD_BREAK)
-        );
-        if ($shouldBreak) {
+        if ($this->getShouldBreak($initiator)) {
             $product->assign([self::CONFIG_KEY_SHOULD_BREAK => $initiator]);
         }
     }
@@ -392,5 +474,10 @@ class PriceCalculatorService
         }
 
         return $price->getNet();
+    }
+
+    private function getConfigKey(string $initiator, string $key): string
+    {
+        return sprintf('%s.config.%s', $initiator, $key);
     }
 }
