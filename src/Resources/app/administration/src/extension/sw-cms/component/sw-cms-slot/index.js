@@ -42,6 +42,10 @@ Shopware.Component.override('sw-cms-slot', {
         moorlIsUnlocked() {
             return Shopware.Store.get('moorlFoundationState').unlocked;
         },
+
+        moorlIsDefaultComponent() {
+            return this.elementConfig?.component === true || this.elementConfig?.component === 'sw-cms-el-moorl-default';
+        }
     },
 
     methods: {

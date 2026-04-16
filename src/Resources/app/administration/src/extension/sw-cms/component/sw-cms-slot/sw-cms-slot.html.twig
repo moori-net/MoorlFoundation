@@ -1,6 +1,6 @@
 {% block sw_cms_slot_content_component %}
     <sw-cms-el-moorl-default
-        v-if="elementConfig?.component === true"
+        v-if="moorlIsDefaultComponent"
         class="sw-cms-slot__element-preview"
         v-bind="{ element:elementConfig }"
     />
