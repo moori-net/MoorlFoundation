@@ -121,6 +121,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "isPhysical": "Als physisches Produkt behandeln (Lieferung aktivieren, Widerrufsrecht deaktivieren)",
       "optionType": "Preisberechnungstyp",
       "method": "Methode",
       "score": "Punkte (Priorität)",
