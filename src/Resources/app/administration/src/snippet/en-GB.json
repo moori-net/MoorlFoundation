@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "isPhysical": "Treat as a physical product (enable delivery, disable right of withdrawal)",
       "optionType": "Price calculation type",
       "method": "Method",
       "score": "Score (Priority)",
