@@ -1,4 +1,5 @@
 import template from './index.html.twig';
+import './index.scss';
 
 Shopware.Component.register('moorl-combination-element-options', {
     template,

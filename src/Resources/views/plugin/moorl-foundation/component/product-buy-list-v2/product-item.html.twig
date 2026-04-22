@@ -58,14 +58,16 @@
 
     {% if options.enableAddToCartAll %}
         <div class="{% if options.enableSelection %}form-check{% endif %}">
-            <input type="{% if options.enableSelection %}checkbox{% else %}hidden{% endif %}"
-                   class="form-check-input"
-                   name="productId[]"
-                   value="{{ product.id }}"
-                   id="product{{ product.id }}"
-                   data-price="{{ price.unitPrice }}"
-                   data-quantity="{{ quantity }}"
-                   checked>
+            <input
+                    type="{% if options.enableSelection %}checkbox{% else %}hidden{% endif %}"
+                    class="form-check-input"
+                    name="productId[]"
+                    value="{{ product.id }}"
+                    id="product{{ product.id }}"
+                    data-price="{{ price.unitPrice }}"
+                    data-quantity="{{ quantity }}"
+                    {% if item.checked %}checked{% endif %}
+            >
             {% if options.enableSelection %}
                 <label class="form-check-label" for="product{{ product.id }}"></label>
             {% else %}

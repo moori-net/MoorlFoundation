@@ -9,8 +9,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
         enableAddToCartSingle: true,
         enableAddToCartAll: true,
         productQuantities: {},
-        discountValue: 0,
-        star: '*',
+        discountValue: 0
     };
 
     init() {
@@ -127,8 +126,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
             that._createFormValues(item.value, item.dataset.quantity);
         });
 
-        this._totalPriceElement.innerText =
-            currency.format(totalPrice) + this.options.star;
+        this._totalPriceElement.innerText = currency.format(totalPrice);
 
         if (this.options.discountValue > 0) {
             if (allSelected) {
@@ -139,9 +137,7 @@ export default class MoorlProductBuyListPlugin extends Plugin {
                 this._discountPriceElement.classList.add('d-none');
             }
             this._discountPriceElement.innerText =
-                currency.format(
-                    totalPrice - (this.options.discountValue / 100) * totalPrice
-                ) + this.options.star;
+                currency.format(totalPrice - (this.options.discountValue / 100) * totalPrice);
         }
 
         if (this._selectedItemsElement) {
