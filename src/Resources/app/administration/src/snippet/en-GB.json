@@ -121,6 +121,9 @@
       "visibility": "Visibility"
     },
     "field": {
+      "labelProperty": "Label property",
+      "sortByProperty": "Sort-by property",
+      "emailProperty": "E-Mail property",
       "checked": "Checked",
       "isPhysical": "Treat as a physical product (enable delivery, disable right of withdrawal)",
       "optionType": "Price calculation type",

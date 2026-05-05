@@ -121,6 +121,9 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "labelProperty": "Label Wert",
+      "sortByProperty": "Sortierungswert",
+      "emailProperty": "E-Mail Wert",
       "checked": "Angekreuzt",
       "isPhysical": "Als physisches Produkt behandeln (Lieferung aktivieren, Widerrufsrecht deaktivieren)",
       "optionType": "Preisberechnungstyp",
