@@ -169,6 +169,13 @@
             'a a a c' auto
             'a a a d' 1fr / 1fr 1fr 1fr 1fr;
     }
+
+    .cms-block-moorl-grid-layout-seventeen .moorl-grid-layout {
+        grid-template:
+            'e a a b' auto
+            'e a a c' auto
+            'e a a d' 1fr / 1fr 1fr 1fr 1fr;
+    }
 }
 
 /* Helper Classes */
