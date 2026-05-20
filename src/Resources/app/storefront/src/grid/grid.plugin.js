@@ -11,20 +11,28 @@ export default class MoorlGridPlugin extends Plugin {
             return;
         }
 
+        this._setCmsSectionOverflowVisible();
         this._registerEvents();
     }
 
-    _registerEvents() {
-        const that = this;
+    _setCmsSectionOverflowVisible() {
+        const cmsSection = this.el.closest('.cms-section');
 
-        window.addEventListener('scroll', (event) => {
-            that._onScroll();
+        if (cmsSection) {
+            cmsSection.style.overflow = 'visible';
+        }
+    }
+
+    _registerEvents() {
+        window.addEventListener('scroll', () => {
+            this._onScroll();
         });
     }
 
     _onScroll() {
         let scrollTop =
             document.documentElement.scrollTop || document.body.scrollTop || 0;
+
         let tocNavTop =
             this.el.getBoundingClientRect().top +
             this.el.ownerDocument.defaultView.scrollY;
