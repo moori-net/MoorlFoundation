@@ -30,10 +30,18 @@ export default class MoorlGridPlugin extends Plugin {
     }
 
     _onScroll() {
-        let scrollTop =
+        const parentHeight = this.el.parentElement.getBoundingClientRect().height;
+        const elementHeight = this.el.getBoundingClientRect().height;
+
+        if (parentHeight <= elementHeight) {
+            this.el.style.paddingTop = '0';
+            return;
+        }
+
+        const scrollTop =
             document.documentElement.scrollTop || document.body.scrollTop || 0;
 
-        let tocNavTop =
+        const tocNavTop =
             this.el.getBoundingClientRect().top +
             this.el.ownerDocument.defaultView.scrollY;
 
