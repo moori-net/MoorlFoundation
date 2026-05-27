@@ -343,11 +343,8 @@ class PriceCalculatorService
         }
 
         $price = $product->getCalculatedPrice();
-        if ($testZero) {
-            $cheapest = $product->getCalculatedCheapestPrice();
-            if ($price->getUnitPrice() == 0 || $cheapest->getUnitPrice() == 0) {
-                return true;
-            }
+        if ($testZero && $price->getUnitPrice() == 0) {
+            return true;
         }
 
         $cached = $this->calculatedPricesCache[$initiator][$product->getId()] ?? null;
