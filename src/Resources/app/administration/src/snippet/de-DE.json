@@ -121,6 +121,10 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "csvId": "CSV Datei",
+      "separator": "Separator",
+      "enclosure": "Enclosure",
+      "escape": "Escape",
       "labelProperty": "Label Wert",
       "sortByProperty": "Sortierungswert",
       "emailProperty": "E-Mail Wert",
