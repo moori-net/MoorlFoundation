@@ -1,34 +1,47 @@
 {% set config = element.config %}
+{% set accordionId = 'moorl-accordion-' ~ element.id %}
 
 {% block element_moorl_accordion %}
-    <div class="cms-element-{{ element.type }}{% if config.verticalAlign.value %} has-vertical-alignment{% endif %}">
-
-        {% if config.verticalAlign.value %}
-            <div class="cms-element-alignment{% if config.verticalAlign.value == "center" %} align-self-center{% elseif config.verticalAlign.value == "flex-end" %} align-self-end{% else %} align-self-start{% endif %}">
+    {% set innerHtml %}
+        {% if config.name.value %}
+            <h2 class="mb-3">{{ config.name.value }}</h2>
         {% endif %}
 
-        <h2 class="mb-3">{{ config.name.value }}</h2>
-
-        <div id="moorl-accordion-{{ element.id }}" class="moorl-accordion-content">
+        <div
+                id="{{ accordionId }}"
+                class="moorl-accordion-content"
+        >
             {% for index, entry in config.entries.value %}
+                {% set entryId = accordionId ~ '-' ~ index %}
+                {% set isOpen = entry.open|default(false) %}
+
                 <div class="section">
-                    <div id="moorl-accordion-{{ element.id }}-{{ index }}-heading">
-                        <a href="#moorl-accordion-{{ element.id }}-{{ index }}-content"
-                           class="h3 section-heading"
-                           type="button"
-                           data-bs-toggle="collapse"
-                           data-bs-target="#moorl-accordion-{{ element.id }}-{{ index }}-content"
-                           aria-expanded="false"
-                           aria-controls="moorl-accordion-{{ element.id }}-{{ index }}-content">
+                    <div id="{{ entryId }}-heading">
+                        <a
+                                href="#{{ entryId }}-content"
+                                class="h3 section-heading{% if not isOpen %} collapsed{% endif %}"
+                                role="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#{{ entryId }}-content"
+                                aria-expanded="{{ isOpen ? 'true' : 'false' }}"
+                                aria-controls="{{ entryId }}-content"
+                        >
                             {{ entry.name|raw }}
-                            <span class="moorl-accordion-icon">{% sw_icon 'arrow-head-down' %}</span>
+
+                            <span class="moorl-accordion-icon">
+                                {% sw_icon 'arrow-head-down' %}
+                            </span>
                         </a>
                     </div>
 
-                    <div id="moorl-accordion-{{ element.id }}-{{ index }}-content"
-                         class="collapse"
-                         aria-labelledby="moorl-accordion-{{ element.id }}-{{ index }}-heading"
-                         data-parent="#moorl-accordion-{{ element.id }}">
+                    <div
+                            id="{{ entryId }}-content"
+                            class="collapse{% if isOpen %} show{% endif %}"
+                            aria-labelledby="{{ entryId }}-heading"
+                            {% if config.autoClose.value %}
+                                data-bs-parent="#{{ accordionId }}"
+                            {% endif %}
+                    >
                         <div class="section-content">
                             {{ entry.content|raw }}
                         </div>
@@ -36,9 +49,15 @@
                 </div>
             {% endfor %}
         </div>
+    {% endset %}
 
+    <div class="cms-element-{{ element.type }}{% if config.verticalAlign.value %} has-vertical-alignment{% endif %}">
         {% if config.verticalAlign.value %}
+            <div class="cms-element-alignment{% if config.verticalAlign.value == 'center' %} align-self-center{% elseif config.verticalAlign.value == 'flex-end' %} align-self-end{% else %} align-self-start{% endif %}">
+                {{ innerHtml }}
             </div>
+        {% else %}
+            {{ innerHtml }}
         {% endif %}
     </div>
 {% endblock %}

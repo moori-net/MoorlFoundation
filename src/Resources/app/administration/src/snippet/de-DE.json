@@ -121,6 +121,7 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "open": "Geöffnet",
       "csvId": "CSV Datei",
       "separator": "Separator",
       "enclosure": "Enclosure",
