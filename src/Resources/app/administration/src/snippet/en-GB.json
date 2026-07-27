@@ -121,6 +121,7 @@
       "visibility": "Visibility"
     },
     "field": {
+      "open": "Open",
       "csvId": "CSV file",
       "separator": "Separator",
       "enclosure": "Enclosure",

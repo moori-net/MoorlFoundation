@@ -12,13 +12,18 @@ const accordion = {
         mapping: {
             name: {
                 value: 'New entry',
-                cols: 12,
+                cols: 8,
             },
             content: {
                 value: 'Entry content...',
                 type: 'code',
                 cols: 12,
-            }
+            },
+            open: {
+                value: false,
+                type: 'boolean',
+                cols: 12,
+            },
         }
     },
     verticalAlign: {
