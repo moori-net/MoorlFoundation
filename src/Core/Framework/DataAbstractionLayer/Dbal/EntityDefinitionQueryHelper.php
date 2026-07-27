@@ -95,7 +95,7 @@ final class EntityDefinitionQueryHelper
 
         switch ($exception->getCode()) {
             case 1265:
-                self::handleDataTruncatedException($exception, $connection, $table);
+                self::handleDataTruncatedException($exception, $connection, $table, $sql);
                 break;
 
             case 1062:
@@ -140,10 +140,15 @@ final class EntityDefinitionQueryHelper
     // === HANDLER: SPECIFIC EXCEPTIONS ====
     // ======================================
 
-    private static function handleDataTruncatedException(Exception $exception, Connection $connection, string $table): void
-    {
-        // Beispiel:
+    private static function handleDataTruncatedException(
+        Exception $exception,
+        Connection $connection,
+        string $table,
+        ?string $sourceSql = null
+    ): void {
+        // Beispiele:
         // SQLSTATE[01000]: Warning: 1265 Data truncated for column 'name' at row 31
+        // ALTER TABLE foo CHANGE name name VARCHAR(255) NOT NULL
         if (!preg_match("/Data truncated for column '([^']+)' at row (\\d+)/i", $exception->getMessage(), $matches)) {
             throw $exception;
         }
@@ -173,26 +178,94 @@ SQL,
             throw $exception;
         }
 
+        $targetLength = null;
+        $targetNotNull = false;
+
+        if ($sourceSql) {
+            $quotedColumn = preg_quote($column, '/');
+
+            // CHANGE [COLUMN] old_name new_name VARCHAR(255) ...
+            $changePattern = sprintf(
+                '/\\bCHANGE(?:\\s+COLUMN)?\\s+`?[^`\\s]+`?\\s+`?%s`?\\s+(?:VAR)?CHAR\\s*\\(\\s*(\\d+)\\s*\\)([^,;]*)/i',
+                $quotedColumn
+            );
+
+            // MODIFY [COLUMN] name VARCHAR(255) ...
+            $modifyPattern = sprintf(
+                '/\\bMODIFY(?:\\s+COLUMN)?\\s+`?%s`?\\s+(?:VAR)?CHAR\\s*\\(\\s*(\\d+)\\s*\\)([^,;]*)/i',
+                $quotedColumn
+            );
+
+            if (preg_match($changePattern, $sourceSql, $definitionMatches)
+                || preg_match($modifyPattern, $sourceSql, $definitionMatches)) {
+                $targetLength = (int) $definitionMatches[1];
+                $targetNotNull = preg_match('/\\bNOT\\s+NULL\\b/i', $definitionMatches[2] ?? '') === 1;
+            }
+        }
+
+        $handled = false;
+
+        // MySQL/MariaDB meldet vorhandene NULL-Werte bei einer Umstellung auf
+        // NOT NULL teilweise ebenfalls als Fehler 1265 "Data truncated".
+        if ($targetNotNull) {
+            $defaultValue = $columnMeta['COLUMN_DEFAULT'] ?? '';
+
+            $connection->executeStatement(
+                sprintf(
+                    'UPDATE %s SET %s = :defaultValue WHERE %s IS NULL',
+                    self::quote($table),
+                    self::quote($column),
+                    self::quote($column)
+                ),
+                ['defaultValue' => $defaultValue],
+                ['defaultValue' => ParameterType::STRING]
+            );
+
+            $handled = true;
+        }
+
+        // Bei ALTER TABLE muss die neue Ziellänge aus dem fehlgeschlagenen SQL
+        // verwendet werden. information_schema enthält zu diesem Zeitpunkt noch
+        // die alte Spaltendefinition.
+        if ($targetLength !== null && $targetLength > 0) {
+            $connection->executeStatement(sprintf(
+                'UPDATE %s SET %s = LEFT(%s, %d) WHERE CHAR_LENGTH(%s) > %d',
+                self::quote($table),
+                self::quote($column),
+                self::quote($column),
+                $targetLength,
+                self::quote($column),
+                $targetLength
+            ));
+
+            return;
+        }
+
+        // Fallback für Truncation-Fehler außerhalb eines erkennbaren ALTER TABLE.
         $dataType = strtolower((string) ($columnMeta['DATA_TYPE'] ?? ''));
         $columnType = (string) ($columnMeta['COLUMN_TYPE'] ?? '');
 
-        if (in_array($dataType, ['varchar', 'char'], true) && preg_match('/\((\d+)\)/', $columnType, $lengthMatches)) {
+        if (in_array($dataType, ['varchar', 'char'], true)
+            && preg_match('/\\((\\d+)\\)/', $columnType, $lengthMatches)) {
             $maxLength = (int) $lengthMatches[1];
 
             if ($maxLength > 0) {
-                $sql = sprintf(
-                    "UPDATE %s SET %s = LEFT(%s, %d) WHERE CHAR_LENGTH(%s) > %d",
+                $connection->executeStatement(sprintf(
+                    'UPDATE %s SET %s = LEFT(%s, %d) WHERE CHAR_LENGTH(%s) > %d',
                     self::quote($table),
                     self::quote($column),
                     self::quote($column),
                     $maxLength,
                     self::quote($column),
                     $maxLength
-                );
+                ));
 
-                $connection->executeStatement($sql);
                 return;
             }
+        }
+
+        if ($handled) {
+            return;
         }
 
         throw $exception;
