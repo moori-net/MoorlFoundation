@@ -13,7 +13,7 @@
         {% set isListing = true %}
         {% set params = {slots: element.id, 'no-aggregations': 1} %}
         {% set filterUrl = url('frontend.cms.navigation.filter', { navigationId: searchResult.currentFilters.navigationId }) %}
-        {% set dataUrl = url('frontend.cms.navigation.page', { navigationId: searchResult.currentFilters.navigationId }) %}
+        {% set dataUrl = dataUrl ?? url('frontend.cms.navigation.page', { navigationId: searchResult.currentFilters.navigationId }) %}
     {% else %}
         {# Case 3: From CMS (others) #}
         {% set isListing = false %}
