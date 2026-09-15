@@ -191,6 +191,7 @@
       "productManufacturer": "Produkt Hersteller",
       "answer": "Antwort",
       "errorMessage": "Fehlermeldung",
+      "infoMessage": "Infomeldung",
       "optionPrice": "Preis",
       "rule": "Regel",
       "calculationPriceSource": "Quelle für Preisberechnung",

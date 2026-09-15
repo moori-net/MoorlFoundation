@@ -191,6 +191,7 @@
       "productManufacturer": "Product manufacturer",
       "answer": "Answer",
       "errorMessage": "Error message",
+      "infoMessage": "Info message",
       "optionPrice": "Option price",
       "rule": "Rule",
       "calculationPriceSource": "Calculation price source",
