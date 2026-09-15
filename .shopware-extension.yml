@@ -184,5 +184,8 @@ build:
     pack:
       excludes:
         paths:
+          - .gitattributes
           - docs
+          - tests
           - TODO.md
+          - phpunit.xml.dist
