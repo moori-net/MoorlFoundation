@@ -18,11 +18,11 @@ class ProductBuyListCmsElementResolver extends ProductSliderCmsElementResolver
 
     private readonly ProductConfiguratorLoader $configuratorLoader;
 
-    public function __construct() {
-        $args = func_get_args();
-        $this->configuratorLoader = array_pop($args);
+    public function __construct(...$arguments)
+    {
+        $this->configuratorLoader = array_pop($arguments);
 
-        parent::__construct(...$args);
+        parent::__construct(...$arguments);
     }
 
     public function getType(): string
