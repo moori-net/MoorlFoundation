@@ -22,9 +22,10 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpFoundation\Request;
+
 class HtmlContentMediaFetcher
 {
-    private ?SymfonyStyle $console = null;
+    private SymfonyStyle $console;
     private array $mediaCache = [];
 
     public function __construct(
@@ -32,8 +33,7 @@ class HtmlContentMediaFetcher
         private readonly Connection $connection,
         private readonly MediaService $mediaService,
         private readonly FileSaver $fileSaver
-    )
-    {
+    ) {
         $this->console = new ShopwareStyle(new ArgvInput(), new NullOutput());
     }
 
@@ -63,7 +63,6 @@ class HtmlContentMediaFetcher
 
     private function updateLanguage(array $ids, string $entityName, Context $context, array $fields): void
     {
-        $versionId = Uuid::fromHexToBytes($context->getVersionId());
         $languageId = Uuid::fromHexToBytes($context->getLanguageId());
 
         $foreignKey = sprintf("%s_id", $entityName);
@@ -90,15 +89,29 @@ SQL;
 
         foreach ($data as $item) {
             $setters = [];
+            $parameters = [
+                $foreignKey => $item[$foreignKey],
+                'languageId' => $languageId,
+            ];
 
             foreach ($item as $index => &$value) {
                 if ($index === $foreignKey) {
                     continue;
                 }
 
-                $value = $this->processContent($value, $entityName, $context);
+                $processedValue = $this->processContent($value, $entityName, $context);
+                if ($processedValue === $value) {
+                    continue;
+                }
+
+                $value = $processedValue;
+                $parameters[$index] = $value;
 
                 $setters[] = sprintf($valueUpdateTemplate, $index, $index);
+            }
+
+            if (!$setters) {
+                continue;
             }
 
             $sql = sprintf(
@@ -109,27 +122,35 @@ SQL;
                 $foreignKey
             );
 
-            $this->connection->executeStatement($sql, [...$item, ...[
-                'languageId' => $languageId
-            ]]);
+            $this->connection->executeStatement($sql, $parameters);
         }
     }
 
     private function processContent(?string $content, string $entityName, Context $context): ?string
     {
-        if (!$content) {
-            return null;
+        if ($content === null || $content === '') {
+            return $content;
         }
+
+        $previousInternalErrors = \libxml_use_internal_errors(true);
 
         try {
             $doc = new \DOMDocument('1.0', 'UTF-8');
-            \libxml_use_internal_errors(TRUE);
 
-            $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+            if (!$doc->loadHTML(
+                mb_encode_numericentity($content, [0x80, 0x10FFFF, 0, 0xFFFFFF], 'UTF-8'),
+                LIBXML_HTML_NODEFDTD
+            )) {
+                return $content;
+            }
 
             $tags = $doc->getElementsByTagName('img');
+            $hasChanges = false;
             foreach ($tags as $tag) {
                 $originSrc = $tag->getAttribute('src');
+                $originalSrc = $tag->hasAttribute('data-origin-src')
+                    ? $tag->getAttribute('data-origin-src')
+                    : $originSrc;
                 $mediaId = $this->getMediaIdFromUrl($originSrc, $entityName, $context);
                 if (!$mediaId) {
                     continue;
@@ -139,13 +160,21 @@ SQL;
                     continue;
                 }
                 $tag->setAttribute('src', $newSrc);
-                $tag->setAttribute('data-origin-src', $originSrc);
+                $tag->setAttribute('data-origin-src', $originalSrc);
+                $hasChanges = true;
             }
-        } catch (\Exception) {
+        } catch (\Throwable) {
+            return $content;
+        } finally {
+            \libxml_clear_errors();
+            \libxml_use_internal_errors($previousInternalErrors);
+        }
+
+        if (!$hasChanges) {
             return $content;
         }
 
-        return $doc->saveHTML();
+        return str_replace(['<body>', '</body>', '<html>', '</html>'], '', $doc->saveHTML());
     }
 
     private function getMediaUrl(string $id, Context $context): string
@@ -164,70 +193,28 @@ SQL;
 
         $name = $this->handleRelativeMediaUrl($name);
 
-        if (isset($this->mediaCache[$name])) {
+        if (array_key_exists($name, $this->mediaCache)) {
             return $this->mediaCache[$name];
         }
 
-        if (!str_contains($name, "http")) {
+        if (!$this->isHttpUrl($name)) {
+            $this->console->writeln(sprintf('Not Found or illegal media URL %s', $name));
+
             return null;
         }
 
-        try {
-            $rawHeaders = get_headers($name, true);
-        } catch (\Exception $exception) {
-            $this->console->writeln(sprintf("%s %s", $exception->getMessage(), $name));
-            return null;
-        }
-
-        if (!is_array($rawHeaders)) {
-            return null;
-        }
-
-        $headers = [];
-        foreach ($rawHeaders as $k => $v) {
-            $headers[strtolower((string) $k)] = $v;
-        }
-
-        if (!empty($headers['location'])) {
-            $this->console->writeln(sprintf("Path redirected from %s to %s", $name, $headers['location']));
-            return $this->getMediaIdFromUrl($headers['location'], $entityName, $context);
-        }
-
-        $contentType = null;
-        if (isset($headers['content-type'])) {
-            $contentType = $headers['content-type'];
-        }
-
-        if ($contentType) {
-            if (is_array($contentType)) {
-                $type = explode("/", (string) $contentType[0]);
-            } else {
-                $type = explode("/", (string) $contentType);
-            }
-
-            $type = $type[0];
-
-            if (!in_array($type, ['image', 'video'])) {
-                $this->console->writeln(sprintf("Type not supported %s %s", $name, json_encode($headers)));
-                return null;
-            }
-        } else {
-            $this->console->writeln(sprintf("Not Found %s", $name));
-            return null;
-        }
-
-        $name = str_replace('http:', 'https:', $name);
-        $query = explode("?", $name);
-        $basename = basename($query[0]);
+        $path = (string) parse_url($name, PHP_URL_PATH);
+        $basename = basename($path);
         $fileInfo = pathinfo($basename);
         if (empty($fileInfo['filename']) && empty($fileInfo['extension'])) {
-            $this->console->writeln(sprintf("Not Found or illegal file extension %s", $name));
+            $this->console->writeln(sprintf('Not Found or illegal file extension %s', $name));
+
             return null;
         } elseif (empty($fileInfo['extension'])) {
             $fileInfo['extension'] = "png";
         }
 
-        $filename = $fileInfo['filename'];
+        $filename = substr($fileInfo['filename'], 0, 200) . '-' . substr(hash('sha256', $name), 0, 16);
         $extension = $fileInfo['extension'];
 
         $criteria = new Criteria();
@@ -242,22 +229,36 @@ SQL;
         if ($media) {
             $mediaId = $media->getId();
         } else {
-            $mediaId = $this->mediaService->createMediaInFolder(
-                $entityName,
-                $context,
-                false
-            );
+            $mediaId = null;
+            $uploadedFile = null;
 
             try {
-                $uploadedFile = $this->fetchFileFromURL($query[0], $extension);
+                $mediaId = $this->mediaService->createMediaInFolder(
+                    $entityName,
+                    $context,
+                    false
+                );
+                $uploadedFile = $this->fetchFileFromURL($name, $extension);
                 $this->fileSaver->persistFileToMedia(
                     $uploadedFile,
                     $filename,
                     $mediaId,
                     $context
                 );
-            } catch (\Exception) {
+            } catch (\Throwable $exception) {
+                $this->console->writeln(sprintf('Could not import media from %s: %s', $name, $exception->getMessage()));
+
+                if ($mediaId) {
+                    try {
+                        $repository->delete([['id' => $mediaId]], $context);
+                    } catch (\Throwable) {
+                    }
+                }
                 $mediaId = null;
+            } finally {
+                if ($uploadedFile && is_file($uploadedFile->getFileName())) {
+                    @unlink($uploadedFile->getFileName());
+                }
             }
         }
 
@@ -268,6 +269,11 @@ SQL;
 
     private function fetchFileFromURL(string $url, string $extension): MediaFile
     {
+        $tempFile = tempnam(sys_get_temp_dir(), '');
+        if ($tempFile === false) {
+            throw new \RuntimeException('Unable to create a temporary file for the media download.');
+        }
+
         $request = new Request();
         $request->query->set('url', $url);
         $request->query->set('extension', $extension);
@@ -275,7 +281,13 @@ SQL;
         $request->request->set('extension', $extension);
         $request->headers->set('content-type', 'application/json');
 
-        return $this->mediaService->fetchFile($request);
+        try {
+            return $this->mediaService->fetchFile($request, $tempFile);
+        } catch (\Throwable $exception) {
+            @unlink($tempFile);
+
+            throw $exception;
+        }
     }
 
     private function handleRelativeMediaUrl(string $name): string
@@ -289,5 +301,14 @@ SQL;
         //return $baseUrl . $name;
 
         return $name;
+    }
+
+    private function isHttpUrl(string $url): bool
+    {
+        $parts = parse_url($url);
+
+        return is_array($parts)
+            && isset($parts['scheme'], $parts['host'])
+            && in_array(strtolower($parts['scheme']), ['http', 'https'], true);
     }
 }
