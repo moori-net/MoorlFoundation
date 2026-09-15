@@ -168,6 +168,7 @@ const mapping = {
     rating: {tab: 'general', card: 'general'},
     ratingMax: {tab: 'general', card: 'general'},
     errorMessage: {tab: 'general', card: 'general'},
+    infoMessage: {tab: 'general', card: 'general'},
     className: {tab: 'general', card: 'general'},
 
     // Specifications
