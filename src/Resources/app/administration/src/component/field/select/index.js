@@ -211,8 +211,13 @@ Shopware.Component.register('moorl-select-field', {
         };
     },
 
-    created() {
-        this.createdComponent();
+    watch: {
+        customSet: {
+            handler() {
+                this.createdComponent();
+            },
+            immediate: true,
+        },
     },
 
     computed: {
