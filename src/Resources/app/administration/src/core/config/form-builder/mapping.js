@@ -151,15 +151,71 @@ const mapping = {
     redeemCode: {tab: 'general', card: 'general'},
     subscriptionTime: {tab: 'general', card: 'general'},
     useChapters: {tab: 'general', card: 'general'},
-    teaser: {tab: 'general', card: 'general'},
-    description: {tab: 'general', card: 'general'},
-    content: {tab: 'general', card: 'general'},
-    solution: {tab: 'general', card: 'general'},
-    answer: {tab: 'general', card: 'general'},
-    contentCmsPage: {tab: 'general', card: 'general'},
-    descriptionHtml: {tab: 'general', card: 'general'},
+    teaser: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
+    description: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
+    content: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
+    solution: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
+    answer: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
+    contentCmsPage: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
+    descriptionHtml: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
     keywords: {tab: 'general', card: 'general'},
-    info: {tab: 'general', card: 'general'},
+    info: {
+        tab: 'general',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.proofread',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.proofread',
+        }],
+    },
     customerNumber: {tab: 'general', card: 'general'},
     manufacturerNumber: {tab: 'general', card: 'general'},
     ean: {tab: 'general', card: 'general'},
@@ -223,9 +279,30 @@ const mapping = {
     // SEO
     schemaOrgType: {tab: 'seo', card: 'general'},
     schemaOrgProperty: {tab: 'seo', card: 'general'},
-    metaTitle: {tab: 'seo', card: 'general'},
-    metaDescription: {tab: 'seo', card: 'general'},
-    metaKeywords: {tab: 'seo', card: 'general'},
+    metaTitle: {
+        tab: 'seo',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.generateMetaTitle',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.generateMetaTitle',
+        }],
+    },
+    metaDescription: {
+        tab: 'seo',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.generateMetaDescription',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.generateMetaDescription',
+        }],
+    },
+    metaKeywords: {
+        tab: 'seo',
+        card: 'general',
+        aiPromptSuggestions: [{
+            snippetKey: 'moorl-foundation.ai.prompts.generateMetaKeywords',
+            buttonSnippetKey: 'moorl-foundation.ai.promptLabels.generateMetaKeywords',
+        }],
+    },
     seoUrls: {tab: 'seo', componentName: 'sw-seo-url'},
 
     // Meta

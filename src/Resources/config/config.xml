@@ -21,6 +21,19 @@
     </card>
 
     <card>
+        <title>AI</title>
+        <title lang="de-DE">KI</title>
+
+        <component name="moorl-entity-select-field">
+            <name>aiClient</name>
+            <entity>moorl_client</entity>
+            <variant>small</variant>
+            <label>AI client</label>
+            <label lang="de-DE">KI-Client</label>
+        </component>
+    </card>
+
+    <card>
         <title>Advanced search</title>
         <title lang="de-DE">Erweiterte Suche</title>
 

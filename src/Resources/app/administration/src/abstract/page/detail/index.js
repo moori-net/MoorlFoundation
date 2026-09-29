@@ -180,6 +180,30 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
         onItemLoaded() {},
 
+        onApplyAiChanges(changes) {
+            const allowedFields = this.itemHelper.getAiContext().fields;
+            const entries = Object.entries(changes);
+
+            if (entries.some(([field, value]) =>
+                !Object.prototype.hasOwnProperty.call(allowedFields, field)
+                || !['string', 'number', 'boolean'].includes(typeof value)
+            )) {
+                return;
+            }
+
+            const allowedChanges = Object.fromEntries(entries);
+
+            if (!Object.keys(allowedChanges).length) {
+                return;
+            }
+
+            Object.assign(this.item, allowedChanges);
+            this.createNotificationSuccess({
+                title: this.$tc('global.default.success'),
+                message: this.$tc('moorl-foundation.ai.changesApplied'),
+            });
+        },
+
         async onSaveItem() {
             this.isSaveSuccessful = false;
 

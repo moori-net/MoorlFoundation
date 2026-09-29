@@ -1,0 +1,68 @@
+.moorl-ai-chat {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    padding: 16px;
+    background: var(--color-background-secondary-default);
+    gap: 16px;
+
+    &__messages {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    &__empty-state {
+        margin: 0;
+        color: var(--color-text-secondary-default);
+    }
+
+    &__message {
+        max-width: 85%;
+        padding: 8px 12px;
+        border-radius: 8px;
+
+        &--user {
+            align-self: flex-end;
+            background: var(--color-interaction-primary-default);
+
+            .moorl-ai-chat__message-text {
+                color: var(--color-text-primary-inverted, #fff);
+            }
+        }
+
+        &--assistant {
+            align-self: flex-start;
+            background: var(--color-background-primary-default);
+        }
+    }
+
+    &__message-text {
+        margin: 0;
+        white-space: pre-wrap;
+    }
+
+    &__suggestions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    &__suggestion {
+        max-width: 100%;
+        text-align: left;
+        white-space: normal;
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+}

@@ -90,9 +90,25 @@
             @close="showConfirmDeleteModal = false"
             @cancel="showConfirmDeleteModal = false"
         />
+
     </template>
 
     <template #sidebar>
-        {% block moorl_page_detail_sidebar %}{% endblock %}
+        <sw-sidebar :propagate-width="true">
+            <sw-sidebar-item
+                :title="$tc('moorl-foundation.ai.modalTitle')"
+                icon="regular-comments"
+                :disabled="isLoading"
+            >
+                <moorl-ai-chat
+                    :entity="entity"
+                    :item="item"
+                    :item-helper="itemHelper"
+                    @apply-changes="onApplyAiChanges"
+                />
+            </sw-sidebar-item>
+
+            {% block moorl_page_detail_sidebar %}{% endblock %}
+        </sw-sidebar>
     </template>
 </sw-page>

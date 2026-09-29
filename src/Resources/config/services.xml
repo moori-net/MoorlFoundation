@@ -5,6 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <imports>
         <import resource="core/entity-auto-cache.xml"/>
+        <import resource="monolog.xml"/>
         <import resource="core/entity-auto-location.xml"/>
         <import resource="administration/controllers.xml"/>
         <import resource="storefront/cms-element-resolver.xml"/>
@@ -33,6 +34,18 @@
         <service id="MoorlFoundation\Core\Service\ClientService" public="true">
             <argument type="service" id="moorl_client.repository"/>
             <argument type="tagged" tag="moorl.foundation.client"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Service\AiChatContextService">
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry"/>
+            <argument type="service" id="monolog.logger.moorl_foundation_client_channel"/>
+        </service>
+
+        <service id="MoorlFoundation\Core\Service\AiChatService">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\ClientService"/>
+            <argument type="service" id="MoorlFoundation\Core\Service\AiChatContextService"/>
+            <argument type="service" id="monolog.logger.moorl_foundation_client_channel"/>
         </service>
 
         <service id="MoorlFoundation\Core\Service\DataService" public="true">

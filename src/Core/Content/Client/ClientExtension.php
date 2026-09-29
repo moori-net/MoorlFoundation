@@ -42,6 +42,11 @@ class ClientExtension
         return $this->clientName;
     }
 
+    public function getClientLabel(): string
+    {
+        return $this->getClientName();
+    }
+
     public function setClientEntity(ClientEntity $clientEntity): void
     {
         $this->clientEntity = $clientEntity;
