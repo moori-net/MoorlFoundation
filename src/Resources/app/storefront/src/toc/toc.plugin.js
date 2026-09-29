@@ -7,8 +7,7 @@ export default class MoorlTocPlugin extends Plugin {
 
     init() {
         this._cmsPageElement = document.querySelector('.cms-page');
-        this._headingElements =
-            this._cmsPageElement.querySelectorAll('h2,h3,h5,h5,h6');
+        this._headingElements = this._cmsPageElement.querySelectorAll('h2,h3,h4,h5,h6');
         this._selectedTocLink = window.location.hash;
         this._selectedHeadline = null;
 

@@ -14,13 +14,6 @@ class TocCmsElementResolver extends LegacyTextCmsElementResolver
         return 'moorl-toc';
     }
 
-    /**
-     * @param CmsSlotEntity $slot
-     * @param ResolverContext $resolverContext
-     * @param ElementDataCollection $result
-     *
-     * @link: https://www.terluinwebdesign.nl/en/html/html-table-of-contents-generator-php-powered/
-     */
     public function enrich(CmsSlotEntity $slot, ResolverContext $resolverContext, ElementDataCollection $result): void
     {
         parent::enrich($slot, $resolverContext, $result);
@@ -34,71 +27,63 @@ class TocCmsElementResolver extends LegacyTextCmsElementResolver
         $doc = new \DOMDocument('1.0', 'UTF-8');
         \libxml_use_internal_errors(TRUE);
         //$doc->loadHTML($text->getContent());
-        $doc->loadHTML(mb_convert_encoding($text->getContent(), 'HTML-ENTITIES', 'UTF-8'));
+        $doc->loadHTML(mb_encode_numericentity($text->getContent(), [0x80, 0x10FFFF, 0, 0xFFFFFF], 'UTF-8'));
         \libxml_clear_errors();
         $xPath = new \DOMXPath($doc);
 
         $tableOfContents = $doc->createElement('ol');
         $tableOfContents->setAttribute('class', '');
 
-        $currentOL = $tableOfContents;
-        $previousOLs = [];
-
-        $previousHeading = false;
         $allHeadings = $xPath->query('//h2|//h3|//h4|//h5|//h6');
-
-        $iHeading = 0;
-
-        $previousLI = false;
+        $headingStack = [];
+        $headingCount = 0;
 
         foreach ($allHeadings as $heading) {
-            if (!$heading->hasAttribute('id')) {
+            $headingId = trim($heading->getAttribute('id'));
+            $headingText = $this->getHeadingText($heading);
+
+            if ($headingId === '' || $headingText === '') {
                 continue;
             }
 
-            $iHeading++;
+            $headingCount++;
             $headingDepth = $this->getHeadingDepth($heading);
 
-            if ($previousHeading) {
-                $previousHeadingDepth = $this->getHeadingDepth($previousHeading);
-            } else {
-                $previousHeadingDepth = $headingDepth;
+            while ($headingStack !== [] && $headingDepth <= end($headingStack)->depth) {
+                array_pop($headingStack);
             }
 
-            if ($headingDepth > $previousHeadingDepth) {
-                $previousOLs[$previousHeadingDepth] = $currentOL;
-                $currentOL = $doc->createElement('ol');
-                if ($previousLI) {
-                    $previousLI->appendChild($currentOL);
-                } else {
-                    $previousOLs[$previousHeadingDepth]->appendChild($currentOL);
+            $currentOL = $tableOfContents;
+            if ($headingStack !== []) {
+                $parentHeading = end($headingStack);
+                if ($parentHeading->children === null) {
+                    $parentHeading->children = $doc->createElement('ol');
+                    $parentHeading->listItem->appendChild($parentHeading->children);
                 }
-            } elseif ($headingDepth < $previousHeadingDepth) {
-                $currentOL = $previousOLs[$headingDepth];
-            }
 
-            if (!$currentOL) {
-                continue;
+                $currentOL = $parentHeading->children;
             }
 
             $currentOL->setAttribute('class', 'toc-lvl-' . ($headingDepth - 1));
 
             $currentLI = $doc->createElement('li');
             $currentAnchorLink = $doc->createElement('a');
-            $currentAnchorLink->textContent = $heading->textContent;
+            $currentAnchorLink->textContent = $headingText;
 
-            $currentAnchorLink->setAttribute('href', '#' . $heading->getAttribute('id'));
+            $currentAnchorLink->setAttribute('href', '#' . $headingId);
 
             $currentLI->appendChild($currentAnchorLink);
             $currentOL->appendChild($currentLI);
 
-            $previousLI = $currentLI;
-            $previousHeading = $heading;
-            $previousHeadingDepth = $headingDepth;
+            $headingStack[] = (object) [
+                'depth' => $headingDepth,
+                'listItem' => $currentLI,
+                'children' => null,
+            ];
         }
 
-        if ($iHeading === 0) {
-            $text->setContent("<!-- No H2, H3, H4 tags with id attribute found -->");
+        if ($headingCount === 0) {
+            $text->setContent("<!-- No valid H2, H3, H4 tags with id attribute found -->");
             return;
         }
 
@@ -108,5 +93,10 @@ class TocCmsElementResolver extends LegacyTextCmsElementResolver
     private function getHeadingDepth(\DOMElement $heading): int
     {
         return intval(substr($heading->tagName, 1));
+    }
+
+    private function getHeadingText(\DOMElement $heading): string
+    {
+        return preg_replace('/^[\s\p{Z}]+|[\s\p{Z}]+$/u', '', $heading->textContent) ?? '';
     }
 }
