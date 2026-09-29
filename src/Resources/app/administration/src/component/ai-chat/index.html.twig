@@ -1,0 +1,77 @@
+<div class="moorl-ai-chat">
+    <div
+        ref="messages"
+        class="moorl-ai-chat__messages"
+    >
+        <p
+            v-if="!visibleMessages.length"
+            class="moorl-ai-chat__empty-state"
+        >
+            {{ $tc('moorl-foundation.ai.emptyState') }}
+        </p>
+
+        <div
+            v-for="(message, messageIndex) in visibleMessages"
+            :key="messageIndex"
+            :class="`moorl-ai-chat__message moorl-ai-chat__message--${message.role}`"
+        >
+            <p
+                v-for="(content, contentIndex) in message.content"
+                :key="contentIndex"
+                class="moorl-ai-chat__message-text"
+            >
+                {{ content.text }}
+            </p>
+        </div>
+    </div>
+
+    <div
+        v-if="aiPromptSuggestions.length"
+        class="moorl-ai-chat__suggestions"
+    >
+        <mt-button
+            v-for="suggestion in aiPromptSuggestions"
+            :key="`${suggestion.field}-${suggestion.label}`"
+            class="moorl-ai-chat__suggestion"
+            variant="secondary"
+            size="small"
+            @click="onSelectPromptSuggestion(suggestion)"
+        >
+            {{ suggestion.label }}
+        </mt-button>
+    </div>
+
+    <mt-textarea
+        ref="messageInput"
+        v-model="messageInput"
+        :label="$tc('moorl-foundation.ai.messageInput')"
+        :placeholder="$tc('moorl-foundation.ai.messagePlaceholder')"
+        @keydown.enter.exact="onEnterKeydown"
+    >
+        <template #hint>
+            <mt-checkbox
+                v-model:checked="sendOnEnter"
+                :label="$tc('moorl-foundation.ai.sendOnEnter')"
+            />
+        </template>
+    </mt-textarea>
+
+    <div class="moorl-ai-chat__actions">
+        <mt-button
+            variant="primary"
+            size="default"
+            :disabled="isTesting || isSending"
+            @click="onTestConnection"
+        >
+            {{ $tc('moorl-foundation.ai.testConnection') }}
+        </mt-button>
+        <mt-button
+            variant="primary"
+            size="default"
+            :disabled="!messageInput.trim() || isSending || isTesting || messages.length >= 29"
+            @click="onSendMessage"
+        >
+            {{ $tc('moorl-foundation.ai.send') }}
+        </mt-button>
+    </div>
+</div>

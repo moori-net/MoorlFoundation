@@ -62,6 +62,34 @@
     }
   },
   "moorl-foundation": {
+    "ai": {
+      "button": "KI-Chat",
+      "chatLimitReached": "Der Chat hat die maximale Anzahl an Nachrichten erreicht.",
+      "chatFailed": "Die KI-Anfrage konnte nicht verarbeitet werden.",
+      "changesApplied": "Die KI-Änderungen wurden lokal übernommen. Bitte speichere den Datensatz, um sie zu persistieren.",
+      "connectionSuccess": "Die Verbindung zum KI-Client wurde erfolgreich getestet.",
+      "contextNotice": "Der Kontext für {entity} wird erst bei einer späteren Chat-Anfrage an die KI übermittelt.",
+      "emptyState": "Stelle eine Frage, um den Chat zu beginnen.",
+      "messageInput": "Nachricht",
+      "messagePlaceholder": "Schreibe eine Nachricht ...",
+      "messageTooLong": "Eine Nachricht darf maximal 10.000 Zeichen enthalten.",
+      "modalTitle": "KI-Chat",
+      "sendOnEnter": "Mit Enter senden",
+      "prompts": {
+        "proofread": "Überprüfe das Feld „{field}“ auf Rechtschreib- und Grammatikfehler. Übernimm nur notwendige Korrekturen.",
+        "generateMetaTitle": "Erstelle für das Feld „{field}“ einen prägnanten SEO-Meta-Titel passend zum Inhalt dieses Elements.",
+        "generateMetaDescription": "Erstelle für das Feld „{field}“ eine prägnante SEO-Meta-Beschreibung passend zum Inhalt dieses Elements.",
+        "generateMetaKeywords": "Erstelle für das Feld „{field}“ passende SEO-Meta-Schlüsselwörter zum Inhalt dieses Elements."
+      },
+      "promptLabels": {
+        "proofread": "Korrekturlesen: {field}",
+        "generateMetaTitle": "Meta-Titel: {field}",
+        "generateMetaDescription": "Meta-Beschreibung: {field}",
+        "generateMetaKeywords": "Meta-Schlüsselwörter: {field}"
+      },
+      "send": "Senden",
+      "testConnection": "Verbindung testen"
+    },
     "button": {
       "back": "Zurück",
       "export": "Export",
@@ -148,6 +176,11 @@
       "emptyCheck": "Wenn leer",
       "hash": "Hash-Wert",
       "apiKey": "API-Schlüssel",
+      "model": "Modell",
+      "organizationId": "Organisations-ID",
+      "projectId": "Projekt-ID",
+      "reasoningEffort": "Reasoning-Aufwand",
+      "store": "KI-Antworten bei OpenAI speichern",
       "formality": "Formalität",
       "tagHandling": "Tag-Handling",
       "ignoreTags": "Ignorierte Tags",

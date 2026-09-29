@@ -7,5 +7,6 @@ import './grid';
 import './config';
 import './helper';
 import './card';
+import './ai-chat';
 import './field';
 import './fieldset';

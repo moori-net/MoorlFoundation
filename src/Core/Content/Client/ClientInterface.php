@@ -8,6 +8,7 @@ interface ClientInterface
 {
     public function getClientType(): string;
     public function getClientName(): string;
+    public function getClientLabel(): string;
     public function getClientConfigTemplate(): ?array;
     public function getClientAdapter(): ?FilesystemAdapter;
     public function getClient(): ?\GuzzleHttp\ClientInterface;

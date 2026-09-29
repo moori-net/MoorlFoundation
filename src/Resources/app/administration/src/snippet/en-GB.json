@@ -62,6 +62,34 @@
     }
   },
   "moorl-foundation": {
+    "ai": {
+      "button": "AI chat",
+      "chatLimitReached": "The chat has reached the maximum number of messages.",
+      "chatFailed": "The AI request could not be processed.",
+      "changesApplied": "The AI changes were applied locally. Save the item to persist them.",
+      "connectionSuccess": "The AI client connection was tested successfully.",
+      "contextNotice": "The context for {entity} will only be sent to the AI with a future chat request.",
+      "emptyState": "Ask a question to start the chat.",
+      "messageInput": "Message",
+      "messagePlaceholder": "Write a message ...",
+      "messageTooLong": "A message may contain a maximum of 10,000 characters.",
+      "modalTitle": "AI chat",
+      "sendOnEnter": "Send with Enter",
+      "prompts": {
+        "proofread": "Proofread the `{field}` field for spelling and grammar. Apply only necessary corrections.",
+        "generateMetaTitle": "Create a concise SEO meta title for the `{field}` field based on this item's content.",
+        "generateMetaDescription": "Create a concise SEO meta description for the `{field}` field based on this item's content.",
+        "generateMetaKeywords": "Create suitable SEO meta keywords for the `{field}` field based on this item's content."
+      },
+      "promptLabels": {
+        "proofread": "Proofread: {field}",
+        "generateMetaTitle": "Meta title: {field}",
+        "generateMetaDescription": "Meta description: {field}",
+        "generateMetaKeywords": "Meta keywords: {field}"
+      },
+      "send": "Send",
+      "testConnection": "Test connection"
+    },
     "button": {
       "back": "Back",
       "export": "Export",
@@ -148,6 +176,11 @@
       "emptyCheck": "If empty",
       "hash": "Hash value",
       "apiKey": "API-Key",
+      "model": "Model",
+      "organizationId": "Organization ID",
+      "projectId": "Project ID",
+      "reasoningEffort": "Reasoning effort",
+      "store": "Store AI responses with OpenAI",
       "formality": "Formality",
       "tagHandling": "Tag handling",
       "ignoreTags": "Ignore tags",

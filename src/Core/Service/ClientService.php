@@ -20,6 +20,7 @@ class ClientService
 {
     public const TYPE_FILESYSTEM = 'filesystem';
     public const TYPE_API = 'api';
+    public const TYPE_AI = 'ai';
     public const TYPE_OAUTH2 = 'oauth2';
 
     private array $_clients = [];
@@ -104,7 +105,7 @@ class ClientService
         try {
             if ($client->getClientType() === self::TYPE_FILESYSTEM) {
                 return $this->getFilesystem($clientId, $context)->listContents("")->toArray();
-            } elseif ($client->getClientType() === self::TYPE_API) {
+            } elseif ($client->getClientType() === self::TYPE_API || $client->getClientType() === self::TYPE_AI) {
                 return $client->testConnection();
             } elseif ($client->getClientType() === self::TYPE_OAUTH2) {
                 return $client->testConnection();
@@ -130,6 +131,7 @@ class ClientService
         foreach ($this->clients as $client) {
             $options[] = [
                 'name' => $client->getClientName(),
+                'label' => $client->getClientLabel(),
                 'type' => $client->getClientType(),
                 'configTemplate' => $client->getClientConfigTemplate(),
             ];

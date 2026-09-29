@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:monolog="http://symfony.com/schema/dic/monolog">
+    <monolog:config>
+        <monolog:channel>moorl_foundation_client_channel</monolog:channel>
+        <monolog:handler name="moorlFoundationClientLogHandler"
+                         type="rotating_file"
+                         path="%kernel.logs_dir%/moorl_foundation_client_%kernel.environment%.log">
+            <monolog:channels>
+                <monolog:channel>moorl_foundation_client_channel</monolog:channel>
+            </monolog:channels>
+        </monolog:handler>
+    </monolog:config>
+</container>
