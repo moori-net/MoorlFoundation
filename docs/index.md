@@ -28,6 +28,7 @@ Einige Beispiele:
 - OpenStreetMap und Karten Marker: Dient als Basis für Store Locator, DeliveryWare (Appflix) und Kleinanzeigen (Appflix).
 - [Listings, Slider und Sortierungen](listing.md): Dient allen Plugins, die eigene Entitäten haben. Für eine schnelle Integration in den Shopware 6 Core. Die Basis unterstützt auch [alle Suchfunktionen](advanced-search.md) in der Storefront.
 - Automatische Übersetzungen: Mithilfe von DeepL können sämtliche Sprachbezogene Inhalte übersetzt werden.
+- [KI-Chat](ai-chat.md): Unterstützt beim Erstellen, Überarbeiten und Optimieren von Inhalten in der Administration.
 - [Demo Assistent](demo-assistant.md): Ermöglicht es, Demo-Inhalte im JSON Format zu erstellen und in Shopware 6 zu importieren. Dieses Feature wird auch in den Themes von RH Webdesign eingesetzt.
 - CMS Tools: Eine sehr umfangreiche Sammlung von nützlichen Tools.
 - CMS Elemente: Alle CMS Elemente, die für mehrere Plugins geeignet sind, wurden in Foundation zusammen gefasst.

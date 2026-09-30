@@ -28,8 +28,10 @@ store:
   highlights:
     de:
       - Import Assistent für Plugin spezifische Demo Pakete
+      - Kontextbasierter KI-Chat zum Erstellen und Optimieren von Inhalten
     en:
       - Import assistant for Demo packages
+      - Context-aware AI chat for creating and optimising content
   features:
     de:
       - Fontawesome 5 Free - https://fontawesome.com
@@ -171,6 +173,22 @@ store:
         de: true
         en: true
       priority: 100
+    - file: docs/images/ai-client-config.png
+      activate:
+        de: true
+        en: true
+      preview:
+        de: false
+        en: false
+      priority: 101
+    - file: docs/images/ai-chat.png
+      activate:
+        de: true
+        en: true
+      preview:
+        de: false
+        en: false
+      priority: 102
 
 changelog:
   enabled: true

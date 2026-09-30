@@ -23,6 +23,7 @@ To keep plugins lightweight and extend the Shopware Core in a meaningful way, ma
 - *OpenStreetMap and Map Markers:* Forms the basis for Store Locator, DeliveryWare (Appflix), and Classifieds (Appflix)
 - *Listings, Sliders, and Sorting:* Used by all plugins that manage their own entities
 - *Automatic Translations:* With the help of DeepL, all language-related content can be translated
+- *AI Chat:* Context-aware assistance for creating, revising and optimising content directly in the administration
 - *Demo Assistant:* Create and import demo content in JSON format (also used in RH Webdesign themes)
 - *CMS Tools:* A comprehensive collection of useful utilities
 - *CMS Elements:* All CMS elements relevant for various plugins are combined in Foundation
