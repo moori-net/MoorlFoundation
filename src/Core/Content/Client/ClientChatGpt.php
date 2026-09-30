@@ -57,8 +57,8 @@ class ClientChatGpt extends ClientExtension implements ClientInterface, ClientAi
                 'type' => 'custom',
                 'componentName' => 'sw-single-select',
                 'options' => [
-                    ['value' => false, 'label' => 'Nein'],
-                    ['value' => true, 'label' => 'Ja'],
+                    ['value' => false, 'label' => 'No'],
+                    ['value' => true, 'label' => 'Yes'],
                 ],
                 'required' => false,
                 'default' => false,
