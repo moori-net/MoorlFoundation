@@ -31,6 +31,11 @@
             <label>AI client</label>
             <label lang="de-DE">KI-Client</label>
         </component>
+
+        <component name="moorl-support-link">
+            <name>null</name>
+            <path>/MoorlFoundation/ai-chat/</path>
+        </component>
     </card>
 
     <card>
