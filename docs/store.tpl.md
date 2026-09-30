@@ -22,6 +22,7 @@ Um die Plugins schlank zu halten und den Shopware Core sinnvoll zu erweitern, wu
 - *OpenStreetMap und Kartenmarker:* Grundlage für Store Locator, DeliveryWare (Appflix) und Kleinanzeigen (Appflix)
 - *Listings, Slider und Sortierungen:* Basis für alle Plugins, die eigene Entitäten nutzen
 - *Automatische Übersetzungen:* Mithilfe von DeepL können sämtliche sprachbezogenen Inhalte übersetzt werden
+- *KI-Chat:* Kontextbezogene Unterstützung zum Erstellen, Überarbeiten und Optimieren von Inhalten direkt in der Administration
 - *Demo-Assistent:* Erstellung und Import von Demo-Inhalten im JSON-Format (u. a. in den Themes von RH Webdesign im Einsatz)
 - *CMS Tools:* Eine umfangreiche Sammlung nützlicher Werkzeuge
 - *CMS Elemente:* Alle relevanten CMS-Elemente für verschiedene Plugins sind in Foundation zusammengeführt
