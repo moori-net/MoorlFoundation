@@ -12,14 +12,12 @@
         data-calc-z="{{ item.calcZ }}"
 >
     {% block parts_list_item_product_cover %}
-        <div class="product-cover">
+        <div class="order-product-cover product-cover">
             {% if product.cover.media.url %}
                 {% set attributes = {
                     'itemprop': 'image',
                     'alt': product.translated.name,
-                    'title': product.translated.name,
-                    'width': '50',
-                    'height': '50'
+                    'title': product.translated.name
                 } %}
                 {% sw_thumbnails 'product-image-thumbnails' with { media: product.cover.media } %}
             {% else %}
@@ -29,22 +27,22 @@
     {% endblock %}
 
     {% block parts_list_item_product_quantity %}
-    <div>
-        <label for="{{ namePrefix }}_{{ product.parentId ?: product.id }}" class="visually-hidden">
-            {{ "moorl-foundation.field.quantity"|trans }}
-        </label>
-        <input type="number"
-               min="0"
-               step="1"
-               class="form-control"
-               id="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
-               name="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
-               value="{{ quantity }}">
-    </div>
+        <div class="order-quantity">
+            <label for="{{ namePrefix }}_{{ product.parentId ?: product.id }}" class="visually-hidden">
+                {{ "moorl-foundation.field.quantity"|trans }}
+            </label>
+            <input type="number"
+                   min="0"
+                   step="1"
+                   class="form-control"
+                   id="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
+                   name="{{ namePrefix }}_{{ product.parentId ?: product.id }}"
+                   value="{{ quantity }}">
+        </div>
     {% endblock %}
 
     {% block parts_list_item_product_content %}
-        <div class="product-content">
+        <div class="order-product-content product-content">
             {% block parts_list_item_product_title %}
                 <div class="product-title">
                     <a itemprop="url" href="{{ seoUrl('frontend.detail.page', {'productId': product.id}) }}">
@@ -72,7 +70,7 @@
     {% endblock %}
 
     {% block parts_list_item_product_price %}
-        <div class="text-end">
+        <div class="order-price text-end">
             {{ (price.unitPrice)|currency }}
         </div>
     {% endblock %}

@@ -4,7 +4,7 @@
 
 <li class="moorl-parts-list-item">
     {% block proxy_cart_item_product_cover %}
-        <div class="product-cover">
+        <div class="order-product-cover product-cover">
             {% if lineItem.cover.url %}
                 {% set attributes = {
                     'itemprop': 'image',
@@ -21,30 +21,30 @@
     {% endblock %}
 
     {% block proxy_cart_item_product_quantity %}
-    <div>
-        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][id]" value="{{ lineItem.referencedId }}">
-        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][type]" value="{{ lineItem.type }}">
-        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][referencedId]" value="{{ lineItem.referencedId }}">
-        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][stackable]" value="1">
-        <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][removable]" value="1">
-        <label for="lineItems{{ lineItem.referencedId }}quantity" class="visually-hidden">
-            {{ "moorl-foundation.field.quantity"|trans }}
-        </label>
-        <input
-                type="number"
-                min="0"
-                step="1"
-                class="form-control"
-                id="lineItems{{ lineItem.referencedId }}quantity"
-                name="lineItems[{{ lineItem.referencedId }}][quantity]"
-                value="{{ quantity }}"
-                readonly
-        >
-    </div>
+        <div class="order-quantity">
+            <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][id]" value="{{ lineItem.referencedId }}">
+            <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][type]" value="{{ lineItem.type }}">
+            <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][referencedId]" value="{{ lineItem.referencedId }}">
+            <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][stackable]" value="1">
+            <input type="hidden" name="lineItems[{{ lineItem.referencedId }}][removable]" value="1">
+            <label for="lineItems{{ lineItem.referencedId }}quantity" class="visually-hidden">
+                {{ "moorl-foundation.field.quantity"|trans }}
+            </label>
+            <input
+                    type="number"
+                    min="0"
+                    step="1"
+                    class="form-control"
+                    id="lineItems{{ lineItem.referencedId }}quantity"
+                    name="lineItems[{{ lineItem.referencedId }}][quantity]"
+                    value="{{ quantity }}"
+                    readonly
+            >
+        </div>
     {% endblock %}
 
     {% block proxy_cart_item_product_content %}
-        <div class="product-content">
+        <div class="order-product-content product-content">
             {% block proxy_cart_item_product_title %}
                 <div class="product-title">
                     <a itemprop="url" href="{{ seoUrl('frontend.detail.page', {'productId': lineItem.referencedId}) }}">
@@ -70,7 +70,7 @@
     {% endblock %}
 
     {% block proxy_cart_item_product_price %}
-        <div class="text-end total-price">
+        <div class="order-price text-end total-price">
             {{ (price.totalPrice)|currency }}
         </div>
     {% endblock %}
