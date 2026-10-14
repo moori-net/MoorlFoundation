@@ -5,8 +5,6 @@ namespace MoorlFoundation\Core\Service;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use League\Flysystem\Filesystem;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\System\DataInterface;
@@ -39,9 +37,9 @@ use Symfony\Component\HttpFoundation\Request;
 class DataService
 {
     private const LOCK_RECORD_SQL_TEMPLATE = "UPDATE `%s` SET `locked` = '%d' WHERE `id` = UNHEX('%s');";
+    private const MAIL_TEMPLATE_WARNING = 'WARNING: AUTOMATICALLY GENERATED TEMPLATE! This template was generated automatically and must not be edited or overwritten directly! Please create a copy of the template before making any modifications and apply all changes exclusively to that copy. Any changes made to the original may be overwritten without warning during the next automatic generation!';
 
     private readonly Context $context;
-    private readonly ClientInterface $client;
     private ?string $salesChannelId = null;
     private ?string $themeId = null;
     private readonly string $demoCustomerMail;
@@ -67,10 +65,6 @@ class DataService
     )
     {
         $this->context = Context::createDefaultContext();
-        $this->client = new Client([
-            'timeout' => 200,
-            'allow_redirects' => false,
-        ]);
         /**
          * When you install demo data you might need to have a customer mail
          */
@@ -287,9 +281,7 @@ TWIG;
             '{CURRENCY_ID}' => Defaults::CURRENCY,
             '{VERSION_ID}' => Defaults::LIVE_VERSION,
             '{MAIL_TEMPLATE_MAIL_SEND_ACTION}' => SendMailAction::ACTION_NAME,
-            '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-            '{MAIL_TEMPLATE_WARNING_DE}' => 'ACHTUNG: AUTOMATISCH GENERIERTES TEMPLATE! Dieses Template wurde automatisch erstellt und darf nicht direkt bearbeitet oder überschrieben werden! Bitte erstelle vor jeder Anpassung eine Kopie des Templates und nimm sämtliche Änderungen ausschließlich in dieser Kopie vor. Änderungen am Original können bei einer erneuten automatischen Generierung ohne Vorwarnung überschrieben werden!',
-            '{MAIL_TEMPLATE_WARNING_EN}' => 'WARNING: AUTOMATICALLY GENERATED TEMPLATE! This template was generated automatically and must not be edited or overwritten directly! Please create a copy of the template before making any modifications and apply all changes exclusively to that copy. Any changes made to the original may be overwritten without warning during the next automatic generation!'
+            '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
         ];
 
         try {
@@ -628,6 +620,15 @@ SQL;
                 if ($defaultMediaFolderId) {
                     $data = null;
                     return;
+                }
+            }
+            if ($table === 'mail_template' && !empty($item['translations']) && is_array($item['translations'])) {
+                foreach ($item['translations'] as $languageId => $translation) {
+                    if (!is_array($translation)) {
+                        continue;
+                    }
+
+                    $item['translations'][$languageId]['description'] = self::MAIL_TEMPLATE_WARNING;
                 }
             }
             /* Handle Translations */
