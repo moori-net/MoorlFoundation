@@ -287,7 +287,9 @@ TWIG;
             '{CURRENCY_ID}' => Defaults::CURRENCY,
             '{VERSION_ID}' => Defaults::LIVE_VERSION,
             '{MAIL_TEMPLATE_MAIL_SEND_ACTION}' => SendMailAction::ACTION_NAME,
-            '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
+            '{LOREM_IPSUM_50}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+            '{MAIL_TEMPLATE_WARNING_DE}' => 'ACHTUNG: AUTOMATISCH GENERIERTES TEMPLATE! Dieses Template wurde automatisch erstellt und darf nicht direkt bearbeitet oder überschrieben werden! Bitte erstelle vor jeder Anpassung eine Kopie des Templates und nimm sämtliche Änderungen ausschließlich in dieser Kopie vor. Änderungen am Original können bei einer erneuten automatischen Generierung ohne Vorwarnung überschrieben werden!',
+            '{MAIL_TEMPLATE_WARNING_EN}' => 'WARNING: AUTOMATICALLY GENERATED TEMPLATE! This template was generated automatically and must not be edited or overwritten directly! Please create a copy of the template before making any modifications and apply all changes exclusively to that copy. Any changes made to the original may be overwritten without warning during the next automatic generation!'
         ];
 
         try {
