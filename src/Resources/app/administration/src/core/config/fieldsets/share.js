@@ -7,6 +7,8 @@ const share = {
         componentName: 'sw-multi-select',
         attributes: {
             options: [
+                { value: 'api', label: 'Web Share API' },
+                { value: 'whatsapp', label: 'WhatsApp' },
                 { value: 'facebook', label: 'Facebook' },
                 { value: 'twitter', label: 'Twitter' },
                 { value: 'x', label: 'X' },

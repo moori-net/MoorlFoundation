@@ -6,12 +6,41 @@
         {% endif %}
         <div class="sticky-top">
             <ul>
-                <li>{{ "moorl-foundation.general.share"|trans }}</li>
+                {% if 'api' in element.config.provider.value %}
+                    <li class="d-none" data-share-container>
+                        <button
+                                type="button"
+                                title="{{ "moorl-share.api"|trans }}"
+                                class="btn btn-share-api"
+                                data-share
+                                data-share-url="{{ currentUrl }}"
+                        >
+                            {% sw_icon 'share' style {pack: 'fas'} %}
+                        </button>
+                    </li>
+                {% endif %}
+
+                {% if 'email' in element.config.provider.value %}
+                    <li>
+                        <a
+                                title="{{ "moorl-share.email"|trans }}"
+                                class="btn btn-email"
+                                href="mailto:?body={{ currentUrl|url_encode }}"
+                        >
+                            {% sw_icon 'envelope' style {pack: 'far'} %}
+                        </a>
+                    </li>
+                {% endif %}
 
                 {% if 'facebook' in element.config.provider.value %}
                     <li>
-                        <a title="" class="btn btn-facebook"
-                           href="https://www.facebook.com/sharer/sharer.php?u={{ currentUrl }}" target="_blank">
+                        <a
+                                title="{{ "moorl-share.facebook"|trans }}"
+                                class="btn btn-facebook"
+                                href="https://www.facebook.com/sharer/sharer.php?u={{ currentUrl }}"
+                                target="_blank"
+                                rel="noopener"
+                        >
                             {% sw_icon 'facebook' style {pack: 'fab'} %}
                         </a>
                     </li>
@@ -19,22 +48,75 @@
 
                 {% if 'x' in element.config.provider.value or 'twitter' in element.config.provider.value %}
                     <li>
-                        <a title="" class="btn btn-x-twitter"
-                           href="https://x.com/intent/tweet?url={{ currentUrl }}" target="_blank">
+                        <a
+                                title="{{ "moorl-share.x-twitter"|trans }}"
+                                class="btn btn-x-twitter"
+                                href="https://x.com/intent/tweet?url={{ currentUrl }}"
+                                target="_blank"
+                                rel="noopener"
+                        >
                             {% sw_icon 'x-twitter' style {pack: 'fab'} %}
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if 'whatsapp' in element.config.provider.value %}
+                    <li>
+                        <a
+                                title="{{ "moorl-share.whatsapp"|trans }}"
+                                class="btn btn-whatsapp"
+                                href="https://api.whatsapp.com/send?text={{ currentUrl|url_encode }}"
+                                target="_blank"
+                                rel="noopener"
+                        >
+                            {% sw_icon 'whatsapp' style {pack: 'fab'} %}
                         </a>
                     </li>
                 {% endif %}
 
                 {% if 'pinterest' in element.config.provider.value %}
                     <li>
-                        <a title="" class="btn btn-pinterest"
-                           href="http://pinterest.com/pin/create/button/?url={{ currentUrl }}" target="_blank">
+                        <a
+                                title="{{ "moorl-share.pinterest"|trans }}"
+                                class="btn btn-pinterest"
+                                href="http://pinterest.com/pin/create/button/?url={{ currentUrl }}"
+                                target="_blank"
+                                rel="noopener"
+                        >
                             {% sw_icon 'pinterest' style {pack: 'fab'} %}
                         </a>
                     </li>
                 {% endif %}
             </ul>
         </div>
+
+        {% if 'api' in element.config.provider.value %}
+            <script>
+                (function () {
+                    const initializeShareButtons = function () {
+                        document.querySelectorAll('[data-share]').forEach(function (button) {
+                            if (button.dataset.shareInitialized || !navigator.share) {
+                                return;
+                            }
+
+                            button.dataset.shareInitialized = 'true';
+                            button.closest('[data-share-container]').classList.remove('d-none');
+                            button.addEventListener('click', function () {
+                                navigator.share({
+                                    title: document.title,
+                                    url: button.dataset.shareUrl,
+                                }).catch(function () {});
+                            });
+                        });
+                    };
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', initializeShareButtons);
+                    } else {
+                        initializeShareButtons();
+                    }
+                })();
+            </script>
+        {% endif %}
     {% endif %}
 </div>
