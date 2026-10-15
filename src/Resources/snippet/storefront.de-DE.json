@@ -1,4 +1,12 @@
 {
+    "moorl-share": {
+        "facebook": "Facebook",
+        "x-twitter": "X-Twitter",
+        "whatsapp": "WhatsApp",
+        "email": "E-Mail",
+        "pinterest": "Pinterest",
+        "api": "Web Share"
+    },
     "moorl-multi-banner": {
         "missingMetaData": "This image has no width/height meta data"
     },
