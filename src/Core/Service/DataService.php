@@ -370,8 +370,10 @@ SQL;
                 );
             }
             $query = $this->connection->executeQuery($sql)->fetchAssociative();
-            $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
-            $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
+            if ($query !== false) {
+                $globalReplacers['{SALES_CHANNEL_ID}'] = $query['id'];
+                $globalReplacers['{NAVIGATION_CATEGORY_ID}'] = $query['categoryId'];
+            }
         } catch (\Exception $exception) {
             $this->log("Unable to set SALES_CHANNEL_ID and NAVIGATION_CATEGORY_ID " . $exception->getMessage(), "error");
         }

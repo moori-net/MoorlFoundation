@@ -242,12 +242,10 @@ class EntityListingExtension implements EntityListingInterface
 
         $entities = $this->listingLoader($criteria);
 
-        $result = ProductListingResult::createFrom($entities);
+        $result = EntityListingResult::createFrom($entities);
         $result->addState(...$entities->getStates());
 
-        $result->assign([
-            'elementConfig' => $this->getElementConfig()
-        ]);
+        $result->setElementConfig($this->getElementConfig());
 
         $result->addCurrentFilter('navigationId', $categoryId);
 
