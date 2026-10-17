@@ -3,7 +3,12 @@ import template from './index.html.twig';
 Shopware.Component.register('moorl-entity-grid-card-v2', {
     template,
 
+    inheritAttrs: false,
+
     computed: {
+        cardSlots() {
+            return Object.keys(this.$slots).filter(name => !['default', 'grid', 'actions'].includes(name));
+        },
         isDisabled() {
             return this.$attrs.disabled;
         },
