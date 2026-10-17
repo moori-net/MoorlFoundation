@@ -2,13 +2,33 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use Shopware\Core\Checkout\Order\Aggregate\OrderAddress\OrderAddressDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderDeliveryPosition\OrderDeliveryPositionDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderLineItemDownload\OrderLineItemDownloadDefinition;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransactionCapture\OrderTransactionCaptureDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefund\OrderTransactionCaptureRefundDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransactionCaptureRefundPosition\OrderTransactionCaptureRefundPositionDefinition;
 use Shopware\Core\Checkout\Order\OrderDefinition;
 use Shopware\Core\Content\Category\CategoryDefinition;
+use Shopware\Core\Content\Category\SalesChannel\SalesChannelCategoryDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsBlock\CmsBlockDefinition;
+use Shopware\Core\Content\Cms\Aggregate\CmsSection\CmsSectionDefinition;
 use Shopware\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotDefinition;
+use Shopware\Core\Content\Cms\CmsPageDefinition;
+use Shopware\Core\Content\LandingPage\LandingPageDefinition;
+use Shopware\Core\Content\LandingPage\SalesChannel\SalesChannelLandingPageDefinition;
+use Shopware\Core\Content\Product\Aggregate\ProductConfiguratorSetting\ProductConfiguratorSettingDefinition;
+use Shopware\Core\Content\Product\Aggregate\ProductDownload\ProductDownloadDefinition;
 use Shopware\Core\Content\Product\Aggregate\ProductManufacturer\ProductManufacturerDefinition;
+use Shopware\Core\Content\Product\Aggregate\ProductMedia\ProductMediaDefinition;
+use Shopware\Core\Content\Product\Aggregate\ProductPrice\ProductPriceDefinition;
+use Shopware\Core\Content\Product\Aggregate\ProductSearchKeyword\ProductSearchKeywordDefinition;
 use Shopware\Core\Content\Product\ProductDefinition;
+use Shopware\Core\Content\Product\SalesChannel\SalesChannelProductDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Exception\DefinitionNotFoundException;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
@@ -18,14 +38,35 @@ final class ExtractedDefinition
     private const ID = 'id';
 
     private static array $cache = [];
+    // Definitions with their own version_id column, including inherited SalesChannel fields.
     private static array $versionDefinitions = [
-        CategoryDefinition::class,
-        ProductDefinition::class,
-        ProductManufacturerDefinition::class,
-        OrderDefinition::class,
+        OrderAddressDefinition::class,
+        OrderCustomerDefinition::class,
+        OrderDeliveryDefinition::class,
+        OrderDeliveryPositionDefinition::class,
+        OrderLineItemDefinition::class,
+        OrderLineItemDownloadDefinition::class,
         OrderTransactionDefinition::class,
+        OrderTransactionCaptureDefinition::class,
+        OrderTransactionCaptureRefundDefinition::class,
+        OrderTransactionCaptureRefundPositionDefinition::class,
+        OrderDefinition::class,
+        CategoryDefinition::class,
+        SalesChannelCategoryDefinition::class,
         CmsBlockDefinition::class,
+        CmsSectionDefinition::class,
         CmsSlotDefinition::class,
+        CmsPageDefinition::class,
+        LandingPageDefinition::class,
+        SalesChannelLandingPageDefinition::class,
+        ProductConfiguratorSettingDefinition::class,
+        ProductDownloadDefinition::class,
+        ProductManufacturerDefinition::class,
+        ProductMediaDefinition::class,
+        ProductPriceDefinition::class,
+        ProductSearchKeywordDefinition::class,
+        ProductDefinition::class,
+        SalesChannelProductDefinition::class,
     ];
 
     protected string $entityName = "";
