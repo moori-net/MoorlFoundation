@@ -5,6 +5,7 @@ namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Field\Flags\EditField;
 use Shopware\Core\Content\Media\MediaDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
@@ -54,7 +55,7 @@ class FieldThingMetaCollection extends FieldCollection
             ] : [],
             $metaMedia ? [
                 new FkField('meta_media_id', 'metaMediaId', MediaDefinition::class),
-                new ManyToOneAssociationField('metaMedia', 'meta_media_id', MediaDefinition::class),
+                (new ManyToOneAssociationField('metaMedia', 'meta_media_id', MediaDefinition::class))->addFlags(new SetNullOnDelete()),
             ] : [],
         );
     }

@@ -2,10 +2,10 @@
 
 namespace MoorlFoundation\Core\Framework\DataAbstractionLayer\Collection;
 
+use RuntimeException;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\RestrictDelete;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\SetNullOnDelete;
@@ -68,12 +68,8 @@ class FieldMultiEntityCollection extends FieldCollection
             ))->addFlags(new ApiAware(), ...$fkFlags);
 
             if (ExtractedDefinition::isVersionDefinition($referenceClass)) {
-                if (ExtractedDefinition::hasClass(Required::class, $fkFlags)) {
-                    $fieldItems[] = (new ReferenceVersionField($referenceClass))
-                        ->addFlags(new PrimaryKey(), new Required());
-                } else {
-                    $fieldItems[] = new ReferenceVersionField($referenceClass);
-                }
+                $fieldItems[] = (new ReferenceVersionField($referenceClass))
+                    ->addFlags(new ApiAware(), ...$fkFlags);
             }
 
             $fieldItems[] = (new ManyToOneAssociationField(
@@ -125,7 +121,7 @@ class FieldMultiEntityCollection extends FieldCollection
 
         foreach ($references as $reference) {
             if (!is_array($reference)) {
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     'FieldMultiEntityCollection::getManyToManyFieldItems() -> $references should be an array'
                 );
             }
