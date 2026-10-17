@@ -1,6 +1,9 @@
 @import '~scss/variables';
 
 .moorl-entity-grid-v2 {
+    // Allow this item to shrink inside Meteor's grid slot so the native table wrapper can scroll.
+    min-width: 0;
+
     .moorl-entity-grid__top-bar {
         background-color: $color-gray-100;
         border-bottom: 1px solid $color-gray-100;

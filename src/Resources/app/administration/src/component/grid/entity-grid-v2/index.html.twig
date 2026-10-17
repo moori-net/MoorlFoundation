@@ -150,6 +150,16 @@
                     </sw-context-menu-item>
                 </template>
             {% endblock %}
+            <sw-context-menu-item
+                    v-for="action in getContextMenuItems(item)"
+                    :key="action.name"
+                    :variant="action.variant"
+                    :disabled="isContextMenuItemDisabled(action, item)"
+                    @click="onContextMenuItem(action, item)"
+            >
+                {{ $tc(action.label) }}
+            </sw-context-menu-item>
+            <slot name="actions" :item="item" :reload="getItems" />
         </template>
 
         <template #bulk>

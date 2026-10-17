@@ -5,7 +5,7 @@
             :title="cardTitle"
     >
         <template
-                v-for="(_, name) in $slots"
+                v-for="name in cardSlots"
                 v-slot:[name]="slotData"
         >
             <slot
@@ -13,20 +13,22 @@
                     v-bind="slotData"
             />
         </template>
-        <moorl-entity-grid-v2
-                v-if="isReady"
-                :key="$attrs.entity"
-                v-bind="$attrs"
-        >
-            <template
-                    v-for="(_, name) in $slots"
-                    v-slot:[name]="slotData"
+        <template #grid>
+            <moorl-entity-grid-v2
+                    v-if="isReady"
+                    :key="$attrs.entity"
+                    v-bind="$attrs"
             >
-                <slot
-                        :name="name"
-                        v-bind="slotData"
-                />
-            </template>
-        </moorl-entity-grid-v2>
+                <template
+                        v-for="(_, name) in $slots"
+                        v-slot:[name]="slotData"
+                >
+                    <slot
+                            :name="name"
+                            v-bind="slotData"
+                    />
+                </template>
+            </moorl-entity-grid-v2>
+        </template>
     </mt-card>
 {% endblock %}

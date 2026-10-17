@@ -44,6 +44,14 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             type: String,
             required: false,
             default: undefined,
+        },
+        contextMenuItems: {
+            type: Array,
+            default: undefined,
+        },
+        filters: {
+            type: Array,
+            default: () => [],
         }
     },
 
@@ -61,11 +69,18 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             showExportModal: false,
             deleteId: null,
             customActionId: null,
-            editId: null
+            editId: null,
+            contextActionBusy: false
         };
     },
 
     computed: {
+        configuredContextMenuItems() {
+            return this.contextMenuItems
+                ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.componentConfig?.list?.contextMenuItems
+                ?? [];
+        },
+
         gridPagesVisible() {
             return 7;
         },
@@ -94,6 +109,11 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         this.createdComponent();
     },
 
+    watch: {
+        defaultItem: { deep: true, handler: 'reloadFilteredItems' },
+        filters: { deep: true, handler: 'reloadFilteredItems' },
+    },
+
     methods: {
         async createdComponent() {
             await this.initListHelper();
@@ -105,7 +125,39 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         async getItems() {
-            await this.loadItems(this.itemCriteria);
+            const criteria = Shopware.Data.Criteria.fromCriteria(this.itemCriteria);
+            this.filters.forEach(filter => criteria.addFilter(filter));
+            await this.loadItems(criteria);
+        },
+
+        reloadFilteredItems() {
+            if (!this.ready) return;
+            this.page = 1;
+            this.getItems();
+        },
+
+        getContextMenuItems(item) {
+            return this.configuredContextMenuItems.filter(action =>
+                (!action.privilege || this.acl.can(action.privilege)) &&
+                (typeof action.visible !== 'function' || action.visible(item))
+            );
+        },
+
+        isContextMenuItemDisabled(action, item) {
+            return this.contextActionBusy || (typeof action.disabled === 'function' ? action.disabled(item) : !!action.disabled);
+        },
+
+        async onContextMenuItem(action, item) {
+            if (this.isContextMenuItemDisabled(action, item) ||
+                (action.privilege && !this.acl.can(action.privilege))) return;
+            this.contextActionBusy = true;
+            try {
+                await action.action(item, this);
+            } catch (error) {
+                this.createNotificationError({ message: error.message });
+            } finally {
+                this.contextActionBusy = false;
+            }
         },
 
         onPageChange(data) {
