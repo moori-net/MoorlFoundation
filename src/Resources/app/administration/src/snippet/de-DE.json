@@ -149,6 +149,12 @@
       "visibility": "Sichtbarkeit"
     },
     "field": {
+      "revokedAt": "Zurückgezogen am",
+      "redeemedAt": "Eingelöst am",
+      "expiresAt": "Läuft ab am",
+      "deliveryAttempts": "Zustellversuche",
+      "deliveredAt": "Verschickt am",
+      "checkins": "Check-Ins",
       "open": "Geöffnet",
       "csvId": "CSV Datei",
       "separator": "Separator",
