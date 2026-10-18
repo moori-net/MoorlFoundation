@@ -149,6 +149,12 @@
       "visibility": "Visibility"
     },
     "field": {
+      "revokedAt": "Revoked at",
+      "redeemedAt": "Redeemed at",
+      "expiresAt": "Expires at",
+      "deliveryAttempts": "Delivery attempts",
+      "deliveredAt": "Delivered at",
+      "checkins": "Check-Ins",
       "open": "Open",
       "csvId": "CSV file",
       "separator": "Separator",
