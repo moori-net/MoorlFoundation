@@ -196,6 +196,7 @@ MoorlFoundation.ModuleHelper.registerModule({entity: 'product', listPath: 'sw.pr
 MoorlFoundation.ModuleHelper.registerModule({entity: 'category', listPath: 'sw.category.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'customer', listPath: 'sw.customer.index', labelProperty: 'email'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'order', listPath: 'sw.order.index', labelProperty: 'orderNumber'});
+MoorlFoundation.ModuleHelper.registerModule({entity: 'order_line_item', labelProperty: 'label'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'product_stream', listPath: 'sw.product.stream.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'cms_page', listPath: 'sw.cms.index'});
 MoorlFoundation.ModuleHelper.registerModule({entity: 'country', listPath: 'sw.settings.country.index'});
