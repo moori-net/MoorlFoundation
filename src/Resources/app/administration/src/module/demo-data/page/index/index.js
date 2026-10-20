@@ -50,7 +50,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                     response.forEach((option) => {
                         let label;
                         if (option.type === 'data') {
-                            label = `${this.$tc('moorl-demo-data.baseData')} | ${option.pluginName}`;
+                            label = `${this.$tc('moorl-demo-data.baseData')} | ${option.pluginName} | ${option.name}`;
                         } else {
                             label = `${this.$tc('moorl-demo-data.standardDemo')} | ${option.pluginName} | ${option.name}`;
                         }
