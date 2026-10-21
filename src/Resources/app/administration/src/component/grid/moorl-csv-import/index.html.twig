@@ -91,11 +91,19 @@
                                     </span>
                                 </div>
                             </th>
+                            <th v-if="requiredColumns.length" class="sw-data-grid__cell sw-data-grid__cell--header">
+                                <div class="sw-data-grid__cell-content">
+                                    <span class="sw-data-grid__cell-value">
+                                        {{ $t('moorl-csv-import.choseDefault') }}
+                                    </span>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody class="sw-data-grid__body">
                         <tr
                             v-for="column in columns"
+                            :key="column.property"
                             class="sw-data-grid__row"
                         >
                             <td class="sw-data-grid__cell">
@@ -122,6 +130,18 @@
                                         v-else
                                         v-model:value="mapping[column.property]"
                                         :customSet="properties"
+                                        showClearableButton
+                                    />
+                                </div>
+                            </td>
+                            <td v-if="requiredColumns.length" class="sw-data-grid__cell">
+                                <div class="sw-data-grid__cell-content">
+                                    <sw-entity-single-select
+                                        v-if="column.referenceEntity"
+                                        v-model:value="selectedItem[column.property]"
+                                        :entity="column.referenceEntity"
+                                        :placeholder="column.label"
+                                        :help-text="$t('moorl-csv-import.defaultHelpText')"
                                         showClearableButton
                                     />
                                 </div>

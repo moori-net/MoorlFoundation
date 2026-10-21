@@ -195,16 +195,36 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         initEditColumns() {
-            let columns = [];
-            let properties = Shopware.EntityDefinition.get(
+            const columns = [];
+            const properties = Shopware.EntityDefinition.get(
                 this.entity
             ).properties;
+            const references = {};
 
-            for (const [property, column] of Object.entries(properties)) {
+            for (const [property, association] of Object.entries(properties)) {
+                const field = properties[association.localField];
+                if (
+                    ['many_to_one', 'one_to_one'].includes(association.relation) && association.entity &&
+                    field?.type === 'uuid' && field.flags?.required &&
+                    !field.flags.primary_key && !field.flags.write_protected &&
+                    !field.flags.computed && !association.flags?.write_protected &&
+                    !association.flags?.computed
+                ) {
+                    references[association.localField] = { entity: association.entity, property };
+                }
+            }
+
+            for (const [property, definition] of Object.entries(properties)) {
+                // The schema is shared by the entire Administration.
+                const column = { ...definition, flags: { ...definition.flags } };
+                if (column.flags.write_protected || column.flags.computed) {
+                    continue;
+                }
                 if (column.relation === 'one_to_many') {
                     continue;
                 }
-                if (column.relation === 'many_to_one') {
+                if (column.relation === 'many_to_one' ||
+                    (column.relation === 'one_to_one' && references[column.localField])) {
                     continue;
                 }
                 if (
@@ -228,12 +248,16 @@ Shopware.Component.register('moorl-csv-import', {
                 }
                 column.property = property;
                 column.label = this.$tc(
-                    `moorl-foundation.field.${property}`
+                    `moorl-foundation.field.${references[property]?.property ?? property}`
                 );
+                if (references[property]) {
+                    column.referenceEntity = references[property].entity;
+                }
                 columns.push(column);
             }
 
             this.columns = columns;
+            this.requiredColumns = columns.filter(column => column.referenceEntity);
         },
 
         getUniquePropertyLabels() {
@@ -309,32 +333,7 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         initSelectedItem() {
-            this.selectedItem = {};
-
-            for (let column of this.columns) {
-                if (
-                    column.relation === 'many_to_many' ||
-                    column.relation === 'one_to_many'
-                ) {
-                    let repository = this.repositoryFactory.create(
-                        column.entity
-                    );
-
-                    this.selectedItem[column.property] =
-                        new Shopware.Data.EntityCollection(
-                            repository.route,
-                            repository.entityName,
-                            Shopware.Context.api
-                        );
-                } else if (
-                    column.relation === 'many_to_one' &&
-                    column.localField
-                ) {
-                    this.selectedItem[column.localField] = null;
-                }
-            }
-
-            Object.assign(this.selectedItem, this.defaultItem);
+            this.selectedItem = { ...this.defaultItem };
         },
 
         onClickBack() {
@@ -360,7 +359,11 @@ Shopware.Component.register('moorl-csv-import', {
         },
 
         async prepareSaveItem(srcItem) {
-            const item = Object.assign({}, this.selectedItem, srcItem);
+            const defaults = Object.fromEntries(Object.entries(this.selectedItem).filter(([, value]) =>
+                value !== null && value !== undefined &&
+                (typeof value !== 'string' || value.trim() !== '')
+            ));
+            const item = Object.assign({}, defaults, srcItem, this.defaultItem);
 
             let entity = await this.getItemByUniqueProperties(item);
 
@@ -412,6 +415,12 @@ Shopware.Component.register('moorl-csv-import', {
 
             let item = this.data.shift();
             item = await this.sanitizeItem(item);
+            if (!item) {
+                if (!this.options.pause) {
+                    await this.importItem();
+                }
+                return;
+            }
 
             if (this.pause && this.options.pause) {
                 return;
@@ -449,7 +458,7 @@ Shopware.Component.register('moorl-csv-import', {
             )) {
                 const currentValue = item[property];
 
-                if (currentValue) {
+                if (currentValue && (typeof currentValue !== 'string' || currentValue.trim() !== '')) {
                     const column = this.columns.find((column) => {
                         return (
                             column.property === newProperty ||
