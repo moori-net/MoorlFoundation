@@ -60,8 +60,9 @@ globalThis.Shopware = {
 };
 
 const mappingSource = await readFile(new URL('../../src/Resources/app/administration/src/core/config/form-builder/mapping.js', import.meta.url), 'utf8');
+const socialLinksSource = await readFile(new URL('../../src/Resources/app/administration/src/core/config/fieldsets/social-links.js', import.meta.url), 'utf8');
 const itemHelperSource = await readFile(new URL('../../src/Resources/app/administration/src/core/helper/item.helper.js', import.meta.url), 'utf8');
-const source = `${mappingSource.replace('export default mapping;', '')}\n${itemHelperSource.replace(/^import mapping from .*?;\r?\n/m, '')}`;
+const source = `${socialLinksSource.replace('export default socialLinks;', '')}\n${mappingSource.replace(/^import socialLinks from .*?;\r?\n/m, '').replace('export default mapping;', '')}\n${itemHelperSource.replace(/^import mapping from .*?;\r?\n/m, '')}`;
 const {default: ItemHelper} = await import(`data:text/javascript,${encodeURIComponent(source)}`);
 const helper = new ItemHelper({componentName: 'moorl-example-detail', entity: 'moorl_example'});
 

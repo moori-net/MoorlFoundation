@@ -1,0 +1,16 @@
+{% block moorl_social_links %}
+    {% if socialLinks|default([])|length %}
+        <div class="moorl-social-links">
+            {% for link in socialLinks %}
+                {% block moorl_social_links_item %}
+                    <a class="moorl-social-links__link" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+                        <span class="moorl-social-links__index" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+                        <span class="moorl-social-links__label">{{ link.label ?: link.username ?: link.url }}</span>
+                        {% if link.username %}<span class="moorl-social-links__username">{{ link.username }}</span>{% endif %}
+                        <span class="moorl-social-links__arrow" aria-hidden="true">↗</span>
+                    </a>
+                {% endblock %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

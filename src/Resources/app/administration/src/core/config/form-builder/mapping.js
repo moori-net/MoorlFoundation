@@ -1,3 +1,5 @@
+import socialLinks from '../fieldsets/social-links';
+
 const mapping = {
     // Other
     elementType: {tab: 'general', card: 'general'},
@@ -43,6 +45,7 @@ const mapping = {
     shopUrl: {tab: 'general', card: 'contact', componentName: 'mt-url-field'},
     merchantUrl: {tab: 'general', card: 'contact', componentName: 'mt-url-field'},
     externalLink: {tab: 'general', card: 'contact', componentName: 'mt-url-field'},
+    socialLinks: socialLinks.socialLinks,
 
     // Profile
     creatorType: {tab: 'general', card: 'profile'},

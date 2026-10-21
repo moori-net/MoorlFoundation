@@ -75,7 +75,7 @@ Shopware.Component.register('moorl-list-field', {
         buildItem(index) {
             const item = {};
             Object.entries(this.mapping).forEach(([key, entry]) => {
-                item[key] = entry.type === 'string' ? `${entry.value} #${index}` : entry.value;
+                item[key] = entry.type === 'string' && entry.value ? `${entry.value} #${index}` : entry.value;
             });
             return item;
         },
