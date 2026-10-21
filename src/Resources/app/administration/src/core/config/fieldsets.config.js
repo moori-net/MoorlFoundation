@@ -2,6 +2,7 @@ import ctaBanner from './fieldsets/cta-banner';
 import listing from './fieldsets/listing';
 import mediaConfig from './fieldsets/media-config';
 import accordion from './fieldsets/accordion';
+import socialLinks from './fieldsets/social-links';
 import address from './fieldsets/address';
 import contact from './fieldsets/contact';
 import downloadList from './fieldsets/download-list';
@@ -22,6 +23,7 @@ const fieldsetsConfig = {
     'cta-banner': ctaBanner,
     'media-config': mediaConfig,
     accordion,
+    'social-links': socialLinks,
     address,
     contact,
     'download-list': downloadList,

@@ -1,0 +1,13 @@
+.sw-cms-el-moorl-social-links {
+    min-height: 3rem;
+    &__eyebrow { font-size: .75rem; text-transform: uppercase; }
+    &__link {
+        display: grid;
+        grid-template-columns: 2rem minmax(0, 1fr) minmax(0, 1fr) 2rem;
+        gap: 1rem;
+        padding-block: 1.5rem;
+        border-bottom: 1px solid currentColor;
+        overflow-wrap: anywhere;
+        strong { font-size: 1.5rem; }
+    }
+}

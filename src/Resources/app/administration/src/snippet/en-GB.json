@@ -44,6 +44,9 @@
       "moorl-share": {
         "name": "Share"
       },
+      "moorl-social-links": {
+        "name": "Social links"
+      },
       "moorl-toc": {
         "name": "Table of contents"
       },
@@ -716,6 +719,8 @@
       "keyFilePath": "Key file path",
       "keywords": "Keywords",
       "label": "Label",
+      "socialLinks": "Social links",
+      "eyebrow": "Eyebrow",
       "language": "Language",
       "lastName": "Last name",
       "lesson": "Lesson",

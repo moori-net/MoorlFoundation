@@ -5,11 +5,13 @@
         </div>
     {% else %}
         <div itemprop="name" class="moorl-listing-item-title" title="{{ title }}">
-            {% if config.sanitize.value %}
-                {{ title|sw_sanitize }}
-            {% else %}
-                {{ title|raw }}
-            {% endif %}
+            {% block moorl_foundation_listing_item_title %}
+                {% if config.sanitize.value %}
+                    {{ title|sw_sanitize }}
+                {% else %}
+                    {{ title|raw }}
+                {% endif %}
+            {% endblock %}
         </div>
     {% endif %}
 </div>

@@ -29,6 +29,10 @@
             <tag name="shopware.cms.data_resolver"/>
         </service>
 
+        <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\SocialLinksCmsElementResolver">
+            <tag name="shopware.cms.data_resolver"/>
+        </service>
+
         <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\OpeningHoursCmsElementResolver">
             <tag name="shopware.cms.data_resolver"/>
         </service>

@@ -180,6 +180,7 @@ MoorlFoundation.ModuleHelper.registerModule({
         {name: 'moorl-usp', icon: 'regular-checkmark', component: 'sw-cms-el-moorl-usp'},
         {name: 'moorl-toc', icon: 'regular-bars-square'},
         {name: 'moorl-share', icon: 'regular-user'},
+        {name: 'moorl-social-links', icon: 'regular-external-link', component: 'sw-cms-el-moorl-social-links'},
         {name: 'moorl-newsletter', icon: 'regular-paper-plane'},
         {name: 'moorl-html-tag', icon: 'regular-code'},
         {name: 'moorl-opening-hours', icon: 'regular-clock'},

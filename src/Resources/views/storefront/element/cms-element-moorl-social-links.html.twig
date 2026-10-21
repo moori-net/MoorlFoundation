@@ -1,0 +1,15 @@
+{% block element_moorl_social_links %}
+    {% if element.data.socialLinks|default([])|length %}
+        <div class="cms-element-moorl-social-links">
+            {% block element_moorl_social_links_header %}
+                {% if element.data.name|default('') or element.data.eyebrow|default('') %}
+                    <header class="moorl-social-links__header">
+                        {% if element.data.eyebrow|default('') %}<p class="moorl-social-links__eyebrow">{{ element.data.eyebrow }}</p>{% endif %}
+                        {% if element.data.name|default('') %}<h2 class="moorl-social-links__title">{{ element.data.name }}</h2>{% endif %}
+                    </header>
+                {% endif %}
+            {% endblock %}
+            {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/social-links.html.twig' with { socialLinks: element.data.socialLinks } only %}
+        </div>
+    {% endif %}
+{% endblock %}

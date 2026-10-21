@@ -32,6 +32,7 @@ Some examples:
 - Demo Assistant: Allows demo content to be created in JSON format and imported into Shopware 6. This feature is also used in the themes from RH Webdesign.
 - CMS Tools: A very comprehensive collection of useful tools.
 - CMS Elements: All CMS elements that are suitable for multiple plugins have been grouped together in Foundation.
+- [Social links](social-links.en.md): Sortable link lists for CMS content and contact fields in the administration.
 - etc...
 
 You are welcome to use Foundation as a basis for your plugins or projects. However, it is forbidden to take features or tools from Foundation for your own purposes.

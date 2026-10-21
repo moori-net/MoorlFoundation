@@ -44,7 +44,11 @@ class FoundationCmsElementResolver extends AbstractCmsElementResolver
             } else if ($config->isStatic()) {
                 $content = $config->getValue();
             }
-            $data->__set($key, $content);
+            if ($data instanceof ArrayStruct) {
+                $data->set($key, $content);
+            } else {
+                $data->__set($key, $content);
+            }
         }
     }
 

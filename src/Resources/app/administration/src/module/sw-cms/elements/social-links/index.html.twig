@@ -1,0 +1,11 @@
+<div class="sw-cms-el-moorl-social-links">
+    <p v-if="element.config.eyebrow?.value" class="sw-cms-el-moorl-social-links__eyebrow">{{ element.config.eyebrow.value }}</p>
+    <h2 v-if="element.config.name?.value">{{ element.config.name.value }}</h2>
+    <div v-if="!links.length">{{ $tc('sw-cms.elements.moorl-social-links.name') }}</div>
+    <div v-for="(link, index) in links" :key="index" class="sw-cms-el-moorl-social-links__link">
+        <span>{{ String(index + 1).padStart(2, '0') }}</span>
+        <strong>{{ link.label }}</strong>
+        <span>{{ link.username }}</span>
+        <span aria-hidden="true">↗</span>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+.moorl-social-links {
+    border-block: 1px solid rgba($sw-text-color, .2);
+
+    &__header { margin-bottom: 1.5rem; }
+    &__eyebrow { margin-bottom: 1rem; color: $sw-color-brand-primary; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; }
+    &__title { font-size: 1.75rem; font-weight: 400; letter-spacing: -.055em; line-height: .98; }
+
+    &__link {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: .75rem 1rem;
+        padding-block: 1.5rem;
+        color: $sw-text-color;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+        transition: color .18s ease, padding .18s ease;
+
+        &:hover, &:focus-visible { color: $sw-color-brand-primary; padding-left: .5rem; text-decoration: none; }
+    }
+
+    &__link + &__link { border-top: 1px solid rgba($sw-text-color, .2); }
+
+    &__index, &__username { color: rgba($sw-text-color, .68); font-size: .875rem; line-height: 1.55; }
+    &__label { font-size: 1.75rem; letter-spacing: -.05em; line-height: 1; }
+    &__username { grid-column: 2 / 4; }
+    &__arrow { grid-column: 3; grid-row: 1; font-size: 1.75rem; transition: transform .18s ease; }
+    &__link:hover &__arrow, &__link:focus-visible &__arrow { transform: translate(.25rem, -.25rem); }
+}
+
+@include media-breakpoint-up(md) {
+    .moorl-social-links__title { font-size: 2.25rem; }
+    .moorl-social-links__label, .moorl-social-links__arrow { font-size: 2.25rem; }
+}
+
+@include media-breakpoint-up(lg) {
+    .moorl-social-links {
+        &__link { grid-template-columns: 3rem minmax(0, 1fr) minmax(0, .75fr) 3rem; padding-block: 2rem; }
+        &__username { grid-column: 3; grid-row: 1; }
+        &__arrow { grid-column: 4; }
+    }
+}
+
+@include media-breakpoint-up(xl) {
+    .moorl-social-links__title { font-size: 2.75rem; }
+    .moorl-social-links__label, .moorl-social-links__arrow { font-size: 2.75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .moorl-social-links__link, .moorl-social-links__arrow { transition: none; }
+}
