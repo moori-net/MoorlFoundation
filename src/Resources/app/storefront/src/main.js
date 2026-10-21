@@ -116,6 +116,12 @@ PluginManager.register(
 );
 
 PluginManager.register(
+    'MoorlShare',
+    () => import('./share/share.plugin'),
+    '[data-moorl-share]'
+);
+
+PluginManager.register(
     'MoorlSelectSearch',
     () => import('./select-search/select-search.plugin'),
     '[data-moorl-select-search]'
