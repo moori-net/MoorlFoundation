@@ -7,13 +7,13 @@
         <div class="sticky-top">
             <ul>
                 {% if 'api' in element.config.provider.value %}
-                    <li class="d-none" data-share-container>
+                    <li class="d-none"
+                        data-moorl-share
+                        data-moorl-share-options="{{ {url: currentUrl}|json_encode|escape('html_attr') }}">
                         <button
                                 type="button"
                                 title="{{ "moorl-share.api"|trans }}"
                                 class="btn btn-share-api"
-                                data-share
-                                data-share-url="{{ currentUrl }}"
                         >
                             {% sw_icon 'share' style {pack: 'fas'} %}
                         </button>
@@ -89,34 +89,5 @@
                 {% endif %}
             </ul>
         </div>
-
-        {% if 'api' in element.config.provider.value %}
-            <script>
-                (function () {
-                    const initializeShareButtons = function () {
-                        document.querySelectorAll('[data-share]').forEach(function (button) {
-                            if (button.dataset.shareInitialized || !navigator.share) {
-                                return;
-                            }
-
-                            button.dataset.shareInitialized = 'true';
-                            button.closest('[data-share-container]').classList.remove('d-none');
-                            button.addEventListener('click', function () {
-                                navigator.share({
-                                    title: document.title,
-                                    url: button.dataset.shareUrl,
-                                }).catch(function () {});
-                            });
-                        });
-                    };
-
-                    if (document.readyState === 'loading') {
-                        document.addEventListener('DOMContentLoaded', initializeShareButtons);
-                    } else {
-                        initializeShareButtons();
-                    }
-                })();
-            </script>
-        {% endif %}
     {% endif %}
 </div>
