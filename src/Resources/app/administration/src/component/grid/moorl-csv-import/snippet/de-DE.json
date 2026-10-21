@@ -1,0 +1,6 @@
+{
+    "moorl-csv-import": {
+        "choseDefault": "Standardwert",
+        "defaultHelpText": "Gilt für diesen Import, wenn die CSV-Zeile keinen Wert enthält."
+    }
+}
