@@ -1,0 +1,11 @@
+{
+  "main.js": {
+    "file": "assets/moorl-foundation-CY2L7C7k.js",
+    "name": "moorl-foundation",
+    "src": "main.js",
+    "isEntry": true,
+    "css": [
+      "assets/moorl-foundation-Cv99hyQJ.css"
+    ]
+  }
+}
