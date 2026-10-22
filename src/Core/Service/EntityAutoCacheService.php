@@ -142,20 +142,16 @@ class EntityAutoCacheService implements EventSubscriberInterface
 
                 $timeRangeFilterSql[] = "`updated_at` IS NULL";
 
-                if (isset($options[self::START_TIME])) {
+                // Accept multiple windows while preserving existing single-column options.
+                $timeFields = array_unique(array_merge(
+                    (array) ($options[self::START_TIME] ?? []),
+                    (array) ($options[self::END_TIME] ?? [])
+                ));
+                foreach ($timeFields as $timeField) {
                     $timeRangeFilterSql[] = sprintf(
                         "(`%s` > `updated_at` AND `%s` < '%s')",
-                        $options[self::START_TIME],
-                        $options[self::START_TIME],
-                        $time
-                    );
-                }
-
-                if (isset($options[self::END_TIME])) {
-                    $timeRangeFilterSql[] = sprintf(
-                        "(`%s` > `updated_at` AND `%s` < '%s')",
-                        $options[self::END_TIME],
-                        $options[self::END_TIME],
+                        $timeField,
+                        $timeField,
                         $time
                     );
                 }
