@@ -4,6 +4,7 @@ namespace MoorlFoundation\Core\System;
 
 interface EntityAutoCacheInterface
 {
+    /** START_TIME and END_TIME accept a column name or a list of column names. */
     public function getEntityAutoCacheOptions(): array;
     public function getEntityName(): string;
 }
