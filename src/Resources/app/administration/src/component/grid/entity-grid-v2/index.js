@@ -57,7 +57,9 @@ Shopware.Component.register('moorl-entity-grid-v2', {
 
     data() {
         return {
-            selectedItems: null,
+            selectedItems: {},
+            pendingDeleteIds: [],
+            isBulkDeleting: false,
             page: 1,
             limit: 10,
             term: null,
@@ -75,6 +77,18 @@ Shopware.Component.register('moorl-entity-grid-v2', {
     },
 
     computed: {
+        gridShowSelection() {
+            // The listing mixin also uses showSelection; local card attributes take precedence.
+            return this.$attrs.showSelection
+                ?? this.$attrs['show-selection']
+                ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.componentConfig?.list?.showSelection
+                ?? false;
+        },
+
+        canBulkDelete() {
+            return this.gridShowSelection && this.allowDelete && this.acl.can(`${this.entity}:delete`);
+        },
+
         configuredContextMenuItems() {
             return this.contextMenuItems
                 ?? MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.componentConfig?.list?.contextMenuItems
@@ -125,6 +139,9 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         async getItems() {
+            this.selectedItems = {};
+            this.pendingDeleteIds = [];
+            this.$refs?.grid?.resetSelection?.();
             const criteria = Shopware.Data.Criteria.fromCriteria(this.itemCriteria);
             this.filters.forEach(filter => criteria.addFilter(filter));
             await this.loadItems(criteria);
@@ -211,18 +228,35 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         onDeleteSelectedItems() {
+            if (!this.canBulkDelete || this.isBulkDeleting || this.isLoading) return;
+            this.pendingDeleteIds = Object.keys(this.selectedItems ?? {});
+        },
+
+        onCancelBulkDelete() {
+            this.pendingDeleteIds = [];
+        },
+
+        async onConfirmBulkDelete() {
+            if (!this.canBulkDelete || this.isBulkDeleting || this.pendingDeleteIds.length === 0) return;
+            const ids = [...this.pendingDeleteIds];
+            this.pendingDeleteIds = [];
+            this.isBulkDeleting = true;
             this.isLoading = true;
-            const promises = [];
 
-            Object.keys(this.selectedItems).forEach((id) => {
-                promises.push(this.itemRepository.delete(id, Shopware.Context.api));
-            });
-
-            this.selectedItems = {};
-
-            Promise.all(promises).then(() => {
-                this.getItems();
-            });
+            try {
+                const results = await Promise.allSettled(ids.map(async id =>
+                    this.itemRepository.delete(id, Shopware.Context.api)
+                ));
+                results.filter(result => result.status === 'rejected').forEach(({ reason }) => {
+                    this.createNotificationError({
+                        message: reason?.response?.data?.errors?.[0]?.detail ?? reason?.message ?? String(reason),
+                    });
+                });
+                await this.getItems();
+            } finally {
+                this.isBulkDeleting = false;
+                this.isLoading = false;
+            }
         },
 
         onSaveItem(item) {

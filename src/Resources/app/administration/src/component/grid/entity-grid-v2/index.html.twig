@@ -59,12 +59,13 @@
         </mt-button>
     </sw-container>
     <sw-data-grid
+            ref="grid"
             v-if="ready && total > 0"
             :dataSource="items"
             :columns="columns"
-            :showSelection="false"
+            :showSelection="gridShowSelection"
             :showSettings="false"
-            :isLoading="isLoading"
+            :isLoading="isLoading || isBulkDeleting"
             :sortBy="sortBy"
             :sortDirection="sortDirection"
             :allowColumnEdit="false"
@@ -164,6 +165,7 @@
 
         <template #bulk>
             <a
+                    v-if="canBulkDelete && !isBulkDeleting"
                     class="link link-danger"
                     @click="onDeleteSelectedItems"
             >
@@ -198,6 +200,15 @@
             @close="customActionId = null"
             @cancel="customActionId = null"
             @confirm="onCustomActionId"
+    />
+
+    <sw-confirm-modal
+            v-if="pendingDeleteIds.length > 0"
+            type="delete"
+            :text="$tc('global.entity-components.deleteMessage', pendingDeleteIds.length, { count: pendingDeleteIds.length })"
+            @close="onCancelBulkDelete"
+            @cancel="onCancelBulkDelete"
+            @confirm="onConfirmBulkDelete"
     />
 
     <sw-confirm-modal
