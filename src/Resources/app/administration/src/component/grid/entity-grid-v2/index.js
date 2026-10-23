@@ -259,7 +259,14 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             this.getItems();
         },
 
+        canDeleteItem(item) {
+            const canDelete = MoorlFoundation.ModuleHelper.getByEntity(this.entity)?.componentConfig?.list?.canDelete;
+            return this.allowDelete && this.acl.can(`${this.entity}:delete`)
+                && (typeof canDelete !== 'function' || canDelete(item));
+        },
+
         onDeleteItem(item) {
+            if (!this.canDeleteItem(item)) return;
             this.deleteId = item.id;
             if (this.confirmDelete) {
                 return;
