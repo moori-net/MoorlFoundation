@@ -65,7 +65,7 @@
             :columns="columns"
             :showSelection="gridShowSelection"
             :showSettings="false"
-            :isLoading="isLoading || isBulkDeleting"
+            :isLoading="isLoading || isBulkDeleting || isBulkEditing"
             :sortBy="sortBy"
             :sortDirection="sortDirection"
             :allowColumnEdit="false"
@@ -165,7 +165,17 @@
 
         <template #bulk>
             <a
-                    v-if="canBulkDelete && !isBulkDeleting"
+                    v-for="action in bulkContextMenuItems"
+                    v-if="!contextActionBusy && !isBulkDeleting"
+                    :key="action.name"
+                    class="link"
+                    :class="{ 'link-danger': action.variant === 'danger' }"
+                    @click="onBulkContextMenuItem(action)"
+            >
+                {{ $tc(action.label) }}
+            </a>
+            <a
+                    v-if="canBulkDelete && !isBulkDeleting && !contextActionBusy"
                     class="link link-danger"
                     @click="onDeleteSelectedItems"
             >
@@ -200,6 +210,15 @@
             @close="customActionId = null"
             @cancel="customActionId = null"
             @confirm="onCustomActionId"
+    />
+
+    <sw-confirm-modal
+            v-if="pendingBulkAction"
+            type="yesno"
+            :title="$tc(pendingBulkAction.action.label)"
+            @close="onCancelBulkAction"
+            @cancel="onCancelBulkAction"
+            @confirm="onConfirmBulkAction"
     />
 
     <sw-confirm-modal

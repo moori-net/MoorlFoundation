@@ -60,6 +60,8 @@ Shopware.Component.register('moorl-entity-grid-v2', {
             selectedItems: {},
             pendingDeleteIds: [],
             isBulkDeleting: false,
+            pendingBulkAction: null,
+            isBulkEditing: false,
             page: 1,
             limit: 10,
             term: null,
@@ -77,6 +79,13 @@ Shopware.Component.register('moorl-entity-grid-v2', {
     },
 
     computed: {
+        bulkContextMenuItems() {
+            if (!this.gridShowSelection) return [];
+            return this.configuredContextMenuItems.filter(action =>
+                action.allowBulkEdit === true && (!action.privilege || this.acl.can(action.privilege))
+            );
+        },
+
         gridShowSelection() {
             // The listing mixin also uses showSelection; local card attributes take precedence.
             return this.$attrs.showSelection
@@ -139,8 +148,11 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         async getItems() {
+            // Existing row actions may request a reload; bulk execution reloads once at the end.
+            if (this.isBulkEditing) return;
             this.selectedItems = {};
             this.pendingDeleteIds = [];
+            this.pendingBulkAction = null;
             this.$refs?.grid?.resetSelection?.();
             const criteria = Shopware.Data.Criteria.fromCriteria(this.itemCriteria);
             this.filters.forEach(filter => criteria.addFilter(filter));
@@ -161,7 +173,44 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         isContextMenuItemDisabled(action, item) {
-            return this.contextActionBusy || (typeof action.disabled === 'function' ? action.disabled(item) : !!action.disabled);
+            return this.contextActionBusy || this.isBulkDeleting || (typeof action.disabled === 'function' ? action.disabled(item) : !!action.disabled);
+        },
+
+        onBulkContextMenuItem(action) {
+            if (this.contextActionBusy || this.isBulkDeleting || this.isLoading || !this.bulkContextMenuItems.includes(action)) return;
+            const items = Object.values(this.selectedItems ?? {});
+            if (items.length > 0) this.pendingBulkAction = { action, items };
+        },
+
+        onCancelBulkAction() {
+            this.pendingBulkAction = null;
+        },
+
+        async onConfirmBulkAction() {
+            const pending = this.pendingBulkAction;
+            const action = this.bulkContextMenuItems.find(action => action.name === pending?.action.name);
+            if (!pending || !action || this.contextActionBusy || this.isBulkDeleting) return;
+            this.pendingBulkAction = null;
+            this.contextActionBusy = true;
+            this.isBulkEditing = true;
+            this.isLoading = true;
+            try {
+                for (const item of pending.items) {
+                    try {
+                        await action.action(item, this);
+                    } catch (error) {
+                        this.createNotificationError({ message: error.message });
+                    }
+                }
+            } finally {
+                this.isBulkEditing = false;
+                try {
+                    await this.getItems();
+                } finally {
+                    this.contextActionBusy = false;
+                    this.isLoading = false;
+                }
+            }
         },
 
         async onContextMenuItem(action, item) {
@@ -228,7 +277,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         onDeleteSelectedItems() {
-            if (!this.canBulkDelete || this.isBulkDeleting || this.isLoading) return;
+            if (!this.canBulkDelete || this.isBulkDeleting || this.contextActionBusy || this.isLoading) return;
             this.pendingDeleteIds = Object.keys(this.selectedItems ?? {});
         },
 
@@ -237,7 +286,7 @@ Shopware.Component.register('moorl-entity-grid-v2', {
         },
 
         async onConfirmBulkDelete() {
-            if (!this.canBulkDelete || this.isBulkDeleting || this.pendingDeleteIds.length === 0) return;
+            if (!this.canBulkDelete || this.isBulkDeleting || this.contextActionBusy || this.pendingDeleteIds.length === 0) return;
             const ids = [...this.pendingDeleteIds];
             this.pendingDeleteIds = [];
             this.isBulkDeleting = true;
