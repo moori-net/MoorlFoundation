@@ -71,7 +71,7 @@
             :allowColumnEdit="false"
             :allowInlineEdit="allowInlineEdit"
             :allowDelete="allowDelete"
-            :compactMode="false"
+            :compactMode="allowInlineEdit === false"
             @column-sort="onSortColumn"
             @select-all-items="onSelectionChanged"
             @selection-change="onSelectionChanged"
@@ -145,7 +145,7 @@
                     <sw-context-menu-item
                             variant="danger"
                             @click="onDeleteItem(item)"
-                            :disabled="!allowDelete"
+                            :disabled="!canDeleteItem(item)"
                     >
                         {{ $tc('global.default.delete') }}
                     </sw-context-menu-item>
