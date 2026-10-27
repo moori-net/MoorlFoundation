@@ -97,9 +97,9 @@
 
             <template
                 v-for="dateProperty in listHelper.dateProperties"
-                #[`column-${dateProperty}`]="{ item }"
+                #[`column-${dateProperty}`]="{ column, item }"
             >
-                {{ dateFilter(item[dateProperty], { hour: '2-digit', minute: '2-digit' }) }}
+                {{ dateFilter(item[dateProperty], column.dateOptions) }}
             </template>
 
             <template

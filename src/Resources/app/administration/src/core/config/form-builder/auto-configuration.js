@@ -220,11 +220,12 @@ const autoConfiguration = [
         conditions: [
             isType('date')
         ],
-        apply({ column, attributes }) {
+        apply({ column, attributes, item }) {
             column.cols ??= 6;
             column.componentName = 'mt-datepicker';
 
             attributes.size = 'default';
+            attributes.timeZone ??= item?.timeZone || item?.timezone || Shopware.Store.get('session').currentUser?.timeZone || 'UTC';
         }
     },
     {

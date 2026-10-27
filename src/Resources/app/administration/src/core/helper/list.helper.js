@@ -236,6 +236,8 @@ export default class ListHelper {
                 case 'date':
                     column.width = '120px';
                     column.align = 'right';
+                    column.dateOptions = this.properties.find(p => p.name === property)?.dateOptions
+                        ?? { hour: '2-digit', minute: '2-digit' };
                     this.dateProperties.push(property);
                     break;
 
