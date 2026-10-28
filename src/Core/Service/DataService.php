@@ -8,6 +8,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use League\Flysystem\Filesystem;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\System\DataInterface;
+use MoorlFoundation\Core\System\ContextAwareDataInterface;
 use Shopware\Core\Content\Flow\Dispatching\Action\SendMailAction;
 use Shopware\Core\Content\ImportExport\ImportExportProfileDefinition;
 use Shopware\Core\Content\Media\Aggregate\MediaFolder\MediaFolderDefinition;
@@ -39,7 +40,7 @@ class DataService
     private const LOCK_RECORD_SQL_TEMPLATE = "UPDATE `%s` SET `locked` = '%d' WHERE `id` = UNHEX('%s');";
     private const MAIL_TEMPLATE_WARNING = 'WARNING: AUTOMATICALLY GENERATED TEMPLATE! This template was generated automatically and must not be edited or overwritten directly! Please create a copy of the template before making any modifications and apply all changes exclusively to that copy. Any changes made to the original may be overwritten without warning during the next automatic generation!';
 
-    private readonly Context $context;
+    private Context $context;
     private ?string $salesChannelId = null;
     private ?string $themeId = null;
     private readonly string $demoCustomerMail;
@@ -76,6 +77,7 @@ class DataService
         $options = [];
 
         foreach ($this->dataObjects as $dataObject) {
+            $this->setDataContext($dataObject);
             $options[] = [
                 'name' => $dataObject->getName(),
                 'pluginName' => $dataObject->getPluginName(),
@@ -87,12 +89,24 @@ class DataService
         return $options;
     }
 
-    public function install(string $pluginName, string $type = 'data', ?string $name = null): int
+    public function install(string $pluginName, string $type = 'data', ?string $name = null, ?Context $context = null): int
+    {
+        $previousContext = $this->context;
+        $this->context = $context ?? $previousContext;
+        try {
+            return $this->installData($pluginName, $type, $name);
+        } finally {
+            $this->context = $previousContext;
+        }
+    }
+
+    private function installData(string $pluginName, string $type, ?string $name): int
     {
         $counter = 0;
         $this->initTaxes();
 
         foreach ($this->dataObjects as $dataObject) {
+            $this->setDataContext($dataObject);
             if ($pluginName !== $dataObject->getPluginName()) {
                 continue;
             }
@@ -160,11 +174,23 @@ class DataService
         return $counter;
     }
 
-    public function remove(string $pluginName, string $type = 'data', ?string $name = null): int
+    public function remove(string $pluginName, string $type = 'data', ?string $name = null, ?Context $context = null): int
+    {
+        $previousContext = $this->context;
+        $this->context = $context ?? $previousContext;
+        try {
+            return $this->removeData($pluginName, $type, $name);
+        } finally {
+            $this->context = $previousContext;
+        }
+    }
+
+    private function removeData(string $pluginName, string $type, ?string $name): int
     {
         $counter = 0;
 
         foreach ($this->dataObjects as $dataObject) {
+            $this->setDataContext($dataObject);
             if (!$dataObject->isCleanUp()) {
                 continue;
             }
@@ -263,6 +289,7 @@ TWIG;
 
     public function initGlobalReplacers(DataInterface $dataObject): void
     {
+        $this->setDataContext($dataObject);
         if ($dataObject->getGlobalReplacers()) {
             return;
         }
@@ -396,6 +423,7 @@ SQL;
 
     public function insertContent(DataInterface $dataObject): void
     {
+        $this->setDataContext($dataObject);
         foreach ($dataObject->getTables() as $table) {
             $data = $this->getContentFromFile($table, $dataObject);
             if (!$data) {
@@ -1102,6 +1130,13 @@ SQL;
     public function contentFileExists(string $table, DataInterface $dataObject): bool
     {
         return file_exists(sprintf('%s/content/%s.json', $dataObject->getPath(), $table));
+    }
+
+    private function setDataContext(DataInterface $dataObject): void
+    {
+        if ($dataObject instanceof ContextAwareDataInterface) {
+            $dataObject->setContext($this->context);
+        }
     }
 
     private function log(string|\Stringable $message, $level = 'text', array $context = []): void

@@ -8,6 +8,7 @@ use Doctrine\DBAL\ParameterType;
 use MoorlFoundation\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelper;
 use MoorlFoundation\Core\Service\DataService;
 use Shopware\Core\Framework\Bundle;
+use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\Migration\MigrationStep;
 use Shopware\Elasticsearch\Framework\AbstractElasticsearchDefinition;
 use Symfony\Component\Config\FileLocator;
@@ -42,7 +43,7 @@ class PluginLifecycleHelper
         }
     }
 
-    public static function update(string $plugin, ContainerInterface $container): void
+    public static function update(string $plugin, ContainerInterface $container, ?Context $context = null): void
     {
         $connection = $container->get(Connection::class);
 
@@ -50,7 +51,7 @@ class PluginLifecycleHelper
             try {
                 /* @var $dataService DataService */
                 $dataService = $container->get(DataService::class);
-                $dataService->install(self::c($plugin, 'NAME'));
+                $dataService->install(self::c($plugin, 'NAME'), context: $context);
             } catch (\Exception) {
             }
         }
@@ -60,7 +61,7 @@ class PluginLifecycleHelper
         }
     }
 
-    public static function uninstall(string $plugin, ContainerInterface $container): void
+    public static function uninstall(string $plugin, ContainerInterface $container, ?Context $context = null): void
     {
         $connection = $container->get(Connection::class);
 
@@ -80,7 +81,7 @@ class PluginLifecycleHelper
             try {
                 /* @var $dataService DataService */
                 $dataService = $container->get(DataService::class);
-                $dataService->remove(self::c($plugin, 'NAME'));
+                $dataService->remove(self::c($plugin, 'NAME'), context: $context);
             } catch (ServiceNotFoundException) {
             }
         }
