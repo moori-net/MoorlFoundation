@@ -44,7 +44,7 @@ class SettingsController
     }
 
     #[Route(path: '/api/moorl-foundation/settings/demo-data/install', name: 'api.moorl-foundation.settings.demo-data.install', methods: ['POST'])]
-    public function demoDataInstall(Request $request): JsonResponse
+    public function demoDataInstall(Request $request, Context $context): JsonResponse
     {
         if ($request->request->get('salesChannelId') && !in_array($request->request->get('salesChannelId'), ['undefined','null'])) {
             $this->dataService->setSalesChannelId($request->request->get('salesChannelId'));
@@ -53,19 +53,21 @@ class SettingsController
         $this->dataService->remove(
             $request->request->get('pluginName'),
             $request->request->get('type', 'demo'),
-            $request->request->get('name')
+            $request->request->get('name'),
+            $context
         );
         $this->dataService->install(
             $request->request->get('pluginName'),
             $request->request->get('type', 'demo'),
-            $request->request->get('name')
+            $request->request->get('name'),
+            $context
         );
 
         return new JsonResponse([]);
     }
 
     #[Route(path: '/api/moorl-foundation/settings/demo-data/remove', name: 'api.moorl-foundation.settings.demo-data.remove', methods: ['POST'])]
-    public function demoDataRemove(Request $request): JsonResponse
+    public function demoDataRemove(Request $request, Context $context): JsonResponse
     {
         if ($request->request->get('salesChannelId') && !in_array($request->request->get('salesChannelId'), ['undefined','null'])) {
             $this->dataService->setSalesChannelId($request->request->get('salesChannelId'));
@@ -74,7 +76,8 @@ class SettingsController
         $this->dataService->remove(
             $request->request->get('pluginName'),
             $request->request->get('type', 'demo'),
-            $request->request->get('name')
+            $request->request->get('name'),
+            $context
         );
 
         return new JsonResponse([]);
