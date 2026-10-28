@@ -2,23 +2,9 @@
 
 namespace MoorlFoundation\Core\System;
 
-use LogicException;
-use Shopware\Core\Framework\Context;
-
-class DataExtension implements ContextAwareDataInterface
+class DataExtension
 {
     private ?array $globalReplacers = null;
-    private ?Context $context = null;
-
-    public function setContext(Context $context): void
-    {
-        $this->context = $context;
-    }
-
-    public function getContext(): Context
-    {
-        return $this->context ?? throw new LogicException('A data package requires its lifecycle context before processing.');
-    }
 
     public function getReplacer(string $key, ?string $fallback = null): ?string
     {
