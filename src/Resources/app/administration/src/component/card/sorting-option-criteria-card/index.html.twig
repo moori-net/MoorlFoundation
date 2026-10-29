@@ -1,13 +1,13 @@
 <mt-card
     class="moorl-sorting-option-criteria-card__criteria-card"
     position-identifier="moorl-sorting-option-criteria-card"
-    :title="$tc('moorl-sorting-option-criteria-card.criteria')"
+    :title="$t('moorl-sorting-option-criteria-card.criteria')"
 >
     <template #toolbar>
         <sw-single-select
             :value="selectedCriteria"
             :options="criteriaOptions"
-            :placeholder="$tc('moorl-sorting-option-criteria-card.selectField')"
+            :placeholder="$t('moorl-sorting-option-criteria-card.selectField')"
             show-clearable-button
             @update:value="onAddCriteria"
         />
@@ -44,7 +44,7 @@
                 value-property="value"
                 label-property="label"
                 show-clearable-button
-                :placeholder="$tc('global.sw-single-select.valuePlaceholder')"
+                :placeholder="$t('global.sw-single-select.valuePlaceholder')"
             />
         </template>
 
@@ -53,7 +53,7 @@
                 variant="danger"
                 @click="onRemoveCriteria(item)"
             >
-                {{ $tc('global.default.delete') }}
+                {{ $t('global.default.delete') }}
             </sw-context-menu-item>
         </template>
     </sw-data-grid>
@@ -62,7 +62,7 @@
         v-else
         class="moorl-sorting-option-criteria-card__criteria-empty-state"
         title=""
-        :subline="$tc('sw-settings-listing.base.criteria.emptyStateSubline')"
+        :subline="$t('sw-settings-listing.base.criteria.emptyStateSubline')"
     >
         <template #icon>
             <img

@@ -51,7 +51,7 @@ Shopware.Component.register('moorl-ai-chat', {
                         return null;
                     }
 
-                    const prompt = this.$tc(suggestion.snippetKey, {
+                    const prompt = this.$t(suggestion.snippetKey, {
                         field: suggestion.field,
                     }, 0);
 
@@ -60,7 +60,7 @@ Shopware.Component.register('moorl-ai-chat', {
                     }
 
                     const label = suggestion.buttonSnippetKey
-                        ? this.$tc(suggestion.buttonSnippetKey, {
+                        ? this.$t(suggestion.buttonSnippetKey, {
                             field: this.getAiFieldLabel(suggestion.field),
                         }, 0)
                         : prompt;
@@ -78,7 +78,7 @@ Shopware.Component.register('moorl-ai-chat', {
     methods: {
         getAiFieldLabel(field) {
             const snippetKey = `moorl-foundation.field.${field}`;
-            const label = this.$tc(snippetKey, {}, 0);
+            const label = this.$t(snippetKey, {}, 0);
 
             return !label || label === snippetKey ? field : label;
         },
@@ -152,8 +152,8 @@ Shopware.Component.register('moorl-ai-chat', {
 
             if (text.length > 10000) {
                 this.createNotificationError({
-                    title: this.$tc('global.default.error'),
-                    message: this.$tc('moorl-foundation.ai.messageTooLong'),
+                    title: this.$t('global.default.error'),
+                    message: this.$t('moorl-foundation.ai.messageTooLong'),
                 });
 
                 return;
@@ -163,8 +163,8 @@ Shopware.Component.register('moorl-ai-chat', {
 
             if (!item) {
                 this.createNotificationError({
-                    title: this.$tc('global.default.error'),
-                    message: this.$tc('moorl-foundation.ai.chatFailed'),
+                    title: this.$t('global.default.error'),
+                    message: this.$t('moorl-foundation.ai.chatFailed'),
                 });
 
                 return;
@@ -178,8 +178,8 @@ Shopware.Component.register('moorl-ai-chat', {
 
             if (this.messages.length >= 29) {
                 this.createNotificationError({
-                    title: this.$tc('global.default.error'),
-                    message: this.$tc('moorl-foundation.ai.chatLimitReached'),
+                    title: this.$t('global.default.error'),
+                    message: this.$t('moorl-foundation.ai.chatLimitReached'),
                 });
 
                 return;
@@ -201,8 +201,8 @@ Shopware.Component.register('moorl-ai-chat', {
 
                 if (response?.errors || !response?.message) {
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
-                        message: response?.errors?.[0]?.message || this.$tc('moorl-foundation.ai.chatFailed'),
+                        title: this.$t('global.default.error'),
+                        message: response?.errors?.[0]?.message || this.$t('moorl-foundation.ai.chatFailed'),
                     });
 
                     return;
@@ -221,8 +221,8 @@ Shopware.Component.register('moorl-ai-chat', {
                 const errorDetail = Shopware.Utils.get(exception, 'response.data.errors[0].detail');
 
                 this.createNotificationError({
-                    title: this.$tc('global.default.error'),
-                    message: errorDetail || exception.message || this.$tc('moorl-foundation.ai.chatFailed'),
+                    title: this.$t('global.default.error'),
+                    message: errorDetail || exception.message || this.$t('moorl-foundation.ai.chatFailed'),
                 });
             } finally {
                 this.isSending = false;
@@ -237,7 +237,7 @@ Shopware.Component.register('moorl-ai-chat', {
 
                 if (response?.errors) {
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: response.errors[0].message,
                     });
 
@@ -245,14 +245,14 @@ Shopware.Component.register('moorl-ai-chat', {
                 }
 
                 this.createNotificationSuccess({
-                    title: this.$tc('global.default.success'),
-                    message: this.$tc('moorl-foundation.ai.connectionSuccess'),
+                    title: this.$t('global.default.success'),
+                    message: this.$t('moorl-foundation.ai.connectionSuccess'),
                 });
             } catch (exception) {
                 const errorDetail = Shopware.Utils.get(exception, 'response.data.errors[0].detail');
 
                 this.createNotificationError({
-                    title: this.$tc('global.default.error'),
+                    title: this.$t('global.default.error'),
                     message: errorDetail || exception.message,
                 });
             } finally {

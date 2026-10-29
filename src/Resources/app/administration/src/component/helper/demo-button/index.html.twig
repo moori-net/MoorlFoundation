@@ -5,19 +5,19 @@
         :disabled="!acl.can('system.system_config')"
         @click="openModal"
     >
-        {{ $tc('moorl-demo-button.label') }}
+        {{ $t('moorl-demo-button.label') }}
     </mt-button>
     <sw-modal
         v-if="open"
-        :title="$tc('moorl-demo-button.label')"
+        :title="$t('moorl-demo-button.label')"
         @modal-close="closeModal"
         :isLoading="isLoading"
     >
         <mt-banner variant="attention">
-            {{ $tc('moorl-demo-data.notification') }}
+            {{ $t('moorl-demo-data.notification') }}
         </mt-banner>
         <sw-entity-single-select
-            :label="$tc('moorl-foundation.field.salesChannel')"
+            :label="$t('moorl-foundation.field.salesChannel')"
             v-model:value="salesChannelId"
             entity="sales_channel"
         />
@@ -26,7 +26,7 @@
             rel="noopener"
             :to="{ name: 'moorl.demo.data.index' }"
         >
-            {{ $tc('moorl-demo-data.name') }}
+            {{ $t('moorl-demo-data.name') }}
         </router-link>
         <template #modal-footer>
             <mt-button
@@ -34,10 +34,10 @@
                 @click="install"
                 :disabled="salesChannelId === null || isLoading"
             >
-                {{ $tc('global.default.apply') }}
+                {{ $t('global.default.apply') }}
             </mt-button>
             <mt-button @click="closeModal">
-                {{ $tc('global.default.cancel') }}
+                {{ $t('global.default.cancel') }}
             </mt-button>
         </template>
     </sw-modal>

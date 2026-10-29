@@ -5,7 +5,7 @@
         v-if="isEnabled('layout')"
     >
         <h4>
-            {{ $tc('moorl-combination-element-options.title.layout') }}
+            {{ $t('moorl-combination-element-options.title.layout') }}
         </h4>
         <sw-container
             columns="1fr 1fr"
@@ -13,14 +13,14 @@
         >
             <mt-text-field
                 v-model="value.idAttribute"
-                :label="$tc('moorl-combination-element-options.label.idAttribute')"
+                :label="$t('moorl-combination-element-options.label.idAttribute')"
             />
             <mt-text-field
                 v-model="value.classAttribute"
-                :label="$tc('moorl-combination-element-options.label.classAttribute')"
+                :label="$t('moorl-combination-element-options.label.classAttribute')"
             />
             <moorl-select-field
-                :label="$tc('moorl-foundation.field.style')"
+                :label="$t('moorl-foundation.field.style')"
                 v-model:value="value.layout"
                 :customSet="['banner-content','content-banner']"
                 snippetPath="moorl-combination-element-options.layout"
@@ -28,22 +28,22 @@
             <mt-switch
                 v-model="value.showBanner"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.showBanner')"
+                :label="$t('moorl-combination-element-options.label.showBanner')"
             />
             <mt-switch
                 v-model="value.showTitleDescription"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.showTitleDescription')"
+                :label="$t('moorl-combination-element-options.label.showTitleDescription')"
             />
             <mt-switch
                 v-if="isEnabled('product-buy-list')"
                 v-model="value.showProductBuyList"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.showProductBuyList')"
+                :label="$t('moorl-combination-element-options.label.showProductBuyList')"
             />
             <mt-text-field
                 v-model="value.minWidth"
-                :label="$tc('moorl-combination-element-options.label.minWidth')"
+                :label="$t('moorl-combination-element-options.label.minWidth')"
             />
         </sw-container>
     </sw-card-section>
@@ -53,7 +53,7 @@
         v-if="isEnabled('product-buy-list') && value.showProductBuyList"
     >
         <h4>
-            {{ $tc('moorl-combination-element-options.title.productBuyList') }}
+            {{ $t('moorl-combination-element-options.title.productBuyList') }}
         </h4>
         <sw-container
             columns="1fr 1fr"
@@ -62,10 +62,10 @@
             <mt-switch
                 v-model="value.enableAddToCartSingle"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.enableAddToCartSingle')"
+                :label="$t('moorl-combination-element-options.label.enableAddToCartSingle')"
             />
             <moorl-select-field
-                :label="$tc('moorl-combination-element-options.label.addToCartSingleIcon')"
+                :label="$t('moorl-combination-element-options.label.addToCartSingleIcon')"
                 v-model:value="value.addToCartSingleIcon"
                 :disabled="!value.enableAddToCartSingle"
                 :customSet="['plus','cart','bag']"
@@ -75,10 +75,10 @@
             <mt-switch
                 v-model="value.enableAddToCartAll"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.enableAddToCartAll')"
+                :label="$t('moorl-combination-element-options.label.enableAddToCartAll')"
             />
             <moorl-select-field
-                :label="$tc('moorl-combination-element-options.label.addToCartAllIcon')"
+                :label="$t('moorl-combination-element-options.label.addToCartAllIcon')"
                 v-model:value="value.addToCartAllIcon"
                 :disabled="!value.enableAddToCartAll"
                 :customSet="['plus','cart','bag']"
@@ -88,22 +88,22 @@
             <mt-switch
                 v-model="value.enablePrices"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.enablePrices')"
+                :label="$t('moorl-combination-element-options.label.enablePrices')"
             />
             <mt-switch
                 v-model="value.enableVariantSwitch"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.enableVariantSwitch')"
+                :label="$t('moorl-combination-element-options.label.enableVariantSwitch')"
             />
             <mt-switch
                 v-model="value.enableSelection"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.enableSelection')"
+                :label="$t('moorl-combination-element-options.label.enableSelection')"
             />
             <mt-switch
                 v-model="value.enableDirectUrl"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.enableDirectUrl')"
+                :label="$t('moorl-combination-element-options.label.enableDirectUrl')"
             />
         </sw-container>
     </sw-card-section>
@@ -113,7 +113,7 @@
         v-if="isEnabled('hotspots') && value.showBanner"
     >
         <h4>
-            {{ $tc('moorl-combination-element-options.title.hotspots') }}
+            {{ $t('moorl-combination-element-options.title.hotspots') }}
         </h4>
         <sw-container
             columns="1fr 1fr"
@@ -122,16 +122,16 @@
             <mt-switch
                 v-model="value.showHotspots"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.showHotspots')"
+                :label="$t('moorl-combination-element-options.label.showHotspots')"
             />
             <mt-switch
                 v-model="value.loadHoverCards"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.loadHoverCards')"
+                :label="$t('moorl-combination-element-options.label.loadHoverCards')"
                 :disabled="!value.showHotspots"
             />
             <moorl-select-field
-                :label="$tc('moorl-combination-element-options.label.hotspotAnimation')"
+                :label="$t('moorl-combination-element-options.label.hotspotAnimation')"
                 v-model:value="value.hotspotAnimation"
                 :disabled="!value.showHotspots"
                 :customSet="['pulse']"
@@ -145,7 +145,7 @@
         v-if="isEnabled('stock') && value.showBanner"
     >
         <h4>
-            {{ $tc('moorl-combination-element-options.title.stock') }}
+            {{ $t('moorl-combination-element-options.title.stock') }}
         </h4>
         <sw-container
             columns="1fr 1fr"
@@ -154,10 +154,10 @@
             <mt-switch
                 v-model="value.showStock"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.showStock')"
+                :label="$t('moorl-combination-element-options.label.showStock')"
             />
             <moorl-select-field
-                :label="$tc('moorl-combination-element-options.label.stockType')"
+                :label="$t('moorl-combination-element-options.label.stockType')"
                 v-model:value="value.stockType"
                 :disabled="!value.showStock"
                 :customSet="['progressBarAbs','progressBarPc','text']"
@@ -171,7 +171,7 @@
         v-if="isEnabled('countdown') && value.showBanner"
     >
         <h4>
-            {{ $tc('moorl-combination-element-options.title.countdown') }}
+            {{ $t('moorl-combination-element-options.title.countdown') }}
         </h4>
         <sw-container
             columns="1fr 1fr"
@@ -180,10 +180,10 @@
             <mt-switch
                 v-model="value.showCountdown"
                 bordered
-                :label="$tc('moorl-combination-element-options.label.showCountdown')"
+                :label="$t('moorl-combination-element-options.label.showCountdown')"
             />
             <moorl-select-field
-                :label="$tc('moorl-combination-element-options.label.countdownType')"
+                :label="$t('moorl-combination-element-options.label.countdownType')"
                 v-model:value="value.countdownType"
                 :disabled="!value.showCountdown"
                 :customSet="['countdown','relative','time','hidden']"

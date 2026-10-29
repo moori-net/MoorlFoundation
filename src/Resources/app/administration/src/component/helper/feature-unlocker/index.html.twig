@@ -1,11 +1,11 @@
 <sw-modal
     class="moorl-feature-unlocker"
     v-if="open"
-    :title="$tc('moorl-feature-unlocker.modal.title')"
+    :title="$t('moorl-feature-unlocker.modal.title')"
     @modal-close="closeModal"
 >
     <p>
-        {{ $tc('moorl-feature-unlocker.modal.message1') }}
+        {{ $t('moorl-feature-unlocker.modal.message1') }}
     </p>
     <p class="moorl-support-link">
         <a
@@ -13,7 +13,7 @@
             rel="noopener nofollow"
             target="_blank"
         >
-            {{ $tc('moorl-feature-unlocker.modal.title') }}
+            {{ $t('moorl-feature-unlocker.modal.title') }}
         </a>
     </p>
     <p>
@@ -158,7 +158,7 @@
     </table>
     <template #modal-footer>
         <mt-button @click="closeModal">
-            {{ $tc('moorl-feature-unlocker.modal.actions.close') }}
+            {{ $t('moorl-feature-unlocker.modal.actions.close') }}
         </mt-button>
     </template>
 </sw-modal>

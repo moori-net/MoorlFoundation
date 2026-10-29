@@ -125,7 +125,7 @@ Shopware.Component.register('moorl-media-gallery', {
             media.forEach((item) => {
                 this.addMedia(item).catch(({ fileName }) => {
                     this.createNotificationError({
-                        message: this.$tc(
+                        message: this.$t(
                             'sw-product.mediaForm.errorMediaItemDuplicated',
                             0,
                             { fileName }

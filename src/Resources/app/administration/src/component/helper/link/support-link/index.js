@@ -17,7 +17,7 @@ Shopware.Component.register('moorl-support-link', {
 
     computed: {
         supportLink() {
-            return this.$tc('moorl-support-link.supportLink') + this.path;
+            return this.$t('moorl-support-link.supportLink') + this.path;
         },
     },
 });

@@ -65,7 +65,7 @@ Shopware.Component.register('moorl-modal-detail', {
 
         itemName() {
             if (this.item === undefined) {
-                return this.$tc('global.default.add');
+                return this.$t('global.default.add');
             }
 
             if (this.item[this.itemHelper.getLabelProperty()] !== undefined) {
@@ -78,7 +78,7 @@ Shopware.Component.register('moorl-modal-detail', {
                 }
             }
 
-            return this.$tc('global.default.add');
+            return this.$t('global.default.add');
         }
     },
 

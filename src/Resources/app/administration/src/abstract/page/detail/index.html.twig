@@ -14,7 +14,7 @@
                 size="default"
                 @click="onCancel"
             >
-                {{ $tc('global.default.cancel') }}
+                {{ $t('global.default.cancel') }}
             </mt-button>
 
             <sw-button-group
@@ -28,7 +28,7 @@
                     :disabled="isLoading"
                     @click="onSaveItem"
                 >
-                    {{ $tc('global.default.save') }}
+                    {{ $t('global.default.save') }}
                 </sw-button-process>
                 <sw-context-button v-if="!isNewItem">
                     <template #button>
@@ -45,7 +45,7 @@
                         </mt-button>
                     </template>
                     <sw-context-menu-item @click="onDuplicateItem">
-                        {{ $tc('sw-product.detail.buttonSaveDuplicate') }}
+                        {{ $t('sw-product.detail.buttonSaveDuplicate') }}
                     </sw-context-menu-item>
                 </sw-context-button>
             </sw-button-group>
@@ -56,7 +56,7 @@
                 size="default"
                 @click="showConfirmDeleteModal = true"
             >
-                {{ $tc('global.default.delete') }}
+                {{ $t('global.default.delete') }}
             </mt-button>
         {% endblock %}
     </template>
@@ -96,7 +96,7 @@
     <template #sidebar>
         <sw-sidebar :propagate-width="true">
             <sw-sidebar-item
-                :title="$tc('moorl-foundation.ai.modalTitle')"
+                :title="$t('moorl-foundation.ai.modalTitle')"
                 icon="regular-comments"
                 :disabled="isLoading"
             >

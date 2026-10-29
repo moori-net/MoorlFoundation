@@ -78,31 +78,31 @@ Shopware.Component.register('moorl-flow-crm-mapping', {
         },
 
         description() {
-            return this.$tc('moorl-flow-crm-mapping.description', 0, {
+            return this.$t('moorl-flow-crm-mapping.description', 0, {
                 name: this.name,
             });
         },
 
         propertiesClientId() {
-            return this.$tc('moorl-flow-crm-mapping.properties.clientId', 0, {
+            return this.$t('moorl-flow-crm-mapping.properties.clientId', 0, {
                 name: this.name,
             });
         },
 
         helpTextClientId() {
-            return this.$tc('moorl-flow-crm-mapping.helpText.clientId', 0, {
+            return this.$t('moorl-flow-crm-mapping.helpText.clientId', 0, {
                 name: this.name,
             });
         },
 
         propertiesFormId() {
-            return this.$tc('moorl-flow-crm-mapping.properties.formId', 0, {
+            return this.$t('moorl-flow-crm-mapping.properties.formId', 0, {
                 name: this.name,
             });
         },
 
         helpTextFormId() {
-            return this.$tc('moorl-flow-crm-mapping.helpText.formId', 0, {
+            return this.$t('moorl-flow-crm-mapping.helpText.formId', 0, {
                 name: this.name,
             });
         },

@@ -22,7 +22,7 @@ Shopware.Component.register('moorl-entity-grid-card-v2', {
         },
 
         cardTitle() {
-            return this.$attrs.title ?? this.$tc(`global.entities.${this.$attrs.entity}`);
+            return this.$attrs.title ?? this.$t(`global.entities.${this.$attrs.entity}`);
         }
     }
 });

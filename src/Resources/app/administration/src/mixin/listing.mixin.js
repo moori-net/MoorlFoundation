@@ -30,7 +30,7 @@ Shopware.Mixin.register('moorl-listing', {
     computed: {
         translationHelper() {
             return new MoorlFoundation.TranslationHelper({
-                $tc: this.$tc,
+                $t: this.$t,
                 componentName: this.componentName,
             });
         },

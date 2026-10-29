@@ -7,7 +7,7 @@
             v-if="!visibleMessages.length"
             class="moorl-ai-chat__empty-state"
         >
-            {{ $tc('moorl-foundation.ai.emptyState') }}
+            {{ $t('moorl-foundation.ai.emptyState') }}
         </p>
 
         <div
@@ -44,14 +44,14 @@
     <mt-textarea
         ref="messageInput"
         v-model="messageInput"
-        :label="$tc('moorl-foundation.ai.messageInput')"
-        :placeholder="$tc('moorl-foundation.ai.messagePlaceholder')"
+        :label="$t('moorl-foundation.ai.messageInput')"
+        :placeholder="$t('moorl-foundation.ai.messagePlaceholder')"
         @keydown.enter.exact="onEnterKeydown"
     >
         <template #hint>
             <mt-checkbox
                 v-model:checked="sendOnEnter"
-                :label="$tc('moorl-foundation.ai.sendOnEnter')"
+                :label="$t('moorl-foundation.ai.sendOnEnter')"
             />
         </template>
     </mt-textarea>
@@ -63,7 +63,7 @@
             :disabled="isTesting || isSending"
             @click="onTestConnection"
         >
-            {{ $tc('moorl-foundation.ai.testConnection') }}
+            {{ $t('moorl-foundation.ai.testConnection') }}
         </mt-button>
         <mt-button
             variant="primary"
@@ -71,7 +71,7 @@
             :disabled="!messageInput.trim() || isSending || isTesting || messages.length >= 29"
             @click="onSendMessage"
         >
-            {{ $tc('moorl-foundation.ai.send') }}
+            {{ $t('moorl-foundation.ai.send') }}
         </mt-button>
     </div>
 </div>

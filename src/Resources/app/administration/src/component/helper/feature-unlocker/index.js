@@ -41,7 +41,7 @@ Shopware.Component.register('moorl-feature-unlocker', {
 
             if (!localStorage.getItem('moorl-foundation-welcome-seen')) {
                 this.createNotificationInfo({
-                    message: this.$tc(
+                    message: this.$t(
                         'moorl-feature-unlocker.notifications.welcome'
                     ),
                 });
@@ -72,7 +72,7 @@ Shopware.Component.register('moorl-feature-unlocker', {
                 localStorage.removeItem('moorl-foundation-unlocked');
                 Shopware.Store.get('moorlFoundationState').setUnlocked(false);
                 this.createNotificationInfo({
-                    message: this.$tc(
+                    message: this.$t(
                         'moorl-feature-unlocker.notifications.locked'
                     ),
                 });
@@ -81,7 +81,7 @@ Shopware.Component.register('moorl-feature-unlocker', {
                 localStorage.setItem('moorl-foundation-unlocked', '1');
                 Shopware.Store.get('moorlFoundationState').setUnlocked(true);
                 this.createNotificationInfo({
-                    message: this.$tc(
+                    message: this.$t(
                         'moorl-feature-unlocker.notifications.unlocked'
                     ),
                 });

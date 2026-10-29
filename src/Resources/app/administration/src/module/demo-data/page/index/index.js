@@ -50,9 +50,9 @@ Shopware.Component.register('moorl-demo-data-index', {
                     response.forEach((option) => {
                         let label;
                         if (option.type === 'data') {
-                            label = `${this.$tc('moorl-demo-data.baseData')} | ${option.pluginName} | ${option.name}`;
+                            label = `${this.$t('moorl-demo-data.baseData')} | ${option.pluginName} | ${option.name}`;
                         } else {
-                            label = `${this.$tc('moorl-demo-data.standardDemo')} | ${option.pluginName} | ${option.name}`;
+                            label = `${this.$t('moorl-demo-data.standardDemo')} | ${option.pluginName} | ${option.name}`;
                         }
 
                         this.options.push({
@@ -68,7 +68,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 })
                 .catch((exception) => {
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: exception,
                     });
 
@@ -86,7 +86,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 )
                 .then(() => {
                     this.createNotificationSuccess({
-                        message: this.$tc(
+                        message: this.$t(
                             'moorl-demo-data.installed'
                         ),
                     });
@@ -95,7 +95,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 })
                 .catch((exception) => {
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: exception,
                     });
 
@@ -113,7 +113,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 )
                 .then(() => {
                     this.createNotificationSuccess({
-                        message: this.$tc(
+                        message: this.$t(
                             'moorl-demo-data.removed'
                         ),
                     });
@@ -122,7 +122,7 @@ Shopware.Component.register('moorl-demo-data-index', {
                 })
                 .catch((exception) => {
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: exception,
                     });
 

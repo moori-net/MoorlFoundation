@@ -12,7 +12,7 @@ Shopware.Component.override('sw-import-export-edit-profile-general', {
 
                 supportedEntities.push({
                     value: abc.entity,
-                    label: this.$tc(`global.entities.${abc.entity}`),
+                    label: this.$t(`global.entities.${abc.entity}`),
                     type: 'import-export',
                 });
             }

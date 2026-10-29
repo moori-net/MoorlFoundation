@@ -59,7 +59,7 @@ Shopware.Component.register('moorl-file-explorer', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                     this.isLoading = false;
@@ -94,7 +94,7 @@ Shopware.Component.register('moorl-file-explorer', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                     this.isLoading = false;
@@ -125,7 +125,7 @@ Shopware.Component.register('moorl-file-explorer', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                     this.isLoading = false;
@@ -150,7 +150,7 @@ Shopware.Component.register('moorl-file-explorer', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                     this.isLoading = false;
@@ -175,7 +175,7 @@ Shopware.Component.register('moorl-file-explorer', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                     this.isLoading = false;

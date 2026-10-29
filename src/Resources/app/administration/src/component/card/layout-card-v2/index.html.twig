@@ -1,6 +1,6 @@
 <div class="moorl-layout-card-v2">
     <mt-card
-        :title="$tc('moorl-layout-card-v2.title')"
+        :title="$t('moorl-layout-card-v2.title')"
         :is-loading="isLoading"
     >
         <div class="moorl-layout-card__base-layout">
@@ -28,7 +28,7 @@
                         class="moorl-layout-card__desc-headline"
                         :class="{ 'is--empty': !cmsPage }"
                     >
-                        {{ cmsPage ? cmsPage.name : $tc('moorl-layout-card-v2.defaultTitle') }}
+                        {{ cmsPage ? cmsPage.name : $t('moorl-layout-card-v2.defaultTitle') }}
                     </div>
                 </div>
                 <div class="moorl-layout-card__desc-actions">
@@ -38,7 +38,7 @@
                         variant="secondary"
                         @click="openLayoutModal"
                     >
-                        {{ cmsPage ? $tc('moorl-layout-card-v2.changeLayout') : $tc('moorl-layout-card-v2.changeLayoutEmpty') }}
+                        {{ cmsPage ? $t('moorl-layout-card-v2.changeLayout') : $t('moorl-layout-card-v2.changeLayoutEmpty') }}
                     </mt-button>
                     <mt-button
                         class="moorl-detail-layout__open-in-pagebuilder"
@@ -46,7 +46,7 @@
                         variant="secondary"
                         @click="openInPagebuilder"
                     >
-                        {{ cmsPage ? $tc('moorl-layout-card-v2.editInPagebuilder'): $tc('moorl-layout-card-v2.editInPagebuilderEmpty') }}
+                        {{ cmsPage ? $t('moorl-layout-card-v2.editInPagebuilder'): $t('moorl-layout-card-v2.editInPagebuilderEmpty') }}
                     </mt-button>
                     <mt-button
                         v-if="cmsPage"

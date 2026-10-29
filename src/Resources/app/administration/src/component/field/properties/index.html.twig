@@ -13,7 +13,7 @@
                         v-model:value="searchTerm"
                         variant="form"
                         size="small"
-                        :placeholder="$tc('sw-product.properties.placeholderSearchAddedProperties')"
+                        :placeholder="$t('sw-product.properties.placeholderSearchAddedProperties')"
                         :disabled="isPropertiesLoading || undefined"
                         @search-term-change="onChangeSearchTerm"
                     />
@@ -24,7 +24,7 @@
                         variant="secondary"
                         @click="turnOnAddPropertiesModal"
                     >
-                        {{ $tc('sw-product.properties.buttonAddProperty') }}
+                        {{ $t('sw-product.properties.buttonAddProperty') }}
                     </mt-button>
                 </sw-container>
             </sw-card-section>
@@ -65,7 +65,7 @@
                         size="small"
                         @click="onDeleteProperty(item)"
                     >
-                        {{ $tc('global.default.delete') }}
+                        {{ $t('global.default.delete') }}
                     </mt-button>
                 </template>
 
@@ -75,7 +75,7 @@
                         size="small"
                         @click="onDeleteProperties"
                     >
-                        {{ $tc('global.default.delete') }}
+                        {{ $t('global.default.delete') }}
                     </mt-button>
                 </template>
             </sw-entity-listing>
@@ -84,12 +84,12 @@
                 class="moorl-properties__empty-state has--no-search-result"
                 :absolute="false"
                 :show-description="false"
-                :title="$tc('sw-product.properties.titleEmptyStateList')"
+                :title="$t('sw-product.properties.titleEmptyStateList')"
             >
                 <template #icon>
                     <img
                         :src="assetFilter('administration/administration/static/img/empty-states/products-empty-state.svg')"
-                        :alt="$tc('sw-product.properties.titleEmptyStateList')"
+                        :alt="$t('sw-product.properties.titleEmptyStateList')"
                     />
                 </template>
             </sw-empty-state>
@@ -102,12 +102,12 @@
         class="moorl-properties__empty-state has--no-properties"
         :absolute="false"
         :show-description="false"
-        :title="$tc('sw-product.properties.titleEmptyState')"
+        :title="$t('sw-product.properties.titleEmptyState')"
     >
         <template #icon>
             <img
                 :src="assetFilter('administration/administration/static/img/empty-states/products-empty-state.svg')"
-                :alt="$tc('sw-product.properties.titleEmptyState')"
+                :alt="$t('sw-product.properties.titleEmptyState')"
             />
         </template>
 
@@ -116,7 +116,7 @@
                 ghost
                 @click="turnOnAddPropertiesModal"
             >
-                {{ $tc('sw-product.properties.buttonAddProperties') }}
+                {{ $t('sw-product.properties.buttonAddProperties') }}
             </mt-button>
         </template>
     </sw-empty-state>

@@ -18,7 +18,7 @@ Shopware.Component.register('moorl-cms-element-type-select', {
 
             Object.entries(this.cmsElements).forEach(([key, value]) => {
                 storeOptions.push({
-                    label: this.$tc(value.label),
+                    label: this.$t(value.label),
                     value: key,
                 });
             });

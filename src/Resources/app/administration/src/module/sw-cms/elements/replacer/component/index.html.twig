@@ -5,10 +5,10 @@
                 name="regular-repeat"
                 size="24"
             />
-            {{ $tc('sw-cms.elements.moorl-replacer.title') }}
+            {{ $t('sw-cms.elements.moorl-replacer.title') }}
         </p>
         <p>
-            {{ $tc('sw-cms.elements.moorl-replacer.description') }}
+            {{ $t('sw-cms.elements.moorl-replacer.description') }}
         </p>
         <p>
             <a
@@ -16,7 +16,7 @@
                 target="_blank"
                 rel="noopener nofollow"
             >
-                {{ $tc('sw-cms.elements.moorl-replacer.storeLink') }}
+                {{ $t('sw-cms.elements.moorl-replacer.storeLink') }}
             </a>
         </p>
     </div>
@@ -24,7 +24,7 @@
         <sw-entity-single-select
             entity="moorl_cms_element_config"
             v-model:value="cmsElementConfigId"
-            :placeholder="$tc('sw-cms.elements.moorl-replacer.label.selectConfig')"
+            :placeholder="$t('sw-cms.elements.moorl-replacer.label.selectConfig')"
         >
             <template #result-label-property="{ item }">
                 {{ item.type }} | {{ item.name }}

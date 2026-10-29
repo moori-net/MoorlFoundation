@@ -62,7 +62,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
                 }
             }
 
-            return this.$tc('global.default.add');
+            return this.$t('global.default.add');
         },
 
         itemRepository() {
@@ -199,8 +199,8 @@ Shopware.Component.register('moorl-abstract-page-detail', {
 
             Object.assign(this.item, allowedChanges);
             this.createNotificationSuccess({
-                title: this.$tc('global.default.success'),
-                message: this.$tc('moorl-foundation.ai.changesApplied'),
+                title: this.$t('global.default.success'),
+                message: this.$t('moorl-foundation.ai.changesApplied'),
             });
         },
 
@@ -222,7 +222,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             } catch(error) {
                 console.error(error);
                 this.createNotificationError({
-                    message: this.$tc('global.notification.notificationSaveErrorMessageRequiredFieldsInvalid'),
+                    message: this.$t('global.notification.notificationSaveErrorMessageRequiredFieldsInvalid'),
                 });
             }
 
@@ -237,7 +237,7 @@ Shopware.Component.register('moorl-abstract-page-detail', {
             const behavior = {
                 cloneChildren: true,
                 overwrites: {
-                    name: `${this.itemName} [${this.$tc('global.default.duplicate')}]`,
+                    name: `${this.itemName} [${this.$t('global.default.duplicate')}]`,
                     locked: false
                 }
             };
