@@ -278,7 +278,7 @@ const ctaBanner = {
         tab: 'content',
         card: 'icon',
         cols: 6,
-        attributes: {placeholder: 'fa7b|shopware or fa6s|check'},
+        attributes: {placeholder: 'fa7b|shopware or fa7s|check'},
         conditions: [{ property: 'iconType', value: 'fa' }]
     },
     iconSvg: {

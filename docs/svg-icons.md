@@ -18,7 +18,7 @@ Verwendet in:
 ## Welche Icons sind verfügbar?
 
 - Font Awesome 5: [https://fontawesome.com/v5/search](https://fontawesome.com/v5/search) – bis Shopware 6.6
-- Font Awesome 6: [https://fontawesome.com/v6/search](https://fontawesome.com/v6/search)
+- Font Awesome 6: Die Paketnamen `fa6b`, `fa6r` und `fa6s` bleiben als Aliase für Font Awesome 7 verfügbar. Das separate SVG-Paket entfällt vollständig. Icons ohne Entsprechung in Font Awesome 7, etwa `vector-square`, sind nicht mehr verfügbar.
 - Font Awesome 7: [https://fontawesome.com/v7/search](https://fontawesome.com/v7/search) – ab Shopware 6.7
 - Shopware: [https://developer.shopware.com/resources/meteor-icon-kit/](https://developer.shopware.com/resources/meteor-icon-kit/)
 
@@ -32,7 +32,7 @@ Genereller Aufbau: `<Paketname>|<Name des Icons>|<Größe>`
 - `solid|search|xs` - Search-Icon aus dem Paket `Shopware Meteor Icon Kit | solid` in der Größe `xs`
 - `fa7s|map` - Map-Icon aus dem Paket `Font Awesome 7 | solid`
 - `fa7b|shopware` - Shopware-Icon aus dem Paket `Font Awesome 7 | brands`
-- `fa6b|shopware|xs` - Shopware-Icon aus dem Paket `Font Awesome 6 | brands` in der Größe `xs`
+- `fa6b|shopware|xs` - Kompatibilitäts-Alias für `fa7b|shopware|xs`
 
 ![](images/icon-example.jpg)
 
@@ -42,7 +42,7 @@ In einigen Plugins gibt es die Möglichkeit, einen Text oder ein Icon einzufüge
 - `icon|solid|search|xs` - Search-Icon aus dem Paket `Shopware Meteor Icon Kit | solid` in der Größe `xs`
 - `icon|fa7s|map` - Map-Icon aus dem Paket `Font Awesome 7 | solid`
 - `icon|fa7b|shopware` - Shopware-Icon aus dem Paket `Font Awesome 7 | brands`
-- `icon|fa6b|shopware|xs` - Shopware-Icon aus dem Paket `Font Awesome 6 | brands` in der Größe `xs`
+- `icon|fa6b|shopware|xs` - Kompatibilitäts-Alias für `icon|fa7b|shopware|xs`
 
 ![](images/icon-example-2.jpg)
 
