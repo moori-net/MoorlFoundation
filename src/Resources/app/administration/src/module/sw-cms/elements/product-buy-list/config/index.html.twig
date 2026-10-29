@@ -3,11 +3,11 @@
         v-model:config="element.config.products"
         entity="product"
         value-types="entity"
-        :label="$tc('sw-cms.elements.moorl-product-buy-list.label.products')"
+        :label="$t('sw-cms.elements.moorl-product-buy-list.label.products')"
     >
         <sw-entity-multi-select
             class="sw-cms-el-config-product-slider__products"
-            :placeholder="$tc('sw-cms.elements.productSlider.config.placeholder.selection')"
+            :placeholder="$t('sw-cms.elements.productSlider.config.placeholder.selection')"
             v-model:entityCollection="productCollection"
             @update:entity-collection="onProductsChange"
             :context="productSearchContext"
@@ -30,7 +30,7 @@
                     min="1"
                     max="100"
                     step="1"
-                    :label="$tc('sw-cms.elements.moorl-product-buy-list.label.productQuantity') + ': ' + product.translated.name"
+                    :label="$t('sw-cms.elements.moorl-product-buy-list.label.productQuantity') + ': ' + product.translated.name"
                     v-model="element.config.productQuantities.value[product.id]"
                 />
             </template>
@@ -43,31 +43,31 @@
         <mt-switch
             v-model="element.config.enablePrices.value"
             bordered
-            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enablePrices')"
+            :label="$t('sw-cms.elements.moorl-product-buy-list.label.enablePrices')"
         />
         <mt-switch
             v-model="element.config.enableVariantSwitch.value"
             bordered
-            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableVariantSwitch')"
+            :label="$t('sw-cms.elements.moorl-product-buy-list.label.enableVariantSwitch')"
         />
         <mt-switch
             v-model="element.config.enableAddToCartAll.value"
             bordered
-            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
+            :label="$t('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartAll')"
         />
         <mt-switch
             v-model="element.config.enableAddToCartSingle.value"
             bordered
-            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
+            :label="$t('sw-cms.elements.moorl-product-buy-list.label.enableAddToCartSingle')"
         />
         <mt-switch
             v-model="element.config.enableDirectUrl.value"
             bordered
-            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
+            :label="$t('sw-cms.elements.moorl-product-buy-list.label.enableDirectUrl')"
         />
         <mt-text-field
             v-model="element.config.emptyText.value"
-            :label="$tc('sw-cms.elements.moorl-product-buy-list.label.emptyText')"
+            :label="$t('sw-cms.elements.moorl-product-buy-list.label.emptyText')"
         />
     </sw-container>
 </div>

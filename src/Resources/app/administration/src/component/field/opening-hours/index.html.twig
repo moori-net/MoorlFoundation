@@ -4,7 +4,7 @@
         v-for="(dayItem, dayIndex) in value"
     >
         <div class="moorl-opening-hours-title">
-            {{ $tc('moorl-opening-hours.days.' + dayItem.day) }}
+            {{ $t('moorl-opening-hours.days.' + dayItem.day) }}
         </div>
         <div class="moorl-opening-hours-actions">
             <mt-button
@@ -16,7 +16,7 @@
                     name="regular-trash"
                     size="16px"
                 />
-                {{ $tc('moorl-opening-hours.action.remove') }}
+                {{ $t('moorl-opening-hours.action.remove') }}
             </mt-button>
             <mt-button
                 @click="addTimes(dayIndex)"
@@ -27,7 +27,7 @@
                     name="regular-plus"
                     size="16px"
                 />
-                {{ $tc('moorl-opening-hours.action.add') }}
+                {{ $t('moorl-opening-hours.action.add') }}
             </mt-button>
         </div>
         <template v-if="dayItem.times.length > 0">
@@ -51,7 +51,7 @@
 
         <template v-else>
             <mt-text-field
-                :placeholder="$tc('moorl-opening-hours.action.enterClosedHint')"
+                :placeholder="$t('moorl-opening-hours.action.enterClosedHint')"
                 v-model="dayItem.info"
                 :disabled="disabled"
             />

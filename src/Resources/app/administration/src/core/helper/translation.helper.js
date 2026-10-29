@@ -1,7 +1,7 @@
 export default class TranslationHelper {
-    constructor({$tc, componentName = undefined}) {
+    constructor({$t, componentName = undefined}) {
         this.componentName = componentName;
-        this.$tc = $tc;
+        this.$t = $t;
 
         this.snippetSets = [];
         this.snippetStruct = {};
@@ -31,7 +31,7 @@ export default class TranslationHelper {
                 }
 
                 const snippet = `${set}.${group}.${part}`;
-                const translated = this.$tc(snippet);
+                const translated = this.$t(snippet);
 
                 if (translated !== snippet) {
                     translatedParts.push(translated);

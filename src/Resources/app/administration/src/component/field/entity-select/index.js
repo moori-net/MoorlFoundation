@@ -62,7 +62,7 @@ Shopware.Component.register('moorl-entity-select-field', {
                 return undefined;
             }
 
-            return this.label ?? this.$tc(`global.entities.${this.entity}`);
+            return this.label ?? this.$t(`global.entities.${this.entity}`);
         },
 
         vBind() {

@@ -27,7 +27,7 @@
             <mt-text-field
                 v-model="item.name"
                 size="small"
-                :placeholder="$tc('moorl-foundation.field.name')"
+                :placeholder="$t('moorl-foundation.field.name')"
                 @update:model-value="onChangeItem(item, itemIndex)"
                 :disabled="item.fixed"
             />
@@ -39,7 +39,7 @@
                 v-model:value="item.data"
                 size="small"
                 :options="dataSelection"
-                :placeholder="$tc('moorl-foundation.field.data')"
+                :placeholder="$t('moorl-foundation.field.data')"
                 @update:value="onChangeItem(item, itemIndex)"
                 show-clearable-button
             />
@@ -47,7 +47,7 @@
                 v-if="item.isCustom || !dataSelection.length"
                 v-model="item.data"
                 size="small"
-                :placeholder="$tc('moorl-foundation.field.data')"
+                :placeholder="$t('moorl-foundation.field.data')"
                 @update:model-value="onChangeItem(item, itemIndex)"
             />
         </template>
@@ -67,8 +67,8 @@
                 @click="toggleCustomValue(item, itemIndex)"
             >
                 {{ item.isCustom
-                ? $tc('moorl-parameter-grid.placeholderValue')
-                : $tc('moorl-parameter-grid.customValue') }}
+                ? $t('moorl-parameter-grid.placeholderValue')
+                : $t('moorl-parameter-grid.customValue') }}
             </sw-context-menu-item>
 
             <sw-context-menu-item
@@ -76,7 +76,7 @@
                 :disabled="fixed || item.fixed"
                 @click="deleteItem(itemIndex)"
             >
-                {{ $tc('moorl-parameter-grid.removeItem') }}
+                {{ $t('moorl-parameter-grid.removeItem') }}
             </sw-context-menu-item>
         </template>
     </sw-data-grid>
@@ -91,7 +91,7 @@
                 name="regular-plus-s"
                 :small="true"
             />
-            {{ $tc('moorl-parameter-grid.addItem') }}
+            {{ $t('moorl-parameter-grid.addItem') }}
         </span>
     </mt-button>
 </div>

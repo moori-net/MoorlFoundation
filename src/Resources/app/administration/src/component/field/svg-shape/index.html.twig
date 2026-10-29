@@ -20,52 +20,52 @@
             <mt-number-field
                 v-if="['rect'].includes(value.shape)"
                 v-model="value.width"
-                :label="$tc('moorl-svg-shape.label.width')"
+                :label="$t('moorl-svg-shape.label.width')"
             />
             <mt-number-field
                 v-if="['rect'].includes(value.shape)"
                 v-model="value.height"
-                :label="$tc('moorl-svg-shape.label.height')"
+                :label="$t('moorl-svg-shape.label.height')"
             />
             <mt-number-field
                 v-if="['rect'].includes(value.shape)"
                 v-model="value.x"
-                :label="$tc('moorl-svg-shape.label.x')"
+                :label="$t('moorl-svg-shape.label.x')"
             />
             <mt-number-field
                 v-if="['rect'].includes(value.shape)"
                 v-model="value.y"
-                :label="$tc('moorl-svg-shape.label.y')"
+                :label="$t('moorl-svg-shape.label.y')"
             />
             <mt-number-field
                 v-if="['rect','ellipse'].includes(value.shape)"
                 v-model="value.rx"
-                :label="$tc('moorl-svg-shape.label.rx')"
+                :label="$t('moorl-svg-shape.label.rx')"
             />
             <mt-number-field
                 v-if="['rect','ellipse'].includes(value.shape)"
                 v-model="value.ry"
-                :label="$tc('moorl-svg-shape.label.ry')"
+                :label="$t('moorl-svg-shape.label.ry')"
             />
             <mt-number-field
                 v-if="['circle'].includes(value.shape)"
                 v-model="value.r"
-                :label="$tc('moorl-svg-shape.label.r')"
+                :label="$t('moorl-svg-shape.label.r')"
             />
             <mt-number-field
                 v-if="['circle','ellipse'].includes(value.shape)"
                 v-model="value.cx"
-                :label="$tc('moorl-svg-shape.label.cx')"
+                :label="$t('moorl-svg-shape.label.cx')"
             />
             <mt-number-field
                 v-if="['circle','ellipse'].includes(value.shape)"
                 v-model="value.cy"
-                :label="$tc('moorl-svg-shape.label.cy')"
+                :label="$t('moorl-svg-shape.label.cy')"
             />
         </sw-container>
         <mt-textarea
             v-model="value.style"
-            :label="$tc('moorl-svg-shape.label.style')"
+            :label="$t('moorl-svg-shape.label.style')"
         />
     </template>
 </div>

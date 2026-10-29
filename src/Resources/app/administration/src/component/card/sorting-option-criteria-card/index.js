@@ -54,17 +54,17 @@ Shopware.Component.register('moorl-sorting-option-criteria-card', {
             return [
                 {
                     property: 'field',
-                    label: this.$tc('moorl-foundation.field.name'),
+                    label: this.$t('moorl-foundation.field.name'),
                     inlineEdit: 'string',
                 },
                 {
                     property: 'order',
-                    label: this.$tc('moorl-foundation.field.order'),
+                    label: this.$t('moorl-foundation.field.order'),
                     inlineEdit: 'string',
                 },
                 {
                     property: 'priority',
-                    label: this.$tc('moorl-foundation.field.priority'),
+                    label: this.$t('moorl-foundation.field.priority'),
                     inlineEdit: 'number',
                 },
             ];
@@ -122,11 +122,11 @@ Shopware.Component.register('moorl-sorting-option-criteria-card', {
         orderOptions() {
             return [
                 {
-                    label: this.$tc('global.default.ascending'),
+                    label: this.$t('global.default.ascending'),
                     value: 'asc',
                 },
                 {
-                    label: this.$tc('global.default.descending'),
+                    label: this.$t('global.default.descending'),
                     value: 'desc',
                 },
             ];
@@ -146,7 +146,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-card', {
             this.item.fields = [];
 
             this.createNotificationInfo({
-                message: this.$tc('moorl-sorting-option-criteria-card.entityChangedFieldsReset'),
+                message: this.$t('moorl-sorting-option-criteria-card.entityChangedFieldsReset'),
             });
 
             this.customFieldSets = [];
@@ -229,10 +229,10 @@ Shopware.Component.register('moorl-sorting-option-criteria-card', {
 
         getOrderSnippet(order) {
             if (order === 'asc') {
-                return this.$tc('global.default.ascending');
+                return this.$t('global.default.ascending');
             }
 
-            return this.$tc('global.default.descending');
+            return this.$t('global.default.descending');
         },
 
         onRemoveCriteria(item) {
@@ -253,7 +253,7 @@ Shopware.Component.register('moorl-sorting-option-criteria-card', {
         onSaveInlineEdit(item) {
             if (item.field === null) {
                 this.createNotificationError({
-                    message: this.$tc('sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull'),
+                    message: this.$t('sorting.general.productSortingCriteriaGrid.options.customFieldCriteriaNotNull'),
                 });
             }
         },

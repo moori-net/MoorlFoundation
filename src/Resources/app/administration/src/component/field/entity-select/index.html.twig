@@ -21,7 +21,7 @@
                             @click="showEditModal = true"
                             :disabled="disabled"
                     >
-                        {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
+                        {{ currentValue ? $t('global.default.edit') : $t('global.default.add') }}
                     </mt-button>
 
                     <sw-context-button v-if="currentValue && routerLink">
@@ -40,7 +40,7 @@
                         </template>
 
                         <sw-context-menu-item @click="openNewTab">
-                            {{ $tc('sw-category.base.link.linkNewTabLabel') }}
+                            {{ $t('sw-category.base.link.linkNewTabLabel') }}
                         </sw-context-menu-item>
                     </sw-context-button>
                 </sw-button-group>
@@ -52,7 +52,7 @@
                         @click="openNewTab"
                         :disabled="disabled"
                 >
-                    {{ currentValue ? $tc('global.default.edit') : $tc('global.default.add') }}
+                    {{ currentValue ? $t('global.default.edit') : $t('global.default.add') }}
                 </mt-button>
             </div>
         </div>

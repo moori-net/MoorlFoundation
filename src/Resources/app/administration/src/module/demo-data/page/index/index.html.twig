@@ -3,24 +3,24 @@
         <sw-card-view>
             <mt-card
                 :isLoading="isLoading"
-                :title="$tc('moorl-demo-data.name')"
+                :title="$t('moorl-demo-data.name')"
             >
                 <template v-if="options.length">
                     <sw-single-select
-                        :label="$tc('moorl-foundation.field.type')"
+                        :label="$t('moorl-foundation.field.type')"
                         v-model:value="optionIndex"
                         :options="options"
                     />
                     <sw-entity-single-select
-                        :label="$tc('moorl-foundation.field.salesChannel')"
+                        :label="$t('moorl-foundation.field.salesChannel')"
                         v-model:value="salesChannelId"
                         entity="sales_channel"
                     />
                     <mt-banner variant="attention">
-                        {{ $tc('moorl-demo-data.notification') }}
+                        {{ $t('moorl-demo-data.notification') }}
                     </mt-banner>
                     <mt-switch
-                        :label="$tc('moorl-demo-data.confirm')"
+                        :label="$t('moorl-demo-data.confirm')"
                         v-model="confirmed"
                     />
                     <mt-button
@@ -28,20 +28,20 @@
                         :disabled="!acl.can('system.system_config') || !confirmed"
                         @click="install()"
                     >
-                        {{ $tc('global.default.apply') }}
+                        {{ $t('global.default.apply') }}
                     </mt-button>
                     <mt-button
                         variant="primary"
                         :disabled="!acl.can('system.system_config')"
                         @click="remove()"
                     >
-                        {{ $tc('global.default.delete') }}
+                        {{ $t('global.default.delete') }}
                     </mt-button>
                 </template>
 
                 <template v-else>
                     <mt-banner variant="attention">
-                        {{ $tc('moorl-foundation.notification.demoDataNotFound') }}
+                        {{ $t('moorl-foundation.notification.demoDataNotFound') }}
                     </mt-banner>
                 </template>
             </mt-card>

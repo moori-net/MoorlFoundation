@@ -15,7 +15,7 @@
             size="default"
             @click="onCreateItem"
         >
-            {{ $tc('global.default.add') }}
+            {{ $t('global.default.add') }}
         </mt-button>
 
         <moorl-demo-button
@@ -36,18 +36,18 @@
         <sw-sidebar v-if="items">
             <sw-sidebar-item
                     icon="regular-redo"
-                    :title="$tc('moorl-foundation.button.refresh')"
+                    :title="$t('moorl-foundation.button.refresh')"
                     @click="getList"
             />
             <sw-sidebar-item
                     v-if="allowCreate"
                     icon="regular-cloud-upload"
-                    :title="$tc('moorl-foundation.button.import')"
+                    :title="$t('moorl-foundation.button.import')"
                     @click="onImportModal"
             />
             <sw-sidebar-item
                     icon="regular-cloud-download"
-                    :title="$tc('moorl-foundation.button.export')"
+                    :title="$t('moorl-foundation.button.export')"
                     @click="onExportModal"
             />
         </sw-sidebar>
@@ -91,7 +91,7 @@
                         class="sw-data-grid__cell-value"
                         :to="{ name: column.routerLink, params: { id: item.id } }"
                 >
-                    {{ $tc(`${snippetProperty.snippetPath}.${item[snippetProperty.name]}`) }}
+                    {{ $t(`${snippetProperty.snippetPath}.${item[snippetProperty.name]}`) }}
                 </router-link>
             </template>
 
@@ -116,7 +116,7 @@
                         v-if="allowCreate"
                         @click="onDuplicate(item)"
                 >
-                    {{ $tc('sw-product.list.buttonDuplicate') }}
+                    {{ $t('global.default.duplicate') }}
                 </sw-context-menu-item>
             </template>
         </sw-entity-listing>

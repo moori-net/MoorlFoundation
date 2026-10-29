@@ -1,6 +1,6 @@
 <sw-modal
     v-if="showExportModal"
-    :title="$tc('moorl-csv-export.title')"
+    :title="$t('moorl-csv-export.title')"
     @modal-close="onCancel"
     variant="default"
     class="moorl-csv-export"
@@ -14,7 +14,7 @@
         <template v-if="step == 1">
             <mt-switch
                 bordered
-                :label="$tc('moorl-csv-export.localTable')"
+                :label="$t('moorl-csv-export.localTable')"
                 v-model="options.localTable"
             />
             <p class="info">
@@ -28,13 +28,13 @@
                 :maxValue="total"
             />
             <p class="info">
-                {{ $tc('moorl-csv-export.process') }}
+                {{ $t('moorl-csv-export.process') }}
             </p>
         </template>
 
         <template v-if="step == 3">
             <p class="info">
-                {{ $tc('moorl-csv-export.completedMessage') }}
+                {{ $t('moorl-csv-export.completedMessage') }}
             </p>
         </template>
     </sw-container>
@@ -44,7 +44,7 @@
             size="small"
             variant="secondary"
         >
-            {{ $tc('global.default.cancel') }}
+            {{ $t('global.default.cancel') }}
         </mt-button>
         <mt-button
             v-if="step == 1"
@@ -52,7 +52,7 @@
             variant="primary"
             size="small"
         >
-            {{ $tc('global.default.apply') }}
+            {{ $t('global.default.apply') }}
         </mt-button>
     </template>
 </sw-modal>

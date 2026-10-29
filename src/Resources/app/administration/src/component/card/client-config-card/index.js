@@ -61,7 +61,7 @@ Shopware.Component.register('moorl-client-config-card', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                 });
@@ -88,13 +88,13 @@ Shopware.Component.register('moorl-client-config-card', {
                 .then((response) => {
                     if (response?.errors) {
                         this.createNotificationError({
-                            title: this.$tc('global.default.error'),
+                            title: this.$t('global.default.error'),
                             message: response.errors[0].message,
                         });
                     } else {
                         this.createNotificationSuccess({
-                            title: this.$tc('global.default.success'),
-                            message: this.$tc('global.default.success'),
+                            title: this.$t('global.default.success'),
+                            message: this.$t('global.default.success'),
                         });
 
                         if (response.url) {
@@ -108,7 +108,7 @@ Shopware.Component.register('moorl-client-config-card', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
                 });

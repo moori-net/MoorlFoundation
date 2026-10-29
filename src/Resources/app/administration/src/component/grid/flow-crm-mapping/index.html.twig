@@ -14,7 +14,7 @@
             rel="noopener"
             :to="{ name: 'moorl.client.detail', params: { id: config.clientId } }"
         >
-            {{ $tc('global.default.edit') }}
+            {{ $t('global.default.edit') }}
         </router-link>
         <router-link
             v-else
@@ -22,7 +22,7 @@
             rel="noopener"
             :to="{ name: 'moorl.client.create' }"
         >
-            {{ $tc('global.default.add') }}
+            {{ $t('global.default.add') }}
         </router-link>
     </div>
     <sw-single-select

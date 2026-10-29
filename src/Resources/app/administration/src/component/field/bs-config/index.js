@@ -52,7 +52,7 @@ Shopware.Component.register('moorl-bs-config', {
             if (this.name) {
                 return this.name;
             }
-            return this.$tc('moorl-bs-config.label.elementName');
+            return this.$t('moorl-bs-config.label.elementName');
         },
     },
 
@@ -79,7 +79,7 @@ Shopware.Component.register('moorl-bs-config', {
                 position: 'top',
                 showDelay: 1000,
                 hideDelay: 0,
-                message: this.$tc(`moorl-bs-config.helpText.${property}`, 0, {
+                message: this.$t(`moorl-bs-config.helpText.${property}`, 0, {
                     breakpoint,
                     elementName: this.elementName,
                 }),

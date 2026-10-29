@@ -88,7 +88,7 @@ Shopware.Component.register('moorl-abstract-page-list', {
             const behavior = {
                 cloneChildren: true,
                 overwrites: {
-                    name: `${reference.name} [${this.$tc('global.default.duplicate')}]`,
+                    name: `${reference.name} [${this.$t('global.default.duplicate')}]`,
                     locked: false
                 }
             };

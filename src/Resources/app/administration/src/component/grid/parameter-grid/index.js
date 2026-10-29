@@ -52,7 +52,7 @@ Shopware.Component.register('moorl-parameter-grid', {
         gridColumns() {
             const columns = [
                 {
-                    label: this.$tc('moorl-parameter-grid.properties.name'),
+                    label: this.$t('moorl-parameter-grid.properties.name'),
                     property: 'name',
                     dataIndex: 'name',
                     primary: true,
@@ -61,7 +61,7 @@ Shopware.Component.register('moorl-parameter-grid', {
 
             if (this.fixed) {
                 columns.push({
-                    label: this.$tc('moorl-parameter-grid.properties.label'),
+                    label: this.$t('moorl-parameter-grid.properties.label'),
                     property: 'label',
                     dataIndex: 'label',
                     primary: true,
@@ -69,7 +69,7 @@ Shopware.Component.register('moorl-parameter-grid', {
             }
 
             columns.push({
-                label: this.$tc('moorl-parameter-grid.properties.data'),
+                label: this.$t('moorl-parameter-grid.properties.data'),
                 property: 'data',
                 dataIndex: 'data',
                 primary: true,
@@ -78,7 +78,7 @@ Shopware.Component.register('moorl-parameter-grid', {
 
             if (this.override) {
                 columns.push({
-                    label: this.$tc('moorl-parameter-grid.properties.override'),
+                    label: this.$t('moorl-parameter-grid.properties.override'),
                     property: 'override',
                     dataIndex: 'override',
                     primary: true,

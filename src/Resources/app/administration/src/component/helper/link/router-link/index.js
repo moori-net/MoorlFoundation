@@ -36,10 +36,10 @@ Shopware.Component.register('moorl-router-link', {
 
         label() {
             if (this.plugin) {
-                return this.$tc('moorl-router-link.configLabel');
+                return this.$t('moorl-router-link.configLabel');
             }
 
-            return this.$tc('global.default.add');
+            return this.$t('global.default.add');
         },
     },
 });

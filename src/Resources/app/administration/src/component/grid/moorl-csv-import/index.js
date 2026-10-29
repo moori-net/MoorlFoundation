@@ -247,7 +247,7 @@ Shopware.Component.register('moorl-csv-import', {
                     }
                 }
                 column.property = property;
-                column.label = this.$tc(
+                column.label = this.$t(
                     `moorl-foundation.field.${references[property]?.property ?? property}`
                 );
                 if (references[property]) {

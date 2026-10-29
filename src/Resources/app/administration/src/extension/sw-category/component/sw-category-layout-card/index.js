@@ -23,13 +23,13 @@ Shopware.Component.override('sw-category-layout-card', {
                 .then((response) => {
                     if (response?.errors) {
                         this.createNotificationError({
-                            title: this.$tc('global.default.error'),
+                            title: this.$t('global.default.error'),
                             message: response.errors[0].message,
                         });
                     } else {
                         this.createNotificationSuccess({
-                            title: this.$tc('global.default.success'),
-                            message: this.$tc(
+                            title: this.$t('global.default.success'),
+                            message: this.$t(
                                 'sw-category.component.sw-category-layout-card.success',
                                 0,
                                 response
@@ -45,7 +45,7 @@ Shopware.Component.override('sw-category-layout-card', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
 
@@ -61,13 +61,13 @@ Shopware.Component.override('sw-category-layout-card', {
                 .then((response) => {
                     if (response?.errors) {
                         this.createNotificationError({
-                            title: this.$tc('global.default.error'),
+                            title: this.$t('global.default.error'),
                             message: response.errors[0].message,
                         });
                     } else {
                         this.createNotificationSuccess({
-                            title: this.$tc('global.default.success'),
-                            message: this.$tc(
+                            title: this.$t('global.default.success'),
+                            message: this.$t(
                                 'sw-category.component.sw-category-layout-card.success',
                                 0,
                                 response
@@ -83,7 +83,7 @@ Shopware.Component.override('sw-category-layout-card', {
                         'response.data.errors[0].detail'
                     );
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: errorDetail,
                     });
 

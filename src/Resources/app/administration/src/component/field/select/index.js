@@ -311,7 +311,7 @@ Shopware.Component.register('moorl-select-field', {
                 return undefined;
             }
 
-            return this.$tc(`moorl-select.field.${this.set}`);
+            return this.$t(`moorl-select.field.${this.set}`);
         },
 
         currentPlaceholder() {
@@ -320,10 +320,10 @@ Shopware.Component.register('moorl-select-field', {
             }
 
             if (this.currentVariant === 'small') {
-                return this.$tc(`moorl-select.field.${this.set}`);
+                return this.$t(`moorl-select.field.${this.set}`);
             }
 
-            return this.$tc('moorl-select.field.none');
+            return this.$t('moorl-select.field.none');
         },
 
         options() {
@@ -349,7 +349,7 @@ Shopware.Component.register('moorl-select-field', {
                 ) {
                     value = option[this.valueProperty];
                     label = this.translated
-                        ? this.$tc(option[this.labelProperty])
+                        ? this.$t(option[this.labelProperty])
                         : this.getLabel(option[this.labelProperty]);
                 }
 
@@ -390,7 +390,7 @@ Shopware.Component.register('moorl-select-field', {
 
         getLabel(value) {
             if (this.snippetPath) {
-                return this.$tc(`${this.snippetPath}.${value}`);
+                return this.$t(`${this.snippetPath}.${value}`);
             }
 
             return value;

@@ -1,6 +1,6 @@
 <sw-modal
     v-if="showImportModal"
-    :title="$tc('moorl-csv-import.title')"
+    :title="$t('moorl-csv-import.title')"
     @modal-close="onCancel"
     variant="large"
     class="moorl-csv-import"
@@ -18,7 +18,7 @@
                 @update:value="onFileInputChange"
             >
                 <template #caption-label>
-                    {{ $tc('sw-import-export.importer.labelUploadCaption') }}
+                    {{ $t('sw-import-export.importer.labelUploadCaption') }}
                 </template>
             </sw-file-input>
         </template>
@@ -31,16 +31,16 @@
             />
             <mt-switch
                 bordered
-                :label="$tc('moorl-csv-import.pauseLabel')"
+                :label="$t('moorl-csv-import.pauseLabel')"
                 v-model="options.pause"
             />
             <mt-switch
                 bordered
-                :label="$tc('moorl-csv-import.validateIdsLabel')"
+                :label="$t('moorl-csv-import.validateIdsLabel')"
                 v-model="options.validateIds"
             />
             <sw-entity-single-select
-                :placeholder="$tc('moorl-csv-import.mediaFolder')"
+                :placeholder="$t('moorl-csv-import.mediaFolder')"
                 v-model:value="options.mediaFolderId"
                 entity="media_folder"
             />
@@ -78,7 +78,7 @@
                             >
                                 <div class="sw-data-grid__cell-content">
                                     <span class="sw-data-grid__cell-value">
-                                        {{ $tc('moorl-csv-import.property') }}
+                                        {{ $t('moorl-csv-import.property') }}
                                     </span>
                                 </div>
                             </th>
@@ -159,7 +159,7 @@
             size="small"
             variant="secondary"
         >
-            {{ $tc('global.default.cancel') }}
+            {{ $t('global.default.cancel') }}
         </mt-button>
         <mt-button
             v-if="step > 1"
@@ -167,7 +167,7 @@
             variant="secondary"
             size="small"
         >
-            {{ $tc('moorl-foundation.button.back') }}
+            {{ $t('moorl-foundation.button.back') }}
         </mt-button>
         <mt-button
             v-if="step == 2"
@@ -175,7 +175,7 @@
             variant="primary"
             size="small"
         >
-            {{ $tc('global.default.apply') }}
+            {{ $t('global.default.apply') }}
         </mt-button>
         <mt-button
             v-if="step == 3 && options.pause"
@@ -183,7 +183,7 @@
             size="small"
             variant="secondary"
         >
-            {{ pause ? $tc('moorl-foundation.button.resume') : $tc('moorl-foundation.button.pause') }}
+            {{ pause ? $t('moorl-foundation.button.resume') : $t('moorl-foundation.button.pause') }}
         </mt-button>
     </template>
 </sw-modal>

@@ -90,7 +90,7 @@ Shopware.Mixin.register('moorl-form', {
 
         translationHelper() {
             return new MoorlFoundation.TranslationHelper({
-                $tc: this.$tc,
+                $t: this.$t,
                 componentName: this.componentName,
             });
         },

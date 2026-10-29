@@ -6,11 +6,11 @@
     >
         <template #header="{ expanded }">
             <h4>
-                {{ $tc('moorl-animation.label.cssSelector') }}
+                {{ $t('moorl-animation.label.cssSelector') }}
             </h4>
             <mt-text-field
                 v-model="currentConfig.cssSelector"
-                :placeholder="$tc('moorl-animation.placeholder.cssSelector')"
+                :placeholder="$t('moorl-animation.placeholder.cssSelector')"
             />
             <div>
                 <mt-icon
@@ -47,7 +47,7 @@
                 name="regular-plus-s"
                 :small="true"
             />
-            {{ $tc('moorl-animation.label.add') }}
+            {{ $t('moorl-animation.label.add') }}
         </span>
     </mt-button>
 </div>

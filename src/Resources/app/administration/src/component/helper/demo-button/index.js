@@ -54,7 +54,7 @@ Shopware.Component.register('moorl-demo-button', {
                 })
                 .then(() => {
                     this.createNotificationSuccess({
-                        message: this.$tc(
+                        message: this.$t(
                             'moorl-demo-data.installed'
                         ),
                     });
@@ -67,7 +67,7 @@ Shopware.Component.register('moorl-demo-button', {
                 })
                 .catch((exception) => {
                     this.createNotificationError({
-                        title: this.$tc('global.default.error'),
+                        title: this.$t('global.default.error'),
                         message: exception,
                     });
 

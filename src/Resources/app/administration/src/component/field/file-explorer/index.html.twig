@@ -15,7 +15,7 @@
                 name="regular-save"
                 small
             />
-            {{ $tc('moorl-file-explorer.actions.createDir') }}
+            {{ $t('moorl-file-explorer.actions.createDir') }}
         </mt-button>
     </div>
     <ul class="moorl-file-explorer-items">
@@ -28,7 +28,7 @@
                 class="link"
                 @click="changeDirectory('..')"
             >
-                {{ $tc('moorl-file-explorer.label.parentDirectory') }}
+                {{ $t('moorl-file-explorer.label.parentDirectory') }}
             </div>
             <div></div>
         </li>
@@ -87,7 +87,7 @@
     </ul>
     <sw-modal
         v-if="showCreateDirModal"
-        :title="$tc('moorl-file-explorer.actions.createDir')"
+        :title="$t('moorl-file-explorer.actions.createDir')"
         :closable="false"
     >
         <mt-text-field v-model="dirname"/>
@@ -96,14 +96,14 @@
                 @click="showCreateDirModal = false"
                 size="small"
             >
-                {{ $tc('global.default.cancel') }}
+                {{ $t('global.default.cancel') }}
             </mt-button>
             <mt-button
                 variant="primary"
                 @click="createDir"
                 size="small"
             >
-                {{ $tc('global.default.save') }}
+                {{ $t('global.default.save') }}
             </mt-button>
         </template>
     </sw-modal>

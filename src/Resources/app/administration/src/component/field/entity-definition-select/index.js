@@ -28,7 +28,7 @@ Shopware.Component.register('moorl-entity-definition-select', {
                     return;
                 }
 
-                let label = this.showTranslated ? this.$tc(`global.entities.${key}`) : key;
+                let label = this.showTranslated ? this.$t(`global.entities.${key}`) : key;
 
                 if (label === `global.entities.${key}`) {
                     label = key;

@@ -5,21 +5,21 @@
             size="default"
             @click="showConfigurationModal = true"
         >
-            {{ $tc('global.default.edit') }}
+            {{ $t('global.default.edit') }}
         </mt-button>
         <mt-button
             variant="secondary"
             size="default"
             @click="addSlot()"
         >
-            {{ $tc('global.default.add') }}
+            {{ $t('global.default.add') }}
         </mt-button>
         <mt-button
             variant="secondary"
             size="default"
             @click="removeSlot()"
         >
-            {{ $tc('global.default.delete') }}
+            {{ $t('global.default.delete') }}
         </mt-button>
         <moorl-select-field
             v-model:value="activeSlot"
@@ -45,7 +45,7 @@
     </div>
     <sw-modal
         v-if="showConfigurationModal"
-        :title="$tc('sw-cms.blocks.moorl-slider.interactive')"
+        :title="$t('sw-cms.blocks.moorl-slider.interactive')"
         @modal-close="showConfigurationModal = false"
     >
         <sw-container
@@ -54,38 +54,38 @@
         >
             <mt-text-field
                 v-model="block.customFields.moorl_interactive_slider.itemWidth"
-                :label="$tc('moorl-foundation.field.itemWidth')"
+                :label="$t('moorl-foundation.field.itemWidth')"
             />
             <mt-text-field
                 v-model="block.customFields.moorl_interactive_slider.itemHeight"
-                :label="$tc('moorl-foundation.field.itemHeight')"
+                :label="$t('moorl-foundation.field.itemHeight')"
             />
             <mt-text-field
                 v-model="block.customFields.moorl_interactive_slider.gapSize"
-                :label="$tc('moorl-foundation.field.gapSize')"
+                :label="$t('moorl-foundation.field.gapSize')"
             />
             <mt-number-field
                 v-model="block.customFields.moorl_interactive_slider.speed"
-                :label="$tc('moorl-foundation.field.speed')"
+                :label="$t('moorl-foundation.field.speed')"
             />
             <mt-number-field
                 v-model="block.customFields.moorl_interactive_slider.autoplayTimeout"
-                :label="$tc('moorl-foundation.field.autoplayTimeout')"
+                :label="$t('moorl-foundation.field.autoplayTimeout')"
             />
             <mt-switch
                 v-model="block.customFields.moorl_interactive_slider.autoplay"
                 bordered
-                :label="$tc('moorl-foundation.field.autoplay')"
+                :label="$t('moorl-foundation.field.autoplay')"
             />
             <mt-switch
                 v-model="block.customFields.moorl_interactive_slider.autoplayHoverPause"
                 bordered
-                :label="$tc('moorl-foundation.field.autoplayHoverPause')"
+                :label="$t('moorl-foundation.field.autoplayHoverPause')"
             />
             <mt-switch
                 v-model="block.customFields.moorl_interactive_slider.navigation"
                 bordered
-                :label="$tc('moorl-foundation.field.navigation')"
+                :label="$t('moorl-foundation.field.navigation')"
             />
             <moorl-select-field
                 v-model:value="block.customFields.moorl_interactive_slider.animateIn"

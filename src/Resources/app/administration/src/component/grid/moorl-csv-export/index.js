@@ -235,7 +235,7 @@ Shopware.Component.register('moorl-csv-export', {
                 }
 
                 column.property = property;
-                column.label = this.$tc(
+                column.label = this.$t(
                     `moorl-foundation.field.${property}`
                 );
                 columns.push(column);

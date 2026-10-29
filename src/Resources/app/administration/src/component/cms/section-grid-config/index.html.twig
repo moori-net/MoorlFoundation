@@ -1,13 +1,13 @@
 <div class="moorl-section-grid-config">
     <moorl-select-field
         v-model:value="section.customFields.moorl_section_column_count"
-        :label="$tc('moorl-section-grid-config.label.sectionColumnCount')"
+        :label="$t('moorl-section-grid-config.label.sectionColumnCount')"
         @update:value="initCustomFields"
         set="bsGridColumns"
     />
     <mt-number-field
         v-model="section.customFields.moorl_section_spacing"
-        :label="$tc('moorl-section-grid-config.label.sectionSpacing')"
+        :label="$t('moorl-section-grid-config.label.sectionSpacing')"
         @change="initCustomFields"
     />
     <div
@@ -16,26 +16,26 @@
     >
         <div class="sw-cms-sidebar__navigator-section-spacer"></div>
         <moorl-bs-config
-            :label="$tc('moorl-section-grid-config.label.colNumber') + (configIndex + 1)"
+            :label="$t('moorl-section-grid-config.label.colNumber') + (configIndex + 1)"
             v-model:value="configItem.value"
         />
         <mt-switch
             bordered
-            :label="$tc('moorl-section-grid-config.label.isSidebar')"
+            :label="$t('moorl-section-grid-config.label.isSidebar')"
             v-model="configItem.isSidebar"
         />
         <mt-switch
             bordered
-            :label="$tc('moorl-section-grid-config.label.isSticky')"
+            :label="$t('moorl-section-grid-config.label.isSticky')"
             v-model="configItem.isSticky"
         />
         <moorl-select-field
-            :label="$tc('moorl-section-grid-config.label.justifyContent')"
+            :label="$t('moorl-section-grid-config.label.justifyContent')"
             v-model:value="configItem.justifyContent"
             set="cssJustifyContent"
         />
         <moorl-select-field
-            :label="$tc('moorl-section-grid-config.label.alignItems')"
+            :label="$t('moorl-section-grid-config.label.alignItems')"
             v-model:value="configItem.alignItems"
             set="cssJustifyContent"
         />

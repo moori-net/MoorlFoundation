@@ -14,7 +14,7 @@
             variant="secondary"
             size="default"
         >
-            {{ $tc('global.default.cancel') }}
+            {{ $t('global.default.cancel') }}
         </mt-button>
         <sw-button-process
             v-model:process-success="isSaveSuccessful"
@@ -23,7 +23,7 @@
             :disabled="isLoading"
             @click="onSaveItem"
         >
-            {{ $tc('global.default.save') }}
+            {{ $t('global.default.save') }}
         </sw-button-process>
     </template>
 </sw-modal>
