@@ -207,4 +207,5 @@ build:
           - docs
           - tests
           - TODO.md
+          - CODEX.md
           - phpunit.xml.dist
