@@ -40,6 +40,12 @@ export default class ListHelper {
         return this.columns;
     }
 
+    getDateOptions(item, column) {
+        const timeZone = item.timeZone || item.timezone;
+
+        return timeZone ? { ...column.dateOptions, timeZone } : column.dateOptions;
+    }
+
     getPreviewColumn() {
         const prop = this.properties.find(p => p.mediaProperty !== undefined);
         if (prop) {
@@ -107,7 +113,7 @@ export default class ListHelper {
                 }, null);
 
                 this.sortBy = highest?.name ?? null;
-                this.sortDirection = this.sortBy === 'autoIncrement' || this.sortBy === 'createdAt' ? 'DESC' : 'ASC';
+                this.sortDirection = this.sortBy === 'autoIncrement' || this.sortBy === 'createdAt' || this.sortBy === 'startAt' ? 'DESC' : 'ASC';
 
                 // Override item props by condition? (detail and listing)
                 this.entityOverride = pluginConfig.entityOverride ?? null;
@@ -237,7 +243,7 @@ export default class ListHelper {
                     column.width = '120px';
                     column.align = 'right';
                     column.dateOptions = this.properties.find(p => p.name === property)?.dateOptions
-                        ?? { hour: '2-digit', minute: '2-digit' };
+                        ?? { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' };
                     this.dateProperties.push(property);
                     break;
 
