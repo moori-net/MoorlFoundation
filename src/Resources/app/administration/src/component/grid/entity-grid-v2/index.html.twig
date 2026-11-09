@@ -98,7 +98,7 @@
                 v-for="dateProperty in listHelper.dateProperties"
                 #[`column-${dateProperty}`]="{ column, item }"
         >
-            {{ dateFilter(item[dateProperty], column.dateOptions) }}
+            {{ dateFilter(item[dateProperty], listHelper.getDateOptions(item, column)) }}
         </template>
 
         <template
