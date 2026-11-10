@@ -106,13 +106,17 @@
                             </div>
                         </form>
                     {% else %}
-                        {% if config.categoryId.value %}
+                        {% set useShopwareSearch = config.searchType.value == 'locationSearch' %}
+                        {% if useShopwareSearch or config.categoryId.value %}
                             <form
                                     name="{{ element.type }}-filter-form"
                                     class="{{ element.type }}-filter-form"
                                     method="get"
-                                    action="{{ seoUrl('frontend.navigation.page', { navigationId: config.categoryId.value }) }}"
+                                    action="{{ useShopwareSearch ? path('frontend.search.page') : seoUrl('frontend.navigation.page', { navigationId: config.categoryId.value }) }}"
                             >
+                                {% if useShopwareSearch and config.searchTab.value|default('')|trim %}
+                                    <input type="hidden" name="tab" value="{{ config.searchTab.value|trim }}">
+                                {% endif %}
                                 <div class="row g-2">
                                     <div class="col">
                                         {% sw_include '@MoorlFoundation/plugin/moorl-foundation/component/listing/filter/filter-search-input.html.twig' %}

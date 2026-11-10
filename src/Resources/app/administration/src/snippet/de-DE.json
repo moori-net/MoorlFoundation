@@ -223,6 +223,8 @@
       "overrideOsmOptions": "\"Mehr Optionen\" überschreiben (Plugin Einstellungen von Foundation)",
       "tag": "Tag",
       "searchType": "Suchtyp",
+      "locationSearch": "Umkreissuche (Shopware-Suche)",
+      "searchTab": "Such-Tab (optional, technischer Name)",
       "categoryId": "Kategorie",
       "default": "Standard",
       "minimal": "Minimal",
