@@ -2,14 +2,17 @@
 
 namespace MoorlFoundation\Core\Service;
 
+use Shopware\Core\PlatformRequest;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Framework\Cookie\CookieProviderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class LocationCookieProvider implements CookieProviderInterface
 {
     public function __construct(
         private readonly CookieProviderInterface $originalService,
-        private readonly SystemConfigService $systemConfigService
+        private readonly SystemConfigService $systemConfigService,
+        private readonly RequestStack $requestStack
     )
     {
     }
@@ -18,7 +21,8 @@ class LocationCookieProvider implements CookieProviderInterface
     {
         $cookieGroups = $this->originalService->getCookieGroups();
 
-        $osmCookieConsent = $this->systemConfigService->get('MoorlFoundation.config.osmCookieConsent');
+        $salesChannelId = $this->requestStack->getCurrentRequest()?->attributes->get(PlatformRequest::ATTRIBUTE_SALES_CHANNEL_ID);
+        $osmCookieConsent = $this->systemConfigService->get('MoorlFoundation.config.osmCookieConsent', $salesChannelId);
         if (!$osmCookieConsent) {
             return $cookieGroups;
         }
