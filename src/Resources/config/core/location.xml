@@ -41,6 +41,7 @@
                  decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
             <argument type="service" id="MoorlFoundation\Core\Service\LocationCookieProvider.inner"/>
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="request_stack"/>
         </service>
 
         <service id="MoorlFoundation\Core\Content\Cms\DataResolver\Element\LocationCmsElementResolver">
