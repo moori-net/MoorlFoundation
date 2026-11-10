@@ -7,7 +7,7 @@ const heroBanner = {
         cols: 12,
         componentName: 'moorl-select-field',
         attributes: {
-            customSet: ['search', 'location'],
+            customSet: ['search', 'location', 'locationSearch'],
             snippetPath: 'moorl-foundation.field',
         },
     },
@@ -18,6 +18,13 @@ const heroBanner = {
         cols: 12,
         entity: 'category',
         conditions: [{ property: 'searchType', value: 'location' }],
+    },
+    searchTab: {
+        value: '',
+        tab: 'general',
+        card: 'general',
+        cols: 12,
+        conditions: [{ property: 'searchType', value: 'locationSearch' }],
     },
     height: {
         value: '',
