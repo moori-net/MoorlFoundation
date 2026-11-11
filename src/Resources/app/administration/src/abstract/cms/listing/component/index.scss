@@ -1,8 +1,4 @@
-$light: #f9f9f9 !default;
-$sw-border-color: #bcc1c7 !default;
 $border-radius: 10px;
-$sw-background-color: #ffffff;
-$sw-headline-color: #4a545b !default;
 
 .moorl-abstract-cms-listing {
     width: 100%;
@@ -94,7 +90,7 @@ $sw-headline-color: #4a545b !default;
     /* itemLayout */
     .moorl-listing-item-wrapper {
         &.has-border {
-            border: 1px solid $sw-border-color;
+            border: 1px solid var(--color-border-primary-default);
             border-radius: $border-radius;
         }
 
@@ -115,7 +111,7 @@ $sw-headline-color: #4a545b !default;
         .moorl-listing-item-content {
             position: absolute;
             bottom: 0;
-            background-color: rgba($sw-background-color, 0.7);
+            background-color: color-mix(in srgb, var(--color-background-primary-default) 70%, transparent);
         }
     }
 

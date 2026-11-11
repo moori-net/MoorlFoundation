@@ -8,7 +8,7 @@
 
     .leaflet-marker-icon {
         .marker-pin {
-            background: $color-gray-100;
+            background: var(--color-background-tertiary-default);
             width: 40px;
             height: 40px;
             border-radius: 50% 50% 50% 0;
@@ -23,7 +23,7 @@
                 width: 34px;
                 height: 34px;
                 margin: 3px 0 0 3px;
-                background: #fff;
+                background: var(--color-background-primary-default);
                 position: absolute;
                 border-radius: 50%;
             }
@@ -37,7 +37,7 @@
             margin: 12px auto;
 
             path {
-                fill: #222222;
+                fill: var(--color-icon-primary-default);
             }
         }
     }
@@ -45,23 +45,23 @@
     .delivery-open,
     .collect-open {
         .marker-pin {
-            background: $color-emerald-800;
+            background: var(--color-icon-positive-default);
         }
     }
     .delivery-in_progress,
     .collect-in_progress {
         .marker-pin {
-            background: $color-pumpkin-spice-800;
+            background: var(--color-icon-attention-default);
         }
     }
     .delivery-shipped {
         .marker-pin {
-            background: $color-module-blue-800;
+            background: var(--color-icon-brand-default);
         }
     }
     .collect-shipped {
         .marker-pin {
-            background: $color-module-purple-800;
+            background: var(--color-icon-accent-default);
         }
     }
 

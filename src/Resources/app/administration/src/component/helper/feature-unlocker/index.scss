@@ -8,12 +8,12 @@
     table {
         tr {
             &:nth-child(odd) {
-                background-color: $color-gray-200;
+                background-color: var(--color-background-secondary-default);
             }
         }
 
         th {
-            background-color: $color-gray-400;
+            background-color: var(--color-background-tertiary-default);
             padding: 5px;
         }
 
@@ -26,10 +26,10 @@
         }
 
         .sw-icon {
-            color: #37d046;
+            color: var(--color-icon-positive-default);
 
             &.icon--default-basic-x-block {
-                color: #94a6b8;
+                color: var(--color-icon-secondary-disabled);
             }
         }
     }

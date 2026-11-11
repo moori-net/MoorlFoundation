@@ -15,8 +15,7 @@
             right: 0;
             bottom: 0;
             left: 0;
-            background: $color-module-purple-50;
-            mix-blend-mode: multiply;
+            background: color-mix(in srgb, var(--color-background-accent-default) 20%, transparent);
         }
 
         .sw-data-grid {
@@ -30,7 +29,7 @@
     }
 
     .sw-card__title.is--inherited {
-        color: $color-module-purple-900;
+        color: var(--color-text-accent-default);
     }
 
     .sw-empty-state {

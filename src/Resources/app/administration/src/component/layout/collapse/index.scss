@@ -1,7 +1,7 @@
 @import '~scss/variables';
 
 .moorl-collapse {
-    border-bottom: 1px solid $color-gray-400;
+    border-bottom: 1px solid var(--color-border-primary-default);
 
     .sw-field,
     .mt-field {
@@ -32,7 +32,7 @@
         }
 
         .sw-icon:hover {
-            color: $color-shopware-brand-900;
+            color: var(--color-icon-brand-hover);
         }
     }
 
@@ -59,8 +59,8 @@
 
     &.expanded {
         .moorl-collapse__header {
-            background: $color-gray-100;
-            border-bottom: 1px dotted $color-gray-400;
+            background: var(--color-elevation-surface-sunken);
+            border-bottom: 1px dotted var(--color-border-primary-default);
         }
     }
 }

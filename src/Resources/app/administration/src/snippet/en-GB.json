@@ -98,6 +98,7 @@
       "export": "Export",
       "import": "Import",
       "pause": "Pause",
+      "resume": "Resume",
       "refresh": "Refresh",
       "test": "Test",
       "testConnection": "Test connection",

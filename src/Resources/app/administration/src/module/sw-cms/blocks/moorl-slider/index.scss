@@ -10,21 +10,21 @@
 
     > div {
         box-sizing: border-box;
-        background-color: rgba(78, 133, 222, 0.05);
-        border: 2px dashed rgba(78, 133, 222, 0.4);
+        background-color: var(--color-background-brand-default);
+        border: 2px dashed color-mix(in srgb, var(--color-border-brand-default) 40%, transparent);
         width: 100%;
         height: 100%;
         text-align: center;
-        color: rgba(78, 133, 222, 0.4);
+        color: color-mix(in srgb, var(--color-text-brand-default) 40%, transparent);
         font-size: 1.8em;
     }
 }
 
 .sw-cms-preview-block-moorl-interactive-slider {
     > div {
-        background-color: rgba(222, 78, 78, 0.05);
-        border: 2px dashed rgb(222, 78, 78, 0.4);
-        color: rgb(222, 78, 78, 0.4);
+        background-color: var(--color-background-accent-default);
+        border: 2px dashed color-mix(in srgb, var(--color-border-accent-default) 40%, transparent);
+        color: color-mix(in srgb, var(--color-text-accent-default) 40%, transparent);
     }
 }
 
@@ -42,7 +42,7 @@
 
 .sw-cms-block-moorl-interactive-slider {
     .sw-cms-block-moorl-interactive-slider-config {
-        background-color: rgba(222, 78, 78, 0.05);
+        background-color: var(--color-background-accent-default);
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 3fr;
         grid-gap: 15px;

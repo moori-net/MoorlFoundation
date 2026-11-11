@@ -2,29 +2,22 @@
 
 .moorl-csv-export {
     .moorl-csv-export__top-bar {
-        background-color: $color-gray-100;
-        border-bottom: 1px solid $color-gray-100;
+        background: var(--color-elevation-surface-sunken);
+        border-bottom: 1px solid var(--color-border-primary-default);
         padding: 25px;
 
         .mt-field--default,
-        ,
         .sw-field--default,
         .sw-field,
         .mt-field {
             margin-bottom: 0;
             margin-top: 0;
         }
-
-        .info {
-            padding: 10px;
-            border: 1px solid yellowgreen;
-            background-color: mintcream;
-        }
     }
 
     .sw-data-grid {
         .required {
-            color: red;
+            color: var(--color-text-critical-default);
         }
 
         .mt-field__label,
