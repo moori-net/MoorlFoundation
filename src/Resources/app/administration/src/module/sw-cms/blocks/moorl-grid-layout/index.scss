@@ -7,9 +7,9 @@
 
     > div {
         box-sizing: border-box;
-        background-color: rgba(78, 133, 222, 0.05);
-        color: rgba(78, 133, 222, 0.4);
-        border: 2px dashed rgba(78, 133, 222, 0.4);
+        background-color: var(--color-background-brand-default);
+        color: color-mix(in srgb, var(--color-text-brand-default) 40%, transparent);
+        border: 2px dashed color-mix(in srgb, var(--color-border-brand-default) 40%, transparent);
         width: 100%;
         display: flex;
         align-items: center;

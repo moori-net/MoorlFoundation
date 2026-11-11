@@ -5,7 +5,7 @@
 
     .moorl-media-gallery__previews {
         border-radius: $border-radius-default;
-        border: 1px solid $color-gray-300;
+        border: 1px solid var(--color-border-primary-default);
         padding: 20px;
         margin-top: 20px;
         height: auto;
@@ -42,7 +42,7 @@
         height: 175px;
         max-height: 100%;
         max-width: 100%;
-        color: $color-gray-300;
+        color: var(--color-text-secondary-default);
         overflow: hidden;
         margin-bottom: 10px;
 
@@ -58,7 +58,7 @@
         }
 
         &.is--placeholder {
-            border: 2px dashed $color-gray-300;
+            border: 2px dashed var(--color-border-primary-default);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -71,19 +71,19 @@
 
     &.is--disabled {
         .mt-button {
-            background-color: $color-gray-100;
-            color: lighten($color-darkgray-200, 25%);
+            background-color: var(--color-interaction-secondary-disabled);
+            color: var(--color-text-primary-disabled);
         }
 
         .mt-button--ghost {
             background-color: transparent;
-            border-color: lighten($color-shopware-brand-500, 20%);
-            color: lighten($color-darkgray-200, 20%);
+            border-color: var(--color-border-brand-disabled);
+            color: var(--color-text-brand-disabled);
         }
 
         .mt-button--primary {
-            background: lighten($color-shopware-brand-500, 20%);
-            color: lighten($color-darkgray-200, 60%);
+            background: var(--color-interaction-primary-disabled);
+            color: var(--color-text-static-default);
         }
 
         &::after {
@@ -94,9 +94,8 @@
             right: 0;
             bottom: 0;
             left: 0;
-            background-color: $color-gray-100;
+            background-color: color-mix(in srgb, var(--color-background-primary-disabled) 20%, transparent);
             border-radius: $border-radius-default;
-            mix-blend-mode: multiply;
         }
     }
 }

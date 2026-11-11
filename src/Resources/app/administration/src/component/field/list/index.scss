@@ -11,8 +11,8 @@
         grid-gap: 10px;
         cursor: pointer;
         padding: 10px;
-        background: $color-shopware-brand-50;
-        border: 1px solid $color-gray-900;
+        background: var(--color-background-brand-default);
+        border: 1px solid var(--color-border-primary-default);
         grid-template-columns: 48px 1fr 32px 32px 48px;
         width: 100%;
 
@@ -25,7 +25,7 @@
 
     .moorl-list-field__content {
         padding: 10px;
-        border: 1px solid $color-gray-900;
+        border: 1px solid var(--color-border-primary-default);
         border-top: none;
     }
 
@@ -35,7 +35,7 @@
     }
 
     .moorl-list-field__add .mt-button {
-        border: 1px solid $color-gray-900;
+        border: 1px solid var(--color-border-primary-default);
         border-radius: 0;
 
         .mt-button__content {

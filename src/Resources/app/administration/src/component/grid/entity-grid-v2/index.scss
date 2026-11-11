@@ -1,12 +1,11 @@
 @import '~scss/variables';
 
 .moorl-entity-grid-v2 {
-    // Allow this item to shrink inside Meteor's grid slot so the native table wrapper can scroll.
     min-width: 0;
 
     .moorl-entity-grid__top-bar {
-        background-color: $color-gray-100;
-        border-bottom: 1px solid $color-gray-100;
+        background: var(--color-elevation-surface-sunken);
+        border-bottom: 1px solid var(--color-border-primary-default);
         padding: 25px;
 
         input {
@@ -39,8 +38,8 @@
     }
 
     .moorl-entity-grid__progress-bar {
-        background-color: $color-gray-100;
-        border-bottom: 1px solid $color-gray-100;
+        background-color: var(--color-elevation-surface-sunken);
+        border-bottom: 1px solid var(--color-border-primary-default);
         padding-left: 25px;
         padding-right: 25px;
 

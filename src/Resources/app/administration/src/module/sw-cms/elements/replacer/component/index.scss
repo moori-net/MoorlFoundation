@@ -49,7 +49,7 @@
         &:nth-child(1) {
             grid-area: a;
             padding: 20px;
-            border-bottom: 2px solid $color-gray-900;
+            border-bottom: 2px solid var(--color-border-primary-default);
         }
         &:nth-child(2) {
             grid-area: b;

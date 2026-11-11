@@ -44,9 +44,9 @@
                 v-model:value="options.mediaFolderId"
                 entity="media_folder"
             />
-            <p class="info">
+            <mt-banner variant="info">
                 {{ $t('moorl-csv-import.loadedText', { count: rowCount }) }}
-            </p>
+            </mt-banner>
         </template>
 
         <template v-if="step == 3">
@@ -54,7 +54,9 @@
                 :value="rowsDone"
                 :maxValue="rowCount"
             />
-            <p class="info">{{ statusMessage }}</p>
+            <mt-banner variant="info">
+                {{ statusMessage }}
+            </mt-banner>
         </template>
 
         <template v-if="step == 4">
@@ -62,9 +64,9 @@
                 :value="rowsDone"
                 :maxValue="rowCount"
             />
-            <p class="info">
+            <mt-banner variant="positive">
                 {{ $t('moorl-csv-import.completedMessage', { skipped: rowsSkipped, new: rowsNew, total: rowsDone, errors: errorCount }) }}
-            </p>
+            </mt-banner>
         </template>
     </sw-container>
     <template v-if="step == 2">

@@ -17,9 +17,9 @@
                 :label="$t('moorl-csv-export.localTable')"
                 v-model="options.localTable"
             />
-            <p class="info">
+            <mt-banner variant="info">
                 {{ $t('moorl-csv-export.introText') }}
-            </p>
+            </mt-banner>
         </template>
 
         <template v-if="step == 2 && items.length > 0">
@@ -27,15 +27,15 @@
                 :value="items.length"
                 :maxValue="total"
             />
-            <p class="info">
+            <mt-banner variant="info">
                 {{ $t('moorl-csv-export.process') }}
-            </p>
+            </mt-banner>
         </template>
 
         <template v-if="step == 3">
-            <p class="info">
+            <mt-banner variant="positive">
                 {{ $t('moorl-csv-export.completedMessage') }}
-            </p>
+            </mt-banner>
         </template>
     </sw-container>
     <template #modal-footer>

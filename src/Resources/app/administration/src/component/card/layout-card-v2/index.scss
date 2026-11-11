@@ -27,7 +27,7 @@
 
         .moorl-layout-card__desc-headline.is--empty,
         .moorl-layout-card__desc-subheadline.is--empty {
-            color: $color-gray-500;
+            color: var(--color-text-secondary-default);
         }
 
         .moorl-layout-card__desc-info {
@@ -45,7 +45,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            color: $color-shopware-brand-500;
+            color: var(--color-text-brand-default);
             text-decoration: none;
             font-size: $font-size-s;
             margin-top: 8px;
