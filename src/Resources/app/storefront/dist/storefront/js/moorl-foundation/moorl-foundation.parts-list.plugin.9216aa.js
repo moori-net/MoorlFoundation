@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmoorl_foundation=self.webpackChunkmoorl_foundation||[]).push([[12400],{400(s,t,e){e.r(t),e.d(t,{default:()=>i});let n=window.PluginBaseClass;class i extends n{static #s=this.options={};init(){}_registerEvents(){}}}}]);

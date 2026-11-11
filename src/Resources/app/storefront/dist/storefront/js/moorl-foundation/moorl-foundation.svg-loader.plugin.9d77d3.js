@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmoorl_foundation=self.webpackChunkmoorl_foundation||[]).push([[46738],{738(t,s,n){n.r(s),n.d(s,{default:()=>i});let e=window.PluginBaseClass;class i extends e{static #t=this.options={src:null,attributes:null};init(){fetch(this.options.src).then(t=>t.text()).then(t=>{this.el.innerHTML=t})}}}}]);
