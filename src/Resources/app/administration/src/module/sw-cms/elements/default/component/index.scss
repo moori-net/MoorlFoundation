@@ -1,5 +1,3 @@
-@import '~scss/variables';
-
 .sw-cms-el-moorl-default {
     width: 100%;
     height: 100%;
@@ -20,7 +18,7 @@
         text-align: center;
         margin-top: 10px;
         letter-spacing: normal;
-        font-size: 14px;
+        font-size: var(--font-size-xs);
         text-transform: none;
     }
 }

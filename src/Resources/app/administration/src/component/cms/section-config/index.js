@@ -25,13 +25,13 @@ Shopware.Component.register('moorl-section-config', {
                 this.section?.customFields?.moorl_section_config?.salesChannel
                     ?.length
             ) {
-                return '#FF0000';
+                return 'var(--color-icon-brand-default)';
             }
             if (
                 this.section?.customFields?.moorl_section_config?.customerGroup
                     ?.length
             ) {
-                return '#00FF00';
+                return 'var(--color-icon-accent-default)';
             }
             return null;
         },

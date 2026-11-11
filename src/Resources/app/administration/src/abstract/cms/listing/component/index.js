@@ -61,8 +61,8 @@ Shopware.Component.register('moorl-abstract-cms-listing', {
             return {
                 padding: this.getValue('itemPadding'),
                 'background-color': this.getValue('itemBackgroundColor'),
-                border: this.getValue('itemHasBorder') ? '1px solid #333' : null,
-                'border-radius': this.getValue('itemHasBorder') ? '6px' : null,
+                border: this.getValue('itemHasBorder') ? '1px solid var(--color-border-primary-default)' : null,
+                'border-radius': this.getValue('itemHasBorder') ? 'var(--border-radius-s)' : null,
                 '--content-color': this.getValue('contentColor'),
                 '--content-background-color': this.getValue('contentBackgroundColor'),
                 '--content-highlight-color': this.getValue('contentHighlightColor'),
