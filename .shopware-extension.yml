@@ -209,3 +209,4 @@ build:
           - TODO.md
           - CODEX.md
           - phpunit.xml.dist
+          - .superpowers
